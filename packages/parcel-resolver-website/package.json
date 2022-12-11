@@ -1,0 +1,22 @@
+{
+    "name": "parcel-resolver-website",
+    "version": "1.0.1",
+    "description": "A parcel resolver plugin to shorten import path and to enable absolute path import.",
+    "main": "WebsiteResolver.js",
+    "keywords": [
+      "parcel",
+      "path",
+      "resolver",
+      "absolute path"
+    ],
+    "author": "dan",
+    "license": "MIT",
+    "engines": {
+      "node": ">=12",
+      "parcel": ">=2.0.0"
+    },
+    "dependencies": {
+      "@parcel/plugin": "^2.6.0"
+    }
+  }
+  

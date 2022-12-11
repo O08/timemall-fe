@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <title>E-Studio - Bill</title>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-bill.scss">
+
+
+</head>
+<body>
+  <pt-app id="app">
+    <!-- header nav -->
+    <header class="p-3 text-white">
+      <div class="mx-120 d-flex justify-content-between  align-items-center hdlayout">
+        <div class="toggle-nav">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="d-flex align-items-center logo">
+          <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+            </svg>
+          </a>
+          <h2>E-Studio</h2>
+        </div>
+        <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <i class="bi bi-three-dots"></i>
+        </button>
+        <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">TimeMall</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body justify-content-end">
+            <nav>
+              <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0">
+                <li class="nav-item"><a href="/home.html" class="nav-link  px-lg-3 px-xl-5 text-white">发现</a></li>
+                <li class="nav-item"><a href="/epod/pod-millstone.html" class="nav-link  px-lg-3 px-xl-5 text-white">E-Pod</a></li>
+                <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link  px-lg-3 px-xl-5 text-white">登录</a></li>
+                <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link px-lg-3 px-xl-5 text-white">注册</a></li>
+                <li v-if="user_already_login" class="nav-item">
+                  <a @click="logout" class="nav-link px-lg-3 px-xl-5 text-white">
+                    <i class="bi bi-box-arrow-right me-1"></i>注销
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+    <content class="bd-layout">
+      <aside>
+        <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+          <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
+          </div>
+          <!-- menu -->
+          <nav class="sidebar nav flex-column">
+            <div class="d-flex flex-column justify-content-center align-items-center customer-portrait">
+              <img class="customer-avator" src="/avator.webp">
+              <a href="/estudio/studio-setting-profile.html" class="url-link">
+                <h6 class="customer-name">Simo1</h6>
+              </a>
+            </div>
+            <a class="nav-link" aria-current="page" href="/estudio/studio-millstone.html">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.5 3V19.5H1.5V12H7.5V7.5H13.5V3H22.5ZM21 4.5H15V9H9V13.5H3V18H21V4.5Z"></path>
+              </svg>
+              <span>Millstone</span>        
+            </a>
+            <a class="nav-link" href="/estudio/studio-msg.html">
+              <i class="bi bi-chat-dots"></i>
+              <span>Msg</span>
+            </a>
+            <a class="nav-link" href="/estudio/studio-order-history.html">
+              <i class="bi bi-coin"></i>
+              <span>Transaction</span>  
+            </a>
+            <a class="nav-link" href="/estudio/studio-dsp.html">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
+              </svg>
+              <span>DSP</span>
+            </a>
+            <a class="nav-link active">
+              <i class="bi bi-bank"></i>
+              <span>Bill</span>
+            </a>
+            <a class="nav-link" href="/estudio/studio-store.html">
+              <i class="bi bi-bank"></i>
+              <span>Store</span>
+            </a>
+          </nav>
+        </div>
+        
+      </aside>
+      <main>
+        <div class="page-title">
+          <h1>Bill</h1>
+        </div>  
+        <!-- tablist -->
+        <ul class="nav nav-tabs border-0 bill-tab" id="bill-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="waiting-tab" data-bs-toggle="tab" data-bs-target="#waiting-tab-pane" type="button" role="tab" aria-controls="waiting-tab-pane" aria-selected="true">Waiting Pay</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid-tab-pane" type="button" role="tab" aria-controls="paid-tab-pane" aria-selected="false">Paid</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="setting-tab" data-bs-toggle="tab" data-bs-target="#setting-tab-pane" type="button" role="tab" aria-controls="setting-tab-pane" aria-selected="false">Pay Setting</button>
+            </li>
+        </ul>
+        <!--  tablist content-->
+        <div class="tab-content" id="bill-tab-content">
+          <div class="tab-pane fade show active" id="waiting-tab-pane" role="tabpanel" aria-labelledby="waiting-tab" tabindex="0">
+            <table class="table cc table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">RMB</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="bill in waitpagination.records">
+                  <td>
+                    <span @click="launchPayV(bill.billId)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="发起付款，请求客户结算">
+                      <i class="bi bi-hand-index"></i>
+                    </span>
+                  </td>
+                  <td>
+                    {{bill.stage}}
+                  </td>
+                  <td>
+                    {{bill.service}}
+                  </td>
+                  <td>{{bill.customer}}</td>
+                  <td>{{bill.amount}}</td>
+                  <td>{{bill.added}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="millstone-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0">
+                <li class="page-item" @click="pagePre(waitpagination)">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in waitpagination.current" @click="pageGo(waitpagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(waitpagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="tab-pane fade" id="paid-tab-pane" role="tabpanel" aria-labelledby="paid-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">RMB</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="bill in paidpagination.records">
+                  <td>
+                    <span @click="viewReceiptV(bill.voucher)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看收据或支付凭证">
+                      <i class="bi bi-receipt"></i>
+                    </span>
+                  </td>
+                  <td>
+                    {{bill.stage}}
+                  </td>
+                  <td>
+                    {{bill.service}}
+                  </td>
+                  <td>{{bill.customer}}</td>
+                  <td>{{bill.amount}}</td>
+                  <td>{{bill.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="millstone-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0">
+                <li class="page-item" @click="pagePre(paidpagination)">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in paidpagination.current" @click="pageGo(paidpagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(paidpagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+    
+          <div class="tab-pane fade" id="setting-tab-pane" role="tabpanel" aria-labelledby="setting-tab" tabindex="0">
+            <!--  pay way-->
+            <div class="pay-way-tip">
+              <i class="bi bi-pencil-square"></i>
+              <span>设置支付方式</span>
+            </div>
+            <section class="section-pay-way">
+              <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
+                <div class="col">
+                  <div class="card cell-card-body-bg" style="width: 18rem;">
+                    <div class="card-body ">
+                      <h5 class="card-title">Bank</h5>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">持卡人</label>
+                        <input @change="activeSaveBankBtn" v-model="payway.bank.cardholder" type="text" class="form-control" id="exampleFormControlInput1">
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">卡号</label>
+                        <input @change="activeSaveBankBtn" v-model="payway.bank.cardNo" type="text" class="form-control" id="exampleFormControlInput1">
+                      </div>
+                    </div>
+                    <div class="mx-3">
+                      <button :class="{'disabled': !bank_already_change, 
+                      'btn-primary': bank_already_change,
+                      'btn-secondary': !bank_already_change}" type="submit" class="btn  mb-3" @click="bankSettingV">保存银行卡信息</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card cell-card-body-bg" style="width: 18rem;">
+                    <div class="card-body ">
+                      <h5 class="card-title">AliPay</h5>
+                      <div class="pay-binary-code dropzone-wrapper">
+                        <img id="lastestAlipay">
+                        <div class="dropzone-desc">
+                          <i class="bi bi-cloud-plus"></i>
+                        </div>
+                        <input type="file" id="alipayCodeFile" class="dropzone" @change="previewAlipayV($event)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card cell-card-body-bg" style="width: 18rem;">
+                    <div class="card-body ">
+                      <h5 class="card-title">Wechat</h5>
+                      <div class="pay-binary-code dropzone-wrapper">
+                        <img id="lastestWechatPay">
+                        <div class="dropzone-desc">
+                          <i class="bi bi-cloud-plus"></i>
+                        </div>
+                        <input type="file" id="wechatPayCodeFile" class="dropzone" @change="previewWechatpayV($event)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+      <section class="modals">
+        <!--  View invoice-->
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="viewReceiptModal" tabindex="-1">
+            <div class="modal-dialog  receipt-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="viewReceiptModalLabel">收据预览</h1>
+                  <button type="button" id="closeviewReceiptModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <div class="banner-upload-container">
+                    <img id="receiptPreview">
+                  </div>
+                </div>
+                <div class="modal-footer btn-light">
+                  <a href="#" id="link-download-receipt">下载收据</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  View alipay code-->
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="viewAlipayModal" tabindex="-1">
+            <div class="modal-dialog  alipay-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="viewAlipayModalLabel">扫码支付预览</h1>
+                  <button type="button" id="closeviewAlipayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <div class="payway-upload-container pay-binary-code">
+                    <img id="alipayPreview">
+                  </div>
+                </div>
+                <div class="modal-footer btn-light">
+                  <button type="button" id="btn-save-alipay" class="btn btn-primary" @click="alipaySettingV">设置为支付宝支付二维码</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  View alipay code-->
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="viewWechatpayModal" tabindex="-1">
+            <div class="modal-dialog  wechat-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="viewWechatpayModalLabel">扫码支付预览</h1>
+                  <button type="button" id="closeViewWechatpayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <div class="payway-upload-container pay-binary-code">
+                    <img id="wechatpayPreview">
+                  </div>
+                </div>
+                <div class="modal-footer btn-light">
+                  <button type="button" id="btn-save-wechatpay" class="btn btn-primary" @click="wechatpaySetting">设置为微信支付二维码</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </content>
+    <footer></footer>
+  </pt-app>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-bill.js"></script>
+</body>
+</html>

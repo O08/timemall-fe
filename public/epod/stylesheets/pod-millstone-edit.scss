@@ -1,0 +1,35 @@
+.millstone-input-box {
+    background-color: #2c3e50;
+    border-radius: 2px;
+    min-height: 2.5rem;
+    border: none;
+    min-width: 400px;
+}
+.option-remove {
+    padding: 5px;
+}
+.option-remove i{
+    color: #fa541c;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+.item-setting-plus i
+{
+    color: #1890ff;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+.item-setting-x i
+{
+    color:  #fa541c;
+    padding: 2px;
+    margin-bottom: 5px;
+}
+.item-setting-x i:hover,.item-setting-plus i:hover
+{
+    background-color: #2c3e50;
+}
+
+.option-remove:hover,.json-item-node:hover{
+    background-color: darken(#2c3e50, 9%);
+}

@@ -1,0 +1,26 @@
+{
+    "name": "parcel-namer-website",
+    "main": "lib/WebsiteNamer.js",
+    "version": "1.0.0",
+    "engines": {
+      "node": ">=16.0.0",
+      "parcel": "2.x"
+    },
+    "license": "MIT",
+    "dependencies": {
+      "@babel/runtime": "^7.18.0",
+      "@parcel/namer-default": "2.6.2",
+      "@parcel/plugin": "2.6.2",
+      "gatsby-core-utils": "^4.2.0"
+    },
+    "devDependencies": {
+      "@babel/cli": "^7.17.10",
+      "@babel/core": "^7.18.0",
+      "babel-preset-gatsby-package": "^3.2.0",
+      "cross-env": "^7.0.3"
+    },
+    "files": [
+      "lib/WebsiteNamer.js"
+    ]
+  }
+  

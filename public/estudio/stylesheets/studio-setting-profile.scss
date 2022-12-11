@@ -1,0 +1,157 @@
+
+.section-branding{
+    margin-top: 150px;
+    background-color: #2B2B2B;
+    margin-right: 30%;
+}
+.section-seller-banner
+{
+    margin-right: 30%;
+    background-color: #2B2B2B;
+}
+.section-header{
+    font-weight: 700 !important;
+    font-size: 1.5rem;
+    margin-bottom: 36px;
+
+}
+.brand-intro-cover img{
+    object-fit: cover;
+    margin-right: 0px;
+    height: 300px;
+    width: 100%;
+}
+ .brand-avator,.brand-avator img
+{
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    background-color: #2B2B2B;
+} 
+.brand-avator
+{
+    margin-top: 220px;
+    margin-left: 100px;
+}
+
+.brand-avator img {
+    width: 100%;
+    object-fit: cover;
+}
+.brand-identity
+{
+    max-width: 900px;
+    min-height: 150px;
+    margin-left: 100px;
+    margin-top: 100px;
+}
+.brand-identity .brand-name{
+    font-size: 24px;
+    font-weight: bold;
+}
+.brand-identity .brand-title{
+    font-size: 20px;
+    font-weight: normal;
+}
+.ip-location{
+    font-size: 20px;
+    font-weight: normal;
+    color: #949494;
+}
+
+.section-seller-experience,.section-seller-skills
+{
+    margin-top: 40px;
+    min-height: 300px;
+    margin-right: 30%;
+}
+@media (max-width: 992px) {
+    .section-seller-banner,.section-seller-experience,.section-seller-skills,.section-branding
+{
+    margin-top: 40px;
+    min-height: 300px;
+    margin-right: 25px;
+}
+}
+.input-box-bg{
+    background-color: #383838;
+    border: 1px solid #585858;
+}
+
+.exeperince-millstone
+{
+    background-color: #2c3e50;
+}
+.me-skills 
+{
+    padding-left: 36px;
+    padding-bottom: 36px;
+}
+.millstone-header img
+{
+    width: 60px;
+    height: 60px;
+}
+.form-new-experience{
+    min-width: 400px;
+}
+.disable-text-coler{
+  color: #949494;
+}
+.disabled{
+    color: #949494;
+    background-color: #d3d3d3;
+    border: none;
+}
+.error-feedback{
+    font-size: 1rem;
+    display: none;
+}
+.error-wrapper{
+    color: #cf0007;
+}
+.error-wrapper select{
+    border-color: #cf0007;
+}
+.error-wrapper .error-feedback
+{
+    display: block;
+}
+.option-edit-wrapper{
+    display: none;
+}
+.timeline-item:hover .option-edit-wrapper{
+    display: block;
+}
+.timeline-item:hover{
+    background-color: darken(#2c3e50, 3%);
+}
+.circle{
+    border-radius: 50%;
+}
+.circle:hover{
+    background-color: darken(#2c3e50, 12%);;
+}
+.display-el{
+    display: block;
+}
+.option-container{
+    min-width: 5rem;
+    min-height: 5rem;
+}
+
+.item-setting-x i
+{
+    color:  #fa541c;
+}
+
+.item-setting-x:hover
+{
+    background-color: #2c3e50;
+    border-radius: 6rem;
+}
+.btn-upload{
+    color: #3887FE;
+    text-decoration: none;
+    background-color: transparent;
+}

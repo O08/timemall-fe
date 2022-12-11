@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <title>TimeMall - Cell Detail</title>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/mall/stylesheets/cell-detail.scss">
+
+<body>
+  <mall-app id="app">
+    <header class="p-3 text-white">
+      <div class="mx-120 d-grid gap-3 align-items-center justify-content-center" style="grid-template-columns: 1fr 4fr;">
+        <div class="d-flex align-items-center logo">
+          <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+            </svg>
+            <h2>时间</h2>
+          </a>
+        </div>
+        <div class="header-offcanvas">
+          <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">TimeMall</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body justify-content-end">
+              <nav>
+                <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0">
+                  <li class="nav-item"><a href="/estudio/studio-store.html" class="nav-link  px-lg-3 px-xl-5 text-white">E-Studio</a></li>
+                  <li class="nav-item"><a href="/epod/pod-millstone.html" class="nav-link  px-lg-3 px-xl-5 text-white">E-Pod</a></li>
+                  <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link  px-lg-3 px-xl-5 text-white">登录</a></li>
+                  <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link px-lg-3 px-xl-5 text-white">注册</a></li>
+                  <li v-if="user_already_login" class="nav-item">
+                    <a @click="logout" class="nav-link px-lg-3 px-xl-5 text-white">
+                      <i class="bi bi-box-arrow-right me-1"></i>注销
+                    </a>
+                 </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </header>
+    <sub-nav>
+      <ul class="nav nav-tabs border-0" id="cell-detail-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane" type="button" role="tab" aria-controls="intro-tab-pane" aria-selected="true">介绍</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">品牌信息</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="recommend-tab" data-bs-toggle="tab" data-bs-target="#recommend-tab-pane" type="button" role="tab" aria-controls="recommend-tab-pane" aria-selected="false">推荐</button>
+        </li>
+      </ul>
+    </sub-nav>
+    <content>
+      <main>
+        <section class="section-cell-detail-tab">
+            
+              <div class="tab-content" id="cell-detail-tab-content">
+                <div class="tab-pane fade show active" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab" tabindex="0">
+                  <!-- brand avator -->
+                  <div class="d-flex portrait align-items-center">
+                    <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">
+                      <img class="service-brand" :src="profile.avator">
+                      <span class="service-brand-name mx-1">{{profile.brand}}</span>
+                    </a>
+                  </div>
+                  <div class="d-flex intro-content-container">
+                    <!-- cell intro article -->
+                    <div class="intro-content">
+                          <!-- cell intro cover -->
+                      <div class="cell-intro-cover">
+                        <img :src="profile.introCover">
+                      </div>
+                      <!-- cell title -->
+
+                      <p class="cell-title my-4">{{profile.title}}</p>
+                      <div class="cell-intro-content">
+                        <p v-for="item in profile.content.items" class="cell-content-item">
+                          {{item.section}}
+                        </p>
+                        <!-- <p class="cell-content-item">
+                          Pride month highlights the collective quest for visibility, dignity and equality for lesbian, gay, bisexual, transgender and queer (LGBTQ+) people. It also marks and celebrates the progress since the 1969 Stonewall riots. On the one-year anniversary of this historic incident, the first Pride parade was held, evolving over time into the global monthlong celebration we know today. And Pride Month remains an important rallying point for equality and against discrimination.
+                        </p>
+                        <p class="cell-content-item">
+                          Pride month highlights the collective quest for visibility, dignity and equality for lesbian, gay, bisexual, transgender and queer (LGBTQ+) people. It also marks and celebrates the progress since the 1969 Stonewall riots. On the one-year anniversary of this historic incident, the first Pride parade was held, evolving over time into the global monthlong celebration we know today. And Pride Month remains an important rallying point for equality and against discrimination.
+                        </p> -->
+                      </div>
+                    </div>
+                    <!-- right panel : pricing -->
+                    <div class="fee-calculator-pannel">
+                      <div class="card fee-calculator-bg fee-calculator">
+                        <h5 class="card-header d-flex justify-content-between">
+                          <span>费用计算</span>
+                          <a class="btn btn-outline-primary price-list" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="bi bi-tag"></i>
+                            价目
+                          </a>
+                        </h5>
+                      
+                        <div class="card-body">
+                          <div class="collapse" id="collapseExample">
+                            <div class="d-flex row row-cols-2">
+                              <p v-for="item in profile.fee" class="col fee-sbu">
+                                ￥{{item.price}}/{{item.sbu}}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="input-group w-75 mb-3">
+                            <input type="number" class="form-control border-0" v-model="quantity" @change="computeTotalFeeV" aria-label="Text input with dropdown button">
+                            <select class="form-select option-sbu" v-model="selectedSbu" @change="computeTotalFeeV" aria-label="Default select example">
+                              <option value="">计量</option>
+                              <option :value="item.sbu" v-for="item in profile.fee">{{item.sbu}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                          <div class="price">
+                            <ins class="text-decoration-none">￥{{total}}</ins>
+                          </div>
+                          <button type="button" @click="orderNowV" class="btn btn-primary">即刻下单</button>
+                        </div>
+                      </div>  
+                      <!-- <section class="position-fixed fly-tool">
+                        <div class="d-flex flex-column align-items-center justify-content-between tool">
+                          <i class="bi bi-share my-4"></i>
+                          <i class="bi bi-chat-left-dots my-4"></i>
+                        </div>
+                      </section>                 -->
+                    </div>
+
+                  </div>
+                  
+
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                      <!-- seller info -->
+                      <!-- seller banner -->
+                      <section class="section-seller-banner position-relative">
+                        <div class="brand-avator position-absolute">
+                          <img :src="brandProfile.avator">
+                        </div>
+                        <div class="brand-intro-cover">
+                          <img :src="brandProfile.cover">
+                        </div>
+                        <div class="brand-identity">
+                          <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">
+                            <span class="brand-name text-decoration-none">{{brandProfile.brand}}</span>
+                            <p class="brand-title mb-2 mt-1">{{brandProfile.title}}</p>
+                            <p class="ip-location">{{brandProfile.location}}</p>
+                          </a>
+                        </div>
+                      </section>
+                      <!-- seller experience -->
+                      <section class="section-seller-experience">
+                        <div class="section-header ms-2">Experience</div>
+                        <div v-for="millstone in brandProfile.experience" class="exeperince-millstone card">
+                          <div class="card-header">
+                            <div class="millstone-header d-flex">
+                              <img :src="millstone.icon">
+                              <div class="inner-header d-flex flex-column mx-3">
+                                <span>{{millstone.title}}</span>
+                                <span>{{millstone.subTitle}}</span>
+                                <span>{{millstone.start}} - {{millstone.end}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-body">
+                            <ul class="timeline">
+                              <li v-for="entry in millstone.entrys" class="timeline-item mb-5">
+                                <h5 class="fw-bold">{{entry.title}}</h5>
+                                <p class="text-muted mb-2 fw-bold">{{entry.start}} - {{entry.end}}</p>
+                                <p class="text-muted">
+                                  {{entry.story}}
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </section>
+                    <!-- seller skills -->
+                    <section class="section-seller-skills">
+                      <div class="section-header ms-2">Skills</div>
+                      <div class="me-skills">
+                        <h5 v-for="skill in brandProfile.skills" class="fw-bold">{{skill.entry}}</h5>
+                      </div>
+                    </section>
+                     
+
+
+
+
+                </div>
+                <div class="tab-pane fade" id="recommend-tab-pane" role="tabpanel" aria-labelledby="recommend-tab" tabindex="0">...</div>
+              </div>
+        </section>
+    </main>
+    </content>
+    <footer></footer>
+  </mall-app>
+        <!-- 框架 -->
+        <script  type="module" src="/common/javascripts/tm.js"></script>
+        <script  type="module" src="/mall/javascripts/cell-detail.js"></script>
+
+</body>
+</html>
