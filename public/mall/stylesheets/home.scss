@@ -4,7 +4,6 @@
 ------------------------------------------------------*/
 
 mall-app {
-    height: 100vh;
     display: flex;
     flex-direction: column;
   }
@@ -15,34 +14,43 @@ mall-app {
     height: 50px;
   }
 
+mall-app footer{
+  margin-top: 50px;
+}
 
-  mall-app footer {
-    height: 40px;
-  }
-
-  mall-app content {
-    height: calc(100% - 240px);
-  }
+.copyright{
+  font-size: 0.8125em;
+  text-align: center;
+  padding: 10px;
+}
+.copyright-container{
+  background-color: #393838;
+  height: 100px;
+}
+  // mall-app content {
+  //   height: calc(100% - 240px);
+  // }
 
 
 
   mall-app main {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 5rem;
-    display: block !important;
-    height: calc(100vh - 20rem);
-    padding-left: 0.25rem;
-    margin-left: -0.25rem;
-    overflow-y: auto;
+    // position: -webkit-sticky;
+    // position: sticky;
+    // top: 5rem;
+    // display: block !important;
+    // height: calc(100vh - 20rem);
+    // padding-left: 0.25rem;
+    // margin-left: -0.25rem;
+    // overflow-y: auto;
+    flex: 1;
   }
 
 
 
-.section-service-grid {
-    overflow: auto;
-    height: 100%;
-}
+// .section-service-grid {
+//     overflow: auto;
+//     height: 100%;
+// }
 /* .top-bar
 {
     margin-top: 40px;
@@ -60,9 +68,10 @@ mall-app {
 ------------------------------------------------------*/
 .section-filter
 {
-    margin-top: 100px;
+    margin-top: 80px;
     margin-left: 20%;
     margin-right: 10%;
+    background-color: #2F2F2F;
 }
 
 .section-service-grid
@@ -177,4 +186,35 @@ mall-app {
 .top-search-input:focus{
   box-shadow: none;
   border: none;
+}
+.footer-nav{
+  display: inline-block;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.footer-nav li{
+  display: inline-block;
+  margin: 0 10px;
+}
+@media
+(prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+.topbar-wrapper{
+  /* Pay special attention here! */
+  position: sticky;
+  top: 0px;
+  z-index: 2000;
+}
+.top-bar {
+  padding-top: 20px;
+}
+.topbar-wrapper.sticky{
+  box-shadow: 0px 2px 2px rgba(22, 21, 21, 0.5);
+}
+#div_gri_panel{
+  min-height: 200px;
 }

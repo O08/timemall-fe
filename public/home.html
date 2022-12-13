@@ -54,72 +54,74 @@
     <!-- top search -->
     <top-search class="section-top-serach">
       <div class="input-group input-group-lg input-normal-search">
-        <input @keyup.enter.native="retrieveCellGridV" v-model="queryParam.q" class="form-control top-search-input" type="text" placeholder="Search" aria-label="Search">
+        <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="Search" aria-label="Search">
         <button @click="retrieveCellGridV" class="btn btn-outline-secondary input-group-search-btn" type="button">
           <i class="bi bi-search"></i>
         </button>
       </div>
     </top-search>
     <content>
-      <section class="section-filter">
-        <div class="top-bar d-flex flex-row justify-content-between">
-          <div class="dropdown ">
-            <button class="btn dropdown-toggle top-bar-filter-budget" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              预算
-            </button>
-            <div class="dropdown-menu  p-4 budget-filter-form">
-              <div class="row g-3">
-                <div class="col-6 input-wrapper">
-                  <label for="input_budget_min" class="form-label">最小</label>
-                  <input v-model="queryParam.budgetMin" type="number" min="0" max="50000" class="form-control" id="input_budget_min">
-                  <i>￥</i>
+      <div id="section_filter_wrapper" class="topbar-wrapper">
+        <section  class="section-filter">
+          <div class="top-bar d-flex flex-row justify-content-between">
+            <div class="dropdown ">
+              <button class="btn dropdown-toggle top-bar-filter-budget" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                预算
+              </button>
+              <div class="dropdown-menu  p-4 budget-filter-form">
+                <div class="row g-3">
+                  <div class="col-6 input-wrapper">
+                    <label for="input_budget_min" class="form-label">最小</label>
+                    <input v-model="cellgrid_pagination.param.budgetMin" type="number" min="0" max="50000" class="form-control" id="input_budget_min">
+                    <i>￥</i>
+                  </div>
+                  <div class="col-6 input-wrapper">
+                    <label for="input_budget_max" class="form-label">最大</label>
+                    <input v-model="cellgrid_pagination.param.budgetMax" type="number" min="0" max="50000" class="form-control" id="input_budget_max">
+                    <i>￥</i>
+                  </div>
                 </div>
-                <div class="col-6 input-wrapper">
-                  <label for="input_budget_max" class="form-label">最大</label>
-                  <input v-model="queryParam.budgetMax" type="number" min="0" max="50000" class="form-control" id="input_budget_max">
-                  <i>￥</i>
-                </div>
+                
+                <button @click="filterCellGridV" type="button" class="btn btn-primary">确定</button>
               </div>
-              
-              <button @click="filterCellGridV" type="button" class="btn btn-primary">确定</button>
             </div>
-          </div>
-          <div class="select-container row">
-            <div class="col">
-              <select @change="filterCellGridV" v-model="queryParam.sbu" class="form-select sbu-option">
-                <option value="">SBU</option>
-                <option value="second">秒</option>
-                <option value="minute">分钟</option>
-                <option value="hour">小时</option>
-                <option value="day">天</option>
-                <option value="week">周</option>
-                <option value="month">月</option>
-                <option value="quarter">季度</option>
-                <option value="year">年</option>
-              </select>
+            <div class="select-container row">
+              <div class="col">
+                <select @change="filterCellGridV" v-model="cellgrid_pagination.param.sbu" class="form-select sbu-option">
+                  <option value="">SBU</option>
+                  <option value="second">秒</option>
+                  <option value="minute">分钟</option>
+                  <option value="hour">小时</option>
+                  <option value="day">天</option>
+                  <option value="week">周</option>
+                  <option value="month">月</option>
+                  <option value="quarter">季度</option>
+                  <option value="year">年</option>
+                </select>
+              </div>
+              <div class="col">
+                <select @change="filterCellGridV" v-model="cellgrid_pagination.param.sort" class="form-select sort-by">
+                  <option value="">排序</option>
+                  <option value="1">最新发布</option>
+                  <option value="2">价格降序</option>
+                  <option value="3">价格升序</option>
+                </select>
+              </div>
             </div>
-            <div class="col">
-              <select @change="filterCellGridV" v-model="queryParam.sort" class="form-select sort-by">
-                <option value="">排序</option>
-                <option value="1">最新发布</option>
-                <option value="2">价格降序</option>
-                <option value="3">价格升序</option>
-              </select>
-            </div>
-          </div>
-          
-        </div>  
-      </section>
+            
+          </div>  
+        </section>
+      </div>
       <main>                    
                     <!-- service grid -->
         
-              <section @scroll="loadMoreCells($event)" class="section-service-grid">
+              <section class="section-service-grid">
                 <!-- service top bar -->
               
                 
                
-                <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                  <div v-for="cell in cellList" class="col cell-item">
+                <div id="div_gri_panel" class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                  <div v-for="cell in cellgrid_pagination.records" class="col cell-item">
                     <div class="card border-0 cell-card-body-bg">
                       <img :src="cell.preview" class="card-img-top cell-thumb" alt="...">
                       <div class="card-body">
@@ -146,10 +148,49 @@
                     </div>
                   </div>
                 </div>
+                <nav aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark border-0">
+                    <li class="page-item" @click="pagePre(cellgrid_pagination)">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item" v-for="page in cellgrid_pagination.current" @click="pageGo(cellgrid_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(cellgrid_pagination)">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
               </section>
             </main>
     </content>
-    <footer></footer>
+    <footer>
+      <div class="copyright-container">
+        <div class="copyright help-text">
+          <span>
+            <span>
+              <span>©2022 上海群巅科技有限公司&nbsp;</span>
+              <span class="icp">
+              </span>
+            </span>
+            <div class="line"></div>
+          </span>
+          <ul class="footer-nav">
+            <li>
+              <a class="nav-link" href="#">联系我们</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">法律声明</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">隐私政策</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+    </footer>
   </mall-app>
     <script type="module" src="common/javascripts/tm.js"></script>
     <script type="module" src="mall/javascripts/home.js"></script>
