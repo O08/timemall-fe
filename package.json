@@ -7,8 +7,10 @@
   ],
   "scripts": {
     "build-watch": "parcel watch './public/**/*.html' --public-url / --dist-dir dist/",
-    "start": "nodemon ./bin/www",
-    "dev": "concurrently --kill-others \"npm run start\" \"npm run build-watch\""
+    "start-watch": "nodemon ./bin/www",
+    "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
+    "build": "parcel build './public/**/*.html'",
+    "start": "npm run build && node ./bin/www"
   },
   "dependencies": {
     "axios": "^1.2.1",
