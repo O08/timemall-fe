@@ -1,6 +1,5 @@
-
-import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import "./import-jquery";
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import {goHome,goLoginPage,goBackAndReload} from "./pagenav.js";
 
 

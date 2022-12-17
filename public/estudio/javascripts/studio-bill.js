@@ -7,8 +7,9 @@ import {refresh} from "/common/javascripts/pagenav.js";
 import axios from 'axios';
 
 var BillStatus = Object.freeze({
-    "Pending":1, // 未支付
-    "Paid":2 // 已支付
+    "Created": 1, // 创建
+    "Pending":2, // 未支付
+    "Paid":3 // 已支付
 });
 const RootComponent = {
     data() {
@@ -28,7 +29,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
-                    code: BillStatus.Pending
+                    code: BillStatus.Created
                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -37,6 +38,26 @@ const RootComponent = {
                         this.waitpagination.total = response.bills.total;
                         this.waitpagination.pages = response.bills.pages;
                         this.waitpagination.records = response.bills.records;
+                    }
+                }
+            },
+            pending_pagination: {
+                url: "/api/v1/web_estudio/brand/bill",
+                size: 10,
+                current: 1,
+                total: 0,
+                pages: 0,
+                records: [],
+                param: {
+                    code: BillStatus.Pending
+                },
+                responesHandler: (response)=>{
+                    if(response.code == 200){
+                        this.pending_pagination.size = response.bills.size;
+                        this.pending_pagination.current = response.bills.current;
+                        this.pending_pagination.total = response.bills.total;
+                        this.pending_pagination.pages = response.bills.pages;
+                        this.pending_pagination.records = response.bills.records;
                     }
                 }
             },
@@ -96,6 +117,7 @@ const RootComponent = {
     created() {
          this.pageInit(this.waitpagination);
          this.pageInit(this.paidpagination);
+         this.pageInit(this.pending_pagination);
     }
 }
 const app = createApp(RootComponent);
@@ -172,7 +194,7 @@ async function saveWechatPayImg(brandId, files){
 
 
 function launchPay(billId){
-    const code = '2'; // todo
+    const code = BillStatus.Pending; // todo
     markBill(billId,code);
 }
 

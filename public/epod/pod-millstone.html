@@ -7,6 +7,9 @@
     <title>E-Pod - Millstone</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    
+    <link rel="stylesheet" href="/epod/stylesheets/pod-millstone.scss">
+
 
 </head>
 <body>
@@ -101,10 +104,25 @@
         <!-- tablist -->
         <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">Workflow</button>
+              <button class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">配置工作流</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="starred-tab" data-bs-toggle="tab" data-bs-target="#starred-tab-pane" type="button" role="tab" aria-controls="starred-tab-pane" aria-selected="false">已定稿工作流</button>
+              <button class="nav-link" id="auditing-tab" data-bs-toggle="tab" data-bs-target="#auditing-tab-pane" type="button" role="tab" aria-controls="auditing-tab-pane" aria-selected="true">审计中</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="starred-tab" data-bs-toggle="tab" data-bs-target="#starred-tab-pane" type="button" role="tab" aria-controls="starred-tab-pane" aria-selected="false">任务箱</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">中止</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
             </li>
         </ul>
         <!--  tablist content-->
@@ -124,11 +142,7 @@
                 <tr v-for="trans in transpagination.records">
                   <td>
                     <div class="option-container">
-                      <span class="option-mark-millstone me-4">
-                        <button @click="finishMillstoneV(trans.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="定稿工作流，定稿之后不再更改">           
-                          <i class="bi bi-star"></i>
-                        </button>
-                      </span>
+                     
                       <span class="option-edit me-4">
                         <a :href="'/epod/pod-millstone-edit.html?workflow_id=' + trans.id">
                           <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑工作流">           
@@ -136,17 +150,24 @@
                           </button>
                         </a>
                       </span>
-                      <span class="option-view">
+                      <span class="option-go-audit me-4">
+                        <button @click="goAuditV(trans.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="通知服务商确认服务内容">           
+                          <i class="bi bi-hand-index"></i>                  
+                        </button>
+                      </span>
+                      <!-- <span class="option-view">
                         <a :href="'/epod/pod-millstone-view.html?workflow_id=' + trans.id">
                           <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
                             <i class="bi bi-eye"></i>
                           </button>
                         </a>
-                      </span>
+                      </span> -->
                     </div>
                   </td>
                   <td>
-                    {{trans.service}}
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + trans.id">
+                      {{trans.service}}
+                    </a>
                   </td>
                   <td>{{trans.supplier}}</td>
                   <td>{{trans.fee}}</td>
@@ -170,6 +191,7 @@
               </ul>
             </nav>
           </div>
+          <!--  任务箱-->
           <div class="tab-pane fade" id="starred-tab-pane" role="tabpanel" aria-labelledby="starred-tab" tabindex="0">
             <table class="table table-width-fixed table-dark table-hover align-middle">
               <thead>
@@ -184,16 +206,30 @@
               <tbody>
                 <tr v-for="item in starredTranspagination.records">
                   <td>
-                    <span class="option-view">
-                      <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
-                        <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
-                          <i class="bi bi-eye"></i>
+                    <div class="option-container">
+                     
+                      
+                      <span class="option-pause me-4">
+                        <button @click="changeMarkForTaskV(item.id, WorkflowStatus.Paused)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="暂停服务进程">           
+                          <i class="bi bi-pause"></i>               
                         </button>
-                      </a>
-                    </span>
+                      </span>
+                      <span class="option-suspend me-4">
+                        <button @click="changeMarkForTaskV(item.id, WorkflowStatus.Suspend)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="中止服务">           
+                          <i class="bi bi-slash-circle"></i>                
+                        </button>
+                      </span>
+                      <span class="option-finish me-4">
+                        <button @click="changeMarkForTaskV(item.id, WorkflowStatus.Finish)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="履约结束">           
+                          <i class="bi bi-sign-dead-end"></i>              
+                        </button>
+                      </span>
+                    </div>
                   </td>
                   <td>
-                    {{item.service}}
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
                   </td>
                   <td>{{item.supplier}}</td>
                   <td>{{item.fee}}</td>
@@ -212,6 +248,278 @@
                 </li>
                 <li class="page-item" v-for="page in starredTranspagination.current" @click="pageGo(starredTranspagination,page)"><a class="page-link" href="#">{{page}}</a></li>
                 <li class="page-item" @click="pageNext(starredTranspagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- 审计中 -->
+          <div class="tab-pane fade" id="auditing-tab-pane" role="tabpanel" aria-labelledby="auditing-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in auditing_pagination.records">
+                  <td>
+                    <!-- <div class="option-container">
+                      <span class="option-view">
+                        <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
+                            <i class="bi bi-eye"></i>
+                          </button>
+                        </a>
+                      </span>
+                    </div> -->
+                    
+                  </td>
+                  <td>
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.supplier}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(auditing_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in auditing_pagination.current" @click="pageGo(auditing_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(auditing_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+<!-- 定稿 -->
+          <div class="tab-pane fade" id="confirm-tab-pane" role="tabpanel" aria-labelledby="confirm-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in confirm_pagination.records">
+                  <td>
+                    <div class="option-container">
+                      <span class="option-mark-millstone me-4">
+                        <button @click="confirmMillstoneV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="定稿工作流，定稿之后不再更改">           
+                          <i class="bi bi-star"></i>
+                        </button>
+                      </span>
+                      <!-- <span class="option-view">
+                        <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
+                            <i class="bi bi-eye"></i>
+                          </button>
+                        </a>
+                      </span> -->
+                    </div>
+                    
+                  </td>
+                  <td>
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.supplier}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(confirm_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in confirm_pagination.current" @click="pageGo(confirm_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(confirm_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <!-- 暂停 -->
+          <div class="tab-pane fade" id="paused-tab-pane" role="tabpanel" aria-labelledby="paused-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in paused_pagination.records">
+                  <td>
+                    <span class="option-suspend me-4">
+                      <button @click="resumeTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="恢复服务">           
+                        <i class="bi bi-slash-circle"></i>                
+                      </button>
+                    </span>
+                  </td>
+                  <td>
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.supplier}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(paused_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in paused_pagination.current" @click="pageGo(paused_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(paused_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <!-- 中止 -->
+          <div class="tab-pane fade" id="suspend-tab-pane" role="tabpanel" aria-labelledby="suspend-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in suspend_pagination.records">
+                  <td>
+                    <!-- <span class="option-view">
+                      <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                        <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </a>
+                    </span> -->
+                  </td>
+                  <td>
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.supplier}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(suspend_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in suspend_pagination.current" @click="pageGo(suspend_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(suspend_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        <!-- 完成 -->
+          <div class="tab-pane fade" id="finish-tab-pane" role="tabpanel" aria-labelledby="finish-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Supplier</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in finish_pagination.records">
+                  <td>
+                    <!-- <span class="option-view">
+                      <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                        <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </a>
+                    </span> -->
+                  </td>
+                  <td>
+                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.supplier}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(finish_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in finish_pagination.current" @click="pageGo(finish_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(finish_pagination)">
                   <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>

@@ -6,9 +6,7 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 
-// var Sticky = require('sticky-js');
-// var sticky = new Sticky('.sticky');
-// sticky.update();
+
 
 
 const RootComponent = {
@@ -23,9 +21,6 @@ const RootComponent = {
     methods: {
         loadCellListsV(){
             loadCellLists();
-        },
-        loadAllCellForBrandV(){
-            loadAllCellForBrand();
         },
         infiniteHandler(){
             infiniteBrandCell();
@@ -42,12 +37,16 @@ app.mixin(new Auth({need_permission : false}));
 const bubblePage = app.mount('#app');
 window.bubble = bubblePage;
 
+// init 
+bubblePage.loadCellListsV();
+bubblePage.initServiceTabV();
+
 function getMutilpleCellList(brandId)
 {
     const url = "/api/v1/web_mall/brand/{brand_id}/celllist".replace("{brand_id}",brandId);
     $.get(url,function(data) {
         if(data.code == 200){
-            bubblePage.cellListInfo = data.cellListInfo;
+            bubblePage.cellListInfo = !data.cellListInfo? {} : data.cellListInfo;
         }
        })
          .fail(function(data) {
@@ -76,11 +75,7 @@ function getBrandMutipleCell(param){
       size: 2
     }
    }
-function loadAllCellForBrand(){
-    // getMutipleCell(); // todo 
-    mockCells();
 
-}
 function loadCellLists()
 {
     const brandId= getQueryVariable("brand_id");
@@ -114,35 +109,7 @@ function infiniteBrandCell(){
     bubblePage.queryParam.pages = data.pages;
 }
 
-function mockCells()
-{
-    const example = {
-        "code": 2,
-        "message": "sunt dolore in magna",
-        "cells": {
-            "records": [
-                {
-                    "brand": "David",
-                    "avator": "http://dummyimage.com/234x60",
-                    "title": "为你写诗，为你舞",
-                    "price": 69,
-                    "id": "87",
-                    "sbu": "Day",
-                    "preview": "https://picsum.photos/200/300"
-                }
-            ],
-            "total": 21,
-            "size": 66,
-            "current": 98,
-            "pages": 46
-        }
-    }
-   bubblePage.cells = example.cells.records;
-}
-// init 
-bubblePage.loadCellListsV();
-// bubblePage.loadAllCellForBrandV();
-bubblePage.initServiceTabV();
+
 
 //文档高度
 function getDocumentTop() {

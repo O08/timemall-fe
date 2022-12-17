@@ -110,11 +110,21 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="audit-tab" data-bs-toggle="tab" data-bs-target="#audit-tab-pane" type="button" role="tab" aria-controls="audit-tab-pane" aria-selected="true">审查</button>
             </li>
+
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务</button>
+              <button class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿中</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">已完成</button>
+              <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">已中止</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
             </li>
         </ul>
         <!--  tablist content-->
@@ -144,7 +154,7 @@
                     
                   </td>
                   <td>
-                    {{item.service}}
+                      {{item.service}}
                   </td>
                   <td>{{item.customer}}</td>
                   <td>{{item.fee}}</td>
@@ -170,6 +180,63 @@
               </ul>
             </nav>
           </div>
+          <!-- 定稿 -->
+          <div class="tab-pane fade" id="confirm-tab-pane" role="tabpanel" aria-labelledby="confirm-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in confirm_pagination.records">
+                  <td>
+                    <div class="option-container">
+                      
+                      <!-- <span class="option-view">
+                        <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
+                            <i class="bi bi-eye"></i>
+                          </button>
+                        </a>
+                      </span> -->
+                    </div>
+                    
+                  </td>
+                  <td>
+                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.customer}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(confirm_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in confirm_pagination.current" @click="pageGo(confirm_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(confirm_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- 任务 -->
           <div class="tab-pane fade" id="task-tab-pane" role="tabpanel" aria-labelledby="task-tab" tabindex="0">
             <table class="table table-width-fixed table-dark table-hover align-middle">
               <thead>
@@ -185,17 +252,19 @@
               <tbody>
                 <tr v-for="item in taskpagination.records">
                   <td>
-                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                    <!-- <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
                       <span class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作任务">
                         <i class="bi bi-eye"></i>
                       </span>
-                    </a>
+                    </a> -->
                   </td>
                   <td>
                     {{item.stage}}
                   </td>
                   <td>
-                    {{item.service}}
+                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
                   </td>
                   <td>{{item.customer}}</td>
                   <td>{{item.fee}}</td>
@@ -221,6 +290,108 @@
               </ul>
             </nav>
           </div>
+          
+           <!-- 暂停 -->
+           <div class="tab-pane fade" id="paused-tab-pane" role="tabpanel" aria-labelledby="paused-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in paused_pagination.records">
+                  <td>
+                    
+                  </td>
+                  <td>
+                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.customer}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(paused_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in paused_pagination.current" @click="pageGo(paused_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(paused_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <!-- 中止 -->
+          <div class="tab-pane fade" id="suspend-tab-pane" role="tabpanel" aria-labelledby="suspend-tab" tabindex="0">
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Service</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Fee</th>
+                  <th scope="col">Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in suspend_pagination.records">
+                  <td>
+                    <!-- <span class="option-view">
+                      <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                        <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
+                          <i class="bi bi-eye"></i>
+                        </button>
+                      </a>
+                    </span> -->
+                  </td>
+                  <td>
+                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
+                  </td>
+                  <td>{{item.customer}}</td>
+                  <td>{{item.fee}}</td>
+                  <td>{{item.added}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation" class="transaction-pagination">
+              <ul class="pagination pagination-lg pagination-dark border-0" @click="pagePre(suspend_pagination)">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item" v-for="page in suspend_pagination.current" @click="pageGo(suspend_pagination,page)"><a class="page-link" href="#">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(suspend_pagination)">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+           <!-- 履约完成 -->
           <div class="tab-pane fade" id="finish-tab-pane" role="tabpanel" aria-labelledby="finish-tab" tabindex="0">
             <table class="table table-width-fixed table-dark table-hover align-middle">
               <thead>
@@ -235,14 +406,16 @@
               <tbody>
                 <tr v-for="item in finishpagination.records">
                   <td>
-                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                    <!-- <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
                       <span class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作任务">
                         <i class="bi bi-eye"></i>
                       </span>
-                    </a>
+                    </a> -->
                   </td>
                   <td>
-                    {{item.service}}
+                    <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                      {{item.service}}
+                    </a>
                   </td>
                   <td>{{item.customer}}</td>
                   <td>{{item.fee}}</td>

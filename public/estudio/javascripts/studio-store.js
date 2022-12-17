@@ -96,22 +96,23 @@ const RootComponent = {
             this.reloadPage(this.offline_pagination);
         },
         removeSingleCellV(cellId){
-            this.disposePopOver();
             trashCell(cellId).then((response)=>{
                 if(response.data.code == 200){
                     this.reloadPage(this.draft_pagination);
+                    this.disposePopOver();
+
                 }
             });
         },
         disposePopOver(){
-            $("[data-bs-toggle='popover']").popover('dispose');
+             // Remove already delete element popover ,maybe is bug
+             $('[data-popper-reference-hidden]').remove();
         }
     },
     updated(){
         
         $(function() {
-            // Remove already delete element popover ,maybe is bug
-            $('[data-popper-reference-hidden]').remove();
+        
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });

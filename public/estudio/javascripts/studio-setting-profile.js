@@ -185,9 +185,9 @@ function loadBrandProfile(){
         settingProfilePage.brand.avator = profile.avator;
         settingProfilePage.brand.banner = profile.cover;
         // set skill
-        settingProfilePage.brandProfile.skills = profile.skills;
+        settingProfilePage.brandProfile.skills = !profile.skills ? [] : profile.skills;
         // set experience
-        settingProfilePage.brandProfile.experience = profile.experience;
+        settingProfilePage.brandProfile.experience = !profile.experience ? [] : profile.experience;
 
 
         }

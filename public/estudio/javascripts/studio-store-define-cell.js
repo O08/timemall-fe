@@ -6,12 +6,16 @@ import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
 
-
+var CellStatus = Object.freeze({
+    "Draft":1,
+    "Online":2,
+    "Offline":3
+});
 const RootComponent = {
     data() {
         return {
             overview: {
-                avator: "",
+                cover: "",
                 title: ""
             },
             pricing: {},
@@ -19,7 +23,8 @@ const RootComponent = {
                 items: []
             },
             introCover: "https://picsum.photos/1100/300",
-            allown_next: false
+            allown_next: false,
+            agree_check: false
         }
     },
     directives: {
@@ -74,6 +79,14 @@ const RootComponent = {
         },
         uploadCellIntroBannerV(){
             uploadCellIntroBanner();
+        },
+        onlineCell(){
+            // code 1--draft ; 2--onsale; 3--offsale;
+            const cellId = getQueryVariable("cell_id");
+            if(!cellId){
+                return;
+            }
+            onOrOffSaleForCell(cellId,CellStatus.Online);
         }
     }
 }
@@ -88,7 +101,7 @@ window.cDefineCell= defineCellPage;
 defineCellPage.initPage();
 
 async function getCellInfo(cellId){
-  const url = "/api/v1/web_mall/services/{cell_id}/intro".replace("{cell_id}",cellId);
+  const url = "/api/v1/web_estudio/cell/{cell_id}/profile".replace("{cell_id}",cellId);
   return await axios.get(url);
 }
 
@@ -131,6 +144,16 @@ async function saveCellIntroBannerImg(cellId,files){
     const url = "/api/v1/web_estudio/services/{cell_id}/intro/cover".replace("{cell_id}",cellId);
     return await axios.put(url, fd);
 }
+/**
+ * 
+ * @param {*} cellId  cell id
+ * @param {*} code 1--draft ; 2--onsale; 3--offsale;
+ */
+ async function modifyCellMark(cellId,code){
+    var url = "/api/v1/web_estudio/services/{cell_id}/mark".replace("{cell_id}",cellId);
+    url= url + "?code=" + code
+    return await axios.put(url)
+} 
 
 async function defineCellOverview(){
 
@@ -166,7 +189,7 @@ function loadCellInfo(){
     getCellInfo(cellId).then(function(response){
         if(response.data.code == 200){
             defineCellPage.overview.title = response.data.profile.title;
-            defineCellPage.overview.avator = response.data.profile.avator;
+            defineCellPage.overview.cover = response.data.profile.cover;
             if(response.data.profile.content){
                 defineCellPage.content = response.data.profile.content;
             }
@@ -202,6 +225,11 @@ async function preHandleCellId(){
         cellId =  (await requestCellId()).data.cellId;
     }
     return cellId;
+}
+
+
+function onOrOffSaleForCell(cellId,code){
+    return modifyCellMark(cellId,code);
 }
 
 // file handler---------

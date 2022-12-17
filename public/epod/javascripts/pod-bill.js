@@ -5,8 +5,9 @@ import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
 var BillStatus = Object.freeze({
-    "Pending":1, // 未支付
-    "Paid":2 // 已支付
+    "Created": 1, // 创建
+    "Pending":2, // 未支付
+    "Paid":3 // 已支付
 });
 const RootComponent = {
     data() {

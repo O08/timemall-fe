@@ -19,6 +19,9 @@ const RootComponent = {
                 return;
             }
             this.profile = getIntroInfoForCell(cellId);
+            if(!this.profile.content){
+                this.profile.content = []
+            }
         },
         computeTotalFeeV(){
             computeTotalFee()
