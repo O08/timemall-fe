@@ -113,7 +113,7 @@
               <button class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="starred-tab" data-bs-toggle="tab" data-bs-target="#starred-tab-pane" type="button" role="tab" aria-controls="starred-tab-pane" aria-selected="false">任务箱</button>
+              <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
@@ -165,9 +165,7 @@
                     </div>
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + trans.id">
                       {{trans.service}}
-                    </a>
                   </td>
                   <td>{{trans.supplier}}</td>
                   <td>{{trans.fee}}</td>
@@ -192,7 +190,7 @@
             </nav>
           </div>
           <!--  任务箱-->
-          <div class="tab-pane fade" id="starred-tab-pane" role="tabpanel" aria-labelledby="starred-tab" tabindex="0">
+          <div class="tab-pane fade" id="task-tab-pane" role="tabpanel" aria-labelledby="task-tab" tabindex="0">
             <table class="table table-width-fixed table-dark table-hover align-middle">
               <thead>
                 <tr>
@@ -210,17 +208,17 @@
                      
                       
                       <span class="option-pause me-4">
-                        <button @click="changeMarkForTaskV(item.id, WorkflowStatus.Paused)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="暂停服务进程">           
+                        <button @click="pausedTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="暂停服务进程">           
                           <i class="bi bi-pause"></i>               
                         </button>
                       </span>
                       <span class="option-suspend me-4">
-                        <button @click="changeMarkForTaskV(item.id, WorkflowStatus.Suspend)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="中止服务">           
+                        <button @click="suspendTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="中止服务">           
                           <i class="bi bi-slash-circle"></i>                
                         </button>
                       </span>
                       <span class="option-finish me-4">
-                        <button @click="changeMarkForTaskV(item.id, WorkflowStatus.Finish)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="履约结束">           
+                        <button @click="finishTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="履约结束">           
                           <i class="bi bi-sign-dead-end"></i>              
                         </button>
                       </span>
@@ -388,7 +386,7 @@
                   <td>
                     <span class="option-suspend me-4">
                       <button @click="resumeTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="恢复服务">           
-                        <i class="bi bi-slash-circle"></i>                
+                        <i class="bi bi-skip-start-circle"></i>             
                       </button>
                     </span>
                   </td>

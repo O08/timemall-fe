@@ -6,7 +6,7 @@
 ------------------------------------------------------*/
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 
 { 
-  font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+  font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
 }
 
 body {
@@ -22,6 +22,7 @@ body {
 .mx-120 {
     margin-left: 10%;
     margin-right: 5%;
+    grid-template-columns: 1fr 4fr;
 }
 .indicator-dot-normal{
     font-size: 40px;
@@ -160,7 +161,7 @@ body {
 
 
 .join-now:hover{
-    opacity: 0.4;
+    background-color: #0460ea;
 }
 @media (max-width: 1400px) {
 
@@ -175,7 +176,8 @@ body {
 ------------------------------------------------------*/
 .input-normal-search
 {
-    width: 300px;
+    min-width: 300px;
+    width: 36%;
     left: 20%;
 }
 .input-group-search-btn {
@@ -187,8 +189,10 @@ body {
     color: #212529;
     text-align: center;
     white-space: nowrap;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
+    background: lighten(#393838,20%);
+    border: none;
+    min-width: 15%;
+        // border: 1px solid #ced4da;
 }
 
 /*----------------------------------------------------
@@ -234,7 +238,7 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 15px;
-    border: 1px solid #000000;
+    // border: 1px solid #000000;
 }
 .portrait
 {
@@ -638,6 +642,33 @@ opacity: 0;
   line-height: 24px;
   color: #4CFFA9;
 }
+.price i {
+  margin-right: 3px;
+  font-style: normal;
+  vertical-align: middle;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
+}
+.price .line {
+  width: 1px;
+    height: 14px;
+    background: #c2c3c3;
+    display: inline-block;
+    margin: 0 8px 0 8px;
+}
+.price .price-txt{
+  font-size: 20px;
+    font-weight: 700;
+    font-family: arial,sans-serif;
+}
+.price .price-sbu{
+  font-style: normal;
+  vertical-align: middle;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
+}
 .text-color-dark{
   color: #212529;
 }
@@ -658,7 +689,7 @@ opacity: 0;
 }
 .service-brand-name {
   font-weight:700;
-  font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+  font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
 }
 .switch-sale:checked{
   background-color: #4CFFA9;

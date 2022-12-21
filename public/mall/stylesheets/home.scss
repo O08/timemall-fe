@@ -3,6 +3,7 @@
     1. layout
 ------------------------------------------------------*/
 
+
 mall-app {
     display: flex;
     flex-direction: column;
@@ -44,7 +45,9 @@ mall-app footer{
     // overflow-y: auto;
     flex: 1;
   }
-
+#offcanvasRight{
+  z-index: 20002;
+}
 
 
 // .section-service-grid {
@@ -86,7 +89,9 @@ mall-app footer{
     width: 100px;
     border-radius: 2px;
     color: white;
+    font-weight: 700;
     margin-bottom: 36px;
+    border: none;
 
 }
 .top-bar-filter-budget.show{
@@ -117,6 +122,11 @@ mall-app footer{
 }
 .budget-filter-form{
   min-width: 300px;
+  background-color: lighten(#393838,5%);
+
+}
+#btn_budget_confirm:hover{
+   background-color: lighten(#393838,20%);
 }
 .input-wrapper {
   display: -webkit-box;
@@ -163,7 +173,7 @@ mall-app footer{
 {
   /* background-color: #393838; */
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 700;
   width: 120px;
   border-radius: 2px;
   color: white;
@@ -177,11 +187,15 @@ mall-app footer{
    background: #393838 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='white'  d='m2 5 6 6 6-6'/></svg>") no-repeat right 1rem center/12px 12px !important;
 }
 .sbu-option{
-  width: 100px;
+  width: 160px;
 }
-
 .sbu-option:focus,.sort-by:focus{
   box-shadow:none;
+}
+.top-search-input{
+  background: lighten(#393838,5%);
+  border: none;
+  color: #b5b6ba;
 }
 .top-search-input:focus{
   box-shadow: none;
@@ -217,4 +231,33 @@ mall-app footer{
 }
 #div_gri_panel{
   min-height: 800px;
+}
+@media (max-width: 576px) {
+  .mx-120 {
+    grid-template-columns: 1fr 1fr;
+}
+.logo{
+  justify-content: flex-end !important;
+}
+.input-normal-search
+{
+    width: 80%;
+}
+}
+.card-text{
+  font-size: 14px;
+  line-height: 24px;
+  color: #c1c1c1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+    overflow-wrap: break-word;
+    font-style: normal;
+    vertical-align: middle;
+    font-weight: 700;
+    font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
+}
+.default-pagination{
+  --bs-pagination-color: #95979d;
+  --bs-pagination-bg: lighten(#393838,5%);
 }

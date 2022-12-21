@@ -103,12 +103,37 @@
           <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
             <li class="nav-item" role="presentation">
               <a class="text-decoration-none" href="/epod/pod-millstone.html">
-                <button class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">Workflow</button>
+                <button class="nav-link" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">配置工作流</button>
               </a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="text-decoration-none" href="/epod/pod-millstone.html?option=starred">
-                <button class="nav-link" id="starred-tab" data-bs-toggle="tab" data-bs-target="#starred-tab-pane" type="button" role="tab" aria-controls="starred-tab-pane" aria-selected="false">Starred</button>
+              <a class="text-decoration-none" href="/epod/pod-millstone.html?tab=auditing">
+                <button class="nav-link" id="auditing-tab" data-bs-toggle="tab" data-bs-target="#auditing-tab-pane" type="button" role="tab" aria-controls="auditing-tab-pane" aria-selected="true">审计中</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="text-decoration-none" href="/epod/pod-millstone.html?tab=confirm">
+                <button class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="text-decoration-none" href="/epod/pod-millstone.html?tab=task">
+                <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="text-decoration-none" href="/epod/pod-millstone.html?tab=paused">
+                <button class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="text-decoration-none" href="/epod/pod-millstone.html?tab=suspend">
+                <button class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">中止</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="text-decoration-none" href="/epod/pod-millstone.html?tab=finish">
+                <button class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
               </a>
             </li>
           </ul>
@@ -169,7 +194,7 @@
                               <i class="bi bi-plus"></i>
                             </span>
                             <span @click="removeObjV(mIndex,objIndex)" class="item-setting-x">
-                              <i class="bi bi-x"></i>
+                              <i class="bi bi-dash"></i>
                             </span>
                           </div>  
                           <input type="text" v-model="obj.entry" class="form-control millstone-input-box" placeholder="填写里程中需要实现的目标" aria-describedby="addon-wrapping">           
@@ -188,7 +213,7 @@
                               <i class="bi bi-plus"></i>
                             </span>
                             <span @click="removeMetric(mIndex,)" class="item-setting-x">
-                              <i class="bi bi-x"></i>
+                              <i class="bi bi-dash"></i>
                             </span>
                           </div>               
                           <input type="text" v-model="metric.entry" class="form-control millstone-input-box" placeholder="填写验收指标" aria-describedby="addon-wrapping">

@@ -167,8 +167,14 @@ const RootComponent = {
         goAuditV(workflowId){
             goAudit(workflowId);
         },
-        changeMarkForTaskV(workflowId,code){
-            changeMarkForTask(workflowId,code);
+        pausedTaskV(workflowId){
+            changeMarkForTask(workflowId,WorkflowStatus.Paused);
+        },
+        suspendTaskV(workflowId){
+            changeMarkForTask(workflowId, WorkflowStatus.Suspend);
+        },
+        finishTaskV(workflowId){
+            changeMarkForTask(workflowId,WorkflowStatus.Finish);
         },
         resumeTaskV(workflowId){
             resumeTask(workflowId);
@@ -250,7 +256,8 @@ function changeMarkForTask(workflowId,code){
 }
 // 恢复暂停任务
 function resumeTask(workflowId){
-    markMillstone(workflowId,code).then(response=>{
+
+    markMillstone(workflowId,WorkflowStatus.Starred).then(response=>{
         if(response.data.code==200){
             // 刷新任务箱、暂停列表
           millStonePage.reloadPage(millStonePage.starredTranspagination);
@@ -260,9 +267,26 @@ function resumeTask(workflowId){
      });
 }
 function showTabContent(){
-    const option = getQueryVariable("option");
-    if(option === "starred"){
-        $("#starred-tab").trigger("click");
+    const option = getQueryVariable("tab");
+    switch(option){
+        case "auditing":
+            $("#auditing-tab").trigger("click");
+                break; 
+        case "confirm":
+            $("#confirm-tab").trigger("click");
+                break; 
+        case "task":
+            $("#task-tab").trigger("click");
+                break; 
+        case "paused":
+            $("#paused-tab").trigger("click");
+            break; 
+        case "suspend":
+            $("#suspend-tab").trigger("click");
+                break; 
+        case "finish":
+            $("#finish-tab").trigger("click");
+            break; 
     }
 }
 

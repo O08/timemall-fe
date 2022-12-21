@@ -4,7 +4,15 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Auth from "/estudio/javascripts/auth.js"
 
-
+var WorkflowStatus = Object.freeze({
+    "InQueue": 1, // 队列中
+    "Auditing": 2, // 审计中
+    "Audited": 3, // 审计完成
+    "Starred": 4, // 已定稿，履约中
+    "Suspend": 5, // 中止
+    "Paused": 6, // 停止
+    "Finish": 7 // 已经完成
+});
 
 const RootComponent = {
     data() {
@@ -74,11 +82,11 @@ function loadWorkflowInfo(){
 
 function approvedWorkflow(){
     const workflowId = getQueryVariable("workflow_id"); // todo 
-    markMillstone(workflowId,"1");
+    markMillstone(workflowId,WorkflowStatus.Audited);
 }
 function rejectWorkflow(){
     const workflowId = getQueryVariable("workflow_id"); // todo 
-    markMillstone(workflowId,"2");
+    markMillstone(workflowId,WorkflowStatus.InQueue);
 }
 
 
