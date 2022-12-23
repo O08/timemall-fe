@@ -1,0 +1,32 @@
+mall-app {
+    display: flex;
+    flex-direction: column;
+  }
+  mall-app header{
+    height: 150px;
+  }
+mall-app content{
+    height: calc(100% - 200px);
+}
+
+mall-app footer{
+  margin-top: 50px;
+}
+@media (min-width: 768px) {
+    .content-main {
+      padding: 60px 0;
+    }
+    .col-sm-offset-2,.col-sm-offset-3 {
+       margin-left: 16.66666667%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .mx-120 {
+      grid-template-columns: 1fr 1fr;
+  }
+  .logo{
+    justify-content: flex-end !important;
+  }
+
+  }

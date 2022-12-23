@@ -19,15 +19,6 @@ mall-app footer{
   margin-top: 50px;
 }
 
-.copyright{
-  font-size: 0.8125em;
-  text-align: center;
-  padding: 10px;
-}
-.copyright-container{
-  background-color: #393838;
-  height: 100px;
-}
   // mall-app content {
   //   height: calc(100% - 240px);
   // }
@@ -201,16 +192,7 @@ mall-app footer{
   box-shadow: none;
   border: none;
 }
-.footer-nav{
-  display: inline-block;
-  margin: 0;
-  padding-left: 0;
-  list-style: none;
-}
-.footer-nav li{
-  display: inline-block;
-  margin: 0 10px;
-}
+
 @media
 (prefers-reduced-motion: no-preference) {
   html {
@@ -233,18 +215,12 @@ mall-app footer{
   min-height: 800px;
 }
 @media (max-width: 576px) {
-  .mx-120 {
-    grid-template-columns: 1fr 1fr;
-}
-.logo{
-  justify-content: flex-end !important;
-}
 .input-normal-search
 {
     width: 80%;
 }
 }
-.card-text{
+.card-text,.service-brand-name{
   font-size: 14px;
   line-height: 24px;
   color: #c1c1c1;
@@ -257,7 +233,20 @@ mall-app footer{
     font-weight: 700;
     font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
 }
+.service-brand-name{
+  font-size: 12px;
+  line-height: 20px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+    overflow-wrap: break-word;
+    font-style: normal;
+    vertical-align: middle;
+    font-weight:400;
+    font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
+}
 .default-pagination{
   --bs-pagination-color: #95979d;
   --bs-pagination-bg: lighten(#393838,5%);
 }
+

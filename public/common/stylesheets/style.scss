@@ -53,6 +53,8 @@ body {
   --bs-popover-body-color: #f8f9fa;
   --bs-popover-arrow-border: #212529;
 }
+
+
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
 @media only screen and (min-width: 1400px) {
   .toggle-nav{
@@ -199,7 +201,7 @@ body {
     3. Time Line
 ------------------------------------------------------*/
 .timeline {
-    border-left: 1px solid hsl(0, 0%, 90%);
+    border-left: 1px solid hsl(0, 1%, 37%);
     position: relative;
     list-style: none;
   }
@@ -215,7 +217,7 @@ body {
   }
   
   .timeline .timeline-item:after {
-    background-color: hsl(0, 0%, 90%);
+    background-color: hsl(0, 1%, 37%);
     left: -38px;
     border-radius: 50%;
     height: 11px;
@@ -395,6 +397,9 @@ body {
     --bs-pagination-focus-bg: #373b3e;
     --bs-pagination-hover-bg:  #373b3e;
     --bs-pagination-hover-border-color: #373b3e;
+}
+.current-page-active{
+  background-color: #666666;
 }
 tbody tr{
     height: 70px;
@@ -713,4 +718,40 @@ json-node span{
 {
     color: #666666;
     font-size: 18;
+}
+
+  /*----------------------------------------------------
+    15. footer
+------------------------------------------------------*/
+
+.copyright{
+  font-size: 0.8125em;
+  text-align: center;
+  padding: 10px;
+}
+.copyright-container{
+  background-color: #393838;
+  height: 100px;
+}
+.footer-nav{
+  display: inline-block;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.footer-nav li{
+  display: inline-block;
+  margin: 0 10px;
+}
+
+@media (max-width: 576px) {
+  .mx-120 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .logo{
+  justify-content: flex-end !important;
+  }
+  .section-sign-in .card{
+    width: 450px;
+  }
 }

@@ -3,13 +3,18 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import {goHome,goLoginPage,goBackAndReload} from "/common/javascripts/pagenav.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
+import defaultExperienceImage from '/common/images/default-experience.jpg'
 
+import {PriceSbu} from "/common/javascripts/tm-constant.js";
+import axios from 'axios';
 const RootComponent = {
     data() {
         return {
+            defaultExperienceImage,
             profile: {},
             selectedSbu: '',
-            total: 0
+            total: 0,
+            quantity: ""
         }
     },
     methods: {
@@ -18,20 +23,43 @@ const RootComponent = {
             if(!cellId){
                 return;
             }
-            this.profile = getIntroInfoForCell(cellId);
+            getIntroInfoForCell(cellId).then(response=>{
+                if(response.data.code == 200){
+                    this.profile = response.data.profile;
+                }
+            });
             if(!this.profile.content){
                 this.profile.content = []
             }
         },
-        computeTotalFeeV(){
-            computeTotalFee()
-        },
         orderNowV(){
             orderNow()
+        },
+        transformSbuV(sbu){
+            return PriceSbu.get(sbu);
+        },
+        transformInputNumberV(event){
+            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
+            var min = Number(event.target.min);
+            var max = Number(event.target.max);
+            event.target.value = transformInputNumber(val, min, max);
+            if(val !== Number(event.target.value)){
+              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
+        },
+        computeTotalFeeV(){
+            computeTotalFee()
         }
     },
     created(){
       this.loadCellInfoV();
+    },
+    updated(){
+        
+        $(function() {
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
     }
 }
 const SellerComponent = {
@@ -46,7 +74,11 @@ const SellerComponent = {
             if(!brandId){
                 return;
             }
-            this.brandProfile = getBrandProfile(brandId)
+            getBrandProfile(brandId).then(response=>{
+                if(response.data.code == 200){
+                    this.brandProfile = response.data.profile;
+                }
+            })
        }
     },
     created(){
@@ -65,42 +97,17 @@ window.cellDetail = cellDetailPage;
 /**
  * intro -------------
  */
-function getIntroInfoForCell(cellId){
-    var res = {};
-    $.ajaxSetup({async: false});
+async function getIntroInfoForCell(cellId){
     const url = "/api/v1/web_mall/services/{cell_id}/intro".replace("{cell_id}",cellId);
-    $.get(url,function(data) {
-        if(data.code == 200){
-            res = data.profile
-        }
-       })
-         .fail(function(data) {
-           // place error code here
-         });
-    return res;
+    return await axios.get(url);
 }
-function order(cellId){
+async function order(cellId){
     const dto= {
         sbu: cellDetailPage.selectedSbu,
-        quantity: cellDetailPage.total
+        quantity: cellDetailPage.quantity
     }
     const url = "/api/v1/web_mall/services/{cell_id}/order".replace("{cell_id}",cellId);
-       $.ajax({
-        url: url,
-        data: JSON.stringify(dto),
-        type: "post",
-        dataType:"json",
-        contentType: "application/json",
-        success:function(data){
-          // todo 
-          if(data.code == 200){
-            alert("成功预定")
-          }
-        },
-        error:function(){
-          //alert('error'); //错误的处理
-        }
-      });   
+    return await axios.post(url,dto); 
 }
 
 
@@ -115,7 +122,13 @@ function orderNow(){
         goLoginPage();
         return
     }
-    order(cellId); // todo
+    order(cellId).then(response=>{
+        if(response.data.code == 200){
+            cellDetailPage.quantity ="";
+            cellDetailPage.total = 0;
+            alert("成功预约，可在E-pod查看预约记录");
+        }
+    })
 }
 function getSbuPrice()
 {
@@ -136,21 +149,14 @@ function computeTotalFee(){
  */
 
 
-function getBrandProfile(brandId)
+async function getBrandProfile(brandId)
 {
-    var res = {}
-    $.ajaxSetup({async: false});
     const url = "/api/v1/web_mall/brand/{brand_id}/profile".replace("{brand_id}",brandId);
-    $.get(url,function(data) {
-        if(data.code == 200){
-            res = data.profile
-        }
-       })
-         .fail(function(data) {
-           // place error code here
-         });
-    return res;
+    return axios.get(url);
 }
 
 
 
+function transformInputNumber(val,min,max){
+    return val < min ? "" : val > max ? max : val;
+  }

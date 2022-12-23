@@ -5,30 +5,47 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 
 import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
+import axios from 'axios';
+import {PriceSbu} from "/common/javascripts/tm-constant.js";
 
-
+import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
+import defaultAvatarImage from '/avator.webp'
+import defaultBannerImage from '/common/images/default-brand-banner.jpg'
 
 
 const RootComponent = {
     data() {
         return {
-            cellListInfo: {},
+            defaultCellPreviewImage,
+            defaultAvatarImage,
+            defaultBannerImage,
+            homeInfo: {},
             cells: {},
             count: 10,
             queryParam: initQueryParam()
         }
     },
     methods: {
-        loadCellListsV(){
-            loadCellLists();
+        loadHomeInfoV(){
+            loadHomeInfo();
         },
         infiniteHandler(){
             infiniteBrandCell();
         },
         initServiceTabV(){
             initServiceTab();
+        },
+        transformSbuV(sbu){
+            return PriceSbu.get(sbu);
         }
 
+    },
+    updated(){
+        
+        $(function() {
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
     }
 }
 const app = createApp(RootComponent);
@@ -38,21 +55,15 @@ const bubblePage = app.mount('#app');
 window.bubble = bubblePage;
 
 // init 
-bubblePage.loadCellListsV();
+// bubblePage.loadCellListsV();
+bubblePage.loadHomeInfoV();
 bubblePage.initServiceTabV();
 
-function getMutilpleCellList(brandId)
-{
-    const url = "/api/v1/web_mall/brand/{brand_id}/celllist".replace("{brand_id}",brandId);
-    $.get(url,function(data) {
-        if(data.code == 200){
-            bubblePage.cellListInfo = !data.cellListInfo? {} : data.cellListInfo;
-        }
-       })
-         .fail(function(data) {
-           // place error code here
-         });
+async function getHomeInfo(brandId){
+    const url = "/api/v1/web_mall/brand/{brand_id}/homeinfo".replace("{brand_id}",brandId);
+    return await axios.get(url);
 }
+
 function getBrandMutipleCell(param){
     var res = {};
     $.ajaxSetup({async: false});
@@ -76,14 +87,18 @@ function getBrandMutipleCell(param){
     }
    }
 
-function loadCellLists()
+function loadHomeInfo()
 {
     const brandId= getQueryVariable("brand_id");
-            if(!brandId){
-                return;
-            }
-    getMutilpleCellList(brandId);// todo
-    // mockCellListInfo();
+    if(!brandId){
+        return;
+    }
+    getHomeInfo(brandId).then(response=>{
+        if(response.data.code == 200){
+            bubblePage.homeInfo = response.data.data;
+        }
+
+    });
 }
 function initServiceTab(){
     if(!bubblePage.queryParam.brandId){

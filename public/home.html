@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <title>13区 - 首页</title>
+    <title> 首页 - 13区</title>
 
     <link rel="stylesheet" href="common/stylesheets/style.scss">
 
@@ -82,12 +82,12 @@
                 <div class="row g-3">
                   <div class="col-6 input-wrapper">
                     <label for="input_budget_min" class="form-label">最小</label>
-                    <input v-model="cellgrid_pagination.param.budgetMin" type="number" min="0" max="50000" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
+                    <input v-model="cellgrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
                     <i>￥</i>
                   </div>
                   <div class="col-6 input-wrapper">
                     <label for="input_budget_max" class="form-label">最大</label>
-                    <input  v-model="cellgrid_pagination.param.budgetMax" type="number" min="0" max="50000" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
+                    <input  v-model="cellgrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
                     <i>￥</i>
                   </div>
                 </div>
@@ -134,11 +134,11 @@
                   <div v-for="cell in cellgrid_pagination.records" class="col cell-item">
                     <div class="card border-0 cell-card-body-bg">
                       <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                        <img :src="cell.preview" class="card-img-top cell-thumb" alt="...">
+                        <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                       </a>
                       <div class="card-body">
                         <div class="d-flex portrait align-items-center">
-                          <img class="service-brand" :src="cell.avator">
+                          <img class="service-brand" :src="cell.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                           <span>
                             <h6 class="service-brand-name ms-1 my-0">{{cell.brand}}</h6>
                           </span>
@@ -166,16 +166,17 @@
                     </div>
                   </div>
                 </div>
-                <nav aria-label="Page navigation" class="millstone-pagination">
+                <nav v-if="!!paging" aria-label="Page navigation" class="millstone-pagination">
                   <ul class="pagination pagination-lg pagination-dark default-pagination border-0">
                     <li class="page-item" @click="pagePre(cellgrid_pagination)">
-                      <a class="page-link" href="#" aria-label="Previous">
+                      <a class="page-link"  aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                       </a>
                     </li>
-                    <li class="page-item" v-for="page in paging.items" @click="pageGo(cellgrid_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item"  v-for="page in paging.items" :class="{'current-page-active': paging.current == page}" 
+                          @click="pageGo(cellgrid_pagination,page)"><a class="page-link">{{page}}</a></li>
                     <li class="page-item" @click="pageNext(cellgrid_pagination)">
-                      <a class="page-link" href="#" aria-label="Next">
+                      <a class="page-link" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                       </a>
                     </li>
@@ -197,13 +198,13 @@
           </span>
           <ul class="footer-nav">
             <li>
-              <a class="nav-link" href="#">联系我们</a>
+              <a class="nav-link" href="/mall/contact-us.html">联系我们</a>
             </li>
             <li>
-              <a class="nav-link" href="#">法律声明</a>
+              <a class="nav-link" href="/mall/legal.html">法律声明</a>
             </li>
             <li>
-              <a class="nav-link" href="#">隐私政策</a>
+              <a class="nav-link" href="/mall/privacy-policy.html">隐私政策</a>
             </li>
           </ul>
         </div>

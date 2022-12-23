@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-    <title>13区 - 登录 </title>
+    <title>登录 - 13区 </title>
 
     <link rel="stylesheet" href="common/stylesheets/style.scss">
   </head>
 <body>
     <header class="d-flex align-items-center sign-in-header">
-      <div class="d-flex align-items-center mx-120 ">
+      
+      <div class="d-flex align-items-center logo mx-120">
         <a href="home.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
           <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
           </svg>
+          <div class="align-middle">
+            <h2 class="my-0">13区</h2>
+          </div>
         </a>
-        <h2>13区</h2>
       </div>
     </header>
     <content>
@@ -26,11 +29,11 @@
               登录发现更多价值
             </div>
             <div class="card-body">
-              <form id="login-form" class="form-signin">
+              <form id="login-form" class="form-signin needs-validation" novalidate>
               
                 <div class="mb-4">
                   <label for="email" class="form-label">邮箱</label>
-                  <input type="email" class="form-control" id="email" placeholder="name@example.com" required="">
+                  <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
                   <div class="invalid-feedback">
                     请提供一个有效邮箱.
                   </div>
@@ -41,7 +44,7 @@
                     <span>密码</span> 
                     <a href="password-reset.html">忘记密码？</a>
                   </label>
-                  <input type="password" class="form-control" id="password" required="">
+                  <input type="password" class="form-control" id="password" required>
                   <div class="invalid-feedback">
                     请提供一个有效密码.
                   </div>
@@ -58,23 +61,7 @@
           </div>
         </section>
     </content>
-    <script type="module" src="common/javascripts/tm.js"></script>
-    <script>$("#email").on("focus", function (e) {
-  $("#email-error-tip").text("");
-  $("#email").removeClass("invalid-input");
-});
-$("#password").on("focus", function (e) {
-  $("#password-error-tip").text("");
-  $("#password").removeClass("invalid-input");
-});
-$("#password").on("blur", function (e) {
-  var flag = document.getElementById("password").checkValidity();
-  if (!flag) {
-    $('#password').addClass('is-invalid');
-  }
-  if (flag) {
-    $('#password').removeClass('is-invalid');
-  }
-});</script>
+    <script type="module" src="/common/javascripts/login.js"></script>
+
 </body>
 </html>

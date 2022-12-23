@@ -4,26 +4,24 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import Auth from "/estudio/javascripts/auth.js"
 
-var PriceSbu = new Map();
-PriceSbu.set("second", "秒");
-PriceSbu.set("minute", "分钟");
-PriceSbu.set("hour","小时");
-PriceSbu.set("day", "天");
-PriceSbu.set("week", "周");
-PriceSbu.set("month" ,"月");
-PriceSbu.set("quarter", "季度");
-PriceSbu.set( "year","年");
+import defaultAvatarImage from '/avator.webp'
+
+import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
+import {PriceSbu} from "/common/javascripts/tm-constant.js";
+
   
 
 
 const RootComponent = {
   data() {
     return {
+      defaultAvatarImage,
+      defaultCellPreviewImage,
       input_sbu: '',
       paging: {}, // 分页导航
       cellgrid_pagination:{
         url: "/api/v1/web_mall/cells",
-        size: 12,
+        size: 2,
         current: 1,
         total: 0,
         pages: 0,
@@ -60,7 +58,7 @@ const RootComponent = {
       return transformSbu(sbu);
     },
     transformInputNumberV(event){
-      var val = Number(event.target.value);
+      var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
       var min = Number(event.target.min);
       var max = Number(event.target.max);
       event.target.value = transformInputNumber(val, min, max);

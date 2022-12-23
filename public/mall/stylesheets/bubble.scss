@@ -1,3 +1,5 @@
+
+
 /*----------------------------------------------------
     1. layout
 ------------------------------------------------------*/
@@ -10,7 +12,6 @@
     height: 150px;
     top: 0;
     background-color: #2F2F2F;
-    z-index: 2000;
   }
 
 
@@ -29,9 +30,7 @@
   mall-app main {
     flex: 1;
   }
- #bubble-tab{
-  z-index: 2000;
- } 
+
 
  .section-bubble-brand-info {
     margin-top: 150px;
@@ -105,14 +104,17 @@ mall-app header{
   /* Pay special attention here! */
   position: fixed;
   top: 0px;
-  z-index: 2000;
+  z-index: 1045;
 }
 .section-tabs{
   background-color: #2F2F2F;
   /* Pay special attention here! */
   position: sticky;
   top: 150px;
-  z-index: 2001;
+  z-index: 1044;
+}
+.offcanvas-xxl{
+  --bs-offcanvas-zindex: 1057;
 }
 
 @media
@@ -120,4 +122,30 @@ mall-app header{
   html {
     scroll-behavior: smooth;
   }
+}
+
+.card-text,.service-brand-name{
+  font-size: 14px;
+  line-height: 24px;
+  color: #c1c1c1;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+    overflow-wrap: break-word;
+    font-style: normal;
+    vertical-align: middle;
+    font-weight: 700;
+    font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
+}
+.service-brand-name{
+  font-size: 12px;
+  line-height: 20px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+    overflow-wrap: break-word;
+    font-style: normal;
+    vertical-align: middle;
+    font-weight:400;
+    font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
 }
