@@ -6,14 +6,19 @@ import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
 
-var CellStatus = Object.freeze({
-    "Draft":1,
-    "Online":2,
-    "Offline":3
-});
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+
+import {CellStatus} from "/common/javascripts/tm-constant.js";
+import {goStudioStore} from "/common/javascripts/pagenav.js";
+
 const RootComponent = {
     data() {
         return {
+            btn_ctl: {
+                activate_general_save_btn: false,
+                activate_pricing_save_btn: false,
+                activate_intro_save_btn: false
+            },
             overview: {
                 cover: "",
                 title: ""
@@ -23,7 +28,6 @@ const RootComponent = {
                 items: []
             },
             introCover: "https://picsum.photos/1100/300",
-            allown_next: false,
             agree_check: false
         }
     },
@@ -87,12 +91,32 @@ const RootComponent = {
                 return;
             }
             onOrOffSaleForCell(cellId,CellStatus.Online);
+        },
+        currentTabIntV(currentTab){
+            return currentTabInt(currentTab);
+        },
+        validatePricingInput(){
+            var pricing = this.pricing;
+            this.btn_ctl.activate_pricing_save_btn = 
+                   pricing.second>0 && pricing.minute>0 && pricing.hour>0 && pricing.day>0
+                   &&pricing.week>0 && pricing.month>0 && pricing.quarter>0 && pricing.year>0;
+        },
+        transformInputNumberV(event){
+
+            var val = event.target.value.match(/\d+(\.\d{0,2})?/) ? event.target.value.match(/\d+(\.\d{0,2})?/)[0] : '';// type positve number
+            var max = event.target.max;
+            event.target.value = transformInputNumber(val, max);
+            if(Number(val) !== Number(event.target.value)){
+              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
         }
     }
 }
 const app = createApp(RootComponent);
 
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
+
 const defineCellPage = app.mount('#app');
 window.cDefineCell= defineCellPage;
 
@@ -164,6 +188,7 @@ async function defineCellOverview(){
     saveOverview(cellId,defineCellPage.overview.title).then(function(response){
         if(response.data.code == 200){
             addCellIdToUrl(cellId);
+            defineCellPage.btn_ctl.activate_general_save_btn = false;
         }
     }); 
 }
@@ -172,14 +197,24 @@ function defineCellPricing(){
     if(!cellId){
         return;
     }
-    savePricingInfo(cellId,defineCellPage.pricing);
+    savePricingInfo(cellId,defineCellPage.pricing).then(response=>{
+        if(response.data.code == 200){
+            changeUrlTabWithoutRefreshPage("intro");
+            defineCellPage.btn_ctl.activate_pricing_save_btn = false;
+        }
+    });
 }
 function setACellIntroContent(){
     const cellId = getQueryVariable("cell_id");
     if(!cellId){
         return;
     }
-    saveCellIntroContent(cellId,defineCellPage.content);
+    saveCellIntroContent(cellId,defineCellPage.content).then(response=>{
+        if(response.data.code == 200){
+            changeUrlTabWithoutRefreshPage("publish");
+            defineCellPage.btn_ctl.activate_intro_save_btn = false;
+        }
+    });
 }
 function loadCellInfo(){
     const cellId = getQueryVariable("cell_id");
@@ -215,7 +250,8 @@ function transferPrice(arr,sbu){
 function addCellIdToUrl(cellId){
     const id = getQueryVariable("cell_id");
     if(!id){
-        window.location.href = "/estudio/studio-store-define-cell.html?tab=pricing&cell_id="+ cellId
+        let url = "/estudio/studio-store-define-cell.html?tab=pricing&cell_id="+ cellId
+        history.pushState(null, "", url);
     }
 }
 async function preHandleCellId(){
@@ -229,7 +265,12 @@ async function preHandleCellId(){
 
 
 function onOrOffSaleForCell(cellId,code){
-    return modifyCellMark(cellId,code);
+     modifyCellMark(cellId,code).then(response=>{
+        if(response.data.code == 200){
+            goStudioStore();
+            defineCellPage.agree_check = false;
+        }
+     });
 }
 
 // file handler---------
@@ -303,17 +344,34 @@ function addTextToFirst(){
     defineCellPage.content.items.unshift({section: ""});
 }
 
-function showContent(){
+function currentTabInt(currentTab){
     const tab = getQueryVariable("tab");
     const option = getQueryVariable("option");
-    if(tab === "pricing" || option==='edit'){
-       defineCellPage.allown_next = true;
+
+    var navIntMap = new Map();
+    navIntMap.set("general",1);
+    navIntMap.set("pricing",2);
+    navIntMap.set("intro",3);
+    navIntMap.set("publish",4);
+    // if edit open all
+    return option === "edit" ? 4 < currentTab : navIntMap.get(tab) < currentTab;
+}
+
+function changeUrlTabWithoutRefreshPage(tab){
+    const id = getQueryVariable("cell_id");
+    if(id){
+        let url = "/estudio/studio-store-define-cell.html?tab="+ tab+ "&cell_id="+ id;
+        history.pushState(null, "", url);
     }
 }
-showContent();
+
 
 function autoHeight(elem) {
     elem.style.height = "auto";
     elem.scrollTop = 0; // 防抖动
     elem.style.height = elem.scrollHeight + "px";
 }
+
+function transformInputNumber(val,max){
+    return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val === '0.0' ? val : Number(val);
+  }

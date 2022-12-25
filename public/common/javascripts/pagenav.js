@@ -19,6 +19,10 @@ export  function goLoginPage(){
 export  function goHome(){
     go("/home.html")
 }
+
+export function goStudioStore(){
+    go("/estudio/studio-store.html")
+}
 export function refresh(){
     window.location.reload();
 }

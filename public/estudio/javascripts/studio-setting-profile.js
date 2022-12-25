@@ -3,10 +3,17 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import SkillComponent from "/estudio/javascripts/studio-setting-profile-skill.js";
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import defaultExperienceImage from '/common/images/default-experience.jpg'
+
 const RootComponent = {
 
     data() {
         return {
+            defaultExperienceImage,
+            btn_ctl: {
+                activate_general_save_btn: false
+            },
             brand: {
                 avator: "https://picsum.photos/900/300",
                 banner: "https://picsum.photos/60/60"
@@ -108,15 +115,23 @@ const RootComponent = {
              
          },
          validateExperienceDescModal(){
-            return validateModal(this.tmpMillstioneDesc);
+            return validateModal(this.tmpMillstioneDesc) ;
          },
          validateExperienceDateV(){
+            // inprogress true ,dont validate
+            if(this.tmpMillstone.inProgress){
+                return false;
+            }
             return validateDate(this.tmpMillstone.startYear,
                 this.tmpMillstone.startMonth,
                 this.tmpMillstone.endYear,
                 this.tmpMillstone.endMonth);
         },
         validateExperienceDescDateV(){
+             // inprogress true ,dont validate
+             if(this.tmpMillstioneDesc.inProgress){
+                return false;
+            }
             return validateDate(this.tmpMillstioneDesc.startYear,
                 this.tmpMillstioneDesc.startMonth,
                 this.tmpMillstioneDesc.endYear,
@@ -141,6 +156,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(SkillComponent);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
 // init 
@@ -208,7 +224,11 @@ function setBrandBasicInfo(){
     if(settingProfilePage.identity.location){
         settingProfilePage.identity.location = "中国大陆"
     }
-    updateBasicInfoForBrand(brandId,settingProfilePage.identity);
+    updateBasicInfoForBrand(brandId,settingProfilePage.identity).then(response=>{
+        if(response.data.code==200){
+            settingProfilePage.btn_ctl.activate_general_save_btn = false;
+        }
+    });
 }
 function uploadAvatorFile(){
     const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
@@ -264,9 +284,15 @@ function closeBannerModalHandler(){
 }
 
 function showAddExperienceModal(){
+    // clear modal tmp data
+    var tmp = emptyTmpMillstoneData();
+    settingProfilePage.tmpMillstone = tmp;
     $("#newExperienceModal").modal("show");
 }
 function showAddExperieneDescModal(){
+    // clear modal tmp data
+    var tmp = emptyTmpMillstoneDescData();
+    settingProfilePage.tmpMillstioneDesc = tmp;
     $("#newExperienceDescModal").modal("show");
 }
 function addExperience(){
@@ -331,6 +357,7 @@ function emptyTmpMillstoneDescData(){
 }
 function editExperience(index){
     const tmp = settingProfilePage.brandProfile.experience[index];
+    settingProfilePage.tmpMillstone = emptyTmpMillstoneDescData();
     settingProfilePage.tmpMillstone.title = tmp.title;
     settingProfilePage.tmpMillstone.subtitle= tmp.subTitle;
 
@@ -404,6 +431,7 @@ function removeExperienceDesc(experienceIndex,descIndex){
     closeExperienceDescModal();
 }
 function editExperienceDesc(experienceIndex,descIndex){
+    settingProfilePage.tmpMillstioneDesc = emptyTmpMillstoneDescData();
     const tmp = settingProfilePage.brandProfile.experience[experienceIndex].entries[descIndex];
     settingProfilePage.tmpMillstioneDesc.title = tmp.title;
     settingProfilePage.tmpMillstioneDesc.story= tmp.story;
@@ -457,7 +485,9 @@ function validateModal(modal){
               || !modal.startMonth
               || ((!modal.inProgress) && (
                    !modal.endYear
-                  || !modal.endMonth));
+                  || !modal.endMonth || 
+                  validateDate(modal.startYear,modal.startMonth,modal.endYear,modal.endMonth)
+                  ));
 }
 
 function closeExperienceModal(){

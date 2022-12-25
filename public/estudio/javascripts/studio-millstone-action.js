@@ -4,15 +4,10 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Auth from "/estudio/javascripts/auth.js"
 
-var WorkflowStatus = Object.freeze({
-    "InQueue": 1, // 队列中
-    "Auditing": 2, // 审计中
-    "Audited": 3, // 审计完成
-    "Starred": 4, // 已定稿，履约中
-    "Suspend": 5, // 中止
-    "Paused": 6, // 停止
-    "Finish": 7 // 已经完成
-});
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+
+import {WorkflowStatus} from "/common/javascripts/tm-constant.js";
+import axios from 'axios';
 
 const RootComponent = {
     data() {
@@ -39,54 +34,45 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
 const millstoneAuditPage = app.mount('#app');
 window.cMillstoneAudit= millstoneAuditPage;
 
-function getSingleWorkflow(workflowId){
+async function getSingleWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
-    $.get(url,function(data) {
-        if(data.code == 200){
-            millstoneAuditPage.workflow = data.workflow;
-        }
-       })
-         .fail(function(data) {
-           // place error code here
-         });
+    return axios.get(url);
 }
 
-function markMillstone(workflowId,code){
+async function markMillstone(workflowId,code){
     var url = "/api/v1/web_estudio/millstone/workflow/{workflow_id}/mark".replace("{workflow_id}",workflowId);
     url= url + "?code=" + code
-     
-    $.ajax({
-        url: url,
-        type: "put",
-        dataType:"json",
-        success:function(data){
-            // todo 
-            if(data.code == 200){
-            
-            }
-        },
-        error:function(){
-            //alert('error'); //错误的处理
-        }
-    });  
+    return axios.put(url);
 }
 
 function loadWorkflowInfo(){
     const workflowId = getQueryVariable("workflow_id"); // todo 
-    getSingleWorkflow(workflowId);
-    // mockWorkflowInfo();
+    getSingleWorkflow(workflowId).then(response=>{
+        if(response.data.code == 200){
+            millstoneAuditPage.workflow = response.data.workflow;
+         }
+    });
 }
 
 function approvedWorkflow(){
     const workflowId = getQueryVariable("workflow_id"); // todo 
-    markMillstone(workflowId,WorkflowStatus.Audited);
+    markMillstone(workflowId,WorkflowStatus.Audited).then(response=>{
+        if(response.data.code == 200){
+            goViewOption();
+        }
+    });
 }
 function rejectWorkflow(){
     const workflowId = getQueryVariable("workflow_id"); // todo 
-    markMillstone(workflowId,WorkflowStatus.InQueue);
+    markMillstone(workflowId,WorkflowStatus.InQueue).then(response=>{
+        if(response.data.code == 200){
+            goViewOption();
+        }
+    });
 }
 
 
@@ -103,6 +89,15 @@ function optionSetting(){
     }
 }
 optionSetting();
+
+function goViewOption(){
+    const id = getQueryVariable("workflow_id");
+    if(id){
+        let url = "/estudio/studio-millstone-action.html?option=view&workflow_id="+ id;
+        history.pushState(null, "", url);
+        $("#section-fly-tool").hide();
+    }
+}
 
 // Enable popovers 
 

@@ -4,6 +4,7 @@ import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
 
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 const RootComponent = {
     data() {
@@ -38,7 +39,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-
+app.mixin(BrandInfoComponent);
 const msgPage = app.mount('#app');
 window.cMsg= msgPage;
 

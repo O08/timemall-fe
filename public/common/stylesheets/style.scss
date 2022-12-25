@@ -78,7 +78,7 @@ body {
 {
   background-color: #000000;
 }
-.offcanvas-end.show
+.offcanvas-start.show,.offcanvas-end.show
 {
   background-color: #2B2B2B;
 }
@@ -319,7 +319,10 @@ body {
     margin-left: -0.25rem;
     overflow-y: auto;
   }
-  
+.sidebar-wrapper{
+  overflow-y: scroll;
+  padding-bottom: 100px;
+}
 .sidebar {
     width: 360px;
 }
@@ -333,8 +336,8 @@ body {
     max-width: fit-content;
   }
   .sidebar .active{
-    color: #000000;
-    stroke: #000000;
+    color: lighten(#373b3e,20%);
+    stroke: lighten(#373b3e,20%);
   }
   .sidebar .nav-link:hover{
     box-shadow: 0 4px 4px #000000;
@@ -392,12 +395,15 @@ body {
 }
 .pagination
 {
-    --bs-pagination-bg: black;
+    --bs-pagination-color: #95979d;
+    --bs-pagination-bg: lighten(#393838,5%);
     --bs-pagination-border-color: #373b3e;
     --bs-pagination-focus-bg: #373b3e;
     --bs-pagination-hover-bg:  #373b3e;
     --bs-pagination-hover-border-color: #373b3e;
 }
+
+
 .current-page-active{
   background-color: #666666;
 }
@@ -683,7 +689,9 @@ opacity: 0;
 .vip-award i{
   color: darken(whitesmoke,20%);
 }
-
+.nav-tabs-container {
+  min-width: 952px;
+}
 .nav-tabs .nav-link.active{
   background-color: #212529;
   color: darken(whitesmoke,10%);
@@ -753,5 +761,10 @@ json-node span{
   }
   .section-sign-in .card{
     width: 450px;
+  }
+}
+@media only screen and (max-height: 700px) {
+  .sidebar .nav-link{
+    margin-top: 10px;
   }
 }

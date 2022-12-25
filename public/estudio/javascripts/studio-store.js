@@ -3,12 +3,13 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import axios from 'axios';
-var CellStatus = Object.freeze({
-    "Draft":1,
-    "Online":2,
-    "Offline":3
-});
+
+
+import {CellStatus} from "/common/javascripts/tm-constant.js";
+
+
 const RootComponent = {
     data() {
         return {
@@ -22,6 +23,7 @@ const RootComponent = {
                 param: {
                     code: CellStatus.Online
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.online_pagination.size = response.cells.size;
@@ -29,6 +31,8 @@ const RootComponent = {
                         this.online_pagination.total = response.cells.total;
                         this.online_pagination.pages = response.cells.pages;
                         this.online_pagination.records = response.cells.records;
+                        this.online_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+
                     }
                 }
             }, 
@@ -42,6 +46,7 @@ const RootComponent = {
                 param: {
                     code: CellStatus.Offline
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.offline_pagination.size = response.cells.size;
@@ -49,6 +54,7 @@ const RootComponent = {
                         this.offline_pagination.total = response.cells.total;
                         this.offline_pagination.pages = response.cells.pages;
                         this.offline_pagination.records = response.cells.records;
+                        this.offline_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
                     }
                 }
             },
@@ -62,6 +68,7 @@ const RootComponent = {
                 param: {
                     code: CellStatus.Draft
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.draft_pagination.size = response.cells.size;
@@ -69,6 +76,7 @@ const RootComponent = {
                         this.draft_pagination.total = response.cells.total;
                         this.draft_pagination.pages = response.cells.pages;
                         this.draft_pagination.records = response.cells.records;
+                        this.draft_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
                     }
                 }
             }
@@ -121,6 +129,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
 const studioStorePage = app.mount('#app');
 window.cStore = studioStorePage;
 // init
@@ -148,6 +157,7 @@ async function trashCell(cellId){
 function onOrOffSaleForCell(cellId,code){
     return modifyCellMark(cellId,code);
 }
+
 
 
 function showContent(){

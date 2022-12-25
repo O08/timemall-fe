@@ -2,7 +2,9 @@ import axios from 'axios';
 const SkillComponent = {
     data() {
         return {
-           activeSaveSkillButton: false
+          btn_ctl: {
+            activate_skills_save_btn: false
+          }
         }
     },
     methods: {
@@ -11,20 +13,19 @@ const SkillComponent = {
         },
         removeSkillV(index){
             this.brandProfile.skills.splice(index,1);
+            this.btn_ctl.activate_skills_save_btn= true;
         },
         settingSkillsV(){
           const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
-          settingSkills(brandId,this.brandProfile.skills);
+          this.brandProfile.skills = this.brandProfile.skills.filter(skill=>{
+            return skill.entry;
+          })
+          settingSkills(brandId,this.brandProfile.skills).then(response=>{
+            if(response.data.code==200){
+              this.btn_ctl.activate_skills_save_btn = false;
+            }
+         });
         }
-    },
-    watch: {
-        'brandProfile.skills': {
-          handler(newValue, oldValue) {
-            this.activeSaveSkillButton = true;
-            console.log('numbers正在被侦听')
-          },
-          deep: true
-        },
     }
 }
 async function updateSkillForBrand(brandId,dto){
@@ -38,7 +39,7 @@ function settingSkills(brandId,skills){
     }
 
   }
-  updateSkillForBrand(brandId,dto);
+ return updateSkillForBrand(brandId,dto)
 }
 export default SkillComponent;
 

@@ -52,10 +52,10 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
   font-size: 32px;
   font-weight: bold;
 }
-#cell-define-container textarea
-{
-    height: 80px;
-}
+// #cell-define-container textarea
+// {
+//     height: 80px;
+// }
 
 // file upload
   
@@ -66,6 +66,7 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
  .cover-upload-container img{
     width: 100%;
     object-fit: cover;
+    height: 100%;
 
  }
 
@@ -127,4 +128,18 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
 {
     color: #aaaaaa;
     font-size: 18;
+}
+.td-option{
+    width: 100px;
+}
+
+.pricing-card{
+    background-color: #2f2f2f;
+}
+.add-new-text-container{
+    padding: 10px;
+}
+.add-new-text-container:hover{
+    background-color: #2c3e50;
+    color: darken( #f5f5f6,  30%);
 }

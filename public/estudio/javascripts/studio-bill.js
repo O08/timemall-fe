@@ -6,6 +6,8 @@ import Auth from "/estudio/javascripts/auth.js"
 import {refresh} from "/common/javascripts/pagenav.js";
 import axios from 'axios';
 
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+
 var BillStatus = Object.freeze({
     "Created": 1, // 创建
     "Pending":2, // 未支付
@@ -31,6 +33,7 @@ const RootComponent = {
                 param: {
                     code: BillStatus.Created
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.waitpagination.size = response.bills.size;
@@ -38,6 +41,8 @@ const RootComponent = {
                         this.waitpagination.total = response.bills.total;
                         this.waitpagination.pages = response.bills.pages;
                         this.waitpagination.records = response.bills.records;
+                        this.waitpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+
                     }
                 }
             },
@@ -51,6 +56,7 @@ const RootComponent = {
                 param: {
                     code: BillStatus.Pending
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.pending_pagination.size = response.bills.size;
@@ -58,6 +64,8 @@ const RootComponent = {
                         this.pending_pagination.total = response.bills.total;
                         this.pending_pagination.pages = response.bills.pages;
                         this.pending_pagination.records = response.bills.records;
+                        this.pending_pagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+
                     }
                 }
             },
@@ -71,6 +79,7 @@ const RootComponent = {
                 param: {
                     code: BillStatus.Paid
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.paidpagination.size = response.bills.size;
@@ -78,6 +87,8 @@ const RootComponent = {
                         this.paidpagination.total = response.bills.total;
                         this.paidpagination.pages = response.bills.pages;
                         this.paidpagination.records = response.bills.records;
+                        this.paidpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+
                     }
 
                 }
@@ -123,6 +134,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
 const studioBillPage = app.mount('#app');
 window.cBill= studioBillPage;
 // init 

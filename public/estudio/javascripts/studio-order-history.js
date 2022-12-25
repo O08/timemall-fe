@@ -3,6 +3,8 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
 
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+
 
 
 const RootComponent = {
@@ -17,6 +19,7 @@ const RootComponent = {
                 records: [],
                 param: {
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     // mock data todo: need to remove 
                     // response = mockTransData();
@@ -26,6 +29,7 @@ const RootComponent = {
                         this.transpagination.total = response.transactions.total;
                         this.transpagination.pages = response.transactions.pages;
                         this.transpagination.records = response.transactions.records;
+                        this.transpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             }
@@ -42,6 +46,6 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
-
+app.mixin(BrandInfoComponent);
 const transactionPage = app.mount('#app');
 window.cTransaction= transactionPage;

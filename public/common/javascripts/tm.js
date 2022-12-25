@@ -1,6 +1,6 @@
 import "./import-jquery";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import {goHome,goLoginPage,nextPageWhenLoginSuccess} from "./pagenav.js";
+import {goLoginPage} from "./pagenav.js";
 
 
 

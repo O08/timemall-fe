@@ -5,6 +5,8 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+
 var WorkflowStatus = Object.freeze({
     "InQueue": 1, // 队列中
     "Auditing": 2, // 审计中
@@ -28,6 +30,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Finish
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.finishpagination.size = response.transactions.size;
@@ -35,6 +38,7 @@ const RootComponent = {
                         this.finishpagination.total = response.transactions.total;
                         this.finishpagination.pages = response.transactions.pages;
                         this.finishpagination.records = response.transactions.records;
+                        this.finishpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             },  
@@ -48,6 +52,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Audited
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.confirm_pagination.size = response.transactions.size;
@@ -55,6 +60,7 @@ const RootComponent = {
                         this.confirm_pagination.total = response.transactions.total;
                         this.confirm_pagination.pages = response.transactions.pages;
                         this.confirm_pagination.records = response.transactions.records;
+                        this.confirm_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             },
@@ -68,6 +74,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Starred
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.taskpagination.size = response.transactions.size;
@@ -75,6 +82,7 @@ const RootComponent = {
                         this.taskpagination.total = response.transactions.total;
                         this.taskpagination.pages = response.transactions.pages;
                         this.taskpagination.records = response.transactions.records;
+                        this.taskpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             },
@@ -88,6 +96,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Auditing
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.auditpagination.size = response.transactions.size;
@@ -95,6 +104,7 @@ const RootComponent = {
                         this.auditpagination.total = response.transactions.total;
                         this.auditpagination.pages = response.transactions.pages;
                         this.auditpagination.records = response.transactions.records;
+                        this.auditpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             },
@@ -108,6 +118,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Paused
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.paused_pagination.size = response.transactions.size;
@@ -115,6 +126,7 @@ const RootComponent = {
                         this.paused_pagination.total = response.transactions.total;
                         this.paused_pagination.pages = response.transactions.pages;
                         this.paused_pagination.records = response.transactions.records;
+                        this.paused_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             },
@@ -128,6 +140,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Suspend
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.suspend_pagination.size = response.transactions.size;
@@ -135,6 +148,7 @@ const RootComponent = {
                         this.suspend_pagination.total = response.transactions.total;
                         this.suspend_pagination.pages = response.transactions.pages;
                         this.suspend_pagination.records = response.transactions.records;
+                        this.suspend_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
             }
@@ -149,6 +163,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
 const millstonePage = app.mount('#app');
 window.cMillstone= millstonePage;
 

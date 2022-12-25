@@ -54,7 +54,7 @@
     font-weight: normal;
 }
 .ip-location{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: normal;
     color: #949494;
 }
@@ -73,9 +73,10 @@
     margin-right: 25px;
 }
 }
-.input-box-bg{
+.input-box{
     background-color: #383838;
     border: 1px solid #585858;
+    color: #d3d3d3;
 }
 
 .exeperince-millstone
@@ -125,6 +126,7 @@
 }
 .timeline-item:hover{
     background-color: darken(#2c3e50, 3%);
+    color: darken( #f5f5f6,  30%);
 }
 .circle{
     border-radius: 50%;
@@ -144,14 +146,41 @@
 {
     color:  #fa541c;
 }
-
+.item-setting-x{
+    padding: 1rem;
+}
 .item-setting-x:hover
 {
-    background-color: #2c3e50;
+    background-color: darken(#2c3e50, 12%);
     border-radius: 6rem;
 }
 .btn-upload{
     color: #3887FE;
     text-decoration: none;
     background-color: transparent;
+}
+.tool-container,.item-setting-edit,.item-setting-plus{
+    padding: 10px;
+}
+// .item-setting-edit:hover,.item-setting-plus:hover{
+//     color: darken( #f5f5f6,  30%);
+//     background-color: darken(#2c3e50, 12%);;
+// }
+.tool-container:hover{
+    background-color: darken(#2c3e50, 12%);
+    color: darken( #f5f5f6,  30%);
+}
+.story-wrapper{
+    max-width: 1000px;
+}
+.option-edit-wrapper{
+    position: absolute;
+    right: 30px;
+}
+.item-setting li{
+    padding: .55rem;
+}
+.item-setting li:hover{
+    background-color:  lighten(#dfdbdb, 12%);;
+    color: darken( #f5f5f6,  30%);
 }
