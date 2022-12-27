@@ -4,6 +4,7 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
+
 const RootComponent = {
     data() {
         return {
@@ -16,6 +17,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {},
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.transpagination.size = response.transactions.size;
@@ -23,6 +25,8 @@ const RootComponent = {
                         this.transpagination.total = response.transactions.total;
                         this.transpagination.pages = response.transactions.pages;
                         this.transpagination.records = response.transactions.records;
+                        this.transpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+
                     }
                 }
             }
@@ -42,6 +46,7 @@ const RootComponent = {
             console.log("aaa");
             // Remove already delete element popover ,maybe is bug
             $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
@@ -73,3 +78,5 @@ function showContactInfo(brandId){
     $("#displayModal").modal("show");
 }
 
+ // Enable popovers 
+ $('[data-bs-toggle="popover"]').popover();

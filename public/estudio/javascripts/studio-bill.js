@@ -7,12 +7,8 @@ import {refresh} from "/common/javascripts/pagenav.js";
 import axios from 'axios';
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import {BillStatus} from "/common/javascripts/tm-constant.js";
 
-var BillStatus = Object.freeze({
-    "Created": 1, // 创建
-    "Pending":2, // 未支付
-    "Paid":3 // 已支付
-});
 const RootComponent = {
     data() {
         return {

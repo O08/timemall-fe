@@ -21,6 +21,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jquery": "^3.6.1",
+    "jquery-ui": "^1.13.2",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11",
     "sticky-js": "^1.3.0",

@@ -4,11 +4,8 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
-var BillStatus = Object.freeze({
-    "Created": 1, // 创建
-    "Pending":2, // 未支付
-    "Paid":3 // 已支付
-});
+import {BillStatus} from "/common/javascripts/tm-constant.js";
+
 const RootComponent = {
     data() {
         return {
@@ -25,6 +22,7 @@ const RootComponent = {
                 param: {
                     code: BillStatus.Pending
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.waittingpagination.size = response.bills.size;
@@ -32,6 +30,8 @@ const RootComponent = {
                         this.waittingpagination.total = response.bills.total;
                         this.waittingpagination.pages = response.bills.pages;
                         this.waittingpagination.records = response.bills.records;
+                        this.waittingpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+
                     }
                 }
             },
@@ -45,6 +45,7 @@ const RootComponent = {
                 param: {
                     code: BillStatus.Paid
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.paidpagination.size = response.bills.size;
@@ -52,6 +53,8 @@ const RootComponent = {
                         this.paidpagination.total = response.bills.total;
                         this.paidpagination.pages = response.bills.pages;
                         this.paidpagination.records = response.bills.records;
+                        this.paidpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+
                     }
                 }
             }
@@ -90,6 +93,7 @@ const RootComponent = {
             console.log("aaa");
             // Remove already delete element popover ,maybe is bug
             $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
@@ -162,3 +166,5 @@ function viewReceipt(uri){
     $("#receiptModal").modal("show");
 }
 
+ // Enable popovers 
+ $('[data-bs-toggle="popover"]').popover();

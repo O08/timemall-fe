@@ -3,12 +3,18 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
-
+import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
+import 'jquery-ui/ui/widgets/datepicker.js';
+import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
 
 
 const RootComponent = {
     data() {
+      
         return {
+            btn_ctl:{
+                activate_general_save_btn: false
+            },
             workflow: {
                 millstones: [],
                 serviceInfo: {}
@@ -46,14 +52,45 @@ const RootComponent = {
          },
          loadWorkflowInfoV(){
             loadWorkflowInfo();
+        },
+        transformInputNumberV(event){
+            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
+            var min = Number(event.target.min);
+            var max = Number(event.target.max);
+            event.target.value = transformInputNumber(val, min, max);
+            if(val !== Number(event.target.value)){
+              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
         }
     },
     created() {
+      
+
+    },
+    updated(){
+          // init auto height for textarea
+          [...$("textarea")].forEach(el=>{ 
+            autoHeight(el);
+        })
+        $(function() {
+            // Remove already delete element popover ,maybe is bug
+            $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
+
+            $( ".datepicker" ).datepicker({
+                dateFormat: "yy-mm-dd",
+                duration: "fast",
+            });
+            $( ".datepicker" ).datepicker( $.datepicker.regional[ "zh-CN" ] );
 
     }
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(DirectiveComponent);
 const millstoneEditPage = app.mount('#app');
 window.pMillstoneEdit= millstoneEditPage;
 // init 
@@ -85,7 +122,19 @@ function replaceWorkflow(){
     if(!id){
         return;
     }
-    saveWorkflow(id);
+    saveWorkflow(id).then(response=>{
+        if(response.data.code==200){
+            millstoneEditPage.btn_ctl.activate_general_save_btn = false;
+        }
+    });
 }
 
+// Enable popovers 
+$('[data-bs-toggle="popover"]').popover();
+
+
+
+function transformInputNumber(val,min,max){
+    return val < min ? "" : val > max ? max : val;
+  }
 

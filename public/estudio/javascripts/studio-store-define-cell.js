@@ -1,7 +1,7 @@
 import "/common/javascripts/import-jquery.js";
 
 
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp,ref } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
@@ -11,7 +11,10 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {CellStatus} from "/common/javascripts/tm-constant.js";
 import {goStudioStore} from "/common/javascripts/pagenav.js";
 
+import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
+
 const RootComponent = {
+
     data() {
         return {
             btn_ctl: {
@@ -29,17 +32,6 @@ const RootComponent = {
             },
             introCover: "https://picsum.photos/1100/300",
             agree_check: false
-        }
-    },
-    directives: {
-        autoheight: {
-            // 指令的定义
-            mounted(el) {
-                el.addEventListener("keyup", () => {
-                    autoHeight(el);
-                })
-            }
-            
         }
     },
     methods: {
@@ -113,7 +105,7 @@ const RootComponent = {
     }
 }
 const app = createApp(RootComponent);
-
+app.component('contenteditable', ContentediableComponent)
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
 
@@ -365,12 +357,6 @@ function changeUrlTabWithoutRefreshPage(tab){
     }
 }
 
-
-function autoHeight(elem) {
-    elem.style.height = "auto";
-    elem.scrollTop = 0; // 防抖动
-    elem.style.height = elem.scrollHeight + "px";
-}
 
 function transformInputNumber(val,max){
     return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val === '0.0' ? val : Number(val);

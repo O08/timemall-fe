@@ -4,6 +4,7 @@
     min-height: 2.5rem;
     border: none;
     min-width: 400px;
+    color: #d3d3d3;
 }
 .option-remove {
     padding: 5px;
@@ -33,3 +34,15 @@
 .option-remove:hover,.json-item-node:hover{
     background-color: darken(#2c3e50, 9%);
 }
+
+.dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+    display: inline-block;
+    vertical-align: super;
+ }
+ .dot-red{
+    background-color: #fa541c;
+ }

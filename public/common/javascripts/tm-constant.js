@@ -23,5 +23,10 @@ var WorkflowStatus = Object.freeze({
     "Paused": 6, // 停止
     "Finish": 7 // 已经完成
 });
+var BillStatus = Object.freeze({
+    "Created": 1, // 创建
+    "Pending":2, // 未支付
+    "Paid":3 // 已支付
+});
 
-export {PriceSbu, CellStatus,WorkflowStatus} ;
+export {PriceSbu, CellStatus,WorkflowStatus,BillStatus} ;

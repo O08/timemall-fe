@@ -4,16 +4,9 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
+import {WorkflowStatus} from "/common/javascripts/tm-constant.js";
 
-var WorkflowStatus = Object.freeze({
-    "InQueue": 1, // 队列中
-    "Auditing": 2, // 审计中
-    "Audited": 3, // 审计完成
-    "Starred": 4, // 已定稿，履约中
-    "Suspend": 5, // 中止
-    "Paused": 6, // 停止
-    "Finish": 7 // 已经完成
-});
+
 
 const RootComponent = {
     data() {
@@ -28,6 +21,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.InQueue
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.transpagination.size = response.workflows.size;
@@ -35,6 +29,8 @@ const RootComponent = {
                         this.transpagination.total = response.workflows.total;
                         this.transpagination.pages = response.workflows.pages;
                         this.transpagination.records = response.workflows.records;
+                        this.transpagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             },
@@ -48,6 +44,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Auditing
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.auditing_pagination.size = response.workflows.size;
@@ -55,6 +52,8 @@ const RootComponent = {
                         this.auditing_pagination.total = response.workflows.total;
                         this.auditing_pagination.pages = response.workflows.pages;
                         this.auditing_pagination.records = response.workflows.records;
+                        this.auditing_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             },
@@ -68,6 +67,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Audited
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.confirm_pagination.size = response.workflows.size;
@@ -75,6 +75,8 @@ const RootComponent = {
                         this.confirm_pagination.total = response.workflows.total;
                         this.confirm_pagination.pages = response.workflows.pages;
                         this.confirm_pagination.records = response.workflows.records;
+                        this.confirm_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             },
@@ -88,6 +90,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Starred
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.starredTranspagination.size = response.workflows.size;
@@ -95,6 +98,8 @@ const RootComponent = {
                         this.starredTranspagination.total = response.workflows.total;
                         this.starredTranspagination.pages = response.workflows.pages;
                         this.starredTranspagination.records = response.workflows.records;
+                        this.starredTranspagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             },
@@ -108,6 +113,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Paused
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.paused_pagination.size = response.workflows.size;
@@ -115,6 +121,8 @@ const RootComponent = {
                         this.paused_pagination.total = response.workflows.total;
                         this.paused_pagination.pages = response.workflows.pages;
                         this.paused_pagination.records = response.workflows.records;
+                        this.paused_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             },
@@ -128,6 +136,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Suspend
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.suspend_pagination.size = response.workflows.size;
@@ -135,6 +144,8 @@ const RootComponent = {
                         this.suspend_pagination.total = response.workflows.total;
                         this.suspend_pagination.pages = response.workflows.pages;
                         this.suspend_pagination.records = response.workflows.records;
+                        this.suspend_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             },
@@ -148,6 +159,7 @@ const RootComponent = {
                 param: {
                     code: WorkflowStatus.Finish
                 },
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.finish_pagination.size = response.workflows.size;
@@ -155,6 +167,8 @@ const RootComponent = {
                         this.finish_pagination.total = response.workflows.total;
                         this.finish_pagination.pages = response.workflows.pages;
                         this.finish_pagination.records = response.workflows.records;
+                        this.finish_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+
                     }
                 }
             }
@@ -202,6 +216,7 @@ const RootComponent = {
         $(function() {
             // Remove already delete element popover ,maybe is bug
             $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
@@ -291,4 +306,7 @@ function showTabContent(){
 }
 
 showTabContent();
+
+ // Enable popovers 
+ $('[data-bs-toggle="popover"]').popover();
 

@@ -15,6 +15,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {},
+                paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.transpagination.size = response.transactions.size;
@@ -22,6 +23,8 @@ const RootComponent = {
                         this.transpagination.total = response.transactions.total;
                         this.transpagination.pages = response.transactions.pages;
                         this.transpagination.records = response.transactions.records;
+                        this.transpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+
                     }
                 }
             }
