@@ -5,7 +5,7 @@ import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
 import {BillStatus} from "/common/javascripts/tm-constant.js";
-
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 const RootComponent = {
     data() {
         return {
@@ -80,6 +80,9 @@ const RootComponent = {
         reloadTable(){
             this.reloadPage(this.waittingpagination);
             this.reloadPage(this.paidpagination);
+        },
+        closeReceiptModalHandlerV(){
+            closeReceiptModalHandler();
         }
         
     },
@@ -102,6 +105,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(DirectiveComponent);
 const billPage = app.mount('#app');
 window.pBill= billPage;
 
@@ -166,5 +170,11 @@ function viewReceipt(uri){
     $("#receiptModal").modal("show");
 }
 
+
+// close modal handler
+function closeReceiptModalHandler(){
+    document.querySelector('#receiptPreview').src = "";
+    document.querySelector('#receiptFile').value = null;
+}
  // Enable popovers 
  $('[data-bs-toggle="popover"]').popover();

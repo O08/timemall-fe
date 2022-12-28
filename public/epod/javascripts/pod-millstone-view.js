@@ -3,11 +3,12 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
-
+import defaultAvatarImage from '/avator.webp'
 
 const RootComponent = {
     data() {
         return {
+            defaultAvatarImage,
             workflow: {
                 serviceInfo: {}
             }

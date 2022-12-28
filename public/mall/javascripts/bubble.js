@@ -83,7 +83,7 @@ function getBrandMutipleCell(param){
       brandId: getQueryVariable("brand_id"),
       sbu: 'day',
       current: 1,
-      size: 2
+      size: 12
     }
    }
 

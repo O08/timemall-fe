@@ -12,7 +12,7 @@ import {CellStatus} from "/common/javascripts/tm-constant.js";
 import {goStudioStore} from "/common/javascripts/pagenav.js";
 
 import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
-
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 const RootComponent = {
 
     data() {
@@ -108,6 +108,7 @@ const app = createApp(RootComponent);
 app.component('contenteditable', ContentediableComponent)
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
+app.mixin(DirectiveComponent);
 
 const defineCellPage = app.mount('#app');
 window.cDefineCell= defineCellPage;
@@ -146,12 +147,12 @@ async function saveCellCoverImg(cellId, files){
 
 async function savePricingInfo(cellId,pricing){
     const url = "/api/v1/web_estudio/service/{cell_id}/define/pricing".replace("{cell_id}",cellId);
-    return await axios.put(url,{pricing})  
+    return await axios.put(url,{pricing});  
 }
 
 async function saveCellIntroContent(cellId,content){
     const url = "/api/v1/web_estudio/services/{cell_id}/intro/content".replace("{cell_id}",cellId);
-    return await axios.put(url,{content})  
+    return await axios.put(url,{content});  
 }
 
 async function saveCellIntroBannerImg(cellId,files){
@@ -167,8 +168,8 @@ async function saveCellIntroBannerImg(cellId,files){
  */
  async function modifyCellMark(cellId,code){
     var url = "/api/v1/web_estudio/services/{cell_id}/mark".replace("{cell_id}",cellId);
-    url= url + "?code=" + code
-    return await axios.put(url)
+    url= url + "?code=" + code;
+    return await axios.put(url);
 } 
 
 async function defineCellOverview(){

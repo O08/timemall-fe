@@ -8,10 +8,12 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 import {WorkflowStatus} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
+import defaultAvatarImage from '/avator.webp'
 
 const RootComponent = {
     data() {
         return {
+            defaultAvatarImage,
             workflow: {
                 serviceInfo: {}
             }

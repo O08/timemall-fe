@@ -120,7 +120,8 @@ const RootComponent = {
     updated(){
         
         $(function() {
-        
+            $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });

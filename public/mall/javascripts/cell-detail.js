@@ -3,15 +3,23 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import {goHome,goLoginPage,goBackAndReload} from "/common/javascripts/pagenav.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
-import defaultExperienceImage from '/common/images/default-experience.jpg'
+
 
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import defaultAvatarImage from '/avator.webp'
+import defaultBrandBannerImage from '/common/images/default-brand-banner.jpg'
+import defaultExperienceImage from '/common/images/default-experience.jpg'
 const RootComponent = {
     data() {
         return {
+            defaultAvatarImage,
             defaultExperienceImage,
-            profile: {},
+            defaultBrandBannerImage,
+            profile: {
+                content:[]
+            },
             selectedSbu: '',
             total: 0,
             quantity: ""
@@ -26,11 +34,12 @@ const RootComponent = {
             getIntroInfoForCell(cellId).then(response=>{
                 if(response.data.code == 200){
                     this.profile = response.data.profile;
+                    if(!this.profile.content){
+                        this.profile.content = []
+                    }
                 }
             });
-            if(!this.profile.content){
-                this.profile.content = []
-            }
+            
         },
         orderNowV(){
             orderNow()
@@ -89,7 +98,7 @@ const SellerComponent = {
 const app = createApp(RootComponent);
 app.mixin(SellerComponent);
 app.mixin(new Auth({need_permission : false}));
-
+app.mixin(DirectiveComponent);
 const cellDetailPage = app.mount('#app');
 
 

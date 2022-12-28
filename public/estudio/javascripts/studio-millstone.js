@@ -155,6 +155,8 @@ const RootComponent = {
         }
     },
     updated(){
+        $('[data-popper-reference-hidden]').remove();
+        $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
         // Enable popovers 
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))

@@ -7,19 +7,20 @@
 .section-payway-info .card-body{
     min-height: 200px;
 }
-.display-dialog-header-bg{
-    background-color: #6c757d;
-    border-bottom: #112629 1px solid;
-}
-.display-dialog-body-bg{
-    background-color: #112629;
-}
+
 .card-body-bg{
     background-color: darken(#112629,10%);
 }
-.pay-card-body-bg{
-    background: #112629;
-    }
 
+
+
+.pay-binary-code img {
+    object-fit: cover;
+    width: 100%;
+}
+.pay-binary-code, .pay-binary-code img {
+    max-width: 18rem;
+    height: 180px;
+}
 
 

@@ -312,7 +312,7 @@
                     <div class="card-body ">
                       <h5 class="card-title">支付宝支付二维码</h5>
                       <div class="pay-binary-code dropzone-wrapper">
-                        <img id="lastestAlipay" v-if="payway.aliPay" :src="payway.aliPay">
+                        <img id="lastestAlipay" :src="payway.aliPay">
                         <div class="dropzone-desc">
                           <i class="bi bi-cloud-plus"></i>
                         </div>
@@ -326,7 +326,7 @@
                     <div class="card-body ">
                       <h5 class="card-title">微信支付二维码</h5>
                       <div class="pay-binary-code dropzone-wrapper">
-                        <img id="lastestWechatPay" v-if="payway.wechatPay" :src="payway.wechatPay">
+                        <img id="lastestWechatPay"  :src="payway.wechatPay">
                         <div class="dropzone-desc">
                           <i class="bi bi-cloud-plus"></i>
                         </div>
@@ -349,15 +349,15 @@
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="viewReceiptModalLabel">收据预览</h1>
-                  <button type="button" id="closeviewReceiptModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button"  id="closeviewReceiptModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">
                   <div class="banner-upload-container">
-                    <img id="receiptPreview">
+                    <img id="receiptPreview" onerror="this.style.display='none'">
                   </div>
                 </div>
                 <div class="modal-footer btn-light">
-                  <a href="#" id="link-download-receipt">下载收据</a>
+                  <a href="#" id="link-download-receipt" class="text-decoration-none">下载收据</a>
                 </div>
               </div>
             </div>
@@ -366,12 +366,12 @@
         <!--  View alipay code-->
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fade" id="viewAlipayModal" tabindex="-1">
+          <div class="modal fade" id="viewAlipayModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  alipay-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="viewAlipayModalLabel">扫码支付预览</h1>
-                  <button type="button" id="closeviewAlipayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" @click="closeviewAlipayModalHandlerV"  id="closeviewAlipayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">
                   <div class="payway-upload-container pay-binary-code">
@@ -388,12 +388,12 @@
         <!--  View alipay code-->
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fade" id="viewWechatpayModal" tabindex="-1">
+          <div class="modal fade" id="viewWechatpayModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  wechat-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="viewWechatpayModalLabel">扫码支付预览</h1>
-                  <button type="button" id="closeViewWechatpayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" @click="closeViewWechatpayModalHandlerV"  id="closeViewWechatpayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">
                   <div class="payway-upload-container pay-binary-code">

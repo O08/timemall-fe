@@ -9,6 +9,7 @@ import axios from 'axios';
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {BillStatus} from "/common/javascripts/tm-constant.js";
 
+
 const RootComponent = {
     data() {
         return {
@@ -119,6 +120,12 @@ const RootComponent = {
         },
         loadBrandPaywayV(){
             getBrandPayway();
+        },
+        closeViewWechatpayModalHandlerV(){
+            closeViewWechatpayModalHandler();
+        },
+        closeviewAlipayModalHandlerV(){
+            closeviewAlipayModalHandler();
         }
     },
     created() {
@@ -259,6 +266,15 @@ function wechatpaySetting(){
          $('#wechatpayPreview').attr('src',"");
         }
     })
+}
+// close modal handler
+function closeviewAlipayModalHandler(){
+    document.querySelector('#alipayPreview').src = "";
+    document.querySelector('#alipayCodeFile').value = null;
+}
+function closeViewWechatpayModalHandler(){
+    document.querySelector('#wechatpayPreview').src = "";
+    document.querySelector('#wechatPayCodeFile').value = null;
 }
 
 

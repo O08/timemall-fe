@@ -170,7 +170,7 @@
                           </label>
                           <div class="col-sm-8">
                             <div class="cover-upload-container dropzone-wrapper">
-                              <img v-if="overview.cover" id="lastestCover" :src="overview.cover">
+                              <img  id="lastestCover" :src="overview.cover" >
                               <div class="dropzone-desc">
                                 <i class="bi bi-cloud-plus"></i>
                               </div>
@@ -180,7 +180,7 @@
                             
                           </div>
                         </div>                        
-                        <button type="submit" @click="defineCellOverviewV" 
+                        <button type="submit" v-preventreclick @click="defineCellOverviewV" 
                         :class="{'disabled': !btn_ctl.activate_general_save_btn || !overview.title, 
                         'btn-primary': btn_ctl.activate_general_save_btn && overview.title,
                         'btn-secondary': !btn_ctl.activate_general_save_btn || !overview.title}"
@@ -243,7 +243,7 @@
                           
                         </div>
                         <div class="card-footer text-start">
-                          <button type="submit" @click="defineCellPricingV" 
+                          <button type="submit" v-preventreclick @click="defineCellPricingV" 
                           :class="{'disabled': !btn_ctl.activate_pricing_save_btn, 
                           'btn-primary': btn_ctl.activate_pricing_save_btn,
                           'btn-secondary': !btn_ctl.activate_pricing_save_btn}"
@@ -263,15 +263,15 @@
                     <div class="accordion-body">
                       <section class="section-seller-banner dropzone-wrapper">                
                         <div class="brand-intro-cover-container">
-                          <div class="alert box-bg-primary alert-dismissible fade show position-absolute end-0 mx-5 my-5" role="alert">
-                            Upload a photo to help your Service stand out
+                          <div class="alert box-bg-primary z-index-2 alert-dismissible fade show position-absolute end-0 mx-5 my-5" role="alert">
+                           上传图片以展示服务特色
                             <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="alert"></button>
                           </div>
                           <div class="position-absolute end-0 my-4 me-5">
                             <i class="bi bi-camera"></i>
                           </div>
                           <div class="cell-intro-cover">
-                            <img v-if="introCover" id="lastestBanner" :src="introCover">
+                            <img  id="lastestBanner" :src="introCover">
                           </div>
                         </div>
                         <input @change="previewCellIntroBannerV($event)" type="file" id="intro-banner-file" class="dropzone">
@@ -307,7 +307,7 @@
                         </div>
                       </section>
                       <div class="text-start my-3">
-                        <button type="submit" 
+                        <button type="submit" v-preventreclick
                         :class="{'disabled': !btn_ctl.activate_intro_save_btn, 
                           'btn-primary': btn_ctl.activate_intro_save_btn,
                           'btn-secondary': !btn_ctl.activate_intro_save_btn}"
@@ -341,7 +341,7 @@
                         </div>
                       </div>
                       <div class="text-start my-3">
-                        <button 
+                        <button v-preventreclick
                         :class="{'disabled': !agree_check, 
                         'btn-primary': agree_check,
                         'btn-secondary': !agree_check}"
@@ -365,7 +365,7 @@
         <div class="modal-container">
           
           <!-- Modal -->
-          <div class="modal fade" id="overviewCoverModal" tabindex="-1">
+          <div class="modal fade" id="overviewCoverModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
@@ -378,7 +378,7 @@
                   </div>
                 </div>
                 <div class="modal-footer btn-light">
-                  <button @click="uploadCellCoverV" type="button" id="btn-save-cover" class="btn btn-primary">设置为服务封面</button>
+                  <button @click="uploadCellCoverV" v-preventreclick type="button" id="btn-save-cover" class="btn btn-primary">设置为服务封面</button>
                 </div>
               </div>
             </div>
@@ -386,12 +386,12 @@
         </div>
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fade" id="introBannerModal" tabindex="-1">
-            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal fade" id="introBannerModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="introBannerModalLabel">横幅预览</h1>
-                  <button type="button" id="closeIntroBannerModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" @click="closeIntroBannerModalHandlerV"  id="closeIntroBannerModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">
                   <div class="banner-upload-container">
@@ -399,7 +399,7 @@
                   </div>
                 </div>
                 <div class="modal-footer btn-light">
-                  <button @click="uploadCellIntroBannerV" type="button" id="btn-save-banner" class="btn btn-primary">设置为服务介绍横幅</button>
+                  <button @click="uploadCellIntroBannerV" v-preventreclick type="button" id="btn-save-banner" class="btn btn-primary">设置为服务介绍横幅</button>
                 </div>
               </div>
             </div>

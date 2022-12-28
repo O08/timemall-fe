@@ -62,6 +62,7 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
  .cover-upload-container {
     height: 200px;
     width: 200px;
+    border: 2px dashed #91b0b3;
  }
  .cover-upload-container img{
     width: 100%;
@@ -117,7 +118,8 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
 .banner-upload-container, .banner-upload-container img
 {
     max-width: 1000px;
-    max-height: 300px;
+    height: 300px;
+    border: 2px dashed #91b0b3;
 }
 .banner-upload-container img
 {

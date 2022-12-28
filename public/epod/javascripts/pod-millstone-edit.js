@@ -6,12 +6,13 @@ import axios from 'axios';
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 import 'jquery-ui/ui/widgets/datepicker.js';
 import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
-
+import defaultAvatarImage from '/avator.webp'
 
 const RootComponent = {
     data() {
       
         return {
+            defaultAvatarImage,
             btn_ctl:{
                 activate_general_save_btn: false
             },

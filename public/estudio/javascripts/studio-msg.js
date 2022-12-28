@@ -33,6 +33,9 @@ const RootComponent = {
         },
         activeSaveContactBtn(){
             this.contact_already_change = true;
+        },
+        closewechatQrModalHandlerV(){
+            closewechatQrModalHandler();
         }
          
     }
@@ -113,4 +116,9 @@ function settingContact(contact){
     dto.phone = contact.phone;
     dto.email = contact.email;
     saveContactInfo(brandId,dto)
+}
+// close modal handler
+function closewechatQrModalHandler(){
+    document.querySelector('#wechatQrPreview').src = "";
+    document.querySelector('#wechatQrFile').value = null;
 }

@@ -158,7 +158,7 @@
                       <h3>供应商</h3>
                       <div class="d-flex justify-content-start align-items-center mx-2">
                           <div class="brand-portrait">
-                            <img class="brand-avator" :src="workflow.serviceInfo.avatar">
+                            <img class="brand-avator" :src="workflow.serviceInfo.avatar || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                           </div>
                           <h6 class="brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
                       </div>

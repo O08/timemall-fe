@@ -36,7 +36,6 @@ import {goLoginPage} from "./pagenav.js";
  var inter;
  var count = 60; // 一般10或30或60s
 function showCount() {
-     console.log(count);
     $(".qrcode").text(count + "S");
     count--;
     if (count < 0) {

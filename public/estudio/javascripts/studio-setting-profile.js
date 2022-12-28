@@ -5,7 +5,8 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import defaultExperienceImage from '/common/images/default-experience.jpg'
-
+import defaultBrandBanner from '/common/images/default-brand-banner.jpg'
+import defaultAvatarImage from '/avator.webp'
 const RootComponent = {
 
     data() {
@@ -15,8 +16,8 @@ const RootComponent = {
                 activate_general_save_btn: false
             },
             brand: {
-                avator: "https://picsum.photos/900/300",
-                banner: "https://picsum.photos/60/60"
+                avator: defaultAvatarImage,
+                banner: defaultBrandBanner
             },
             identity: {},
             brandProfile: {

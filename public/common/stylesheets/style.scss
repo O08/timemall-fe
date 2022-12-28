@@ -898,3 +898,37 @@ json-node span{
 }
 
 
+img:after {  
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2F2F2F;
+  font-family: 'Helvetica';
+  font-weight: 300;
+  line-height: 2;  
+  text-align: center;
+  content: attr(alt);
+}
+.z-index-2{
+  z-index: 2;
+}
+
+  /*----------------------------------------------------
+    18. modal
+------------------------------------------------------*/
+.display-dialog-header-bg{
+  background-color: #6c757d;
+  border-bottom: #112629 1px solid;
+}
+.display-dialog-body-bg{
+  background-color: #112629;
+}
+.display-dialog-footer-bg{
+  background-color: lighten(#112629,3%);
+}
+.pay-card-body-bg{
+  background: #112629;
+}
