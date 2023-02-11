@@ -137,7 +137,7 @@ mall-app header{
     font-weight: 700;
     font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
 }
-.service-brand-name{
+.service-brand-name,.service-brand-blue{
   font-size: 12px;
   line-height: 20px;
   -webkit-line-clamp: 2;
@@ -148,4 +148,9 @@ mall-app header{
     vertical-align: middle;
     font-weight:400;
     font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
+}
+.service-brand-blue{
+  background-color: #75acfe;
+  border-radius: 2px;
+  filter: grayscale(0.2);
 }

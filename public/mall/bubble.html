@@ -75,6 +75,7 @@
           <div class="d-flex portrait align-items-center my-4">
             <img class="service-brand" :src="homeInfo.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
             <span class="service-brand-name mx-1">{{homeInfo.brand}}</span>
+            <span v-show="homeInfo.enableBlue" class="service-brand-blue mx-2 px-2">尊享蓝标</span>
           </div>
           
         </section>
@@ -106,7 +107,7 @@
                         <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                         <div class="card-body">
                           <p class="card-text mt-2">
-                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id" class="url-link">
+                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
                               {{cell.title}}
                             </a>
                           </p>
@@ -139,7 +140,7 @@
                         <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                         <div class="card-body">
                           <p class="card-text mt-2">
-                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id" class="url-link">
+                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
                               {{cell.title}}
                             </a>
                           </p>

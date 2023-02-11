@@ -1,0 +1,25 @@
+.product-img {
+    display: block;
+}
+.product-img svg{
+    width: 10rem;
+    height: 10rem;
+}
+.product-desc-container{
+    background-color: #383838;
+    height: 2.5rem;
+}
+.product-container{
+    width: 13rem;
+    height: 13rem;
+}
+.product-unavailable{
+    filter: grayscale(0.4);
+}
+.display-dialog-header-buy-bg,.display-dialog-body-buy-bg,.display-dialog-footer-buy-bg {
+    background: rgba(0, 0, 0, 0.906);
+    opacity: 0.9;
+}
+
+
+
