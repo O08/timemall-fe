@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
-    <title>变现 - E-Studio</title>
+    <title>商城 - E-Studio</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/studio-shop.scss">
@@ -125,10 +125,12 @@
           </div>
           <section class="section-product-list">
             <div class="card product-blue-sign border-0 cell-card-body-bg" style="width: 18rem;"
-             :class="{ 'product-unavailable': enableBluesignV}">
+             :class="{ 'product-unavailable': enableBluesignV()}">
                 <div class="card-body px-0 pb-0">
                   <div class="title-container d-flex justify-content-between">
-                    <h5 v-show="enableBluesignV" class="card-title ps-3">剩余{{getDaysBetweenV(new Date() ,product_bluesign.blueEndAt)}}天</h5>
+                    <div>
+                      <h5 v-show="enableBluesignV()" class="card-title ps-3">剩余{{getDaysBetweenV(new Date() ,product_bluesign.blueEndAt) + 1 }}天</h5>
+                    </div>
                     <button type="button" class="btn help-text" data-bs-toggle="modal" data-bs-target="#blueSignIntroModal">
                       <i class="bi bi-question-circle"></i>
                     </button>

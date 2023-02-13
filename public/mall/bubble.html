@@ -75,7 +75,7 @@
           <div class="d-flex portrait align-items-center my-4">
             <img class="service-brand" :src="homeInfo.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
             <span class="service-brand-name mx-1">{{homeInfo.brand}}</span>
-            <span v-show="homeInfo.enableBlue" class="service-brand-blue mx-2 px-2">尊享蓝标</span>
+            <span v-show="Number(homeInfo.enableBlue)" class="service-brand-blue mx-2 px-2">尊享蓝标</span>
           </div>
           
         </section>

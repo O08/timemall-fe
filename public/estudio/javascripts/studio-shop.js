@@ -28,7 +28,7 @@ const RootComponent = {
             return getDaysBetween(begainDate,endDate);
         },
         enableBluesignV(){
-            Date.parse(this.product_bluesign.blueEndAt) > new Date().getTime() 
+            return Date.parse(this.product_bluesign.blueEndAt) > new Date().getTime() ;
         }
     }
 }
@@ -79,7 +79,7 @@ shopPage.init();
 // dom relative control
 $(".product-blue-sign .product-img").on("click",()=>{
     
-    if(shopPage.enableBluesignV){
+    if(shopPage.enableBluesignV()){
         return
     }
     $("#blueSignBuyModal").modal("show");
