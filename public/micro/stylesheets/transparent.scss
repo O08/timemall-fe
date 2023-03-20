@@ -1,0 +1,22 @@
+.nav-oasis-container{
+    height: 120px;
+}
+.transparent-category{
+    display: inline-block;
+    margin-bottom: 0;
+}
+.transparent-category li{
+    text-decoration: none;
+    display: inline-block;
+
+}
+.transparent-category-item{
+    width:66px;
+    height: 30px;
+}
+.transparent-category-item:hover{
+    background: #000;
+    border-radius: 2px;
+    color: white;
+
+}

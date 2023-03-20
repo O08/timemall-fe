@@ -1,0 +1,13 @@
+.kanban-container{
+    margin-top: 160px;
+}
+.kanban-link-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+}
+.kanban-link-item:hover {
+    opacity: 0.8;
+    color: #fff;
+}

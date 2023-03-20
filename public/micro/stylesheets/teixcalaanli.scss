@@ -1,0 +1,23 @@
+
+.feed-item-collapse::before{
+    content: "\f285";
+    margin-right: 5px;
+}
+.feed-item-collapse,.feed-item-collapse::before{
+    color: #616161;
+}
+.collapse-ctl:not([aria-expanded="false"]) {
+    .feed-item-collapse::before{
+        content: "\f282";
+    }
+  }
+  .oasis-avatar-tiny{
+    width: 36px;
+    height: 36px;
+  }
+.nav-link .link-title{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

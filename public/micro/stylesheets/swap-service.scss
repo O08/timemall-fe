@@ -1,0 +1,21 @@
+col-content{
+    overflow-y: scroll;
+}
+.category-bar-container .nav-link.active svg path{
+    fill:rgba(255, 255, 255, .7);
+}
+.category-bar-container .nav-link.active{
+ color: rgba(255, 255, 255, .7);;
+}
+.category-bar-container .nav-link:not(.active){
+    color: #545454;
+}
+.package-section{
+    margin-left: 10px;
+}
+.package-card-container{
+    background-color: #2e2e2e9d;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+}

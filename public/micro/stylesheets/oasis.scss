@@ -1,0 +1,50 @@
+.nav-item{
+    border-radius: 0;
+}
+.nav-item.active{
+    border-bottom: 4px #5390EC solid;
+}
+.nav-item .nav-link{
+    height: 100%;
+}
+.hero-container{
+    background: linear-gradient(180deg, #68A4FD 0%, rgba(152, 193, 255, 0.1) 100%);
+    height: 300px;
+    position: relative;
+  }
+  .oasis-avatar{
+    width: 160px;
+    height: 160px;
+  }
+  .hero-info{
+    position:absolute;
+    bottom:20px;
+    left: 60px;
+  }
+  .nav-oasis-container{
+    background: linear-gradient(180deg, #3E444E 8.28%, rgba(66, 73, 85, 0.29) 100%);
+    height: 80px;
+  }
+  .nav-oasis-container ul,.navbar-wrapper ul{
+    margin-left: 60px;
+  }
+  body {
+    position: relative; 
+}
+col-content{
+    overflow-y: scroll;
+}
+.nav-oasis-container{
+    z-index: 1044;
+    position: sticky;
+    top: 0;
+}
+#nav-announce{
+    z-index: 1044;
+    position: sticky;
+    top: 128px;
+    min-width: 200px;
+}
+.info-container{
+    width: 100%;
+}

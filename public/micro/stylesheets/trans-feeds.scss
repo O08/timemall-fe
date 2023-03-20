@@ -1,0 +1,19 @@
+.filter{
+    width: 200px;
+}
+.filter_btn{
+    /* background-color: #393838; */
+    font-size: 1rem;
+    font-weight: 700;
+    width: 120px;
+    border-radius: 2px;
+    color: white;
+    margin-bottom: 36px;
+    border: none;
+    text-align: center;
+     /* 清除默认的箭头样式 */
+     appearance: none;
+     -moz-appearance: none;
+     -webkit-appearance: none;
+     background: #393838 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='white'  d='m2 5 6 6 6-6'/></svg>") no-repeat right 1rem center/12px 12px !important;
+  }

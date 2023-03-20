@@ -932,3 +932,100 @@ img:after {
 .pay-card-body-bg{
   background: #112629;
 }
+
+  /*----------------------------------------------------
+    19. micro layout
+------------------------------------------------------*/
+col-nav-main{
+  background-color: #000000;
+  height: 100vh;
+  width: 80px;
+}
+col-nav-sub{
+  background-color: #141414;
+  height: 100vh;
+  width: 260px;
+}
+col-content{
+  background-color: #1A1A1A;
+  height: 100vh;
+  width: calc(100% - 240px);
+}
+.micro-logo:hover{
+ background-color: #95bcf24d;
+ border-radius: 5px;
+}
+.nav-item-default{
+  padding: 5px;
+  border-radius: 30px;
+  height: 46px;
+  width: 48px;
+  margin-top: 10px;
+  background-color: rgba(45, 44, 44, 0.9);
+}
+.nav-item-active{
+  border-radius: 12px;
+  padding: 2px;
+}
+.nav-discovery-active{
+  background-color: #108b39;
+}
+.nav-discovery:hover{
+  background-color: #108b39;
+  border-radius: 5px;
+}
+.nav-teixcalaanli-active{
+  background-color: #009688;
+}
+.nav-teixcalaanli:hover{
+  background-color: #009688;
+  border-radius: 5px;
+}
+.nav-link-active{
+  background-color: #1b69dd;
+  border-radius: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.nva-link-default{
+  color: #616161;
+}
+.nva-link-default:hover,.nav-sub-link-active{
+  background-color: rgba(45, 44, 44, 0.9);
+  color: rgba(255, 255, 255, .7);
+  border-radius: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.nav-link-default:hover svg path{
+  fill:rgba(255, 255, 255, .7);
+}
+.nav-link{
+  font-weight: 800;
+}
+.nav-plus-active{
+  background-color: #2d6aa48f;
+}
+.nav-plus:hover{
+  background-color: #2d6aa48f;
+  border-radius: 5px;
+}
+
+
+// swap-service.html
+.category-bar-container{
+  margin-top: 160px;
+}
+.btn-option-primary-micro{
+  width: 200px;
+  height: 50px;
+  background-color: #2D6BA4;
+  border-radius: 50px;
+}
+.btn-option-secondary-micro{
+  width: 200px;
+  height: 50px;
+  background-color: #2d6aa476;
+  border-radius: 50px;
+  color: #fff;
+}
