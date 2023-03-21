@@ -52,9 +52,13 @@
             <span class="bi feed-item-collapse">组队请求</span>
           </a>
           <div class="collapse" id="collapseExample">
-            <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+            <!-- <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
               <img class="oasis-avatar-tiny" src="/avator.webp">  
               <span>人才</span>  
+            </a> -->
+            <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+              <img class="oasis-avatar-tiny" src="/avator.webp">  
+              <span>{{invite.title}}</span>  
             </a>
           </div>
           <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -69,9 +73,13 @@
               </svg>              
             <div class="link-title ms-2">账户</div>  
           </a>
-          <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
+          <!-- <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+          </a> -->
+          <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
         
@@ -93,15 +101,15 @@
                     </tr>
                   </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="record in distribution.records">
                     <td>
-                        太保
+                        {{record.item}}
                     </td>
-                    <td>5500</td>
+                    <td>{{record.val}}</td>
                     <td>
-                        38.66%
+                        {{record.rate}}
                     </td>
-                    <td>200</td>
+                    <td>{{record.drawable}}</td>
                   </tr>
                 </tbody>
               </table>

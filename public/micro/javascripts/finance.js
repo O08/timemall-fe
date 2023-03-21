@@ -8,8 +8,8 @@ const RootComponent = {
     data() {
       return {
         billboard: {
-            totalIn: "",
-            totalOut: ""
+            amount: "",
+            drawable: ""
         }
       }
     },
@@ -26,6 +26,8 @@ app.mixin(TeicallaanliSubNavComponent);
 const teamFinance = app.mount('#app');
 
 window.teamFinance = teamFinance;
+// init 
+teamFinance.loadFinanceBoardV();
 
 async function getFinanceBillBoard(){
     const url = "/api/v1/team/finance_board";

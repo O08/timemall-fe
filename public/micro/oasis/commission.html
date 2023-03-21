@@ -55,9 +55,13 @@
           <span class="bi feed-item-collapse">组队请求</span>
         </a>
         <div class="collapse" id="collapseExample">
-          <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+          <!-- <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <span>人才</span>  
+          </a> -->
+          <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <span>{{invite.title}}</span>  
           </a>
         </div>
         <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -72,9 +76,13 @@
             </svg>              
           <div class="link-title ms-2">账户</div>  
         </a>
-        <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/oasis.html">
+        <!-- <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/oasis.html">
           <img class="oasis-avatar-tiny" src="/avator.webp">  
           <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+        </a> -->
+        <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+          <img class="oasis-avatar-tiny" src="/avator.webp">  
+          <div class="link-title ms-2">{{oasis.title}}</div>  
         </a>
       </div>
       
@@ -84,25 +92,25 @@
     <col-content>
     <div class="hero-container">
       <div class="hero-info d-flex flex-row align-items-baseline">
-          <div>
-            <img class="oasis-avatar" src="/avator.webp">
-          </div>
-         <div class="ms-4">
-          <h4>将世界创意变为现实</h4>
-          <span>构建繁荣、遍布机会的数字空间。</span>
-         </div>
+        <div>
+          <img class="oasis-avatar" src="/avator.webp">
+        </div>
+       <div class="ms-4">
+        <h4>{{announce.title}}</h4>
+        <span>{{announce.subTitle}}</span>
+       </div>
       </div>
-  </div>
+    </div>
   <div class="nav-oasis-container">
     <ul class="nav border-0 h-100">
       <li class="nav-item" role="presentation">
-        <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis.html">宣传</a>
+        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis.html?oasis_id='+oasisId">宣传</a>
       </li>
       <li class="nav-item active" role="presentation">
-        <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis/commission.html">委托</a>
+        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission.html?oasis_id='+oasisId">委托</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis/transparent.html">透视</a>
+        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent.html?oasis_id='+oasisId">透视</a>
       </li>
     </ul>
   </div>
@@ -114,16 +122,17 @@
           过滤
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li><a class="dropdown-item" @click="filterCommissionV('1')">你已接收任务</a></li>
+          <li><a class="dropdown-item" @click="filterCommissionV('2')">最近7天</a></li>
         </ul>
       </div>
       <form class="nosubmit">
-        <input class="nosubmit commission-search-btn" type="search" placeholder="Search...">
+        <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" class="nosubmit commission-search-btn" type="search" placeholder="Search...">
       </form>
     </div>
-    <button type="button" @click="buyProductV" class="btn btn-primary me-5">新任务</button>
+    <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+      新任务
+    </button>
 
   </div>
   <div class="mt-2 commission-tb-container me-5">
@@ -137,9 +146,9 @@
                 状态
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" @click="retrieveOasisCommissionByTagV('1')">新建</a></li>
+                <li><a class="dropdown-item" @click="retrieveOasisCommissionByTagV('2')">处理中</a></li>
+                <li><a class="dropdown-item" @click="retrieveOasisCommissionByTagV('3')">已交付</a></li>
               </ul>
             </div>
           </th>
@@ -149,28 +158,29 @@
                 排序
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" @click="sortCommissionV('1')">最新</a></li>
+                <li><a class="dropdown-item" @click="sortCommissionV('2')">最老</a></li>
               </ul>
             </div>
           </th>
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr>
+        <tr v-for="record in commissionTb_pagination.records">
           <td>
             <div class="ms-3">
-              <h5>Seo for website home in baidu</h5>
-              <span class="text-small">2023-02-21 by Dan</span>
+              <h5>{{record.title}}</h5>
+              <span class="text-small">create at {{record.addDate}} by {{record.founder}}</span>
             </div>
           </td>
           <td></td>
           <td class="text-center">
-            <button type="button" class="btn btn-commission-action" data-bs-toggle="modal" data-bs-target="#commissionActionModal">
-              <i class="bi bi-three-dots"></i>
+            <button @click="receiveCommissionV(record.id)" type="button" class="btn btn-commission-action">
+              <i class="bi bi-envelope-open"></i>
             </button>
-
+            <button  @click="summitCommissionV(record.id)" type="button" class="btn btn-commission-action ms-3">
+              <i class="bi bi-check-circle"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -183,17 +193,52 @@
 
     </col-content>
     <section class="modals">
-      <!-- commission action modal -->
-      <div class="modal-container">
+    <!-- commission action modal  -->
+      <!-- <div class="modal-container">
         <div class="modal fade" id="commissionActionModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="blueSignModalLabel">蓝标介绍</h1>
+                <h1 class="modal-title fs-5" id="blueSignModalLabel">任务处理</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body d-flex justify-content-center">
-                <p>每次购买蓝标，可立即获得为期30天的蓝标展示权益。</p>
+              <div class="modal-body">
+                <div class="row mb-3">
+                  <button type="button" @click="addCommissionV" class="btn btn-option-secondary-micro">完成任务</button>
+                </div>
+                <div class="row mb-3">
+                  <button type="button" @click="addCommissionV" class="btn btn-option-secondary-micro">接受任务</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  -->
+      <!-- new task modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="addTaskModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addTaskModalLabel">新增任务</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row mb-3">
+                  <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10">
+                    <input type="email" v-model="commissionForm.title" class="form-control" id="inputTitle">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputBonus" class="col-sm-2 col-form-label">bonus</label>
+                  <div class="col-sm-10">
+                    <input type="number" v-model="commissionForm.bonus" class="form-control" id="inputBonus">
+                  </div>
+                </div>
+                <div class="row mb-3 d-flex justify-content-center">
+                  <button type="button" @click="addCommissionV" class="btn btn-option-secondary-micro">提交任务</button>
+                </div>
               </div>
             </div>
           </div>

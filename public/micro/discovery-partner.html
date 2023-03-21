@@ -90,8 +90,8 @@
           <div v-for="talent in talentgrid_pagination.records" class="col team-card-container">
             <img :src="talent.avatar || defaultPartnerPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultPartnerPreviewImage }">
             <div class="card-body mb-3">
-              <a href="/mall/bubble.html?brand_id=0298e729cdd4440fb9e77604511dac2b"><h6 class="mt-3">{{talent.title}}</h6></a>
-              <span class="help-text">Releax Time</span>
+              <a :href="'/mall/bubble.html?brand_id='+ talent.id"><h6 class="mt-3">{{talent.brandName}}</h6></a>
+              <span class="help-text">{{talent.title}}</span>
             </div>
           </div>
 

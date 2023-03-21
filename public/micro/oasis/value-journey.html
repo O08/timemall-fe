@@ -55,9 +55,13 @@
           <span class="bi feed-item-collapse">组队请求</span>
         </a>
         <div class="collapse" id="collapseExample">
-          <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+          <!-- <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <span>人才</span>  
+          </a> -->
+          <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <span>{{invite.title}}</span>  
           </a>
         </div>
         <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -72,9 +76,13 @@
             </svg>              
           <div class="link-title ms-2">账户</div>  
         </a>
-        <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/oasis.html">
+        <!-- <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/oasis.html">
           <img class="oasis-avatar-tiny" src="/avator.webp">  
           <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+        </a> -->
+        <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+          <img class="oasis-avatar-tiny" src="/avator.webp">  
+          <div class="link-title ms-2">{{oasis.title}}</div>  
         </a>
       </div>
       
@@ -88,33 +96,33 @@
               <img class="oasis-avatar" src="/avator.webp">
             </div>
            <div class="ms-4">
-            <h4>将世界创意变为现实</h4>
-            <span>构建繁荣、遍布机会的数字空间。</span>
+            <h4>{{announce.title}}</h4>
+            <span>{{announce.subTitle}}</span>
            </div>
         </div>
     </div>
     <div class="nav-oasis-container pb-3">
       <ul class="nav border-0 h-75">
         <li class="nav-item" role="presentation">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis.html">宣传</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis.html?oasis_id='+oasisId">宣传</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis/commission.html">委托</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission.html?oasis_id='+oasisId">委托</a>
         </li>
         <li class="nav-item active" role="presentation">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis/transparent.html">透视</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent.html?oasis_id='+oasisId">透视</a>
         </li>
       </ul>
       <div class="transparent-category d-flex justify-content-center h-25 mt-2">
         <ul>
           <li>
-            <a href="/micro/oasis/transparent.html" class="text-decoration-none">
-              <div class="transparent-category-item d-flex help-text align-items-center justify-content-center">成员</div>
+            <a :href="'/micro/oasis/transparent.html?oasis_id='+oasisId" class="text-decoration-none">
+              <div class="transparent-category-item help-text d-flex align-items-center justify-content-center">成员</div>
             </a>
           </li>
           <li>
-            <a href="/micro/oasis/value-journey.html" class="text-decoration-none text-white">
-              <div class="transparent-category-item ms-2 d-flex align-items-center justify-content-center">价值流</div>
+            <a :href="'/micro/oasis/value-journey.html?oasis_id='+oasisId" class="text-decoration-none text-white">
+              <div class="transparent-category-item ms-2  d-flex align-items-center justify-content-center">价值流</div>
             </a>
           </li>
         </ul>
@@ -124,15 +132,23 @@
     <div class="mt-5 mx-4">
         <table class="table table-dark table-hover align-middle">
             <tbody>
-              <tr>
+              <tr v-for="record in oasisInd.records">
+                <td>
+                    <h5>{{record.item}}</h5>
+                </td>
+                <td>{{record.val}}</td>
+                <td class="text-center">
+                </td>
+              </tr>
+              <!-- <tr v-for="record in oasisInd.records">
                 <td>
                     <h5>货币流入</h5>
                 </td>
                 <td>5500</td>
                 <td class="text-center">
                 </td>
-              </tr>
-              <tr>
+              </tr> -->
+              <!-- <tr>
                 <td>
                     <h5>当前货币余额</h5>
                 </td>
@@ -185,7 +201,7 @@
                 <td>40</td>
                 <td class="text-center">
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
     </div>

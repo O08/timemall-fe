@@ -37,6 +37,8 @@ app.mixin(OasisAnnounceComponent);
 const teamOasisMemberPage = app.mount('#app');
 
 window.teamOasisMemberPage = teamOasisMemberPage;
+// init 
+teamOasisMemberPage.loadMemberV();
 
 async function getMember(oasisId){
     const url="/api/v1/team/member?oasisId=" + oasisId;

@@ -7,10 +7,17 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 const RootComponent = {
     data() {
       return {
+        distribution: {}
       }
     },
     methods: {
-      
+      loadAssetDistributionV(){
+        loadAssetDistribution().then(response=>{
+          if(response.data.code == 200){
+            this.distribution = response.data.distribution;
+          }
+        })
+      }
     }
 }
 let app =  createApp(RootComponent);
@@ -21,10 +28,13 @@ const teamFinanceDistribution = app.mount('#app');
 
 window.teamFinanceDistribution = teamFinanceDistribution;
 
+// init 
+teamFinanceDistribution.loadAssetDistributionV();
+
 async function getFinanceDistribution(){
     const url = "/api/v1/team/finance_distribute";
   return await axios.get(url);
 }
 function loadAssetDistribution(){
-    getFinanceDistribution();
+    return getFinanceDistribution();
 }

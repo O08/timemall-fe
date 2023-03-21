@@ -7,13 +7,46 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 const RootComponent = {
     data() {
       return {
+        alipay: {},
+        trans: {
+            drawable: 0.00,
+            amount: 0.00,
+            id: ""
+        },
+        alipayAccount:{
+            payeeAccount: "",
+            payeeRealName: ""
+        }
       }
     },
     methods: {
-        addBankV(){
-            addBank(); // todo args
+        retrieveAlipayAccountsV(){
+            retrieveAlipayAccounts().then(response=>{
+                if(response.data.code == 200){
+                    this.alipay = response.data.alipay;
+                  }
+            });
+        },
+        withdrawV(){
+            withdrawToAlipayAccount(trans.amount,trans.id);
+        },
+        retrieveFinInfoV(){
+            retrieveFinInfo().then(response=>{
+                if(response.data.code == 200){
+                    this.trans.drawable = response.data.billboard.drawable;
+                }
+            })
+        },
+        newAlipayAccountV(){
+            newAlipayAccount(this.alipayAccount.payeeAccount,this.alipayAccount.payeeRealName)
+            .then(response=>{
+                if(response.data.code == 200){
+                    this.retrieveAlipayAccounts();
+                }
+            })
         }
-    }
+      }
+
 }
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
@@ -23,12 +56,16 @@ const teamFinanceFlow = app.mount('#app');
 
 window.teamFinanceFlow = teamFinanceFlow;
 
-async function addNewBank(dto){
-    const url="/api/v1/team/bank";
+// init
+teamFinanceFlow.retrieveAlipayAccountsV();
+teamFinanceFlow.retrieveFinInfoV();
+
+async function addNewAlipayAccount(dto){
+    const url="/api/v1/team/addAlipayAccount";
     return await axios.put(url,dto);
 }
-async function getBank(brandId){
-    const url="/api/v1/team/bank?brandId=" + brandId;
+async function getAlipayAccounts(){
+    const url="/api/v1/team/alipayAccounts";
     return await axios.get(url);
 }
 async function withdraw(dto){
@@ -40,26 +77,24 @@ async function getFinanceBillBoard(){
   return await axios.get(url);
 }
 
-function withdrawToBank(amount,cardId){
+function withdrawToAlipayAccount(amount,cardId){
     const dto={
         amount: amount,
         cardId: cardId
     }
     return withdraw(dto);
 }
-function addBank(deposit,cardholder,cardno){
-   const brandId =  teamFinanceFlow.getIdentity().brandId; // Auth.getIdentity();
- 
-    const dto={
-        deposit: deposit,
-        cardholder: cardholder,
-        cardno: cardno,
-        brandId: brandId
-    }
-    return addNewBank(dto);
+function retrieveAlipayAccounts(){
+    return getAlipayAccounts();
 }
-function retrieveBank(){
-    const brandId =  teamFinanceFlow.getIdentity().brandId; // Auth.getIdentity();
-    return getBank(brandId);
+function retrieveFinInfo(){
+    return getFinanceBillBoard();
 }
 
+function newAlipayAccount(payeeAccount,payeeRealName){
+    const dto = {
+        payeeAccount: payeeAccount,
+        payeeRealName: payeeRealName
+    }
+    return addNewAlipayAccount(dto);
+}

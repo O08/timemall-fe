@@ -53,9 +53,13 @@
           <span class="bi feed-item-collapse">组队请求</span>
         </a>
         <div class="collapse" id="collapseExample">
-          <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+          <!-- <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <span>人才</span>  
+          </a> -->
+          <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <span>{{invite.title}}</span>  
           </a>
         </div>
         <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -70,9 +74,13 @@
             </svg>              
           <div class="link-title ms-2">账户</div>  
         </a>
-        <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/oasis.html">
+        <!-- <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/oasis.html">
           <img class="oasis-avatar-tiny" src="/avator.webp">  
           <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+        </a> -->
+        <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+          <img class="oasis-avatar-tiny" src="/avator.webp">  
+          <div class="link-title ms-2">{{oasis.title}}</div>  
         </a>
       </div>
       
@@ -86,21 +94,21 @@
               <img class="oasis-avatar" src="/avator.webp">
             </div>
            <div class="ms-4">
-            <h4>将世界创意变为现实</h4>
-            <span>构建繁荣、遍布机会的数字空间。</span>
+            <h4>{{announce.title}}</h4>
+            <span>{{announce.subTitle}}</span>
            </div>
         </div>
     </div>
     <div class="nav-oasis-container">
       <ul class="nav border-0 h-100">
         <li class="nav-item active" role="presentation">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis.html">宣传</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis.html?oasis_id='+oasisId">宣传</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis/commission.html">委托</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission.html?oasis_id='+oasisId">委托</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="/micro/oasis/transparent.html">透视</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent.html?oasis_id='+oasisId">透视</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link d-flex align-items-center" aria-current="page">
@@ -145,10 +153,7 @@
         
         <div id="section2">
           <h3>风险与挑战</h3>
-          <p>SHIPPING: Shipping is charged after the campaign in our pledge manager. Shipping will need to be paid in full prior to the close of our Pledgemanager. VAT will be charged in the pledge manager.</p>
-          <p>MANUFACTURING: Unexpected delays often happen due to; Production delays, Shipping delays, or Customs delays.</p>
-          <p>COMMUNICATION: Inevitably, something will occur during the entire process that we were unable to foresee. If things run behind schedule, we think the best approach is to always be up front and communicative with backers. It's our goal to make post-campaign updates part of this experience and we plan to update monthly until production has begun in order to keep backers informed of the progress.</p>
-          <p>REFUND POLICY We can refund you within 14 days of the campaign’s end, fees included. After that, we have a policy of refunding no questions asked minus Kickstarter and payment processing fees (which we can’t get back after 14 days). After the pledge manager closes, we do not process refunds. All refunds after the 14 days close of the campaign may be processed via PayPal or reversed via Stripe to your credit card at our discretion. Refunds within 14 days are reversed via Stripe to your credit card. This project is being funded in CAD and any refunds processed will be in CAD for the exact amount received in CAD, excluding any applicable fees depending on the time of the refund being processed.</p>
+          <p v-for="risk in announce.risk">{{risk.entry}}</p>
         </div>
     </div>
     </div>

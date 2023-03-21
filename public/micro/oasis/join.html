@@ -51,9 +51,14 @@
           <span class="bi feed-item-collapse">组队请求</span>
         </a>
         <div class="collapse show" id="collapseExample">
-          <a class="nav-link p-2 ms-2 nav-sub-link-active" href="/micro/oasis/join.html">
+          <!-- <a class="nav-link p-2 ms-2 nav-sub-link-active" href="/micro/oasis/join.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <span>人才</span>  
+
+          </a> -->
+          <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <span>{{invite.title}}</span>  
           </a>
         </div>
         <a class="nav-link p-2 ms-2  d-flex flex-row nva-link-default align-items-center" href="/micro/swap-service.html">
@@ -68,9 +73,13 @@
             </svg>              
           <div class="link-title ms-2">账户</div>  
         </a>
-        <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
+        <!-- <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
           <img class="oasis-avatar-tiny" src="/avator.webp">  
           <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+        </a> -->
+        <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+          <img class="oasis-avatar-tiny" src="/avator.webp">  
+          <div class="link-title ms-2">{{oasis.title}}</div>  
         </a>
       </div>
       
@@ -83,14 +92,14 @@
           <div class="oasis-base-wrapper d-flex align-items-center">
             <div class="oasis-base">
               <div class="oasis-base-title d-flex">
-                <h4>将世界创意变为现实</h4>
+                <h4>{{currentOasis.title}}</h4>
                 <div class="ms-2">
                   <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M14 25.1134C11.9217 24.6582 10.0614 23.5063 8.7276 21.8488C7.39379 20.1912 6.66659 18.1276 6.66659 16C6.66659 13.8725 7.39379 11.8088 8.7276 10.1513C10.0614 8.49371 11.9217 7.34185 14 6.88669V1.82202C10.58 2.30035 7.44814 3.99879 5.18169 6.60429C2.91525 9.20978 1.66699 12.5467 1.66699 16C1.66699 19.4533 2.91525 22.7903 5.18169 25.3958C7.44814 28.0012 10.58 29.6997 14 30.178V25.1134ZM18 1.82202V6.88669C20.0783 7.34185 21.9386 8.49371 23.2724 10.1513C24.6063 11.8088 25.3335 13.8725 25.3335 16C25.3335 18.1276 24.6063 20.1912 23.2724 21.8488C21.9386 23.5063 20.0783 24.6582 18 25.1134V30.178C21.42 29.6997 24.5519 28.0012 26.8183 25.3958C29.0848 22.7903 30.3331 19.4533 30.3331 16C30.3331 12.5467 29.0848 9.20978 26.8183 6.60429C24.5519 3.99879 21.42 2.30035 18 1.82202Z" stroke="#68A4FD" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </div>
               </div>
-              <span class="help-text">构建繁荣、遍布机会的数字空间</span>
+              <span class="help-text">{{currentOasis.subTitle}}</span>
             </div>
           </div>
           <img class="oasis-avatar-sm" src="/avator.webp">        
@@ -98,11 +107,11 @@
         <div class="oasis-info-body">
            <div class="oasis-info-item d-flex">
             <div class="help-text oasis-info-detail">发起人</div>
-            <span class="ms-5 fs-6">Simo</span>
+            <span class="ms-5 fs-6">{{currentOasis.initiator}}</span>
            </div>
            <div class="oasis-info-item d-flex">
             <div class="help-text oasis-info-detail">团队</div>
-            <span class="ms-5 fs-6">5/12</span>
+            <span class="ms-5 fs-6">{{currentOasis.membership}}/{{currentOasis.maxMembers}}</span>
            </div>
         </div>
         <div class="oasis-info-option d-flex justify-content-center mt-4">

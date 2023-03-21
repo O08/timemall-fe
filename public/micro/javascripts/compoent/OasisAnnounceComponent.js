@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
-const RootComponent = {
+const OasisAnnounceComponent = {
     data() {
       return {
+        oasisId: "",
         announce: {}
       }
     },
@@ -18,11 +19,12 @@ const RootComponent = {
     },
     created(){
         this.loadAnnounceV();
+        this.oasisId =  getQueryVariable("oasis_id");
      }
 }
 async function getAnnounce(oasisId){
     const url = "/api/v1/team/oasis/announce/{oasis_id}".replace("{oasis_id}",oasisId);
-    return axios.get(url);
+    return await axios.get(url);
 }
 function loadAnnounce(){
     const oasisId =  getQueryVariable("oasis_id");

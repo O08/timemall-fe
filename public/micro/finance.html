@@ -52,9 +52,13 @@
             <span class="bi feed-item-collapse">组队请求</span>
           </a>
           <div class="collapse" id="collapseExample">
-            <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+            <!-- <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
               <img class="oasis-avatar-tiny" src="/avator.webp">  
               <span>人才</span>  
+            </a> -->
+            <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+              <img class="oasis-avatar-tiny" src="/avator.webp">  
+              <span>{{invite.title}}</span>  
             </a>
           </div>
           <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -69,9 +73,13 @@
               </svg>              
             <div class="link-title ms-2">账户</div>  
           </a>
-          <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
+          <!-- <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+          </a> -->
+          <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
         
@@ -82,16 +90,16 @@
       <div class="kanban-container">
         <div class="kanban-capital d-flex justify-content-center">
           <div class="capital-category">
-             <h3 class="help-text">总资产</h3>
-             <div class="fs-1">200000.00</div>
+             <h3 class="help-text">账面价值</h3>
+             <div class="fs-1">{{billboard.amount}}</div>
           </div>
           <div class="capital-category ms-5">
             <h3 class="help-text">可取余额</h3>
-            <div class="fs-1">2000.00</div>
+            <div class="fs-1">{{billboard.drawable}}</div>
          </div>
         </div>
         <div class="kanban-link d-flex justify-content-center mt-5 pt-5">
-          <div  class="row gx-2 gy-5 row-cols-2">
+          <div  class="row gx-5 gy-5 row-cols-2">
             <div class="col">
               <a href="/micro/capital-flow.html" class="kanban-link-item text-decoration-none ">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,14 +108,14 @@
                   <h1>资金转出</h1>
               </a>
             </div>
-            <div class="col">
+            <!-- <div class="col">
               <a href="/micro/trans-feeds.html" class="kanban-link-item text-decoration-none ">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M40 5L52.5 17.5V52.4825C52.5023 52.8108 52.4399 53.1364 52.3164 53.4406C52.1929 53.7447 52.0107 54.0216 51.7802 54.2554C51.5496 54.4892 51.2753 54.6753 50.9729 54.803C50.6704 54.9308 50.3458 54.9977 50.0175 55H9.9825C9.32595 54.9954 8.69754 54.7327 8.23304 54.2687C7.76854 53.8047 7.50524 53.1765 7.5 52.52V7.48C7.5 6.11 8.6175 5 9.9975 5H40ZM37.5 10H12.5V50H47.5V20H37.5V10ZM32.5 22.5V32.5H40V37.5H27.5V22.5H32.5Z" fill="#FF4C4D"/>
                   </svg>
                   <h1>历史交易</h1>
               </a>
-            </div>
+            </div> -->
             <div class="col">
               <a href="/micro/assets-distribution.html" class="kanban-link-item text-decoration-none ">
                 <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">

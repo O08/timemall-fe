@@ -4,6 +4,8 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
+
 
 const RootComponent = {
     data() {
@@ -11,23 +13,73 @@ const RootComponent = {
         base: {
             title: "",
             subTitle: ""
+        },
+        risk: {
+            riskEntries: [],
+            oasisId: ""
         }
       }
     },
     methods: {
+        nextSlideV(){
+            $("#slide_next").trigger("click");
+        },
+        prevSlideV(){
+            $("#slide_prev").trigger("click");
+        },
+        saveBaseInfoAndtoNextSlideV(){
+            saveBaseInfo(this.base);
+        },
+        saveOasisRiskInfoV(){
+            saveOasisRiskInfo(this.risk);
+        },
+        // file handler
+        previewOasisCoverV(e){
+            previewOasisCover(e);
+        },
+        closeOasisCoverModalHandlerV(){
+            closeOasisCoverModalHandler();
+        },
+        uploadOasisCoverV(){
+            uploadOasisCover();
+        },
+        previewAnnounceFileV(e){
+            previewAnnounceFile(e);
+        },
+        closeAnnounceFileModalHandlerV(){
+            closeAnnounceFileModalHandler();
+        },
+        uploadAnnounceFileV(){
+            uploadAnnounceFile();
+        },
+        // text edit pannel
+        pannelAddTextToFisrt(){
+            addTextToFirst();
+        },
+        pannelAddText(index){
+            nextText(index);
+        },
+        pannelRemoveText(){
+            removeText();
+        }
     }
 }
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
+app.component('contenteditable', ContentediableComponent)
 
-const createOasis = app.mount('#app');
+const createOasisPage = app.mount('#app');
 
-window.createOasis = createOasis;
+window.createOasisPage = createOasisPage;
 
 async function createOasis(dto){
     const url="/api/v1/team/oasis/new";
     return await axios.post(url,dto);
+}
+async function putOasisBase(dto){
+    const url="/api/v1/team/oasis/general";
+    return await axios.put(url,dto);
 }
 
 async function putAvatar(oasisId,files){
@@ -50,35 +102,104 @@ async function putOasisRisk(dto){
 function uploadAnnounceFile(){
     const oasisId = getQueryVariable("oasis_id");
 
-    const file = $('#file_avatar')[0].files[0];
-    putAnnounce(brandId,file).then(response=>{
+    const file = $('#announceFile')[0].files[0];
+    putAnnounce(oasisId,file).then(response=>{
         if(response.data.code ==200){
           
             const url = URL.createObjectURL(file);
-            $('#lastest_banner').attr('src',url);
+            $('#lastestAnnounceFile').attr('src',url);
     
-            $("#bannerModal").modal("hide");
-            $('#bannerPreview').attr('src',"");
+            $("#announceFileModal").modal("hide");
+            $('#announceFilePreview').attr('src',"");
         }
     })
 }
 
-function uploadAvatarFile(){
+function uploadOasisCover(){
     const oasisId = getQueryVariable("oasis_id");
 
-    const file = $('#file_avatar')[0].files[0];
-    putAvatar(brandId,file).then(response=>{
+    const file = $('#oasisCoverFile')[0].files[0];
+    putAvatar(oasisId,file).then(response=>{
         if(response.data.code ==200){
           
             const url = URL.createObjectURL(file);
-            $('#lastest_banner').attr('src',url);
+            $('#lastestOasisCover').attr('src',url);
     
-            $("#bannerModal").modal("hide");
-            $('#bannerPreview').attr('src',"");
+            $("#oasisCoverModal").modal("hide");
+            $('#oasisCoverPreview').attr('src',"");
         }
     })
 }
+function modifyBaseInfo(base,oasisId){
+    var dto = {
+        title: base.title,
+        subTitle: base.subTitle,
+        oasisId: oasisId
+    }
+    return putOasisBase(dto);
+}
+function saveBaseInfo(base){
+   // todo update oasis when in editing
+   const id = getQueryVariable("oasis_id");
+   if(!id){
+    return createOasis(base).then(response=>{
+        if(response.data.code == 200){
+            addOasisIdToUrl(response.data.oasisId);
+            createOasisPage.nextSlideV();
+        }
+    });
+   }
+   if(id){
+    modifyBaseInfo(base,id).then(response=>{
+        if(response.data.code == 200){
+            createOasisPage.nextSlideV();
+        }
+    });
+   }
 
-function newOasis(base){
-   return createOasis(base);
+}
+function saveOasisRiskInfo(risk){
+    var dto  = risk;
+    dto.oasisId = getQueryVariable("oasis_id");
+    return putOasisRisk(dto);
+}
+function addOasisIdToUrl(oasisId){
+    const id = getQueryVariable("oasis_id");
+    if(!id){
+        let url = "/micro/create-oasis.html?oasis_id="+ oasisId
+        history.pushState(null, "", url);
+    }
+}
+// file handler
+function previewOasisCover(e){
+    const file = e.target.files[0]
+
+    const URL2 = URL.createObjectURL(file)
+    document.querySelector('#oasisCoverPreview').src = URL2
+    $("#oasisCoverModal").modal("show");
+}
+function closeOasisCoverModalHandler(){
+    document.querySelector('#oasisCoverPreview').src = "";
+    document.querySelector('#oasisCoverFile').value = null;
+}
+function previewAnnounceFile(e){
+    const file = e.target.files[0]
+
+    const URL2 = URL.createObjectURL(file)
+    document.querySelector('#announceFilePreview').src = URL2
+    $("#announceFileModal").modal("show");
+}
+function closeAnnounceFileModalHandler(){
+    document.querySelector('#announceFilePreview').src = "";
+    document.querySelector('#announceFile').value = null;
+}
+// edit pannel
+function nextText(index){
+    createOasisPage.risk.riskEntries.splice(index,0,{entry: ""});
+}
+function removeText(index){
+    createOasisPage.risk.riskEntries.splice(index,1);
+}
+function addTextToFirst(){
+    createOasisPage.risk.riskEntries.unshift({entry: ""});
 }

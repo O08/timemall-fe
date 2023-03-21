@@ -50,9 +50,9 @@
             <span class="bi feed-item-collapse">组队请求</span>
           </a>
           <div class="collapse" id="collapseExample">
-            <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+            <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
               <img class="oasis-avatar-tiny" src="/avator.webp">  
-              <span>人才</span>  
+              <span>{{invite.title}}</span>  
             </a>
           </div>
           <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -67,9 +67,9 @@
               </svg>              
             <div class="link-title ms-2">账户</div>  
           </a>
-          <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
+          <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
-            <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+            <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
         

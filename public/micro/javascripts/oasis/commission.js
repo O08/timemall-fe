@@ -24,7 +24,9 @@ const RootComponent = {
                 param: {
                     q: '',
                     tag: '',
-                    sort: ''
+                    sort: '',
+                    filter: '',
+                    oasisId: ''
                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -60,6 +62,18 @@ const RootComponent = {
                     this.reloadPage(this.commissionTb_pagination);
                  }
             })
+        },
+        filterCommissionV(filter){
+            filterCommission(filter);
+        },
+        retrieveOasisCommissionGridV(){
+            retrieveOasisCommissionGrid();
+        },
+        retrieveOasisCommissionByTagV(tag){
+            retrieveOasisCommissionByTag(tag);
+        },
+        sortCommissionV(sort){
+            sortCommission(sort);
         }
     },
     updated(){
@@ -80,6 +94,8 @@ app.mixin(OasisAnnounceComponent);
 const teamCommission = app.mount('#app');
 
 window.teamCommission = teamCommission;
+// init 
+teamCommission.pageInit(teamCommission.commissionTb_pagination);
 
 async function newCommission(dto){
   const url ="/api/v1/team/commission";
@@ -124,3 +140,31 @@ function summitCommission(commissionId){
     }
     return finishCommission(dto);
 }
+function filterCommission(filter){
+    // init 
+    teamCommission.commissionTb_pagination.param.filter = filter;
+    teamCommission.commissionTb_pagination.param.tag = "";
+    teamCommission.commissionTb_pagination.param.q="";
+    teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.reloadPage(teamCommission.commissionTb_pagination);
+}
+function retrieveOasisCommissionGrid(){
+    teamCommission.commissionTb_pagination.param.filter = "";
+    teamCommission.commissionTb_pagination.param.tag = "";
+    teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.reloadPage(teamCommission.commissionTb_pagination);
+}
+function retrieveOasisCommissionByTag(tag){
+    teamCommission.commissionTb_pagination.param.filter = "";
+    teamCommission.commissionTb_pagination.param.tag = tag;
+    teamCommission.commissionTb_pagination.param.q="";
+    teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.reloadPage(teamCommission.commissionTb_pagination);
+}
+function sortCommission(sort){
+    teamCommission.commissionTb_pagination.param.filter = "";
+    teamCommission.commissionTb_pagination.param.tag = "";
+    teamCommission.commissionTb_pagination.param.q="";
+    teamCommission.commissionTb_pagination.param.sort=sort;
+    teamCommission.reloadPage(teamCommission.commissionTb_pagination);
+} 

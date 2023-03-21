@@ -53,9 +53,13 @@
           <span class="bi feed-item-collapse">组队请求</span>
         </a>
         <div class="collapse" id="collapseExample">
-          <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
+          <!-- <a class="nav-link p-2 ms-2 nva-link-default" href="/micro/oasis/join.html">
             <img class="oasis-avatar-tiny" src="/avator.webp">  
             <span>人才</span>  
+          </a> -->
+          <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-2 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
+            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <span>{{invite.title}}</span>  
           </a>
         </div>
         <a class="nav-link p-2 ms-2 nav-sub-link-active d-flex flex-row align-items-center" href="/micro/swap-service.html">
@@ -70,9 +74,13 @@
             </svg>              
           <div class="link-title ms-2">账户</div>  
         </a>
-        <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
+        <!-- <a class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" href="/micro/oasis.html">
           <img class="oasis-avatar-tiny" src="/avator.webp">  
           <div class="link-title ms-2">构建繁荣、遍布机会的数字空间</div>  
+        </a> -->
+        <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-2 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
+          <img class="oasis-avatar-tiny" src="/avator.webp">  
+          <div class="link-title ms-2">{{oasis.title}}</div>  
         </a>
       </div>
       
@@ -83,7 +91,7 @@
       <div class="category-bar-container d-flex justify-content-center">
         <ul class="nav nav-tabs border-0" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+            <button @click="loadCooperationObjV" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
               <div class="obj-category d-flex flex-column">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_13913_926)">
@@ -100,7 +108,7 @@
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+            <button @click="loadOwnedObjV" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
               <div class="obj-category d-flex flex-column">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22.0005 11.9999H28.0005L34.5805 5.39995C34.7664 5.21249 34.9876 5.0637 35.2313 4.96216C35.475 4.86063 35.7364 4.80835 36.0005 4.80835C36.2645 4.80835 36.5259 4.86063 36.7696 4.96216C37.0133 5.0637 37.2345 5.21249 37.4205 5.39995L42.5805 10.5799C42.953 10.9547 43.162 11.4616 43.162 11.9899C43.162 12.5183 42.953 13.0252 42.5805 13.3999L38.0005 17.9999H22.0005V21.9999C22.0005 22.5304 21.7897 23.0391 21.4147 23.4142C21.0396 23.7892 20.5309 23.9999 20.0005 23.9999C19.47 23.9999 18.9613 23.7892 18.5862 23.4142C18.2112 23.0391 18.0005 22.5304 18.0005 21.9999V15.9999C18.0005 14.9391 18.4219 13.9217 19.172 13.1715C19.9222 12.4214 20.9396 11.9999 22.0005 11.9999ZM10.0005 21.9999V29.9999L5.42045 34.5799C5.04795 34.9547 4.83887 35.4616 4.83887 35.9899C4.83887 36.5183 5.04795 37.0252 5.42045 37.3999L10.5805 42.5799C10.7664 42.7674 10.9876 42.9162 11.2313 43.0177C11.475 43.1193 11.7364 43.1715 12.0005 43.1715C12.2645 43.1715 12.5259 43.1193 12.7696 43.0177C13.0133 42.9162 13.2345 42.7674 13.4205 42.5799L22.0005 33.9999H30.0005C30.5309 33.9999 31.0396 33.7892 31.4147 33.4142C31.7897 33.0391 32.0005 32.5304 32.0005 31.9999V29.9999H34.0005C34.5309 29.9999 35.0396 29.7892 35.4147 29.4142C35.7897 29.0391 36.0005 28.5304 36.0005 27.9999V25.9999H38.0005C38.5309 25.9999 39.0396 25.7892 39.4147 25.4142C39.7897 25.0391 40.0005 24.5304 40.0005 23.9999V21.9999H26.0005V23.9999C26.0005 25.0608 25.579 26.0782 24.8289 26.8284C24.0787 27.5785 23.0613 27.9999 22.0005 27.9999H18.0005C16.9396 27.9999 15.9222 27.5785 15.172 26.8284C14.4219 26.0782 14.0005 25.0608 14.0005 23.9999V17.9999L10.0005 21.9999Z" fill="#545454"/>
@@ -110,7 +118,7 @@
             </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
+            <button class="nav-link" @click="loadTodoObjV" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">
               <div class="obj-category d-flex flex-column">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="24" cy="24" r="24" fill="#545454"/>
@@ -129,17 +137,49 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
           <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
-            <div class="package-card-container">
+            <div v-for="record in objgrid_pagination.records" class="col package-card-container">
               <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg">
               <div class="card-body mb-3">
-                <h4 class="mt-3">Dish&Cooking</h4>
-                <span class="help-text">Releax Time</span>
+                <h4 class="mt-3">{{record.title}}</h4>
+                <div>
+                  <span>package: {{record.quantity}}  {{record.sbu}}</span>
+                  <span>账面价值：{{record.objectVal}}</span>
+                  <span>售价：{{record.salePrice}}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+          <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
+            <div v-for="record in objgrid_pagination.records" class="col package-card-container">
+              <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg">
+              <div class="card-body mb-3">
+                <a :href="'/micro/obj-detail.html?obj_id='+ record.id + '&cell_id=' + record.cellId + '&brand_id=' + record.brandId"><h6 class="mt-3">{{record.title}}</h6></a>
+                <div>
+                  <span>package: {{record.quantity}}  {{record.sbu}}</span>
+                  <span>账面价值：{{record.objectVal}}</span>
+                  <span>售价：{{record.salePrice}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+          <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
+            <div v-for="record in todoGrid_pagination.records" class="col package-card-container">
+              <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg">
+              <div class="card-body mb-3">
+                <a :href="'/micro/obj-detail.html?obj_id='+ record.id + '&cell_id=' + record.cellId + '&brand_id=' + record.brandId"><h6 class="mt-3">{{record.title}}</h6></a>
+                <div>
+                  <span>package: {{record.quantity}}  {{record.sbu}}</span>
+                  <span>账面价值：{{record.objectVal}}</span>
+                  <span>售价：{{record.salePrice}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </col-content>
   </micro-app>

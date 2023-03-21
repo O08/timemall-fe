@@ -2,22 +2,25 @@ import axios from 'axios';
 const TeicallaanliSubNavComponent = {
     data() {
         return {
-          joinedoases: [],
-          invitedoases: []
+          joinedoases: {},
+          invitedoases: {}
         }
     },
     methods: {
         loadInvitedOases(){
-            getAListOfInvitedOases().then(response=>{
+            const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
+
+            getAListOfInvitedOases(brandId).then(response=>{
                 if(response.data.code == 200){
                     this.invitedoases = response.data.invited;
                 }
             })
         },
         loadJoinedOases(){
-            getAListOfJoinedOases().then(response=>{
+            const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
+            getAListOfJoinedOases(brandId).then(response=>{
                 if(response.data.code == 200){
-                    this.joinedoases = response.data.joinedoases;
+                    this.joinedoases = response.data.joined;
                 }
             })
         },
@@ -30,12 +33,12 @@ const TeicallaanliSubNavComponent = {
        this.loadSubNav();
     }
 }
-async function getAListOfInvitedOases(){
-    const url ="/api/v1/team/inviteOases";
+async function getAListOfInvitedOases(brandId){
+    const url ="/api/v1/team/invitedOases?brandId="+brandId;
     return axios.get(url);
 }
-async function getAListOfJoinedOases(){
-    const url ="/api/v1/team/joinedOases";
+async function getAListOfJoinedOases(brandId){
+    const url ="/api/v1/team/joinedOases?brandId="+brandId;
     return axios.get(url);
 }
 

@@ -9,11 +9,17 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 
 const RootComponent = {
     data() {
-        return {}
+        return {
+            oasisInd: {}
+        }
     },
     methods: {
         retrieveOasisIndexV(){
-            retrieveOasisIndex();
+            retrieveOasisIndex().then(response=>{
+                if(response.data.code == 200){
+                    this.oasisInd = response.data.index;
+                }
+            });
         }
     },
     updated(){
@@ -33,6 +39,9 @@ app.mixin(OasisAnnounceComponent);
 const oasisValPage = app.mount('#app');
 
 window.oasisValPage = oasisValPage;
+
+// init 
+oasisValPage.retrieveOasisIndexV();
 
 async function getOasisIndex(oasisId){
     const url ="/api/v1/team/oasis_value_index?oasisId=" + oasisId;
