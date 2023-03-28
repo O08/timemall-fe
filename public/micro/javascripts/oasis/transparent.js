@@ -19,6 +19,10 @@ const RootComponent = {
                     this.member = response.data.member;
                 }
             })
+        },
+        removeMemberV(){
+            const brandId = this.getIdentity().brandId; // Auth.getIdentity();
+            removeMemberB(this.oasisId,brandId);
         }
     },
     updated(){
@@ -42,7 +46,18 @@ teamOasisMemberPage.loadMemberV();
 
 async function getMember(oasisId){
     const url="/api/v1/team/member?oasisId=" + oasisId;
-    return axios.get(url);
+    return await axios.get(url);
+}
+async function removeMember(param){
+    const url="/api/v1/team/oasis/remove_member";
+    return await axios.delete(url,param);
+}
+function removeMemberB(oasisId,brandId){
+    var form = new FormData();
+    form.append("oasisId",oasisId);
+    form.append("brandId",brandId);
+
+    return removeMember(form);
 }
 function loadMember(){
     const oasisId = getQueryVariable("oasis_id");

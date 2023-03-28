@@ -1,5 +1,30 @@
 .form-withdraw{
-    margin-top: 20%;
+    margin-top: 10%;
     max-width: 400px;
     margin-left: 25%;
+}
+.btn-go-back{
+    height: 45px;
+    width: 45px;
+    background-color: #2d2c2ce6;
+    border-radius: 60px;
+}
+.btn-go-back:hover{
+    opacity: 0.7;
+}
+.form-control:disabled{
+    background: rgba(221, 220, 220, 0.934);
+    opacity: .8;
+}
+.add-icon{
+    background-color: inherit;
+    border: none;
+    color: #3483fa;
+    opacity: .7;
+}
+.add-icon:hover{
+    background-color: inherit;
+    opacity: 1;
+    color: #3483fa;
+
 }

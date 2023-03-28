@@ -18,7 +18,14 @@ const RootComponent = {
           }
         })
       }
-    }
+    },
+    updated(){
+        
+      $(function() {
+          // Enable popovers 
+          $('[data-bs-toggle="popover"]').popover();
+      });
+  }
 }
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));

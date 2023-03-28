@@ -20,6 +20,9 @@ const RootComponent = {
       }
     },
     methods: {
+        closeAddAccountModelV(){
+            closeAddAccountModel();
+        },
         retrieveAlipayAccountsV(){
             retrieveAlipayAccounts().then(response=>{
                 if(response.data.code == 200){
@@ -28,7 +31,7 @@ const RootComponent = {
             });
         },
         withdrawV(){
-            withdrawToAlipayAccount(trans.amount,trans.id);
+            withdrawToAlipayAccount(this.trans.amount,this.trans.id);
         },
         retrieveFinInfoV(){
             retrieveFinInfo().then(response=>{
@@ -42,10 +45,18 @@ const RootComponent = {
             .then(response=>{
                 if(response.data.code == 200){
                     this.retrieveAlipayAccounts();
+                    this.closeAddAccountModelV();
                 }
             })
         }
-      }
+      },
+      updated(){
+        
+        $(function() {
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
+    }
 
 }
 let app =  createApp(RootComponent);
@@ -69,18 +80,18 @@ async function getAlipayAccounts(){
     return await axios.get(url);
 }
 async function withdraw(dto){
-    const url ="/api/v1/team/withdraw";
-    return await axios.put(url,dto);
+    const url ="/api/v1/team/withdraw_to_alipay";
+    return await axios.post(url,dto);
 }
 async function getFinanceBillBoard(){
     const url = "/api/v1/team/finance_board";
   return await axios.get(url);
 }
 
-function withdrawToAlipayAccount(amount,cardId){
+function withdrawToAlipayAccount(amount,toAccountId){
     const dto={
         amount: amount,
-        cardId: cardId
+        toAccountId: toAccountId
     }
     return withdraw(dto);
 }
@@ -97,4 +108,11 @@ function newAlipayAccount(payeeAccount,payeeRealName){
         payeeRealName: payeeRealName
     }
     return addNewAlipayAccount(dto);
+}
+function closeAddAccountModel(){
+    $("#addAccountInfoModal").modal("hide");
+    teamFinanceFlow.alipayAccount = {
+        payeeAccount: "",
+        payeeRealName: ""
+    };
 }

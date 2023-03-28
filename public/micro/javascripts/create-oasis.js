@@ -10,6 +10,7 @@ import {ContentediableComponent} from "/common/javascripts/contenteditable-compo
 const RootComponent = {
     data() {
       return {
+        aa: null,
         base: {
             title: "",
             subTitle: ""
@@ -62,6 +63,13 @@ const RootComponent = {
         pannelRemoveText(){
             removeText();
         }
+    },
+    updated(){
+        
+        $(function() {
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
     }
 }
 let app =  createApp(RootComponent);

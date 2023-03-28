@@ -951,6 +951,15 @@ col-content{
   height: 100vh;
   width: calc(100% - 240px);
 }
+.nav-setting{
+  height: 90px;
+}
+.nav-container-wrapper{
+  height: calc(100% - 90px);
+}
+.nav-setting i{
+  color: #666666;
+}
 .micro-logo:hover{
  background-color: #95bcf24d;
  border-radius: 5px;
@@ -997,16 +1006,25 @@ col-content{
   margin-left: 15px;
   margin-right: 15px;
 }
-.nav-link-default:hover svg path{
+.nav-link-default:hover svg path,.nva-link-default:hover svg path{
   fill:rgba(255, 255, 255, .7);
 }
+
 .nav-link{
   font-weight: 800;
 }
 .nav-plus-active{
   background-color: #2d6aa48f;
 }
-.nav-plus:hover{
+// .nav-plus:hover{
+//   background-color: #2d6aa48f;
+//   border-radius: 5px;
+// }
+.nav-gear:hover{
+  background-color: #e7f0f2a2;
+  border-radius: 5px;
+}
+.nav-plus-13—street:hover{
   background-color: #2d6aa48f;
   border-radius: 5px;
 }
@@ -1021,6 +1039,14 @@ col-content{
   height: 50px;
   background-color: #2D6BA4;
   border-radius: 50px;
+  border: none;
+  opacity: .7;
+
+}
+.btn-option-primary-micro:hover{
+  opacity: 1;
+  background-color: #2D6BA4;
+
 }
 .btn-option-secondary-micro{
   width: 200px;
@@ -1028,4 +1054,10 @@ col-content{
   background-color: #2d6aa476;
   border-radius: 50px;
   color: #fff;
+  border: none;
+  opacity: .7;
+}
+.btn-option-secondary-micro:hover{
+  opacity: 1;
+  background-color: #2d6aa476;
 }

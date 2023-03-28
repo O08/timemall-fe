@@ -20,3 +20,17 @@
     color: white;
 
 }
+.member-avatar,.member-title{
+    display: flex;
+    justify-content: center;
+}
+.member-avatar img{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+}
+.section-member-grid{
+    margin-top: 100px;
+    margin-left: 10%;
+    margin-right: 10%;
+}

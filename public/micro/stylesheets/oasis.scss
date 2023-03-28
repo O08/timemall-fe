@@ -48,3 +48,24 @@ col-content{
 .info-container{
     width: 100%;
 }
+.spacer{
+  height: 600px;
+  display: block;
+}
+.oasis-option,.oasis-option:hover{
+  background: inherit;
+  color: #2f2f2f;
+  border: none;
+}
+.dropdown-toggle:after{
+  display: none;
+}
+.btn-oasis-option,.btn-oasis-option:hover{
+  background: inherit;
+  border: none;
+  color: #5390EC;
+  opacity: .7;
+}
+.btn-oasis-option:hover{
+  opacity: 1;
+}

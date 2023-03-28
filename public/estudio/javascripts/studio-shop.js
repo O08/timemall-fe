@@ -6,6 +6,7 @@ import Auth from "/estudio/javascripts/auth.js"
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 import {getDaysBetween}from "/common/javascripts/util.js";
+import TopUpCompoent from "/estudio/javascripts/compoent/TopUpCompoent.js";
 
 
 const RootComponent = {
@@ -35,6 +36,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
+app.mixin(TopUpCompoent);
 const shopPage = app.mount('#app');
 window.cShop = shopPage;
 
@@ -83,5 +85,10 @@ $(".product-blue-sign .product-img").on("click",()=>{
         return
     }
     $("#blueSignBuyModal").modal("show");
+})
+$(".product-top_up .product-img").on("click",()=>{
+    
+
+    $("#topUpModal").modal("show");
 })
 

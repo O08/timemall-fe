@@ -8,9 +8,11 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 
-import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
-import defaultAvatarImage from '/avator.webp'
-import defaultBannerImage from '/common/images/default-brand-banner.jpg'
+import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg';
+import defaultAvatarImage from '/avator.webp';
+import defaultBannerImage from '/common/images/default-brand-banner.jpg';
+import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
+import BubbleSwapCellComponent from "/mall/javascripts/component/BubbleSwapCellComponent.js";
 
 
 const RootComponent = {
@@ -50,6 +52,8 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : false}));
+app.mixin(BubbleInviteComponent);
+app.mixin(BubbleSwapCellComponent);
 // app.component("infinite-loading", InfiniteLoading);
 const bubblePage = app.mount('#app');
 window.bubble = bubblePage;

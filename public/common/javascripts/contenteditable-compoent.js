@@ -4,7 +4,7 @@ const ContentediableComponent = {
     data () {
         return{
             oldval: this.modelValue ,
-            contentHtml: this.modelValue || this.modelValue === 0 ? this.modelValue : '<div><br></div>',
+            contentHtml: this.modelValue || this.modelValue === 0 ? this.modelValue : '',
             isLocked: true,
             lastEditRange: null
         }

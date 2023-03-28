@@ -88,6 +88,9 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">全部服务</button>
             </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="cooperation-tab" data-bs-toggle="tab" data-bs-target="#cooperation-tab-pane" type="button" role="tab" aria-controls="cooperation-tab-pane" aria-selected="false">合作</button>
+            </li>
           </ul>
         </section>
 
@@ -164,10 +167,250 @@
                   </div>
                 </section>
               </div>
+              <div class="tab-pane fade" id="cooperation-tab-pane" role="tabpanel" aria-labelledby="cooperation-tab" tabindex="0">
+                <section class="section-list-render" id="cooperation_library">
+                  <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                    <div  class="col cell-item">
+                      <div class="card border-0 cell-card-body-bg">
+                        <img :src="defaultCellPreviewImage" class="card-img-top cell-thumb" alt="...">
+                        <div class="card-body">
+                          <p class="card-text mt-2">
+                            <button type="button" @click="retrieveOasesCreatedV" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inviteModal">
+                              邀请成为基地成员
+                            </button>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div  class="col cell-item">
+                      <div class="card border-0 cell-card-body-bg">
+                        <img :src="defaultCellPreviewImage" class="card-img-top cell-thumb" alt="...">
+                        <div class="card-body">
+                          <p class="card-text mt-2">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#swapServiceModal">
+                              服务互换
+                            </button>
+                            
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
           </div>
         </div>
         
       </main>
+      <section class="modals">
+        <div class="modal-container">
+          
+          <!-- Modal -->
+          <div class="modal fade" id="inviteModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="inviteModalLabel">邀请</h1>
+                  <button type="button" id="closeInviteModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="nosubmit">
+                    <input  @keyup.enter.native="searchOasesV" v-model="searchOasesQ" class="nosubmit commission-search-btn" type="search" placeholder="Search...">
+                  </form>
+                  <div class="mt-3">
+                    <span>Oases:</span>
+                    <ul class="list-group ms-5">
+                      <li v-for="oasis in displayOases" class="list-group-item">
+                        <div class="form-check">
+                          <input class="form-check-input" v-model="checkedOasisId" type="radio" name="flexRadioDefault" id="oasis.id">
+                          <label class="form-check-label" for="flexRadioDefault1">
+                            {{oasis.title}}
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                </div>
+                <div class="modal-footer btn-light">
+                  <button @click="inviteBrandV" type="button"  class="btn btn-primary">发出邀请</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="swapServiceModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="swapServiceModalLabel">服务互换</h1>
+                  <button type="button"  id="closeSwapServiceModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                    <button @click="loadSupplierServiceV" class="btn btn-primary" data-bs-target="#querySupplierServiceModal" data-bs-toggle="modal">选择对方服务</button>
+                    <button @click="loadMyselfServiceV" class="btn btn-primary" data-bs-target="#queryMyselfServiceModal" data-bs-toggle="modal">选择你用于交换服务</button>
+                  </div>
+                  <div>
+                    <div class="ms-3">
+                      <p>您渴望的服务：{{swapHelper.partnerCellTitle}}</p>
+                      <p>数量: {{swap.partnerrCellQuantity}}</p>
+                      <p>单位: {{swap.partnerCellSbu}}</p>
+                      <p>价值: {{swapHelper.partnerCellTotal}}</p>
+                    </div>
+                    <div class="ms-3"> 
+                      <p>您用于交换的服务：{{swapHelper.sponsorCellTitle}}</p>
+                      <p>数量: {{swap.sponsorCellQuantity}}</p>
+                      <p>单位: {{swap.sponsorCellSbu}}</p>
+                      <p>价值: {{swapHelper.sponsorCellTotal}}</p>
+                    </div>
+                  </div>
+                
+                </div>
+                <div class="modal-footer btn-light">
+                  <button  @click="swapServiceV" type="button" class="btn btn-primary">交换</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="querySupplierServiceModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="querySupplierServiceModalLabel">选择对方服务</h1>
+                </div>
+                <div class="modal-body">
+                  <form class="nosubmit">
+                    <input  @keyup.enter.native="loadSupplierServiceV" v-model="supplierQ" class="nosubmit commission-search-btn" type="search" placeholder="Search...">
+                  </form>
+                  <div class="mt-3">
+                    <span>选中服务信息:</span>
+                    <div class="ms-3">
+                      <div class="row">
+                        <div class="col">服务：<span>{{swapHelper.partnerCellTitle}}</span></div>
+                        <div class="col">
+                          <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">数量:</label>
+                            <div class="col-sm-8">
+                              <input type="number" @change="computeSupplierTotalFeeV" class="form-control" v-model="swap.partnerrCellQuantity">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="row mb-3">
+                            <label  class="col-sm-4 col-form-label">单位:</label>
+                            <div class="col-sm-8">
+                              <select class="form-select option-sbu" @change="computeSupplierTotalFeeV" v-model="swap.partnerCellSbu" aria-label="Default select example">
+                                <option value="">计量</option>
+                                <option :value="item.sbu" v-for="item in supplierCellPricing.fee">{{transformSbuV(item.sbu)}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">价值:<span class="help-text">{{swapHelper.partnerCellTotal}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+         
+                  <div class="mt-3">
+                    <span>服务列表:</span>
+                    <ul class="list-group ms-5">
+                      <li v-for="cell in supplierCells.records" class="list-group-item">
+                        <div class="form-check">
+                          <input class="form-check-input" @change="onSelectedSupplierCellV" v-model="swap.partnerCellId" type="radio" name="flexRadioDefault" id="cell.id" :value="cell.id">
+                          <label class="form-check-label" for="flexRadioDefault1">
+                            {{cell.title}}
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="modal-footer btn-light">
+                  <button class="btn btn-primary" data-bs-target="#swapServiceModal" data-bs-toggle="modal">返回</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="queryMyselfServiceModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="queryMyselfServiceModalLabel">选择你用于交换服务</h1>
+                </div>
+                <div class="modal-body">
+                  <form class="nosubmit">
+                    <input  @keyup.enter.native="loadMyselfServiceV" v-model="myselfQ" class="nosubmit commission-search-btn" type="search" placeholder="Search...">
+                  </form>
+                  <div class="mt-3">
+                    <span>选中服务信息:</span>
+                    <div class="ms-3">
+                      <div class="row">
+                        <div class="col">服务：<span>{{swapHelper.sponsorCellTitle}}</span></div>
+                        <div class="col">
+                          <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">数量:</label>
+                            <div class="col-sm-8">
+                              <input type="number" @change="computeMyselfTotalFeeV" class="form-control" v-model="swap.sponsorCellQuantity">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="row mb-3">
+                            <label  class="col-sm-4 col-form-label">单位:</label>
+                            <div class="col-sm-8">
+                              <select class="form-select option-sbu" @change="computeMyselfTotalFeeV" v-model="swap.sponsorCellSbu" aria-label="Default select example">
+                                <option value="">计量</option>
+                                <option :value="item.sbu" v-for="item in myselfCellPricing.fee">{{transformSbuV(item.sbu)}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">价值:<span class="help-text">{{swapHelper.sponsorCellTotal}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <span>服务列表:</span>
+                    <ul class="list-group ms-5">
+                      <li v-for="cell in myselfCells.records" class="list-group-item">
+                        <div class="form-check">
+                          <input class="form-check-input" @change="onSelectedMyselfCellV" v-model="swap.partnerCellId" type="radio" name="flexRadioMy" id="cell.id" :value="cell.id">
+                          <label class="form-check-label" for="flexRadioMy">
+                            {{cell.title}}
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                 
+                
+                </div>
+                <div class="modal-footer btn-light">
+                  <button class="btn btn-primary" data-bs-target="#swapServiceModal" data-bs-toggle="modal">返回</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+      </section>
     </content>
     <footer></footer>
   </mall-app>

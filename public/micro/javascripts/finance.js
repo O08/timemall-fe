@@ -17,6 +17,13 @@ const RootComponent = {
         loadFinanceBoardV(){
             loadFinanceBoard();
         }
+    },
+    updated(){
+        
+        $(function() {
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
     }
 }
 let app =  createApp(RootComponent);
