@@ -11,7 +11,7 @@ const BubbleSwapCellComponent = {
             sponsorCellSbu: "",
             partner: "",
             partnerCellId: "",
-            partnerrCellQuantity: "",
+            partnerCellQuantity: "",
             partnerCellSbu: ""
         },
         swapHelper: {
@@ -32,7 +32,12 @@ const BubbleSwapCellComponent = {
     },
     methods: {
         swapServiceV(){
-            swapService(this.swap);
+            swapService(this.swap).then(response=>{
+                if(response.data.code==200){
+                    // $("#swapServiceModal").modal("hide");
+
+                }
+            });
         },
         loadSupplierServiceV(){
             const brandId= getQueryVariable("brand_id");
@@ -62,14 +67,14 @@ const BubbleSwapCellComponent = {
             this.swapHelper.partnerCellTitle = cell.title;
             this.swapHelper.partnerCellTotal = cell.price;
             this.swap.partnerCellSbu = "day";
-            this.swap.partnerrCellQuantity = 1;
+            this.swap.partnerCellQuantity = 1;
             this.swap.partner = getQueryVariable("brand_id");
             // load this cell pricing
            this.getSupplierCellPricingV(cell.id);
         },
         computeSupplierTotalFeeV(){
            this.swapHelper.partnerCellTotal = 
-            getSbuPrice(this.supplierCellPricing.fee,this.swap.partnerCellSbu) * this.swap.partnerrCellQuantity;
+            getSbuPrice(this.supplierCellPricing.fee,this.swap.partnerCellSbu) * this.swap.partnerCellQuantity;
 
         },
         getMyselfCellPricingV(cellId){

@@ -95,7 +95,7 @@
         </a>
         <div class="collapse" id="collapseInvitedOasis">
           <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <span>{{invite.title}}</span>  
           </a>
         </div>
@@ -105,10 +105,10 @@
         </a>
         <div class="collapse show" id="collapseJoinedOasis">
           <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3  d-flex flex-row align-items-center" 
-            :class="{'nav-sub-link-active': oasis.id = oasisId, 
+            :class="{'nav-sub-link-active': oasis.id == oasisId, 
             'nva-link-default': oasis.id != oasisId}"
             :href="'/micro/oasis.html?oasis_id='+oasis.id">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
             <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
@@ -121,7 +121,7 @@
     <div class="hero-container">
       <div class="hero-info d-flex flex-row align-items-baseline">
         <div>
-          <img class="oasis-avatar" src="/avator.webp">
+          <img class="oasis-avatar" :src="announce.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
         </div>
        <div class="ms-4">
         <h4>{{announce.title}}</h4>
@@ -150,12 +150,12 @@
           过滤
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" @click="filterCommissionV('1')">你已接收任务</a></li>
+          <li><a class="dropdown-item" @click="filterCommissionV('1')">您已接收任务</a></li>
           <li><a class="dropdown-item" @click="filterCommissionV('2')">最近7天</a></li>
-          <li><a class="dropdown-item" @click="filterCommissionV('2')">最近1天</a></li>
+          <li><a class="dropdown-item" @click="filterCommissionV('3')">最近1天</a></li>
         </ul>
       </div>
-      <form class="nosubmit">
+      <form class="nosubmit" onsubmit="return false">
         <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" class="nosubmit commission-search-btn" type="search" placeholder="Search...">
       </form>
     </div>
@@ -202,12 +202,18 @@
               <span class="text-small">create at {{record.addDate}} by {{record.founder}}</span>
             </div>
           </td>
-          <td></td>
+          <td>
+            {{getTagDescV(record.tag)}}
+          </td>
           <td class="text-center">
-            <button @click="receiveCommissionV(record.id)" type="button" class="btn btn-commission-action">
+            <button v-if="record.tag=='1'" @click="receiveCommissionV(record.id)" type="button" 
+              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="接受任务"
+              class="btn btn-commission-action ms-3">
               <i class="bi bi-envelope-open"></i>
             </button>
-            <button  @click="summitCommissionV(record.id)" type="button" class="btn btn-commission-action ms-3">
+            <button v-if="record.tag=='2' &&  record.worker==getIdentity().brandId" @click="summitCommissionV(record.id)" type="button" 
+              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="提交任务"
+               class="btn btn-commission-action ms-3">
               <i class="bi bi-check-circle"></i>
             </button>
           </td>

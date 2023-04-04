@@ -92,7 +92,7 @@
         </a>
         <div class="collapse" id="collapseInvitedOasis">
           <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <span>{{invite.title}}</span>  
           </a>
         </div>
@@ -102,7 +102,7 @@
         </a>
         <div class="collapse" id="collapseJoinedOasis">
           <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
@@ -161,28 +161,154 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
           <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
             <div v-for="record in objgrid_pagination.records" class="col package-card-container">
-              <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg">
-              <div class="card-body mb-3">
-                <h4 class="mt-3">{{record.title}}</h4>
-                <div>
-                  <span>package: {{record.quantity}}  {{record.sbu}}</span>
-                  <span>账面价值：{{record.objectVal}}</span>
-                  <span>售价：{{record.salePrice}}</span>
+              <div :id="'a'+record.id" class="carousel slide" data-interval="false">
+                <div class="carousel-inner">
+                  <div class="carousel-item"
+                       :class="{'active': record.swapNo!=currentTarget.swapNo}"
+                    >
+                    <img class="card-img-top mt-3" :src="record.avatar || defaultObjPreviewImage" @error.once="e => { e.target.src = defaultObjPreviewImage }">
+                    <div class="card-body mb-3">
+                      <h6 class="mt-3">{{record.title}}</h6>
+                      <div class="mt-3 help-text fs-6 d-flex flex-column justify-content-center">
+                        <span>服务内容: {{record.quantity}}  {{record.sbu}}</span>
+                        <span>账面价值：{{record.objectVal}}</span>
+                        <div class="mt-3 d-flex justify-content-between">
+                          
+                          <button @click="changeSlideV('#btn'+record.id,record.swapNo)" type="button" class="btn btn-primary btn-obj-option" >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12 15.75C12.8284 15.75 13.5 15.0784 13.5 14.25C13.5 13.4216 12.8284 12.75 12 12.75C11.1716 12.75 10.5 13.4216 10.5 14.25C10.5 15.0784 11.1716 15.75 12 15.75Z" fill="#4ECB71"/>
+                              <path d="M17.8328 13.8593C17.3693 12.6787 16.5697 11.66 15.5329 10.9296C14.4961 10.1991 13.2677 9.78899 12 9.75C10.7323 9.78899 9.50395 10.1991 8.46714 10.9296C7.43033 11.66 6.63066 12.6787 6.16725 13.8593L6 14.25L6.16725 14.6407C6.63066 15.8213 7.43033 16.84 8.46714 17.5704C9.50395 18.3009 10.7323 18.711 12 18.75C13.2677 18.711 14.4961 18.3009 15.5329 17.5704C16.5697 16.84 17.3693 15.8213 17.8328 14.6407L18 14.25L17.8328 13.8593ZM12 17.25C11.4067 17.25 10.8266 17.0741 10.3333 16.7444C9.83994 16.4148 9.45542 15.9462 9.22836 15.398C9.0013 14.8499 8.94189 14.2467 9.05764 13.6647C9.1734 13.0828 9.45912 12.5482 9.87868 12.1287C10.2982 11.7091 10.8328 11.4234 11.4147 11.3076C11.9967 11.1919 12.5999 11.2513 13.148 11.4784C13.6962 11.7054 14.1648 12.0899 14.4944 12.5833C14.8241 13.0766 15 13.6567 15 14.25C14.999 15.0453 14.6826 15.8078 14.1202 16.3702C13.5578 16.9326 12.7953 17.249 12 17.25Z" fill="#4ECB71"/>
+                              <path d="M20.25 2.25H3.75C3.35218 2.25 2.97064 2.40804 2.68934 2.68934C2.40804 2.97064 2.25 3.35218 2.25 3.75V20.25C2.25 20.6478 2.40804 21.0294 2.68934 21.3107C2.97064 21.592 3.35218 21.75 3.75 21.75H20.25C20.6478 21.75 21.0294 21.592 21.3107 21.3107C21.592 21.0294 21.75 20.6478 21.75 20.25V3.75C21.75 3.35218 21.592 2.97064 21.3107 2.68934C21.0294 2.40804 20.6478 2.25 20.25 2.25ZM3.75 3.75H20.25V6.75H3.75V3.75ZM3.75 20.25V8.25H20.25V20.25H3.75Z" fill="#4ECB71"/>
+                              </svg>                        
+                          </button>
+                          
+                          <div class="dropdown nav-link">
+                            <a class="btn btn-secondary dropdown-toggle btn-obj-option" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots"></i>
+                            </a>
+                           
+                            <ul class="dropdown-menu">
+                              <li>
+                                <a  class="dropdown-item">
+                                  <button @click="denyCooperationV(record.swapNo)" type="button" class="btn btn-primary obj-option-item" >
+                                    拒绝
+                                  </button>
+                                </a>
+                              </li>
+                              <li>
+                                <a  class="dropdown-item">
+                                  <button @click="acceptCooperationV(record.swapNo)" type="button" class="btn btn-primary obj-option-item" >
+                                    同意
+                                  </button>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div v-if="record.swapNo==currentTarget.swapNo" class="carousel-item active">
+                    <img class="card-img-top mt-3" :src="record.avatar || defaultObjPreviewImage" @error.once="e => { e.target.src = defaultObjPreviewImage }">
+                    <div class="card-body mb-3">
+                      <h6 class="mt-3">{{currentTarget.title}}</h6>
+                      <div class="mt-3 help-text fs-6 d-flex flex-column justify-content-center">
+                        <span>服务内容: {{currentTarget.quantity}}  {{currentTarget.sbu}}</span>
+                        <span>账面价值：{{currentTarget.objectVal}}</span>
+                        <div class="mt-3 d-flex justify-content-between">
+                          <button @click="changeSlideToFirstV('#btn'+record.id)" type="button" class="btn btn-primary btn-obj-option" >
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M12 15.75C12.8284 15.75 13.5 15.0784 13.5 14.25C13.5 13.4216 12.8284 12.75 12 12.75C11.1716 12.75 10.5 13.4216 10.5 14.25C10.5 15.0784 11.1716 15.75 12 15.75Z" fill="#4ECB71"/>
+                              <path d="M17.8328 13.8593C17.3693 12.6787 16.5697 11.66 15.5329 10.9296C14.4961 10.1991 13.2677 9.78899 12 9.75C10.7323 9.78899 9.50395 10.1991 8.46714 10.9296C7.43033 11.66 6.63066 12.6787 6.16725 13.8593L6 14.25L6.16725 14.6407C6.63066 15.8213 7.43033 16.84 8.46714 17.5704C9.50395 18.3009 10.7323 18.711 12 18.75C13.2677 18.711 14.4961 18.3009 15.5329 17.5704C16.5697 16.84 17.3693 15.8213 17.8328 14.6407L18 14.25L17.8328 13.8593ZM12 17.25C11.4067 17.25 10.8266 17.0741 10.3333 16.7444C9.83994 16.4148 9.45542 15.9462 9.22836 15.398C9.0013 14.8499 8.94189 14.2467 9.05764 13.6647C9.1734 13.0828 9.45912 12.5482 9.87868 12.1287C10.2982 11.7091 10.8328 11.4234 11.4147 11.3076C11.9967 11.1919 12.5999 11.2513 13.148 11.4784C13.6962 11.7054 14.1648 12.0899 14.4944 12.5833C14.8241 13.0766 15 13.6567 15 14.25C14.999 15.0453 14.6826 15.8078 14.1202 16.3702C13.5578 16.9326 12.7953 17.249 12 17.25Z" fill="#4ECB71"/>
+                              <path d="M20.25 2.25H3.75C3.35218 2.25 2.97064 2.40804 2.68934 2.68934C2.40804 2.97064 2.25 3.35218 2.25 3.75V20.25C2.25 20.6478 2.40804 21.0294 2.68934 21.3107C2.97064 21.592 3.35218 21.75 3.75 21.75H20.25C20.6478 21.75 21.0294 21.592 21.3107 21.3107C21.592 21.0294 21.75 20.6478 21.75 20.25V3.75C21.75 3.35218 21.592 2.97064 21.3107 2.68934C21.0294 2.40804 20.6478 2.25 20.25 2.25ZM3.75 3.75H20.25V6.75H3.75V3.75ZM3.75 20.25V8.25H20.25V20.25H3.75Z" fill="#4ECB71"/>
+                              </svg>                        
+                          </button>
+                          <div class="dropdown nav-link d-flex align-items-center">
+                            <a class="btn btn-secondary dropdown-toggle btn-obj-option" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li>
+                                <a  class="dropdown-item">
+                                  <button @click="denyCooperationV(record.swapNo)" type="button" class="btn btn-primary obj-option-item" >
+                                    拒绝
+                                  </button>
+                                </a>
+                              </li>
+                              <li>
+                                <a  class="dropdown-item">
+                                  <button @click="acceptCooperationV(record.swapNo)" type="button" class="btn btn-primary obj-option-item" >
+                                    同意
+                                  </button>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <button class="carousel-control-next d-none" type="button" :id="'btn'+record.id" :data-bs-target="'#a'+record.id" data-bs-slide="next">
+                  <div class="partner-icon-wrapper">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  </div>
+                </button>
+
               </div>
+              
             </div>
           </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
           <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
             <div v-for="record in objgrid_pagination.records" class="col package-card-container">
-              <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg">
+              <img class="card-img-top mt-3" :src="record.avatar || defaultObjPreviewImage" @error.once="e => { e.target.src = defaultObjPreviewImage }">
               <div class="card-body mb-3">
-                <a :href="'/micro/obj-detail.html?obj_id='+ record.id + '&cell_id=' + record.cellId + '&brand_id=' + record.brandId"><h6 class="mt-3">{{record.title}}</h6></a>
-                <div>
-                  <span>package: {{record.quantity}}  {{record.sbu}}</span>
+                <a class="url-link" :href="'/micro/obj-detail.html?obj_id='+ record.id + '&cell_id=' + record.cellId + '&brand_id=' + record.brandId + '&option=view'"><h6 class="mt-3">{{record.title}}</h6></a>
+                <div class="mt-3 help-text fs-6 d-flex flex-column justify-content-center">
+                  <span>服务内容: {{record.quantity}}  {{record.sbu}}</span>
                   <span>账面价值：{{record.objectVal}}</span>
-                  <span>售价：{{record.salePrice}}</span>
+                  <span>售价：{{!record.salePrice ? '未设置' : record.salePrice}}</span>
+                  <span>状态：{{ record.tag == '2' ? '交易中' : '未入场'}}</span>
+                  <div class="mt-3 d-flex justify-content-between">
+                    <div class="dropdown nav-link d-flex align-items-center">
+                      <a class="btn btn-secondary dropdown-toggle btn-obj-option" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li v-show="record.tag == '1' || record.tag=='3' ">
+                          <a  class="dropdown-item">
+                            <button @click="saleObjV(record.id)" type="button" class="btn btn-primary obj-option-item" >
+                              上线
+                            </button>
+                          </a>
+                        </li>
+                        <li v-show="record.tag == '2'">
+                          <a  class="dropdown-item">
+                            <button @click="offsaleObjV(record.id)" type="button" class="btn btn-primary obj-option-item" >
+                              下线
+                            </button>
+                          </a>
+                        </li>
+                        <li>
+                          <a v-show="record.tag == '1' || record.tag=='3'" class="dropdown-item">
+                            <button @click="useObjV(record.id)" type="button" class="btn btn-primary obj-option-item" >
+                              使用
+                            </button>
+                          </a>
+                        </li>
+                        <li>
+                          <a v-show="record.tag == '1' || record.tag=='3'" class="dropdown-item">
+                            <button @click="showPricingModalV(record.id)" type="button" class="btn btn-primary obj-option-item" >
+                              定价
+                            </button>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -191,13 +317,12 @@
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
           <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
             <div v-for="record in todoGrid_pagination.records" class="col package-card-container">
-              <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg">
+              <img class="card-img-top mt-3" :src="record.avatar || defaultObjPreviewImage" @error.once="e => { e.target.src = defaultObjPreviewImage }">
               <div class="card-body mb-3">
-                <a :href="'/micro/obj-detail.html?obj_id='+ record.id + '&cell_id=' + record.cellId + '&brand_id=' + record.brandId"><h6 class="mt-3">{{record.title}}</h6></a>
-                <div>
-                  <span>package: {{record.quantity}}  {{record.sbu}}</span>
+                <a class="url-link" :href="'/micro/obj-detail.html?obj_id='+ record.id + '&cell_id=' + record.cellId + '&brand_id=' + record.brandId + '&option=view'"><h6 class="mt-3">{{record.title}}</h6></a>
+                <div class="mt-3 help-text fs-6 d-flex flex-column justify-content-center">
+                  <span>服务内容: {{record.quantity}}  {{record.sbu}}</span>
                   <span>账面价值：{{record.objectVal}}</span>
-                  <span>售价：{{record.salePrice}}</span>
                 </div>
               </div>
             </div>
@@ -205,6 +330,33 @@
         </div>
       </div>
     </col-content>
+    <section class="modals">
+      <div class="modal-container">
+              
+        <!-- Modal -->
+        <div class="modal fade" id="pricingModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="pricingModalLabel">设置标的销售价格</h1>
+                <button type="button" id="closePricingModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <form>
+                  <div class="mt-3">
+                    <label for="inputObjSalePrice" class="form-label">售价</label>
+                    <input v-model="pricing.price" type="number" class="form-control" id="inputObjSalePrice">
+                  </div> 
+                </form>
+              </div>
+              <div class="modal-footer btn-light">
+                <button @click="settingObjPricingV" type="button"  class="btn btn-primary">设置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </micro-app>
   <script type="module" src="/common/javascripts/tm.js"></script>
   <script type="module" src="/micro/javascripts/swap-service.js"></script>

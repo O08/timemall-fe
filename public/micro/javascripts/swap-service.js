@@ -4,13 +4,21 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
-import defaultBgImage from '/avator.webp'
+import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
 import Pagination  from "/common/javascripts/pagination-vue.js";
+import {ObjOd,ObjMark,ObjTag} from "/common/javascripts/tm-constant.js";
+
 
 
 const RootComponent = {
     data() {
       return {
+        defaultObjPreviewImage,
+        pricing: {
+            objId: "",
+            price: ""
+        },
+        currentTarget: {},
         objgrid_pagination: {
             url: "/api/v1/team/obj/me",
             size: 12,
@@ -78,6 +86,65 @@ const RootComponent = {
        loadTodoObjV(){
         this.todoGrid_pagination.param.current = 1;
          this.reloadPage(this.todoGrid_pagination);
+       },
+       changeSlideToFirstV(selector){
+        $(selector).click();
+       },
+       changeSlideV(selector,swapNo){
+        retrieveObjBySwapNo(swapNo,ObjOd.TARGET).then(response=>{
+            if(response.data.code==200){
+                this.currentTarget=response.data.obj;
+                $(selector).click();
+            }
+        })
+       },
+       acceptCooperationV(swapNo){
+         this.markObjV(swapNo,ObjMark.OWNED);
+       },
+       denyCooperationV(swapNo){
+        this.markObjV(swapNo,ObjMark.DENY);
+       },
+       markObjV(swapNo, mark){
+         markObjB(swapNo,mark).then(response=>{
+            if(response.data.code==200){
+                this.loadCooperationObjV();
+            }
+         })
+
+       },
+       saleObjV(objId){
+           tagObjB(objId,ObjTag.PUBLISH).then(response=>{
+            if(response.data.code==200){
+                this.loadOwnedObjV();
+            }
+           })
+       },
+       offsaleObjV(objId){
+        tagObjB(objId,ObjTag.OFFLINE).then(response=>{
+            if(response.data.code==200){
+                this.loadOwnedObjV();
+            }
+           })
+       },
+       useObjV(objId){
+           useObjB(objId).then(response=>{
+                if(response.data.code==200){
+                    alert("成功生成订单，可在E-pod查看履约");
+                }
+           })
+       },
+       showPricingModalV(objId){
+        this.pricing.objId=objId;
+        this.pricing.price="";
+        $("#pricingModal").modal("show");
+       },
+       settingObjPricingV(){
+        settingObjPricing(this.pricing).then(response=>{
+            if(response.data.code==200){
+                this.loadOwnedObjV();
+                $("#pricingModal").modal("hide");
+            }
+        });
        }
 
 
@@ -105,4 +172,43 @@ swapService.pageInit(swapService.objgrid_pagination);
 async function tagObj(dto){
     const url = "/api/v1/team/obj/tag";
     return await axios.put(url,dto)  
+}
+async function getObjBySwapNo(swapNo,od){
+    const url="/api/v1/team/obj/by_swapno?swapNo="+swapNo + "&od="+od;
+    return await axios.get(url);
+}
+async function markObj(dto){
+    const url="/api/v1/team/obj/mark";
+    return await axios.put(url,dto);
+}
+async function useObj(objId){
+    const url="/api/v1/team/obj/{obj_id}/using".replace("{obj_id}",objId);
+    return await axios.put(url);
+}
+async function updateObjPricing(pricing){
+    const url="/api/v1/team/obj/pricing";
+    return await axios.put(url,pricing);
+}
+function settingObjPricing(pricing){
+    return updateObjPricing(pricing);
+}
+function retrieveObjBySwapNo(swapNo,od){
+    return getObjBySwapNo(swapNo,od);
+}
+function markObjB(swapNo,mark){
+    const dto={
+        swapNo: swapNo,
+        mark: mark
+    }
+    return markObj(dto);
+}
+function tagObjB(objId,tag){
+    const dto= {
+        objId: objId,
+        tag: tag
+    }
+    return tagObj(dto);
+}
+function useObjB(objId){
+    return useObj(objId);
 }

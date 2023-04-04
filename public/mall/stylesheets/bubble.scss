@@ -154,3 +154,22 @@ mall-app header{
   border-radius: 2px;
   filter: grayscale(0.2);
 }
+.option-invitation{
+  background: linear-gradient(90deg, #68A4FD 0%, #AECEFD 44.3%);
+  opacity: .8;
+  border: none;
+}
+.option-swap{
+  background: linear-gradient(90deg, #E5C4FF 0%, #e4cce4 95.24%);
+  opacity: .8;
+  border: none;
+}
+.option-invitation:hover,.option-swap:hover{
+  opacity: 1;
+}
+.bubble-search-btn{
+  color: #b5b6ba;
+}
+.title-color{
+  color: #666666;
+}

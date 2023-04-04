@@ -5,20 +5,18 @@ import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
+import {OasisMark} from "/common/javascripts/tm-constant.js"
 
 
 const RootComponent = {
     data() {
       return {
-        aa: null,
         base: {
             title: "",
             subTitle: ""
         },
-        risk: {
-            riskEntries: [],
-            oasisId: ""
-        }
+        risk: "",
+        agree_check: false
       }
     },
     methods: {
@@ -32,7 +30,19 @@ const RootComponent = {
             saveBaseInfo(this.base);
         },
         saveOasisRiskInfoV(){
-            saveOasisRiskInfo(this.risk);
+            saveOasisRiskInfo(this.risk).then(response=>{
+                if(response.data.code==200){
+                    this.nextSlideV();
+                }
+            });
+        },
+        publishOasisV(){
+            const oasisId = getQueryVariable("oasis_id");
+            markOasisB(oasisId,OasisMark.PUBLISH).then(response=>{
+                if(response.data.code==200){
+                    window.location.href="/micro/teixcalaanli.html";
+                }
+            });
         },
         // file handler
         previewOasisCoverV(e){
@@ -106,7 +116,18 @@ async function putOasisRisk(dto){
     const url = "/api/v1/team/risk";
     return await axios.put(url,dto)  
 }
+async function markOasis(form){
+    const url= "/api/v1/team/oasis/mark";
+    return await axios.put(url,form);
+}
 
+function markOasisB(oasisId,mark){
+    var form = new FormData();
+    form.append("oasisId",oasisId);
+    form.append("mark",mark);
+    return markOasis(form);
+
+}
 function uploadAnnounceFile(){
     const oasisId = getQueryVariable("oasis_id");
 
@@ -167,8 +188,12 @@ function saveBaseInfo(base){
 
 }
 function saveOasisRiskInfo(risk){
-    var dto  = risk;
-    dto.oasisId = getQueryVariable("oasis_id");
+    const oasisId = getQueryVariable("oasis_id");
+    var dto  = {
+        risk: risk,
+        oasisId: oasisId
+    }
+    
     return putOasisRisk(dto);
 }
 function addOasisIdToUrl(oasisId){

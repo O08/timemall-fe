@@ -104,7 +104,19 @@
                   <div class="carousel-item active">
                     <img :src="talent.avatar || defaultPartnerPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultPartnerPreviewImage }">
                   </div>
-                  <div class="carousel-item">
+                  <div v-if="talent.skill" class="carousel-item pt-4">
+                    <h6>品牌词条</h6>
+                    <div v-if="talent.skill && talent.skill.length>5" class="d-flex flex-column  ms-1">
+                      <span class="ms-5 help-text" v-for="i in 5">
+                        {{talent.skill[i-1].entry}}
+                      </span>
+                    </div>
+                    <div v-else class="d-flex flex-column ms-1">
+                      <span class="ms-5 help-text" v-for="skill in talent.skill">
+                        {{skill.entry}}
+                      </span>
+                    </div>
+                    
                   </div>
                 </div>
                 <button class="carousel-control-prev ms-2" type="button" :data-bs-target="'#a'+talent.id" data-bs-slide="prev">

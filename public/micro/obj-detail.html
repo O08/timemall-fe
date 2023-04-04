@@ -137,16 +137,16 @@
                             </div>
                             <div class="obj-package">
                                 <span>服务：{{profile.title}}</span>
-                                <span>服务内容：12{{transformSbuV('day')}}</span>
-                                <span>账面价值：89</span>
+                                <span>服务内容：{{objInfo.quantity}} {{transformSbuV(objInfo.sbu)}}</span>
+                                <span>账面价值：{{objInfo.objectVal}}</span>
                             </div>
-
+                            
                         </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                        <div v-if = "!option && getIdentity().brandId!=objInfo.creditId" class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
                           <div class="price">
-                            <ins class="text-decoration-none">￥90</ins>
+                            <ins class="text-decoration-none">￥{{objInfo.salePrice}}</ins>
                           </div>
-                          <button type="button" @click="orderNowV"  class="btn btn-primary">即刻购买</button>
+                          <button  type="button" @click="orderNowV"  class="btn btn-primary">即刻购买</button>
                         </div>
                       </div>  
                       <!-- <section class="position-fixed fly-tool">

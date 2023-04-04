@@ -86,7 +86,7 @@
         </a>
         <div class="collapse" id="collapseInvitedOasis">
           <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <span>{{invite.title}}</span>  
           </a>
         </div>
@@ -96,10 +96,10 @@
         </a>
         <div class="collapse show" id="collapseJoinedOasis">
           <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3  d-flex flex-row align-items-center" 
-            :class="{'nav-sub-link-active': oasis.id = oasisId, 
+            :class="{'nav-sub-link-active': oasis.id == oasisId, 
             'nva-link-default': oasis.id != oasisId}"
             :href="'/micro/oasis.html?oasis_id='+oasis.id">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
@@ -112,7 +112,7 @@
     <div class="hero-container">
         <div class="hero-info d-flex flex-row align-items-baseline">
             <div>
-              <img class="oasis-avatar" src="/avator.webp">
+              <img class="oasis-avatar" :src="announce.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             </div>
            <div class="ms-4">
             <h4>{{announce.title}}</h4>
@@ -191,22 +191,17 @@
         <div id="section1">
           <h3>宣言</h3>
           <div class="template asset" contenteditable="false" data-alt-text="" data-caption="" data-id="39875611">
-            <figure>
-            <img alt="" class="fit" src="https://ksr-ugc.imgix.net/assets/039/875/611/359fb08d7b8053709e06e7528e450a4c_original.png?ixlib=rb-4.0.2&amp;w=680&amp;fit=max&amp;v=1675723138&amp;gif-q=50&amp;lossless=true&amp;s=d6a977258667813450dbde0267d45200" data-airgap-id="44">
+            <figure v-if="announce.announceUrl">
+              <img alt="" class="fit" :src="announce.announceUrl" >
             </figure>
-            
-            </div>
-          <div class="template asset" contenteditable="false" data-alt-text="" data-caption="" data-id="39882233">
-            <figure>
-            <img alt="" class="fit" src="https://ksr-ugc.imgix.net/assets/039/882/233/608a05a03d78d511015190f0308f83fd_original.png?ixlib=rb-4.0.2&amp;w=680&amp;fit=max&amp;v=1675779258&amp;gif-q=50&amp;lossless=true&amp;s=4781af6d6b1762a8f98ba64714626072" data-airgap-id="59">
-            </figure>
-            
+            <p v-else>未设置宣言</p>
           </div>
         </div>
         
         <div id="section2">
           <h3>风险与挑战</h3>
-          <p v-for="risk in announce.risk">{{risk.entry}}</p>
+          <p class="text-preline">{{ announce.risk}}</p>
+
         </div>
         <div id="section3" class="spacer">
         </div>

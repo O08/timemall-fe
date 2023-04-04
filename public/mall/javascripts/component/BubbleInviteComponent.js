@@ -14,18 +14,23 @@ const BubbleInviteComponent = {
         retrieveOasesCreatedV(){
             const brandId = this.getIdentity().brandId; // Auth.getIdentity();
             retrieveOasesCreated(brandId).then(response=>{
-                if(response.date.code==200){
+                if(response.data.code==200){
                     this.joinedOases=response.data.joined;
                     this.displayOases = response.data.joined.records;
                 }
             });
         },
         inviteBrandV(){
-            const brandId = this.getIdentity().brandId; // Auth.getIdentity();
-            inviteBrand(brandId,this.checkedOasisId);
+            const brandId = getQueryVariable("brand_id"); // Auth.getIdentity();
+            inviteBrand(brandId,this.checkedOasisId).then(response=>{
+                if(response.data.code==200){
+                    alert("已发送邀请");
+                    $("#inviteModal").modal("hide");
+                }
+            });
         },
         searchOasesV(){
-            this.displayOases = joinedOases.records.filter(matchTitle(e.title,this.searchOasesQ));
+            this.displayOases = this.joinedOases.records.filter(e=>{return matchTitle(e.title,this.searchOasesQ)});
         }
     },
     created(){

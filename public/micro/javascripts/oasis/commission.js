@@ -6,6 +6,7 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {CommissionTag} from "/common/javascripts/tm-constant.js"
 
 const RootComponent = {
     data() {
@@ -26,8 +27,12 @@ const RootComponent = {
                     tag: '',
                     sort: '',
                     filter: '',
-                    oasisId: ''
+                    oasisId: '',
+                    worker: ""
                 },
+                paramHandler: (info)=>{
+                    info.param.oasisId = this.oasisId;
+                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
                         this.commissionTb_pagination.size = response.commission.size;
@@ -46,6 +51,7 @@ const RootComponent = {
             addCommission().then(response=>{
                 if(response.data.code == 200){
                    this.reloadPage(this.commissionTb_pagination);
+                   $("#addTaskModal").modal("hide");
                 }
             })
         },
@@ -74,6 +80,24 @@ const RootComponent = {
         },
         sortCommissionV(sort){
             sortCommission(sort);
+        },
+        getTagDescV(tag){
+            var desc="";
+            switch(tag){
+                case "1":
+                    desc="新建"
+                    break;
+                case "2":
+                    desc="处理中"
+                    break;
+                case "3":
+                    desc="已拒绝"
+                    break;
+                case "4":
+                    desc="已交付"
+                    break;
+            }
+            return desc;
         }
     },
     updated(){
@@ -143,6 +167,7 @@ function summitCommission(commissionId){
 function filterCommission(filter){
     // init 
     teamCommission.commissionTb_pagination.param.filter = filter;
+    teamCommission.commissionTb_pagination.param.worker =  teamCommission.getIdentity().brandId; ;
     teamCommission.commissionTb_pagination.param.tag = "";
     teamCommission.commissionTb_pagination.param.q="";
     teamCommission.commissionTb_pagination.param.sort="";

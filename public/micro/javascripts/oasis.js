@@ -4,7 +4,6 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
-
 const RootComponent = {
     data() {
         return {

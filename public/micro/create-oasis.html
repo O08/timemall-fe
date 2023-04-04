@@ -87,7 +87,7 @@
         </a>
         <div class="collapse" id="collapseInvitedOasis">
           <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <span>{{invite.title}}</span>  
           </a>
         </div>
@@ -97,7 +97,7 @@
         </a>
         <div class="collapse" id="collapseJoinedOasis">
           <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
@@ -207,27 +207,41 @@
               </section> -->
               <section class="section-workspace d-flex justify-content-start align-items-center">
                 <div class="edit-pannel d-flex flex-column w-100">
-                  <contenteditable  class="oasis-risk-box"   placeholder="添加基地风险信息" v-model="aa"></contenteditable>
-
-                  <!-- <div v-for="(item,index) in risk.riskEntries" class="text-paragraph-wrapper py-1 d-flex flex-row">
-                    <div class="item-setting">
-                      <span @click="pannelAddText(index+1)" class="item-setting-plus">
-                        <i class="bi bi-plus"></i>
-                      </span>
-                      <span @click="pannelRemoveText(index)" class="item-setting-x">
-                        <i class="bi bi-x"></i>
-                      </span>
-                    </div>
-                    <contenteditable  class="cell-content-item-box"   placeholder="添加介绍" v-model="item.entry"></contenteditable>
-  
-          
-                  </div> -->
+                  <contenteditable  class="oasis-risk-box"   placeholder="添加基地风险信息" v-model="risk"></contenteditable>
                 </div>
               </section>
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
-              <button type="button"  class="btn btn-option-primary-micro" @click="saveOasisRiskInfoV">完成</button>
+              <button type="button"  class="btn btn-option-primary-micro" @click="saveOasisRiskInfoV">下一步</button>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <h4>发布:</h4>
+            <div class="d-flex align-items-center justify-content-center mt-5 pt-5 ">
+              <div class="publish-agreement mb-3">
+                <div class="text-center mb-3">
+                  <h3>发布协议</h3>
+                </div>
+                <ol>
+                  <li>您同意，与您访问或者使用本网站相关的所有事项，应根据中华人民共和国法律解释、理解和管辖。</li>
+                  <li>您同意在使用本网站及其内容时，遵守国家法律法规、社会公共道德。您不得利用本网站及其内容从事制作、查阅、复制和传播任何违法、侵犯他人权益等扰乱社会秩序、破坏社会稳定的行为。</li>
+                  <li>网站运营商(上海群巅科技有限公司)不应对间接、附带、特殊或任何形式的惩罚性赔偿承担任何责任，也不应对任何利润、收入、数据、数据使用的损失承担任何责任。</li>
+                </ol>
+                <div class="form-check ms-3">
+                  <input class="form-check-input" v-model="agree_check" type="checkbox" value="" id="agree_check">
+                  <label class="form-check-label" for="agree_check">
+                    同意条款
+                  </label>
+                </div>
+              </div>
+              <div class="text-start my-3">
+                <button @click="onlineCell" class="btn">发布</button>
+              </div>
+            </div>
+            <div class="mt-5 pt-5">
+              <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
+              <button type="button"  class="btn btn-option-primary-micro" @click="publishOasisV">发布</button>
             </div>
           </div>
         </div>

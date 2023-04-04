@@ -3,7 +3,7 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
-import defaultOasisPreviewImage from '/common/images/default-cell-preview.jpg'
+import defaultOasisPreviewImage from '/micro/images/oasis-default-building.jpeg'
 
 const RootComponent = {
     data() {

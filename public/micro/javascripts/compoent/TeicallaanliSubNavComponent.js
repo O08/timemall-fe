@@ -1,7 +1,10 @@
 import axios from 'axios';
+import oasisAvatarDefault from "/micro/images/oasis-default-building.jpeg"
+
 const TeicallaanliSubNavComponent = {
     data() {
         return {
+          oasisAvatarDefault,
           joinedoases: {},
           invitedoases: {}
         }

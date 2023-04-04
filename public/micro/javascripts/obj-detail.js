@@ -22,7 +22,9 @@ const RootComponent = {
             },
             selectedSbu: '',
             total: 0,
-            quantity: ""
+            quantity: "",
+            option: "",
+            objInfo: {}
         }
     },
     methods: {
@@ -58,10 +60,19 @@ const RootComponent = {
         },
         computeTotalFeeV(){
             computeTotalFee()
+        },
+        retrieveObjInfoV(){
+            retrieveObjInfo().then(response=>{
+                if(response.data.code==200){
+                    this.objInfo=response.data.obj;
+                }
+            });
         }
     },
     created(){
       this.loadCellInfoV();
+      this.retrieveObjInfoV();
+      this.option = getQueryVariable("option");
     },
     updated(){
         
@@ -110,12 +121,22 @@ async function getIntroInfoForCell(cellId){
     const url = "/api/v1/web_mall/services/{cell_id}/intro".replace("{cell_id}",cellId);
     return await axios.get(url);
 }
-async function order(cellId){
+async function order(objId){
+    var form = new FormData();
+    form.append("objId",objId);
    
     const url = "/api/v1/team/obj/order";
-    return await axios.post(url,objId); 
+    return await axios.post(url,form); 
+}
+async function getObjInfo(objId){
+    const url="/api/v1/team/obj/{obj_id}".replace("{obj_id}",objId);
+    return await axios.get(url);
 }
 
+function retrieveObjInfo(){
+    const objId= getQueryVariable("obj_id");
+    return getObjInfo(objId);
+}
 
 function orderNow(){
     const objId= getQueryVariable("obj_id");
@@ -127,10 +148,10 @@ function orderNow(){
     }
     order(objId).then(response=>{
         if(response.data.code == 200){
-            // if create order success ,forward to pay 
-            const merchantUserId = response.data.order.merchantUserId;
-            const merchantOrderId = response.data.order.merchantOrderId;
-            window.location.href= '/api/payment/goAlipay.html?merchantUserId=' + merchantUserId + '&merchantOrderId=' + merchantOrderId;
+            alert("支付成功,标的已交付，可在服务交换功能查看");
+        }
+        if(response.data.code == 40007){
+            alert("余额不足,请前往E-Studio 商城充值");
         }
     })
 }

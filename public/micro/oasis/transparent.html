@@ -92,7 +92,7 @@
         </a>
         <div class="collapse" id="collapseInvitedOasis">
           <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             <span>{{invite.title}}</span>  
           </a>
         </div>
@@ -102,10 +102,10 @@
         </a>
         <div class="collapse show" id="collapseJoinedOasis">
           <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3  d-flex flex-row align-items-center" 
-            :class="{'nav-sub-link-active': oasis.id = oasisId, 
+            :class="{'nav-sub-link-active': oasis.id == oasisId, 
             'nva-link-default': oasis.id != oasisId}"
             :href="'/micro/oasis.html?oasis_id='+oasis.id">
-            <img class="oasis-avatar-tiny" src="/avator.webp">  
+            <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }"> 
             <div class="link-title ms-2">{{oasis.title}}</div>  
           </a>
         </div>
@@ -118,7 +118,7 @@
     <div class="hero-container">
       <div class="hero-info d-flex flex-row align-items-baseline">
         <div>
-          <img class="oasis-avatar" src="/avator.webp">
+          <img class="oasis-avatar" :src="announce.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
         </div>
        <div class="ms-4">
         <h4>{{announce.title}}</h4>
