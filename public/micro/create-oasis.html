@@ -12,8 +12,11 @@
     <link rel="stylesheet" href="/micro/stylesheets/create-oasis.scss">
 </head>
 <body>
-  <micro-app class="d-flex flex-row" id="app">
-    <col-nav-main>
+  <micro-app id="app">
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <div class="sidebarContainer d-flex flex-row">
+          <col-nav-main>
       <div class="nav-container-wrapper d-flex align-items-center">
         <div class="nav-container">
          
@@ -104,7 +107,30 @@
         
       </div>
     </col-nav-sub>
-    <col-content>
+        </div>
+      </div>
+      <col-content>
+      <header>
+        <div class="d-flex justify-content-between p-3 text-white">
+          <div class="d-flex align-items-center logo">
+            <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+              </svg>
+              <div class="align-middle">
+                <h2 class="my-0">13区</h2>
+              </div>
+            </a>
+          </div>
+          <div class="toggle-nav">
+            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
     <div class="carousel-wrapper">
       <div id="carouselExampleControls" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
@@ -142,26 +168,30 @@
           </div>
           <div class="carousel-item">
             <h4>基本信息:</h4>
-            <div class="d-flex align-items-center mt-5 pt-5 oasis-base ">
+            <div class="d-flex align-items-center mt-5 pt-5 mx-2 oasis-base ">
               <div>
                 <div class="form-floating mb-3">
-                  <input type="text" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title">
+                  <input type="text"  @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title">
                   <label for="floatingInputTitle">名称</label>
                 </div>
                 <div class="form-floating">
-                  <input type="text"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle">
+                  <input type="text"  @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle">
                   <label for="floatingInputSubtitle">简介</label>
                 </div>
               </div>
             </div>
             <div class=" mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
-              <button type="button"  class="btn btn-option-primary-micro" @click="saveBaseInfoAndtoNextSlideV">下一步</button>   
+              <button type="button"  v-preventreclick 
+              :class="{'disabled': !btn_ctl.activate_baseInfo_save , 
+                        'btn-primary': btn_ctl.activate_baseInfo_save,
+                        'btn-secondary': !btn_ctl.activate_baseInfo_save}"
+               class="btn btn-option-primary-micro" @click="saveBaseInfoAndtoNextSlideV">下一步</button>   
             </div>
           </div>
           <div class="carousel-item">
-            <h4>Logo:</h4>
-            <div class="d-flex align-items-center justify-content-center mt-5 pt-5 ">
+            <h4>形象:</h4>
+            <div class="d-flex align-items-center flex-column justify-content-center mt-5 pt-5 ">
               <div class="cover-upload-container dropzone-wrapper">
                 <img  id="lastestOasisCover">
                 <div class="dropzone-desc">
@@ -169,15 +199,16 @@
                 </div>
                 <input  @change="previewOasisCoverV($event)" type="file" id="oasisCoverFile" class="dropzone">
               </div>
+             <div class="help-text mt-2">当前仅支持图片形象,大小限制为1M</div>
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
-              <button type="button"  class="btn btn-option-primary-micro" @click="nextSlideV">下一步</button>
+              <button type="button"  v-preventreclick class="btn btn-option-primary-micro" @click="nextSlideV">下一步</button>
             </div>
           </div>
           <div class="carousel-item">
             <h4>基地宣言:</h4>
-            <div class="d-flex align-items-center justify-content-center mt-5 pt-5 ">
+            <div class="d-flex align-items-center flex-column justify-content-center mt-5 pt-5 ">
               <div class="cover-upload-container dropzone-wrapper">
                 <img  id="lastestAnnounceFile">
                 <div class="dropzone-desc">
@@ -185,16 +216,18 @@
                 </div>
                 <input  @change="previewAnnounceFileV($event)"  type="file" id="announceFile" class="dropzone">
               </div>
+              <div class="help-text mt-2">当前仅支持图片形象,大小限制为1M</div>
+
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
-              <button type="button"  class="btn btn-option-primary-micro" @click="nextSlideV">下一步</button>
+              <button type="button"  v-preventreclick class="btn btn-option-primary-micro" @click="nextSlideV">下一步</button>
             </div>
   
           </div>
           <div class="carousel-item">
             <h4>基地风险:</h4>
-            <div class="d-flex align-items-center justify-content-center mt-5 pt-5 ">
+            <div class="d-flex align-items-center justify-content-center mt-5 pt-5 mx-2">
               <!-- <section class="section-tool-bar">
                 <div class="d-flex tool-bar my-5">
                   <div class="add-new-text-container">
@@ -205,7 +238,7 @@
                   </div>
                 </div>
               </section> -->
-              <section class="section-workspace d-flex justify-content-start align-items-center">
+              <section class="section-workspace d-flex justify-content-start align-items-center mx-2">
                 <div class="edit-pannel d-flex flex-column w-100">
                   <contenteditable  class="oasis-risk-box"   placeholder="添加基地风险信息" v-model="risk"></contenteditable>
                 </div>
@@ -213,7 +246,7 @@
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
-              <button type="button"  class="btn btn-option-primary-micro" @click="saveOasisRiskInfoV">下一步</button>
+              <button type="button"  v-preventreclick class="btn btn-option-primary-micro" @click="saveOasisRiskInfoV">下一步</button>
             </div>
           </div>
           <div class="carousel-item">
@@ -235,13 +268,13 @@
                   </label>
                 </div>
               </div>
-              <div class="text-start my-3">
-                <button @click="onlineCell" class="btn">发布</button>
-              </div>
+
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
-              <button type="button"  class="btn btn-option-primary-micro" @click="publishOasisV">发布</button>
+              <button type="button"  :class="{'disabled': !agree_check, 
+              'btn-primary': agree_check,
+              'btn-secondary': !agree_check}" v-preventreclick class="btn btn-option-primary-micro" @click="publishOasisV">发布</button>
             </div>
           </div>
         </div>
@@ -257,6 +290,9 @@
     </div>
     
     </col-content>
+    </main>
+    
+    
     <section class="modals">
       <div class="modal-container">
           
@@ -274,7 +310,7 @@
                 </div>
               </div>
               <div class="modal-footer btn-light">
-                <button @click="uploadOasisCoverV"  type="button" id="btn-save-oasis_cover" class="btn btn-primary">设置为服务封面</button>
+                <button @click="uploadOasisCoverV"  type="button" id="btn-save-oasis_cover" class="btn btn-primary">设置为基地形象</button>
               </div>
             </div>
           </div>
@@ -296,7 +332,7 @@
                 </div>
               </div>
               <div class="modal-footer btn-light">
-                <button @click="uploadAnnounceFileV"  type="button" id="btn-save-oasis_announce" class="btn btn-primary">设置为服务封面</button>
+                <button @click="uploadAnnounceFileV"  type="button" id="btn-save-oasis_announce" class="btn btn-primary">设置为基地宣言</button>
               </div>
             </div>
           </div>

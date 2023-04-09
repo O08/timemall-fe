@@ -34,9 +34,31 @@ const BubbleSwapCellComponent = {
         swapServiceV(){
             swapService(this.swap).then(response=>{
                 if(response.data.code==200){
-                    // $("#swapServiceModal").modal("hide");
+
+                    $("#swapServiceModal").modal("hide");
+                    alert("操作成功，等待对方同意！");
+                    // 复位
+                    this.swap = {
+                        sponsor: "",
+                        sponsorCellId: "",
+                        sponsorCellQuantity: "",
+                        sponsorCellSbu: "",
+                        partner: "",
+                        partnerCellId: "",
+                        partnerCellQuantity: "",
+                        partnerCellSbu: ""
+                    };
+                    this.swapHelper = {
+                        partnerCellTitle: "",
+                        partnerCellTotal: "",
+                        sponsorCellTitle: "",
+                        sponsorCellTotal: ""
+                    };
+                    this.supplierQ="";
+                    this.myselfQ="";
 
                 }
+
             });
         },
         loadSupplierServiceV(){

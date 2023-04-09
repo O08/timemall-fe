@@ -49,7 +49,8 @@
    border: none;
    padding: 0;
    background-color: #212529;
-   width: 600px;
+   max-width: 600px;
+   width: 100%;
   }
   
   input.nosubmit {
@@ -90,4 +91,29 @@
 }
 .btn-commission-action:hover{
     background-color: #555;
+}
+.oasis-search {
+  width: 60%;
+}
+table{
+  text-align:center;
+  table-layout:fixed;
+  word-break:break-all;
+}
+
+.commission-info span,.commission-info h5{
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  text-align: left;
+}
+.title-thread{
+  width: 75%;
+}
+@media (max-width: 991.98px) {
+  .title-thread{
+    width: 65%;
+  }
 }

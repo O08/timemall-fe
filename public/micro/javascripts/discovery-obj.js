@@ -4,6 +4,8 @@ import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
+import {PriceSbu} from "/common/javascripts/tm-constant.js";
+
 
 const RootComponent = {
     data() {
@@ -35,6 +37,9 @@ const RootComponent = {
     methods: {
         retrieveObjGridV(){
             retrieveObjGrid();
+        },
+        transformSbuV(sbu){
+            return PriceSbu.get(sbu);
         }
     },
     updated(){

@@ -619,9 +619,11 @@ json-node {
 .url-link{
   text-decoration: none;
   color: white;
+  opacity: .8;
 }
 .url-link:hover{
-  color: #878889;
+  color: white;
+  opacity: 1;
 }
 
   /*----------------------------------------------------
@@ -949,7 +951,7 @@ col-nav-sub{
 col-content{
   background-color: #1A1A1A;
   height: 100vh;
-  width: calc(100% - 240px);
+  width: calc(100% - 340px);
 }
 .nav-setting{
   height: 90px;
@@ -1037,10 +1039,10 @@ col-content{
 .btn-option-primary-micro{
   width: 200px;
   height: 50px;
-  background-color: #2D6BA4;
+  background-color: #50a8fa;
   border-radius: 50px;
   border: none;
-  opacity: .7;
+  opacity: .9;
 
 }
 .btn-option-primary-micro:hover{

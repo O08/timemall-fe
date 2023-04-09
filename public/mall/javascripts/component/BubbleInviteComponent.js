@@ -24,6 +24,7 @@ const BubbleInviteComponent = {
             const brandId = getQueryVariable("brand_id"); // Auth.getIdentity();
             inviteBrand(brandId,this.checkedOasisId).then(response=>{
                 if(response.data.code==200){
+                    this.checkedOasisId=""; // 复位
                     alert("已发送邀请");
                     $("#inviteModal").modal("hide");
                 }

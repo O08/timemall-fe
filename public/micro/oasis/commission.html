@@ -16,8 +16,11 @@
 
 </head>
 <body>
-  <micro-app class="d-flex flex-row" id="app">
-    <col-nav-main>
+  <micro-app id="app">
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <div class="sidebarContainer d-flex flex-row">
+          <col-nav-main>
       <div class="nav-container-wrapper d-flex align-items-center">
         <div class="nav-container">
          
@@ -117,19 +120,22 @@
       
     </div>
     </col-nav-sub>
-    <col-content>
-    <div class="hero-container">
-      <div class="hero-info d-flex flex-row align-items-baseline">
-        <div>
-          <img class="oasis-avatar" :src="announce.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+
         </div>
-       <div class="ms-4">
-        <h4>{{announce.title}}</h4>
-        <span>{{announce.subTitle}}</span>
-       </div>
       </div>
-    </div>
-  <div class="nav-oasis-container">
+      <col-content>
+      <div class="hero-container">
+        <div class="hero-info d-flex flex-row align-items-baseline">
+            <div>
+              <img class="oasis-avatar" :src="announce.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+            </div>
+           <div class="ms-4">
+            <h2>{{announce.title}}</h2>
+            <p class="help-text">{{announce.subTitle}}</p>
+           </div>
+        </div>
+      </div>
+  <div class="nav-oasis-container d-flex justify-content-between">
     <ul class="nav border-0 h-100">
       <li class="nav-item" role="presentation">
         <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis.html?oasis_id='+oasisId">宣传</a>
@@ -141,6 +147,15 @@
         <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent.html?oasis_id='+oasisId">透视</a>
       </li>
     </ul>
+    <div class="toggle-nav me-5 ">
+      <div class="d-flex align-items-center h-100 " >
+        <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="d-flex justify-content-between oasis-commission-header mt-3">
     <div class="oasis-search d-flex">
@@ -150,9 +165,9 @@
           过滤
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" @click="filterCommissionV('1')">您已接收任务</a></li>
-          <li><a class="dropdown-item" @click="filterCommissionV('2')">最近7天</a></li>
-          <li><a class="dropdown-item" @click="filterCommissionV('3')">最近1天</a></li>
+          <li><a class="dropdown-item" v-preventreclick @click="filterCommissionV('1')">您已接收任务</a></li>
+          <li><a class="dropdown-item" v-preventreclick  @click="filterCommissionV('2')">最近7天</a></li>
+          <li><a class="dropdown-item" v-preventreclick   @click="filterCommissionV('3')">最近1天</a></li>
         </ul>
       </div>
       <form class="nosubmit" onsubmit="return false">
@@ -168,16 +183,16 @@
     <table class="table table-dark table-hover align-middle">
       <thead class="help-text">
         <tr>
-          <th class="w-75"></th>
+          <th class="title-thread"></th>
           <th>
             <div class="dropdown">
               <button class="btn commission-tb-filter btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 状态
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" @click="retrieveOasisCommissionByTagV('1')">新建</a></li>
-                <li><a class="dropdown-item" @click="retrieveOasisCommissionByTagV('2')">处理中</a></li>
-                <li><a class="dropdown-item" @click="retrieveOasisCommissionByTagV('3')">已交付</a></li>
+                <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('1')">新建</a></li>
+                <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('2')">处理中</a></li>
+                <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('4')">已交付</a></li>
               </ul>
             </div>
           </th>
@@ -187,8 +202,8 @@
                 排序
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" @click="sortCommissionV('1')">最新</a></li>
-                <li><a class="dropdown-item" @click="sortCommissionV('2')">最老</a></li>
+                <li><a class="dropdown-item" v-preventreclick  @click="sortCommissionV('1')">最新发布</a></li>
+                <li><a class="dropdown-item" v-preventreclick  @click="sortCommissionV('2')">更早发布</a></li>
               </ul>
             </div>
           </th>
@@ -196,7 +211,7 @@
       </thead>
       <tbody class="table-group-divider">
         <tr v-for="record in commissionTb_pagination.records">
-          <td>
+          <td class="commission-info">
             <div class="ms-3">
               <h5>{{record.title}}</h5>
               <span class="text-small">create at {{record.addDate}} by {{record.founder}}</span>
@@ -206,12 +221,12 @@
             {{getTagDescV(record.tag)}}
           </td>
           <td class="text-center">
-            <button v-if="record.tag=='1'" @click="receiveCommissionV(record.id)" type="button" 
+            <button v-if="record.tag=='1'"  v-preventreclick   @click="receiveCommissionV(record.id)" type="button" 
               data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="接受任务"
               class="btn btn-commission-action ms-3">
               <i class="bi bi-envelope-open"></i>
             </button>
-            <button v-if="record.tag=='2' &&  record.worker==getIdentity().brandId" @click="summitCommissionV(record.id)" type="button" 
+            <button v-if="record.tag=='2' &&  record.worker==getIdentity().brandId"  v-preventreclick   @click="summitCommissionV(record.id)" type="button" 
               data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="提交任务"
                class="btn btn-commission-action ms-3">
               <i class="bi bi-check-circle"></i>
@@ -227,6 +242,9 @@
 
 
     </col-content>
+    </main>
+    
+    
     <section class="modals">
     <!-- commission action modal  -->
       <!-- <div class="modal-container">
@@ -260,19 +278,19 @@
               </div>
               <div class="modal-body">
                 <div class="row mb-3">
-                  <label for="inputTitle" class="col-sm-2 col-form-label">Title</label>
+                  <label for="inputTitle" class="col-sm-2 col-form-label">任务</label>
                   <div class="col-sm-10">
                     <input type="email" v-model="commissionForm.title" class="form-control" id="inputTitle">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputBonus" class="col-sm-2 col-form-label">bonus</label>
+                  <label for="inputBonus" class="col-sm-2 col-form-label">佣金</label>
                   <div class="col-sm-10">
                     <input type="number" v-model="commissionForm.bonus" class="form-control" id="inputBonus">
                   </div>
                 </div>
                 <div class="row mb-3 d-flex justify-content-center">
-                  <button type="button" @click="addCommissionV" class="btn btn-option-secondary-micro">提交任务</button>
+                  <button type="button"  v-preventreclick   @click="addCommissionV" class="btn btn-option-secondary-micro">提交任务</button>
                 </div>
               </div>
             </div>

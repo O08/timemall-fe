@@ -6,7 +6,9 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
-import {CommissionTag} from "/common/javascripts/tm-constant.js"
+import {CommissionTag} from "/common/javascripts/tm-constant.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
 
 const RootComponent = {
     data() {
@@ -113,6 +115,7 @@ app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
+app.mixin(DirectiveComponent);
 
 
 const teamCommission = app.mount('#app');

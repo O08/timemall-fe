@@ -1,3 +1,32 @@
+col-content {
+  overflow-y: scroll;
+}
+/* 大型设备（笔记本电脑/台式机，992 像素及以上） */
+@media only screen and (min-width: 1400px) {
+  header{
+    display: none;
+  }
+  col-content{
+    background-color: #1A1A1A;
+    height: 100vh;
+    width: calc(100% - 240px);
+  }
+}
+col-content{
+  width: 100%;
+}
+.offcanvas-xxl.offcanvas-start {
+  width: 340px;
+}
+header{
+  position:sticky;
+  top: 0;
+  left: 0;
+  background: #161416;
+}
+.toggle-nav{
+  background: inherit;
+}
 .team-banner-container{
     height: 32%;
     min-height: 200px;
@@ -51,9 +80,9 @@
   }
   .section-team-grid{
     margin-left: 20px;
+    margin-right: 20px;
   }
   .team-card-container{
-    margin-top: 20px;
     background-color: #2e2e2e9d;
     border-radius: 10px;
   }
@@ -61,6 +90,25 @@
     background-color: #2E2E2E;
   }
 .team-card-container img{
-    height: 180px;
+    height: 130px;
     border-radius: 5px;
+    // width: 280px;
 }
+.oasis-title-wrapper h5{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+}
+.oasis-intro-wrapper p{
+  width: 100%;
+  white-space:pre-wrap;
+  text-overflow:ellipsis;       //用...省略号显示
+  display:-webkit-box;          //将对象作为弹性伸缩盒子模型显示
+  -webkit-box-orient:vertical;  //从上到下垂直排列子元素
+  -webkit-line-clamp:3;         //显示的行数
+  overflow:hidden;              //超出盒子宽度内容，便溢出隐藏  
+}
+.oasis-intro-wrapper{
+  height: 100px;
+}
+

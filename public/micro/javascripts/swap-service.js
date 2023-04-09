@@ -7,7 +7,9 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import {ObjOd,ObjMark,ObjTag} from "/common/javascripts/tm-constant.js";
+import {PriceSbu} from "/common/javascripts/tm-constant.js";
 
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 
 const RootComponent = {
@@ -28,7 +30,7 @@ const RootComponent = {
             records: [],
             param: {
               brandId: "",
-              mark: "1" // todo change to enum
+              mark: ObjMark.COOPERATION 
             },
             paramHandler: (info)=>{
                 info.param.brandId = this.getIdentity().brandId; // Auth.getIdentity();
@@ -78,10 +80,10 @@ const RootComponent = {
          this.reloadPage(this.objgrid_pagination);
        },
        loadCooperationObjV(){
-        this.filterObjV("1");
+        this.filterObjV(ObjMark.COOPERATION);
        },
        loadOwnedObjV(){
-        this.filterObjV("2");
+        this.filterObjV(ObjMark.OWNED);
        },
        loadTodoObjV(){
         this.todoGrid_pagination.param.current = 1;
@@ -129,6 +131,7 @@ const RootComponent = {
        useObjV(objId){
            useObjB(objId).then(response=>{
                 if(response.data.code==200){
+                    this.loadOwnedObjV();
                     alert("成功生成订单，可在E-pod查看履约");
                 }
            })
@@ -145,7 +148,19 @@ const RootComponent = {
                 $("#pricingModal").modal("hide");
             }
         });
-       }
+       },
+       transformSbuV(sbu){
+        return PriceSbu.get(sbu);
+        },
+        transformInputNumberV(event){
+            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
+            var min = Number(event.target.min);
+            var max = Number(event.target.max);
+            event.target.value = transformInputNumber(val, min, max);
+            if(val !== Number(event.target.value)){
+              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
+        }
 
 
     },
@@ -161,6 +176,7 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(Pagination);
+app.mixin(DirectiveComponent);
 
 const swapService = app.mount('#app');
 
@@ -212,3 +228,7 @@ function tagObjB(objId,tag){
 function useObjB(objId){
     return useObj(objId);
 }
+
+function transformInputNumber(val,min,max){
+    return val < min ? "" : val > max ? max : val;
+  }

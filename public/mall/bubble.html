@@ -169,13 +169,13 @@
               </div>
               <div class="tab-pane fade" id="cooperation-tab-pane" role="tabpanel" aria-labelledby="cooperation-tab" tabindex="0">
                 <section class="section-list-render" id="cooperation_library">
-                  <div class="row gx-3 gy-5 row-cols-2 row-cols-sm-2 row-cols-md-6 row-cols-lg-8 row-cols-xl-12">
-                    <div  class="col cell-item d-flex justify-content-center ms-5 mb-5">
+                  <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 ms-3 me-3">
+                    <div  class="col actio-item">
                       <button type="button" @click="retrieveOasesCreatedV" class="btn btn-primary option-invitation" data-bs-toggle="modal" data-bs-target="#inviteModal">
                         邀请成为基地成员
                       </button>
                     </div>
-                    <div  class="col cell-item mb-5">
+                    <div  class="col actio-item">
                       <button type="button" class="btn btn-primary option-swap" data-bs-toggle="modal" data-bs-target="#swapServiceModal">
                         服务互换
                       </button>
@@ -207,7 +207,7 @@
                     <ul class="list-group ms-5">
                       <li v-for="oasis in displayOases" class="list-group-item">
                         <div class="form-check">
-                          <input class="form-check-input" v-bind:value="oasis.id"  v-model="checkedOasisId" type="radio" name="flexRadioDefault" id="oasis.id">
+                          <input class="form-check-input" v-bind:value="oasis.id"  v-model="checkedOasisId" type="radio" name="flexRadioDefault">
                           <label class="form-check-label" for="flexRadioDefault1">
                             {{oasis.title}}
                           </label>
@@ -218,7 +218,11 @@
                   
                 </div>
                 <div class="modal-footer btn-light">
-                  <button @click="inviteBrandV" type="button"  class="btn btn-primary">发出邀请</button>
+                  <button @click="inviteBrandV" 
+                  :class="{'disabled': !checkedOasisId  , 
+                  'btn-primary': !!checkedOasisId  ,
+                  'btn-secondary': !checkedOasisId }"
+                   v-preventreclick  type="button"  class="btn">发出邀请</button>
                 </div>
               </div>
             </div>
@@ -235,69 +239,76 @@
                 </div>
                 <div class="modal-body">
                   <div class="d-flex justify-content-between ">
-                    <button @click="loadSupplierServiceV" class="btn btn-primary ms-3" data-bs-target="#querySupplierServiceModal" data-bs-toggle="modal">选择对方服务</button>
-                    <button @click="loadMyselfServiceV" class="btn btn-primary me-3" data-bs-target="#queryMyselfServiceModal" data-bs-toggle="modal">选择你用于交换服务</button>
+                    <button @click="loadSupplierServiceV" class="btn btn-info ms-3" data-bs-target="#querySupplierServiceModal" data-bs-toggle="modal">选择对方服务</button>
+                    <button @click="loadMyselfServiceV" class="btn btn-info me-3" data-bs-target="#queryMyselfServiceModal" data-bs-toggle="modal">选择你用于交换服务</button>
                   </div>
                   <div class="mt-3">
                     <div class="ms-3">
                       <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">对方的服务:</label>
-                        <div class="col-sm-9 px-0">
-                          <p class="fs-6 mb-0 title-color">{{swapHelper.partnerCellTitle}}</p>
+                        <label  class="col-3 pe-0 pt-0 col-form-label">对方的服务:</label>
+                        <div class="col-9 px-0">
+                          <p class="fs-6 mb-0 title-color ms-3">{{swapHelper.partnerCellTitle}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">数量:</label>
-                        <div class="col-sm-9 px-0">
+                      <div class="row ms-2">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">数量:</label>
+                        <div class="col-9 px-0">
                           <p class="fs-6 mb-0 title-color">{{swap.partnerCellQuantity}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">单位:</label>
-                        <div class="col-sm-9 px-0">
-                          <p class="fs-6 mb-0 title-color">{{swap.partnerCellSbu}}</p>
+                      <div class="row ms-2">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">单位:</label>
+                        <div class="col-9 px-0">
+                          <p class="fs-6 mb-0 title-color">{{transformSbuV(swap.partnerCellSbu) }}</p>
                         </div>
                       </div>
                       
-                      <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">价值:</label>
-                        <div class="col-sm-9 px-0">
+                      <div class="row ms-2">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">价值:</label>
+                        <div class="col-9 px-0">
                           <p class="fs-6 mb-0 title-color">{{swapHelper.partnerCellTotal}}</p>
                         </div>
                       </div>
                     </div>
                     <div class="ms-3"> 
                       <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">我方的服务:</label>
-                        <div class="col-sm-9 px-0">
-                          <p class="fs-6 mb-0 title-color">{{swapHelper.sponsorCellTitle}}</p>
+                        <label  class="col-3 pe-0 pt-0 col-form-label">我方的服务:</label>
+                        <div class="col-9 px-0">
+                          <p class="fs-6 mb-0 title-color ms-3">{{swapHelper.sponsorCellTitle}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">数量:</label>
-                        <div class="col-sm-9 px-0">
+                      <div class="row ms-2">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">数量:</label>
+                        <div class="col-9 px-0">
                           <p class="fs-6 mb-0 title-color">{{swap.sponsorCellQuantity}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">单位:</label>
-                        <div class="col-sm-9 px-0">
-                          <p class="fs-6 mb-0 title-color">{{swap.sponsorCellSbu}}</p>
+                      <div class="row ms-2">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">单位:</label>
+                        <div class="col-9 px-0">
+                          <p class="fs-6 mb-0 title-color">{{transformSbuV(swap.sponsorCellSbu)}}</p>
                         </div>
                       </div>
                       
-                      <div class="row">
-                        <label  class="col-sm-3 pe-0 pt-0 col-form-label">价值:</label>
-                        <div class="col-sm-9 px-0">
+                      <div class="row ms-2">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">价值:</label>
+                        <div class="col-9 px-0">
                           <p class="fs-6 mb-0 title-color">{{swapHelper.sponsorCellTotal}}</p>
                         </div>
                       </div>
+                    </div>
+                    <div class="col d-flex align-items-center ms-3 help-text fs-6">
+                      <i class="bi bi-question-circle"></i><span class="ms-1">交换的服务价值差在10元内(包括10元)</span>
                     </div>
                   </div>
                 
                 </div>
                 <div class="modal-footer btn-light">
-                  <button  @click="swapServiceV" type="button" class="btn btn-primary me-3">交换</button>
+                  <button  
+                  :class="{'disabled': !swapHelper.sponsorCellTotal || !swapHelper. partnerCellTotal || Math.abs(swapHelper. partnerCellTotal-swapHelper.sponsorCellTotal )>10, 
+                  'btn-primary': !!swapHelper.sponsorCellTotal && !!swapHelper. partnerCellTotal && Math.abs(swapHelper. partnerCellTotal-swapHelper.sponsorCellTotal )<=10  ,
+                  'btn-secondary': !swapHelper.sponsorCellTotal || !swapHelper. partnerCellTotal || Math.abs(swapHelper. partnerCellTotal-swapHelper.sponsorCellTotal )>10 }"
+                  @click="swapServiceV"  v-preventreclick type="button" class="btn btn-primary me-3">交换</button>
                 </div>
               </div>
             </div>
@@ -318,52 +329,41 @@
                   </div>
                   <div class="mt-3">
                     <span>选中服务信息:</span>
-                    <div class="ms-3 mt-2">
-                      <div class="row">
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label  class="col-sm-3 pe-0 pt-0 col-form-label">服务:</label>
-                            <div class="col-sm-9 px-0">
-                              <p class="fs-6">{{swapHelper.partnerCellTitle}}</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label class="col-sm-3 pe-0 pt-0 col-form-label">数量:</label>
-                            <div class="col-sm-9 px-0">
-                              <input type="number" @change="computeSupplierTotalFeeV" class="form-control" v-model="swap.partnerCellQuantity">
-                            </div>
-                          </div>
+                    <section class="ms-4 me-4">
+                      <div class="row mb-2 mt-3">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">服务:</label>
+                        <div class="col-9 px-0">
+                          <p class="fs-6">{{swapHelper.partnerCellTitle}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label  class="col-sm-3 pe-0 pt-0 col-form-label">单位:</label>
-                            <div class="col-sm-9 px-0">
-                              <select class="form-select option-sbu" @change="computeSupplierTotalFeeV" v-model="swap.partnerCellSbu" aria-label="Default select example">
-                                <option value="">计量</option>
-                                <option :value="item.sbu" v-for="item in supplierCellPricing.fee">{{transformSbuV(item.sbu)}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label  class="col-sm-3 pe-0 pt-0 col-form-label">价值:</label>
-                            <div class="col-sm-9 px-0">
-                              <span class="help-text fs-6">{{swapHelper.partnerCellTotal}}</span>
-                            </div>
-                          </div>
+                      <div class="row mb-3">
+                        <label class="col-3 pe-0 pt-0 col-form-label">数量:</label>
+                        <div class="col-9 px-0">
+                          <input type="number" @change="computeSupplierTotalFeeV" class="form-control" v-model="swap.partnerCellQuantity">
                         </div>
                       </div>
-                    </div>
+                      <div class="row mb-3">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">单位:</label>
+                        <div class="col-9 px-0">
+                          <select class="form-select option-sbu" @change="computeSupplierTotalFeeV" v-model="swap.partnerCellSbu" aria-label="Default select example">
+                            <option value="">计量</option>
+                            <option :value="item.sbu" v-for="item in supplierCellPricing.fee">{{transformSbuV(item.sbu)}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">价值:</label>
+                        <div class="col-9 px-0">
+                          <span class="help-text fs-6">{{swapHelper.partnerCellTotal}}</span>
+                        </div>
+                      </div>
+                    </section>
+                    
                   </div>
          
                   <div class="mt-2">
                     <span>服务列表:</span>
-                    <ul class="list-group ms-5">
+                    <ul class="list-group ms-5 mt-3">
                       <li v-for="cell in supplierCells.records" class="list-group-item">
                         <div class="form-check">
                           <input class="form-check-input" @change="onSelectedSupplierCellV" v-model="swap.partnerCellId" type="radio" name="flexRadioDefault" id="cell.id" :value="cell.id">
@@ -398,51 +398,39 @@
 
                   <div class="mt-3">
                     <span>选中服务信息:</span>
-                    <div class="ms-3">
-                      <div class="row">
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label  class="col-sm-3 pe-0 pt-0 col-form-label">服务:</label>
-                            <div class="col-sm-9 px-0">
-                              <p class="fs-6">{{swapHelper.sponsorCellTitle}}</p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label class="col-sm-3 pe-0 pt-0 col-form-label">数量:</label>
-                            <div class="col-sm-9 px-0">
-                              <input type="number" @change="computeMyselfTotalFeeV" class="form-control" v-model="swap.sponsorCellQuantity">
-                            </div>
-                          </div>
+                    <section class="ms-4 me-4">
+                      <div class="row mb-3 mb-2 mt-3">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">服务:</label>
+                        <div class="col-9 px-0">
+                          <p class="fs-6">{{swapHelper.sponsorCellTitle}}</p>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label  class="col-sm-3 pe-0 pt-0 col-form-label">单位:</label>
-                            <div class="col-sm-9 px-0">
-                              <select class="form-select option-sbu" @change="computeMyselfTotalFeeV" v-model="swap.sponsorCellSbu" aria-label="Default select example">
-                                <option value="">计量</option>
-                                <option :value="item.sbu" v-for="item in myselfCellPricing.fee">{{transformSbuV(item.sbu)}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="row mb-3">
-                            <label  class="col-sm-3 pe-0 pt-0 col-form-label">价值:</label>
-                            <div class="col-sm-9 px-0">
-                              <span class="help-text fs-6">{{swapHelper.sponsorCellTotal}}</span>
-                            </div>
-                          </div>
+                      <div class="row mb-3">
+                        <label class="col-3 pe-0 pt-0 col-form-label">数量:</label>
+                        <div class="col-9 px-0">
+                          <input type="number" @change="computeMyselfTotalFeeV" class="form-control" v-model="swap.sponsorCellQuantity">
                         </div>
                       </div>
-                    </div>
+                      <div class="row mb-3">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">单位:</label>
+                        <div class="col-9 px-0">
+                          <select class="form-select option-sbu" @change="computeMyselfTotalFeeV" v-model="swap.sponsorCellSbu" aria-label="Default select example">
+                            <option value="">计量</option>
+                            <option :value="item.sbu" v-for="item in myselfCellPricing.fee">{{transformSbuV(item.sbu)}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label  class="col-3 pe-0 pt-0 col-form-label">价值:</label>
+                        <div class="col-9 px-0">
+                          <span class="help-text fs-6">{{swapHelper.sponsorCellTotal}}</span>
+                        </div>
+                      </div>
+                    </section>
                   </div>
                   <div class="mt-3">
                     <span>服务列表:</span>
-                    <ul class="list-group ms-5">
+                    <ul class="list-group ms-5 mt-3">
                       <li v-for="cell in myselfCells.records" class="list-group-item">
                         <div class="form-check">
                           <input class="form-check-input" @change="onSelectedMyselfCellV" v-model="swap.sponsorCellId" type="radio" name="flexRadioMy" id="cell.id" :value="cell.id">

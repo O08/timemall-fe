@@ -11,7 +11,7 @@ const RootComponent = {
             defaultOasisPreviewImage,
             oasisgrid_pagination: {
                 url: "/api/v1/team/oasis",
-                size: 12,
+                size: 30,
                 current: 1,
                 total: 0,
                 pages: 0,

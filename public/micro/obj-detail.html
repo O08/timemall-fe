@@ -146,7 +146,7 @@
                           <div class="price">
                             <ins class="text-decoration-none">￥{{objInfo.salePrice}}</ins>
                           </div>
-                          <button  type="button" @click="orderNowV"  class="btn btn-primary">即刻购买</button>
+                          <button  type="button" @click="orderNowV" v-preventreclick  class="btn btn-primary">即刻购买</button>
                         </div>
                       </div>  
                       <!-- <section class="position-fixed fly-tool">
@@ -223,6 +223,30 @@
               </div>
         </section>
     </main>
+    <section class="modals">
+      <div class="modal-container">
+              
+        <!-- Modal -->
+        <div class="modal fade" id="noticeModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="noticeModalLabel">操作提示</h1>
+                <button type="button" id="closeNoticeModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                {{noticeMsg}}
+                
+              </div>
+              <div class="modal-footer btn-light">
+                <a v-if="noticeCode == 200" href="/micro/swap-service.html"><button type="button"  class="btn btn-primary">前往服务互换</button></a>
+                <a v-if="noticeCode == 40007" href="/estudio/studio-shop.html"><button type="button"  class="btn btn-primary">前往充值</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     </content>
     <footer></footer>
   </mall-app>

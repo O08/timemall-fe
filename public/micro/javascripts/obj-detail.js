@@ -1,7 +1,7 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
-import {goHome,goLoginPage,goBackAndReload} from "/common/javascripts/pagenav.js";
+import {goHome,goLoginPage,refresh} from "/common/javascripts/pagenav.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 
@@ -14,6 +14,8 @@ import defaultExperienceImage from '/common/images/default-experience.jpg'
 const RootComponent = {
     data() {
         return {
+            noticeCode: "",
+            noticeMsg: "",
             defaultAvatarImage,
             defaultExperienceImage,
             defaultBrandBannerImage,
@@ -147,12 +149,18 @@ function orderNow(){
         return
     }
     order(objId).then(response=>{
+        cellDetailPage.noticeCode = response.data.code;
+        cellDetailPage.noticeMsg=response.data.message;
         if(response.data.code == 200){
-            alert("支付成功,标的已交付，可在服务交换功能查看");
+            cellDetailPage.noticeMsg="购买成功，可前往服务互换查看！";
         }
-        if(response.data.code == 40007){
-            alert("余额不足,请前往E-Studio 商城充值");
-        }
+        // if(response.data.code == 40007){
+        //     // alert("余额不足,请前往E-Studio 商城充值");
+        //     cellDetailPage.noticeMsg=response.data.message;
+        // }
+
+        $("#noticeModal").modal("show");
+
     })
 }
 function getSbuPrice()

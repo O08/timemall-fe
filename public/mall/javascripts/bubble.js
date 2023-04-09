@@ -13,6 +13,8 @@ import defaultAvatarImage from '/avator.webp';
 import defaultBannerImage from '/common/images/default-brand-banner.jpg';
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 import BubbleSwapCellComponent from "/mall/javascripts/component/BubbleSwapCellComponent.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
 
 
 const RootComponent = {
@@ -54,6 +56,7 @@ const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(BubbleInviteComponent);
 app.mixin(BubbleSwapCellComponent);
+app.mixin(DirectiveComponent);
 // app.component("infinite-loading", InfiniteLoading);
 const bubblePage = app.mount('#app');
 window.bubble = bubblePage;

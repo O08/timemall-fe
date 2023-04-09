@@ -6,11 +6,15 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
 import {OasisMark} from "/common/javascripts/tm-constant.js"
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 
 const RootComponent = {
     data() {
       return {
+        btn_ctl:{
+            activate_baseInfo_save: false
+        },
         base: {
             title: "",
             subTitle: ""
@@ -85,6 +89,7 @@ const RootComponent = {
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
+app.mixin(DirectiveComponent);
 app.component('contenteditable', ContentediableComponent)
 
 const createOasisPage = app.mount('#app');
@@ -141,6 +146,8 @@ function uploadAnnounceFile(){
             $("#announceFileModal").modal("hide");
             $('#announceFilePreview').attr('src',"");
         }
+    }).catch(error=>{
+        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
     })
 }
 
@@ -157,6 +164,8 @@ function uploadOasisCover(){
             $("#oasisCoverModal").modal("hide");
             $('#oasisCoverPreview').attr('src',"");
         }
+    }).catch(error=>{
+        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
     })
 }
 function modifyBaseInfo(base,oasisId){
@@ -168,6 +177,11 @@ function modifyBaseInfo(base,oasisId){
     return putOasisBase(dto);
 }
 function saveBaseInfo(base){
+    // valiate 
+    var checkPass = !!createOasisPage.base.title && !!base.subTitle;
+    if(!checkPass){
+        return;
+    }
    // todo update oasis when in editing
    const id = getQueryVariable("oasis_id");
    if(!id){

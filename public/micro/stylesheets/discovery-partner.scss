@@ -1,3 +1,32 @@
+col-content {
+  overflow-y: scroll;
+}
+/* 大型设备（笔记本电脑/台式机，992 像素及以上） */
+@media only screen and (min-width: 1400px) {
+  header{
+    display: none;
+  }
+  col-content{
+    background-color: #1A1A1A;
+    height: 100vh;
+    width: calc(100% - 240px);
+  }
+}
+col-content{
+  width: 100%;
+}
+.offcanvas-xxl.offcanvas-start {
+  width: 340px;
+}
+header{
+  position:sticky;
+  top: 0;
+  left: 0;
+  background: #161416;
+}
+.toggle-nav{
+  background: inherit;
+}
 .partner-banner-container{
     height: 32%;
     min-height: 200px;
@@ -51,6 +80,7 @@
   }
   .section-team-grid{
     margin-left: 20px;
+    margin-right: 20px;
   }
   .team-card-container{
     margin-top: 20px;
@@ -68,22 +98,46 @@
   display: none;
 }
 .partner-icon-wrapper{
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #8d8888;
+  -moz-border-radius: 2rem; 
+  -webkit-border-radius: 2rem; 
+  border-radius: 2rem;
 }
 .carousel-control-prev-icon,.carousel-control-next-icon{
   width: 1rem;
   height: 1rem;
 }
-.partner-icon-wrapper:hover{
-  background: #dddbdb; 
-  -moz-border-radius: 1.5rem; 
-  -webkit-border-radius: 1.5rem; 
-  border-radius: 1.5rem;
+.partner-icon-wrapper:hover,.partner-icon-wrapper span{
+  -moz-border-radius: 2rem; 
+  -webkit-border-radius: 2rem; 
+  border-radius: 2rem;
 }
 .carousel:hover>.carousel-control-next,.carousel:hover>.carousel-control-prev{
   display: block;
+}
+.carousel-item img{
+  opacity: .9;
+}
+.brand-title-wrapper h5{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+}
+.brand-intro-wrapper p{
+  width: 100%;
+  white-space:pre-wrap;
+  text-overflow:ellipsis;       //用...省略号显示
+  display:-webkit-box;          //将对象作为弹性伸缩盒子模型显示
+  -webkit-box-orient:vertical;  //从上到下垂直排列子元素
+  -webkit-line-clamp:3;         //显示的行数
+  overflow:hidden;              //超出盒子宽度内容，便溢出隐藏  
+
+}
+.brand-intro-wrapper{
+  height: 100px;
 }
