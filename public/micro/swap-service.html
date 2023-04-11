@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
-    <title>Swap Service - Micro</title>
+    <title>服务互换 - Micro</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/micro/stylesheets/teixcalaanli.scss">
@@ -185,7 +185,7 @@
       
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-          <div  class="row package-section  gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-6">
+          <div  class="row package-section  gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5">
           <!-- <div  class="row package-section row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8"> -->
             <div v-for="record in objgrid_pagination.records" class="col ">
               <div class="package-card-container px-3 pb-1">
@@ -297,7 +297,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-          <div  class="row package-section  gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-6">
+          <div  class="row package-section  gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5">
             <div v-for="record in objgrid_pagination.records" class="col">
               <div class="package-card-container px-3 pb-1">
                 <img class="card-img-top mt-3" :src="record.avatar || defaultObjPreviewImage" @error.once="e => { e.target.src = defaultObjPreviewImage }">
@@ -316,7 +316,7 @@
                           <i class="bi bi-three-dots-vertical"></i>
                         </a>
                         <ul class="dropdown-menu">
-                          <li v-show="!!record.salePrice || record.tag=='3' ">
+                          <li v-show="(!!record.salePrice || record.tag=='3')&&record.tag!=2 ">
                             <a  class="dropdown-item">
                               <button @click="saleObjV(record.id)" v-preventreclick type="button" class="btn btn-primary obj-option-item" >
                                 上线
@@ -355,7 +355,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-          <div  class="row package-section  gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-6">
+          <div  class="row package-section  gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5">
             <div v-for="record in todoGrid_pagination.records" class="col">
               <div class=" package-card-container px-3 pb-1">
                 <img class="card-img-top mt-3" :src="record.avatar || defaultObjPreviewImage" @error.once="e => { e.target.src = defaultObjPreviewImage }">

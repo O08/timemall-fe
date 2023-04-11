@@ -30,6 +30,22 @@ const RootComponent = {
         prevSlideV(){
             $("#slide_prev").trigger("click");
         },
+        recoverOasisInfoV(){
+            recoverOasisInfo().then(response=>{
+                if(response.data.code==200){
+                    this.base.title = response.data.announce.title;
+                    this.base.subTitle = response.data.announce.subTitle;
+
+                    $('#lastestOasisCover').attr('src',response.data.announce.avatar);
+                    $('#lastestAnnounceFile').attr('src',response.data.announce.announceUrl);
+                    
+                    this.risk = response.data.announce.risk;
+                    $('.oasis-risk-box').html(response.data.announce.risk);
+                    this.btn_ctl.activate_baseInfo_save= true;
+
+                }
+            });
+        },
         saveBaseInfoAndtoNextSlideV(){
             saveBaseInfo(this.base);
         },
@@ -42,6 +58,11 @@ const RootComponent = {
         },
         publishOasisV(){
             const oasisId = getQueryVariable("oasis_id");
+            const option= getQueryVariable("option");
+            if(option==="edit"){
+                window.location.href="/micro/oasis.html?oasis_id="+oasisId;
+                return
+            }
             markOasisB(oasisId,OasisMark.PUBLISH).then(response=>{
                 if(response.data.code==200){
                     window.location.href="/micro/teixcalaanli.html";
@@ -95,6 +116,8 @@ app.component('contenteditable', ContentediableComponent)
 const createOasisPage = app.mount('#app');
 
 window.createOasisPage = createOasisPage;
+// init
+createOasisPage.recoverOasisInfoV();
 
 async function createOasis(dto){
     const url="/api/v1/team/oasis/new";
@@ -126,7 +149,20 @@ async function markOasis(form){
     return await axios.put(url,form);
 }
 
+async function getAnnounce(oasisId){
+    const url = "/api/v1/team/oasis/announce/{oasis_id}".replace("{oasis_id}",oasisId);
+    return await axios.get(url);
+}
+
+function recoverOasisInfo(){
+    const oasisId =  getQueryVariable("oasis_id");
+    if(!oasisId){
+        return;
+    }
+    return getAnnounce(oasisId);
+}
 function markOasisB(oasisId,mark){
+
     var form = new FormData();
     form.append("oasisId",oasisId);
     form.append("mark",mark);

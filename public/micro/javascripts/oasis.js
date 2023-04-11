@@ -32,12 +32,25 @@ const RootComponent = {
                     this.closeTopUpOasisModelV();
                     this.retrieveOasisFinInfoV();
                     this.retrieveBrandFinInfoV();
+                    this.amount="";
                     alert("充值成功");
+                }else{
+                    alert(response.data.message);
                 }
             });
         },
         collectAccountV(){
-            collectAccount(this.collectAccountAmount,this.oasisId);
+            collectAccount(this.collectAccountAmount,this.oasisId).then(response=>{
+                if(response.data.code == 200){
+                    this.retrieveOasisFinInfoV();
+                    this.retrieveBrandFinInfoV();
+                    this.retrieveBrandPointV();
+                    this.collectAccountAmount="";
+                    alert("收账成功");
+                }else{
+                    alert(response.data.message);
+                }
+            });
         },
         retrieveOasisFinInfoV(){
             retrieveOasisFinInfo(this.oasisId).then(response=>{
@@ -88,6 +101,10 @@ const RootComponent = {
         },
         inOasisV(){
             return inOasisB(this.joinedoases);
+        },
+        initiatorRoleV(){
+            const brandId = this.getIdentity().brandId;
+            return brandId == this.announce.initiator;
         }
 
     },
@@ -195,5 +212,5 @@ function closeTopUpOasisModel(){
 function transformInputNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
   }
- 
+
 

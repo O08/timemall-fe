@@ -142,7 +142,7 @@
                             </div>
                             
                         </div>
-                        <div v-if = "!option && getIdentity().brandId!=objInfo.creditId" class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                        <div v-if = "!option && getIdentity().brandId!=objInfo.creditId && !!objInfo.salePrice" class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
                           <div class="price">
                             <ins class="text-decoration-none">￥{{objInfo.salePrice}}</ins>
                           </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
-    <title>Discovery Partner - Micro</title>
+    <title>贤者 - Micro</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/micro/stylesheets/discovery-partner.scss">
@@ -109,7 +109,7 @@
           <span>逐光者从不孤独!</span>
           <top-search class="section-top-serach">
             <div class="search">
-              <input type="text" @keyup.enter.native="retrieveTalentGridV" v-model="talentgrid_pagination.param.q" class="form-control Search-Button-Placeholder" placeholder="探索更多可能">
+              <input type="text" @keyup.enter.native="retrieveTalentGridV" v-model="talentgrid_pagination.param.q" class="form-control Search-Button-Placeholder" placeholder="搜索...">
               <div class="Search-Icon-Container d-flex align-items-center ms-n5">
                 <svg width="20" height="20" class="Search-Icon" viewBox="0 0 20 20">
                   <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="#616161" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -122,7 +122,7 @@
         <h3>贤者在此降临</h3>
       </div>
       <section class="section-team-grid">
-        <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-6">
+        <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5">
           <div v-for="talent in talentgrid_pagination.records" class="col">
             <div class="team-card-container px-3">
               <div class="partner-info-container">

@@ -27,7 +27,7 @@ const RootComponent = {
                 param: {
                     q: '',
                     tag: '',
-                    sort: '',
+                    sort: '1',
                     filter: '',
                     oasisId: '',
                     worker: ""
@@ -105,6 +105,8 @@ const RootComponent = {
     updated(){
         
         $(function() {
+            $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });

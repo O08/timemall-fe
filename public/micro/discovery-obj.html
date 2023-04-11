@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
-    <title>Discovery Obj - Micro</title>
+    <title>服务标的市场 - Micro</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/micro/stylesheets/discovery-obj.scss">
@@ -104,8 +104,8 @@
         </div>
       </header>
       <div class="obj-banner-container d-flex align-items-center justify-content-center flex-column">
-          <h3>慧眼识珠</h3>
-          <span>藏起来的金玉无异于埋在地下的瓦砾!</span>
+          <h3>标的的色彩</h3>
+          <span>如心灵之光一样丰富!</span>
           <top-search class="section-top-serach">
             <div class="search">
               <input type="text" @keyup.enter.native="retrieveObjGridV" v-model="objgrid_pagination.param.q" class="form-control Search-Button-Placeholder" placeholder="探索价值的尺度">
@@ -121,7 +121,7 @@
         <h3>服务标的</h3>
       </div>
       <section class="section-team-grid">
-        <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-6">
+        <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
           <div v-for="obj in objgrid_pagination.records" class="col">
             <div class="team-card-container px-3 pb-1">
               <img :src="obj.avatar || defaultObjPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultObjPreviewImage }">
@@ -129,9 +129,9 @@
                 <div class="obj-title-wrapper">
                   <a :href="'/micro/obj-detail.html?obj_id='+ obj.id + '&cell_id=' + obj.cellId + '&brand_id=' + obj.brandId" class="url-link"><h5 class="mt-3">{{obj.title}}</h5></a>
                 </div>
-                <div class="mt-3 help-text fs-6 d-flex flex-column justify-content-center">
+                <div class="mt-3 help-text d-flex flex-column justify-content-center">
                   <span>服务内容: {{obj.quantity}}  {{transformSbuV(obj.sbu)}}</span>
-                  <span>账面价值：{{obj.objectVal}}</span>
+                  <span>账面价值：<span class="medium-text">{{obj.objectVal}}</span></span>
                   <span>售价：{{obj.salePrice}}</span>
                 </div>
               </div>

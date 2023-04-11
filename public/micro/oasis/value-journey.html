@@ -175,6 +175,11 @@
         
       </div>
     <div class="mt-5 mx-4">
+        <div>
+          <button type="button" @click="refreshOasisIndV" v-preventreclick  class="btn btn-primary mb-3">
+            刷新
+          </button>
+        </div>
         <table class="table table-dark table-hover align-middle">
             <tbody>
               <tr v-for="record in oasisInd.records">

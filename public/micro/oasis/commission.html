@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
-    <title>Commission - Micro</title>
+    <title>基地委托 - Micro</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/micro/stylesheets/teixcalaanli.scss">
@@ -171,7 +171,7 @@
         </ul>
       </div>
       <form class="nosubmit" onsubmit="return false">
-        <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" class="nosubmit commission-search-btn" type="search" placeholder="Search...">
+        <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" class="nosubmit commission-search-btn" type="search" placeholder="搜索...">
       </form>
     </div>
     <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#addTaskModal">
@@ -214,7 +214,9 @@
           <td class="commission-info">
             <div class="ms-3">
               <h5>{{record.title}}</h5>
-              <span class="text-small">create at {{record.addDate}} by {{record.founder}}</span>
+              <span class="help-text text-small">佣金: {{record.bonus}}</span>
+              <span v-if="!!record.workerName" class="help-text text-small">履行: {{record.workerName}}</span>
+              <span class="help-text text-small">在 {{record.addDate}} 由 {{record.founderName}} 创建</span>
             </div>
           </td>
           <td>

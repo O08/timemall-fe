@@ -34,3 +34,12 @@
     margin-left: 10%;
     margin-right: 10%;
 }
+.member-title{
+    min-width: 80px;
+    width: 100%;
+}
+.member-title span{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
