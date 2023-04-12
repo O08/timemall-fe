@@ -148,7 +148,7 @@
               
                 
                
-                <div id="div_gri_panel" class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                <div id="div_gri_panel" class="row gx-3 gy-3 row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
                   <div v-for="cell in cellgrid_pagination.records" class="col cell-item">
                     <div class="card border-0 cell-card-body-bg">
                       <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
@@ -185,7 +185,7 @@
                     </div>
                   </div>
                 </div>
-                <nav v-if="!!paging" aria-label="Page navigation" class="millstone-pagination">
+                <nav v-if="!!paging" aria-label="Page navigation" class="millstone-pagination mt-3">
                   <ul class="pagination pagination-lg pagination-dark  border-0">
                     <li class="page-item" @click="pagePre(cellgrid_pagination)">
                       <a class="page-link"  aria-label="Previous">

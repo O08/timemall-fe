@@ -331,6 +331,7 @@ function addExperienceDesc(){
     newDesc.story = tmp.story;
     settingProfilePage.brandProfile.experience[index].entries.push(newDesc);
    // save
+   setBrandExperience();
    // close modal
    closeExperienceDescModal();
 }

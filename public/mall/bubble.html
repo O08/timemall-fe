@@ -105,31 +105,34 @@
                 <section class="section-list-render">
                   <div class="subheader">最新服务</div>
                   <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                    <div v-for="cell in homeInfo.cells" class="col cell-item">
-                      <div class="card border-0 cell-card-body-bg">
-                        <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
-                        <div class="card-body">
-                          <p class="card-text mt-2">
-                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                              {{cell.title}}
-                            </a>
-                          </p>
-                        </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
-                          <span class="vip-award">
-                            <i class="bi bi-award-fill"></i>
-                          </span>
-                          <div class="price">
-                            <i>￥</i>
-                            <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
-                            <div class="line">
-                            </div>
-                            <span class="price-sbu">
-                              {{ transformSbuV(cell.sbu) }}
+                    <div v-for="cell in homeInfo.cells" class="col">
+                      <div class="cell-item">
+                        <div class="card border-0 cell-card-body-bg px-3 pb-1">
+                          <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                          <div class="card-body">
+                            <p class="card-text mt-2">
+                              <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                                {{cell.title}}
+                              </a>
+                            </p>
+                          </div>
+                          <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                            <span class="vip-award">
+                              <i class="bi bi-award-fill"></i>
                             </span>
+                            <div class="price">
+                              <i>￥</i>
+                              <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
+                              <div class="line">
+                              </div>
+                              <span class="price-sbu">
+                                {{ transformSbuV(cell.sbu) }}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      
                     </div>
                   </div>
                 </section>
@@ -138,31 +141,34 @@
               <div class="tab-pane fade" id="service-tab-pane" role="tabpanel" aria-labelledby="service-tab" tabindex="0">
                 <section class="section-list-render" id="service_library">
                   <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                    <div v-for="cell in cells" class="col cell-item">
-                      <div class="card border-0 cell-card-body-bg">
-                        <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
-                        <div class="card-body">
-                          <p class="card-text mt-2">
-                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                              {{cell.title}}
-                            </a>
-                          </p>
-                        </div>
-                        <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
-                          <span class="vip-award">
-                            <i class="bi bi-award-fill"></i>
-                          </span>
-                          <div class="price">
-                            <i>￥</i>
-                            <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
-                            <div class="line">
-                            </div>
-                            <span class="price-sbu">
-                              {{ transformSbuV(cell.sbu) }}
+                    <div v-for="cell in cells" class="col">
+                      <div class="cell-item">
+                        <div class="card border-0 cell-card-body-bg px-3 pb-1">
+                          <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                          <div class="card-body">
+                            <p class="card-text">
+                              <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                                {{cell.title}}
+                              </a>
+                            </p>
+                          </div>
+                          <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                            <span class="vip-award">
+                              <i class="bi bi-award-fill"></i>
                             </span>
+                            <div class="price">
+                              <i>￥</i>
+                              <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
+                              <div class="line">
+                              </div>
+                              <span class="price-sbu">
+                                {{ transformSbuV(cell.sbu) }}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      
                     </div>
                   </div>
                 </section>

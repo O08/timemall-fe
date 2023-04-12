@@ -91,9 +91,9 @@ sub-nav .nav-item .active
 }
 .cell-content-item
 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
-    line-height: 1rem;
+    line-height: 1.875;
 }
 
 /*----------------------------------------------------
@@ -192,18 +192,20 @@ sub-nav .nav-item .active
 }
 .brand-identity
 {
-    width: 100%;
+    width: calc(100% - 100px);
     max-height: 150px;
     margin-left: 100px;
     margin-top: 100px;
+    padding-bottom: 50px;
 }
 .brand-identity .brand-name{
     font-size: 24px;
     font-weight: bold;
 }
 .brand-identity .brand-title{
-    font-size: 20px;
+    font-size: 14px;
     font-weight: normal;
+    line-height: 1.675;
 }
 .ip-location{
     font-size: 20px;
@@ -242,4 +244,20 @@ sub-nav .nav-item .active
 .obj-package{
     display: flex;
     flex-direction: column;
+}
+.date-info{
+    font-size: 14px;
+    font-weight: 400;
+}
+.section-seller-banner {
+    background: #2B2B2B;
+}
+.brand-title {
+    width: 100%;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
 }

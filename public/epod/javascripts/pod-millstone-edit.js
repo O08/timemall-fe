@@ -6,12 +6,14 @@ import axios from 'axios';
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 import 'jquery-ui/ui/widgets/datepicker.js';
 import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
-import defaultAvatarImage from '/avator.webp'
+import defaultAvatarImage from '/avator.webp';
+import {DatepickerComponent} from '/common/javascripts/datepicker-compoent.js';
 
 const RootComponent = {
     data() {
       
         return {
+            a: "",
             defaultAvatarImage,
             btn_ctl:{
                 activate_general_save_btn: false
@@ -92,6 +94,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(DirectiveComponent);
+app.component("datepicker",DatepickerComponent);
 const millstoneEditPage = app.mount('#app');
 window.pMillstoneEdit= millstoneEditPage;
 // init 

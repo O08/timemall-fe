@@ -125,7 +125,7 @@ mall-app header{
 }
 
 .card-text,.service-brand-name{
-  font-size: 14px;
+  font-size: 12px;
   line-height: 24px;
   color: #c1c1c1;
   -webkit-line-clamp: 2;
@@ -136,6 +136,15 @@ mall-app header{
     vertical-align: middle;
     font-weight: 700;
     font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
+}
+.card-text{
+  white-space: pre-wrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    height: 70px;
 }
 .service-brand-name,.service-brand-blue{
   font-size: 12px;
@@ -179,4 +188,14 @@ mall-app header{
 }
 .btn-info {
   color: white;
+}
+.cell-item .card-body,.cell-item .card-footer{
+  padding-left: 0;
+  padding-right: 0;
+}
+.cell-card-body-bg {
+  opacity: .8;
+}
+.cell-card-body-bg:hover{
+  opacity: 1;
 }

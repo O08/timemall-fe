@@ -171,12 +171,12 @@
             <div class="d-flex align-items-center mt-5 pt-5 mx-2 oasis-base ">
               <div>
                 <div class="form-floating mb-3">
-                  <input type="text"  @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title">
-                  <label for="floatingInputTitle">名称</label>
+                  <input type="text" maxlength="255" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title" required>
+                  <label for="floatingInputTitle">名称(最大255字符) </label>
                 </div>
                 <div class="form-floating">
-                  <input type="text"  @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle">
-                  <label for="floatingInputSubtitle">简介</label>
+                  <input type="text"  maxlength="255" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle" required>
+                  <label for="floatingInputSubtitle">简介(最大255字符) </label>
                 </div>
               </div>
             </div>

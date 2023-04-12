@@ -165,7 +165,7 @@ mall-app footer{
   /* background-color: #393838; */
   font-size: 1rem;
   font-weight: 700;
-  width: 120px;
+  width: 115px;
   border-radius: 2px;
   color: white;
   margin-bottom: 36px;
@@ -221,7 +221,7 @@ mall-app footer{
 }
 }
 .card-text,.service-brand-name{
-  font-size: 14px;
+  font-size: 12px;
   line-height: 24px;
   color: #c1c1c1;
   -webkit-line-clamp: 2;
@@ -232,6 +232,15 @@ mall-app footer{
     vertical-align: middle;
     font-weight: 700;
     font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
+}
+.card-text{
+  white-space: pre-wrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    height: 70px;
 }
 .service-brand-name{
   font-size: 12px;
@@ -249,3 +258,9 @@ mall-app footer{
   color: #3887FE;
 }
 
+.cell-card-body-bg {
+  opacity: .8;
+}
+.cell-card-body-bg:hover{
+  opacity: 1;
+}

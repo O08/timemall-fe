@@ -247,7 +247,7 @@
                           开始时间
                         </h6>
                         <json-node class="json-item-node">
-                          <input @change="btn_ctl.activate_general_save_btn = true"  type="text" v-model="item.start" class="datepicker form-control millstone-input-box" autocomplete="off">
+                          <datepicker @change="btn_ctl.activate_general_save_btn = true" v-model="item.start"></datepicker>
 
                           <!-- <input type="text" class="datepicker" autocomplete="off"> -->
 
@@ -261,7 +261,7 @@
                           结束时间
                         </h6>
                         <json-node class="json-item-node">
-                          <input @change="btn_ctl.activate_general_save_btn = true" type="text" v-model="item.end" class="datepicker form-control millstone-input-box" autocomplete="off">
+                          <datepicker @change="btn_ctl.activate_general_save_btn = true" v-model="item.end"></datepicker>
                         </json-node>     
                       </json-node>  
                     </li>
