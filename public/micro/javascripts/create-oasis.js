@@ -87,16 +87,6 @@ const RootComponent = {
         },
         uploadAnnounceFileV(){
             uploadAnnounceFile();
-        },
-        // text edit pannel
-        pannelAddTextToFisrt(){
-            addTextToFirst();
-        },
-        pannelAddText(index){
-            nextText(index);
-        },
-        pannelRemoveText(){
-            removeText();
         }
     },
     updated(){
@@ -221,7 +211,7 @@ function saveBaseInfo(base){
    // todo update oasis when in editing
    const id = getQueryVariable("oasis_id");
    if(!id){
-    return createOasis(base).then(response=>{
+     createOasis(base).then(response=>{
         if(response.data.code == 200){
             addOasisIdToUrl(response.data.oasisId);
             createOasisPage.nextSlideV();
@@ -275,14 +265,4 @@ function previewAnnounceFile(e){
 function closeAnnounceFileModalHandler(){
     document.querySelector('#announceFilePreview').src = "";
     document.querySelector('#announceFile').value = null;
-}
-// edit pannel
-function nextText(index){
-    createOasisPage.risk.riskEntries.splice(index,0,{entry: ""});
-}
-function removeText(index){
-    createOasisPage.risk.riskEntries.splice(index,1);
-}
-function addTextToFirst(){
-    createOasisPage.risk.riskEntries.unshift({entry: ""});
 }

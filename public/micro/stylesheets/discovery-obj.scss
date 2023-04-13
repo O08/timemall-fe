@@ -97,7 +97,7 @@ header{
 .obj-title-wrapper{
   height: 50px;
 }
-.obj-title-wrapper h5{
+.obj-title-wrapper h6{
   width: 100%;
   white-space:pre-wrap;
   text-overflow:ellipsis;       //用...省略号显示
@@ -105,10 +105,18 @@ header{
   -webkit-box-orient:vertical;  //从上到下垂直排列子元素
   -webkit-line-clamp:2;         //显示的行数
   overflow:hidden;              //超出盒子宽度内容，便溢出隐藏  
+  line-height: 1.765;
+
 }
 .help-text{
   font-size: small;
 }
 .medium-text{
   font-size: medium;
+}
+.help-text {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.575;
 }

@@ -146,11 +146,11 @@
                 <div class="col-6 pt-5 mt-5">
                   <div class="mt-5 pt-5">
                     <h5>1.基地的创建宣言</h5>
-                    <div class="help-text ms-2 fs-6">提供基地的规则、愿景和可能的风险等信息</div>
+                    <div class="help-text ms-2">提供基地的规则、愿景和可能的风险等信息</div>
                   </div>
                   <div class="mt-3">
                     <h5>2.让基地与众不同</h5>
-                    <div class="help-text ms-2 fs-6">需要添加基地名称和描述，以及基地的logo。</div>
+                    <div class="help-text ms-2">需要添加基地名称和描述，以及基地的logo。</div>
                   </div>
                 </div>
               </div>
@@ -171,12 +171,18 @@
             <div class="d-flex align-items-center mt-5 pt-5 mx-2 oasis-base ">
               <div>
                 <div class="form-floating mb-3">
-                  <input type="text" maxlength="255" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title" required>
-                  <label for="floatingInputTitle">名称(最大255字符) </label>
+                  <input type="text" maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title" required>
+                  <label for="floatingInputTitle">名称(最大200字符) </label>
+                  <div class="invalid-feedback">
+                    名称超出允许长度，请提供一个有效名称！
+                  </div>
                 </div>
                 <div class="form-floating">
-                  <input type="text"  maxlength="255" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle" required>
-                  <label for="floatingInputSubtitle">简介(最大255字符) </label>
+                  <input type="text"  maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle" required>
+                  <label for="floatingInputSubtitle">简介(最大200字符) </label>
+                  <div class="invalid-feedback">
+                    简介超出允许长度，请提供一个有效简介！
+                  </div>
                 </div>
               </div>
             </div>
@@ -228,16 +234,6 @@
           <div class="carousel-item">
             <h4>基地风险:</h4>
             <div class="d-flex align-items-center justify-content-center mt-5 pt-5 mx-2">
-              <!-- <section class="section-tool-bar">
-                <div class="d-flex tool-bar my-5">
-                  <div class="add-new-text-container">
-                    <div @click="pannelAddTextToFisrt" class="add-new-text">
-                      <i class="bi bi-plus"></i>
-                      <span>添加文本</span>
-                    </div>
-                  </div>
-                </div>
-              </section> -->
               <section class="section-workspace d-flex justify-content-start align-items-center mx-2">
                 <div class="edit-pannel d-flex flex-column w-100">
                   <contenteditable  class="oasis-risk-box"   placeholder="添加基地风险信息" v-model="risk"></contenteditable>

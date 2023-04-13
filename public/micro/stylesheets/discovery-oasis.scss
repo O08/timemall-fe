@@ -94,10 +94,12 @@ header{
     border-radius: 5px;
     // width: 280px;
 }
-.oasis-title-wrapper h5{
+.oasis-title-wrapper h6{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
+  line-height: 1.765;
+
 }
 .oasis-intro-wrapper p{
   width: 100%;
@@ -109,6 +111,12 @@ header{
   overflow:hidden;              //超出盒子宽度内容，便溢出隐藏  
 }
 .oasis-intro-wrapper{
-  height: 100px;
+  height: 80px;
+}
+.help-text {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.575;
 }
 

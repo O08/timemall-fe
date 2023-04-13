@@ -121,8 +121,8 @@
       <div class="list-title">
         <h3>特色基地</h3>
       </div>
-      <section class="section-team-grid">
-        <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-6">
+      <section class="section-team-grid pb-5">
+        <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
           <div v-for="oasis in oasisgrid_pagination.records" class="col">
             <div class="team-card-container  px-3">
               <!-- <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg"> -->
@@ -130,10 +130,10 @@
 
               <div class="card-body mb-3">
                 <div class="oasis-title-wrapper">
-                  <a :href="'/micro/oasis.html?oasis_id=' + oasis.id" class="url-link"><h5 class="mt-3">{{oasis.title}}</h5></a>
+                  <a :href="'/micro/oasis.html?oasis_id=' + oasis.id" class="url-link"><h6 class="mt-3">{{oasis.title}}</h6></a>
                 </div>
                 <div class="oasis-intro-wrapper">
-                  <p class="help-text fs-6">{{oasis.subTitle}}</p>
+                  <p class="help-text">{{oasis.subTitle}}</p>
                 </div>
               </div>
             </div>

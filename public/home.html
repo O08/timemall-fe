@@ -148,41 +148,46 @@
               
                 
                
-                <div id="div_gri_panel" class="row gx-3 gy-3 row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
-                  <div v-for="cell in cellgrid_pagination.records" class="col cell-item">
-                    <div class="card border-0 cell-card-body-bg">
-                      <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                        <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
-                      </a>
-                      <div class="card-body">
-                        <div class="d-flex portrait align-items-center">
-                          <img class="service-brand" :src="cell.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                          <span>
-                            <h6 class="service-brand-name ms-1 my-0">{{cell.brand}}</h6>
-                          </span>
-                        </div>
-                        <p class="card-text mt-2">
-                          <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                            {{cell.title}}
-                          </a>
-                        </p>
-                      </div>
-                      <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
-                        <span class="vip-award"
-                          :class="{'enable-blue': Number(cell.enableBlue)}">
-                          <i class="bi bi-award-fill"></i>
-                        </span>
-                        <div class="price">
-                          <i>￥</i>
-                          <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
-                          <div class="line">
+                <div id="div_gri_panel" 
+                :class="{'fixed_grid_panel_width': !cellgrid_pagination.records.length}"
+                  class="row gx-3 gy-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
+                  <div v-for="cell in cellgrid_pagination.records" class="col cell-col">
+                    <div class="cell-item">
+                      <div class="card border-0 cell-card-body-bg">
+                        <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                          <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                        </a>
+                        <div class="card-body">
+                          <div class="d-flex portrait align-items-center">
+                            <img class="service-brand" :src="cell.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            <span>
+                              <h6 class="service-brand-name ms-1 my-0">{{cell.brand}}</h6>
+                            </span>
                           </div>
-                          <span class="price-sbu">
-                            {{ transformSbuV(cell.sbu) }}
+                          <p class="card-text mt-2">
+                            <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                              {{cell.title}}
+                            </a>
+                          </p>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                          <span class="vip-award"
+                            :class="{'enable-blue': Number(cell.enableBlue)}">
+                            <i class="bi bi-award-fill"></i>
                           </span>
+                          <div class="price">
+                            <i>￥</i>
+                            <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
+                            <div class="line">
+                            </div>
+                            <span class="price-sbu">
+                              {{ transformSbuV(cell.sbu) }}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
                 <nav v-if="!!paging" aria-label="Page navigation" class="millstone-pagination mt-3">

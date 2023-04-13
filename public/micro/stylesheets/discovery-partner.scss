@@ -123,10 +123,11 @@ header{
 .carousel-item img{
   opacity: .9;
 }
-.brand-title-wrapper h5{
+.brand-title-wrapper h6{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space:nowrap;
+  line-height: 1.765;
 }
 .brand-intro-wrapper p{
   width: 100%;
@@ -139,5 +140,11 @@ header{
 
 }
 .brand-intro-wrapper{
-  height: 100px;
+  height: 80px;
+}
+.help-text {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.575;
 }
