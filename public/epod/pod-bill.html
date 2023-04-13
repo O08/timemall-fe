@@ -115,8 +115,8 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">项目</th>
-                  <th scope="col">服务</th>
+                  <th class="w-auto">项目</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">供应商</th>
                   <th scope="col">费用</th>
                   <th scope="col">入库时间</th>
@@ -146,10 +146,14 @@
                     
                   </td>
                   <td>
-                    {{bill.stage}}
+                    <span class="td-stage">
+                      {{bill.stage}}
+                    </span>
                   </td>
                   <td>
-                    {{bill.service}}
+                    <span class="td-service">
+                      {{bill.service}}
+                    </span>
                   </td>
                   <td>{{bill.brand}}</td>
                   <td>{{bill.amount}}</td>
@@ -181,8 +185,8 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">项目</th>
-                  <th scope="col">服务</th>
+                  <th class="w-auto">项目</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">供应商</th>
                   <th scope="col">费用</th>
                   <th scope="col">入库时间</th>
@@ -196,10 +200,14 @@
                     </button>
                   </td>
                   <td>
-                    {{bill.stage}}
+                    <span class="td-stage">
+                      {{bill.stage}}
+                    </span>
                   </td>
                   <td>
-                    {{bill.service}}
+                    <span class="td-service">
+                      {{bill.service}}
+                    </span>
                   </td>
                   <td>{{bill.brand}}</td>
                   <td>{{bill.amount}}</td>

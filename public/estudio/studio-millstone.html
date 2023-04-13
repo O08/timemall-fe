@@ -145,7 +145,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">服务</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">预期费用</th>
                   <th scope="col">入库时间</th>
@@ -165,7 +165,9 @@
                     
                   </td>
                   <td>
-                      {{item.service}}
+                      <span class="td-service">
+                        {{item.service}}
+                      </span>
                   </td>
                   <td>{{item.customer}}</td>
                   <td>{{item.fee}}</td>
@@ -198,7 +200,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">服务</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">预期费用</th>
                   <th scope="col">入库时间</th>
@@ -221,7 +223,9 @@
                   </td>
                   <td>
                     <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
-                      {{item.service}}
+                      <span class="td-service">
+                        {{item.service}}
+                      </span>
                     </a>
                   </td>
                   <td>{{item.customer}}</td>
@@ -255,8 +259,8 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">进度</th>
-                  <th scope="col">服务</th>
+                  <th class="w-auto">进度</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">预期费用</th>
                   <th scope="col">入库时间</th>
@@ -272,11 +276,15 @@
                     </a> -->
                   </td>
                   <td>
-                    {{item.stage}}
+                    <span class="td-stage">
+                      {{item.stage}}
+                    </span>
                   </td>
                   <td>
                     <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
-                      {{item.service}}
+                      <span class="td-service">
+                        {{item.service}}
+                      </span>
                     </a>
                   </td>
                   <td>{{item.customer}}</td>
@@ -311,7 +319,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">服务</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">预期费用</th>
                   <th scope="col">入库时间</th>
@@ -324,7 +332,9 @@
                   </td>
                   <td>
                     <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
-                      {{item.service}}
+                      <span class="td-service">
+                        {{item.service}}
+                      </span>
                     </a>
                   </td>
                   <td>{{item.customer}}</td>
@@ -359,7 +369,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">服务</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">预期费用</th>
                   <th scope="col">入库时间</th>
@@ -378,7 +388,9 @@
                   </td>
                   <td>
                     <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
-                      {{item.service}}
+                      <span class="td-service">
+                        {{item.service}}
+                      </span>
                     </a>
                   </td>
                   <td>{{item.customer}}</td>
@@ -413,7 +425,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">服务</th>
+                  <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">费用</th>
                   <th scope="col">入库时间</th>
@@ -430,7 +442,9 @@
                   </td>
                   <td>
                     <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
-                      {{item.service}}
+                      <span class="td-service">
+                        {{item.service}}
+                      </span>
                     </a>
                   </td>
                   <td>{{item.customer}}</td>

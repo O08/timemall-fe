@@ -5,3 +5,15 @@
 .section-contact-info .card-body{
     min-height: 200px;
 }
+table td{
+    font-size: 14px;
+    line-height: 1.565;
+}
+.td-service{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 600px;
+}

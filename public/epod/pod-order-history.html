@@ -8,6 +8,7 @@
     <title>预约 - E-Pod</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod-order-history.scss">
 
 </head>
 <body>
@@ -101,7 +102,7 @@
         <table class="table table-width-fixed table-dark table-hover align-middle">
           <thead>
             <tr>
-              <th scope="col">服务</th>
+              <th class="w-50">服务</th>
               <th scope="col">供应商</th>
               <th scope="col">预期费用</th>
               <th scope="col">入库日期</th>
@@ -110,7 +111,9 @@
           <tbody>
             <tr v-for="trans in transpagination.records">
               <td>
-                {{trans.service}}
+                <span class="td-service">
+                  {{trans.service}}
+                </span>
               </td>
               <td>{{trans.supplier}}</td>
               <td>{{trans.fee}}</td>

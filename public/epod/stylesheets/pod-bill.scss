@@ -22,5 +22,21 @@
     max-width: 18rem;
     height: 180px;
 }
-
+table td{
+    font-size: 14px;
+    line-height: 1.565;
+}
+.td-stage,.td-service{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: inline-block;
+    overflow: hidden;
+}
+.td-stage{
+    max-width: 200px;
+}
+.td-service{
+    max-width: 600px;
+}
 
