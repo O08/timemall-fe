@@ -275,8 +275,12 @@ footer{
 .cell-col{
   height: 340px;
 }
-// .sticky-footer{
-//   position: sticky;
-//   left: 0;
-//   bottom: -80;
-// }
+@media (max-width: 576px) {
+  .section-filter {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  .input-normal-search {
+    left: 5%;
+  }
+}
