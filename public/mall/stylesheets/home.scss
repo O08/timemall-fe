@@ -186,7 +186,7 @@ footer{
    background: #393838 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='white'  d='m2 5 6 6 6-6'/></svg>") no-repeat right .5rem center/12px 12px !important;
 }
 .sbu-option{
-  width: 150px;
+  width: 145px;
 }
 .sbu-option:focus,.sort-by:focus{
   box-shadow:none;
@@ -277,10 +277,14 @@ footer{
 }
 @media (max-width: 576px) {
   .section-filter {
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
   .input-normal-search {
-    left: 5%;
+    left: 1rem;
   }
+}
+.select-container .col{
+  padding-left: 0;
+  padding-right: 0;
 }
