@@ -29,9 +29,7 @@ footer{
 
 }
 
-  // mall-app content {
-  //   height: calc(100% - 240px);
-  // }
+
 
 
 
@@ -87,7 +85,7 @@ footer{
 .top-bar-filter-budget
 {
     background-color: #393838;
-    width: 100px;
+    max-width: 100px;
     border-radius: 2px;
     color: white;
     font-weight: 700;
@@ -185,10 +183,10 @@ footer{
    appearance: none;
    -moz-appearance: none;
    -webkit-appearance: none;
-   background: #393838 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='white'  d='m2 5 6 6 6-6'/></svg>") no-repeat right 1rem center/12px 12px !important;
+   background: #393838 url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='white'  d='m2 5 6 6 6-6'/></svg>") no-repeat right .5rem center/12px 12px !important;
 }
 .sbu-option{
-  width: 160px;
+  width: 150px;
 }
 .sbu-option:focus,.sort-by:focus{
   box-shadow:none;
