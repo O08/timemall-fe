@@ -1,36 +1,25 @@
 const ContentediableComponent = {
     props: ['modelValue','placeholder'],
-    template: `<div class="textarea" role="textbox" contenteditable  :placeholder="placeholder" ref="editor" v-html="contentHtml"  @input="updateCode" @focus="focusEditor" @blur="blurEditor"></div>`,
+    template: `<div class="textarea" role="textbox" contenteditable  :placeholder="placeholder" ref="editor" v-html="modelValue"   @focus="focusEditor" @blur="blurEditor"></div>`,
     data () {
         return{
             oldval: this.modelValue ,
-            contentHtml: this.modelValue || this.modelValue === 0 ? this.modelValue : '',
-            isLocked: true,
-            lastEditRange: null
+            isLocked: true
         }
     },
     methods: {
-        updateCode: function($event) {
-            this.$emit('update:modelValue', this.$refs.editor.innerText)
-            this.$emit('input', '')
-        },
         blurEditor (event) {
-            this.isLocked = false
-            if(this.oldval !== this.modelValue){
-                this.$emit('change', '')
+            this.isLocked = false;
+            if(this.oldval !== this.$refs.editor.innerText){
+                this.$emit('update:modelValue', this.$refs.editor.innerText);
+                this.$emit('change', '');
             }
         },
         focusEditor (event) {
-            this.isLocked = true
-        }
-    },
-    watch: {
-        modelValue (val) {
-            if (!this.isLocked) {
-                this.contentHtml = this.modelValue;
-            }
+            this.isLocked = true;
         }
     }
+
    
   }
   export {ContentediableComponent}

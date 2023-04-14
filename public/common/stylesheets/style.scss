@@ -211,6 +211,7 @@ body {
     border-left: 1px solid hsl(0, 1%, 37%);
     position: relative;
     list-style: none;
+    padding-left: 1rem;
   }
   
   .timeline .timeline-item {
@@ -225,7 +226,7 @@ body {
   
   .timeline .timeline-item:after {
     background-color: hsl(0, 1%, 37%);
-    left: -38px;
+    left: -1.4rem;
     border-radius: 50%;
     height: 11px;
     width: 11px;

@@ -54,8 +54,8 @@ const RootComponent = {
         pannelAddText(index){
             nextText(index);
         },
-        pannelRemoveText(){
-            removeText();
+        pannelRemoveText(index){
+            removeText(index);
         },
         // file handler
         previewCellCoverV(e){
@@ -324,6 +324,7 @@ function uploadCellIntroBanner(){
         }
     })
 }
+
 
 
 // edit pannel

@@ -21,7 +21,7 @@ const RootComponent = {
       paging: {}, // 分页导航
       cellgrid_pagination:{
         url: "/api/v1/web_mall/cells",
-        size: 12,
+        size: 20,
         current: 1,
         total: 0,
         pages: 0,

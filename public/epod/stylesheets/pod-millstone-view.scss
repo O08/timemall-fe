@@ -1,0 +1,31 @@
+.millstone-title h5{
+    line-height: 1.765;
+    font-size: 18px;
+    font-weight: 600;
+}
+json-node h6{
+    line-height: 1.665;
+    font-size: 16px;
+    font-weight: 600;
+}
+@media (max-width: 767px) {
+    .timeline {
+        padding-left: .5rem;
+    }
+    .timeline .timeline-item:after {
+        left: -.8rem;
+    }
+    .millstone-title h5{
+        line-height: 1.665;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    json-node h6{
+        line-height: 1.565;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    json-node span{
+        font-size: 12px;
+    }
+}

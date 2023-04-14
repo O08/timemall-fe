@@ -38,6 +38,7 @@ const RootComponent = {
                 if(response.data.code==200){
                     this.retrieveFinInfoV();
                     this.trans.amount=""; // 复位
+                    alert("处理成功！");
                 }
                 if(response.data.code==503){
                     alert("处理失败，请检查账号信息或到联系我们页面寻求支持！");
