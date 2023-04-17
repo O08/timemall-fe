@@ -1,5 +1,5 @@
-col-content{
-    overflow-y: scroll;
+header{
+  z-index: 2000;
 }
 .category-bar-container .nav-link.active svg path{
     fill:rgba(255, 255, 255, .7);

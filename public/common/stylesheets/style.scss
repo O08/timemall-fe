@@ -968,8 +968,11 @@ col-nav-sub{
 }
 col-content{
   background-color: #1A1A1A;
-  height: 100%;
   width: calc(100% - 340px);
+  display: block;
+}
+col-container{
+  background-color: #1A1A1A;
   display: block;
 }
 .nav-container{
