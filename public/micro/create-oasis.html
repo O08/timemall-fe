@@ -17,7 +17,7 @@
       <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
         <div class="sidebarContainer d-flex flex-row">
           <col-nav-main>
-      <div class="nav-container-wrapper d-flex align-items-center">
+      <div class="nav-container-wrapper">
         <div class="nav-container">
          
           <a href="/micro/teixcalaanli.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="贤者时间"> 
@@ -131,7 +131,6 @@
           </div>
         </div>
       </header>
-    <div class="carousel-wrapper">
       <div id="carouselExampleControls" class="carousel slide" data-interval="false">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -143,7 +142,7 @@
                   伟大的第一步，从创建基地开始
                 </h3>
                 </div>
-                <div class="col-6 pt-5 mt-5">
+                <div class="col-6 pt-5 mt-5 pe-2">
                   <div class="mt-5 pt-5">
                     <h5>1.基地的创建宣言</h5>
                     <div class="help-text ms-2">提供基地的规则、愿景和可能的风险等信息</div>
@@ -171,14 +170,14 @@
             <div class="d-flex align-items-center mt-5 pt-5 mx-2 oasis-base ">
               <div>
                 <div class="form-floating mb-3">
-                  <input type="text" maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control" id="floatingInputTitle" placeholder="title" required>
+                  <input type="text" maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control input-base-item" id="floatingInputTitle" placeholder="title" required>
                   <label for="floatingInputTitle">名称(最大200字符) </label>
                   <div class="invalid-feedback">
                     名称超出允许长度，请提供一个有效名称！
                   </div>
                 </div>
                 <div class="form-floating">
-                  <input type="text"  maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control" id="floatingInputSubtitle" placeholder="subTitle" required>
+                  <input type="text"  maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control input-base-item" id="floatingInputSubtitle" placeholder="subTitle" required>
                   <label for="floatingInputSubtitle">简介(最大200字符) </label>
                   <div class="invalid-feedback">
                     简介超出允许长度，请提供一个有效简介！
@@ -266,7 +265,7 @@
               </div>
 
             </div>
-            <div class="mt-5 pt-5">
+            <div class="mt-5 py-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
               <button type="button"  :class="{'disabled': !agree_check, 
               'btn-primary': agree_check,
@@ -283,7 +282,6 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
     
     </col-content>
     </main>

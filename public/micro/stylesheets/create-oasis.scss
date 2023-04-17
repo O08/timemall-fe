@@ -1,13 +1,16 @@
 col-content {
   overflow-y: scroll;
 }
+header{
+  z-index: 2000;
+}
+
 @media only screen and (min-width: 1400px) {
   .oasis-risk-box{
     width: 800px;
   }
   .form-floating{
     width: 800px;
-
   }
 }
 @media (min-width: 767px) {
@@ -22,7 +25,8 @@ col-content {
 // }
 .carousel-item {
   margin-top: 4%;
-  margin-left: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .oasis-base {
   margin-left: 20%;
@@ -60,4 +64,24 @@ col-content {
   font-style: normal;
   font-weight: 700;
   line-height: 1.575;
+}
+@media (max-width: 576px) {
+  .btn-option-primary-micro,.btn-option-secondary-micro{
+    width: 120px;
+    height: 40px;
+  }
+  .carousel-item{
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .input-base-item{
+    max-width: 300px;
+  }
+  .oasis-risk-box{
+    min-width: 300px;
+    width: 300px;
+  }
+  .publish-agreement ol{
+    padding-right: 1rem;
+  }
 }

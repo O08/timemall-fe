@@ -88,7 +88,7 @@
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">全部服务</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li v-if="user_already_login" class="nav-item" role="presentation">
               <button class="nav-link" id="cooperation-tab" data-bs-toggle="tab" data-bs-target="#cooperation-tab-pane" type="button" role="tab" aria-controls="cooperation-tab-pane" aria-selected="false">合作</button>
             </li>
           </ul>
@@ -104,7 +104,7 @@
                 
                 <section class="section-list-render">
                   <div class="subheader">最新服务</div>
-                  <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                  <div class="row gx-3 gy-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
                     <div v-for="cell in homeInfo.cells" class="col">
                       <div class="cell-item">
                         <div class="card border-0 cell-card-body-bg px-3 pb-1">
@@ -140,7 +140,7 @@
 
               <div class="tab-pane fade" id="service-tab-pane" role="tabpanel" aria-labelledby="service-tab" tabindex="0">
                 <section class="section-list-render" id="service_library">
-                  <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                  <div class="row gx-3 gy-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
                     <div v-for="cell in cells" class="col">
                       <div class="cell-item">
                         <div class="card border-0 cell-card-body-bg px-3 pb-1">

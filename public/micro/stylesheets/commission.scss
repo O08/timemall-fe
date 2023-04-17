@@ -117,3 +117,16 @@ table{
     width: 65%;
   }
 }
+
+@media (max-width: 576px) {
+  .oasis-commission-header,.commission-tb-container{
+    margin-left: 1rem;
+  }
+  .commission-title-width{
+    width: 50%;
+  }
+  .w-sm-70{
+    width: 65%;
+  }
+
+}

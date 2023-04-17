@@ -72,7 +72,7 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
  }
 
  .span-sbu{
-    min-width: 80px;
+    width: 80px;
  }
  .cell-intro-cover{
     height: 300px;
@@ -161,6 +161,18 @@ table td{
 
 }
 
+@media (max-width: 576px) {
+    .input-sbu,.span-sbu{
+        font-size: 10px;
+    }
+    .span-sbu{
+        width: 40px;
+        padding: 0.155 0.35;
+    }
+    .cell-intro-cover, .cell-intro-cover img {
+        height: 130px;
+    }
+}
 
   
 

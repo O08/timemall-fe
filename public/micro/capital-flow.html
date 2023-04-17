@@ -19,7 +19,7 @@
       <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
         <div class="sidebarContainer d-flex flex-row">
           <col-nav-main>
-      <div class="nav-container-wrapper d-flex align-items-center">
+      <div class="nav-container-wrapper">
         <div class="nav-container">
          
           <a href="/micro/teixcalaanli.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="贤者时间"> 
@@ -171,12 +171,12 @@
             <label for="transferAmount" class="form-label">转账金额</label>
             <input  v-model="trans.amount" @input="transformInputNumberV($event)" min="1" max="50000" step="1" type="number" class="form-control" id="transferAmount">
           </div> 
-          <div class="mt-1 fs-6 help-text">
+          <div class="mt-1 help-text">
             <div class="row">
-              <div class="col d-flex align-items-center">
+              <div class="col-7 d-flex align-items-center">
                 <i class="bi bi-question-circle"></i><span class="ms-1">转出需收取3%服务费率</span>
               </div>
-              <div class="col d-flex justify-content-end">
+              <div class="col-5 d-flex justify-content-end">
                 <button type="button" class="btn btn-primary add-icon" data-bs-toggle="modal" data-bs-target="#alipayAccountMangementModal">
                   <span>支付账号管理</span>
                 </button>
@@ -243,7 +243,7 @@
             <button type="button" id="closeAlipayAccountMangementModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body d-flex justify-content-center">
-            <ul class="list-group ms-5">
+            <ul class="list-group ms-sm-2 ms-lg-5">
               <li v-for="record in alipay.records" class="list-group-item">
                 <div class="form-check d-flex align-items-center ">
                   <input class="form-check-input"  v-model="alipayDelId" type="radio" name="flexRadioMy"  :value="record.id">

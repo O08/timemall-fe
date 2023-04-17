@@ -140,9 +140,18 @@ col-content{
   display: -webkit-box;
   overflow: hidden;
 }
-// .risk-info{
-//   font-size: 1.6rem;
-//   line-height: 3rem;
-//   margin-bottom: 3rem;
-//   overflow:inherit;
-// }
+@media (max-width: 576px) {
+  .nav-item a{
+    padding-left: .75rem;
+    padding-right: .75rem;
+  }
+  .nav-oasis-container ul{
+    margin-left: 1rem;
+  }
+  .hero-info{
+    left: 1rem;
+  }
+  .oasis-commission-header{
+    margin-left: 1rem;
+  }
+}

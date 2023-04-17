@@ -31,3 +31,11 @@ col-content {
     color: #3483fa;
 
 }
+@media (max-width: 576px) {
+    .form-withdraw{
+        margin-left: 10%;
+    }
+    .help-text{
+        font-size: 14px;
+    }
+}
