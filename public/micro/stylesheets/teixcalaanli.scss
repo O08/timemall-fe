@@ -3,6 +3,9 @@ col-content{
   height: 100vh;
   overflow-y: scroll;
 }
+.sidebarContainer{
+  max-height: 100vh;
+}
 .content-wrapper {
     height: calc(100% - 100px);
 }
@@ -64,4 +67,5 @@ col-content{
     overflow-y: scroll;
     height: calc(100% - 100px);
 }
+
 
