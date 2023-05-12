@@ -8,7 +8,11 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 import {WorkflowStatus} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
-import defaultAvatarImage from '/avator.webp'
+import defaultAvatarImage from '/avator.webp';
+import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
+import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
 
 const RootComponent = {
     data() {
@@ -37,6 +41,10 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
+app.mixin(MillstoneChatCompoent);
+app.mixin(RtmCompoent);
+app.mixin(DirectiveComponent);
+
 const millstoneAuditPage = app.mount('#app');
 window.cMillstoneAudit= millstoneAuditPage;
 

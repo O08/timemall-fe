@@ -6,15 +6,16 @@ import axios from 'axios';
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 import 'jquery-ui/ui/widgets/datepicker.js';
 import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
-import defaultAvatarImage from '/avator.webp';
-import {DatepickerComponent} from '/common/javascripts/datepicker-compoent.js';
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
+import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 
 const RootComponent = {
     data() {
       
         return {
             a: "",
-            defaultAvatarImage,
+            // defaultAvatarImage,
             btn_ctl:{
                 activate_general_save_btn: false
             },
@@ -66,14 +67,15 @@ const RootComponent = {
             }
         }
     },
-    created() {
-      
-
-    },
     updated(){
+
           // init auto height for textarea
           [...$("textarea")].forEach(el=>{ 
-            autoHeight(el);
+            if(el.id === 'twemoji-picker'){ // exclude emoji picker 
+                console.log("emoji picker");
+            }else{
+                autoHeight(el);
+            }
         })
         $(function() {
             // Remove already delete element popover ,maybe is bug
@@ -86,6 +88,12 @@ const RootComponent = {
             $( ".datepicker" ).datepicker({
                 dateFormat: "yy-mm-dd",
                 duration: "fast",
+                onSelect: function(selectedDate,inst) {
+                    if(inst.lastVal !=selectedDate){
+                        document.getElementById(inst.id).dispatchEvent(new Event('input'))
+                        document.getElementById(inst.id).dispatchEvent(new Event('change'))
+                    }
+                }
             });
             $( ".datepicker" ).datepicker( $.datepicker.regional[ "zh-CN" ] );
 
@@ -94,9 +102,17 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(DirectiveComponent);
-app.component("datepicker",DatepickerComponent);
+
+app.mixin(BrandInfoComponent);
+app.mixin(MillstoneChatCompoent);
+app.mixin(RtmCompoent);
+
+
+
 const millstoneEditPage = app.mount('#app');
 window.pMillstoneEdit= millstoneEditPage;
+
+
 // init 
 millstoneEditPage.loadWorkflowInfoV();
 

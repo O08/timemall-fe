@@ -5,6 +5,7 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 import {WorkflowStatus} from "/common/javascripts/tm-constant.js";
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 
 
@@ -226,6 +227,8 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
+
 const millStonePage = app.mount('#app');
 window.pMillstone= millStonePage;
 

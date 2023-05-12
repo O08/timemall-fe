@@ -20,6 +20,28 @@ var WorkflowStatus = Object.freeze({
 const RootComponent = {
     data() {
         return {
+            newOrderPagination:{
+                url: "/api/v1/web_estudio/brand/millstone/workflow",
+                size: 10,
+                current: 1,
+                total: 0,
+                pages: 0,
+                records: [],
+                param: {
+                    code: WorkflowStatus.InQueue
+                },
+                paging: {},
+                responesHandler: (response)=>{
+                    if(response.code == 200){
+                        this.newOrderPagination.size = response.transactions.size;
+                        this.newOrderPagination.current = response.transactions.current;
+                        this.newOrderPagination.total = response.transactions.total;
+                        this.newOrderPagination.pages = response.transactions.pages;
+                        this.newOrderPagination.records = response.transactions.records;
+                        this.newOrderPagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                    }
+                }
+            },
             finishpagination:{
                 url: "/api/v1/web_estudio/brand/millstone/workflow",
                 size: 10,
@@ -172,6 +194,9 @@ window.cMillstone= millstonePage;
 function showContent(){
     const option = getQueryVariable("tab");
     switch(option){
+        case "audit":
+            $("#audit-tab").trigger("click");
+            break; 
         case "confirm":
             $("#confirm-tab").trigger("click");
                 break; 
@@ -193,6 +218,7 @@ function showContent(){
 
 
 // init 
+millstonePage.pageInit(millstonePage.newOrderPagination);
 millstonePage.pageInit(millstonePage.auditpagination);
 millstonePage.pageInit(millstonePage.taskpagination);
 millstonePage.pageInit(millstonePage.finishpagination);

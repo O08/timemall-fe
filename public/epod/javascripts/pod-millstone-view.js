@@ -4,6 +4,12 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 import defaultAvatarImage from '/avator.webp'
+import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
+
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
+import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+
 
 const RootComponent = {
     data() {
@@ -18,13 +24,16 @@ const RootComponent = {
         loadWorkflowInfoV(){
             loadWorkflowInfo();
         }
-    },
-    created() {
-
     }
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(DirectiveComponent);
+
+app.mixin(BrandInfoComponent);
+app.mixin(MillstoneChatCompoent);
+app.mixin(RtmCompoent);
+
 const millstoneViewPage = app.mount('#app');
 window.pMillstoneView= millstoneViewPage;
 

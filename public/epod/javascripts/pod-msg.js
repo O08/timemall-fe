@@ -3,6 +3,7 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 
 const RootComponent = {
@@ -55,6 +56,8 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(BrandInfoComponent);
+
 const msgPage = app.mount('#app');
 window.pMsg= msgPage;
 

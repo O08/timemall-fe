@@ -358,10 +358,10 @@ body {
     overflow: auto;
     height: 100%;
 }
-  .customer-portrait{
-    margin-top: 50px;
-    margin-left: 66px;
-    margin-bottom: 100px;
+  .customer-portrait-container{
+    padding-top: 50px;
+    padding-left: 66px;
+    padding-bottom: 100px;
   }
 
   .customer-portrait, .customer-portrait img
@@ -1095,4 +1095,7 @@ col-container{
 .btn-option-secondary-micro:hover{
   opacity: 1;
   background-color: #2d6aa476;
+}
+.img-btn,.chat-attachment-btn{
+  position: relative;
 }

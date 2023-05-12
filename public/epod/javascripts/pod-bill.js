@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import {BillStatus} from "/common/javascripts/tm-constant.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+
 const RootComponent = {
     data() {
         return {
@@ -106,6 +108,7 @@ const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(DirectiveComponent);
+app.mixin(BrandInfoComponent);
 const billPage = app.mount('#app');
 window.pBill= billPage;
 
