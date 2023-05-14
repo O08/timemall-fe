@@ -9,7 +9,8 @@ import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-direct
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
-
+import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 
 const RootComponent = {
     data() {
@@ -33,6 +34,9 @@ app.mixin(DirectiveComponent);
 app.mixin(BrandInfoComponent);
 app.mixin(MillstoneChatCompoent);
 app.mixin(RtmCompoent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : false,
+    scene: EventFeedScene.POD}));
 
 const millstoneViewPage = app.mount('#app');
 window.pMillstoneView= millstoneViewPage;

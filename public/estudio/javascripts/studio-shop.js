@@ -7,6 +7,10 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 import {getDaysBetween}from "/common/javascripts/util.js";
 import TopUpCompoent from "/estudio/javascripts/compoent/TopUpCompoent.js";
+import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
+
+
 
 
 const RootComponent = {
@@ -37,6 +41,9 @@ const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
 app.mixin(TopUpCompoent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : false,
+    scene: EventFeedScene.STUDIO}));
 const shopPage = app.mount('#app');
 window.cShop = shopPage;
 

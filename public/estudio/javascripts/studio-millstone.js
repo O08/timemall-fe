@@ -6,6 +6,8 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 
 var WorkflowStatus = Object.freeze({
     "InQueue": 1, // 队列中
@@ -188,6 +190,9 @@ const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : false,
+    scene: EventFeedScene.STUDIO}));
 const millstonePage = app.mount('#app');
 window.cMillstone= millstonePage;
 

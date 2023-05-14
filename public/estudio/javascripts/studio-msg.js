@@ -5,6 +5,8 @@ import axios from 'axios';
 
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 
 const RootComponent = {
     data() {
@@ -43,6 +45,9 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : true,
+    scene: EventFeedScene.STUDIO}));
 const msgPage = app.mount('#app');
 window.cMsg= msgPage;
 

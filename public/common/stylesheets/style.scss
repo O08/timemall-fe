@@ -1099,3 +1099,11 @@ col-container{
 .img-btn,.chat-attachment-btn{
   position: relative;
 }
+.dot-info {
+  width: 8px;
+  height: 8px;
+  vertical-align: super;
+  background-color: #4CFFA9;
+  border-radius: 50%;
+  display: inline-block;
+}

@@ -6,12 +6,13 @@ import Auth from "/estudio/javascripts/auth.js"
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
-import {WorkflowStatus} from "/common/javascripts/tm-constant.js";
+import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import defaultAvatarImage from '/avator.webp';
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 
 
 const RootComponent = {
@@ -44,6 +45,9 @@ app.mixin(BrandInfoComponent);
 app.mixin(MillstoneChatCompoent);
 app.mixin(RtmCompoent);
 app.mixin(DirectiveComponent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : false,
+    scene: EventFeedScene.STUDIO}));
 
 const millstoneAuditPage = app.mount('#app');
 window.cMillstoneAudit= millstoneAuditPage;

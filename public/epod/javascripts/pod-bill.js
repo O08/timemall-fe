@@ -4,10 +4,10 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
-import {BillStatus} from "/common/javascripts/tm-constant.js";
+import {BillStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
-
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 const RootComponent = {
     data() {
         return {
@@ -109,6 +109,9 @@ app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(DirectiveComponent);
 app.mixin(BrandInfoComponent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : false,
+    scene: EventFeedScene.POD}));
 const billPage = app.mount('#app');
 window.pBill= billPage;
 

@@ -57,8 +57,22 @@ var CommissionTag = Object.freeze({
     "ACCEPT": "2", // 接受任务
     "DENY": "3", // 拒绝任务
     "FINISH": "4" // 完成任务
-})    
+});
+var EventFeedScene = Object.freeze({
+    "POD": "pod", // e - pod
+    "STUDIO": "studio"// e - studio
+});  
+var EventFeedMark = Object.freeze({
+    "CREATED": "created", // e - pod
+    "PROCESSED": "processed"// e - studio
+}); 
+var EventFeedCode = Object.freeze({
+    "UPDATE_EVENT_FEED_MARK": "n-0001", 
+    "SEND_STUDIO_MESSAGE_NOTICE": "n-0002" ,
+    "SEND_POD_MESSAGE_NOTICE": "n-0003" 
+}); 
 export {
+    EventFeedScene,EventFeedMark,EventFeedCode,
     ObjMark,ObjTag,OasisMark,CommissionTag,
     PriceSbu, CellStatus,WorkflowStatus,BillStatus,ObjOd
 } ;

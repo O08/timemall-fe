@@ -8,11 +8,13 @@ import axios from 'axios';
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
-import {CellStatus} from "/common/javascripts/tm-constant.js";
+import {CellStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import {goStudioStore} from "/common/javascripts/pagenav.js";
 
 import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
+
 const RootComponent = {
 
     data() {
@@ -109,6 +111,9 @@ app.component('contenteditable', ContentediableComponent)
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
 app.mixin(DirectiveComponent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+    need_fetch_mutiple_event_feed : false,
+    scene: EventFeedScene.STUDIO}));
 
 const defineCellPage = app.mount('#app');
 window.cDefineCell= defineCellPage;

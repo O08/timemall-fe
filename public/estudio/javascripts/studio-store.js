@@ -5,9 +5,9 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import axios from 'axios';
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 
-
-import {CellStatus} from "/common/javascripts/tm-constant.js";
+import {CellStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 
 
 const RootComponent = {
@@ -131,6 +131,9 @@ const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
+app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
+                         need_fetch_mutiple_event_feed : false,
+                         scene: EventFeedScene.STUDIO}));
 const studioStorePage = app.mount('#app');
 window.cStore = studioStorePage;
 // init

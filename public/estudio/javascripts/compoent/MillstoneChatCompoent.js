@@ -30,6 +30,8 @@ const MillstoneChatCompoent = {
         channel: getQueryVariable("workflow_id"),
         channelMessageFallback: ()=>{
             this.retrieveMessageV();
+            // update event feed mark
+            this.updateEventFeedMarkAsProcessedV();
           }
         }
        
@@ -49,6 +51,7 @@ const MillstoneChatCompoent = {
           document.querySelector(".chat-input").style.height=32 + "px";
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
+          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
         }
       }).catch(err=>{
         alert("系统异常，请检查网络或者重新发送！")
@@ -62,6 +65,7 @@ const MillstoneChatCompoent = {
       })
     },
     sendImageMessageV(){
+      const millstoneId = getQueryVariable("workflow_id");
       const brandId = this.getIdentity().brandId; // Auth.getIdentity();
       sendImageMessage(brandId,this.rawImageFile).then(response=>{
         if(response.data.code==200){
@@ -69,6 +73,7 @@ const MillstoneChatCompoent = {
           this.retrieveMessageV(); // fetch message
           this.resetFileInput();
           $("#imagePreviewModal").modal("hide"); // show modal
+          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
 
         }
       }).catch(err=>{
@@ -76,12 +81,14 @@ const MillstoneChatCompoent = {
       });
     },
     sendAttachmentV(){
+      const millstoneId = getQueryVariable("workflow_id");
       const brandId = this.getIdentity().brandId; // Auth.getIdentity();
       sendBigFileMessage(brandId,this.rawBigfile).then(response=>{
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
           this.resetBigFileInput();
+          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
           $("#sendBigFileModal").modal("hide"); // show modal
         }
       }).catch(err=>{
@@ -237,6 +244,7 @@ const MillstoneChatCompoent = {
   },
   created(){
     this.retrieveMessageV();
+    this.updateEventFeedMarkAsProcessedV();
  },
  updated(){
   if(document.getElementById("event-tab").ariaSelected=='true'){
