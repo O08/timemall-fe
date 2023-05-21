@@ -40,7 +40,7 @@ mall-app {
 sub-nav,.section-cell-detail-tab
 {
     margin-left: 20%;
-    margin-right: 10%;
+    margin-right: 5%;
 
 }
 
@@ -62,15 +62,18 @@ sub-nav .nav-item .active
     background-color: #2f2f2f;
     border: none;
 }
+.intro-content{
+    width: calc(100% - 450px);
+}
 /*----------------------------------------------------
     2. Intro
 ------------------------------------------------------*/
-@media (min-width: 992px) {
-    .cell-intro-cover,.cell-intro-cover img,.brand-intro-cover, .brand-intro-cover img
-{
-    min-width: 800px;
-}
-}
+// @media (min-width: 992px) {
+//     .cell-intro-cover,.cell-intro-cover img,.brand-intro-cover, .brand-intro-cover img
+// {
+//     min-width: 800px;
+// }
+// }
 .cell-intro-cover,.cell-intro-cover img
 {
     width: 100%;
@@ -134,7 +137,7 @@ sub-nav .nav-item .active
 }
 .fee-calculator-pannel
 {
-    min-width: 450px;
+    width: 400px;
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -147,6 +150,9 @@ sub-nav .nav-item .active
         min-width: 250px;
         margin-left: 0;
         margin-bottom: 200px;
+    }
+    .intro-content{
+        width: 100%;
     }
 }
 /*----------------------------------------------------
