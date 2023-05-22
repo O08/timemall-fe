@@ -142,6 +142,10 @@
                               <option :value="item.sbu" v-for="item in profile.fee">{{transformSbuV(item.sbu)}}</option>
                             </select>
                           </div>
+                          <div class="help-text">
+                            <span v-if="profile.provideInvoice==='1'"> 服务可申请开具发票</span>
+                            <span v-else>服务不提供发票</span>
+                          </div>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
                           <div class="price">

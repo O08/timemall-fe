@@ -26,7 +26,8 @@ const RootComponent = {
             },
             overview: {
                 cover: "",
-                title: ""
+                title: "",
+                canProvideInvoice: false
             },
             pricing: {},
             content: {
@@ -127,12 +128,12 @@ async function getCellInfo(cellId){
   return await axios.get(url);
 }
 
-async function saveOverview(cellId,title,coverUrl){
+async function saveOverview(cellId,title,canProvideInvoice){
     const url = "/api/v1/web_estudio/service/{cell_id}/define/overview".replace("{cell_id}",cellId);
     const param ={
         overview: {
             title: title,
-            cover: coverUrl
+            canProvideInvoice: canProvideInvoice
         }
     }
     return await axios.put(url,param)  
@@ -183,7 +184,7 @@ async function defineCellOverview(){
     if(!cellId){
         return;
     }
-    saveOverview(cellId,defineCellPage.overview.title).then(function(response){
+    saveOverview(cellId,defineCellPage.overview.title,defineCellPage.overview.canProvideInvoice).then(function(response){
         if(response.data.code == 200){
             addCellIdToUrl(cellId);
             defineCellPage.btn_ctl.activate_general_save_btn = false;
@@ -223,6 +224,7 @@ function loadCellInfo(){
         if(response.data.code == 200){
             defineCellPage.overview.title = response.data.profile.title;
             defineCellPage.overview.cover = response.data.profile.cover;
+            defineCellPage.overview.canProvideInvoice = response.data.profile.provideInvoice==='1'
             if(response.data.profile.content){
                 defineCellPage.content = response.data.profile.content;
             }
