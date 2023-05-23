@@ -267,3 +267,31 @@ sub-nav .nav-item .active
     display: -webkit-box;
     overflow: hidden;
 }
+.btn-go-back{
+    padding-left: 15%;
+    cursor: pointer;
+}
+.display-dialog-header-buy-bg, .display-dialog-body-buy-bg, .display-dialog-footer-buy-bg {
+    opacity: .9;
+    background: #000000e7;
+}
+@media (max-width: 576px) {
+        sub-nav,.section-cell-detail-tab
+    {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    .fee-calculator-pannel
+    {
+        width: 380px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .product-feature p{
+        margin-left: 30px;
+    }
+    .btn-go-back{
+        padding-left: 10px;
+        padding-bottom: 20px;
+    }
+}

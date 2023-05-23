@@ -158,7 +158,7 @@ function orderNow(){
         //     // alert("余额不足,请前往E-Studio 商城充值");
         //     cellDetailPage.noticeMsg=response.data.message;
         // }
-
+        $("#payConfirmModal").modal("hide");
         $("#noticeModal").modal("show");
 
     })
