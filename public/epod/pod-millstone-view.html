@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>履约内容 - E-Pod</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/epod/stylesheets/pod-millstone-view.scss">
@@ -68,7 +70,7 @@
           <div class="customer-portrait-container">
             <div class="d-flex flex-column justify-content-center ">
               <div class="customer-portrait">
-                <img class="customer-avator" :src="studio_brand_avatar  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
               </div>
               <h6 class="customer-name mt-1">{{studio_brand}}</h6>
             </div>
@@ -173,7 +175,7 @@
                       <section v-for="record in item.cards" class="event-wrapper new-order">
                         <label>
                           <span class="event-icon new-order">
-                              <img :src="record.authorIcon  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                              <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                           </span>
                           <p class="event-header-base border-0">
                             <span class="event-title">{{record.author}}</span>
@@ -253,7 +255,7 @@
                             <h3>供应商</h3>
                             <div class="d-flex justify-content-start align-items-center mx-2">
                                 <div class="brand-portrait">
-                                  <img class="brand-avator" :src="workflow.serviceInfo.avatar || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                                  <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                                 </div>
                                 <h6 class="brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
                             </div>

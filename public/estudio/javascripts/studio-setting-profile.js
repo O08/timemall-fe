@@ -8,12 +8,16 @@ import defaultExperienceImage from '/common/images/default-experience.jpg';
 import defaultBrandBanner from '/common/images/default-brand-banner.jpg';
 import defaultAvatarImage from '/avator.webp';
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
-import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
+import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+
 const RootComponent = {
 
     data() {
         return {
             defaultExperienceImage,
+            defaultBrandBanner,
+            defaultAvatarImage,
             btn_ctl: {
                 activate_general_save_btn: false
             },
@@ -163,6 +167,9 @@ app.mixin(BrandInfoComponent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO}));
+
+app.mixin(ImageAdaptiveComponent);
+
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
 // init 

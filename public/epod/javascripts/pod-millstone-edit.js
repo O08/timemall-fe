@@ -11,6 +11,8 @@ import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatC
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+
 const RootComponent = {
     data() {
       
@@ -110,6 +112,8 @@ app.mixin(RtmCompoent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.POD}));
+app.mixin(ImageAdaptiveComponent);
+
 
 
 

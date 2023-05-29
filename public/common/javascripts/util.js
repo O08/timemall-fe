@@ -21,5 +21,3 @@ export function getQueryVariable(variable){
 
         return totalDays    // 相差的天数
 }
-
-       

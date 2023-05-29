@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>价值分布 - Micro</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/micro/stylesheets/teixcalaanli.scss">
@@ -97,7 +99,7 @@
               </a>
               <div class="collapse" id="collapseInvitedOasis">
                 <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-                  <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                  <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(invite.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                   <span>{{invite.title}}</span>  
                 </a>
               </div>
@@ -107,7 +109,7 @@
               </a>
               <div class="collapse" id="collapseJoinedOasis">
                 <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis.html?oasis_id='+oasis.id">
-                  <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                  <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                   <div class="link-title ms-2">{{oasis.title}}</div>  
                 </a>
               </div>
@@ -155,7 +157,7 @@
                       <th class="w-75"></th>
                       <th scope="col">持有</th>
                       <th scope="col">占比(%)</th>
-                      <th scope="col">可提现</th>
+                      <th scope="col">可收账</th>
                     </tr>
                   </thead>
                 <tbody>

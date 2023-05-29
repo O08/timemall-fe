@@ -10,6 +10,8 @@
     <meta name="description" content="13区服务供应商数字服务、数字空间">
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>Bubble - 13区</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/mall/stylesheets/bubble.scss">
@@ -71,11 +73,11 @@
         <!-- section bubble-->
         <section class="section-bubble-brand-info">
           <div class="brand-cover">
-            <img :src="homeInfo.cover || defaultBannerImage" @error.once="e => { e.target.src = defaultBannerImage }">
+            <img :src="adaptiveImageUriV(homeInfo.cover) || defaultBannerImage" @error.once="e => { e.target.src = defaultBannerImage }">
           </div>
           <!-- brand avator -->
           <div class="d-flex portrait align-items-center my-4">
-            <img class="service-brand" :src="homeInfo.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+            <img class="service-brand" :src="adaptiveImageUriV(homeInfo.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
             <span class="service-brand-name mx-1">{{homeInfo.brand}}</span>
             <span v-show="Number(homeInfo.enableBlue)" class="service-brand-blue mx-2 px-2">尊享蓝标</span>
           </div>
@@ -110,7 +112,7 @@
                     <div v-for="cell in homeInfo.cells" class="col">
                       <div class="cell-item">
                         <div class="card border-0 cell-card-body-bg px-3 pb-1">
-                          <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                          <img :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                           <div class="card-body">
                             <p class="card-text mt-2">
                               <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
@@ -146,7 +148,7 @@
                     <div v-for="cell in cells" class="col">
                       <div class="cell-item">
                         <div class="card border-0 cell-card-body-bg px-3 pb-1">
-                          <img :src="cell.preview || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                          <img :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                           <div class="card-body">
                             <p class="card-text">
                               <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">

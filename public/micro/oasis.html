@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>基地 - Micro</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
 
@@ -91,7 +93,7 @@
             </a>
             <div class="collapse" id="collapseInvitedOasis">
               <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3 nva-link-default" :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-                <img class="oasis-avatar-tiny"  :src="invite.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(invite.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                 <span>{{invite.title}}</span>  
               </a>
             </div>
@@ -104,7 +106,7 @@
                 :class="{'nav-sub-link-active': oasis.id == oasisId, 
                 'nva-link-default': oasis.id != oasisId}"
                 :href="'/micro/oasis.html?oasis_id='+oasis.id">
-                <img class="oasis-avatar-tiny"  :src="oasis.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                 <div class="link-title ms-2">{{oasis.title}}</div>  
               </a>
             </div>
@@ -119,7 +121,7 @@
       <div class="hero-container">
           <div class="hero-info d-flex flex-row align-items-baseline">
               <div>
-                <img class="oasis-avatar" :src="announce.avatar || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
               </div>
              <div class="ms-4">
               <h2>{{announce.title}}</h2>
@@ -217,7 +219,7 @@
             </div>
             <div class="template asset" contenteditable="false" data-alt-text="" data-caption="" data-id="39875611">
               <figure v-if="announce.announceUrl">
-                <img class="announceContent" alt="" class="fit" :src="announce.announceUrl" >
+                <img class="announceContent" alt="" class="fit" :src="adaptiveImageUriV(announce.announceUrl)" >
               </figure>
               <p v-else>未设置宣言</p>
             </div>

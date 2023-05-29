@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>DSP - E-Pod</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
 
@@ -64,7 +66,7 @@
           <div class="customer-portrait-container">
             <div class="d-flex flex-column justify-content-center ">
               <div class="customer-portrait">
-                <img class="customer-avator" :src="studio_brand_avatar  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
               </div>
               <h6 class="customer-name mt-1">{{studio_brand}}</h6>
             </div>

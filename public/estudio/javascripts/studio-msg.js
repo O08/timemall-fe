@@ -7,6 +7,7 @@ import axios from 'axios';
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 const RootComponent = {
     data() {
@@ -48,6 +49,8 @@ app.mixin(BrandInfoComponent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : true,
     scene: EventFeedScene.STUDIO}));
+app.mixin(ImageAdaptiveComponent);
+
 const msgPage = app.mount('#app');
 window.cMsg= msgPage;
 

@@ -5,6 +5,7 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 const RootComponent = {
@@ -54,6 +55,8 @@ const RootComponent = {
 let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(ImageAdaptiveComponent);
+
 const disObj = app.mount('#app');
 
 window.disObj = disObj;

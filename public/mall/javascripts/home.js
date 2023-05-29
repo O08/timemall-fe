@@ -8,8 +8,7 @@ import defaultAvatarImage from '/avator.webp'
 
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
-
-  
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'  
 
 
 const RootComponent = {
@@ -67,8 +66,6 @@ const RootComponent = {
       }
     }
   },
-  created(){
-  },
   updated(){
         
     $(function() {
@@ -80,6 +77,7 @@ const RootComponent = {
 let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : false}));
+app.mixin(ImageAdaptiveComponent);
 const home = app.mount('#app');
 
 window.home = home;

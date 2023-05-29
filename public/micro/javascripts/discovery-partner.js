@@ -4,6 +4,7 @@ import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultPartnerPreviewImage from '/common/images/default-cell-preview.jpg'
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 const RootComponent = {
     data() {
@@ -49,6 +50,8 @@ const RootComponent = {
 let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+app.mixin(ImageAdaptiveComponent);
+
 const disTalent = app.mount('#app');
 
 window.disTalent = disTalent;

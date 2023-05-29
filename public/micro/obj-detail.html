@@ -10,6 +10,8 @@
     <meta name="description" content="13区服务介绍、品牌信息">
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>标的详情 - 13区</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
 
@@ -89,7 +91,7 @@
                   <!-- brand avator -->
                   <div class="d-flex portrait align-items-center flex-row">
                     <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">
-                      <img class="service-brand" :src="profile.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                      <img class="service-brand" :src="adaptiveImageUriV(profile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                       <span class="service-brand-name mx-1">{{profile.brand}}</span>
                     </a>
                   </div>
@@ -98,7 +100,7 @@
                     <div class="intro-content">
                           <!-- cell intro cover -->
                       <div class="cell-intro-cover">
-                        <img :src="profile.introCover">
+                        <img :src="adaptiveImageUriV(profile.introCover)">
                       </div>
                       <!-- cell title -->
 
@@ -166,10 +168,10 @@
                       <!-- seller banner -->
                       <section class="section-seller-banner position-relative">
                         <div class="brand-avator position-absolute">
-                          <img :src="brandProfile.avator || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                          <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                         </div>
                         <div class="brand-intro-cover">
-                          <img :src="brandProfile.cover || defaultBrandBannerImage" @error.once="e => { e.target.src = defaultBrandBannerImage }">
+                          <img :src="adaptiveImageUriV(brandProfile.cover) || defaultBrandBannerImage" @error.once="e => { e.target.src = defaultBrandBannerImage }">
                         </div>
                         <div class="brand-identity">
                           <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">

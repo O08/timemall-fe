@@ -8,6 +8,7 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {CommissionTag} from "/common/javascripts/tm-constant.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 const RootComponent = {
@@ -118,6 +119,7 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
 
 
 const teamCommission = app.mount('#app');

@@ -10,6 +10,7 @@ import {ObjOd,ObjMark,ObjTag} from "/common/javascripts/tm-constant.js";
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 const RootComponent = {
@@ -177,6 +178,8 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(Pagination);
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
+
 
 const swapService = app.mount('#app');
 

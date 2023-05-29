@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>预约 - E-Pod</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/epod/stylesheets/pod-order-history.scss">
@@ -65,7 +67,7 @@
           <div class="customer-portrait-container">
             <div class="d-flex flex-column justify-content-center ">
               <div class="customer-portrait">
-                <img class="customer-avator" :src="studio_brand_avatar  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
               </div>
               <h6 class="customer-name mt-1">{{studio_brand}}</h6>
             </div>
@@ -113,7 +115,7 @@
               <th class="w-50">服务</th>
               <th scope="col">供应商</th>
               <th scope="col">预期费用</th>
-              <th scope="col">入库日期</th>
+              <th scope="col">预约日期</th>
             </tr>
           </thead>
           <tbody>

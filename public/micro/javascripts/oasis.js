@@ -6,6 +6,7 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 const RootComponent = {
@@ -121,6 +122,7 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
 
 
 

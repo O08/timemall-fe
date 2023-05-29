@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>贤者 - Micro</title>
     <meta name="description" content="贤者汇聚人，构筑人力资源池，找伙伴，找基石，更多可能。">
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
@@ -133,7 +135,7 @@
                 <div :id="'a'+talent.id" class="carousel slide" data-interval="false">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img :src="talent.avatar || defaultPartnerPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultPartnerPreviewImage }">
+                      <img :src="adaptiveImageUriV(talent.avatar) || defaultPartnerPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultPartnerPreviewImage }">
                     </div>
                     <div v-if="talent.skill" class="carousel-item pt-4">
                       <h6>品牌词条</h6>

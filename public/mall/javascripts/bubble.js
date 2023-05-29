@@ -14,6 +14,8 @@ import defaultBannerImage from '/common/images/default-brand-banner.jpg';
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 import BubbleSwapCellComponent from "/mall/javascripts/component/BubbleSwapCellComponent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+
 
 
 
@@ -57,6 +59,8 @@ app.mixin(new Auth({need_permission : false}));
 app.mixin(BubbleInviteComponent);
 app.mixin(BubbleSwapCellComponent);
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
+
 // app.component("infinite-loading", InfiniteLoading);
 const bubblePage = app.mount('#app');
 window.bubble = bubblePage;

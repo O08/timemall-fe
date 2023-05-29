@@ -7,6 +7,7 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
 import {OasisMark} from "/common/javascripts/tm-constant.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 const RootComponent = {
@@ -31,13 +32,14 @@ const RootComponent = {
             $("#slide_prev").trigger("click");
         },
         recoverOasisInfoV(){
+            var _that=this;
             recoverOasisInfo().then(response=>{
                 if(response.data.code==200){
                     this.base.title = response.data.announce.title;
                     this.base.subTitle = response.data.announce.subTitle;
 
-                    $('#lastestOasisCover').attr('src',response.data.announce.avatar);
-                    $('#lastestAnnounceFile').attr('src',response.data.announce.announceUrl);
+                    $('#lastestOasisCover').attr('src',_that.adaptiveImageUriV(response.data.announce.avatar));
+                    $('#lastestAnnounceFile').attr('src',_that.adaptiveImageUriV(response.data.announce.announceUrl));
                     
                     this.risk = response.data.announce.risk;
                     $('.oasis-risk-box').html(response.data.announce.risk);
@@ -101,6 +103,8 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
+
 app.component('contenteditable', ContentediableComponent)
 
 const createOasisPage = app.mount('#app');

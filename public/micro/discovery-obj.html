@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>服务标的市场 - Micro</title>
     <meta name="description" content="标的市场将服务打包成为服务标的，供标的自由交易，变现。">
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
@@ -128,7 +130,7 @@
         <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
           <div v-for="obj in objgrid_pagination.records" class="col">
             <div class="team-card-container px-3 pb-1">
-              <img :src="obj.avatar || defaultObjPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultObjPreviewImage }">
+              <img :src="adaptiveImageUriV(obj.avatar) || defaultObjPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultObjPreviewImage }">
               <div class="card-body mb-3">
                 <div class="obj-title-wrapper">
                   <a :href="'/micro/obj-detail.html?obj_id='+ obj.id + '&cell_id=' + obj.cellId + '&brand_id=' + obj.brandId" class="url-link"><h6 class="mt-3">{{obj.title}}</h6></a>

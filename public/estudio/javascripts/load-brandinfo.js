@@ -1,5 +1,6 @@
 import axios from 'axios';
-import defaultAvatarImage from '/avator.webp'
+import defaultAvatarImage from '/avator.webp';
+
 const BrandInfoComponent = {
     data() {
         return {

@@ -3,7 +3,9 @@ import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
-import defaultOasisPreviewImage from '/micro/images/oasis-default-building.jpeg'
+import defaultOasisPreviewImage from '/micro/images/oasis-default-building.jpeg';
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'  
+
 
 const RootComponent = {
     data() {
@@ -46,8 +48,10 @@ const RootComponent = {
 }
 
 let app =  createApp(RootComponent);
+app.mixin(ImageAdaptiveComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
+
 const disOasis = app.mount('#app');
 
 window.disOasis = disOasis;

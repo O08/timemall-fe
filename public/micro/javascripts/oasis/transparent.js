@@ -5,10 +5,13 @@ import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import defaultAvatarImage from '/avator.webp';
 
 const RootComponent = {
     data() {
         return {
+            defaultAvatarImage,
             member: {}
         }
     },
@@ -37,6 +40,7 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
+app.mixin(ImageAdaptiveComponent);
 
 const teamOasisMemberPage = app.mount('#app');
 

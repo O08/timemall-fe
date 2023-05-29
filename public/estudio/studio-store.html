@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>变现 - E-Studio</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/studio-store.scss">
@@ -71,7 +73,7 @@
             <div class="d-flex flex-column justify-content-center ">
               <div class="customer-portrait">
                 <a href="/estudio/studio-setting-profile.html" class="url-link">
-                  <img class="customer-avator" :src="studio_brand_avatar  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                  <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </a>
               </div>
               <a href="/estudio/studio-setting-profile.html" class="url-link">

@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>探索-基地 - Micro</title>
     <meta name="description" content="基地，给您美好相遇，来吧，好基友就是一起给虚空上色">
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
@@ -130,7 +132,7 @@
           <div v-for="oasis in oasisgrid_pagination.records" class="col">
             <div class="team-card-container  px-3">
               <!-- <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg"> -->
-              <img :src="oasis.avatar || defaultOasisPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultOasisPreviewImage }">
+              <img :src="adaptiveImageUriV(oasis.avatar) || defaultOasisPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultOasisPreviewImage }">
 
               <div class="card-body mb-3">
                 <div class="oasis-title-wrapper">

@@ -1,6 +1,6 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue/dist/vue.esm-browser.js";
-import Auth from "/estudio/javascripts/auth.js"
+import Auth from "/estudio/javascripts/auth.js";
 import {goHome,goLoginPage,goBackAndReload} from "/common/javascripts/pagenav.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 
@@ -8,9 +8,11 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import defaultAvatarImage from '/avator.webp'
-import defaultBrandBannerImage from '/common/images/default-brand-banner.jpg'
-import defaultExperienceImage from '/common/images/default-experience.jpg'
+import defaultAvatarImage from '/avator.webp';
+import defaultBrandBannerImage from '/common/images/default-brand-banner.jpg';
+import defaultExperienceImage from '/common/images/default-experience.jpg';
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+
 const RootComponent = {
     data() {
         return {
@@ -99,6 +101,8 @@ const app = createApp(RootComponent);
 app.mixin(SellerComponent);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
+
 const cellDetailPage = app.mount('#app');
 
 

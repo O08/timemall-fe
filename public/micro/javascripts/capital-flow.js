@@ -4,6 +4,7 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 const RootComponent = {
@@ -92,6 +93,7 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(DirectiveComponent);
+app.mixin(ImageAdaptiveComponent);
 
 
 const teamFinanceFlow = app.mount('#app');

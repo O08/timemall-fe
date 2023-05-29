@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>定义服务 - E-Studio</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
@@ -70,7 +72,7 @@
             <div class="d-flex flex-column justify-content-center ">
               <div class="customer-portrait">
                 <a href="/estudio/studio-setting-profile.html" class="url-link">
-                  <img class="customer-avator" :src="studio_brand_avatar  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                  <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </a>
               </div>
               <a href="/estudio/studio-setting-profile.html" class="url-link">
@@ -183,7 +185,7 @@
                           </label>
                           <div class="col-sm-8">
                             <div class="cover-upload-container dropzone-wrapper">
-                              <img  id="lastestCover" :src="overview.cover" >
+                              <img  id="lastestCover" :src="adaptiveImageUriV(overview.cover)" >
                               <div class="dropzone-desc">
                                 <i class="bi bi-cloud-plus"></i>
                               </div>
@@ -298,7 +300,7 @@
                             <i class="bi bi-camera"></i>
                           </div>
                           <div class="cell-intro-cover">
-                            <img  id="lastestBanner" :src="introCover">
+                            <img  id="lastestBanner" :src="adaptiveImageUriV(introCover)">
                           </div>
                         </div>
                         <input @change="previewCellIntroBannerV($event)" type="file" id="intro-banner-file" class="dropzone">
