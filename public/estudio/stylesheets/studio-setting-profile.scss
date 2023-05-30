@@ -15,12 +15,29 @@
     margin-bottom: 36px;
 
 }
-.brand-intro-cover img{
+ .brand-intro-cover img{
     object-fit: cover;
     margin-right: 0px;
     height: 300px;
     width: 100%;
 }
+#bannerModal .modal-dialog{
+    max-width: 1200px;
+}
+.banner-upload-container,.banner-upload-container img{
+    height: 300px;
+    max-width: 1000px;
+    width: 100%;
+}
+.banner-upload-container img{
+    object-fit: cover;
+}
+
+.avator-upload-container, .avator-upload-container img{
+    width: 160px;
+    height: 160px;
+}
+
  .brand-avator,.brand-avator img
 {
     width: 160px;

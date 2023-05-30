@@ -208,9 +208,9 @@
                 <div class="dropzone-desc">
                   <i class="bi bi-cloud-plus"></i>
                 </div>
-                <input  @change="previewOasisCoverV($event)" type="file" id="oasisCoverFile" class="dropzone">
+                <input  @change="previewOasisCoverV($event)" type="file" accept="image/jpg, image/png, image/jpeg" id="oasisCoverFile" class="dropzone">
               </div>
-             <div class="help-text mt-2">当前仅支持图片形象,大小限制为1M</div>
+             <div class="help-text mt-2">当前仅支持图片形象,大小限制为1M(格式要求：png,jpg,jpeg;文件大小：最大为1M)</div>
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
@@ -225,9 +225,9 @@
                 <div class="dropzone-desc">
                   <i class="bi bi-cloud-plus"></i>
                 </div>
-                <input  @change="previewAnnounceFileV($event)"  type="file" id="announceFile" class="dropzone">
+                <input  @change="previewAnnounceFileV($event)"  type="file" accept="image/jpg, image/png, image/jpeg" id="announceFile" class="dropzone">
               </div>
-              <div class="help-text mt-2">当前仅支持图片,大小限制为1M</div>
+              <div class="help-text mt-2">当前仅支持图片,大小限制为1M(格式要求：png,jpg,jpeg;文件大小：最大为1M)</div>
 
             </div>
             <div class="mt-5 pt-5">

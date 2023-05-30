@@ -302,6 +302,8 @@ async function uploadCellCover(){
             document.querySelector('#coverPreview').src = "";
             addCellIdToUrl(cellId);
         }
+    }).catch(error=>{
+        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
     });
 }
 
@@ -331,6 +333,8 @@ function uploadCellIntroBanner(){
             $("#introBannerModal").modal("hide");
             document.querySelector('#introBannerPreview').src = "";
         }
+    }).catch(error=>{
+        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
     })
 }
 

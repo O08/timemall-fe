@@ -118,8 +118,12 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
 .banner-upload-container, .banner-upload-container img
 {
     max-width: 1000px;
+    width: 100%;
     height: 300px;
     border: 2px dashed #91b0b3;
+}
+.tip-font-sm {
+    font-size: small;
 }
 .banner-upload-container img
 {

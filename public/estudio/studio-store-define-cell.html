@@ -180,7 +180,7 @@
                           <label class="col-form-label col-sm-4 pt-0">
                             封面
                             <div class="help-text">
-                             服务封面，将视觉美感与服务内涵融合在一起，传达出服务内容，从而使服务脱颖而出。
+                             服务封面，将视觉美感与服务内涵融合在一起，传达出服务内容，从而使服务脱颖而出(格式要求：png,jpg,jpeg;文件大小：最大为1M)。
                             </div>
                           </label>
                           <div class="col-sm-8">
@@ -189,7 +189,7 @@
                               <div class="dropzone-desc">
                                 <i class="bi bi-cloud-plus"></i>
                               </div>
-                              <input @change="previewCellCoverV($event)" type="file" id="coverFile" class="dropzone">
+                              <input @change="previewCellCoverV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" id="coverFile" class="dropzone">
                             </div>
                             
                             
@@ -292,8 +292,8 @@
                     <div class="accordion-body">
                       <section class="section-seller-banner dropzone-wrapper">                
                         <div class="brand-intro-cover-container">
-                          <div class="alert box-bg-primary z-index-2 alert-dismissible fade show position-absolute end-0 mx-5 my-5" role="alert">
-                           上传图片以展示服务特色
+                          <div class="alert tip-font-sm box-bg-primary z-index-2 alert-dismissible fade show position-absolute end-0 mx-5 my-5" role="alert">
+                           上传图片以展示服务特色(格式要求：png,jpg,jpeg;文件大小：最大为1M)
                             <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="alert"></button>
                           </div>
                           <div class="position-absolute end-0 my-4 me-5">
@@ -303,7 +303,7 @@
                             <img  id="lastestBanner" :src="adaptiveImageUriV(introCover)">
                           </div>
                         </div>
-                        <input @change="previewCellIntroBannerV($event)" type="file" id="intro-banner-file" class="dropzone">
+                        <input @change="previewCellIntroBannerV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" id="intro-banner-file" class="dropzone">
                       </section>
                       <section class="section-tool-bar">
                         <div class="d-flex tool-bar my-5">

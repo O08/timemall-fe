@@ -11,6 +11,8 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import defaultAvatarImage from '/avator.webp';
 import defaultBrandBannerImage from '/common/images/default-brand-banner.jpg';
 import defaultExperienceImage from '/common/images/default-experience.jpg';
+import defaultCellIntroCoverImage from '/common/images/default-cell-intro-cover.jpg'
+
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 const RootComponent = {
@@ -19,6 +21,7 @@ const RootComponent = {
             defaultAvatarImage,
             defaultExperienceImage,
             defaultBrandBannerImage,
+            defaultCellIntroCoverImage,
             profile: {
                 content:[]
             },

@@ -98,7 +98,7 @@
                     <div class="intro-content">
                           <!-- cell intro cover -->
                       <div class="cell-intro-cover">
-                        <img :src="adaptiveImageUriV(profile.introCover)">
+                        <img :src="adaptiveImageUriV(profile.introCover)  || defaultCellIntroCoverImage" @error.once="e => { e.target.src = defaultCellIntroCoverImage }">
                       </div>
                       <!-- cell title -->
 

@@ -15,7 +15,6 @@ const ImageAdaptiveComponent = {
         if(rawAvifUri&&rawAvifUri.slice(-5)==='.avif'){
             renderUrl = this.device.supportAvif ? rawAvifUri: rawAvifUri.slice(0,rawAvifUri.length-5);
         }
-        console.log("img url:"+renderUrl);
         return renderUrl;
     }
   },

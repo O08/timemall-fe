@@ -135,9 +135,9 @@
                 <div for="inputTitle" class="col-sm-4 col-form-label">
                   横幅
                   <div class="help-text">
-                    横幅被用来展示品牌形象，品牌店面界面将展示该内容。上传该内容以帮助您的品牌脱颖而出。
+                    横幅被用来展示品牌形象，品牌店面界面将展示该内容。上传该内容以帮助您的品牌脱颖而出(格式要求：png,jpg,jpeg;文件大小：最大为1M)。
                     <a @click="clickBannerUploadBtn" class="btn-upload">上传
-                      <input @change="showPreviewBannerModalV($event)" type="file" id="file_banner" class="d-none">
+                      <input @change="showPreviewBannerModalV($event)" type="file" id="file_banner" accept="image/jpg, image/png, image/jpeg" class="d-none">
                     </a>
                   </div>
                 </div>
@@ -148,9 +148,9 @@
                 <div class="col-form-label col-sm-4 pt-0">
                   头像
                   <div class="help-text">
-                    头像能充分体现品牌的个性、形象，具有独一无二的感染力。头像内容将展示在与服务或者品牌的相关界面，快快上传吧。
+                    头像能充分体现品牌的个性、形象，具有独一无二的感染力。头像内容将展示在与服务或者品牌的相关界面，快快上传吧(格式要求：png,jpg,jpeg;文件大小：最大为1M)。
                     <a @click="clickAvatorUploadBtn" class="btn-upload">上传
-                      <input id="file_avator" @change="showPreviewAvatorModalV($event)" type="file" class="d-none">
+                      <input id="file_avator" @change="showPreviewAvatorModalV($event)" type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
                     </a>
                   </div>
                 </div>
