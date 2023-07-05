@@ -7,12 +7,13 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
-    <title>连线 - E-Studio</title>
+    <title>商单 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-msg.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-tob.scss">
+
 
 
 </head>
@@ -89,10 +90,10 @@
                   </svg>
                   <span>履约</span>        
                 </a>
-                <a class="nav-link active">
+                <a class="nav-link" href="/estudio/studio-msg.html">
                   <i class="bi bi-chat-dots"></i>
                   <span>
-                    连线
+                    连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                   </span>
                 </a>
                 <a class="nav-link" href="/estudio/studio-order-history.html">
@@ -113,7 +114,7 @@
                   <i class="bi bi-coin"></i>
                   <span>变现</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-tob.html">
+                <a class="nav-link active">
                   <i class="bi bi-bootstrap"></i>
                   <span>商单</span>
                 </a>
@@ -130,146 +131,181 @@
           </div>
         </aside>
         <main>
-          <div class="page-title">
-            <h1>连线</h1>
+           <!-- 容器元素 -->
+        <div class="page-title-container">
+            <!-- 文章:粘性约束元素 -->
+            <div class="page-title">
+              <h1>商单</h1>
+            </div>
+            <!-- tablist -->
+            <div class="nav-tabs-container">
+                <ul class="nav nav-tabs border-0" id="tob-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active" id="tob_list-tab" data-bs-toggle="tab" data-bs-target="#tob_list-tab-pane" type="button" role="tab" aria-controls="tob_list-tab-pane" aria-selected="true">商单列表</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="asking-tab" data-bs-toggle="tab" data-bs-target="#asking-tab-pane" type="button" role="tab" aria-controls="asking-tab-pane" aria-selected="true">待接商单</button>
+                    </li>
+                  </ul>
+            </div>
             
-          </div>  
-              <!-- tablist -->
-            <ul class="nav nav-tabs border-0 msg-tab" id="msg-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="true">联系方式</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="false">
-                  Bingo<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
-                </button>
-              </li>
-            </ul>
             <!--  tablist content-->
-          <div class="tab-content" id="msg-tab-content">
-            <div class="tab-pane fade show active" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-            <!-- contact info -->
-            <section class="section-setting-contact-info my-5">
-              <div class="mb-4">
-                <span class="help-text"><i class="bi bi-info-circle"></i>设置联络方式，当客户预约之后可以联系到你</span>
-              </div>
-              <form onsubmit="return false">
-                <div class="row mb-3">
-                  <label for="inputPhone" class="col-sm-4 col-form-label">
-                    电话
-                  </label>
-                  <div class="col-sm-8">
-                    <input @change="activeSaveContactBtn" v-model="contact.phone" type="text" maxlength="50" class="form-control" id="input-contact-phone">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-4 col-form-label">
-                    邮箱
-                  </label>
-                  <div class="col-sm-8">
-                    <input @change="activeSaveContactBtn" v-model="contact.email" type="email" maxlength="255" class="form-control" id="input-contact-email">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-form-label col-sm-4 pt-0">
-                    微信二维码
-                  </label>
-                  <div class="col-sm-8">
-                    <div class="wechatQr-upload-container dropzone-wrapper">
-                      <img  id="lastestWechatQr"  :src="contact.wechat">
-                      <div class="dropzone-desc">
-                        <i class="bi bi-cloud-plus"></i>
-                      </div>
-                      <input type="file" id="wechatQrFile" class="dropzone" @change="previewWechatQrV($event)">
+            <div class="tab-content">
+              <!--  mps list tab-->
+              <div class="tab-pane fade show active" id="tob_list-tab-pane" role="tabpanel" aria-labelledby="tob_list-tab" tabindex="0">
+                <div class="d-flex justify-content-between mps-list-header my-3">
+                  <div class="tob_list-search d-flex">
+              
+                    <div class="dropdown">
+                      <button class="btn tob_list-filter-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        过滤
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" v-preventreclick @click="resetAndRetrieveMpsPaperListV">全部</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="filterPaperListV('1')">最近7天</a></li>
+                        <li><a class="dropdown-item" v-preventreclick   @click="filterPaperListV('2')">最近1个月</a></li>
+                      </ul>
                     </div>
-                    
+                    <form class="nosubmit" onsubmit="return false">
+                      <input @keyup.enter.native="retrieveMpsTbV" v-model="mps_list_pagination.param.q" class="nosubmit tob_list-search-btn" type="search" placeholder="搜索...">
+                    </form>
                   </div>
-                </div>                        
-                <button :class="{'disabled': !contact_already_change, 
-                'btn-primary': contact_already_change,
-                'btn-secondary': !contact_already_change}" type="submit" @click="settingContactV" class="btn">保存</button>
-              </form>
-
-              <!-- <table class="table table-dark table-borderless align-middle text-center">
-                <thead class="align-middle">
-                  <tr>
-                    <th scope="col">Wechat</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td data-title="Wechat:">
-                      <div class="wechat-binary-code my-4">
-                        <img src="https://picsum.photos/200/200"/>
-                      </div>
-                    </td>
-                    <td data-title="Phone:">
-                      <input v-model="contact.phone" type="text" class="form-control" id="input-contact-phone" >
-                    </td>
-                    <td data-title="Email:">
-                      <input v-model="contact.email" type="email" class="form-control" id="input-contact-email" >
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
-            </section>
-            </div>
-            <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
-              <ul class="event-feeds-list pt-4">
-                <li v-for="item in eventFeed.records" class="event-feed-item">
-                  <a class="url-link" :href="'/estudio/studio-millstone-action.html?option=view&workflow_id='+ JSON.parse(item.feed).workFlowId">
-                    <div class="image-wrapper">
-                      <i class="bi bi-bell notification-icon"></i>
-                    </div>
-                    <div class="item-content-wrapper ms-2">
-                      <p class="pt-1"><b>{{JSON.parse(item.feed).upDesc}}</b>的新消息，点击查看</p>
-                      <footer class="footer-time">
-                        <time>{{item.createAt}}</time></footer>
-                    </div>
+                  <a href="/micro/discovery-commercial-order.html">
+                    <button type="button" class="btn btn-primary me-5" >
+                      商单发现
+                    </button>
                   </a>
-                 
-                </li>
-              </ul>
-
-      
-            </div>
-          </div>
-      
-           
-          
-        </main>
-        <section class="section-modals">
-          <div class="modal-container">
-          
-            <!-- Modal -->
-            <div class="modal fade" id="wechatQrModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content text-color-dark">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="wechatQrModalLabel">预览</h1>
-                    <button type="button" @click="closewechatQrModalHandlerV"  id="closewechatQrModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body d-flex justify-content-center">
-                    <div class="wechatQr-upload-container">
-                      <img id="wechatQrPreview" src="https://picsum.photos/200/200">
-                    </div>
-                  </div>
-                  <div class="modal-footer btn-light">
-                    <button type="button" id="btn-save-wechatqr" class="btn btn-primary" @click="wechatQrSettingV">设置为微信联系方式</button>
-                  </div>
+                
+              
                 </div>
+                <table class="table table-width-fixed table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="w-50"></th>
+                      <th scope="col">采购商</th>
+                      <th scope="col">职能</th>
+                      <th scope="col">
+                        <div class="dropdown">
+                          <button class="btn paper_list-tb-filter-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            标签
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('3')">已停止</a></li>
+                            <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('4')">已完成</a></li>
+                            <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('5')">交付中</a></li>
+                          </ul>
+                        </div>
+                      </th>
+                      <th scope="col">RMB</th>
+                      <th scope="col">入库日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="trans in mps_list_pagination.records">
+                      <td>
+                        <a :href="'/estudio/studio-tob-action.html?paper_id='+trans.id">
+                          <span class="td-service">
+                            {{trans.title}}
+                          </span>
+                        </a>
+                      </td>
+                      <td>{{trans.purchaser}}</td>
+                      <td>
+                        <span class="td-piece">
+                          {{trans.piece}}
+                        </span>
+                      </td>
+                      <td>{{explainPaperTagV(trans.tag)}}</td>
+                      <td>{{trans.bonus}}</td>
+                      <td>{{trans.createAt}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(mps_list_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in mps_list_pagination.paging.items" :class="{'current-page-active': mps_list_pagination.paging.current == page}" 
+                          @click="pageGo(mps_list_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(mps_list_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+        
               </div>
+  
+              <!-- asking mps tab-->
+              <div class="tab-pane fade" id="asking-tab-pane" role="tabpanel" aria-labelledby="asking-tab" tabindex="0">
+                <div class="d-flex justify-content-between mps-list-header my-3">
+                  <div class="asking-search d-flex">
+                    <form class="nosubmit" onsubmit="return false">
+                      <input  @keyup.enter.native="retrieveOrderReceivingPaperTbV" v-model="mps_order_receiving_pagination.param.q"  class="nosubmit asking-search-btn" type="search" placeholder="搜索...">
+                    </form>
+                  </div>           
+                </div>
+                <table class="table table-width-fixed table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="w-50"></th>
+                      <th scope="col">职能</th>
+                      <th scope="col">RMB</th>
+                      <th scope="col">入库日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="trans in mps_order_receiving_pagination.records">
+                      <td>
+                        <a :href="'/estudio/studio-tob-detail.html?paper_id='+trans.id">
+                          <span class="td-service">
+                            {{trans.title}}
+                          </span>
+                        </a>
+                      </td>
+                      <td>
+                        <span class="td-piece">
+                          {{trans.piece}}
+                        </span>
+                      </td>
+                      <td>{{trans.bonus}}</td>
+                      <td>{{trans.createAt}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <nav v-if="!!mps_order_receiving_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(mps_order_receiving_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in mps_order_receiving_pagination.paging.items" :class="{'current-page-active': mps_order_receiving_pagination.paging.current == page}" 
+                          @click="pageGo(mps_order_receiving_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(mps_order_receiving_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+
             </div>
           </div>
-
-        </section>
+        </main>
+        
       </content>
       <footer></footer>
   </pt-app>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-msg.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-tob.js"></script>
+
 
 
 </body>

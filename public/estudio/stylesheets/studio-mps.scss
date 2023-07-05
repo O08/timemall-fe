@@ -1,0 +1,198 @@
+.mps_chain-search form,.mps_list-search form {
+    color: whitesmoke;
+    display: flex;
+    padding: 2px;
+    border: 1px solid currentColor;
+    border-radius: 5px;
+  }
+  
+  input[type="search"] {
+    border: none;
+    background: transparent;
+    margin: 0;
+    padding: 7px 8px;
+    font-size: 14px;
+    color: inherit;
+    border: 1px solid transparent;
+  }
+  
+  input[type="search"]::placeholder {
+    color: #bbb;
+  }
+  
+  button[type="submit"] {
+    text-indent: -999px;
+    overflow: hidden;
+    width: 40px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  
+  button[type="submit"]:hover {
+    opacity: 1;
+  }
+  
+  button[type="submit"]:focus,
+  input[type="search"]:focus {
+    box-shadow: 0 0 3px 0 #1183d6;
+    border-color: #1183d6;
+    outline: none;
+  }
+  
+  form.nosubmit {
+   border: none;
+   padding: 0;
+   background-color: #212529;
+   max-width: 600px;
+   width: 100%;
+  }
+  
+  input.nosubmit {
+    border: 1px solid #555;
+    width: 100%;
+    padding: 9px 4px 9px 40px;
+    background:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath  d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+  }
+
+  .mps_list-filter-btn,.mps_list-tb-filter-btn{
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #555;
+    background-color: #212529;
+  }
+  .mps_list-tb-filter-btn{
+    border: none;
+  }
+  .mps_list-search-btn,.mps_chain-search-btn{
+    border-radius: 0 5px 5px 0;
+    height: 38px;
+
+  }
+  .mps-list-header{
+    min-width: 400px;
+  }
+.fund-info-container{
+    --gutterWidth: 24px;
+    --containerWidth: 450px;
+    max-width: var(--containerWidth);
+    padding-bottom: 100px;
+    padding: 0 var(--gutterWidth);
+    margin: 50px auto 96px;
+}
+.fund_info-wrapper{
+    background-color: #383838;
+}
+.fund_info-unopen-wrapper{
+  background-color: #383838;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+}
+.fund_head{
+    padding-left: 15px;
+    padding-top: 15px;
+}
+.fund_balance{
+    height: 120px;
+    display: flex;
+    align-items: center;  
+    flex-direction: column;  
+    justify-content: center;
+}
+.fund_footer{
+    display: flex;
+    justify-content: end;
+    padding: 15px;
+}
+// customize select search start 
+.iput {
+  height: 25px;
+  width: 200px;
+  padding-left: 5px;
+}
+.iput::-webkit-input-placeholder {
+  /* placeholder颜色 */
+  color: #aab2bd;
+  /* placeholder字体大小 */
+  font-size: 12px;
+}
+
+.iop {
+  height: 25px;
+  margin-left: 5px;
+  width: 200px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.iop:hover {
+  background-color: #1E90FF;
+}
+
+.op-list {
+  border: solid 1px #767676;
+  width: 200px;
+  height: 125px;
+  overflow-y: auto;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
+// customize select search end 
+
+td a{
+  text-decoration: none;
+  color: white;
+}
+td a:hover{
+  color: #c3bfbf;
+}
+.tag-option{
+  width: 120px;
+  display: inline-block;
+}
+.btn-mps-action{
+  background-color: #212529;
+  color: #fff;
+}
+.btn-mps-action:hover{
+  background-color: #555;
+}
+.help-text{
+  font-size: 12px;
+}
+.url-link-sm-1{
+  color: #3887fe;
+  background-color: #0000;
+  text-decoration: none;
+  font-size: 12px;
+}
+#topUpFundModal .row label{
+  padding-left: 0;
+}
+.td-service{
+  width: 500px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+}
+.error-notice{
+  width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dc3545
+}

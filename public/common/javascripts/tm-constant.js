@@ -71,7 +71,38 @@ var EventFeedCode = Object.freeze({
     "SEND_STUDIO_MESSAGE_NOTICE": "n-0002" ,
     "SEND_POD_MESSAGE_NOTICE": "n-0003" 
 }); 
+var CommercialPaperTag = Object.freeze({
+    "CREATED": "1", //创建
+    "PUBLISH": "2" , // 上线
+    "OFFLINE": "3", // 下线
+    "END": "4" , // 完成
+    "DELIVERING": "5" // 交付中
+}); 
+var CommercialPaperDeliverTag = Object.freeze({
+    "CREATED": "1", //创建
+    "REVISION": "2" , // 修订
+    "DELIVERED": "3" // 已交付
+}); 
+var MpsTag = Object.freeze({
+    "CREATED": "1", //创建
+    "PUBLISH": "2" , // 上线
+    "OFFLINE": "3", // 下线
+    "END": "4" , // 完成
+}); 
+var MpsType= Object.freeze({
+    "FROM_MILLSTONE": "1", // millstone order
+    "FROM_PLAN": "2"  // 自建
+}); 
+var MpsChainTag= Object.freeze({
+    "PUBLISH": "1", // 运行中
+    "OFFLINE": "2"  // 休止
+}); 
+
+
+
+
 export {
+    CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     ObjMark,ObjTag,OasisMark,CommissionTag,
     PriceSbu, CellStatus,WorkflowStatus,BillStatus,ObjOd

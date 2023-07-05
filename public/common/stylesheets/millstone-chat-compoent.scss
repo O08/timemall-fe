@@ -273,6 +273,11 @@ main{
   font-size: 16px;
   font-weight: normal;
   line-height: 1.875;
+  word-break: break-all;
+}
+#imagePreviewModal .image-upload-container,#imagePreviewModal  img{
+  width: 300px;
+  height: 300px;
 }
 @media (max-width: 576px) {
   .chat-action-wrapper{

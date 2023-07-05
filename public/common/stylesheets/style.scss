@@ -330,6 +330,7 @@ body {
 .sidebar-wrapper{
   overflow-y: scroll;
   padding-bottom: 100px;
+  height: 400px;
 }
 .sidebar {
     width: 360px;
@@ -361,7 +362,7 @@ body {
   .customer-portrait-container{
     padding-top: 50px;
     padding-left: 66px;
-    padding-bottom: 100px;
+    // padding-bottom: 100px;
   }
 
   .customer-portrait, .customer-portrait img
@@ -1106,4 +1107,47 @@ col-container{
   background-color: #4CFFA9;
   border-radius: 50%;
   display: inline-block;
+}
+// channel chat start
+.record-container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: .5rem;
+}
+.channel_active svg path{
+  fill: #4CFFA9;
+}
+// channel chat end
+
+/* 滚动条 */
+.sidebar-wrapper {
+  overflow: overlay;
+
+  &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: rgba(102, 102, 102, 0.1);
+  }
+
+  &:hover {
+      &::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          background-color: rgba(170, 170, 170, 0.5);
+      }
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: rgba(102, 102, 102, 0.1);
+
+      /* 滚动条里面小方块 */
+      border-radius: 6px;
+  }
 }

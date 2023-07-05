@@ -4,16 +4,14 @@ import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
-import {PriceSbu} from "/common/javascripts/tm-constant.js";
-import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 
 const RootComponent = {
     data() {
         return {
             defaultObjPreviewImage,
-            objgrid_pagination: {
-                url: "/api/v1/team/obj",
+            papergrid_pagination: {
+                url: "/api/v1/web_estudio/discover/commercial_paper",
                 size: 30,
                 current: 1,
                 total: 0,
@@ -24,11 +22,11 @@ const RootComponent = {
                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
-                        this.objgrid_pagination.size = response.obj.size;
-                        this.objgrid_pagination.current = response.obj.current;
-                        this.objgrid_pagination.total = response.obj.total;
-                        this.objgrid_pagination.pages = response.obj.pages;
-                        this.objgrid_pagination.records = response.obj.records;
+                        this.papergrid_pagination.size = response.paper.size;
+                        this.papergrid_pagination.current = response.paper.current;
+                        this.papergrid_pagination.total = response.paper.total;
+                        this.papergrid_pagination.pages = response.paper.pages;
+                        this.papergrid_pagination.records = response.paper.records;
                         // this.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
                     }
                 }
@@ -36,11 +34,8 @@ const RootComponent = {
         }
     },
     methods: {
-        retrieveObjGridV(){
-            retrieveObjGrid();
-        },
-        transformSbuV(sbu){
-            return PriceSbu.get(sbu);
+        retrievePaperGridV(){
+            retrievePaperGrid();
         }
     },
     updated(){
@@ -51,19 +46,17 @@ const RootComponent = {
     }
 }
 
-
-let app =  createApp(RootComponent);
+const app =  createApp(RootComponent);
+app.mixin(ImageAdaptiveComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(ImageAdaptiveComponent);
 
-const disObj = app.mount('#app');
+const disCommercialPaperPage = app.mount('#app');
 
-window.disObj = disObj;
+window.disCommercialPaperPage = disCommercialPaperPage;
 
 // init
-disObj.pageInit(disObj.objgrid_pagination);
-
-function retrieveObjGrid(){
-    disObj.reloadPage(disObj.objgrid_pagination);
+disCommercialPaperPage.pageInit(disCommercialPaperPage.papergrid_pagination);
+function retrievePaperGrid(){
+    disCommercialPaperPage.reloadPage(disCommercialPaperPage.papergrid_pagination);
 }
