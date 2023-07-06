@@ -1,21 +1,43 @@
-mall-app {
-    display: flex;
-    flex-direction: column;
-  }
-  mall-app header{
-    height: 150px;
-  }
-mall-app content{
-    height: calc(100% - 200px);
-}
 
-mall-app footer{
+html, body, mall-app {
+  height: 100%;
+}
+mall-app {
+  height: auto;
+  min-height: 100%;
+  display: block;
+}
+mall-app main {
+  flex: 1;
+}
+.app-container {
+  height: auto;
+  flex-direction: column;
+  padding-bottom: 100px;
+  display: flex;
+}
+footer {
+  margin-top: -100px;
+  position: relative;
+}
+.content-main{
+  padding-bottom: 100px;
+  --gutterWidth: 24px;
+  --containerWidth: 1100px;
+  max-width: var(--containerWidth);
+  padding: 0 var(--gutterWidth);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 96px;
   margin-top: 50px;
 }
+
+.weixin-contact-wrapper,.weixin-contact-wrapper img{
+  width: 200px;
+  height: 240px;
+}
 @media (min-width: 768px) {
-    .content-main {
-      padding: 60px 0;
-    }
+
     .col-sm-offset-2,.col-sm-offset-3 {
        margin-left: 16.66666667%;
     }

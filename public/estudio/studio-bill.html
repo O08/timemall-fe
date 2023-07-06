@@ -190,6 +190,11 @@
                 </tr>
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(waitpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+  
+            </div>
             <nav v-if="!!waitpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(waitpagination)">
@@ -241,6 +246,11 @@
                 </tr>
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(pending_pagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+  
+            </div>
             <nav v-if="!!pending_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(pending_pagination)">
@@ -296,6 +306,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(paidpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+  
+            </div>
             <nav v-if="!!paidpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(paidpagination)">

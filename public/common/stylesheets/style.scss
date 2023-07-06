@@ -383,8 +383,20 @@ body {
 ------------------------------------------------------*/ 
 .table-width-fixed{
   width: 1400px;
+  margin-bottom: 0;
 }
-
+.empty-content-block{
+  height: 400px;
+  width: 1400px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #212529;
+}
+.millstone-pagination{
+  margin-top: 1.2rem;
+}
 .page-title-container
 {
     overflow: auto;
@@ -737,6 +749,7 @@ opacity: 0;
 }
 json-node span{
   color: darken(whitesmoke,20%);
+  white-space: pre-line;
 }
 .nav-link span{
   margin-left: 10px;
@@ -1151,3 +1164,5 @@ col-container{
       border-radius: 6px;
   }
 }
+
+

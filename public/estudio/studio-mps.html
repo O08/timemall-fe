@@ -233,7 +233,12 @@
                     </tr>
                   </tbody>
                 </table>
-                <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation">
+                <div v-show="isEmptyObjV(mps_list_pagination.records)" class="empty-content-block">
+
+                  没有可用的内容！
+      
+                </div>
+                <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
                   <ul class="pagination pagination-lg pagination-dark  border-0">
                     <li class="page-item" @click="pagePre(mps_list_pagination)">
                       <a class="page-link"  aria-label="Previous">
@@ -302,6 +307,11 @@
                     </tr>
                   </tbody>
                 </table>
+                <div v-show="isEmptyObjV(mps_chain_pagination.records)" class="empty-content-block">
+
+                  没有可用的内容！
+      
+                </div>
                 <nav v-if="!!mps_chain_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
                   <ul class="pagination pagination-lg pagination-dark  border-0">
                     <li class="page-item" @click="pagePre(mps_chain_pagination)">

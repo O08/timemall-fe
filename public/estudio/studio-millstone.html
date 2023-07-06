@@ -202,6 +202,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(newOrderPagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!newOrderPagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(newOrderPagination)">
@@ -256,6 +261,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(auditpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!auditpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(auditpagination)">
@@ -315,6 +325,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(confirm_pagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!confirm_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(confirm_pagination)">
@@ -338,7 +353,7 @@
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th class="w-auto">进度</th>
+                  <!-- <th class="w-auto">进度</th> -->
                   <th class="w-50">服务</th>
                   <th scope="col">客户</th>
                   <th scope="col">预期费用</th>
@@ -354,11 +369,11 @@
                       </span>
                     </a> -->
                   </td>
-                  <td>
+                  <!-- <td>
                     <span class="td-stage">
                       {{item.stage}}
                     </span>
-                  </td>
+                  </td> -->
                   <td>
                     <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
                       <span class="td-service">
@@ -374,6 +389,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(taskpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!taskpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(taskpagination)">
@@ -424,6 +444,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(paused_pagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!paused_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(paused_pagination)">
@@ -480,6 +505,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(suspend_pagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!suspend_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(suspend_pagination)">
@@ -534,6 +564,11 @@
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(finishpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
             <nav v-if="!!finishpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(finishpagination)">

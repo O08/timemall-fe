@@ -184,7 +184,7 @@
 
   </div>
   <div class="mt-2 me-lg-5  commission-tb-container">
-    <table class="table table-dark table-hover align-middle">
+    <table class="table table-dark table-hover align-middle mb-0">
       <thead class="help-text">
         <tr>
           <th class="w-md-75 w-lg-75 w-sm-70"></th>
@@ -241,6 +241,11 @@
         </tr>
       </tbody>
     </table>
+    <div v-show="isEmptyObjV(commissionTb_pagination.records)" class="empty-content-block">
+
+      没有可用的内容！
+
+    </div>
   </div>
   
      

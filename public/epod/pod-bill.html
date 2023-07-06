@@ -170,10 +170,13 @@
                   <td>{{bill.amount}}</td>
                   <td>{{bill.added}}</td>
                 </tr>
-                
-               
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(waittingpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+  
+            </div>
             <nav v-if="!!waittingpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(waittingpagination)">
@@ -224,10 +227,14 @@
                   <td>{{bill.amount}}</td>
                   <td>{{bill.added}}</td>
                 </tr>
-                
                
               </tbody>
             </table>
+            <div v-show="isEmptyObjV(paidpagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+  
+            </div>
             <nav v-if="!!paidpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
                 <li class="page-item" @click="pagePre(paidpagination)">

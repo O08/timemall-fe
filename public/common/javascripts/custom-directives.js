@@ -19,8 +19,12 @@ const DirectiveComponent = {
                 el.addEventListener('click', () => {
                     if (!el.disabled) {
                         el.disabled = true;
+                        el.style.pointerEvents = "none";
+                        el.style.cursor = "none";
                         setTimeout(() => {
                             el.disabled = false;
+                            el.style.pointerEvents = "";
+                            el.style.cursor = "";
                         }, binding.value || 1000)
                     }
                 })

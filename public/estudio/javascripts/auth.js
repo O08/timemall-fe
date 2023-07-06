@@ -1,6 +1,8 @@
+import "/common/javascripts/import-jquery.js";
 import { goHome,goLoginPage } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
+
 
 
 
@@ -40,6 +42,9 @@ export default function Auth(params) {
             },
             getIdentity(){
                 return getTidentity();
+            },
+            isEmptyObjV(obj){
+                return $.isEmptyObject(obj);
             }
         },
         created: function() {

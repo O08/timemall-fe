@@ -251,7 +251,7 @@
               </div>
               <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-buy-bg">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" @click="buyProductV" id="btn-save-avator" class="btn btn-primary">购买</button>
+                <button v-preventreclick  type="button" @click="buyProductV" id="btn-save-avator" class="btn btn-primary">购买</button>
               </div>
             </div>
           </div>
@@ -318,7 +318,7 @@
               </div>
               <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-buy-bg">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button type="button" @click="topUpV"  class="btn btn-primary">充值</button>
+                <button v-preventreclick  type="button" @click="topUpV"  class="btn btn-primary">充值</button>
               </div>
             </div>
           </div>

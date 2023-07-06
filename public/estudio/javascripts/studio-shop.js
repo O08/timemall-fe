@@ -10,6 +10,8 @@ import TopUpCompoent from "/estudio/javascripts/compoent/TopUpCompoent.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
 
 
 
@@ -46,6 +48,7 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
+app.mixin(DirectiveComponent);
 
 const shopPage = app.mount('#app');
 window.cShop = shopPage;

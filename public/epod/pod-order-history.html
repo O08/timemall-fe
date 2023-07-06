@@ -131,6 +131,11 @@
             </tr>
           </tbody>
         </table>
+        <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
+
+          没有可用的内容！
+
+        </div>
         <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
           <ul class="pagination pagination-lg pagination-dark  border-0">
             <li class="page-item" @click="pagePre(transpagination)">
