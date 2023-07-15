@@ -14,6 +14,8 @@ import defaultExperienceImage from '/common/images/default-experience.jpg';
 import defaultCellIntroCoverImage from '/common/images/default-cell-intro-cover.jpg'
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {EmailNoticeEnum} from "/common/javascripts/tm-constant.js";
+
 
 const RootComponent = {
     data() {
@@ -125,6 +127,10 @@ async function order(cellId){
     const url = "/api/v1/web_mall/services/{cell_id}/order".replace("{cell_id}",cellId);
     return await axios.post(url,dto); 
 }
+async function doSendOrderReceivingEmail(dto){
+    const url="/api/v1/web_mall/email_notice";
+    return await axios.post(url,dto);
+}
 
 
 function orderNow(){
@@ -140,11 +146,22 @@ function orderNow(){
     }
     order(cellId).then(response=>{
         if(response.data.code == 200){
+            // notice supplier
+            sendOrderReceivingEmail(response.data.orderId);
+            // reset 
             cellDetailPage.quantity ="";
             cellDetailPage.total = 0;
+            // give option
             alert("成功预约，可在E-pod查看预约记录");
         }
     })
+}
+function sendOrderReceivingEmail(orderId){
+    const dto={
+        noticeType: EmailNoticeEnum.CELL_ORDER_RECEIVING,
+        ref: JSON.stringify({orderId: orderId})
+    }
+    doSendOrderReceivingEmail(dto);
 }
 function getSbuPrice()
 {

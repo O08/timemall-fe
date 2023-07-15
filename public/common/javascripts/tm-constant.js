@@ -97,11 +97,16 @@ var MpsChainTag= Object.freeze({
     "PUBLISH": "1", // 运行中
     "OFFLINE": "2"  // 休止
 }); 
+var EmailNoticeEnum=Object.freeze({
+    "CELL_ORDER_RECEIVING": "cell_order_receiving"  // cell order receiving email notice
+}); 
+
 
 
 
 
 export {
+    EmailNoticeEnum,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     ObjMark,ObjTag,OasisMark,CommissionTag,
