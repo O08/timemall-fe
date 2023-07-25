@@ -97,9 +97,9 @@ var MpsChainTag= Object.freeze({
     "PUBLISH": "1", // 运行中
     "OFFLINE": "2"  // 休止
 }); 
-var EmailNoticeEnum=Object.freeze({
-    "CELL_ORDER_RECEIVING": "cell_order_receiving",  // cell order receiving email notice
-    "CELL_PLAN_ORDER_RECEIVING": "cell_plan_order_receiving"  // cell plan order 
+var EmailNoticeEnum= Object.freeze({
+    "CELL_ORDER_RECEIVING": "cell_order_receiving", 
+    "CELL_PLAN_ORDER_RECEIVING": "cell_plan_order_receiving"  
 }); 
 RefundSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "CELL_PLAN_ORDER"  // cell plan order 
