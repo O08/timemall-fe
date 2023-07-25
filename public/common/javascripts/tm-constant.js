@@ -101,10 +101,10 @@ var EmailNoticeEnum= Object.freeze({
     "CELL_ORDER_RECEIVING": "cell_order_receiving", 
     "CELL_PLAN_ORDER_RECEIVING": "cell_plan_order_receiving"  
 }); 
-RefundSceneEnum=Object.freeze({
+var RefundSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "CELL_PLAN_ORDER"  // cell plan order 
 }); 
-CellPlanOrderTag=Object.freeze({
+var CellPlanOrderTag=Object.freeze({
     "CREATING": "0",  // 订单创建中
     "CREATED": "1",  // 已创建订单 
     "WAITING_PAY": "2",  // 等待支付
@@ -116,7 +116,7 @@ CellPlanOrderTag=Object.freeze({
     "FAIL": "8",  // 失败
     "INVALID": "9"  // 失效
 }); 
-CellPlanType=Object.freeze({
+var CellPlanType=Object.freeze({
     "BIRD": "bird",  // basic plan
     "EAGLE": "eagle",  // standard plan 
     "ALBATROSS": "albatross",  // premium plan
