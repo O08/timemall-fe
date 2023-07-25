@@ -100,7 +100,6 @@ var MpsChainTag= Object.freeze({
 var EmailNoticeEnum=Object.freeze({
     "CELL_ORDER_RECEIVING": "cell_order_receiving",  // cell order receiving email notice
     "CELL_PLAN_ORDER_RECEIVING": "cell_plan_order_receiving"  // cell plan order 
-
 }); 
 RefundSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "CELL_PLAN_ORDER"  // cell plan order 
