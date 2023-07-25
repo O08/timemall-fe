@@ -14,12 +14,14 @@ import defaultExperienceImage from '/common/images/default-experience.jpg';
 import defaultCellIntroCoverImage from '/common/images/default-cell-intro-cover.jpg'
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-import {EmailNoticeEnum} from "/common/javascripts/tm-constant.js";
+import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
+
 
 
 const RootComponent = {
     data() {
         return {
+            error:{},
             defaultAvatarImage,
             defaultExperienceImage,
             defaultBrandBannerImage,
@@ -29,10 +31,46 @@ const RootComponent = {
             },
             selectedSbu: '',
             total: 0,
-            quantity: ""
+            quantity: "",
+            cellplan: {
+                records: []
+            },
+            displayPlan:{},
+            focusModal:{
+                feed: "",
+                confirmHandler:()=>{
+
+                }
+            }
         }
     },
     methods: {
+        explainCellPlanTypeV(planType){
+            return explainCellPlanType(planType);
+        },
+        showOrderCellPlanFocusModalV(){
+            this.focusModal.feed="您即将购买单品："+ this.explainCellPlanTypeV(this.displayPlan.planType);
+            this.focusModal.confirmHandler=()=>{
+                this.orderCellPlanV();
+                $("#focusModal").modal("hide"); // show modal
+
+            };
+            $("#focusModal").modal("show"); // show modal
+        },
+        hasCellPlanV(planType){
+          return this.cellplan.records.filter(item=>item.planType===planType).length>0;
+        },
+        configRenderPlanV(planType){
+            if(!this.isEmptyObjectV(this.cellplan.records)){
+                this.displayPlan=this.cellplan.records.filter(item=>item.planType===planType)[0];
+            }
+        },
+        fetchCellPlanV(){
+            fetchCellPlan();
+        },
+        orderCellPlanV(){
+            orderCellPlan(this.displayPlan.planId);
+        },
         loadCellInfoV(){
             const cellId= getQueryVariable("cell_id");
             if(!cellId){
@@ -65,10 +103,14 @@ const RootComponent = {
         },
         computeTotalFeeV(){
             computeTotalFee()
+        },
+        isEmptyObjectV(obj){
+            return $.isEmptyObject(obj);
         }
     },
     created(){
       this.loadCellInfoV();
+      this.fetchCellPlanV();
     },
     updated(){
         
@@ -131,12 +173,55 @@ async function doSendOrderReceivingEmail(dto){
     const url="/api/v1/web_mall/email_notice";
     return await axios.post(url,dto);
 }
+async function doFetchCellPlan(cellId){
+    const url="/api/v1/web_mall/services/{cell_id}/plan".replace("{cell_id}",cellId);
+    return await axios.get(url);
+}
+async function doOrderCellPlan(planId){
+    const url="/api/v1/web_mall/services/plan/{id}/order".replace("{id}",planId);
+    return await axios.post(url);
+}
+function orderCellPlan(planId){
+     // 用户未登录，跳到登录页面
+    if(!cellDetailPage.user_already_login){
+        goLoginPage();
+        return
+    }
+    cellDetailPage.error={};
+    doOrderCellPlan(planId).then(response=>{
+        if(response.data.code==200){
+            sendOrderReceivingEmail(EmailNoticeEnum.CELL_PLAN_ORDER_RECEIVING,response.data.planOrderId);
+            $("#goTopUpModal").modal("show"); 
+        }
+        if(response.data.code!=200){
+            $("#goTopUpModal").modal("show"); 
+            cellDetailPage.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+        }
+
+    }).catch(error=>{
+        $("#goTopUpModal").modal("show"); 
+        cellDetailPage.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error;
+    });
+}
+function fetchCellPlan(){
+    const cellId = getQueryVariable("cell_id");
+    if(!cellId){
+        return;
+    }
+    doFetchCellPlan(cellId).then(response=>{
+        if(response.data.code==200){
+           cellDetailPage.cellplan=response.data.plan;
+           setDisplayPlan();
+        }
+    })
+}
 
 
 function orderNow(){
     const cellId= getQueryVariable("cell_id");
     if(!cellId || !cellDetailPage.total || !cellDetailPage.quantity 
         || cellDetailPage.total<=0 || cellDetailPage.quantity<=0){
+            alert("请选择需要预约的服务数量与标准付费单元");
             return
     }
     // 用户未登录，跳到登录页面
@@ -147,7 +232,7 @@ function orderNow(){
     order(cellId).then(response=>{
         if(response.data.code == 200){
             // notice supplier
-            sendOrderReceivingEmail(response.data.orderId);
+            sendOrderReceivingEmail(EmailNoticeEnum.CELL_ORDER_RECEIVING,response.data.orderId);
             // reset 
             cellDetailPage.quantity ="";
             cellDetailPage.total = 0;
@@ -156,12 +241,42 @@ function orderNow(){
         }
     })
 }
-function sendOrderReceivingEmail(orderId){
+function sendOrderReceivingEmail(noticeType,orderId){
     const dto={
-        noticeType: EmailNoticeEnum.CELL_ORDER_RECEIVING,
+        noticeType: noticeType,
         ref: JSON.stringify({orderId: orderId})
     }
     doSendOrderReceivingEmail(dto);
+}
+function setDisplayPlan(){
+    var planType="albatross";
+    if(cellDetailPage.hasCellPlanV(planType)){
+        cellDetailPage.displayPlan=cellDetailPage.cellplan.records.filter(item=>item.planType===planType)[0]
+    }
+    var planType="eagle";
+    if(cellDetailPage.hasCellPlanV(planType)){
+        cellDetailPage.displayPlan=cellDetailPage.cellplan.records.filter(item=>item.planType===planType)[0]
+    }
+    var planType="bird";
+    if(cellDetailPage.hasCellPlanV(planType)){
+        cellDetailPage.displayPlan=cellDetailPage.cellplan.records.filter(item=>item.planType===planType)[0]
+    }
+}
+function explainCellPlanType(planType){
+    var planTypeDesc="";
+    switch(planType){
+        case CellPlanType.BIRD:
+            planTypeDesc="小鸟";
+            break; 
+        case CellPlanType.EAGLE:
+            planTypeDesc="老鹰";
+            break; 
+        case CellPlanType.ALBATROSS:
+            planTypeDesc="信天翁";
+            break; 
+    }
+    return planTypeDesc;
+
 }
 function getSbuPrice()
 {

@@ -261,6 +261,12 @@ footer{
     vertical-align: middle;
     font-weight:400;
     font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
+    width: calc(100% - 32px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: inline-block;
+    overflow: hidden;
 }
 .enable-blue i{
   color: #3887FE;

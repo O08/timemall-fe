@@ -377,6 +377,12 @@ body {
     position: sticky;
     top: 100px;
     padding: 5px 0;
+    width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    overflow: hidden;
+    display: inline-block;
   }
  /*----------------------------------------------------
     6. Table
@@ -1164,5 +1170,8 @@ col-container{
       border-radius: 6px;
   }
 }
-
+.display-dialog-header-bg,.display-dialog-body-bg, .display-dialog-footer-bg {
+  opacity: .9;
+  background: #000000e7;
+}
 

@@ -72,11 +72,11 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane" type="button" role="tab" aria-controls="intro-tab-pane" aria-selected="true">介绍</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">品牌信息</button>
+        <li v-if="!isEmptyObjectV(cellplan.records)" class="nav-item" role="presentation">
+          <button class="nav-link" id="plan-tab" data-bs-toggle="tab" data-bs-target="#plan-tab-pane" type="button" role="tab" aria-controls="plan-tab-pane" aria-selected="false">单品</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="recommend-tab" data-bs-toggle="tab" data-bs-target="#recommend-tab-pane" type="button" role="tab" aria-controls="recommend-tab-pane" aria-selected="false">推荐</button>
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">品牌信息</button>
         </li>
       </ul>
     </sub-nav>
@@ -227,12 +227,110 @@
 
 
                 </div>
-                <div class="tab-pane fade" id="recommend-tab-pane" role="tabpanel" aria-labelledby="recommend-tab" tabindex="0">...</div>
+                <div class="tab-pane fade " id="plan-tab-pane" role="tabpanel" aria-labelledby="plan-tab" tabindex="0">
+                  <div class="plan-panel-header">
+                    <div 
+                      :class="{'active': displayPlan.planType==='bird' }"
+                      @click="configRenderPlanV('bird')"  v-if="hasCellPlanV('bird')" class="plan-item-wrapper">
+                      <div class="plan-item">
+                        小鸟
+                      </div>
+                    </div>
+                    <div 
+                     :class="{'active': displayPlan.planType==='eagle' }"
+                      @click="configRenderPlanV('eagle')"  v-if="hasCellPlanV('eagle')" class="plan-item-wrapper">
+                      <div class="plan-item">
+                        老鹰
+                      </div>
+                    </div>
+                    <div 
+                    :class="{'active': displayPlan.planType==='albatross' }"
+                      @click="configRenderPlanV('albatross')"  v-if="hasCellPlanV('albatross')" class="plan-item-wrapper">
+                      <div class="plan-item">
+                        信天翁
+                      </div>
+                    </div>
+                  </div>
+                  <div class="plan-content-container">
+                    <div class="plan-content-header">
+                      <p class="paragraph">
+                       {{displayPlan.title}}
+                      </p>
+                    </div>
+                    <div class="plan-content-feature pt-5">
+                      <p class="paragraph">
+                          {{displayPlan.feature}}
+                      </p>
+                    </div>
+                    <div class="plan-content-option py-4">
+                      <div class="price">
+                        <ins class="text-decoration-none">￥ {{displayPlan.price}}</ins>
+                      </div>
+                      <div class="plan-content-option-empty-block">
+
+                      </div>
+                      <button type="button" @click="showOrderCellPlanFocusModalV" v-preventreclick class="btn btn-primary">购买单品</button>
+
+                    </div>
+
+                  </div>
+                </div>
               </div>
         </section>
     </main>
     </content>
     <footer></footer>
+    <section class="modals">
+
+      <div class="modal-container">
+              
+        <!--TopUp Fund  Modal -->
+        <div  class="modal fade" id="goTopUpModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                <h1 class="modal-title fs-5">操作提示</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center display-dialog-body-bg text-white">
+                <form>
+                <div  v-if="isEmptyObjectV(error)" class="row mt-3">
+                  <label>下单成功!<a class="url-link-sm-1 ms-2" href="/epod/pod-millstone.html">查看履约</a></label>
+                </div>
+                <div v-if="error.length>0" class="row mt-3">
+                  <span class="error-notice">异常信息：{{error}}</span>
+                </div> 
+                </form>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <a href="/estudio/studio-shop.html"><button   type="button"  class="btn btn-primary">前往商城充值</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+         <!-- focus modal -->
+         <div class="modal-container">
+          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">操作提示</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <div class="product-feature">
+                    <p class="card-text">{{focusModal.feed}}</p>
+                  </div>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">确定</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
   </mall-app>
         <!-- 框架 -->
         <script  type="module" src="/common/javascripts/tm.js"></script>

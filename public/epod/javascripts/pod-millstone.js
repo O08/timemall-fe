@@ -8,6 +8,9 @@ import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js"
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
 
 
 
@@ -174,7 +177,29 @@ const RootComponent = {
 
                     }
                 }
+            },
+            plan_pagination:{
+                url: "/api/v1/web_epod/cell/plan_order",
+                size: 10,
+                current: 1,
+                total: 0,
+                pages: 0,
+                records: [],
+                param: {
+                },
+                paging: {},
+                responesHandler: (response)=>{
+                    if(response.code == 200){
+                        this.plan_pagination.size = response.planOrder.size;
+                        this.plan_pagination.current = response.planOrder.current;
+                        this.plan_pagination.total = response.planOrder.total;
+                        this.plan_pagination.pages = response.planOrder.pages;
+                        this.plan_pagination.records = response.planOrder.records;
+                        this.plan_pagination.paging = this.doPaging({current: response.planOrder.current, pages: response.planOrder.pages, max: 5});
+                    }
+                }
             }
+
         }
     },
     methods: {
@@ -203,6 +228,15 @@ const RootComponent = {
         reloadTableWhenGoAudit(){
             this.reloadPage(this.transpagination);
             this.reloadPage(this.auditing_pagination);
+        },
+        retrieveCellPlanOrderTbV(){
+            retrieveCellPlanOrderTb();
+        },
+        retrieveCellPlanOrderListByPlanTypeV(planType){
+            retrieveCellPlanOrderListByPlanType(planType);
+        },
+        retrieveMpsPaperListByTagV(tag){
+            retrieveMpsPaperListByTag(tag);
         }
     },
     created() {
@@ -214,6 +248,7 @@ const RootComponent = {
         this.pageInit(this.paused_pagination);
         this.pageInit(this.finish_pagination);
         this.pageInit(this.auditing_pagination);
+        this.pageInit(this.plan_pagination);
     },
     updated(){
         $(function() {
@@ -234,6 +269,8 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.POD}));
 app.mixin(ImageAdaptiveComponent);
+app.mixin(CodeExplainComponent);
+app.mixin(DirectiveComponent);
 
 
 const millStonePage = app.mount('#app');
@@ -242,6 +279,21 @@ window.pMillstone= millStonePage;
 async function markMillstone(workflowId,code){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}/mark".replace("{workflow_id}",workflowId) + "?code=" + code;
     return await axios.put(url);
+}
+function retrieveCellPlanOrderTb(){
+    millStonePage.plan_pagination.param.planType="";
+    millStonePage.plan_pagination.param.tag="";
+    millStonePage.plan_pagination.size = 10;
+    millStonePage.plan_pagination.current = 1;
+    millStonePage.reloadPage(millStonePage.plan_pagination);
+}
+function retrieveCellPlanOrderListByPlanType(planType){
+    millStonePage.plan_pagination.param.planType=planType;
+    millStonePage.reloadPage(millStonePage.plan_pagination);
+}
+function retrieveMpsPaperListByTag(tag){
+    millStonePage.plan_pagination.param.tag=tag;
+    millStonePage.reloadPage(millStonePage.plan_pagination); 
 }
 // 定稿
 function confirmMillstone(workflowId){

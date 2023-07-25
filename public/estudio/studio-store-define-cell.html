@@ -291,6 +291,29 @@
                   </div>
                 </div>
                 <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                    <button :class="{'disable-text': currentTabIntV(2)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive" v-bind:disabled="currentTabIntV(2)">
+                      单品配置
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                    <div class="accordion-body py-5">
+                       <div class="plan-item-container">
+                        <button @click="showPlanConfigModalV('bird')" class="btn btn-primary bird-option" type="button">
+                          小鸟
+                        </button>
+                        <button @click="showPlanConfigModalV('eagle')" class="btn btn-primary eagle-option ms-3" type="button">
+                          老鹰
+                        </button>
+                        <button @click="showPlanConfigModalV('albatross')" class="btn btn-primary albatross-option ms-3" type="button">
+                          信天翁
+                        </button>
+                       </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="accordion-item">
                   <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                     <button :class="{'disable-text': currentTabIntV(3)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree" v-bind:disabled="currentTabIntV(3)">
                       服务介绍
@@ -399,6 +422,68 @@
         </div>
       </main>
       <section class="modals">
+        <div class="modal-container">
+          <div class="modal fade" id="planConfigModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">配置{{planTypeToGradeV(cofingPlan.planType)}}单品：{{explainPlanTypeV(cofingPlan.planType)}}</h1>
+                  <button @click="closePlanConfigModalHandlerV" type="button" id="closePlanConfigModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <form onsubmit="return false">
+                    <div class="row mb-3">
+                      <label for="inputTitle" class="col-sm-4 col-form-label">
+                        标题
+                        <div class="help-text">
+                          单品标题。(最大80字符) 
+                        </div>
+                      </label>
+                      <div class="col-sm-8">
+                        <textarea v-model="cofingPlan.title" @change="btn_ctl.put_cell_plan_already_change = true" 
+                        class="form-control" maxlength="80" aria-label="With textarea"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="inputTitle" class="col-sm-4 col-form-label">
+                        价格
+                        <div class="help-text">
+                          单品服务价格。
+                        </div>
+                      </label>
+                      <div class="col-sm-8">
+                        <input  @change="btn_ctl.put_cell_plan_already_change = true"  type="text" class="form-control" v-model="cofingPlan.price" max="50000000" @input="transformInputNumberV($event)" placeholder="(必填)">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="inputTitle" class="col-sm-4 col-form-label">
+                        服务包
+                        <div class="help-text">
+                          单品服务特色、服务内容、交付物等。(最大600字符)
+                        </div>
+                      </label>
+                      <div class="col-sm-8">
+                        <textarea  @change="btn_ctl.put_cell_plan_already_change = true"  v-model="cofingPlan.feature"
+                        class="form-control" maxlength="600" rows="6" aria-label="With textarea"></textarea>
+                      </div>
+                    </div>
+                    
+                                      
+                  </form>
+                </div>
+                <div class="modal-footer btn-light">
+                  <button 
+                  :class="{'disabled': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput(), 
+                  'btn-primary': btn_ctl.put_cell_plan_already_change && validatePutCellPlanInput(),
+                  'btn-secondary': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput()}"
+                   v-preventreclick @click="putCellPlanV" type="button" id="btn-save-plan" class="btn">保存</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="modal-container">
           
           <!-- Modal -->

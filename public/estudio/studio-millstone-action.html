@@ -294,7 +294,7 @@
                   <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
                       <div class="col">
                           <h3>服务</h3>
-                          <p class="ms-2">
+                          <p class="ms-2 sow-cell-title">
                               {{workflow.serviceInfo.title}}
                           </p>
                       </div>
@@ -305,7 +305,7 @@
                               <div class="brand-portrait">
                                 <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                               </div>
-                              <h6 class="brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
+                              <h6 class="sow-brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
                           </div>
                       </div>
                   </div>

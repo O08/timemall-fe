@@ -46,3 +46,19 @@
  .dot-red{
     background-color: #fa541c;
  }
+ .sow-cell-title{
+    width: 400px;
+    min-height: 30px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-size: 16px;
+    line-height: 1.875;
+  }
+  .sow-brand-name{
+    width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    overflow: hidden;
+    display: inline-block;
+  }

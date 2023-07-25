@@ -132,9 +132,129 @@
         <div class="page-title">
           <h1>履约</h1>
         </div>  
-        <!-- tablist -->
-        <div class="nav-tabs-container">
-          <ul class="nav nav-tabs border-0 millstone-tab" id="millstone-tab" role="tablist">
+        <!-- first tablist -->
+        <div class="first-nav-tabs-container">
+          <ul class="nav nav-tabs border-0 " id="millstone-first-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="plan-order-tab" data-bs-toggle="tab" data-bs-target="#plan-order-tab-pane" type="button" role="tab" aria-controls="plan-order-tab-pane" aria-selected="true">单品</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="sp-order-tab" data-bs-toggle="tab" data-bs-target="#sp-order-tab-pane" type="button" role="tab" aria-controls="sp-order-tab-pane" aria-selected="true">特约</button>
+            </li>
+          </ul>
+        </div>
+
+        <!--  first tablist content-->
+        <div class="tab-content" id="millstone-first-tab-content">
+                  <!--  plan content start-->
+
+          <div class="tab-pane fade show active" id="plan-order-tab-pane" role="tabpanel" aria-labelledby="plan-order-tab" tabindex="0">
+
+            <div class="d-flex justify-content-between cell-plan-order-list-header mt-5 mb-3">
+              <div class="plan-order-search d-flex">
+                <form class="nosubmit" onsubmit="return false">
+                  <input  @keyup.enter.native="retrieveCellPlanOrderTbV" v-model="plan_pagination.param.q"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
+                </form>
+              </div>           
+            </div>
+            <table class="table table-width-fixed table-dark table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th class="w-50">服务</th>
+                  <th scope="col">
+                    <div class="dropdown">
+                      <button class="btn cell_plan_order_list-tb-filter-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        单品
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('bird')">小鸟</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('eagle')">老鹰</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('albatross')">信天翁</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('')">全部</a></li>
+                      </ul>
+                    </div>
+                  </th>
+                  <th scope="col">费用</th>
+                  <th scope="col">
+                    <div class="dropdown">
+                      <button class="btn cell_plan_order_list-tb-filter-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        标签
+                      </button>
+                      <ul class="dropdown-menu">
+                        
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('4')">交付中</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('7')">已退款</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('3')">已支付</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('5')">订单履约完成</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('0')">订单创建中</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('1')">已创建订单</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('2')">等待支付</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('6')">取消订单</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('8')">失败</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('9')">失效</a></li>
+                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('')">全部</a></li>
+
+                      </ul>
+                    </div>
+                  </th>
+                  <th scope="col">入库时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in plan_pagination.records">
+                  <td>
+                    <!-- <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                      <span class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作任务">
+                        <i class="bi bi-eye"></i>
+                      </span>
+                    </a> -->
+                  </td>
+                  <td>
+                    <a :href="'/estudio/studio-plan.html?id=' + item.orderId">
+                      <span class="td-service">
+                        {{item.cellTitle}}
+                      </span>
+                    </a>
+                  </td>
+                  <td>{{explainCellPlanTypeV(item.planType)}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{explainCellPlanOrderTagV(item.tag)}}</td>
+                  <td>{{item.createAt}}</td>
+                </tr>
+                
+               
+              </tbody>
+            </table>
+            <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
+
+              没有可用的内容！
+
+            </div>
+            <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+              <ul class="pagination pagination-lg pagination-dark  border-0">
+                <li class="page-item" @click="pagePre(plan_pagination)">
+                  <a class="page-link"  aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
+                      @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(plan_pagination)">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
+          <!--  plan content end -->
+          <!--  sp content start -->
+          <div class="tab-pane fade" id="sp-order-tab-pane" role="tabpanel" aria-labelledby="sp-order-tab" tabindex="0">
+            <!-- tablist -->
+        <div class="nav-tabs-container sub-tabs-header mt-5">
+          <ul class="nav nav-tabs border-0" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="new-order-tab" data-bs-toggle="tab" data-bs-target="#new-order-tab-pane" type="button" role="tab" aria-controls="new-order-tab-pane" aria-selected="true">新单</button>
             </li>
@@ -588,6 +708,12 @@
           </div>
 
         </div>
+
+          </div>
+          <!--  sp content end -->
+        </div>
+
+        
       </main>
     </content>
     <footer></footer>

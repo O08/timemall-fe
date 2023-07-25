@@ -98,7 +98,29 @@ var MpsChainTag= Object.freeze({
     "OFFLINE": "2"  // 休止
 }); 
 var EmailNoticeEnum=Object.freeze({
-    "CELL_ORDER_RECEIVING": "cell_order_receiving"  // cell order receiving email notice
+    "CELL_ORDER_RECEIVING": "cell_order_receiving",  // cell order receiving email notice
+    "CELL_PLAN_ORDER_RECEIVING": "cell_plan_order_receiving"  // cell plan order 
+
+}); 
+RefundSceneEnum=Object.freeze({
+    "CELL_PLAN_ORDER": "CELL_PLAN_ORDER"  // cell plan order 
+}); 
+CellPlanOrderTag=Object.freeze({
+    "CREATING": "0",  // 订单创建中
+    "CREATED": "1",  // 已创建订单 
+    "WAITING_PAY": "2",  // 等待支付
+    "PAID": "3",  // 已支付 
+    "DELIVERING": "4",  // 交付中 
+    "COMPLETED": "5",  // 订单履约完成 
+    "CANCELLED": "6",  //  取消订单 
+    "REFUNDED": "7",  // 已退款
+    "FAIL": "8",  // 失败
+    "INVALID": "9"  // 失效
+}); 
+CellPlanType=Object.freeze({
+    "BIRD": "bird",  // basic plan
+    "EAGLE": "eagle",  // standard plan 
+    "ALBATROSS": "albatross",  // premium plan
 }); 
 
 
@@ -106,7 +128,7 @@ var EmailNoticeEnum=Object.freeze({
 
 
 export {
-    EmailNoticeEnum,
+    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     ObjMark,ObjTag,OasisMark,CommissionTag,

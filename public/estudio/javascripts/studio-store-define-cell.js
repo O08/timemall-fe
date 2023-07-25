@@ -1,7 +1,7 @@
 import "/common/javascripts/import-jquery.js";
 
 
-import { createApp,ref } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
@@ -23,7 +23,8 @@ const RootComponent = {
             btn_ctl: {
                 activate_general_save_btn: false,
                 activate_pricing_save_btn: false,
-                activate_intro_save_btn: false
+                activate_intro_save_btn: false,
+                put_cell_plan_already_change: false
             },
             overview: {
                 cover: "",
@@ -35,12 +36,40 @@ const RootComponent = {
                 items: []
             },
             introCover: "https://picsum.photos/1100/300",
-            agree_check: false
+            agree_check: false,
+            cofingPlan:{},
+            cellplan:{
+                records:[]
+            }
         }
     },
     methods: {
+        validatePutCellPlanInput(){
+            return !!this.cofingPlan.title && !!this.cofingPlan.price && this.cofingPlan.price>0 && !!this.cofingPlan.feature;
+        },
+        planTypeToGradeV(planType){
+            return planTypeToGrade(planType);
+        },
+        explainPlanTypeV(planType){
+            return explainPlanType(planType);
+        },
+        showPlanConfigModalV(planType){
+            this.cofingPlan={};// reset
+            this.btn_ctl.put_cell_plan_already_change = false;
+            const editPlan=getConfigPlan(planType);
+            this.cofingPlan= JSON.parse(JSON.stringify(editPlan));
+
+            $("#planConfigModal").modal("show");
+        },
+        putCellPlanV(){
+            putCellPlan(this.cofingPlan);
+        },
         initPage(){
             loadCellInfo();
+            fetchCellPlan();
+        },
+        fetchCellPlanV(){
+            fetchCellPlan();
         },
         defineCellOverviewV(){
             defineCellOverview()
@@ -179,7 +208,34 @@ async function saveCellIntroBannerImg(cellId,files){
     url= url + "?code=" + code;
     return await axios.put(url);
 } 
-
+async function doFetchCellPlan(cellId){
+    const url="/api/v1/web_mall/services/{cell_id}/plan".replace("{cell_id}",cellId);
+    return await axios.get(url);
+}
+async function doPutCellPlan(dto){
+    const url="/api/v1/web_estudio/cell/plan";
+    return await axios.put(url,dto);
+}
+function putCellPlan(dto){
+   dto.cellId=getQueryVariable("cell_id");
+   doPutCellPlan(dto).then(response=>{
+    if(response.data.code==200){
+        $("#planConfigModal").modal("hide");
+        defineCellPage.fetchCellPlanV(); // fetch last data
+    }
+   });
+}
+function fetchCellPlan(){
+    const cellId = getQueryVariable("cell_id");
+    if(!cellId){
+        return;
+    }
+    doFetchCellPlan(cellId).then(response=>{
+        if(response.data.code==200){
+           defineCellPage.cellplan=response.data.plan;
+        }
+    })
+}
 async function defineCellOverview(){
 
     const cellId =await preHandleCellId();
@@ -338,7 +394,50 @@ function uploadCellIntroBanner(){
     })
 }
 
-
+function getConfigPlan(planType){
+   var targetPlanArr= defineCellPage.cellplan.records.filter(e=>{return e.planType===planType});
+   if(targetPlanArr.length>0){
+     return targetPlanArr[0];
+   }
+   return {
+     planType: planType,
+     cellId: getQueryVariable("cell_id")
+   };
+}
+function explainPlanType(planType){
+  var planTypeDesc="";
+  switch (planType) {
+    case 'bird':
+        planTypeDesc="小鸟"
+        break;
+    case 'eagle':
+        planTypeDesc="老鹰"
+        break;
+    case 'albatross':
+        planTypeDesc="信天翁"
+        break;
+    default:
+        break;
+  }
+  return planTypeDesc;
+}
+function planTypeToGrade(planType){
+    var grade="";
+    switch (planType) {
+      case 'bird':
+        grade="基础"
+          break;
+      case 'eagle':
+        grade="标准"
+          break;
+      case 'albatross':
+        grade="高阶"
+          break;
+      default:
+          break;
+    }
+    return grade;
+}
 
 // edit pannel
 function nextText(index){

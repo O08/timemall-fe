@@ -9,6 +9,8 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 var WorkflowStatus = Object.freeze({
     "InQueue": 1, // 队列中
@@ -176,7 +178,40 @@ const RootComponent = {
                         this.suspend_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
                     }
                 }
+            },
+            plan_pagination:{
+                url: "/api/v1/web_estudio/cell/plan_order",
+                size: 10,
+                current: 1,
+                total: 0,
+                pages: 0,
+                records: [],
+                param: {
+                },
+                paging: {},
+                responesHandler: (response)=>{
+                    if(response.code == 200){
+                        this.plan_pagination.size = response.planOrder.size;
+                        this.plan_pagination.current = response.planOrder.current;
+                        this.plan_pagination.total = response.planOrder.total;
+                        this.plan_pagination.pages = response.planOrder.pages;
+                        this.plan_pagination.records = response.planOrder.records;
+                        this.plan_pagination.paging = this.doPaging({current: response.planOrder.current, pages: response.planOrder.pages, max: 5});
+                    }
+                }
             }
+        }
+
+    },
+    methods: {
+        retrieveCellPlanOrderTbV(){
+            retrieveCellPlanOrderTb();
+        },
+        retrieveCellPlanOrderListByPlanTypeV(planType){
+            retrieveCellPlanOrderListByPlanType(planType);
+        },
+        retrieveMpsPaperListByTagV(tag){
+            retrieveMpsPaperListByTag(tag);
         }
     },
     updated(){
@@ -195,12 +230,17 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
+app.mixin(CodeExplainComponent);
+app.mixin(DirectiveComponent);
 
 const millstonePage = app.mount('#app');
 window.cMillstone= millstonePage;
 
 function showContent(){
     const option = getQueryVariable("tab");
+    if(!!option){
+        $("#sp-order-tab").trigger("click");
+    }
     switch(option){
         case "audit":
             $("#audit-tab").trigger("click");
@@ -233,6 +273,21 @@ millstonePage.pageInit(millstonePage.finishpagination);
 millstonePage.pageInit(millstonePage.confirm_pagination);
 millstonePage.pageInit(millstonePage.suspend_pagination);
 millstonePage.pageInit(millstonePage.paused_pagination);
+millstonePage.pageInit(millstonePage.plan_pagination);
 
-
+function retrieveCellPlanOrderTb(){
+    millstonePage.plan_pagination.param.planType="";
+    millstonePage.plan_pagination.param.tag="";
+    millstonePage.plan_pagination.size = 10;
+    millstonePage.plan_pagination.current = 1;
+    millstonePage.reloadPage(millstonePage.plan_pagination);
+}
+function retrieveCellPlanOrderListByPlanType(planType){
+    millstonePage.plan_pagination.param.planType=planType;
+    millstonePage.reloadPage(millstonePage.plan_pagination);
+}
+function retrieveMpsPaperListByTag(tag){
+    millstonePage.plan_pagination.param.tag=tag;
+    millstonePage.reloadPage(millstonePage.plan_pagination); 
+}
 showContent();

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <title>单品工作空间 - E-Pod</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod-plan.scss">
+
+
+
+
+</head>
+<body>
+  <pt-app id="app">
+      <!-- header nav -->
+      <header class="p-3 text-white">
+        <div class="mx-120 d-flex justify-content-between  align-items-center hdlayout">
+          <div class="toggle-nav">
+            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="d-flex align-items-center logo">
+            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+            </svg>
+            <h2 class="mb-0">E-Pod</h2>
+          </div>
+          <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel"> E-Pod</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body justify-content-end">
+              <nav>
+                <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0">
+                  <li class="nav-item"><a href="/home.html" class="nav-link  px-lg-3 px-xl-5 text-white">发现</a></li>
+                  <li class="nav-item"><a href="/estudio/studio-store.html" class="nav-link  px-lg-3 px-xl-5 text-white">E-Studio</a></li>
+                  <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link  px-lg-3 px-xl-5 text-white">登录</a></li>
+                  <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link px-lg-3 px-xl-5 text-white">注册</a></li>
+                  <li v-if="user_already_login" class="nav-item">
+                    <a @click="logout" class="nav-link px-lg-3 px-xl-5 text-white">
+                      <i class="bi bi-box-arrow-right me-1"></i>注销
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+      <content class="bd-layout">
+        <aside>
+          <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+            <div class="offcanvas-header">
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
+            </div>
+            <div class="customer-portrait-container">
+              <div class="d-flex flex-column justify-content-center ">
+                <div class="customer-portrait">
+                  <a href="/estudio/studio-setting-profile.html" class="url-link">
+                    <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                  </a>
+                </div>
+                <a href="/estudio/studio-setting-profile.html" class="url-link">
+                  <h6 class="customer-name mt-1">{{studio_brand}}</h6>
+                </a>
+              </div>
+            </div>
+            <!-- menu -->
+            <div class="sidebar-wrapper">
+              <nav class="sidebar nav flex-column">
+                <a class="nav-link" aria-current="page" href="/epod/pod-millstone.html">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.5 3V19.5H1.5V12H7.5V7.5H13.5V3H22.5ZM21 4.5H15V9H9V13.5H3V18H21V4.5Z"></path>
+                  </svg>
+                  <span>履约</span>        
+                </a>
+                <a class="nav-link" href="/epod/pod-msg.html">
+                  <i class="bi bi-chat-dots"></i>
+                  <span>
+                    连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
+                  </span>
+                </a>
+                <a class="nav-link" href="/epod/pod-order-history.html">
+                  <i class="bi bi-shop"></i>
+                  <span>预约</span>  
+                </a>
+                <a class="nav-link" href="/epod/pod-dsp.html">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
+                  </svg>
+                  <span>DSP</span>
+                </a>
+                <a class="nav-link" href="/epod/pod-bill.html">
+                  <i class="bi bi-bank"></i>
+                  <span>账单</span>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </aside>
+        <main>
+          <div class="section-container">
+            <div class="nav-tabs-container pb-5">
+              <ul class="nav nav-tabs border-0" id="tob-tablist" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">服务内容</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="true">事件</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="deliver-tab" data-bs-toggle="tab" data-bs-target="#deliver-tab-pane" type="button" role="tab" aria-controls="deliver-tab-pane" aria-selected="true">交付</button>
+                </li>
+              </ul>
+            </div>
+            <!-- tab content -->
+            <div class="tab-content">
+              <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
+                <div class="room-msg-panel">
+
+                  <div class="room-msg-container">
+
+                    <div v-for="(item,i) in eventObj.records" class="event-date">
+                      <a class="btn btn-dark tag-collapse-ctl" data-bs-toggle="collapse" :href="'#block_'+i" role="button" :aria-expanded="eventObj.records.length<3 || i > eventObj.records.length-3">
+                        <div class="bi date-tag">{{item.stampDate}}</div>
+                      </a>
+                      <div class="collapse" 
+                      :class="{'show': eventObj.records.length<3 || i > eventObj.records.length-3 }"
+                         :id="'block_'+i">
+                        <section v-for="record in item.cards" class="event-wrapper new-order">
+                          <label>
+                            <span class="event-icon new-order">
+                              <!-- <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
+                                <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                           -->
+                                <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            </span>
+                            <p class="event-header-base border-0">
+                              <span class="event-title">{{record.author}}</span>
+                              <i class="simple-time ms-2"> {{record.createAt.substr(-8,8)}}</i>
+                            </p>
+                          </label>
+                          <div class="event-msg-content">
+                            <p v-if="record.msgType === 'text'" class="text-preline text-message">{{JSON.parse(record.msg).content}}</p>
+                            <div  v-if="record.msgType === 'image'">
+                              <a target="_blank" :href="'/mall/preview.html?uri='+JSON.parse(record.msg).uri" rel="noopener noreferrer">
+                                <img  :src="JSON.parse(record.msg).uri" class="img-message">
+                              </a>
+                              <p>
+                                <a target="_blank" class="download" download="" :href="JSON.parse(record.msg).uri"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                              </p>
+                            </div>
+                            <div v-if="record.msgType === 'attachment'">
+                              <div class="attachment-message">
+                                <span> {{JSON.parse(record.msg).fileName}}</span>
+                                <i class="bi bi-file-earmark"></i>
+                              </div>
+                              <p><a target="_blank" class="download" :download="JSON.parse(record.msg).fileName" :href="JSON.parse(record.msg).uri"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a></p>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                      
+                    </div>
+
+                  </div>
+
+                  
+
+                  
+
+
+                </div>
+
+                <div class="chat-input-wrapper">
+                  <div class="input-wrapper">
+                    <textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="Enter your message here"></textarea>
+                  </div>
+                  <div class="chat-action-wrapper">
+                    <div class="chat-action-option">
+                      <span>
+                        <div class="chat-attachment-btn chat-btn-container">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
+                            <defs></defs>
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"></path>
+                          </svg>
+                          <input @change="handleBigFileChange($event)" id="selection_attachment" type="file" class="input-file">
+                        </div>
+                      </span>
+                      <span>
+                        <div id="selection-outer" class="selection-outer ms-2 chat-btn-container">
+                          <div id="selection">
+                            <button id="selection-emoji" class="empty emoji-btn">
+                              <i class="bi bi-emoji-smile"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </span>
+                      <span>
+                        <div class="ms-2 chat-btn-container">
+                          <div class="img-btn" >
+                            <i class="bi bi-image chat-image-btn"></i>
+                            <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                          </div>
+                        </div>
+                      </span>
+                    </div>
+                    <button v-preventreclick @click="sendTextMessageV" class="chat-send-btn">发送</button>
+                  </div>
+                </div>
+
+                
+                
+
+              </div>
+            <!-- event tab end -->
+            <!-- sow tab begin -->
+              <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
+                <section class="section-plan-header ps-4">
+                    <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
+                        <div class="col">
+                            <h3>服务</h3>
+                            <p class="sow-cell-title ms-2">
+                              {{orderDetail.cellTitle}}
+                            </p>
+                        </div>
+      
+                        <div class="col">
+                            <h3>供应商</h3>
+                            <div class="d-flex justify-content-start align-items-center mx-2">
+                              <div class="brand-portrait">
+                                <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                              </div>
+                              <h6 class="sow-brand-name mx-2">{{orderDetail.supplierName}}</h6>
+                          </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="section-plan-info ps-4">
+                    <div class="which-plan d-flex">
+                      <div>
+                        <h3>单品:</h3>
+                      </div>
+                      <h6 class="ms-3 plan-type">{{ explainCellPlanTypeV(orderDetail.planType) }}</h6>
+                    </div>
+                    <div class="plan-content-wrapper ps-5 pt-3">
+                        <div class="plan-content-header">
+                            <p class="paragraph">
+                              {{orderDetail.planTitle}}
+                            </p>
+                        </div>
+                        <div class="plan-content-feature pt-5">
+                          <p class="paragraph">
+                            {{orderDetail.feature}}
+                          </p>
+                        </div>
+                        <div class="price py-4">
+                          <i>
+                            ￥
+                          </i>
+                          <ins class="text-decoration-none price-txt">{{orderDetail.price}}</ins>
+                        </div>
+                        <div class="plan-mark">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
+                            <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
+                            <defs>
+                            <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
+                            <stop offset="0.314" stop-color="#FF9800"/>
+                            <stop offset="0.662" stop-color="#FF6D00"/>
+                            <stop offset="0.972" stop-color="#F44336"/>
+                            </radialGradient>
+                            <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
+                            <stop offset="0.214" stop-color="#FFF176"/>
+                            <stop offset="0.328" stop-color="#FFF27D"/>
+                            <stop offset="0.487" stop-color="#FFF48F"/>
+                            <stop offset="0.672" stop-color="#FFF7AD"/>
+                            <stop offset="0.793" stop-color="#FFF9C4"/>
+                            <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
+                            <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
+                            <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
+                            <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
+                            </radialGradient>
+                            </defs>
+                            </svg>
+                            
+                          <span class="ms-2 tag-desc">{{explainCellPlanOrderTagV(orderDetail.tag)}}</span>
+                        </div>
+                    </div>
+
+                </section>
+                
+                
+                
+
+              </div>
+            <!-- sow tab end -->
+            <!-- deliver tab begin -->
+              <div class="tab-pane fade" id="deliver-tab-pane" role="tabpanel" aria-labelledby="deliver-tab" tabindex="0">
+                
+                <div class="deliver-panel-header">
+                    <section class="event-wrapper new-order">
+                      <div  class="row gx-3 gy-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
+                        <div  class="col">
+                         
+                          <div @click="showRefundFocusModalV"  class="record-container">
+                            <span class="event-icon new-order">
+                              <!-- <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle  cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
+                                <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>  -->
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M5.67606 4.25706C9.60406 1.03806 15.4091 1.26206 19.0761 4.92906C22.9811 8.83406 22.9811 15.1661 19.0761 19.0711C15.1711 22.9761 8.83906 22.9761 4.93406 19.0711C3.73587 17.8742 2.8615 16.3925 2.39306 14.765C1.92462 13.1376 1.87748 11.4177 2.25606 9.76706L2.33306 9.45406L4.26706 9.96406C3.7876 11.7863 3.96675 13.7193 4.77294 15.4224C5.57912 17.1256 6.9606 18.4894 8.67389 19.2737C10.3872 20.058 12.3223 20.2124 14.1383 19.7096C15.9543 19.2069 17.5345 18.0792 18.6005 16.5255C19.6665 14.9717 20.1498 13.0915 19.9653 11.2163C19.7808 9.34109 18.9403 7.59117 17.5919 6.27496C16.2436 4.95875 14.4739 4.16072 12.5947 4.02152C10.7156 3.88232 8.84765 4.41089 7.32006 5.51406L7.10006 5.68006L8.11706 6.69706L3.52106 7.75706L4.58106 3.16106L5.67606 4.25706ZM13.0051 6.00006V8.00006H15.5051V10.0001H10.0051C9.88011 9.99983 9.75961 10.0464 9.66728 10.1306C9.57494 10.2147 9.51747 10.3304 9.50618 10.4549C9.49489 10.5793 9.5306 10.7035 9.60628 10.8029C9.68195 10.9023 9.79211 10.9698 9.91506 10.9921L10.0051 11.0001H14.0051C14.6681 11.0001 15.304 11.2635 15.7728 11.7323C16.2417 12.2011 16.5051 12.837 16.5051 13.5001C16.5051 14.1631 16.2417 14.799 15.7728 15.2678C15.304 15.7367 14.6681 16.0001 14.0051 16.0001H13.0051V18.0001H11.0051V16.0001H8.50506V14.0001H14.0051C14.13 14.0003 14.2505 13.9537 14.3428 13.8695C14.4352 13.7854 14.4926 13.6697 14.5039 13.5452C14.5152 13.4208 14.4795 13.2966 14.4038 13.1972C14.3282 13.0978 14.218 13.0303 14.0951 13.0081L14.0051 13.0001H10.0051C9.34202 13.0001 8.70613 12.7367 8.23729 12.2678C7.76845 11.799 7.50506 11.1631 7.50506 10.5001C7.50506 9.83702 7.76845 9.20113 8.23729 8.73229C8.70613 8.26345 9.34202 8.00006 10.0051 8.00006H11.0051V6.00006H13.0051Z" fill="#4ECB71"/>
+                                </svg>                       
+                            </span>
+                            <span class="paper-head">
+                              退款
+                            </span>
+                          </div>
+  
+                        </div>
+                      </div>
+                      
+                    </section>
+                  </div>
+                  <div v-show="isEmptyObjectV(mpdc__paperDeliver.records) " class="content-block">
+  
+                    还没有交付记录！
+  
+                  </div>
+  
+                  <div class="deliver-record-container">
+                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
+                      <div v-if="record.tag=='3'" class="d-flex">
+                        <div>
+                          交付内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.deliverName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+                      <div v-else class="d-flex">
+                        
+                          <div>
+                            预览内容：
+                          </div>
+                          <div class="record-filename">
+                            {{record.previewName}}
+                          </div>
+                          <div class="ms-2">
+                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                          </div>
+                     
+                      </div>
+                      <div class="py-2">
+                        <span>
+                          状态：
+                          {{paperDeliverTagExplainV(record.tag)}}
+                        </span>
+                        
+                      </div>
+                      
+                      <div v-if="!!record.msg" class="d-flex">
+                        <div class="delivery-remark-heading">留言：</div>
+                        <div class="delivery-remark-content">
+                          <p class="delivery-remark">
+                            {{record.msg}}
+                          </p>
+                        </div>
+                      </div>
+                      <div v-else class="leave-msg-container py-4" >
+                          <textarea class="form-control" rows="6" v-model="record.newMsg"></textarea>
+                          <div class="py-2">
+                            <button 
+                            :class="{'disabled': !record.newMsg, 
+                            'btn-primary': record.newMsg,
+                            'btn-secondary': !record.newMsg}"
+                             v-preventreclick class="btn" @click="leaveMessageV(record)">留言</button>
+                          </div>
+                      </div>
+                      <div v-show="record.tag=='1'" class="py-4">
+                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-dark">再次修订</button>
+                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-primary ms-5">接受交付</button>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+
+            <!-- deliver tab end -->
+
+
+
+            </div>
+          </div>
+      
+           
+          
+        </main>
+        
+      </content>
+      <footer></footer>
+      <section class="modals">
+
+        <!-- focus modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                <h1 class="modal-title fs-5">操作提示</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                <div class="product-feature">
+                  <p class="card-text">{{focusModal.feed}}</p>
+                </div>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">预览</h1>
+                  <button @click="resetFileInput" type="button" id="closeImagePreviewModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <div v-if="errors.length == 0" class="image-upload-container">
+                    <img id="imagePreview" :src="file.url" >
+                  </div>
+                  <div v-if="errors.length > 0">
+                    <div>文件不符合要求，提示信息：</div>
+                    <div v-for="error in errors">
+                      <span>{{error}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer btn-light">
+                  <button @click="sendImageMessageV"
+                  :class="{'disabled': errors.length > 0, 
+                        'btn-primary': errors.length == 0,
+                        'btn-secondary': errors.length > 0}"
+                   v-preventreclick type="button" class="btn btn-primary">选中</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="sendBigFileModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">文件信息</h1>
+                  <button @click="resetBigFileInput" type="button" id="closeSendFileModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <div v-if="errors.length == 0" class="file-info-container">
+                    选中文件: {{bigfile.fileName}}
+                  </div>
+                  <div v-if="errors.length > 0">
+                    <div>文件不符合要求，提示信息：</div>
+                    <div v-for="error in errors">
+                      <span>{{error}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer btn-light">
+                  <button @click="sendAttachmentV"
+                  :class="{'disabled': errors.length > 0, 
+                        'btn-primary': errors.length == 0,
+                        'btn-secondary': errors.length > 0}"
+                   v-preventreclick type="button" class="btn btn-primary">发送</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  </pt-app>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/epod/javascripts/pod-plan.js"></script>
+
+
+
+</body>
+</html>
