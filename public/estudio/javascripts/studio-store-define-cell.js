@@ -40,12 +40,16 @@ const RootComponent = {
             cofingPlan:{},
             cellplan:{
                 records:[]
-            }
+            },
+            cal_base_price: ""
         }
     },
     methods: {
+        calAndFillPricingV(){
+            calAndFillPricing();
+        },
         validatePutCellPlanInput(){
-            return !!this.cofingPlan.title && !!this.cofingPlan.price && this.cofingPlan.price>0 && !!this.cofingPlan.feature;
+            return !!this.cofingPlan.title && !!this.cofingPlan.content &&!!this.cofingPlan.price  && this.cofingPlan.price>0 && !!this.cofingPlan.feature;
         },
         planTypeToGradeV(planType){
             return planTypeToGrade(planType);
@@ -438,6 +442,22 @@ function planTypeToGrade(planType){
     }
     return grade;
 }
+function calAndFillPricing(){
+    if(!defineCellPage.cal_base_price || Number(defineCellPage.cal_base_price)==0){
+        return;
+    }
+    const val=defineCellPage.cal_base_price;
+    defineCellPage.pricing.second=finalPrice((Number(val)/3600).toFixed(2),5000);
+    defineCellPage.pricing.minute=finalPrice((Number(val)/60).toFixed(2),5000);
+    defineCellPage.pricing.hour=finalPrice((Number(val)).toFixed(2),500000);
+    defineCellPage.pricing.day=finalPrice((Number(val)*8).toFixed(2),5000000);
+    defineCellPage.pricing.week=finalPrice((Number(val)*8*5).toFixed(2),50000000);
+    defineCellPage.pricing.month=finalPrice((Number(val)*8*5*4).toFixed(2),50000000);
+    defineCellPage.pricing.quarter=finalPrice((Number(val)*8*5*4*3).toFixed(2),50000000);
+    defineCellPage.pricing.year=finalPrice((Number(val)*8*5*4*3*4).toFixed(2),500000000);
+    defineCellPage.validatePricingInput();
+
+}
 
 // edit pannel
 function nextText(index){
@@ -475,3 +495,11 @@ function changeUrlTabWithoutRefreshPage(tab){
 function transformInputNumber(val,max){
     return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val === '0.0' ? val : Number(val);
   }
+ function finalPrice(val,max){
+
+    if(val==0){
+        return 0.01;
+    }
+    return val>max ? max : val;
+    
+ } 
