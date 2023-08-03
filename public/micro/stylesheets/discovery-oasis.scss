@@ -121,4 +121,9 @@ header{
   font-weight: 700;
   line-height: 1.575;
 }
+@media (max-width: 576px) {
+  .logo{
+    justify-content: flex-end !important;
+  }
+}
 

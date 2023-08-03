@@ -357,6 +357,13 @@ sub-nav .nav-item .active
     height: 60px;
 }
 .plan-content-option-empty-block{
-    width: 50%;
+    display: none;
 }
+.plan-content-option{
+    justify-content: space-between;
+    padding-right: 16px;
+}
+.logo{
+    justify-content: flex-end !important;
+  }
 }

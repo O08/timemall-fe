@@ -132,4 +132,8 @@ header{
   display: inline-block;
   overflow: hidden;
 }
-
+@media (max-width: 576px) {
+  .logo{
+    justify-content: flex-end !important;
+  }
+}

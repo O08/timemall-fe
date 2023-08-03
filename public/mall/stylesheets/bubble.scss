@@ -73,13 +73,7 @@
     margin-right: 10%;
 }
 
-@media (max-width: 992px) {
 
-.section-bubble-brand-info,#bubble-tab-content,.section-tabs{
-    margin-left: 10%;
-}
-
-}
 
 /* #service_library{
   height: 76vh;
@@ -200,9 +194,9 @@ mall-app header{
   opacity: 1;
 }
 @media (max-width: 576px) {
-  .section-bubble-brand-info{
-    margin-left: 5%;
-    padding-left: 1rem;
+  #bubble-tab-content,.section-tabs,.section-bubble-brand-info{
+    margin-left: 16px;
+    padding-left: 0;
 
   }
   .option-invitation,.option-swap{
@@ -211,4 +205,17 @@ mall-app header{
   .section-bubble-brand-info .brand-cover,.brand-cover img{
     height: 130px;
   }
+  .section-list-render{
+    margin-right: 16px;
+  }
+  .logo{
+    justify-content: flex-end !important;
+  }
 }
+@media (min-width: 577px) and  (max-width: 992px) {
+
+  .section-bubble-brand-info,#bubble-tab-content,.section-tabs{
+      margin-left: 10%;
+  }
+  
+  }

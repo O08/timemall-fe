@@ -345,7 +345,13 @@ function resumeTask(workflowId){
 }
 function showTabContent(){
     const option = getQueryVariable("tab");
+    if(!!option){
+        $("#sp-order-tab").trigger("click");
+    }
     switch(option){
+        case "workflow":
+            $("#workflow-tab").trigger("click");
+                break; 
         case "auditing":
             $("#auditing-tab").trigger("click");
                 break; 
