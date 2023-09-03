@@ -56,7 +56,9 @@ var CommissionTag = Object.freeze({
     "CREATED": "1", // 创建
     "ACCEPT": "2", // 接受任务
     "DENY": "3", // 拒绝任务
-    "FINISH": "4" // 完成任务
+    "FINISH": "4", // 完成任务
+    "ABOLISH": "5", // 审核不通过，废除任务
+    "ADD_TO_NEED_POOL":"6" // 审核通过，进入需求池
 });
 var EventFeedScene = Object.freeze({
     "POD": "pod", // e - pod
@@ -121,13 +123,21 @@ var CellPlanType=Object.freeze({
     "EAGLE": "eagle",  // standard plan 
     "ALBATROSS": "albatross",  // premium plan
 }); 
+var SseEventBusScene=Object.freeze({
+    "PRIVATE": "PRIVATE"
+
+}); 
+var GroupChatPolicyRel=Object.freeze({
+    "READ": "read",
+    "READ_WRITE": "read_write"
+}); 
 
 
 
 
 
 export {
-    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,
+    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     ObjMark,ObjTag,OasisMark,CommissionTag,

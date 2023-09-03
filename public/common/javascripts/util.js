@@ -21,3 +21,7 @@ export function getQueryVariable(variable){
 
         return totalDays    // 相差的天数
 }
+export function getSecondsBetween(date_1,date_2){
+   var dif = Math.round(date_1 - date_2) / 1000;
+   return dif;
+}

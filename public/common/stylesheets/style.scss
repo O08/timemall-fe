@@ -1008,6 +1008,8 @@ col-container{
 
 .nav-container-wrapper{
   height: calc(100% - 100px);
+  overflow-y: scroll;
+  padding-top: 2.5rem;
 }
 .nav-setting i{
   color: #666666;
@@ -1036,6 +1038,13 @@ col-container{
 }
 .nav-discovery:hover{
   background-color: #108b39;
+  border-radius: 5px;
+}
+.nav-private-active{
+  background-color: #F44336;
+}
+.nav-private:hover{
+  background-color: #F44336;
   border-radius: 5px;
 }
 .nav-teixcalaanli-active{

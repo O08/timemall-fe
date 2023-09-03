@@ -1,0 +1,22 @@
+
+.room-msg-container{
+    height: calc(100% - 118px);
+    overflow-y: scroll;
+}
+.oasis-avatar-tiny.active{
+    border-radius: 2px;
+}
+.oasis-avatar-tiny:hover{
+    border-radius: 2px;
+}
+.friend-avatar-tiny-container{
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+.welcome i{
+   font-size: 100px;
+   color: dimgrey;
+   display: flex;
+   align-items: center;
+}

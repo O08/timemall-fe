@@ -1,0 +1,83 @@
+#context-menu {
+    background-color: #060415;
+    box-shadow: 0 0 20px rgba(37, 40, 42, 0.22);
+    // color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
+    width: 10em;
+    padding: 0.8em 0.6em;
+    font-size: 1.3rem;
+    position: fixed;
+    visibility: hidden;
+    min-height: 240px;
+    width: 188px;
+    font-family: "Microsoft YaHei New",微软雅黑,"Microsoft Yahei","Microsoft JhengHei",宋体,"Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+   }
+   
+   .item {
+    padding: 0.3em 1.2em;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 2px 0;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    cursor: pointer;
+   }
+.group_option_ban {
+    color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
+}
+.group_option_ban:hover{
+   background-color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
+   color: #fff;
+}
+.msg_option_del{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    cursor: pointer;
+}
+.group_option_send_private_msg:hover{
+    background-color: #5390EC;
+    color: #fff;
+}
+.item.member-header{
+    display: flex;
+    align-items: center;
+}
+.item.member-header span{
+    width: calc(100% - 36px);
+    -webkit-line-clamp: 1;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.separator_line{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 4px;
+    border-bottom: 1px solid hsl( 228 calc( 1 *6%) 32.5% /0.48);
+}
+.simple-time{
+    font-size: 12px;
+}
+.msg_option_container{
+    background-color: #060415;
+    box-shadow: 0 0 20px rgba(37, 40, 42, 0.22);
+    // color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
+    width: 10em;
+    padding: 0.8em 0.6em;
+    font-size: 1.3rem;
+    min-height: 240px;
+    width: 188px;
+    font-family: "Microsoft YaHei New",微软雅黑,"Microsoft Yahei","Microsoft JhengHei",宋体,"Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.msg_option-trigger{
+    background-color: #1a1a1a;
+    border: none;
+    box-shadow: none;
+}
+.msg_option .dropstart .dropdown-toggle:before{
+    content: none;
+}

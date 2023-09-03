@@ -6,9 +6,11 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
-import {CommissionTag} from "/common/javascripts/tm-constant.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+import {CommissionTag} from "/common/javascripts/tm-constant.js";
+
 
 
 const RootComponent = {
@@ -17,10 +19,11 @@ const RootComponent = {
             commissionForm: {
               title: "",
               bonus: "",
+              sow: ""
             },
             commissionTb_pagination: {
                 url: "/api/v1/team/commission",
-                size: 12,
+                size: 5,
                 current: 1,
                 total: 0,
                 pages: 0,
@@ -43,34 +46,61 @@ const RootComponent = {
                         this.commissionTb_pagination.total = response.commission.total;
                         this.commissionTb_pagination.pages = response.commission.pages;
                         this.commissionTb_pagination.records = response.commission.records;
-                        // this.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+                        this.commissionTb_pagination.paging = this.doPaging({current: response.commission.current, pages: response.commission.pages, max: 5});
                     }
                 }
             }
         }
     },
     methods: {
+        abortTaskV(commissionId){
+            examineTask(commissionId,CommissionTag.ABOLISH).then(response=>{
+                if(response.data.code == 200){
+                   this.reloadPage(this.commissionTb_pagination);
+                }
+            })
+        },
+        addTaskToPoolV(commissionId){
+            examineTask(commissionId,CommissionTag.ADD_TO_NEED_POOL).then(response=>{
+                if(response.data.code == 200){
+                   this.reloadPage(this.commissionTb_pagination);
+                }
+                if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    alert(error); 
+                }
+            }).catch(error=>{
+                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
+        },
         addCommissionV(){
             addCommission().then(response=>{
                 if(response.data.code == 200){
                    this.reloadPage(this.commissionTb_pagination);
+                   // reset data
+                   this.closeAddTaskModalHandlerV();
                    $("#addTaskModal").modal("hide");
                 }
-            })
+                if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    alert(error); 
+                }
+            }).catch(error=>{
+                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
         },
         receiveCommissionV(commissionId){
             receiveCommission(commissionId).then(response=>{
                 if(response.data.code == 200){
                     this.reloadPage(this.commissionTb_pagination);
                  }
-            })
-        },
-        summitCommissionV(commissionId){
-            summitCommission(commissionId).then(response=>{
-                if(response.data.code == 200){
-                    this.reloadPage(this.commissionTb_pagination);
-                 }
-            })
+                 if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    alert(error); 
+                }
+            }).catch(error=>{
+                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
         },
         filterCommissionV(filter){
             filterCommission(filter);
@@ -84,23 +114,31 @@ const RootComponent = {
         sortCommissionV(sort){
             sortCommission(sort);
         },
-        getTagDescV(tag){
-            var desc="";
-            switch(tag){
-                case "1":
-                    desc="新建"
-                    break;
-                case "2":
-                    desc="处理中"
-                    break;
-                case "3":
-                    desc="已拒绝"
-                    break;
-                case "4":
-                    desc="已交付"
-                    break;
+        isOasisFounder(){
+            const brandId = this.getIdentity().brandId;
+            return brandId == this.announce.initiator;
+        },
+        closeAddTaskModalHandlerV(){
+            this.commissionForm={
+                title: "",
+                bonus: "",
+                sow: ""
+            };
+        },
+        validitateCommissionFormV(){
+            if(!!this.commissionForm.title && !!this.commissionForm.bonus && !!this.commissionForm.sow){
+                return true;
             }
-            return desc;
+            return false;
+        },
+        transformInputNumberV(event){
+            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
+            var min = Number(event.target.min);
+            var max = Number(event.target.max);
+            event.target.value = transformInputNumber(val, min, max);
+            if(val !== Number(event.target.value)){
+              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
         }
     },
     updated(){
@@ -120,6 +158,8 @@ app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
+app.mixin(CodeExplainComponent);
+
 
 
 const teamCommission = app.mount('#app');
@@ -136,17 +176,26 @@ async function acceptCommission(dto){
    const url ="/api/v1/team/commission/accept";
    return axios.put(url,dto);
 }
-async function finishCommission(dto){
-    const url ="/api/v1/team/commission/finish";
+
+async function doExamineTask(dto){
+    const url="/api/v1/team/commission/examine";
     return axios.put(url,dto);
 }
 
+function examineTask(commissionId,tag){
+    const dto={
+        commissionId: commissionId,
+        tag: tag
+    }
+    return doExamineTask(dto);
+}
 function addCommission(){
     const oasisId = getQueryVariable("oasis_id");
     const dto ={
         oasisId: oasisId,
         title: teamCommission.commissionForm.title,
-        bonus: teamCommission.commissionForm.bonus
+        bonus: teamCommission.commissionForm.bonus,
+        sow: teamCommission.commissionForm.sow
     }
     return newCommission(dto);
 }
@@ -161,16 +210,6 @@ function receiveCommission(commissionId){
     }
    return acceptCommission(dto);
 }
-function summitCommission(commissionId){
-    const oasisId = getQueryVariable("oasis_id");
-    const brandId =  teamCommission.getIdentity().brandId; // Auth.getIdentity();
-    const dto = {
-        oasisId: oasisId,
-        commissionId: commissionId,
-        brandId: brandId
-    }
-    return finishCommission(dto);
-}
 function filterCommission(filter){
     // init 
     teamCommission.commissionTb_pagination.param.filter = filter;
@@ -178,12 +217,14 @@ function filterCommission(filter){
     teamCommission.commissionTb_pagination.param.tag = "";
     teamCommission.commissionTb_pagination.param.q="";
     teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function retrieveOasisCommissionGrid(){
     teamCommission.commissionTb_pagination.param.filter = "";
     teamCommission.commissionTb_pagination.param.tag = "";
     teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function retrieveOasisCommissionByTag(tag){
@@ -191,6 +232,7 @@ function retrieveOasisCommissionByTag(tag){
     teamCommission.commissionTb_pagination.param.tag = tag;
     teamCommission.commissionTb_pagination.param.q="";
     teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function sortCommission(sort){
@@ -198,5 +240,9 @@ function sortCommission(sort){
     teamCommission.commissionTb_pagination.param.tag = "";
     teamCommission.commissionTb_pagination.param.q="";
     teamCommission.commissionTb_pagination.param.sort=sort;
+    teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 } 
+function transformInputNumber(val,min,max){
+    return val < min ? "" : val > max ? max : val;
+  }

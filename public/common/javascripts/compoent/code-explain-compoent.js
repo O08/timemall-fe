@@ -1,4 +1,4 @@
-import {CellPlanOrderTag,CellPlanType} from "/common/javascripts/tm-constant.js";
+import {CellPlanOrderTag,CellPlanType,CommissionTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -8,6 +8,9 @@ const CodeExplainComponent = {
     },
     explainCellPlanTypeV(planType){
         return explainCellPlanType(planType);
+    },
+    explainOasisCommissionTagV(tag){
+        return explainOasisCommissionTag(tag);
     }
    }
 }
@@ -64,6 +67,30 @@ function explainCellPlanOrderTag(tag){
                 break; 
     }
     return orderTagDesc;
+}
+function explainOasisCommissionTag(tag){
+    var desc="";
+    switch(tag){
+        case CommissionTag.CREATED:
+            desc="待审核"
+            break;
+        case CommissionTag.ACCEPT:
+            desc="处理中"
+            break;
+        case CommissionTag.DENY:
+            desc="已拒绝"
+            break;
+        case CommissionTag.FINISH:
+            desc="已交付"
+            break;
+        case CommissionTag.ABOLISH:
+            desc="已废除"
+            break;
+        case CommissionTag.ADD_TO_NEED_POOL:
+            desc="派发中"
+            break;
+    }
+    return desc;
 }
 export {
     CodeExplainComponent

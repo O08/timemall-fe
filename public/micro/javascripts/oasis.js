@@ -7,6 +7,7 @@ import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceCom
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
 
 const RootComponent = {
@@ -77,7 +78,7 @@ const RootComponent = {
         },
         followOasisV(){
             const brandId = this.getIdentity().brandId; // Auth.getIdentity();
-            followOasis(this.oasisId,brandId).then(response=>{
+            OasisApi.followOasis(this.oasisId,brandId).then(response=>{
                 if(response.data.code==200){
                     this.loadJoinedOases();
                 }
@@ -102,10 +103,6 @@ const RootComponent = {
         },
         inOasisV(){
             return inOasisB(this.joinedoases);
-        },
-        initiatorRoleV(){
-            const brandId = this.getIdentity().brandId;
-            return brandId == this.announce.initiator;
         }
 
     },
@@ -115,6 +112,8 @@ const RootComponent = {
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
+        document.title = this.announce.title + " | 基地";
+
     }
 }
 let app =  createApp(RootComponent);
@@ -156,10 +155,7 @@ async function getBrandPintInOasis(oasisId,brandId){
    const url="/api/v1/team/point_in_oasis?oasisId="+ oasisId + "&brandId="+brandId;
    return await axios.get(url);
 }
-async function joinOasis(dto){
-    const url="/api/v1/team/be_oasis_member?oasisId="+dto.oasisId + "&brandId="+dto.brandId;
-    return await axios.put(url,dto);
-}
+
 async function unfollowOasis(oasisId){
     const url ="/api/v1/team/oasis/unfollow?oasisId="+oasisId;
     return await axios.delete(url);
@@ -185,14 +181,7 @@ function retrieveBrandFinInfo(){
 function retrieveBrandPoint(oasisId,brandId){
    return getBrandPintInOasis(oasisId,brandId);
 }
-function followOasis(oasisId,brandId){
-    const dto={
-        oasisId:oasisId,
-        brandId: brandId
-    }
-    return joinOasis(dto);
 
-}
 
 function topUptoOasis(amount,oasisId){
    const dto={

@@ -279,6 +279,12 @@ main{
   width: 300px;
   height: 300px;
 }
+.msg_option{
+  display: none;
+ }
+ .event-wrapper label:hover .msg_option{
+  display: block;
+ }
 @media (max-width: 576px) {
   .chat-action-wrapper{
     display: block;
