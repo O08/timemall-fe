@@ -24,6 +24,9 @@ const RootComponent = {
       }
     },
     methods: {
+        closeAlipayAccountMangementModalHandlerV(){
+            this.alipayDelId="";
+        },
         closeAddAccountModelV(){
             closeAddAccountModel();
         },

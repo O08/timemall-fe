@@ -168,7 +168,7 @@
           <div>
             <label for="exampleFormControlInput1" class="form-label">支付宝支付账号
               <button type="button" class="btn btn-primary add-icon" data-bs-toggle="modal" data-bs-target="#addAccountInfoModal">
-                <i class="bi bi-plus-circle ms-2"></i>
+                <i class="bi bi-plus-circle-fill ms-2"></i>
               </button>
             </label>
             <select class="form-select filter_btn" v-model="trans.id" aria-label="Default select example">
@@ -221,17 +221,25 @@
         <div class="modal-content text-color-dark">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="addAccountInfoModalLabel">添加支付宝账号</h1>
-            <button type="button" id="closeAddAccountInfoModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button @click="closeAddAccountModelV" type="button" id="closeAddAccountInfoModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body d-flex justify-content-center">
+          <div class="modal-body">
             <form>
-              <div class="mt-3">
-                <label for="exampleFormControlInput1" class="form-label">登录号</label>
-                <input @change="activeSaveBankBtn" v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
+              <div class="row mb-3 mt-3">
+                <div class="col-sm-3 col-form-label">
+                  <label for="input[payeeAccount]" class="form-label">登录号</label>
+                </div>
+                <div class="col-sm-9">
+                  <input id="input[payeeAccount]" @change="activeSaveBankBtn" v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
+                </div>
               </div> 
-              <div class="mt-3">
-                <label for="exampleFormControlInput1" class="form-label">姓名</label>
-                <input @change="activeSaveBankBtn" v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
+              <div class="row mb-3">
+                <div class="col-sm-3 col-form-label">
+                  <label for="input[payeeRealName]" class="form-label">姓名</label>
+                </div>
+                <div class="col-sm-9">
+                  <input id="input[payeeRealName]" @change="activeSaveBankBtn" v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
+                </div>
               </div> 
             </form>
             
@@ -253,17 +261,17 @@
         <div class="modal-content text-color-dark">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="alipayAccountMangementModalLabel">支付账号管理</h1>
-            <button type="button" id="closeAlipayAccountMangementModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" @click="closeAlipayAccountMangementModalHandlerV" id="closeAlipayAccountMangementModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body d-flex justify-content-center">
-            <ul class="list-group ms-sm-2 ms-lg-5">
+          <div class="modal-body">
+            <ul class="list-group list-group-flush">
               <li v-for="record in alipay.records" class="list-group-item">
                 <div class="form-check d-flex align-items-center ">
                   <input class="form-check-input"  v-model="alipayDelId" type="radio" name="flexRadioMy"  :value="record.id">
                   <label class="form-check-label" for="flexRadioMy">
                     <div class="d-flex flex-column ms-2">
-                      <span>姓名:<span class="ms-1 help-text fs-6">{{record.payeeRealName}}</span></span>
-                      <span>登录号:<span class="ms-1 help-text fs-6">{{record.payeeAccount}}</span></span>
+                      <span>姓名:<span class="ms-1 help-text">{{record.payeeRealName}}</span></span>
+                      <span>登录号:<span class="ms-1 help-text">{{record.payeeAccount}}</span></span>
                     </div>
                   </label>
                 </div>
