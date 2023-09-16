@@ -71,3 +71,7 @@ h3,p{
   white-space: pre-wrap;
   word-break: break-all;
 }
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

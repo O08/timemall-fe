@@ -160,7 +160,7 @@ body {
   display: none;
 }
 .nav-item {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     border-radius: 5px;
 }  
@@ -1146,10 +1146,12 @@ col-container{
 .channel_active svg path{
   fill: #4CFFA9;
 }
+
+
 // channel chat end
 
 /* 滚动条 */
-.sidebar-wrapper {
+.sidebar-wrapper ,pt-app main,pt-app main .page-title-container{
   overflow: overlay;
 
   &::-webkit-scrollbar {

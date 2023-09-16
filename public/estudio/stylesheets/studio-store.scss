@@ -197,7 +197,10 @@ table td{
 .help-text{
     font-size: 12px;
 }
-
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
 @media (max-width: 576px) {
     .input-sbu,.span-sbu{
         font-size: 10px;

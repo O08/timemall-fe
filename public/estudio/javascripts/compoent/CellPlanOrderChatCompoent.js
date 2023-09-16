@@ -215,7 +215,9 @@ const CellPlanOrderChatCompoent = {
     const inputBox = document.querySelector(".chat-input");
     
     const picker = createPopup(
-      {},
+      {
+        locale: 'zh'
+      },
       {
         referenceElement: document.querySelector("#selection-outer"),
         triggerElement: emoji,

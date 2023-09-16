@@ -108,6 +108,10 @@
 .detail-sow{
   white-space: pre-line;
 }
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 @media (max-width: 576px) {
   pt-app content main {
     margin-left: 16px;

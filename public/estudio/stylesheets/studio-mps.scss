@@ -196,3 +196,7 @@ td a:hover{
     font-size: .875em;
     color: #dc3545
 }
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

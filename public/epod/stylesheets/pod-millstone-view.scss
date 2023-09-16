@@ -24,6 +24,10 @@ json-node h6{
     overflow: hidden;
     display: inline-block;
   }
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
 @media (max-width: 767px) {
     .timeline {
         padding-left: .5rem;

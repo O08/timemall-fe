@@ -121,6 +121,40 @@ header{
   font-weight: 700;
   line-height: 1.575;
 }
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.nav-container-wrapper,.nav-sub-container,col-content {
+  overflow: overlay;
+
+  &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: rgba(102, 102, 102, 0.1);
+  }
+
+  &:hover {
+      &::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          background-color: rgba(170, 170, 170, 0.5);
+      }
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: rgba(102, 102, 102, 0.1);
+
+      /* 滚动条里面小方块 */
+      border-radius: 6px;
+  }
+}
 @media (max-width: 576px) {
   .logo{
     justify-content: flex-end !important;

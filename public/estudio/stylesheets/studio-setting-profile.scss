@@ -201,3 +201,7 @@
     background-color:  lighten(#dfdbdb, 12%);;
     color: darken( #f5f5f6,  30%);
 }
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}

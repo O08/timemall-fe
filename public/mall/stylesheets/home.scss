@@ -284,6 +284,36 @@ footer{
 .cell-col{
   height: 340px;
 }
+body{
+  overflow: overlay;
+
+  &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: rgba(102, 102, 102, 0.1);
+  }
+
+  &:hover {
+      &::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          background-color: rgba(170, 170, 170, 0.5);
+      }
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: rgba(102, 102, 102, 0.1);
+
+      /* 滚动条里面小方块 */
+      border-radius: 6px;
+  }
+}
 @media (max-width: 576px) {
   .section-filter {
     margin-left: 1rem;

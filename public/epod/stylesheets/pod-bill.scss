@@ -39,4 +39,7 @@ table td{
 .td-service{
     max-width: 600px;
 }
-
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
