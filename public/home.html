@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="common/stylesheets/style.scss">
 
     <link rel="stylesheet" href="mall/stylesheets/home.scss">
+</head>
 
 <body>
   <mall-app id="app">
@@ -59,18 +60,13 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a rel="nofollow" href="estudio/studio-store.html" class="nav-link  px-lg-3 px-xl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="服务商业务区"> 
+                      <a rel="nofollow" href="estudio/studio-store.html" class="nav-link  px-lg-3 px-xl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="超能开发区"> 
                         E-Studio
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a rel="nofollow" href="epod/pod-millstone.html" class="nav-link  px-lg-3 px-xl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="用户功能区"> 
+                      <a rel="nofollow" href="epod/pod-millstone.html" class="nav-link  px-lg-3 px-xl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区"> 
                         E-Pod
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="/blog/blog.html" class="nav-link  px-lg-3 px-xl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="媒体与资源"> 
-                        资源
                       </a>
                     </li>
                     <li v-if="!user_already_login" class="nav-item"><a href="login.html" class="nav-link  px-lg-3 px-xl-5 text-white">登录</a></li>
@@ -91,7 +87,7 @@
       <!-- top search -->
       <top-search class="section-top-serach">
         <div class="input-group input-group-lg input-normal-search">
-          <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索服务" aria-label="Search">
+          <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索超能服务" aria-label="Search">
           <button @click="retrieveCellGridV" class="btn btn-outline-secondary input-group-search-btn" type="button">
             <i class="bi bi-search"></i>
           </button>

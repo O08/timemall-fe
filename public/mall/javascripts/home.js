@@ -8,7 +8,9 @@ import defaultAvatarImage from '/avator.webp'
 
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
-import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'  
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
+import { getQueryVariable } from "/common/javascripts/util.js";
+
 
 
 const RootComponent = {
@@ -51,6 +53,7 @@ const RootComponent = {
       filterCellGrid();
     },
     retrieveCellGridV(){
+      changeUrlQueryvariable(this.cellgrid_pagination.param.q);
       retrieveCellGrid()
     },
     transformSbuV(sbu){
@@ -83,25 +86,13 @@ const home = app.mount('#app');
 window.home = home;
 
 // init
+var q=getQueryVariable("q");
+if(!!q){
+  home.cellgrid_pagination.param.q = q;
+}
 home.pageInit(home.cellgrid_pagination);
 
 
-//  function loadMoreCell(e){
-    
-//     // 滚定监听
-//       if (Math.ceil(e.currentTarget.scrollTop + e.currentTarget.clientHeight) >=e.currentTarget.scrollHeight) {   //容差：20px
-//           console.log('滚动到底部');
-//           if(home.queryParam.current +1 > home.queryParam.pages){
-//             return ;
-//           }
-//           // loading data
-//           home.queryParam.current = home.queryParam.current + 1;
-//           const data = getMutipleCell();
-//           home.cellList.push(...data.records);
-//           home.queryParam.pages = data.pages;
-
-//       }
-//     }
  
  function filterCellGrid(){
     home.cellgrid_pagination.param.current = 1;
@@ -136,6 +127,12 @@ function transformInputNumber(val,min,max){
   val = val ? val == 0 ? 0 : val : val; // cope with 0000000
   return val < min ? "" : val > max ? max : val;
 }
+function changeUrlQueryvariable(q){
+  
+  let url = "/home.html?q="+ q;
+  history.pushState(null, "", url);
+  
+}
 
 // view 
 let navbar = document.getElementById("section_filter_wrapper");
@@ -150,3 +147,4 @@ window.addEventListener("scroll", e => {
     navbar.classList.remove('sticky');
   }
 });
+

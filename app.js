@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // app.use('/users', usersRouter);
 
 app.get('/',(req,res)=>{
-  res.sendFile(__dirname+"/dist"+"/home.html")        //设置/ 下访问文件位置
+  res.sendFile(__dirname+"/dist"+"/welcome.html")        //设置/ 下访问文件位置
 });
 
 // catch 404 and forward to error handler
