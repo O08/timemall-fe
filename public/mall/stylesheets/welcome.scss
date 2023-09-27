@@ -97,6 +97,11 @@ a{
     -webkit-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
 }
+.button_user{
+    display: none;
+    color: #4CFFA9;
+    padding: 7px 16px;
+}
 .nav_links{
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
