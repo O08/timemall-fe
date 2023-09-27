@@ -544,6 +544,13 @@ svg:not(:root) {
     height: 200px;
 
 }
+.feature_container .card-title a{
+    text-decoration: none;
+    color: #fff;
+}
+.feature_container .card-title a:hover{
+    text-decoration: underline;
+}
 .card-img-container{
     text-align: center;
 }

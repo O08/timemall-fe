@@ -1,5 +1,5 @@
 import "./import-jquery";
-import {nextPageWhenLoginSuccess} from "./pagenav.js";
+import {nextPageWhenLoginSuccess,goHome} from "./pagenav.js";
 
 
 $("#email").on("blur", function (e) {
@@ -108,3 +108,15 @@ function doLogin(){
           alert('芜湖,系统裂开了！请稍后重试！')
         });
 }
+async function fetchUserInfo(){
+  const url="/api/v1/web_mall/me";
+  return await fetch(url);
+}
+async function userHandler(){
+  const response= await fetchUserInfo();
+  var data = await response.json();
+  if(data.code==200){
+    goHome();
+  }
+}
+userHandler();

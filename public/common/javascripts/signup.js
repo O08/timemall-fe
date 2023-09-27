@@ -1,6 +1,6 @@
 import "./import-jquery";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import {goLoginPage} from "./pagenav.js";
+import {goLoginPage,goHome} from "./pagenav.js";
 
 
 
@@ -184,3 +184,16 @@ $("#email").on("focus", function (e) {
       $('#password2').removeClass('invalid-input');
     }
   });
+
+  async function fetchUserInfo(){
+    const url="/api/v1/web_mall/me";
+    return await fetch(url);
+  }
+  async function userHandler(){
+    const response= await fetchUserInfo();
+    var data = await response.json();
+    if(data.code==200){
+      goHome();
+    }
+  }
+  userHandler();
