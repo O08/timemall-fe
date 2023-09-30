@@ -1,5 +1,6 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue/dist/vue.esm-browser.js";
+import axios from 'axios';
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
@@ -8,9 +9,11 @@ import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
+
 const RootComponent = {
     data() {
         return {
+            contact: {},
             transpagination:{
                 url: "/api/v1/web_epod/me/transaction",
                 size: 10,
@@ -35,11 +38,22 @@ const RootComponent = {
         }
     },
     methods: {
-         
+        showContactInfoV(brandId){
+            showContactInfo(brandId);
+        }
     },
     created() {
         // todo url replace {brand_id}
         this.pageInit(this.transpagination);
+    },
+    updated(){
+        $(function() {
+            // Remove already delete element popover ,maybe is bug
+            $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
     }
 }
 const app = createApp(RootComponent);
@@ -54,3 +68,29 @@ app.mixin(ImageAdaptiveComponent);
 
 const transactionPage = app.mount('#app');
 window.pTransaction= transactionPage;
+
+
+async function getBrandContact(brandId)
+{
+    const url = "/api/v1/web_epod/brand/{brand_id}/contact".replace("{brand_id}",brandId);
+    return await axios.get(url);
+    
+}
+
+
+function findBrandContactInfo(brandId){
+    getBrandContact(brandId).then(response=>{
+     if(response.data.code==200){
+        pTransaction.contact = response.data.contact;
+     }
+    });
+ }
+ 
+ 
+ function showContactInfo(brandId){
+     findBrandContactInfo(brandId);
+     $("#displayModal").modal("show");
+ }
+
+  // Enable popovers 
+  $('[data-bs-toggle="popover"]').popover();

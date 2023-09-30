@@ -84,7 +84,7 @@
                 <span>履约</span>        
               </a>
               <a class="nav-link active">
-                <i class="bi bi-chat-dots"></i>
+                <i class="bi bi-calendar2-event"></i>
                 <span>
                   连线
                 </span>
@@ -113,70 +113,16 @@
         </div>  
         <!-- tablist -->
         <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
+  
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="true">联系方式</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="false">
+              <button class="nav-link active" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="false">
                 Bingo
                 <sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
               </button>
             </li>
         </ul>
         <!--  tablist content-->
-        <div class="tab-content" id="millstone-tab-content">
-          <div class="tab-pane fade show active" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="trans in transpagination.records">
-                  <td class="td-option">   
-                    <div class="option-container">
-                       <span @click="showContactInfoV(trans.brandId)" class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看供应商联系方式">
-                        <i class="bi bi-person-rolodex"></i>
-                       </span>
-                    </div>    
-                  </td>
-                  <td>
-                    <span class="td-service">
-                      {{trans.service}}
-                    </span>
-                  </td>
-                  <td>{{trans.supplier}}</td>
-                  <td>{{trans.added}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
-
-              没有可用的内容！
-  
-            </div>
-            <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(transpagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in transpagination.paging.items" :class="{'current-page-active': transpagination.paging.current == page}" 
-                      @click="pageGo(transpagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(transpagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
+          <div class="tab-pane fade show active" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
             <ul class="event-feeds-list pt-4">
               <li v-for="item in eventFeed.records" class="event-feed-item">
                 <a class="url-link" :href="'/epod/pod-millstone-view.html?workflow_id='+ JSON.parse(item.feed).workFlowId">
@@ -197,61 +143,7 @@
         </div>
            
       </main>
-      <section class="modals">
-        <div class="modal-container">
-          <!-- Modal -->
-          <div class="modal fade" id="displayModal" tabindex="-1">
-            <div class="modal-dialog  display-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-gray">
-                <div class="modal-header display-dialog-header-bg">
-                  <h1 class="modal-title fs-5" id="displayModalLabel">预览</h1>
-                  <button type="button" id="closeDisplayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body display-dialog-body-bg d-flex justify-content-center">
-                   <!-- contact info -->
-                
-                    <section class="section-contact-info w-100">
-                      <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
-                        <div class="col">
-                          <div class="card pay-card-body-bg">
-                            <div class="card-header">
-                              Wechat
-                            </div>
-                            <div class="card-body d-flex justify-content-center align-items-center">
-                              <div class="wechat-binary-code my-4">
-                                <img :src="contact.wechat">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="card pay-card-body-bg">
-                            <div class="card-header">
-                              Phone
-                            </div>
-                            <div class="card-body d-flex justify-content-center align-items-center">
-                              <h5 class="card-title">{{contact.phone}}</h5>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="card pay-card-body-bg">
-                            <div class="card-header">
-                              Email
-                            </div>
-                            <div class="card-body d-flex justify-content-center align-items-center">
-                              <h5 class="card-title">{{contact.email}}</h5>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
     </content>
     <footer></footer>
   </pt-app>

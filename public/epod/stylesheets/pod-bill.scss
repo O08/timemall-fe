@@ -43,3 +43,15 @@ body::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
+.pay_link{
+    font-size: 12px;
+}
+.error-notice{
+    width: 100%;
+      margin-top: 0.25rem;
+      font-size: .875em;
+      color: #dc3545
+  }
+  .disabled{
+    color: gray;
+  }

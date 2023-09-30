@@ -97,37 +97,6 @@ const RootComponent = {
     methods: {
         launchPayV(billId){
             launchPay(billId);
-        },
-        viewReceiptV(url){
-            viewReceipt(url);
-        },
-        bankSettingV()
-        {
-            bankSetting();
-        },
-        previewAlipayV(e){
-            previewAlipay(e);
-        },
-        previewWechatpayV(e){
-            previewWechatpay(e);
-        },
-        alipaySettingV(){
-            alipaySetting();
-        },
-        wechatpaySetting(){
-            wechatpaySetting();
-        },
-        activeSaveBankBtn(){
-            this.bank_already_change = true;
-        },
-        loadBrandPaywayV(){
-            getBrandPayway();
-        },
-        closeViewWechatpayModalHandlerV(){
-            closeViewWechatpayModalHandler();
-        },
-        closeviewAlipayModalHandlerV(){
-            closeviewAlipayModalHandler();
         }
     },
     created() {
@@ -146,8 +115,10 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
 app.mixin(ImageAdaptiveComponent);
 const studioBillPage = app.mount('#app');
 window.cBill= studioBillPage;
-// init 
-studioBillPage.loadBrandPaywayV();
+
+
+
+
 function markBill(billId,code){
     var url = "/api/v1/web_estudio/bill/{bill_id}/mark".replace("{bill_id}",billId);  
     url= url + "?code=" + code
@@ -168,50 +139,7 @@ function markBill(billId,code){
     });  
 }
 
-function getBrandPayway(){
-    const url = "/api/v1/web_estudio/brand/info";
-    $.get(url,function(data) {
-        if(data.code == 200){
-            studioBillPage.payway = data.brand.payway;
-        }
-       })
-}
 
-function saveBankInfo(brandId,bank)
-{
-    const url = "/api/v1/web_estudio/brand/{brand_id}/pay_setting/bank".replace("{brand_id}",brandId);
-    $.ajax({
-        url: url,
-        data: JSON.stringify({bank: bank}),
-        type: "put",
-        dataType:"json",
-        contentType: "application/json",
-        success:function(data){
-            // todo 
-            if(data.code == 200){
-              studioBillPage.bank_already_change = false;
-            }
-        },
-        error:function(){
-            //alert('error'); //错误的处理
-        }
-    });
-}
-async function saveAliPayImg(brandId, files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_estudio/brand/{brand_id}/pay_setting/ali_pay".replace("{brand_id}",brandId);
-    var res = await axios.put(url, fd);
-    return res;
-}
-
-async function saveWechatPayImg(brandId, files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_estudio/brand/{brand_id}/pay_setting/wechat_pay".replace("{brand_id}",brandId);
-    var res = await axios.put(url, fd);
-    return res;
-}
 
 
 function launchPay(billId){
@@ -220,68 +148,6 @@ function launchPay(billId){
 }
 
 
-function viewReceipt(url)
-{   
-    $("#receiptPreview").attr('src',url);
-    $("#link-download-receipt").attr("download",url);
-    $("#viewReceiptModal").modal("show");
-}
-
-function bankSetting()
-{
-    const brandId =  studioBillPage.getIdentity().brandId; // Auth.getIdentity();
-    saveBankInfo(brandId,studioBillPage.payway.bank);
-}
-function previewAlipay(e){
-    const file = e.target.files[0]
-
-    const URL2 = URL.createObjectURL(file)
-    $('#alipayPreview').attr('src',URL2);
-    $("#viewAlipayModal").modal("show");
-}
-function previewWechatpay(e){
-    const file = e.target.files[0]
-
-    const URL2 = URL.createObjectURL(file)
-    $('#wechatpayPreview').attr('src',URL2);
-    $("#viewWechatpayModal").modal("show");
-}
-
-function alipaySetting()
-{
-    const brandId =  studioBillPage.getIdentity().brandId; // Auth.getIdentity();
-    const file = $('#alipayCodeFile')[0].files[0];
-    saveAliPayImg(brandId,file).then(function (response) {
-    if(response.data.code == 200){
-        const url = URL.createObjectURL(file)
-        $('#lastestAlipay').attr('src',url);
-        $("#viewAlipayModal").modal("hide");
-        $('#alipayPreview').attr('src',"");
-    }
-    })
-}
-function wechatpaySetting(){
-    const brandId =  studioBillPage.getIdentity().brandId; // Auth.getIdentity();
-    const file = $('#wechatPayCodeFile')[0].files[0];
-    saveWechatPayImg(brandId,file).then(function (response) {
-        if(response.data.code == 200){
-            const url = URL.createObjectURL(file)
-         $('#lastestWechatPay').attr('src',url);
- 
-         $("#viewWechatpayModal").modal("hide");
-         $('#wechatpayPreview').attr('src',"");
-        }
-    })
-}
-// close modal handler
-function closeviewAlipayModalHandler(){
-    document.querySelector('#alipayPreview').src = "";
-    document.querySelector('#alipayCodeFile').value = null;
-}
-function closeViewWechatpayModalHandler(){
-    document.querySelector('#wechatpayPreview').src = "";
-    document.querySelector('#wechatPayCodeFile').value = null;
-}
 
 
 // Enable popovers 

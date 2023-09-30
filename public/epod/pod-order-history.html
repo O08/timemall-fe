@@ -82,7 +82,7 @@
                 <span>履约</span>        
               </a>
               <a class="nav-link" href="/epod/pod-msg.html">
-                <i class="bi bi-chat-dots"></i>
+                <i class="bi bi-calendar2-event"></i>
                 <span>
                   连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                 </span>
@@ -112,6 +112,7 @@
         <table class="table table-width-fixed table-dark table-hover align-middle">
           <thead>
             <tr>
+              <th scope="col"></th>
               <th class="w-50">服务</th>
               <th scope="col">供应商</th>
               <th scope="col">预期费用</th>
@@ -120,6 +121,22 @@
           </thead>
           <tbody>
             <tr v-for="trans in transpagination.records">
+              <td class="td-option">   
+                <div class="option-container">
+                   <span @click="showContactInfoV(trans.brandId)" class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看供应商联系方式">
+                    <i class="bi bi-person-rolodex"></i>
+                   </span>
+                   <span  class="btn-option-secondary option-view-contact ms-2" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
+                    <a :href="'/micro/arch/channel-0002.html?friend='+trans.supplierUserId">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.49994 9.99992H12.4999" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>  
+                    </a>          
+                  </span>
+                </div>   
+              </td>
               <td>
                 <span class="td-service">
                   {{trans.service}}
@@ -153,6 +170,60 @@
           </ul>
         </nav>
       </main>
+      <section class="modals">
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="displayModal" tabindex="-1">
+            <div class="modal-dialog  display-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-gray">
+                <div class="modal-header display-dialog-header-bg">
+                  <h1 class="modal-title fs-5" id="displayModalLabel">供应商联系方式</h1>
+                  <button type="button" id="closeDisplayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body display-dialog-body-bg d-flex justify-content-center">
+                   <!-- contact info -->
+                
+                    <section class="section-contact-info w-100">
+
+                      <form onsubmit="return false">
+                        <div class="row mb-3">
+                          <label for="inputPhone" class="col-sm-4 col-form-label">
+                            电话
+                          </label>
+                          <div class="col-sm-8">
+                            <input :value="contact.phone" type="text" maxlength="50" class="form-control" id="input-contact-phone" disabled>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label for="inputEmail" class="col-sm-4 col-form-label">
+                            邮箱
+                          </label>
+                          <div class="col-sm-8">
+                            <input  :value="contact.email" type="email" maxlength="255" class="form-control" id="input-contact-email" disabled>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-form-label col-sm-4 pt-0">
+                            微信二维码
+                          </label>
+                          <div class="col-sm-8">
+                            <div class="wechatQr-upload-container dropzone-wrapper">
+                              <img  id="lastestWechatQr"  :src="contact.wechat">
+
+                            </div>
+                            
+                          </div>
+                        </div>                        
+                      </form>
+
+                      
+                    </section>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </content>
     <footer></footer>
   </pt-app>

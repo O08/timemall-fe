@@ -83,7 +83,7 @@
                 <span>履约</span>        
               </a>
               <a class="nav-link" href="/epod/pod-msg.html">
-                <i class="bi bi-chat-dots"></i>
+                <i class="bi bi-calendar2-event"></i>
                 <span>
                   连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                 </span>
@@ -137,22 +137,22 @@
                 <tr v-for="bill in waittingpagination.records">
                   <td class="td-option-lg">
                     <div class="option-container">
-                      <span class="option-mark-bill me-4">
+                      <!-- <span class="option-mark-bill me-4">
                         <button @click="notifyBrandV(bill.billId)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="已支付？通知供应商">           
                           <i class="bi bi-star"></i>
                         </button>
-                      </span>
+                      </span> -->
                       <span class="option-payway me-4">
-                        <button @click="showPaywayInfoForBrandV(bill.brandId)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="商家付款方式">           
+                        <button @click="showBillPayFocusModalV(bill)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="支付">           
                         <i class="bi bi-credit-card"></i>
                         </button>
                       </span>
-                      <span class="option-upload-voucher">
+                      <!-- <span class="option-upload-voucher">
                         <label for="receiptFile" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上传支付凭证或收据">    
                           <i class="bi bi-file-arrow-up"></i>
                         </label>
                         <input @change="previewReceiptV($event,bill.billId)" type="file" id="receiptFile" class="d-none">
-                      </span>
+                      </span> -->
                     </div>
                     
                   </td>
@@ -209,9 +209,9 @@
               <tbody>
                 <tr v-for="bill in paidpagination.records">
                   <td class="td-option">
-                    <button @click="viewReceiptV(bill.voucher)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看收据">           
+                    <!-- <button @click="viewReceiptV(bill.voucher)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看收据">           
                       <i class="bi bi-receipt"></i>
-                    </button>
+                    </button> -->
                   </td>
                   <td>
                     <span class="td-stage">
@@ -255,94 +255,81 @@
         </div>
       </main>
       <section class="modals">
-        <!-- display pay way Modal -->
-        <div class="modal-container">
-          <div class="modal" id="displayModal" tabindex="-1">
-            <div class="modal-dialog display-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header display-dialog-header-bg">
-                  <h5 class="modal-title">供应商支付方式</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body display-dialog-body-bg">
-                  <section class="section-payway-info w-100">
-                    <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-1 row-cols-xl-3">
-                      <div class="col">
-                        <div class="card pay-card-body-bg">
-                          <div class="card-body ">
-                            <span> 
-                              <h5 class="card-title mb-5">银行卡</h5>
-                            </span>
-                            <div class="bankinfo text-center">
-                              <div class="d-flex flex-row mb-3">
-                                <p class="card-subtitle text-muted me-3">持卡人:</p>
-                                <p>{{payway.bank.cardholder}}</p>
-                              </div>
-                              <div class="d-flex flex-row">
-                                <p class="card-subtitle text-muted me-3">卡号:</p>
-                                <p>{{payway.bank.cardNo}}</p>
-                              </div>
-                            </div>
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="card pay-card-body-bg">
-                          <div class="card-body">
-                            <span class="text-center">
-                              <h5 class="card-title mb-5">微信支付</h5>
-                            </span>
-                            <div class="text-center pay-binary-code">
-                              <img :src="payway.wechatPay">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="card pay-card-body-bg">
-                          <div class="card-body ">
-                            <span class="text-center"> 
-                              <h5 class="card-title mb-5">支付宝</h5>
-                            </span>
-                            <div class="text-center pay-binary-code">
-                              <img :src="payway.aliPay">
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                     
-                      
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- upload voucher Modal -->
-        <div class="modal-container">
-          <!-- Modal -->
-          <div class="modal fade" id="receiptModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  receipt-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header display-dialog-header-bg">
-                  <h1 class="modal-title fs-5" id="receiptModalLabel">收据预览</h1>
-                  <button type="button" @click="closeReceiptModalHandlerV" id="closeReceiptModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center display-dialog-body-bg">
-                  <div class="receipt-upload-container">
-                    <img id="receiptPreview" >
-                  </div>
-                </div>
-                <div class="modal-footer btn-light display-dialog-footer-bg">
-                  <button v-preventreclick @click="uploadReceiptV" type="button" id="btn-save-receipt" data-billid="" class="btn btn-primary">上传</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        
 
+        <!-- focus modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">正在进行账单支付操作</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                   
+                  <form>
+                    <div class="mt-3">
+                      <label for="t1" class="form-label">项目</label>
+                      <input :value="focusModal.item" type="text" maxlength="255" class="form-control" disabled id="t1">
+                    </div> 
+                    <div class="mt-3">
+                      <label for="t2" class="form-label">付款金额</label>
+                      <input id="t2" :value="focusModal.amount" type="text" maxlength="255" class="form-control" disabled>
+                    </div> 
+                    <div class="mt-3">
+                      <label for="t3" class="form-label">
+                        账户余额
+                        <a href="/estudio/studio-shop.html" class="pay_link ms-2">充值</a>
+                      </label>
+                      <input id="t3" :value="focusModal.drawable" type="text" maxlength="255" class="form-control" disabled>
+                    </div> 
+                    <div  v-if="!(focusModal.amount>focusModal.drawable)"  class="help-text fs-6 ms-1 mt-1">
+                      <i class="bi bi-question-circle"></i><span class="ms-1">提示：点击【确定】直接扣款支付</span>
+                    </div>
+                    <div v-if="focusModal.amount>focusModal.drawable" class="error-notice fs-6 ms-1 mt-1">
+                      <i class="bi bi-question-circle"></i><span class="ms-1">提示：余额不足，请充值</span>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button v-preventreclick
+                  :class="{'disabled': focusModal.amount>focusModal.drawable, 
+                  'btn-primary': !(focusModal.amount>focusModal.drawable),
+                  'btn-secondary': focusModal.amount>focusModal.drawable}"
+                   @click="focusModal.confirmHandler"  type="button"  class="btn">支付</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!--TopUp Fund  Modal -->
+        <div  class="modal fade" id="goTopUpModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                <h1 class="modal-title fs-5">操作提示</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center display-dialog-body-bg text-white">
+                <form>
+                <div  v-if="isEmptyObjectV(error)" class="row mt-3">
+                  <label>支付成功!</label>
+                </div>
+                <div v-if="error.length>0" class="row mt-3">
+                  <span class="error-notice">异常信息：{{error}}</span>
+                </div> 
+                </form>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <a href="/estudio/studio-shop.html"><button   type="button"  class="btn btn-primary">前往商城充值</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       </section>
     </content>
     <footer></footer>

@@ -43,6 +43,15 @@ const RootComponent = {
     created() {
         // todo url replace {brand_id}
         this.pageInit(this.transpagination);
+    },
+    updated(){
+        $(function() {
+            // Remove already delete element popover ,maybe is bug
+            $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
     }
 }
 const app = createApp(RootComponent);
@@ -57,3 +66,6 @@ app.mixin(ImageAdaptiveComponent);
 
 const transactionPage = app.mount('#app');
 window.cTransaction= transactionPage;
+
+  // Enable popovers 
+  $('[data-bs-toggle="popover"]').popover();

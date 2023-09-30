@@ -91,7 +91,7 @@
                 <span>履约</span>        
               </a>
               <a class="nav-link" href="/estudio/studio-msg.html">
-                <i class="bi bi-chat-dots"></i>
+                <i class="bi bi-calendar2-event"></i>
                 <span>
                   连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                 </span>
@@ -146,9 +146,6 @@
             </li>
             <li class="nav-item" role="presentation">
               <button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid-tab-pane" type="button" role="tab" aria-controls="paid-tab-pane" aria-selected="false">已支付</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="setting-tab" data-bs-toggle="tab" data-bs-target="#setting-tab-pane" type="button" role="tab" aria-controls="setting-tab-pane" aria-selected="false">支付设置</button>
             </li>
           </ul>
         </div>
@@ -284,9 +281,9 @@
               <tbody>
                 <tr v-for="bill in paidpagination.records">
                   <td class="td-option">
-                    <span @click="viewReceiptV(bill.voucher)" class="btn-option-secondary ms-3" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看收据或支付凭证">
+                    <!-- <span @click="viewReceiptV(bill.voucher)" class="btn-option-secondary ms-3" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看收据或支付凭证">
                       <i class="bi bi-receipt"></i>
-                    </span>
+                    </span> -->
                   </td>
                   <td>
                     <span class="td-stage">
@@ -329,65 +326,7 @@
             </nav>
           </div>
     
-          <div class="tab-pane fade" id="setting-tab-pane" role="tabpanel" aria-labelledby="setting-tab" tabindex="0">
-            <!--  pay way-->
-            <div class="pay-way-tip">
-              <i class="bi bi-pencil-square"></i>
-              <span>设置支付方式</span>
-            </div>
-            <section class="section-pay-way">
-              <div class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
-                <div class="col">
-                  <div class="card cell-card-body-bg" style="width: 18rem;">
-                    <div class="card-body ">
-                      <h5 class="card-title">银行卡支付</h5>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">持卡人</label>
-                        <input @change="activeSaveBankBtn" v-model="payway.bank.cardholder" type="text" maxlength="255" class="form-control" id="exampleFormControlInput1">
-                      </div>
-                      <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">卡号</label>
-                        <input @change="activeSaveBankBtn" v-model="payway.bank.cardNo" type="text" maxlength="255" class="form-control" id="exampleFormControlInput1">
-                      </div>
-                    </div>
-                    <div class="mx-3">
-                      <button :class="{'disabled': !bank_already_change, 
-                      'btn-primary': bank_already_change,
-                      'btn-secondary': !bank_already_change}" type="submit" class="btn  mb-3" @click="bankSettingV">保存银行卡信息</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card cell-card-body-bg" style="width: 18rem;">
-                    <div class="card-body ">
-                      <h5 class="card-title">支付宝支付二维码</h5>
-                      <div class="pay-binary-code dropzone-wrapper">
-                        <img id="lastestAlipay" :src="payway.aliPay">
-                        <div class="dropzone-desc">
-                          <i class="bi bi-cloud-plus"></i>
-                        </div>
-                        <input type="file" id="alipayCodeFile" class="dropzone" @change="previewAlipayV($event)">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card cell-card-body-bg" style="width: 18rem;">
-                    <div class="card-body ">
-                      <h5 class="card-title">微信支付二维码</h5>
-                      <div class="pay-binary-code dropzone-wrapper">
-                        <img id="lastestWechatPay"  :src="payway.wechatPay">
-                        <div class="dropzone-desc">
-                          <i class="bi bi-cloud-plus"></i>
-                        </div>
-                        <input type="file" id="wechatPayCodeFile" class="dropzone" @change="previewWechatpayV($event)">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
+          
         </div>
       </main>
       <section class="modals">

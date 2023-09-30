@@ -13,8 +13,14 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 const RootComponent = {
     data() {
         return {
-            payway: {
-                bank: {}
+            error:{},
+            focusModal:{
+                item: "",
+                amount: "",
+                drawable: "",
+                confirmHandler:()=>{
+
+                }
             },
             waittingpagination:{
                 url: "/api/v1/web_epod/me/bill",
@@ -65,28 +71,46 @@ const RootComponent = {
         }
     },
     methods: {
-        showPaywayInfoForBrandV(brandId){
-            showPaywayInfoForBrand(brandId);
+        showBillPayFocusModalV(bill){
+            this.focusModal.item=bill.stage;
+            this.focusModal.amount=bill.amount;
+            this.focusModal.confirmHandler=()=>{
+                this.payBillV(bill.billId);
+                $("#focusModal").modal("hide"); // show modal
+
+            };
+            $("#focusModal").modal("show"); // show modal
         },
-        notifyBrandV(billId){
-            notifyBrand(billId);
+        payBillV(billId){
+            payBill(billId).then(response=>{
+                if(response.data.code==200){
+                    $("#goTopUpModal").modal("show"); 
+                    this.reload();
+                }
+                if(response.data.code!=200){
+                    $("#goTopUpModal").modal("show"); 
+                    this.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                }
+        
+            }).catch(error=>{
+                $("#goTopUpModal").modal("show"); 
+                this.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error;
+            });
         },
-        previewReceiptV(e,billId){
-            previewReceipt(e,billId);
-                 
+        retrieveBrandFinInfoV(){
+            retrieveBrandFinInfo().then(response=>{
+                if(response.data.code == 200){
+                    this.focusModal.drawable = response.data.billboard.drawable;
+                }
+            });
         },
-        uploadReceiptV(){
-            uploadReceipt();
-        },
-        viewReceiptV(uri){
-            viewReceipt(uri);
-        },
-        reloadTable(){
+        reload(){
             this.reloadPage(this.waittingpagination);
             this.reloadPage(this.paidpagination);
+            this.retrieveBrandFinInfoV();
         },
-        closeReceiptModalHandlerV(){
-            closeReceiptModalHandler();
+        isEmptyObjectV(obj){
+            return $.isEmptyObject(obj);
         }
         
     },
@@ -94,6 +118,7 @@ const RootComponent = {
         // todo url replace {brand_id}
         this.pageInit(this.waittingpagination);
         this.pageInit(this.paidpagination);
+        this.retrieveBrandFinInfoV();
     },
     updated(){
         $(function() {
@@ -119,72 +144,21 @@ app.mixin(ImageAdaptiveComponent);
 const billPage = app.mount('#app');
 window.pBill= billPage;
 
-async function getBrandPayway(brandId)
-{
-    const url = "/api/v1/web_epod/brand/{brand_id}/payway".replace("{brand_id}",brandId);
+async function doPay(billId){
+    const url="/api/v1/web_epod/bill/millstone/pay/{bill_id}".replace("{bill_id}",billId);
+    return await axios.post(url);
+}
+async function getBrandFinInfo(){
+    const url= "/api/v1/team/finance_board";
     return await axios.get(url);
 }
-async function markBill(billId){
-    const url = "/api/v1/web_epod/bill/{bill_id}/mark".replace("{bill_id}",billId) + "?code=" + BillStatus.Paid;
-     return await axios.put(url);
+function payBill(billId){
+    return doPay(billId);
 }
-
-async function saveReceiptImg(billId,files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_epod/bill/{bill_id}/voucher".replace("{bill_id}",billId);
-    var res = await axios.put(url, fd);
-    return res;
-}
-function notifyBrand(billId){
-    markBill(billId).then(response=>{
-        if(response.data.code==200){
-            billPage.reloadTable();
-        }
-    });
-}
-function findBrandPaywayInfo(brandId){
-    getBrandPayway(brandId).then(response=>{
-        if(response.data.code== 200){
-            billPage.payway =response.data.payway;
-        }
-    })    
-}
-
-function showPaywayInfoForBrand(brandId){
-    findBrandPaywayInfo(brandId);
-    $("#displayModal").modal("show");
-}
-function previewReceipt(e,billId){
-    const file = e.target.files[0]
-
-    const URL2 = URL.createObjectURL(file);
-    $('#btn-save-receipt').show();
-    $("#btn-save-receipt").data('billid',billId); // tmp store bill id
-    $('#receiptPreview').attr('src',URL2);
-    $("#receiptModal").modal("show");
-}
-function uploadReceipt(){
-   const billId = $('#btn-save-receipt').data('billid');
-   const file = $('#receiptFile')[0].files[0];
-    saveReceiptImg(billId,file).then(response=>{
-        if(response.data.code==200){
-            $("#receiptModal").modal("hide");
-            $('#receiptPreview').attr('src',"");
-        }
-    });
-}
-function viewReceipt(uri){
-    $('#receiptPreview').attr('src',uri);
-    $('#btn-save-receipt').hide();
-    $("#receiptModal").modal("show");
+function retrieveBrandFinInfo(){
+    return getBrandFinInfo();
 }
 
 
-// close modal handler
-function closeReceiptModalHandler(){
-    document.querySelector('#receiptPreview').src = "";
-    document.querySelector('#receiptFile').value = null;
-}
  // Enable popovers 
  $('[data-bs-toggle="popover"]').popover();

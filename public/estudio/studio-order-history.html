@@ -90,7 +90,7 @@
                   <span>履约</span>        
                 </a>
                 <a class="nav-link" href="/estudio/studio-msg.html">
-                  <i class="bi bi-chat-dots"></i>
+                  <i class="bi bi-calendar2-event"></i>
                   <span>
                     连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                   </span>
@@ -136,6 +136,7 @@
           <table class="table table-width-fixed table-dark table-hover align-middle">
             <thead>
               <tr>
+                <th scope="col"></th>
                 <th class="w-50">服务</th>
                 <th scope="col">客户</th>
                 <th scope="col">预期费用</th>
@@ -144,6 +145,19 @@
             </thead>
             <tbody>
               <tr v-for="trans in transpagination.records">
+                <td class="td-option">   
+                  <div class="option-container">
+                     <span  class="btn-option-secondary option-view-contact ms-2" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
+                      <a :href="'/micro/arch/channel-0002.html?friend='+trans.customerUserId">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7.49994 9.99992H12.4999" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                          <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                          <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                          </svg>  
+                      </a>          
+                    </span>
+                  </div>   
+                </td>
                 <td>
                   <span class="td-service">
                     {{trans.service}}
