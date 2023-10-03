@@ -63,13 +63,36 @@
           </a>
         </div>
         <div class="nav-setting">
-          <a @click="logout" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="注销">
             <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
-              <!-- <i class="bi bi-gear"></i>      -->
-              <i class="bi bi-box-arrow-right"></i>     
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-person-circle"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end ms-5">
+                  <li>
+                    <a href="/estudio/studio-setting-profile.html">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                      <button onclick="logout()" class="dropdown-item" type="button">   
+                        <i class="bi bi-box-arrow-right me-1"></i> 注销 
+                      </button>
+                  </li>
+                  
+                  <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                      <i class="bi bi-flag me-1"></i> 反馈
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
             </div>
   
-          </a>
+
         </div>
         
         
@@ -175,6 +198,40 @@
 
     </col-content>
   </micro-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment" onchange="previewFeedbackAttachment()" accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
   <script type="module" src="/micro/javascripts/discovery-oasis.js"></script>
 

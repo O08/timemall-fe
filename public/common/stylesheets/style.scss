@@ -1185,4 +1185,68 @@ col-container{
   opacity: .9;
   background: #000000e7;
 }
-
+/* user account option */
+.button_user,.button_user_vue{
+  color: #4CFFA9;
+  padding: 7px 16px;
+  background-color: unset;
+  border: none;
+}
+.button_user:after ,.button_user_vue:after {
+  content: none;
+}
+.button_user{
+  display: none;
+}
+#section_feedback_offcanvas .feedback-attachment-upload-container,#section_feedback_offcanvas  .feedback-attachment-upload-container img{
+  height: 200px;
+}
+#section_feedback_offcanvas .feedback-attachment-upload-container img{
+  width: 100%;
+  object-fit: cover;
+}
+#section_feedback_offcanvas .btn-close ,.offcanvas-header .btn-close{
+   background-color: #fff;
+}
+.display_nav{
+  text-align: center;
+}
+.display_account_xxl_small{
+  display: none;
+}
+.display_account_xxl_small .list-group-item{
+   background-color: unset;
+   color: #fff;
+   border: none;
+}
+.display_account_xxl_small a,.display_account_xxl a,.nav-setting a{
+  text-decoration: none;
+  color: #fff;
+}
+.display_account_xxl_small .list-group-item:hover{
+  box-shadow: 0 4px 4px #000000;
+}
+.display_account_xxl_small{
+  border-top: 1px solid rgba(203, 202, 202, 0.2);
+}
+.nav-setting .button_user_vue:hover{
+  background-color: unset;
+}
+.nav-gear .button_user_vue.show{
+  background-color: #e7f0f2a2;
+  border-radius: 5px;
+}
+.nav-gear .button_user_vue.show:hover{
+  background-color: unset;
+}
+@media (max-width: 1399.98px){
+  .display_account_xxl {
+    display: none;
+  }
+  .display_nav{
+    text-align:left;
+  }
+  .display_account_xxl_small{
+    display: block;
+  }
+}

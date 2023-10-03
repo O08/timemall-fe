@@ -19,6 +19,9 @@ export  function goLoginPage(){
 export  function goHome(){
     go("/home.html")
 }
+export  function goWelcome(){
+    go("/welcome.html")
+}
 
 export function goStudioStore(){
     go("/estudio/studio-store.html")
