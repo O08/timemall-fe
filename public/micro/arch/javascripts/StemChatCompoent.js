@@ -115,6 +115,9 @@ export default function StemChatCompoent(config) {
             }
           //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
           }
+          if(response.data.code==40016){
+            alert(response.data.message);
+          }
         }).catch(err=>{
           alert("系统异常，请检查网络或者重新发送！")
         });
@@ -146,6 +149,9 @@ export default function StemChatCompoent(config) {
           //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
   
           }
+          if(response.data.code==40016){
+            alert(response.data.message);
+          }
         }).catch(err=>{
           alert("系统异常，请检查网络或者重新发送！")
         });
@@ -164,6 +170,9 @@ export default function StemChatCompoent(config) {
             if(!!chatSetting.sendMessageOkHandler){
               chatSetting.sendMessageOkHandler();
             }
+          }
+          if(response.data.code==40016){
+            alert(response.data.message);
           }
         }).catch(err=>{
           alert("系统异常，请检查网络或者重新发送！")

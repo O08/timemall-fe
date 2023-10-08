@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh" class="need_auth">
+
+<head>
+  <meta name="baidu-site-verification" content="codeva-ETGL7cY2UK" />
+  <meta name="msvalidate.01" content="3CDD67FD0A2ED504B77DCD7A8F0AF9AE" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="咘噜咓 - 删除账号">
+  <meta property="og:image" content="/favicon.png">
+  <meta property="og:url" content="https://d13.7norm.com/">
+  <meta property="og:site_name" content="bluvarri">
+
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+  <meta name=”robots” content=”index,follow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+  <title>咘噜咓 - 删除账号</title>
+
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+  <link rel="stylesheet" href="/mall/stylesheets/delete-account.scss">
+
+
+
+</head>
+
+<body>
+  <div id="app">
+    <div class="page-container">
+      <div class="hero-grid hero-background">
+        <div class="header-container">
+          <header class="header-wrapper">
+            <nav class="nav_wrapper">
+              <a href="/welcome.html" class="logo_link">
+                <img src="/common/icon/logo_bluvarri.png">
+              </a>
+              <div class="nav_links">
+                <a class="nav_link" href="/home.html">
+                  大巴扎
+                </a>
+                <a class="nav_link" href="/micro/discovery-oasis.html">
+                  咖核
+                </a>
+                <a class="nav_link" href="/blog/blog.html">
+                  资源
+                </a>
+              </div>
+              <div class="appButton">
+                <a class="button_login text-white join-now" href="/login.html">
+                  登录
+                </a>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary dropdown-toggle button_user" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a href="/estudio/studio-setting-profile.html">
+                        <button class="dropdown-item" type="button">
+                          <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                         </button>
+                      </a>
+                    </li>
+                    <li>
+                        <button onclick="logout()" class="dropdown-item" type="button">   
+                          <i class="bi bi-box-arrow-right me-1"></i> 注销 
+                        </button>
+                    </li>
+                    <li>
+                      <a href="/mall/delete-account.html">
+                        <button class="dropdown-item" type="button">
+                          <i class="bi bi-trash3 me-1"></i> 删除账号
+                         </button>
+                      </a>
+                    </li>
+                    <li>
+                      <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                        <i class="bi bi-flag me-1"></i> 反馈
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </header>
+        </div>
+        <div class="content-main">
+          <div class="section_should_know">
+            <h2>删除账号告知</h2>
+            <div class="section_container">
+              <p>
+                为了协助你掌控自己的数据和隐私，让你可以随时出于任何原因永久删除你的帐户，你需要了解删除账户操作的相关信息。
+              </p>
+              <p>
+                你的账户一经删除，账户详细信息和相关数据也会从服务器中永久删除，你将无法登录你的账户，也无法访问与你账号相关联的任何数据、内容或服务。
+              </p>
+              <p>
+                删除账号是永久性操作。你的账号一经删除就无法重新开立或重新激活你的账户，也无法恢复你的数据。如果你目前不打算使用你的帐户，但可能考虑在将来重新使用这个帐户，那么我们建议你暂时停用你的帐户（如果适用）。
+              </p>
+              <p>
+                平台运营方会尽最大努力删除与你帐户相关联的所有个人数据。不过，出于财务报告目的，平台运营方需要保留过去的交易信息，并且可能需要根据法院裁定或其他正在进行的法律程序的要求来保留某些信息。
+              </p>
+            </div>
+          </div>
+
+          <div class="section_delete_scope">
+            <h2>数据清除范围</h2>
+            <div class="section_container">
+              <p>
+                联系方式
+              </p>
+              <p>
+                私信消息
+              </p>
+              <p>
+                好友关系
+              </p>
+              <p>
+                fan 消息
+              </p>
+              <p>
+                账户信息
+              </p>
+              <p>
+                支付宝支付账号
+              </p>
+            </div>
+          </div>
+
+          <div class="section_rights_interests">
+            <div class="d-flex justify-content-between ">
+              <h2>权益项</h2>
+              <button id="refresh_interest_btn" onclick="refreshUserInterestInd()" class="btn btn-refresh" type="button">
+                <i class="bi bi-arrow-repeat"></i> 刷新
+              </button>
+            </div>
+            <div class="section_container">
+              <table class="table table-dark table-hover align-middle">
+                <tbody>
+                </tbody>
+              </table>
+              <div class="data_time_stamp"></div>
+              <div class="form-check mt-3">
+                <input class="form-check-input"  type="checkbox" value="" id="give_up_ri_check">
+                <label class="form-check-label" for="give_up_ri_check">
+                  放弃权益
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="section_requirements">
+            <div class="d-flex justify-content-between ">
+              <h2>删除账号前置条件</h2>
+              <button id="refresh_rqm_btn"  onclick="refreshPreRequirement()" class="btn btn-refresh" type="button">
+                <i class="bi bi-arrow-repeat"></i> <span>刷新</span>
+              </button>
+            </div>
+            <div class="section_container">
+
+              <table class="table table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th class="w-auto">项目</th>
+                    <th class="w-auto">用户态</th>
+                    <th scope="col">目标态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+              </table>
+              <div class="data_time_stamp"></div>
+            </div>
+          </div>
+
+          
+
+          
+
+          <div class="btn_delete_container mt-5">
+            <button onclick="showFocusModalV()" type="button" class="btn btn-danger delete-account">删除账号</button>
+          </div>
+
+
+
+        </div>
+
+
+
+        <footer>
+          <div class="copyright-container">
+            <div class="copyright help-text">
+              <span>
+                <span>
+                  <span>©2022 上海群巅科技有限公司&nbsp;</span>
+                  <span class="icp">
+                    <a class="nav-link" href="https://beian.miit.gov.cn/" target="_blank">沪ICP备2022021979号-1</a>
+                  </span>
+                </span>
+                <div class="line"></div>
+              </span>
+              <ul class="footer-nav">
+                <li>
+                  <a class="nav-link" href="/mall/contact-us.html">联系我们</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="/mall/legal.html">法律声明</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="/mall/privacy-policy.html">隐私政策</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </footer>
+
+        <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right"
+            aria-labelledby="feedbackOffcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+              <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <form id="feedback-form">
+                <div class="mt-3">
+                  <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+                  <textarea rows="8" type="text" maxlength="300" class="form-control" id="input_issue"></textarea>
+                </div>
+                <div class="mt-3">
+                  <label class="form-label">附件图片(选填)</label>
+                  <div class="feedback-attachment-upload-container dropzone-wrapper">
+                    <img id="lastestFeedbackAttachment">
+                    <div class="dropzone-desc">
+                      <i class="bi bi-cloud-plus"></i>
+                    </div>
+                    <input type="file" id="input_issue_attachment" onchange="previewFeedbackAttachment()"
+                      accept="image/jpg, image/png, image/jpeg" class="dropzone">
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+                  <input id="input_issue_contact" maxlength="255" type="text" class="form-control"
+                    placeholder="请留下邮箱或电话，使我们快速反馈">
+                </div>
+                <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+              </form>
+            </div>
+          </div>
+
+        </section>
+        <section class="modals">
+
+          <div class="modal-container">
+            <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <form id="delete-form">
+                    <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                      <h1 class="modal-title fs-5">操作提示</h1>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                      <div class="product-feature">
+                        <p class="card-text"></p>
+                      </div>
+                    </div>
+                    <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                      <button id="delete_account_btn" type="submit"  class="btn btn-primary">确定</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </div>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment" onchange="previewFeedbackAttachment()" accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  maxlength="255"  type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script src="/common/javascripts/user-info.js"></script>
+  <script src="/common/javascripts/feedback.js"></script>
+  <script src="/mall/javascripts/delete-account.js"></script>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+
+
+
+
+
+</body>
+
+</html>

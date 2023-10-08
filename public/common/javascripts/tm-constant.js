@@ -29,23 +29,6 @@ var BillStatus = Object.freeze({
     "Paid":3 // 已支付
 });
 
-var ObjOd = Object.freeze({
-    "SPONSOR": "1", // 发起人
-    "TARGET": "2" // 目标交易方
-});
-var ObjMark = Object.freeze({
-    "COOPERATION": "1", // 合作意向
-    "OWNED": "2", // 达成合作
-    "END": "3", // 结束
-    "DENY": "4" // 拒绝
-    });   
-
-var ObjTag = Object.freeze({
-     "CREATED": "1", // 创建
-     "PUBLISH": "2", // 上线交易
-     "OFFLINE": "3", // 下线交易
-     "IN_USE": "4" //已使用
-});
 
 var OasisMark = Object.freeze({
     "CREATED": "1", // 创建
@@ -78,7 +61,8 @@ var CommercialPaperTag = Object.freeze({
     "PUBLISH": "2" , // 上线
     "OFFLINE": "3", // 下线
     "END": "4" , // 完成
-    "DELIVERING": "5" // 交付中
+    "DELIVERING": "5", // 交付中
+    "CLOSED":"6" // 关单
 }); 
 var CommercialPaperDeliverTag = Object.freeze({
     "CREATED": "1", //创建
@@ -140,6 +124,6 @@ export {
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
-    ObjMark,ObjTag,OasisMark,CommissionTag,
-    PriceSbu, CellStatus,WorkflowStatus,BillStatus,ObjOd
+    OasisMark,CommissionTag,
+    PriceSbu, CellStatus,WorkflowStatus,BillStatus
 } ;

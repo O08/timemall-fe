@@ -70,6 +70,13 @@
                               <i class="bi bi-box-arrow-right me-1"></i> 注销 
                             </button>
                         </li>
+                        <li>
+                          <a href="/mall/delete-account.html">
+                            <button class="dropdown-item" type="button">
+                              <i class="bi bi-trash3 me-1"></i> 删除账号
+                             </button>
+                          </a>
+                        </li>
                         
                         <li>
                           <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
@@ -92,6 +99,13 @@
                     <button onclick="logout()" class="dropdown-item" type="button">   
                       <i class="bi bi-box-arrow-right me-1"></i> 注销 
                     </button>
+                  </li>
+                  <li>
+                    <a href="/mall/delete-account.html">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-trash3 me-1"></i> 删除账号
+                       </button>
+                    </a>
                   </li>
                   <li class="list-group-item">
                     <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
@@ -234,6 +248,8 @@
                             <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('3')">已停止</a></li>
                             <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('4')">已完成</a></li>
                             <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('5')">交付中</a></li>
+                            <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('6')">已关单</a></li>
+
                           </ul>
                         </div>
                       </th>

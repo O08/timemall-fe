@@ -121,6 +121,9 @@ function explainPaperTag(paperTag){
         case CommercialPaperTag.DELIVERING:
             paperTagDesc="交付中";
                 break; 
+        case CommercialPaperTag.CLOSED:
+            paperTagDesc="已关单";
+                break; 
     }
     return paperTagDesc;
 }

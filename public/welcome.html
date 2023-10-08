@@ -72,7 +72,13 @@
                           <i class="bi bi-box-arrow-right me-1"></i> 注销 
                         </button>
                     </li>
-                    
+                    <li>
+                      <a href="/mall/delete-account.html">
+                        <button class="dropdown-item" type="button">
+                          <i class="bi bi-trash3 me-1"></i> 删除账号
+                         </button>
+                      </a>
+                    </li>
                     <li>
                       <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
                         <i class="bi bi-flag me-1"></i> 反馈
@@ -283,7 +289,7 @@
                   <h5 class="card-title text-center">
                     <a href="/micro/discovery-oasis.html">特色服务</a>
                   </h5>
-                  <p class="card-text">服务互换、商单市场、大贤者等特色功能，助力发现更多机会。</p>
+                  <p class="card-text">商单市场、大贤者等特色功能，助力发现更多机会。</p>
                 </div>
               </div>
             </div>
@@ -392,6 +398,7 @@
 
     </div>
   </div>
+  <script src="/common/javascripts/user-info.js"></script>
   <script src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
 
@@ -417,22 +424,6 @@
       }
       const url="/home.html?q="+q;
       window.location.href=url;
-    }
-    async function fetchCell(){
-      const url="/api/v1/web_mall/cells?sbu=day&size=24&current=1&sort=1";
-      return await fetch(url);
-    }
-    async function fetchUserInfo(){
-      const url="/api/v1/web_mall/me";
-      return await fetch(url);
-    }
-    async function userHandler(){
-      const response= await fetchUserInfo();
-      var data = await response.json();
-      if(data.code==200){
-          document.querySelector(".button_login").style.display="none";
-          document.querySelector(".button_user").style.display="block";
-      }
     }
     async function loadCellExample(){
 
@@ -492,7 +483,6 @@
     // init
     loadCellExample();
 
-    userHandler();
 
 
   </script>

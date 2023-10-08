@@ -12,7 +12,6 @@ import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg';
 import defaultAvatarImage from '/avator.webp';
 import defaultBannerImage from '/common/images/default-brand-banner.jpg';
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
-import BubbleSwapCellComponent from "/mall/javascripts/component/BubbleSwapCellComponent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
@@ -57,7 +56,6 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(BubbleInviteComponent);
-app.mixin(BubbleSwapCellComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 
