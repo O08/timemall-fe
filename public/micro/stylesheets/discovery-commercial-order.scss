@@ -26,7 +26,7 @@ header{
   background: #161416;
 }
 header{
-  z-index: 2000;
+  z-index: 1035;
 }
 .toggle-nav{
   background: inherit;
@@ -88,9 +88,9 @@ header{
     margin-right: 20px;
   }
   .team-card-container{
-    margin-top: 20px;
     background-color: #2e2e2e9d;
     border-radius: 10px;
+    height: 100%;
   }
   .team-card-container:hover{
     background-color: #2E2E2E;
