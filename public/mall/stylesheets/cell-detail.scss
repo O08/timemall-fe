@@ -232,17 +232,22 @@ sub-nav .nav-item .active
     width: 60px;
     height: 60px;
 }
-.price-list{
+.price-list,.private-msg{
     color: #949494;
     border: none;
+    font-size: 12px;
 }
-.price-list:hover{
+.price-list:hover,.private-msg:hover{
     background-color: #383838;
 }
+.private-msg:hover svg path{
+    stroke: white;
+}
+
 .fee-sbu-wrapper{
     color: #949494;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 10px;
+    line-height: 12px;
 }
 .service-brand-shadow{
     position: relative;

@@ -177,10 +177,21 @@
                           <h5 class="card-header ">
                             费用计算
                           </h5>
-                          <a class="btn btn-outline-primary price-list" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="bi bi-tag"></i>
-                            价目
-                          </a>
+                          <div>
+                            <a class="btn btn-outline-primary private-msg" :href="'/micro/arch/channel-0002.html?friend='+ brandProfile.brandUserId">
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.49994 9.99992H12.4999" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
+                              </svg> 
+                              联系品牌
+                            </a> 
+                            <a class="btn btn-outline-primary price-list ms-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                              <i class="bi bi-tag"></i>
+                              价目
+                            </a>
+                          </div>
+                       
                         </div>
                         <div class="card-body">
                           <div class="collapse" id="collapseExample">
