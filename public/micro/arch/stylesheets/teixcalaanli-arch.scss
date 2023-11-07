@@ -3,7 +3,11 @@
     height: calc(100% - 118px);
     overflow-y: scroll;
 }
-.oasis-avatar-tiny.active{
+.nav-item-default:hover,.nav-item-default.active{
+    border-radius: 5px;
+}
+
+.oasis-avatar-tiny.active,.nav-item-default.active .oasis-avatar-tiny{
     border-radius: 2px;
 }
 .oasis-avatar-tiny:hover{

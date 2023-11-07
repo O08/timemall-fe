@@ -285,6 +285,9 @@ main{
  .event-wrapper label:hover .msg_option{
   display: block;
  }
+ .chat-input-wrapper{
+  border-radius: 0;
+}
 @media (max-width: 576px) {
   .chat-action-wrapper{
     display: block;

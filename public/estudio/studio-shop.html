@@ -197,8 +197,10 @@
             <h1>商城</h1>
           </div>
           <section class="section-product-list">
-            <div id="div_gri_panel" class="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-              <div class="card product-blue-sign border-0 cell-card-body-bg col" style="width: 18rem;"
+            <div id="div_gri_panel" class="row g-5 row-cols-1  row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+              <div class="col">
+
+                <div class="card product-blue-sign border-0 cell-card-body-bg" 
               :class="{ 'product-unavailable': enableBluesignV()}">
                  <div class="card-body px-0 pb-0">
                    <div class="title-container d-flex justify-content-between" style="height: 3rem;">
@@ -221,36 +223,46 @@
                    </div>
                  </div>
                </div>
-               <div class="card product-top_up border-0 cell-card-body-bg col ms-3" style="width: 18rem;">
-                 <div class="card-body px-0 pb-0">
-                  <div class="title-container d-flex justify-content-between" style="height: 3rem;">
-                    <div>
-                      <h5 class="card-title ps-3">余额：{{drawable}}</h5>
+               
+
+              </div>
+
+              
+              <div class="col">
+                <div class="card product-top_up border-0 cell-card-body-bg">
+                  <div class="card-body px-0 pb-0">
+                   <div class="title-container d-flex justify-content-between" style="height: 3rem;">
+                     <div>
+                       <h5 class="card-title ps-3">余额：{{drawable}}</h5>
+                     </div>
+                     <button type="button" class="btn help-text" data-bs-toggle="modal" data-bs-target="#topUpIntroModal">
+                       <i class="bi bi-question-circle"></i>
+                     </button>
+                   </div>
+                    <div class="product-img text-center">
+                     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <g clip-path="url(#clip0_16977_747)">
+                       <path d="M28.7068 55.3588L20.5236 53.4695C20.1113 53.3744 19.7784 53.1882 19.525 52.911C19.2716 52.6338 19.1822 52.3338 19.2568 52.0108L21.8929 40.5924L8.19085 37.429C7.77852 37.3339 7.44566 37.1477 7.19227 36.8705C6.93888 36.5933 6.84947 36.2933 6.92403 35.9703L7.74682 32.4064C7.81606 32.1065 8.02663 31.8818 8.37854 31.7322C8.73045 31.5826 9.11257 31.5555 9.5249 31.6506L23.227 34.814L23.906 31.8729L10.2039 28.7095C9.79158 28.6144 9.45872 28.4282 9.20533 28.151C8.95194 27.8738 8.86252 27.5738 8.93708 27.2508L9.76787 23.6523C9.8371 23.3524 10.0477 23.1277 10.3996 22.9781C10.7515 22.8285 11.1336 22.8013 11.5459 22.8965L21.7274 25.2471L11.0725 1.72176C10.904 1.2941 10.9892 0.925021 11.3281 0.614523C11.7305 0.31867 12.2172 0.236647 12.7881 0.368454L22.018 2.49934C22.6206 2.63847 23.0326 2.95225 23.2539 3.44069L30.0878 20.5078C30.4881 21.5234 31.0433 23.1702 31.7536 25.448C32.1986 24.9676 32.8633 24.295 33.7479 23.4301C34.6324 22.5653 35.231 21.9624 35.5435 21.6215L47.9858 9.18694C48.3407 8.80724 48.8512 8.69428 49.5173 8.84805L58.6044 10.946C59.1436 11.0705 59.5292 11.3539 59.7612 11.7962C59.9721 12.185 59.9054 12.5462 59.5611 12.8798L40.0444 29.4759L50.2734 31.8375C50.6857 31.9327 51.0172 32.1246 51.2679 32.4133C51.5187 32.702 51.6094 32.9963 51.5402 33.2962L50.7094 36.8947C50.6348 37.2177 50.4229 37.4482 50.0737 37.5862C49.7244 37.7242 49.3436 37.7457 48.9313 37.6505L35.1341 34.4651L34.4551 37.4062L48.2523 40.5916C48.6646 40.6868 48.9962 40.8787 49.2469 41.1674C49.4976 41.4561 49.5884 41.7504 49.5191 42.0503L48.6963 45.6142C48.6218 45.9372 48.4099 46.1677 48.0606 46.3057C47.7114 46.4437 47.3306 46.4652 46.9183 46.37L33.121 43.1846L30.4849 54.603C30.4156 54.9029 30.2051 55.1276 29.8532 55.2772C29.5013 55.4268 29.1191 55.454 28.7068 55.3588Z" fill="#FF77C0" fill-opacity="0.85"/>
+                       </g>
+                       <defs>
+                       <clipPath id="clip0_16977_747">
+                       <rect width="50" height="50" fill="white" transform="translate(11.2656 0.0169678) rotate(13)"/>
+                       </clipPath>
+                       </defs>
+                       </svg>
+                                          
+                         
                     </div>
-                    <button type="button" class="btn help-text" data-bs-toggle="modal" data-bs-target="#topUpIntroModal">
-                      <i class="bi bi-question-circle"></i>
-                    </button>
+                    <p class="card-text text-center">充值</p>
+                    <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
+                      <p class="card-text">￥12.00起</p>
+                    </div>
                   </div>
-                   <div class="product-img text-center">
-                    <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <g clip-path="url(#clip0_16977_747)">
-                      <path d="M28.7068 55.3588L20.5236 53.4695C20.1113 53.3744 19.7784 53.1882 19.525 52.911C19.2716 52.6338 19.1822 52.3338 19.2568 52.0108L21.8929 40.5924L8.19085 37.429C7.77852 37.3339 7.44566 37.1477 7.19227 36.8705C6.93888 36.5933 6.84947 36.2933 6.92403 35.9703L7.74682 32.4064C7.81606 32.1065 8.02663 31.8818 8.37854 31.7322C8.73045 31.5826 9.11257 31.5555 9.5249 31.6506L23.227 34.814L23.906 31.8729L10.2039 28.7095C9.79158 28.6144 9.45872 28.4282 9.20533 28.151C8.95194 27.8738 8.86252 27.5738 8.93708 27.2508L9.76787 23.6523C9.8371 23.3524 10.0477 23.1277 10.3996 22.9781C10.7515 22.8285 11.1336 22.8013 11.5459 22.8965L21.7274 25.2471L11.0725 1.72176C10.904 1.2941 10.9892 0.925021 11.3281 0.614523C11.7305 0.31867 12.2172 0.236647 12.7881 0.368454L22.018 2.49934C22.6206 2.63847 23.0326 2.95225 23.2539 3.44069L30.0878 20.5078C30.4881 21.5234 31.0433 23.1702 31.7536 25.448C32.1986 24.9676 32.8633 24.295 33.7479 23.4301C34.6324 22.5653 35.231 21.9624 35.5435 21.6215L47.9858 9.18694C48.3407 8.80724 48.8512 8.69428 49.5173 8.84805L58.6044 10.946C59.1436 11.0705 59.5292 11.3539 59.7612 11.7962C59.9721 12.185 59.9054 12.5462 59.5611 12.8798L40.0444 29.4759L50.2734 31.8375C50.6857 31.9327 51.0172 32.1246 51.2679 32.4133C51.5187 32.702 51.6094 32.9963 51.5402 33.2962L50.7094 36.8947C50.6348 37.2177 50.4229 37.4482 50.0737 37.5862C49.7244 37.7242 49.3436 37.7457 48.9313 37.6505L35.1341 34.4651L34.4551 37.4062L48.2523 40.5916C48.6646 40.6868 48.9962 40.8787 49.2469 41.1674C49.4976 41.4561 49.5884 41.7504 49.5191 42.0503L48.6963 45.6142C48.6218 45.9372 48.4099 46.1677 48.0606 46.3057C47.7114 46.4437 47.3306 46.4652 46.9183 46.37L33.121 43.1846L30.4849 54.603C30.4156 54.9029 30.2051 55.1276 29.8532 55.2772C29.5013 55.4268 29.1191 55.454 28.7068 55.3588Z" fill="#FF77C0" fill-opacity="0.85"/>
-                      </g>
-                      <defs>
-                      <clipPath id="clip0_16977_747">
-                      <rect width="50" height="50" fill="white" transform="translate(11.2656 0.0169678) rotate(13)"/>
-                      </clipPath>
-                      </defs>
-                      </svg>
-                                         
-                        
-                   </div>
-                   <p class="card-text text-center">充值</p>
-                   <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
-                     <p class="card-text">￥12.00起</p>
-                   </div>
-                 </div>
-               </div>
+                </div>
+
+              </div>
+
+              
             </div>
           </section>
           </div>

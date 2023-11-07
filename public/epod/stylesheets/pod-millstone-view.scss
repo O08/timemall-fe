@@ -28,6 +28,14 @@ json-node h6{
     width: 0;
     height: 0;
 }
+@media (max-width: 1162px) {
+    .chat-action-wrapper{
+        display: block;
+      }
+      .chat-send-btn{
+        margin-top: 1rem;
+      }
+}
 @media (max-width: 767px) {
     .timeline {
         padding-left: .5rem;

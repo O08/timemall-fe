@@ -195,15 +195,14 @@
   //     right: calc(1.5rem + 5% + 24px);
   //   }
   // }
-  @media (max-width: 576px) {
-    .room-msg-container{
-      margin-bottom: 201px;
-    }
-    .chat-input-wrapper{
-      position: fixed;
-      left: calc(1.24rem + 24px);
-      right: 0;
-    }
-  }
+  @media (max-width: 1162px) {
+    .chat-action-wrapper{
+        display: block;
+      }
+      .chat-send-btn{
+        margin-top: 1rem;
+      }
+}
+
   
   

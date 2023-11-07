@@ -131,8 +131,16 @@ table{
 }
 
 @media (max-width: 576px) {
+  .commission-tb-filter{
+    font-size: 14px;
+    padding: .25rem;
+    font-weight: bold;
+  }
   .oasis-commission-header,.commission-tb-container{
     margin-left: 1rem;
+  }
+  .commission-tag,.commission-info h5{
+    font-size: 14px;
   }
   .commission-title-width{
     width: 50%;

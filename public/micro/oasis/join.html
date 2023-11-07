@@ -125,11 +125,13 @@
               <span class="bi feed-item-collapse ms-0">基地邀请</span>
             </a>
             <div class="collapse show" id="collapseInvitedOasis">
-              <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3" 
+              <a v-for="invite in invitedoases.records" class="nav-link p-2 ms-3  d-flex flex-row align-items-center" 
                 :class="{'nav-sub-link-active': invite.id == currentOasis.id, 
                 'nva-link-default': invite.id != currentOasis.id}"
                 :href="'/micro/oasis/join.html?oasis_obj='+JSON.stringify(invite)">
-                <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(invite.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                <div class="oasis-avatar-wrapper">
+                  <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(invite.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                </div>
                 <span>{{invite.title}}</span>  
               </a>
             </div>
@@ -140,7 +142,9 @@
             <div class="collapse" id="collapseJoinedOasis">
               <a v-for="oasis in joinedoases.records" class="nav-link nva-link-default p-2 ms-3  d-flex flex-row align-items-center" 
                 :href="'/micro/oasis.html?oasis_id='+oasis.id">
-                <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                <div class="oasis-avatar-wrapper">
+                  <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                </div>
                 <div class="link-title ms-2">{{oasis.title}}</div>  
               </a>
             </div>

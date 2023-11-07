@@ -14,6 +14,12 @@ col-content{
   font-size: 100px;
   color: dimgrey;
 }
+.oasis-avatar-wrapper, .oasis-avatar-tiny{
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+
+}
 @media only screen and (min-width: 1400px) {
   header{
     display: none;
@@ -50,9 +56,7 @@ col-content{
     }
   }
   .oasis-avatar-tiny{
-    width: 36px;
-    height: 36px;
-    border-radius: 18px;
+    object-fit: cover;
   }
 .nav-link .link-title{
     width: 200px;

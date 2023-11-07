@@ -40,11 +40,14 @@
                   </svg>              
               </div>
             </a>
-            <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3 nva-link-default d-flex flex-row align-items-center mt-1" :href="'/micro/oasis.html?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
-              <img class="oasis-avatar-tiny" 
-                 :class="{'active': oasis.id==oasisId}"
-               :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
-              <!-- <div class="link-title ms-2">{{oasis.title}}</div>   -->
+            <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis.html?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+              <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
+                   :class="{'active': oasis.id==oasisId}">
+                <div class="oasis-avatar-wrapper">
+                  <img class="oasis-avatar-tiny" 
+                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
+                </div>
+              </div>
             </a>
 
           </div>

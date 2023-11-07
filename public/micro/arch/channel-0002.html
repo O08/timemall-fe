@@ -126,14 +126,16 @@
                     :class="{'nav-sub-link-active': friend.id == currentChatFriendId, 
                     'nva-link-default': friend.id != currentChatFriendId}" >
                     
-                    <button class="position-relative friend-avatar-tiny-container">
-                      <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                    <div class="position-relative friend-avatar-tiny-container">
+                      <div class="oasis-avatar-wrapper">
+                        <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                      </div>
 
                       <span v-show="currentChatFriendId!=friend.id && friend.unread!=0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         {{ friend.unread > 100 ? "100+" : friend.unread}}
                         <span class="visually-hidden">unread messages</span>
                       </span>
-                    </button>
+                    </div>
                     <div class="link-title ms-2">{{friend.title}}</div>  
           </a>
  

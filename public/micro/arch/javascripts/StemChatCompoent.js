@@ -390,15 +390,25 @@ function fetchIncrementMessage(chatSetting){
   const finalUrl=chatSetting.fetchMessageUrl+"?current="+1 + "&size="+5;
   return getMessageEvent(finalUrl);
 }
-function scrollToTopThenLoad(e,chatSetting,pageLoadSetting){
-  var scrollTop = e.currentTarget.scrollTop;
-  if (scrollTop == 0 && pageLoadSetting.current<pageLoadSetting.pages) {
+var previousY = 0;
+
+async function scrollToTopThenLoad(e,chatSetting,pageLoadSetting){
+  // var scrollTop = e.currentTarget.scrollTop;
+  var currentY = e.currentTarget.scrollTop;
+  
+  var canLoadNewRecord =(currentY < previousY && currentY < 500 && pageLoadSetting.current<pageLoadSetting.pages);
+  if (canLoadNewRecord) {
     pageLoadSetting.current=pageLoadSetting.current+1;
   
     const finalUrl=chatSetting.fetchMessageUrl+"?current="+pageLoadSetting.current + "&size="+pageLoadSetting.size;
-    return getMessageEvent(finalUrl);
+    previousY=0;
+    return await getMessageEvent(finalUrl);
   }
-  return Promise.resolve({data: {code: ""}});
+  previousY = currentY;
+
+  if(!canLoadNewRecord){
+    return Promise.resolve({data: {code: ""}});
+  }
 }
 function removeDuplicates(arr) {
   var unique = arr.reduce(function (acc, curr) {

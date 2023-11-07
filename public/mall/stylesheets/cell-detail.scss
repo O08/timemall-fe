@@ -354,6 +354,10 @@ sub-nav .nav-item .active
     }
   }
 @media (max-width: 576px) {
+    .fee-calculator-pannel{
+       margin-right: 0;
+       width: auto;
+    }
     sub-nav,.section-cell-detail-tab
     {
         margin-left: 16px;
