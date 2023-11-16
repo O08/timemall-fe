@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <script src="/common/javascripts/avif-webp.min.js"></script>
-
 
     <meta name=”robots” content=”index,follow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
     <title>Bluvarri 大巴扎</title>
 
-    <link rel="stylesheet" href="common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
 
-    <link rel="stylesheet" href="mall/stylesheets/home.scss">
+    <link rel="stylesheet" href="/mall/stylesheets/mall-plan.scss">
 </head>
 
 <body>
@@ -52,17 +49,17 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a rel="nofollow" href="estudio/studio-store.html" class="nav-link  px-xxl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="超能开发区"> 
+                      <a rel="nofollow" href="/estudio/studio-store.html" class="nav-link  px-xxl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="超能开发区"> 
                         E-Studio
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a rel="nofollow" href="epod/pod-millstone.html" class="nav-link   px-xxl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区"> 
+                      <a rel="nofollow" href="/epod/pod-millstone.html" class="nav-link   px-xxl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区"> 
                         E-Pod
                       </a>
                     </li>
-                    <li v-if="!user_already_login" class="nav-item"><a href="login.html" class="nav-link   px-xxl-5 text-white">登录</a></li>
-                    <li v-if="!user_already_login" class="nav-item join-now"><a href="signup.html" class="nav-link px-xxl-5 text-white">注册</a></li>
+                    <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link   px-xxl-5 text-white">登录</a></li>
+                    <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link px-xxl-5 text-white">注册</a></li>
                     <li v-if="user_already_login" class="nav-item display_account_xxl">
                       <div class="btn-group">
                         <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
@@ -134,23 +131,23 @@
       <!-- top search -->
       <top-search class="section-top-serach">
         <div class="input-group input-group-lg input-normal-search">
-          <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索超能服务" aria-label="Search">
-          <button @click="retrieveCellGridV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+          <input @keyup.enter.native="retrieveCellPlanGridV" v-model="plangrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索超能服务" aria-label="Search">
+          <button @click="retrieveCellPlanGridV" class="btn btn-outline-secondary input-group-search-btn" type="button">
             <i class="bi bi-search"></i>
           </button>
         </div>
         <div class="s_type_wrapper">
-          <div class="s_type active">
-            <i class="bi bi-calendar3"></i>
-            <span class="ms-1">特约</span>
-          </div>
-          <div class="s_type ms-5">
-            <a href="/mall/mall-plan.html">
-              <i class="bi bi-box"></i>
-              <span class="ms-1">单品</span>
+
+          <div class="s_type">
+            <a href="/home.html">
+              <i class="bi bi-calendar3"></i>
+              <span class="ms-1">特约</span>
             </a>
           </div>
-  
+          <div class="s_type active ms-5">
+            <i class="bi bi-box"></i>
+            <span class="ms-1">单品</span>
+          </div>
 
         </div>
       </top-search>
@@ -166,35 +163,22 @@
                   <div class="row g-3">
                     <div class="col-6 input-wrapper">
                       <label for="input_budget_min" class="form-label">最小</label>
-                      <input v-model="cellgrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
+                      <input v-model="plangrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
                       <i>￥</i>
                     </div>
                     <div class="col-6 input-wrapper">
                       <label for="input_budget_max" class="form-label">最大</label>
-                      <input  v-model="cellgrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
+                      <input  v-model="plangrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
                       <i>￥</i>
                     </div>
                   </div>
                   
-                  <button id="btn_budget_confirm" @click="filterCellGridV" type="submit" class="btn btn-dark">确定</button>
+                  <button id="btn_budget_confirm" @click="filterCellPlanGridV" type="submit" class="btn btn-dark">确定</button>
                 </form>
               </div>
               <div class="select-container row">
                 <div class="col ms-1">
-                  <select @change="filterCellGridV" v-model="input_sbu" class="form-select sbu-option">
-                    <option value="">标准收费单元</option>
-                    <option value="second">秒</option>
-                    <option value="minute">分钟</option>
-                    <option value="hour">小时</option>
-                    <option value="day">天</option>
-                    <option value="week">周</option>
-                    <option value="month">月</option>
-                    <option value="quarter">季度</option>
-                    <option value="year">年</option>
-                  </select>
-                </div>
-                <div class="col ms-1">
-                  <select @change="filterCellGridV" v-model="cellgrid_pagination.param.sort" class="form-select sort-by">
+                  <select @change="filterCellPlanGridV" v-model="plangrid_pagination.param.sort" class="form-select sort-by">
                     <option value="">排序</option>
                     <option value="1">最新发布</option>
                     <option value="2">价格降序</option>
@@ -216,7 +200,7 @@
                  
                   <div id="div_gri_panel" 
                     class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
-                    <div v-for="cell in cellgrid_pagination.records" class="col cell-col">
+                    <div v-for="cell in plangrid_pagination.records" class="col cell-col">
                       <div class="cell-item">
                         <div class="card border-0 cell-card-body-bg">
                           <a :href="'/mall/cell-detail.html?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
@@ -243,11 +227,6 @@
                             <div class="price">
                               <i>￥</i>
                               <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
-                              <div class="line">
-                              </div>
-                              <span class="price-sbu">
-                                {{ transformSbuV(cell.sbu) }}
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -257,14 +236,14 @@
                   </div>
                   <nav v-if="!!paging" aria-label="Page navigation" class="millstone-pagination mt-3">
                     <ul class="pagination pagination-lg pagination-dark  border-0">
-                      <li class="page-item" @click="pagePre(cellgrid_pagination)">
+                      <li class="page-item" @click="pagePre(plangrid_pagination)">
                         <a class="page-link"  aria-label="Previous">
                           <span aria-hidden="true">&laquo;</span>
                         </a>
                       </li>
                       <li class="page-item"  v-for="page in paging.items" :class="{'current-page-active': paging.current == page}" 
-                            @click="pageGo(cellgrid_pagination,page)"><a class="page-link">{{page}}</a></li>
-                      <li class="page-item" @click="pageNext(cellgrid_pagination)">
+                            @click="pageGo(plangrid_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(plangrid_pagination)">
                         <a class="page-link" aria-label="Next">
                           <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -338,8 +317,8 @@
   </section>
   <script src="/common/javascripts/feedback.js"></script>
 
-    <script type="module" src="common/javascripts/tm.js"></script>
-    <script type="module" src="mall/javascripts/home.js"></script>
+    <script type="module" src="/common/javascripts/tm.js"></script>
+    <script type="module" src="/mall/javascripts/mall-plan.js"></script>
 
 
 </body>

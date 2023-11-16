@@ -19,9 +19,7 @@ mall-app {
   mall-app header{
     height: 150px;
   }
-  top-search {
-    height: 50px;
-  }
+
 
 footer{
   margin-top: -100px;
@@ -63,7 +61,40 @@ footer{
     top: 0;
     padding: 5px 0;
 } */
+.s_type_wrapper{
+  left: 20%;
+  display: flex;
+  position: relative;
+  padding-top: .5rem;
 
+}
+
+.s_type{
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  color: #b5b6ba;
+  font-weight: 500;
+}
+.s_type a{
+  text-decoration: none;
+  color: #b5b6ba;
+}
+.s_type a:hover{
+  color: whitesmoke;
+}
+.s_type.active{
+  color: whitesmoke;
+  
+}
+.s_type.active:after {
+  content: "";
+  height: 3px;
+  width: 60px;
+  background: #6a6a6a;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
 
 /*----------------------------------------------------
     1. Service Grid
@@ -114,7 +145,7 @@ footer{
     margin-left: 5%;
     margin-right: 5%;
 }
-.input-normal-search{
+.input-normal-search,.s_type_wrapper{
   left: 5%;
 }
 
