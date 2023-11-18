@@ -5,6 +5,8 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultPartnerPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {FromWhere} from "/common/javascripts/tm-constant.js";
+import { uploadScienceData } from "/common/javascripts/science.js";
 
 const RootComponent = {
     data() {
@@ -36,6 +38,13 @@ const RootComponent = {
     methods: {
         retrieveTalentGridV(){
             retrieveTalentGrid();
+            this.uploadScienceDataV();
+        },
+        uploadScienceDataV(){
+            const snippet = this.talentgrid_pagination.param.q;
+            const details= JSON.stringify(this.talentgrid_pagination.param);
+            const fromWhere=FromWhere.TALENT_SEARCH;
+            uploadScienceData(snippet,details,fromWhere);
         }
     },
     updated(){

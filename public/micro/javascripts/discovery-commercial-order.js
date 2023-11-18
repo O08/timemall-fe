@@ -5,6 +5,8 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
+import {FromWhere} from "/common/javascripts/tm-constant.js";
+import { uploadScienceData } from "/common/javascripts/science.js";
 
 const RootComponent = {
     data() {
@@ -36,6 +38,13 @@ const RootComponent = {
     methods: {
         retrievePaperGridV(){
             retrievePaperGrid();
+            this.uploadScienceDataV();
+        },
+        uploadScienceDataV(){
+            const snippet = this.papergrid_pagination.param.q;
+            const details= JSON.stringify(this.papergrid_pagination.param);
+            const fromWhere=FromWhere.BUSINESS_PAPER_SEARCH;
+            uploadScienceData(snippet,details,fromWhere);
         }
     },
     updated(){

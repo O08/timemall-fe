@@ -7,9 +7,12 @@ import Auth from "/estudio/javascripts/auth.js"
 import defaultAvatarImage from '/avator.webp'
 
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
-import {PriceSbu} from "/common/javascripts/tm-constant.js";
+import {PriceSbu,FromWhere} from "/common/javascripts/tm-constant.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import { getQueryVariable } from "/common/javascripts/util.js";
+import { uploadScienceData } from "/common/javascripts/science.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
 
 
 
@@ -51,10 +54,21 @@ const RootComponent = {
   methods: {
     filterCellGridV(){
       filterCellGrid();
+      this.uploadScienceDataV();
     },
     retrieveCellGridV(){
       changeUrlQueryvariable(this.cellgrid_pagination.param.q);
-      retrieveCellGrid()
+      retrieveCellGrid();
+      this.uploadScienceDataV();
+    },
+    isEmptyObjectV(obj){
+      return $.isEmptyObject(obj);
+    },
+    uploadScienceDataV(){
+      const snippet = this.cellgrid_pagination.param.q;
+      const details= JSON.stringify(this.cellgrid_pagination.param);
+      const fromWhere=FromWhere.CELL_SEARCH;
+      uploadScienceData(snippet,details,fromWhere);
     },
     transformSbuV(sbu){
       return transformSbu(sbu);
@@ -81,6 +95,7 @@ let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(ImageAdaptiveComponent);
+app.mixin(DirectiveComponent);
 const home = app.mount('#app');
 
 window.home = home;

@@ -1,0 +1,44 @@
+
+.input-normal-search{
+    left: 0;
+    margin-top: 60px;
+}
+.data-tb-filter{
+    background-color: #212529;
+    border: none;
+    color: #666;
+    font-size: 18px;
+    font-weight: bold;
+}
+.data-tb-container th{
+    vertical-align: middle;
+}
+.td-snippet,.td-details {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    display: inline-block;
+    overflow: hidden;
+}
+.td-snippet{
+    max-width: 500px;
+}
+.td-details{
+    max-width: 200px;
+}
+.table-group-divider {
+    border-color: #373b3e;
+}
+#fullViewDataModal form{
+    width: 100%;
+}
+#fullViewDataModal .btn-close{
+   background-color: #666;
+}
+@media (max-width: 576px) {
+    .data-tb-filter{
+        font-size: 14px;
+        padding: .25rem;
+        font-weight: bold;
+    }
+}

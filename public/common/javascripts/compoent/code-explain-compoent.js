@@ -1,4 +1,4 @@
-import {CellPlanOrderTag,CellPlanType,CommissionTag} from "/common/javascripts/tm-constant.js";
+import {CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -11,6 +11,9 @@ const CodeExplainComponent = {
     },
     explainOasisCommissionTagV(tag){
         return explainOasisCommissionTag(tag);
+    },
+    explainOpenDataFromWhereV(dataSource){
+        return explainOpenDataFromWhere(dataSource);
     }
    }
 }
@@ -92,6 +95,34 @@ function explainOasisCommissionTag(tag){
     }
     return desc;
 }
+function explainOpenDataFromWhere(dataSourceCode){
+    var desc="";
+    switch(dataSourceCode){
+        case FromWhere.USER_NEED_STORY:
+            desc="用户需求"
+            break;
+        case FromWhere.PLAN_SEARCH:
+            desc="单品搜索"
+            break;
+        case FromWhere.CELL_SEARCH:
+            desc="特约搜索"
+            break;
+        case FromWhere.OASIS_SEARCH:
+            desc="基地搜索"
+            break;
+        case FromWhere.TALENT_SEARCH:
+            desc="大贤者搜索"
+            break;
+        case FromWhere.BUSINESS_PAPER_SEARCH:
+            desc="商单搜索"
+            break;
+        default:
+            desc = '其他';
+            break;
+    }
+    return desc;
+}
+
 export {
     CodeExplainComponent
 }

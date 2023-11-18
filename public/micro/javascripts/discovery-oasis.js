@@ -4,7 +4,9 @@ import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
 import defaultOasisPreviewImage from '/micro/images/oasis-default-building.jpeg';
-import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'  
+import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
+import {FromWhere} from "/common/javascripts/tm-constant.js";
+import { uploadScienceData } from "/common/javascripts/science.js";
 
 
 const RootComponent = {
@@ -37,6 +39,13 @@ const RootComponent = {
     methods: {
         retrieveOasisGridV(){
             retrieveOasisGrid();
+            this.uploadScienceDataV();
+        },
+        uploadScienceDataV(){
+            const snippet = this.oasisgrid_pagination.param.q;
+            const details= JSON.stringify(this.oasisgrid_pagination.param);
+            const fromWhere=FromWhere.OASIS_SEARCH;
+            uploadScienceData(snippet,details,fromWhere);
         }
     },
     updated(){

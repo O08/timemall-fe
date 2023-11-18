@@ -9,6 +9,11 @@ import defaultAvatarImage from '/avator.webp'
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {FromWhere} from "/common/javascripts/tm-constant.js";
+import { uploadScienceData } from "/common/javascripts/science.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
+
 
 
 
@@ -46,10 +51,23 @@ const RootComponent = {
   methods: {
     filterCellPlanGridV(){
       filterCellGrid();
+      this.uploadScienceDataV();
+
     },
     retrieveCellPlanGridV(){
       changeUrlQueryvariable(this.plangrid_pagination.param.q);
       retrieveCellPlanGrid()
+      this.uploadScienceDataV();
+
+    },
+    uploadScienceDataV(){
+      const snippet = this.plangrid_pagination.param.q;
+      const details= JSON.stringify(this.plangrid_pagination.param);
+      const fromWhere=FromWhere.PLAN_SEARCH;
+      uploadScienceData(snippet,details,fromWhere);
+    },
+    isEmptyObjectV(obj){
+      return $.isEmptyObject(obj);
     },
 
     transformInputNumberV(event){
@@ -74,6 +92,7 @@ let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(ImageAdaptiveComponent);
+app.mixin(DirectiveComponent);
 const homePlan = app.mount('#app');
 
 window.homePlan = homePlan;

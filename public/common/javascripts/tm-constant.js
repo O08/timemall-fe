@@ -115,13 +115,21 @@ var GroupChatPolicyRel=Object.freeze({
     "READ": "read",
     "READ_WRITE": "read_write"
 }); 
+var FromWhere=Object.freeze({
+    "USER_NEED_STORY": "user_need_story",
+    "PLAN_SEARCH": "plan_search",
+    "CELL_SEARCH": "cell_search",
+    "OASIS_SEARCH": "oasis_search",
+    "TALENT_SEARCH": "talent_search",
+    "BUSINESS_PAPER_SEARCH": "business_paper_search"
+}); 
 
 
 
 
 
 export {
-    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,
+    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     OasisMark,CommissionTag,
