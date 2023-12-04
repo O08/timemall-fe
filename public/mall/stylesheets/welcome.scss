@@ -164,13 +164,42 @@ a{
 }
 .heroBanner-container .slick .slide {
     position: relative;
+    width: 100vw;
+    height: 50vh;
+}
+// .heroBanner-container .slick .slide .banner-img {
+//     width: 100%;
+//     height: auto;
+//     float: left;
+// }
+.hero-carousel-live{
     width: 100%;
     height: 100%;
+    background: url("https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/welcome_hero_003.jpeg") no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
-.heroBanner-container .slick .slide .banner-img {
-    width: 100%;
-    height: auto;
-    float: left;
+.hero-carousel-live{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero-carousel-live p{
+    margin-bottom: .5rem;
+}
+.limaint{
+    color: #fff;
+    font-weight: 700 !important;
+    font-size: 2.625rem !important;
+    line-height: 1.25 !important;
+}
+.hero_subtitle{
+    font-size: 1.2vw;
+    line-height: 1.25;
 }
 .hero_leadIn_container,.what_container,.feature_container{
     padding-left: 1rem;
@@ -605,6 +634,13 @@ svg:not(:root) {
     .nav_link{
         margin: 2px;
     }
+    .limaint{
+        font-size: 2.625rem;
+    }
+    .hero_subtitle{
+        font-size: 1rem;
+    }
+
 }
 
 
