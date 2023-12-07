@@ -1,8 +1,11 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue/dist/vue.esm-browser.js";
 import Auth from "/estudio/javascripts/auth.js";
-import {goHome,goLoginPage,goBackAndReload} from "/common/javascripts/pagenav.js";
+import {goLoginPage} from "/common/javascripts/pagenav.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
+import { copyValueToClipboard } from "/common/javascripts/share-util.js";
+import { uploadCellDataLayerWhenClick,uploadCellDataLayerWhenAppointment,uploadCellDataLayerWhenBuyPlan } from "/common/javascripts/science.js";
+
 
 
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
@@ -71,6 +74,13 @@ const RootComponent = {
         orderCellPlanV(){
             orderCellPlan(this.displayPlan.planId);
         },
+        uploadCellDataLayerClicksV(){
+            const cellId= getQueryVariable("cell_id");
+            if(!cellId){
+                return;
+            }
+            uploadCellDataLayerWhenClick([cellId]);
+        },
         loadCellInfoV(){
             const cellId= getQueryVariable("cell_id");
             if(!cellId){
@@ -106,11 +116,16 @@ const RootComponent = {
         },
         isEmptyObjectV(obj){
             return $.isEmptyObject(obj);
+        },
+        copyWindowUrlToClipboardV(productTitle){
+            const content = "【Bluvarri】 " + window.location.href + " 「 " +productTitle + "」 点击链接直接打开 或者 Bluvarri 搜索直接打开 ";
+            copyValueToClipboard(content);
         }
     },
     created(){
       this.loadCellInfoV();
       this.fetchCellPlanV();
+      this.uploadCellDataLayerClicksV();
     },
     updated(){
         
@@ -191,6 +206,10 @@ function orderCellPlan(planId){
     doOrderCellPlan(planId).then(response=>{
         if(response.data.code==200){
             sendOrderReceivingEmail(EmailNoticeEnum.CELL_PLAN_ORDER_RECEIVING,response.data.planOrderId);
+            // scinece data
+            const cellId = getQueryVariable("cell_id");
+            uploadCellDataLayerWhenBuyPlan(cellDetailPage.displayPlan.planType,cellId);
+
             $("#goTopUpModal").modal("show"); 
         }
         if(response.data.code!=200){
@@ -236,8 +255,13 @@ function orderNow(){
             // reset 
             cellDetailPage.quantity ="";
             cellDetailPage.total = 0;
+
+            // science data
+            uploadCellDataLayerWhenAppointment([cellId]);
+
             // give option
             alert("成功预约，可在E-pod查看预约记录");
+
         }
     })
 }
@@ -308,3 +332,4 @@ async function getBrandProfile(brandId)
 function transformInputNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
   }
+

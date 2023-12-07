@@ -1250,3 +1250,11 @@ col-container{
     display: block;
   }
 }
+
+//
+@media (max-width: 576px) {
+  // ios tabs display issue,need set height value for parent container
+  .tab-content > .tab-pane{
+    height: calc(100vh - 72px);
+  }
+}

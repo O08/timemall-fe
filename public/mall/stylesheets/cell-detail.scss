@@ -322,6 +322,47 @@ sub-nav .nav-item .active
     color: whitesmoke;
 
 }
+.opt_item_container{
+    width: 66px;
+    text-align: center;
+}
+.opt_item_head{
+    padding-bottom: .5rem;
+}
+.opt_item_head a{
+    display: flex;
+    justify-content: center;
+}
+.opt_item_desc{
+    font-size: smaller;
+    color: #666;
+}
+.opt_item_head .btn{
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background-color: lighten($color: #2d2c2c, $amount: 10) ;
+    border: none;
+    color: #949494;
+    text-align: center;
+    vertical-align: middle;
+}
+.opt_item_head .btn i{
+   font-size: 20px;
+}
+.private-msg-link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.opt_item_head .btn:hover{
+    border-radius: 5px;
+    color: #fff;
+}
+
+.private-msg-link:hover svg path{
+    stroke: white;
+}
 .error-notice{
     width: 100%;
       margin-top: 0.25rem;

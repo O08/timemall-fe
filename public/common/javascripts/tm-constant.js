@@ -123,13 +123,19 @@ var FromWhere=Object.freeze({
     "TALENT_SEARCH": "talent_search",
     "BUSINESS_PAPER_SEARCH": "business_paper_search"
 }); 
+var DataLayerCellEvent=Object.freeze({
+    "IMPRESSIONS": "impressions",
+    "CLICKS": "clicks",
+    "APPOINTMENTS": "appointments",
+    "PURCHASES": "purchases"
+}); 
 
 
 
 
 
 export {
-    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,
+    EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     OasisMark,CommissionTag,

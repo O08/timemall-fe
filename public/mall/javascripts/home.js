@@ -10,7 +10,7 @@ import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {PriceSbu,FromWhere} from "/common/javascripts/tm-constant.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import { getQueryVariable } from "/common/javascripts/util.js";
-import { uploadScienceData } from "/common/javascripts/science.js";
+import { uploadScienceData,uploadCellDataLayerWhenImpression } from "/common/javascripts/science.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 
@@ -46,6 +46,12 @@ const RootComponent = {
                 this.cellgrid_pagination.pages = response.cells.pages;
                 this.cellgrid_pagination.records = response.cells.records;
                 this.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+                // capture cell indices data layer
+                var idsArr=[];
+                response.cells.records.forEach(element => {
+                  idsArr.push(element.id)
+                });
+                uploadCellDataLayerWhenImpression(idsArr);
             }
         }
     }
