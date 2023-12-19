@@ -1,6 +1,8 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue/dist/vue.esm-browser.js";
 import SkillComponent from "/estudio/javascripts/studio-setting-profile-skill.js";
+import BrandLinksSettingCompoent from "/estudio/javascripts/compoent/BrandLinksSettingCompoent.js";
+
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
@@ -10,6 +12,7 @@ import defaultAvatarImage from '/avator.webp';
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 const RootComponent = {
 
@@ -28,6 +31,7 @@ const RootComponent = {
             identity: {},
             brandProfile: {
                 skills: [],
+                links: [],
                 experience: []
             },
             tmpMillstone: {
@@ -162,6 +166,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(SkillComponent);
+app.mixin(BrandLinksSettingCompoent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(BrandInfoComponent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
@@ -169,6 +174,7 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.STUDIO}));
 
 app.mixin(ImageAdaptiveComponent);
+app.mixin(DirectiveComponent);
 
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
@@ -215,6 +221,9 @@ function loadBrandProfile(){
         settingProfilePage.brand.banner = profile.cover;
         // set skill
         settingProfilePage.brandProfile.skills = !profile.skills ? [] : profile.skills;
+
+        // set links
+        settingProfilePage.brandProfile.links = !profile.links ? [] : profile.links;
         // set experience
         settingProfilePage.brandProfile.experience = !profile.experience ? [] : profile.experience;
 

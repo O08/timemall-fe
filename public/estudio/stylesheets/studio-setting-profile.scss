@@ -12,7 +12,6 @@
 .section-header{
     font-weight: 700 !important;
     font-size: 1.5rem;
-    margin-bottom: 36px;
 
 }
  .brand-intro-cover img{
@@ -75,27 +74,54 @@
     font-weight: normal;
     color: #949494;
 }
-
-.section-seller-experience,.section-seller-skills
+.section-seller-banner,.section-branding{
+    padding-left: 1.3rem;
+    padding-top: 1.3rem;
+    padding-bottom: 2rem;
+}
+.section-seller-experience,.section-seller-skills,.section-seller-links
 {
     margin-top: 40px;
     min-height: 300px;
     margin-right: 30%;
+    padding-left: 1.3rem;
+    padding-top: 1.3rem;
+    padding-bottom: 2rem;
 }
+
 @media (max-width: 992px) {
-    .section-seller-banner,.section-seller-experience,.section-seller-skills,.section-branding
+    .section-seller-banner,.section-seller-experience,.section-seller-skills,.section-branding,.section-seller-links
 {
     margin-top: 40px;
     min-height: 300px;
     margin-right: 25px;
 }
-}
-.input-box{
-    background-color: #383838;
-    border: 1px solid #585858;
-    color: #d3d3d3;
+
 }
 
+@media (max-width: 48rem) {
+    main > section{
+        width: 48rem;
+    }
+}
+.input-box{
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+}
+.input-box::placeholder,.input-box::-ms-input-placeholder{
+    color: #383838;
+    opacity: 1; /* Firefox */
+}
+.form-floating > label {
+    color: #383838;
+    opacity: 1; /* Firefox */ 
+}
+.was-invalid input{
+    border-color: #dc3545;
+}
+.was-invalid > label{
+    color: #dc3545;
+}
 .exeperince-millstone
 {
     background-color: #2c3e50;
@@ -163,13 +189,10 @@
 {
     color:  #fa541c;
 }
-.item-setting-x{
-    padding: 1rem;
-}
+
 .item-setting-x:hover
 {
-    background-color: darken(#2c3e50, 12%);
-    border-radius: 6rem;
+    background-color: darken(#fa541c, 22%);
 }
 .btn-upload{
     color: #3887FE;

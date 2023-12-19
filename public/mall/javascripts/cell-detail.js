@@ -18,6 +18,7 @@ import defaultCellIntroCoverImage from '/common/images/default-cell-intro-cover.
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
+import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-icon-parse.js";
 
 
 
@@ -48,6 +49,12 @@ const RootComponent = {
         }
     },
     methods: {
+        parseLinkUriV(uri){
+          return parseLinkUri(uri);
+        },
+        getLinkIconUrlV(url){
+          return getLinkIconUrl(url);
+        },
         explainCellPlanTypeV(planType){
             return explainCellPlanType(planType);
         },

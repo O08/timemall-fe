@@ -68,12 +68,7 @@ sub-nav .nav-item .active
 /*----------------------------------------------------
     2. Intro
 ------------------------------------------------------*/
-// @media (min-width: 992px) {
-//     .cell-intro-cover,.cell-intro-cover img,.brand-intro-cover, .brand-intro-cover img
-// {
-//     min-width: 800px;
-// }
-// }
+
 .cell-intro-cover,.cell-intro-cover img
 {
     width: 100%;
@@ -84,9 +79,13 @@ sub-nav .nav-item .active
     object-fit: cover;
 }
 
-.portrait,.cell-intro-cover
+.portrait
 {
     margin-top: 30px;
+}
+.cell-intro-cover
+{
+    margin-top: 3rem;
 }
 .cell-title{
     font-size: 24px;
@@ -141,6 +140,58 @@ sub-nav .nav-item .active
     margin-left: 20px;
     margin-right: 20px;
 }
+.service-brand{
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+}
+.service-brand-name{
+    font-size: large;
+}
+.me-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.link__favicon{
+    flex-shrink: 0;
+    margin-right: 16px;
+    display: inline-block;
+    min-height: 1px;
+    min-width: 1px;
+}
+.link-view-wrapper{
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    align-items: start;
+}
+.link-view-title{
+    max-width: 200px;
+    margin-bottom: 4px;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: 500;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.link-view-url{
+    max-width: 400px;
+    color: #065fd4;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    font-weight: 400;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.link-view-url a{
+    text-decoration: none;
+}
+
 @media (max-width: 1399.98px) {
     .intro-content-container{
         flex-direction: column !important;
@@ -165,10 +216,13 @@ sub-nav .nav-item .active
         margin-left: 10%;
     }
 }
-.section-seller-experience,.section-seller-skills,.section-seller-service
+.section-seller-experience,.section-seller-skills,.section-seller-service,.section-seller-links
 {
     margin-top: 50px;
     background-color: #2B2B2B;
+    padding-left: 1.3rem;
+    padding-top: 1.3rem;
+    padding-bottom: 2rem;
 }
 .section-header{
     font-weight: 700 !important;

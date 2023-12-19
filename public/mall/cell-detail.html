@@ -145,11 +145,11 @@
                   <div class="d-flex portrait align-items-center flex-row">
                     <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">
                       <img class="service-brand" :src="adaptiveImageUriV(profile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                      <span class="service-brand-name mx-1">{{profile.brand}}</span>
+                      <span class="service-brand-name mx-2">{{profile.brand}}</span>
                     </a>
    
                   </div>
-                  <div class="can_opt_wrapper mt-3 d-flex">
+                  <div class="can_opt_wrapper mt-4 d-flex">
                     <div class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
                         <button class="btn btn-outline-primary  copy-link" @click="copyWindowUrlToClipboardV(profile.title)">
@@ -274,6 +274,23 @@
                           <p class="ip-location text-muted">{{brandProfile.location}}</p>
                         </div>
                       </section>
+
+                       <!-- seller links -->
+                    <section class="section-seller-links">
+                      <div class="section-header ms-2">链接</div>
+                      <div v-for="link in brandProfile.links" class="me-link ms-2 py-2 ps-2">
+                        <img class="link__favicon" width="24" height="24" :src="getLinkIconUrlV(link.uri)">
+                        <div class="link-view-wrapper">
+                           <span class="link-view-title">{{link.linkTitle}}</span>
+                           <span class="link-view-url">
+                            <a :href="parseLinkUriV(link.uri)" rel="nofollow" target="_blank" dir="auto" tabindex="0">
+                                {{link.uri}}
+                            </a>
+                           </span>
+                        </div>
+                      </div>
+                    </section>
+
                       <!-- seller experience -->
                       <section class="section-seller-experience">
                         <div class="section-header ms-2">品牌发展史</div>
