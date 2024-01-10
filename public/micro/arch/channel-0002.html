@@ -109,16 +109,13 @@
         <h3>私信</h3>
       </div>
       <div class="nav-sub-container mt-3">
-        <div>
+        <div v-cloak>
 
            <a v-if="beNewFriendV()" class="nav-link p-2 ms-3 d-flex flex-row align-items-center nav-sub-link-active" >
               <div class="position-relative friend-avatar-tiny-container">
                 <div class="oasis-avatar-wrapper">
                   <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(friendProfile.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </div>
-                <span v-show="false" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  <span class="visually-hidden">unread messages</span>
-                </span>
               </div>
               <div class="link-title ms-2">{{friendProfile.username}}</div>  
            </a>

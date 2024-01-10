@@ -20,6 +20,10 @@ body {
   height: 100vh;
 }
 
+[v-cloak] {
+  display:none
+}
+
 
 .mx-120 {
     margin-left: 10%;

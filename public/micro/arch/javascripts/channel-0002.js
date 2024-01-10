@@ -28,7 +28,7 @@ const RootComponent = {
         defaultAvatarImage,
         currentFriendForOption: "",
         currentChatFriendId: "",
-        friends:{},
+        friends:{records: []},
         friendProfile: {}
       }
     },
