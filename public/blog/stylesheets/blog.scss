@@ -169,6 +169,22 @@ h3,p{
   outline: none;
   text-decoration: none;
 }
+.article-link-wrapper a{
+    outline: none;
+    text-decoration: none;
+    padding: 0.1875rem 0.125rem;
+    margin-top: 0.125rem;
+    margin-left: 1rem;
+    color: white;
+}
+.article-link-wrapper a:hover{
+    font-weight: 600;
+    color: #4CFFA9;
+}
+.article-link-wrapper .bi-star-fill{
+    color: #4CFFA9;
+}
+
 .phenomenon,.phenomenon p,.phenomenon_img_container{
     padding: 1rem;
 }
