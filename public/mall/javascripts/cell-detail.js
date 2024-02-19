@@ -31,7 +31,8 @@ const RootComponent = {
             defaultBrandBannerImage,
             defaultCellIntroCoverImage,
             profile: {
-                content:[]
+                content:[],
+                dataLoadFinish: false
             },
             selectedSbu: '',
             total: 0,
@@ -100,6 +101,8 @@ const RootComponent = {
                         this.profile.content = []
                     }
                 }
+                this.profile.dataLoadFinish = true;
+
             });
             
         },

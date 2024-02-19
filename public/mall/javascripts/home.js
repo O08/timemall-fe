@@ -36,7 +36,7 @@ const RootComponent = {
           sbu: ''
         },
         paramHandler: (info)=>{
-            info.param.sbu = !this.input_sbu ? "day" : this.input_sbu;
+            info.param.sbu = !this.input_sbu ? "hour" : this.input_sbu;
          },
         responesHandler: (response)=>{
             if(response.code == 200){
@@ -135,7 +135,7 @@ home.pageInit(home.cellgrid_pagination);
     // budgetMin: 50,
     // budgetMax: 50,
     sort: '',
-    sbu: 'day'
+    sbu: 'hour'
   }
   home.cellgrid_pagination.current = 1;
   home.cellgrid_pagination.size = 12;

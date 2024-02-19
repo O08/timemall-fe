@@ -135,12 +135,12 @@
         </li>
       </ul>
     </sub-nav>
-    <content>
+    <content v-cloak>
       <main>
-        <section class="section-cell-detail-tab">
+        <section class="section-cell-detail-tab" >
             
-              <div class="tab-content" id="cell-detail-tab-content">
-                <div class="tab-pane fade show active" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab" tabindex="0">
+              <div v-show="profile.dataLoadFinish" class="tab-content" id="cell-detail-tab-content">
+                <div  class="tab-pane fade show active" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab" tabindex="0">
                   <!-- brand avator -->
                   <div class="d-flex portrait align-items-center flex-row">
                     <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">
