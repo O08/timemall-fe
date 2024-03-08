@@ -100,6 +100,10 @@ const RootComponent = {
                     if(!this.profile.content){
                         this.profile.content = []
                     }
+                    var description=this.profile.content.items.length>0 ?  this.profile.content.items[0].section : "";
+
+                    renderPageMetaInfo(this.profile.title,description);
+                    renderStructuredDataForSEO(this.profile);
                 }
                 this.profile.dataLoadFinish = true;
 
@@ -323,6 +327,43 @@ function computeTotalFee(){
         return ;
     }
     cellDetailPage.total  = getSbuPrice() * cellDetailPage.quantity;
+}
+
+function renderPageMetaInfo(title,description){
+    document.title = title + " - 市场";
+    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,游戏玩家服务,写作与翻译,原神游戏玩家服务,视频与动画制作剪辑";
+    document.getElementsByTagName('meta')["description"].content = description;
+    document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
+}
+
+function renderStructuredDataForSEO(product){
+    var url=window.location.origin + "/mall/cell-detail.html?cell_id=" + product.id + "&brand_id=" + product.brandId;
+    var description=product.content.items.map(obj => obj.section).join("\n");
+    var price=product.fee.filter(e=>e.sbu==="hour")[0].price;
+
+    doRenderStructuredDataForSEO(product.title,description,url,price);
+}
+
+function doRenderStructuredDataForSEO(name,description,url,price){
+    var structuredDataText={
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": name,
+        "description": description,
+        "offers": {
+            "@type": "Offer",
+            "url": url,
+            "priceCurrency": "CNY",
+            "price": price,
+            "itemCondition": "https://schema.org/UsedCondition",
+            "availability": "https://schema.org/InStock"
+        }
+      }
+
+      const script = document.createElement('script');
+      script.setAttribute('type', 'application/ld+json');
+      script.textContent = JSON.stringify(structuredDataText);
+      document.head.appendChild(script);
 }
 
 
