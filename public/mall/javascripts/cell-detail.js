@@ -341,15 +341,16 @@ function renderStructuredDataForSEO(product){
     var description=product.content.items.map(obj => obj.section).join("\n");
     var price=product.fee.filter(e=>e.sbu==="hour")[0].price;
 
-    doRenderStructuredDataForSEO(product.title,description,url,price);
+    doRenderStructuredDataForSEO(product.title,description,url,price,product.cover);
 }
 
-function doRenderStructuredDataForSEO(name,description,url,price){
+function doRenderStructuredDataForSEO(name,description,url,price,image){
     var structuredDataText={
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": name,
         "description": description,
+        "image": image,
         "offers": {
             "@type": "Offer",
             "url": url,
