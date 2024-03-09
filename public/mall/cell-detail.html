@@ -270,8 +270,8 @@
                           <a :href="'/mall/bubble.html?brand_id='+profile.brandId" class="url-link">
                             <span class="brand-name text-decoration-none">{{brandProfile.brand}}</span>
                           </a>
-                          <p class="brand-title text-muted mb-2 mt-1">{{brandProfile.title}}</p>
-                          <p class="ip-location text-muted">{{brandProfile.location}}</p>
+                          <p class="brand-title opt_item_desc mb-2 mt-1">{{brandProfile.title}}</p>
+                          <p class="ip-location opt_item_desc">{{brandProfile.location}}</p>
                         </div>
                       </section>
 
@@ -294,35 +294,40 @@
                       <!-- seller experience -->
                       <section class="section-seller-experience">
                         <div class="section-header ms-2">品牌发展史</div>
-                        <div v-for="millstone in brandProfile.experience" class="exeperince-millstone card">
-                          <div class="card-header">
-                            <div class="millstone-header d-flex">
-                              <img :src="millstone.icon || defaultExperienceImage" @error.once="e => { e.target.src = defaultExperienceImage }">
-                              <div class="inner-header d-flex flex-column mx-3">
-                                <span class="fw-semibold lh-lg mb-2">{{millstone.title}}</span>
-                                <span class="fw-normal">{{millstone.subTitle}}</span>
-                                <span class="text-muted mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{ millstone.end ? millstone.end : "现在"}}</span>
+                        <div class="section-container">
+
+                          <div v-for="millstone in brandProfile.experience" class="exeperince-millstone card mt-2">
+                            <div class="card-header">
+                              <div class="millstone-header d-flex">
+                                <img :src="millstone.icon || defaultExperienceImage" @error.once="e => { e.target.src = defaultExperienceImage }">
+                                <div class="inner-header d-flex flex-column mx-3">
+                                  <span class="fw-semibold lh-lg mb-2">{{millstone.title}}</span>
+                                  <span class="fw-normal">{{millstone.subTitle}}</span>
+                                  <span class="help-text mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{ millstone.end ? millstone.end : "现在"}}</span>
+                                </div>
                               </div>
                             </div>
+                            <div class="card-body">
+                              <ul class="timeline">
+                                <li v-for="entry in millstone.entries" class="timeline-item mb-3">
+                                  <h5 class="fw-bold mb-0">{{entry.title}}</h5>
+                                  <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : "现在"}}</p>
+                                  <p class="opt_item_desc">
+                                    {{entry.story}}
+                                  </p>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
-                          <div class="card-body">
-                            <ul class="timeline">
-                              <li v-for="entry in millstone.entries" class="timeline-item mb-3">
-                                <h5 class="fw-bold mb-0">{{entry.title}}</h5>
-                                <p class="text-muted mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : "现在"}}</p>
-                                <p class="text-muted">
-                                  {{entry.story}}
-                                </p>
-                              </li>
-                            </ul>
-                          </div>
+
                         </div>
+                        
                       </section>
                     <!-- seller skills -->
                     <section class="section-seller-skills">
                       <div class="section-header ms-2">品牌词条</div>
                       <div class="me-skills ms-2 pb-5">
-                        <h6 v-for="skill in brandProfile.skills" class="fw-bold text-muted">{{skill.entry}}</h6>
+                        <p v-for="skill in brandProfile.skills" class="fw-bold opt_item_desc">{{skill.entry}}</p>
                       </div>
                     </section>
                      

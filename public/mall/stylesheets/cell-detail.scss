@@ -58,12 +58,15 @@ sub-nav .nav-link
 
 sub-nav .nav-item .active
 {
-    color: #949494;
+    color: #666;
     background-color: #2f2f2f;
     border: none;
 }
 .intro-content{
     width: calc(100% - 450px);
+}
+.card-header{
+    color: #666;
 }
 /*----------------------------------------------------
     2. Intro
@@ -119,7 +122,7 @@ sub-nav .nav-item .active
 }
 .option-sbu-input:focus,.option-sbu:focus{
     box-shadow: none;
-    border-color: #949494;
+    border-color: #666;
 }
 .fly-tool{
     margin-left: 200px;
@@ -270,7 +273,7 @@ sub-nav .nav-item .active
 .ip-location{
     font-size: 20px;
     font-weight: normal;
-    color: #949494;
+    color: #666;
 }
 .exeperince-millstone
 {
@@ -287,7 +290,7 @@ sub-nav .nav-item .active
     height: 60px;
 }
 .price-list,.private-msg{
-    color: #949494;
+    color: #666;
     border: none;
     font-size: 12px;
 }
@@ -299,7 +302,7 @@ sub-nav .nav-item .active
 }
 
 .fee-sbu-wrapper{
-    color: #949494;
+    color: #666;
     font-size: 10px;
     line-height: 12px;
 }
@@ -312,6 +315,22 @@ sub-nav .nav-item .active
 }
 .section-seller-banner {
     background: #2B2B2B;
+}
+.section-seller-experience .card,.exeperince-millstone .card-header{
+    // border-color: #666;
+    border: none;
+}
+.section-seller-experience .card{
+    border-top: 1px solid #666;
+    border-radius: 0;
+}
+
+.timeline-item h5{
+    color: #666;
+}
+.price .price-txt {
+    font-weight: 500;
+    font-size: 16px;
 }
 .brand-title {
     width: 100%;
@@ -356,7 +375,7 @@ sub-nav .nav-item .active
 .plan-item{
     width: 80px;
     text-align: center;
-    color: #949494;
+    color: #666;
 }
 .plan-content-option{
     display: flex;
@@ -397,7 +416,7 @@ sub-nav .nav-item .active
     width: 40px;
     background-color: lighten($color: #2d2c2c, $amount: 10) ;
     border: none;
-    color: #949494;
+    color: #666;
     text-align: center;
     vertical-align: middle;
 }
