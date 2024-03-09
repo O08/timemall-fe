@@ -433,6 +433,10 @@
       const url="/home.html?q="+q;
       window.location.href=url;
     }
+    async function fetchCell(){
+    const url="/api/v1/web_mall/cells?sbu=day&size=24&current=1&sort=1";
+    return await fetch(url);
+  }
     async function loadCellExample(){
 
       const response =  await fetchCell();
