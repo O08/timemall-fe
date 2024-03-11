@@ -21,7 +21,7 @@ async function doLogout(){
     return await fetch(url,{method: "POST",body: form});
   }
 
-  async function logout(){
+async function logout(){
     const response= await doLogout();
     var data = await response.json();
     var isVuePage=document.querySelector(".button_user_vue");
@@ -76,4 +76,11 @@ async function doLogout(){
         e.preventDefault();
         uploadFeedback();
     
-    }
+  }
+// logout     
+var logoutbtn=document.getElementById('logout-btn');
+if(!!logoutbtn){
+   logoutbtn.onclick=async function() {
+    logout();
+  }
+}

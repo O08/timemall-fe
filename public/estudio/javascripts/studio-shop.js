@@ -49,7 +49,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 const shopPage = app.mount('#app');
 window.cShop = shopPage;
 

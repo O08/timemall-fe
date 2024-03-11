@@ -60,7 +60,9 @@ let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-') || tag.startsWith('top-search') 
+}
 const disTalent = app.mount('#app');
 
 window.disTalent = disTalent;

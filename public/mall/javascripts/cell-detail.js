@@ -178,7 +178,9 @@ app.mixin(SellerComponent);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content') || tag.startsWith('sub-nav')
+}
 const cellDetailPage = app.mount('#app');
 
 

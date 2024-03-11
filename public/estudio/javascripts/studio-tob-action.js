@@ -88,7 +88,9 @@ app.mixin(DirectiveComponent);
 app.mixin(TobChatCompoent);
 app.mixin(MpsPaperDeliverCompoent);
 app.mixin(RtmCompoent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 
     
 const tobActionPage = app.mount('#app');

@@ -47,7 +47,6 @@ const RootComponent = {
     },
     updated(){
         $(function() {
-            console.log("aaa");
             // Remove already delete element popover ,maybe is bug
             $('[data-popper-reference-hidden]').remove();
             $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
@@ -64,7 +63,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : true,
     scene: EventFeedScene.POD}));
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 
 const msgPage = app.mount('#app');
 window.pMsg= msgPage;

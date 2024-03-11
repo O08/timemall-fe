@@ -50,7 +50,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : true,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+} 
 const msgPage = app.mount('#app');
 window.cMsg= msgPage;
 

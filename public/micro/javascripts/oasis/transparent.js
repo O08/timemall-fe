@@ -41,7 +41,9 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-')
+}
 const teamOasisMemberPage = app.mount('#app');
 
 window.teamOasisMemberPage = teamOasisMemberPage;

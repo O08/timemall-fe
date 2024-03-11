@@ -63,7 +63,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.STUDIO}));
 
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+} 
 const transactionPage = app.mount('#app');
 window.cTransaction= transactionPage;
 

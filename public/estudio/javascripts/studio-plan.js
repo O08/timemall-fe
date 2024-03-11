@@ -101,7 +101,9 @@ app.mixin(CellPlanOrderChatCompoent);
 app.mixin(CellPlanOrderDeliverCompoent);
 app.mixin(RtmCompoent);
 app.mixin(CodeExplainComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 
     
 const tobActionPage = app.mount('#app');

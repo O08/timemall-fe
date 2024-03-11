@@ -61,7 +61,9 @@ app.mixin(MpsPaperChatCompoent);
 app.mixin(MpsPaperManagementCompoent);
 app.mixin(MpsPaperDeliverCompoent);
 app.mixin(RtmCompoent);
-    
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}    
 
 const mpsActionPage = app.mount('#app');
 window.cMpsActionPage = mpsActionPage;

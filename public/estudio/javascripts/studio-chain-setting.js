@@ -106,7 +106,11 @@ const RootComponent = {
             });
         },
         findChainInfoV(){
-            findChainInfo().then(response=>{
+            const chainId = getQueryVariable("chain_id");
+            if(!chainId){
+                return  ;
+            }
+            findChainInfo(chainId).then(response=>{
                 if(response.data.code==200){
                     this.chain=response.data.chain;
                 }
@@ -117,7 +121,11 @@ const RootComponent = {
             
         },
         findAllTemplateOwnedChainV(){
-            findAllTemplateOwnedChain().then(response=>{
+            const chainId = getQueryVariable("chain_id");
+            if(!chainId){
+                return ;
+            }
+            findAllTemplateOwnedChain(chainId).then(response=>{
                 if(response.data.code==200){
                    this.template=response.data.template;
                 }
@@ -185,7 +193,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
     
 const chainSettingPage = app.mount('#app');
 window.chainSettingPage = chainSettingPage;
@@ -251,18 +261,12 @@ function newMpsTemplate(template){
 function findTemplateDetail(templateId){
     return fetchTemplateDetail(templateId);
 }
-function findAllTemplateOwnedChain(){
-    const chainId = getQueryVariable("chain_id");
-    if(!chainId){
-        return Promise.resolve({});
-    }
+function findAllTemplateOwnedChain(chainId){
+ 
     return fetchAllTemplateOwnedChain(chainId);
 }
-function findChainInfo(){
-    const chainId = getQueryVariable("chain_id");
-    if(!chainId){
-        return  Promise.resolve({});
-    }
+function findChainInfo(chainId){
+  
     return fetchChainInfo(chainId);
 }
 function addMpsChainB(title){

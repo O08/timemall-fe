@@ -58,6 +58,9 @@ app.mixin(new Auth({need_permission : false}));
 app.mixin(BubbleInviteComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 
 // app.component("infinite-loading", InfiniteLoading);
 const bubblePage = app.mount('#app');

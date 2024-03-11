@@ -60,7 +60,9 @@ let app =  createApp(RootComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-') || tag.startsWith('top-search') 
+}
 const disOasis = app.mount('#app');
 
 window.disOasis = disOasis;

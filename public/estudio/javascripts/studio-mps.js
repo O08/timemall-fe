@@ -231,7 +231,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
 app.mixin(ImageAdaptiveComponent);
 app.mixin(Pagination);
 app.mixin(DirectiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+} 
 
 
     

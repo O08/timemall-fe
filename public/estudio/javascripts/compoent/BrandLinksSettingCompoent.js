@@ -75,7 +75,6 @@ function settingLinks(links){
 	    return url.protocol === "http:" || url.protocol === "https:";
 	}
 function isValidHttpUrl(urlString){
-  console.log('link is : ' +urlString);
   var valid= isValidUrl(urlString);
 
   if(!valid && urlString.includes('.') && !urlString.endsWith('.')){

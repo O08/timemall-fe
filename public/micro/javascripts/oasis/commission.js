@@ -159,7 +159,9 @@ app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(CodeExplainComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-')
+}
 
 
 const teamCommission = app.mount('#app');

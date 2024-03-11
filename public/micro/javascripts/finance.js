@@ -31,7 +31,9 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-')
+}
 const teamFinance = app.mount('#app');
 
 window.teamFinance = teamFinance;

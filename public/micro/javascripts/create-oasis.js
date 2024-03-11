@@ -33,7 +33,11 @@ const RootComponent = {
         },
         recoverOasisInfoV(){
             var _that=this;
-            recoverOasisInfo().then(response=>{
+            const oasisId =  getQueryVariable("oasis_id");
+            if(!oasisId){
+                return;
+            }
+            recoverOasisInfo(oasisId).then(response=>{
                 if(response.data.code==200){
                     this.base.title = response.data.announce.title;
                     this.base.subTitle = response.data.announce.subTitle;
@@ -104,7 +108,9 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-')
+}
 app.component('contenteditable', ContentediableComponent)
 
 const createOasisPage = app.mount('#app');
@@ -148,11 +154,8 @@ async function getAnnounce(oasisId){
     return await axios.get(url);
 }
 
-function recoverOasisInfo(){
-    const oasisId =  getQueryVariable("oasis_id");
-    if(!oasisId){
-        return;
-    }
+function recoverOasisInfo(oasisId){
+  
     return getAnnounce(oasisId);
 }
 function markOasisB(oasisId,mark){

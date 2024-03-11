@@ -136,6 +136,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
                          need_fetch_mutiple_event_feed : false,
                          scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 
 const studioStorePage = app.mount('#app');
 window.cStore = studioStorePage;

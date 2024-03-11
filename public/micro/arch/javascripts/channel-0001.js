@@ -131,7 +131,9 @@ app.mixin(new StemChatCompoent({
     }
 }))
 
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('col-')
+}
 
 const oasisGroupMsg = app.mount('#app');
 

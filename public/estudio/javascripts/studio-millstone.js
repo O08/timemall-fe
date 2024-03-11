@@ -232,7 +232,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
 app.mixin(ImageAdaptiveComponent);
 app.mixin(CodeExplainComponent);
 app.mixin(DirectiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 const millstonePage = app.mount('#app');
 window.cMillstone= millstonePage;
 

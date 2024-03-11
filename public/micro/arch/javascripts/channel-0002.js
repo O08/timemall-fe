@@ -153,7 +153,9 @@ app.mixin(
     })
 );
 
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('col-')
+}
 
 const privateChatApp = app.mount('#app');
 

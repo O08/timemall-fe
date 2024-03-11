@@ -84,7 +84,9 @@ app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
 app.mixin(Pagination);
 app.mixin(CodeExplainComponent);
-    
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}     
 const openDataPage = app.mount('#app');
 window.openDataPage = openDataPage;
 

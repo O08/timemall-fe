@@ -201,6 +201,9 @@ body::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
+#panelsStayOpen-collapseTwo .card-footer{
+    border: none;
+}
 @media (max-width: 576px) {
     .input-sbu,.span-sbu{
         font-size: 10px;

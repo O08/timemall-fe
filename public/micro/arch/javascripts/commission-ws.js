@@ -115,7 +115,9 @@ app.mixin(new DefaultChatCompoent({
     }
 }));
 
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+  }
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;

@@ -256,7 +256,7 @@
                   <label for="input[payeeAccount]" class="form-label">登录号</label>
                 </div>
                 <div class="col-sm-9">
-                  <input id="input[payeeAccount]" @change="activeSaveBankBtn" v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
+                  <input id="input[payeeAccount]"  v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
                 </div>
               </div> 
               <div class="row mb-3">
@@ -264,7 +264,7 @@
                   <label for="input[payeeRealName]" class="form-label">姓名</label>
                 </div>
                 <div class="col-sm-9">
-                  <input id="input[payeeRealName]" @change="activeSaveBankBtn" v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
+                  <input id="input[payeeRealName]"  v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
                 </div>
               </div> 
             </form>

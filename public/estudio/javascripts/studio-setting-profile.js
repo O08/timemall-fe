@@ -175,7 +175,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
 
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content')
+}
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
 // init 

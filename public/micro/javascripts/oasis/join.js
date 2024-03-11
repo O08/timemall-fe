@@ -55,7 +55,9 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
-
+app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('col-')
+}
 const joinOasis = app.mount('#app');
 
 window.joinOasis = joinOasis;
