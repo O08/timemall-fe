@@ -63,14 +63,17 @@ async function logout(){
     }
 
   }
-  function previewFeedbackAttachment(){
+   function previewFeedbackAttachment(){
     const attachment=document.getElementById("input_issue_attachment").files[0];
     const URL2 = URL.createObjectURL(attachment)
     document.querySelector('#lastestFeedbackAttachment').src = URL2;
 
   }
 
-  document.getElementById('feedback-form').onsubmit=function (e) {
+  document.getElementById('input_issue_attachment').onchange=function(e){
+      previewFeedbackAttachment();
+  }
+  document.getElementById('feedback-form').onsubmit= async function (e) {
 
     // prevent default submit
         e.preventDefault();
@@ -84,3 +87,4 @@ if(!!logoutbtn){
     logout();
   }
 }
+

@@ -114,7 +114,9 @@ html,body,mall-app {
     border-color: #686868;
   
   }
-  
+  #section_user_need_feedback_offcanvas .offcanvas-title,#section_user_need_feedback_offcanvas .form-label{
+    color: #FDFDFD;
+  }
   
   @media (max-width: 992px) {
     top-search {

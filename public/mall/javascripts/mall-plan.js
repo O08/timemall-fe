@@ -93,6 +93,9 @@ app.mixin(Pagination);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
+app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('content') || tag.startsWith('top-search')
+}
 const homePlan = app.mount('#app');
 
 window.homePlan = homePlan;

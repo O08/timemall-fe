@@ -192,7 +192,6 @@ footer{
   -webkit-transition: border-color .35s ease;
   -o-transition: border-color .35s ease;
   transition: border-color .35s ease;
-  -moz-appearance: textfield;
 }
 .input-wrapper label{
   font-size: 12px;
@@ -241,6 +240,10 @@ footer{
 .top-search-input:focus{
   box-shadow: none;
   border: none;
+}
+
+#section_user_need_feedback_offcanvas .offcanvas-title,#section_user_need_feedback_offcanvas .form-label{
+  color: #FDFDFD;
 }
 
 @media
