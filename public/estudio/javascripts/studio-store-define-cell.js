@@ -151,8 +151,9 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('content')
+    return tag == 'content'
 }
+
 const defineCellPage = app.mount('#app');
 window.cDefineCell= defineCellPage;
 

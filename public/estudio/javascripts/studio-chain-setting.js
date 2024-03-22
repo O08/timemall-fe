@@ -9,7 +9,6 @@ import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { data } from "jquery";
 
 
 const RootComponent = {
