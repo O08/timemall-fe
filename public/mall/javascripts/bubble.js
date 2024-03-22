@@ -108,6 +108,7 @@ function loadHomeInfo()
     getHomeInfo(brandId).then(response=>{
         if(response.data.code == 200){
             bubblePage.homeInfo = response.data.data;
+            renderPageMetaInfo(bubblePage.homeInfo.brand,bubblePage.homeInfo.brandTitle);
         }
 
     });
@@ -173,6 +174,13 @@ function getScrollHeight() {
     }
     scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
     return scrollHeight;
+}
+
+function renderPageMetaInfo(title,description){
+    document.title = title + " 的品牌主页";
+    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,游戏玩家服务,写作与翻译,原神游戏玩家服务,视频与动画制作剪辑";
+    document.getElementsByTagName('meta')["description"].content = description;
+    document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
 }
 
 
