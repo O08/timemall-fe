@@ -7,8 +7,21 @@ async function fetchUserInfo(){
     const response= await fetchUserInfo();
     var data = await response.json();
     if(data.code==200){
-        document.querySelector(".button_login").style.display="none";
-        document.querySelector(".button_user").style.display="block";
+        var btnLogninEl=document.querySelector(".button_login");
+        if(!!btnLogninEl){
+          btnLogninEl.style.display="none";
+        }
+
+        var btnUserEl=document.querySelector(".button_user");
+        if(!!btnUserEl){
+          btnUserEl.style.display="block";
+        }
+
+        var btnRegitsterEl=document.querySelector(".button_register");
+        if(!!btnRegitsterEl){
+          btnRegitsterEl.style.display="none";
+        }
+        
     }
     if(data.code==2001 && needAuth){
        window.location.href="/login.html";
