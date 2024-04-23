@@ -7,7 +7,8 @@ export default function EventFeed(params) {
     const {
         need_fetch_event_feed_signal = false,
         need_fetch_mutiple_event_feed = false,
-        scene=""
+        scene="",
+        need_init = true
       } = params   
      return {
         data() {
@@ -43,12 +44,18 @@ export default function EventFeed(params) {
            updateEventFeedMarkAsProcessedV(){
             const millstoneId = getQueryVariable("workflow_id");
             return updateEventFeedMarkAsProcessed(scene,millstoneId);
+           },
+           initEventFeedCompoentV(){
+            this.fetchCreatedEventFeedSignalV();
+            this.fetchMutipleEventFeedV();
            }
 
         },
         created: function() {
-            this.fetchCreatedEventFeedSignalV();
-            this.fetchMutipleEventFeedV();
+            if(need_init){
+               this.initEventFeedCompoentV();
+            }
+
         }
     }
     

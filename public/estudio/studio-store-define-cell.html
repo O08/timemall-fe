@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/studio-store.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-store-define-cell.scss">
+
     
 </head>
 <body class="pt-body">
@@ -36,8 +38,8 @@
             <h2 class="mb-0">E-Studio</h2>
           </div>
         </div>
-        <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-          <i class="bi bi-three-dots"></i>
+        <button class="btn btn-primary toggle-nav button_user_account" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <i class="bi bi-person-circle"></i>
         </button>
         <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
@@ -47,10 +49,10 @@
           <div class="offcanvas-body justify-content-end">
             <nav>
               <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0 text-start">
-                <li class="nav-item"><a href="/home.html" class="nav-link  px-xxl-5 text-white">市场</a></li>
-                <li class="nav-item"><a href="/epod/pod-millstone.html" class="nav-link   px-xxl-5 text-white">E-Pod</a></li>
-                <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link  px-xxl-5 text-white">登录</a></li>
-                <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link  px-xxl-5 text-white">注册</a></li>
+                <li class="nav-item"><a href="/home" class="nav-link  px-xxl-5 text-white">精选商店</a></li>
+                <li class="nav-item"><a href="/epod/pod-millstone" class="nav-link   px-xxl-5 text-white">E-Pod</a></li>
+                <li v-if="!user_already_login" class="nav-item"><a href="/login" class="nav-link  px-xxl-5 text-white">登录</a></li>
+                <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup" class="nav-link  px-xxl-5 text-white">注册</a></li>
                 <li v-if="user_already_login" class="nav-item display_account_xxl">
                   <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +60,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li>
-                        <a href="/estudio/studio-setting-profile.html">
+                        <a href="/estudio/studio-setting-profile">
                           <button class="dropdown-item" type="button">
                             <i class="bi bi-person-vcard me-1"></i> 品牌形象
                            </button>
@@ -70,7 +72,7 @@
                           </button>
                       </li>
                       <li>
-                        <a href="/mall/delete-account.html">
+                        <a href="/mall/delete-account">
                           <button class="dropdown-item" type="button">
                             <i class="bi bi-trash3 me-1"></i> 删除账号
                            </button>
@@ -88,7 +90,7 @@
               </ul>
               <ul  v-if="user_already_login" class="list-group display_account_xxl_small text-start mt-3">
                 <li class="list-group-item"> 
-                  <a href="/estudio/studio-setting-profile.html">
+                  <a href="/estudio/studio-setting-profile">
                     <button class="dropdown-item" type="button">
                       <i class="bi bi-person-vcard me-1"></i> 品牌形象
                     </button>
@@ -100,7 +102,7 @@
                   </button>
                 </li>
                 <li class="list-group-item">
-                  <a href="/mall/delete-account.html">
+                  <a href="/mall/delete-account">
                     <button class="dropdown-item" type="button">
                       <i class="bi bi-trash3 me-1"></i> 删除账号
                      </button>
@@ -126,11 +128,11 @@
           <div class="customer-portrait-container">
             <div class="d-flex flex-column justify-content-center ">
               <div class="customer-portrait">
-                <a href="/estudio/studio-setting-profile.html" class="url-link">
+                <a href="/estudio/studio-setting-profile" class="url-link">
                   <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </a>
               </div>
-              <a href="/estudio/studio-setting-profile.html" class="url-link">
+              <a href="/estudio/studio-setting-profile" class="url-link">
                 <h6 class="customer-name mt-1">{{studio_brand}}</h6>
               </a>
             </div>
@@ -139,29 +141,29 @@
           <div class="sidebar-wrapper">
             <nav class="sidebar nav flex-column">
               
-              <a class="nav-link" aria-current="page" href="/estudio/studio-millstone.html">
+              <a class="nav-link" aria-current="page" href="/estudio/studio-millstone">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M22.5 3V19.5H1.5V12H7.5V7.5H13.5V3H22.5ZM21 4.5H15V9H9V13.5H3V18H21V4.5Z"></path>
                 </svg>
                 <span>履约</span>        
               </a>
-              <a class="nav-link" href="/estudio/studio-msg.html">
+              <a class="nav-link" href="/estudio/studio-msg">
                 <i class="bi bi-calendar2-event"></i>
                 <span>
                   连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                 </span>
               </a>
-              <a class="nav-link" href="/estudio/studio-order-history.html">
+              <a class="nav-link" href="/estudio/studio-order-history">
                 <i class="bi bi-shop"></i>
                 <span>预约</span>  
               </a>
-              <a class="nav-link" href="/estudio/studio-dsp.html">
+              <a class="nav-link" href="/estudio/studio-dsp">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
                 </svg>
                 <span>DSP</span>
               </a>
-              <a class="nav-link" href="/estudio/studio-bill.html">
+              <a class="nav-link" href="/estudio/studio-bill">
                 <i class="bi bi-bank"></i>
                 <span>账单</span>
               </a>
@@ -169,15 +171,15 @@
                 <i class="bi bi-coin"></i>
                 <span>变现</span>
               </a>
-              <a class="nav-link" href="/estudio/studio-tob.html">
+              <a class="nav-link" href="/estudio/studio-tob">
                 <i class="bi bi-bootstrap"></i>
                 <span>商单</span>
               </a>
-              <a class="nav-link" href="/estudio/studio-mps.html">
+              <a class="nav-link" href="/estudio/studio-mps">
                 <i class="bi bi-link-45deg"></i>
                 <span>产单</span>
               </a>
-              <a class="nav-link" href="/estudio/studio-shop.html">
+              <a class="nav-link" href="/estudio/studio-shop">
                 <i class="bi bi-bag"></i>
                 <span>商城</span>
               </a>
@@ -199,17 +201,17 @@
             <div class="col-6">
               <ul class="nav nav-tabs border-0 store-tab" id="store-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a href="/estudio/studio-store.html?tab=active" class="text-decoration-none">
+                    <a href="/estudio/studio-store?tab=active" class="text-decoration-none">
                         <button class="nav-link" id="activeCell-tab" data-bs-toggle="tab" data-bs-target="#activeCell-tab-pane" type="button" role="tab" aria-controls="activeCell-tab-pane" aria-selected="true">在线服务</button>
                     </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="/estudio/studio-store.html?tab=paused" class="text-decoration-none">
+                    <a href="/estudio/studio-store?tab=paused" class="text-decoration-none">
                         <button class="nav-link" id="pausedCell-tab" data-bs-toggle="tab" data-bs-target="#pausedCell-tab-pane" type="button" role="tab" aria-controls="pausedCell-tab-pane" aria-selected="true">已下线服务</button>
                     </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="/estudio/studio-store.html?tab=draft" class="text-decoration-none">
+                    <a href="/estudio/studio-store?tab=draft" class="text-decoration-none">
                         <button class="nav-link" id="draftCell-tab" data-bs-toggle="tab" data-bs-target="#draftCell-tab-pane" type="button" role="tab" aria-controls="draftCell-tab-pane" aria-selected="true">草稿箱</button>
                     </a>
                 </li>
@@ -243,7 +245,7 @@
                           <label class="col-form-label col-sm-4 pt-0">
                             封面
                             <div class="help-text">
-                             服务封面，将视觉美感与服务内涵融合在一起，传达出服务内容，从而使服务脱颖而出(格式要求：png,jpg,jpeg;文件大小：最大为1M)。
+                             服务封面，将视觉美感与服务内涵融合在一起，传达出服务内容，从而使服务脱颖而出(格式要求：png,jpg,jpeg;文件大小：最大为6M，图片必须至少为 640 x 320 像素)。
                             </div>
                           </label>
                           <div class="col-sm-8">
@@ -270,7 +272,7 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <div class="d-flex align-items-center  help-text"><i class="bi bi-book"></i><span class="ms-1"><a href="/blog/article/no-0012.html" class="text-decoration-none">咘噜咓服务开发者必看资源索引</a></span></div>
+                          <div class="d-flex align-items-center  help-text"><i class="bi bi-book"></i><span class="ms-1"><a href="/blog/article/no-0012" class="text-decoration-none">咘噜咓服务开发者必看资源索引</a></span></div>
                         </div>                 
                         <button type="submit" v-preventreclick @click="defineCellOverviewV" 
                         :class="{'disabled': !btn_ctl.activate_general_save_btn || !overview.title, 
@@ -397,11 +399,11 @@
                     <div class="accordion-body">
                       <section class="section-seller-banner dropzone-wrapper">                
                         <div class="brand-intro-cover-container">
-                          <div class="alert tip-font-sm box-bg-primary z-index-2 alert-dismissible fade show position-absolute end-0 mx-5 my-5" role="alert">
-                           上传图片以展示服务特色(格式要求：png,jpg,jpeg;文件大小：最大为1M)
+                          <div class="alert tip-font-sm box-bg-primary z-index-2 alert-dismissible fade show position-absolute end-0  tip-content" role="alert">
+                           上传图片以展示服务特色(格式要求：png,jpg,jpeg;文件大小：最大为6M，图片必须至少为 1024 x 576 像素)
                             <button type="button" class="btn-close btn-close-white" aria-label="Close" data-bs-dismiss="alert"></button>
                           </div>
-                          <div class="position-absolute end-0 my-4 me-5">
+                          <div class="position-absolute end-0 tip-icon">
                             <i class="bi bi-camera"></i>
                           </div>
                           <div class="cell-intro-cover">
@@ -460,7 +462,7 @@
                     <div class="accordion-body">
                       <div class="publish-agreement mb-3">
                         <div class="text-center mb-3">
-                          <h3>发布协议</h3>
+                          <h3>上线协议</h3>
                         </div>
                         <ol>
                           <li>您同意，与您访问或者使用本网站相关的所有事项，应根据中华人民共和国法律解释、理解和管辖。</li>
@@ -577,16 +579,51 @@
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="overviewCoverModalLabel">预览</h1>
+                  <h1 class="modal-title fs-5" id="overviewCoverModalLabel">设置个性化服务封面</h1>
                   <button @click="closeOverViewCoverModalHandlerV" type="button" id="closeOverViewCoverModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <div class="cover-upload-container">
-                    <img id="coverPreview" src="https://picsum.photos/200/200">
+                <div class="modal-body">
+
+           
+
+                  <div class="thumbnail-cover-upload-container">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+
+                  
+                      <div class="d-flex">
+                        <div class="img-container">
+                          <img id="coverPreview" src="https://picsum.photos/200/200">
+                        </div>
+                        <div class="eye-direction-container">
+                          <div class="eye-direction">
+                            <i class="bi bi-arrow-right-circle"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button @click="clickCropCoverBtnV" v-preventreclick  id="btn-crop-cover" class="btn-crop">
+                        <i class="bi bi-scissors"></i>裁剪
+                      </button>
+                    </div>
+
+                    <div class="cropped-cover-container" >
+                      <div class="d-flex justify-content-center align-items-center">
+                          裁剪预览
+                      </div>
+                      <div class="cropped-image-cover-container">
+                        <img  id="cropped-output-cover" class="cropped-output">
+                      </div>
+                    </div>
+                
                   </div>
+
                 </div>
                 <div class="modal-footer btn-light">
-                  <button @click="uploadCellCoverV" v-preventreclick type="button" id="btn-save-cover" class="btn btn-primary">设置为服务封面</button>
+                  <button 
+                  v-preventreclick :class="{'disabled': !btn_ctl.activate_upload_thumbnailCover_btn, 
+                    'btn-primary': btn_ctl.activate_upload_thumbnailCover_btn,
+                    'btn-secondary': !btn_ctl.activate_upload_thumbnailCover_btn}"
+                  @click="uploadCellCoverV" type="button" id="btn-save-cover" class="btn btn-primary">设置为服务封面</button>
                 </div>
               </div>
             </div>
@@ -598,16 +635,47 @@
             <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="introBannerModalLabel">横幅预览</h1>
+                  <h1 class="modal-title fs-5" id="introBannerModalLabel">服务详情页横幅设置</h1>
                   <button type="button" @click="closeIntroBannerModalHandlerV"  id="closeIntroBannerModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex justify-content-center">
+                <div class="modal-body">
+
                   <div class="banner-upload-container">
-                    <img id="introBannerPreview" src="https://picsum.photos/200/200">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+
+                      <div class="d-flex">
+                        <div class="img-container">
+                          <img id="bannerPreview" src="https://picsum.photos/200/200">
+                        </div>
+                        <div class="eye-direction-container">
+                          <div class="eye-direction">
+                            <i class="bi bi-arrow-right-circle"></i>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <button v-preventreclick @click="clickCropBannnerBtnV" id="btn-crop-banner" class="btn-crop">
+                        <i class="bi bi-scissors"></i>裁剪
+                      </button>
+                    </div>
+                    <div class="cropped-banner-container" >
+                      <div class="d-flex justify-content-center align-items-center">
+                          裁剪预览
+                      </div>
+                      <div class="cropped-image-container">
+                        <img  id="cropped-output-banner" class="cropped-output">
+                      </div>
+                    </div>
+                
                   </div>
+
                 </div>
                 <div class="modal-footer btn-light">
-                  <button @click="uploadCellIntroBannerV" v-preventreclick type="button" id="btn-save-banner" class="btn btn-primary">设置为服务介绍横幅</button>
+                  <button 
+                  :class="{'disabled': !btn_ctl.activate_upload_banner_btn, 
+                    'btn-primary': btn_ctl.activate_upload_banner_btn,
+                    'btn-secondary': !btn_ctl.activate_upload_banner_btn}"
+                  @click="uploadCellIntroBannerV" v-preventreclick type="button" id="btn-save-banner" class="btn btn-primary">设置为服务介绍横幅</button>
                 </div>
               </div>
             </div>

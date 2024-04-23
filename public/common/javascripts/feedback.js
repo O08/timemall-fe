@@ -28,10 +28,10 @@ async function logout(){
     if(data.code==200 && !isVuePage){
         document.querySelector(".button_login").style.display="block";
         document.querySelector(".button_user").style.display="none";
-        window.location.href="/welcome.html";
+        window.location.href="/welcome";
     }
     if(data.code==200 && !!isVuePage){
-       window.location.href="/welcome.html";
+       window.location.href="/welcome";
     }
   }
 

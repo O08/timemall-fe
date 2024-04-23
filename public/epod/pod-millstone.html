@@ -35,8 +35,8 @@
           </svg>
           <h2 class="mb-0">E-Pod</h2>
         </div>
-        <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-          <i class="bi bi-three-dots"></i>
+        <button class="btn btn-primary toggle-nav button_user_account" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <i class="bi bi-person-circle"></i>
         </button>
         <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
@@ -46,10 +46,10 @@
           <div class="offcanvas-body justify-content-end">
             <nav>
               <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0">
-                <li class="nav-item"><a href="/home.html" class="nav-link   px-xxl-5 text-white">市场</a></li>
-                <li class="nav-item"><a href="/estudio/studio-store.html" class="nav-link  px-xxl-5 text-white">E-Studio</a></li>
-                <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link px-xxl-5 text-white">登录</a></li>
-                <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link  px-xxl-5 text-white">注册</a></li>
+                <li class="nav-item"><a href="/home" class="nav-link   px-xxl-5 text-white">精选商店</a></li>
+                <li class="nav-item"><a href="/estudio/studio-store" class="nav-link  px-xxl-5 text-white">E-Studio</a></li>
+                <li v-if="!user_already_login" class="nav-item"><a href="/login" class="nav-link px-xxl-5 text-white">登录</a></li>
+                <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup" class="nav-link  px-xxl-5 text-white">注册</a></li>
                 <li v-if="user_already_login" class="nav-item display_account_xxl">
                   <div class="btn-group">
                     <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +57,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                       <li>
-                        <a href="/estudio/studio-setting-profile.html">
+                        <a href="/estudio/studio-setting-profile">
                           <button class="dropdown-item" type="button">
                             <i class="bi bi-person-vcard me-1"></i> 品牌形象
                            </button>
@@ -69,7 +69,7 @@
                           </button>
                       </li>
                       <li>
-                        <a href="/mall/delete-account.html">
+                        <a href="/mall/delete-account">
                           <button class="dropdown-item" type="button">
                             <i class="bi bi-trash3 me-1"></i> 删除账号
                            </button>
@@ -87,7 +87,7 @@
               </ul>
               <ul  v-if="user_already_login" class="list-group display_account_xxl_small text-start mt-3">
                 <li class="list-group-item"> 
-                  <a href="/estudio/studio-setting-profile.html">
+                  <a href="/estudio/studio-setting-profile">
                     <button class="dropdown-item" type="button">
                       <i class="bi bi-person-vcard me-1"></i> 品牌形象
                     </button>
@@ -99,7 +99,7 @@
                   </button>
                 </li>
                 <li class="list-group-item">
-                  <a href="/mall/delete-account.html">
+                  <a href="/mall/delete-account">
                     <button class="dropdown-item" type="button">
                       <i class="bi bi-trash3 me-1"></i> 删除账号
                      </button>
@@ -139,23 +139,23 @@
                 </svg>
                 <span>履约</span>        
               </a>
-              <a class="nav-link" href="/epod/pod-msg.html">
+              <a class="nav-link" href="/epod/pod-msg">
                 <i class="bi bi-calendar2-event"></i>
                 <span>
                   连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
                 </span>
               </a>
-              <a class="nav-link" href="/epod/pod-order-history.html">
+              <a class="nav-link" href="/epod/pod-order-history">
                 <i class="bi bi-shop"></i>
                 <span>预约</span>  
               </a>
-              <a class="nav-link" href="/epod/pod-dsp.html">
+              <a class="nav-link" href="/epod/pod-dsp">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
                 </svg>
                 <span>DSP</span>
               </a>
-              <a class="nav-link" href="/epod/pod-bill.html">
+              <a class="nav-link" href="/epod/pod-bill">
                 <i class="bi bi-bank"></i>
                 <span>账单</span>
               </a>
@@ -239,14 +239,14 @@
               <tbody>
                 <tr v-for="item in plan_pagination.records">
                   <td>
-                    <!-- <a :href="'/estudio/studio-millstone-action.html?option=view&workflow_id=' + item.id">
+                    <!-- <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
                       <span class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作任务">
                         <i class="bi bi-eye"></i>
                       </span>
                     </a> -->
                   </td>
                   <td>
-                    <a :href="'/epod/pod-plan.html?id=' + item.orderId">
+                    <a :href="'/epod/pod-plan?id=' + item.orderId">
                       <span class="td-service">
                         {{item.cellTitle}}
                       </span>
@@ -286,7 +286,7 @@
           </div>
           <!--  plan content end -->
 
-         </div>
+       
          <!--  sp content start -->
          <div class="tab-pane fade" id="sp-order-tab-pane" role="tabpanel" aria-labelledby="sp-order-tab" tabindex="0">
 
@@ -335,7 +335,7 @@
                     <div class="option-container">
                      
                       <span class="option-edit me-4">
-                        <a :href="'/epod/pod-millstone-edit.html?workflow_id=' + trans.id">
+                        <a :href="'/epod/pod-millstone-edit?workflow_id=' + trans.id">
                           <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务内容">           
                             <i class="bi bi-pencil-square"></i>                    
                           </button>
@@ -347,7 +347,7 @@
                         </button>
                       </span>
                       <!-- <span class="option-view">
-                        <a :href="'/epod/pod-millstone-view.html?workflow_id=' + trans.id">
+                        <a :href="'/epod/pod-millstone-view?workflow_id=' + trans.id">
                           <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
                             <i class="bi bi-eye"></i>
                           </button>
@@ -424,7 +424,7 @@
                     </div>
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                       <span class="td-service">
                         {{item.service}}
                       </span>
@@ -477,7 +477,7 @@
                   <td>
                     <!-- <div class="option-container">
                       <span class="option-view">
-                        <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                        <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                           <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
                             <i class="bi bi-eye"></i>
                           </button>
@@ -487,7 +487,7 @@
                     
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                       <span class="td-service">
                         {{item.service}}
                       </span>
@@ -545,7 +545,7 @@
                         </button>
                       </span>
                       <!-- <span class="option-view">
-                        <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                        <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                           <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
                             <i class="bi bi-eye"></i>
                           </button>
@@ -555,7 +555,7 @@
                     
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                       <span class="td-service">
                         {{item.service}}
                       </span>
@@ -614,7 +614,7 @@
                     </span>
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                       <span class="td-service">
                         {{item.service}}
                       </span>
@@ -667,7 +667,7 @@
                 <tr v-for="item in suspend_pagination.records">
                   <td>
                     <!-- <span class="option-view">
-                      <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                         <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
                           <i class="bi bi-eye"></i>
                         </button>
@@ -675,7 +675,7 @@
                     </span> -->
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                       <span class="td-service">
                         {{item.service}}
                       </span>
@@ -728,7 +728,7 @@
                 <tr v-for="item in finish_pagination.records">
                   <td>
                     <!-- <span class="option-view">
-                      <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                         <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
                           <i class="bi bi-eye"></i>
                         </button>
@@ -736,7 +736,7 @@
                     </span> -->
                   </td>
                   <td>
-                    <a :href="'/epod/pod-millstone-view.html?workflow_id=' + item.id">
+                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
                       <span class="td-service">
                         {{item.service}}
                       </span>
@@ -772,7 +772,8 @@
               </ul>
             </nav>
           </div>
-
+          
+        </div>
 
          </div>
           <!--  sp content end -->

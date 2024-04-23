@@ -7,9 +7,7 @@ mall-app {
     display: flex;
     flex-direction: column;
   }
-  mall-app header{
-    height: 150px;
-  }
+
   top-search {
     height: 50px;
   }
@@ -34,39 +32,133 @@ mall-app {
     overflow: auto;
     height: 100%;
 }
+
+.mobile-nav-container{
+    display: none;
+  }
+  
+  .button_user{
+    display: block;
+  }
+  .appButton a {
+    text-decoration: none;
+  }
+  .header-container,.nav_link{
+    height: 55px;
+  }
+  .header-container{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  nav{
+    display: flex;
+    justify-content: space-between;
+    align-items:center ;
+  }
+  .header-primary-container{
+    display: flex;
+    align-items:center ;
+  }
+  
+  
+  .nav_links{
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 16px;
+    line-height: 140%;
+    font-weight: 600;
+    display: flex;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 16px;
+  }
+  .nav_link{
+    display: flex;
+    align-items: center;
+  }
+  .nav_link a{
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px;
+    color: #fff;
+    text-decoration:none;
+    position: relative;
+  
+  }
+  .nav_link.active a{
+    color: #3887FE;
+  }
+  
+  .nav_links > li:first-child a{
+    margin-left: 0;
+    padding-left: 0;
+  }
+  
+  
+  .logo_link{
+    padding-left: 0;
+    min-width: none;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  .logo_link img{
+    height: 32px;
+    width: 32px;
+  }
+  
+  .button_login{
+    border-color: #fff;
+    border-radius: 30px;
+    height: 34px;
+    width: 88px;
+  }
+  
+  .join-now{
+    margin-left: 12px;
+    border-radius: 30px;
+    height: 34px;
+    width: 88px;
+  }
+  .sub-nav-container,.content-container{
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+  .sub-nav-container{
+    padding-top: 72px;
+  }
 /*----------------------------------------------------
     1. Tab
 ------------------------------------------------------*/
-sub-nav,.section-cell-detail-tab
-{
-    margin-left: 20%;
-    margin-right: 5%;
 
-}
-
-.section-cell-detail-tab
+.sub-nav-container .nav-link
 {
-    margin-top: 60px;
-}
-sub-nav .nav-link
-{
-    color: #3887FE ;
+    color: #a7a7a7 ;
     letter-spacing: 0.1rem;
-    border: none;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
 
 }
 
-sub-nav .nav-item .active
+.sub-nav-container .nav-item .active
 {
-    color: #666;
-    background-color: #2f2f2f;
-    border: none;
+    color: #fff;
+    background-color: unset;
 }
 .intro-content{
     width: calc(100% - 450px);
 }
 .card-header{
-    color: #666;
+    color: #aaa;
 }
 /*----------------------------------------------------
     2. Intro
@@ -75,7 +167,8 @@ sub-nav .nav-item .active
 .cell-intro-cover,.cell-intro-cover img
 {
     width: 100%;
-    max-height: 260px;
+    aspect-ratio: 3.23 / 1;
+    
 }
 .cell-intro-cover img{
     width: 100%;
@@ -86,9 +179,9 @@ sub-nav .nav-item .active
 {
     margin-top: 30px;
 }
-.cell-intro-cover
+.intro-content,.fee-calculator-pannel
 {
-    margin-top: 3rem;
+    padding-top: 3rem;
 }
 .cell-title{
     font-size: 24px;
@@ -104,13 +197,10 @@ sub-nav .nav-item .active
 /*----------------------------------------------------
     3. Fee calculator
 ------------------------------------------------------*/
-.fee-calculator
-{
-    margin-top: 30px;
-}
+
 .fee-calculator-bg
 {
-    background: #2B2B2B;
+    background: #121212;
 }
 .card-footer-highlight{
     border-top: 2px solid #383838;
@@ -122,7 +212,7 @@ sub-nav .nav-item .active
 }
 .option-sbu-input:focus,.option-sbu:focus{
     box-shadow: none;
-    border-color: #666;
+    border-color: #aaa;
 }
 .fly-tool{
     margin-left: 200px;
@@ -221,10 +311,10 @@ sub-nav .nav-item .active
 }
 .section-seller-experience,.section-seller-skills,.section-seller-service,.section-seller-links
 {
-    margin-top: 50px;
-    background-color: #2B2B2B;
+    // margin-top: 50px;
+    // background-color: #121212;
     padding-left: 1.3rem;
-    padding-top: 1.3rem;
+    padding-top: 30px;
     padding-bottom: 2rem;
 }
 .section-header{
@@ -273,11 +363,11 @@ sub-nav .nav-item .active
 .ip-location{
     font-size: 20px;
     font-weight: normal;
-    color: #666;
+    color: #aaa;
 }
 .exeperince-millstone
 {
-    background-color: #2B2B2B;
+    background-color: #121212;
 }
 .me-skills 
 {
@@ -290,7 +380,7 @@ sub-nav .nav-item .active
     height: 60px;
 }
 .price-list,.private-msg{
-    color: #666;
+    color: #aaa;
     border: none;
     font-size: 12px;
 }
@@ -302,7 +392,7 @@ sub-nav .nav-item .active
 }
 
 .fee-sbu-wrapper{
-    color: #666;
+    color: #aaa;
     font-size: 10px;
     line-height: 12px;
 }
@@ -314,19 +404,19 @@ sub-nav .nav-item .active
     font-weight: 400;
 }
 .section-seller-banner {
-    background: #2B2B2B;
+    background: #121212;
 }
 .section-seller-experience .card,.exeperince-millstone .card-header{
-    // border-color: #666;
+    // border-color: #aaa;
     border: none;
 }
 .section-seller-experience .card{
-    border-top: 1px solid #666;
+    // border-top: 1px solid #aaa;
     border-radius: 0;
 }
 
 .timeline-item h5{
-    color: #666;
+    color: #aaa;
 }
 .price .price-txt {
     font-weight: 500;
@@ -341,30 +431,40 @@ sub-nav .nav-item .active
     display: -webkit-box;
     overflow: hidden;
 }
-.help-text{
-    font-size: 12px;
-}
 .plan-panel-header{
     display: flex;
-    background-color: #2B2B2B;
     width: 100%;
-    height: 113px;
     justify-content: start;
     align-items: center;
-    padding-left: 1.5rem;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 .plan-item-wrapper{
     display: flex;
     align-items: center;
     height: 100%;
-
+    border: 1px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    margin-left: 12px;
 }
 .plan-content-feature {
-    min-height: 240px ;
+    min-height: 80px ;
 }
-.plan-content-header p {
+.plan-content-header p ,.plan-feature-label{
     font-weight: 700;
 }
+.plan-feature-label{
+    padding-bottom: 12px;
+}
+.plan-content-feature p{
+    color: #aaa;
+    padding-left: 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.675;
+}
+
 .paragraph{
     white-space: pre-wrap;
     word-break: break-all;
@@ -375,24 +475,22 @@ sub-nav .nav-item .active
 .plan-item{
     width: 80px;
     text-align: center;
-    color: #666;
+    font-weight: bold;
 }
 .plan-content-option{
     display: flex;
 }
 .plan-content-container{
-    background-color: #2A2E31;
-    padding-bottom: 90px;
-    padding-left: 2.5rem;
+    padding-bottom: 80px;
 }
 .plan-content-option-empty-block{
     width: 60%;
 }
 .plan-item-wrapper.active{
-    background-color: #2A2E31;
+    background-color: #fff;
 }
 .plan-item-wrapper.active .plan-item{
-    color: whitesmoke;
+    color: #121212;
 
 }
 .opt_item_container{
@@ -408,7 +506,8 @@ sub-nav .nav-item .active
 }
 .opt_item_desc{
     font-size: smaller;
-    color: #666;
+    color: #aaa;
+    margin-bottom: 8px;
 }
 .opt_item_head .btn{
     border-radius: 50%;
@@ -416,7 +515,7 @@ sub-nav .nav-item .active
     width: 40px;
     background-color: lighten($color: #2d2c2c, $amount: 10) ;
     border: none;
-    color: #666;
+    color: #aaa;
     text-align: center;
     vertical-align: middle;
 }
@@ -442,42 +541,31 @@ sub-nav .nav-item .active
       font-size: .875em;
       color: #dc3545
   }
-  body,.section-cell-detail-tab{
-    overflow: overlay;
-  
-    &::-webkit-scrollbar {
-        width: 0;
-        height: 0;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(102, 102, 102, 0.1);
-    }
-  
-    &:hover {
-        &::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-  
-        &::-webkit-scrollbar-thumb {
-            background-color: rgba(170, 170, 170, 0.5);
-        }
-    }
-  
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(102, 102, 102, 0.1);
-  
-        /* 滚动条里面小方块 */
-        border-radius: 6px;
-    }
+  #cell-detail-tab{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 12px;
+  }
+  .can_opt_wrapper,.plan-panel-header{
+    padding-top: 32px;
   }
 @media (max-width: 576px) {
+
+    .content-container{
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .link-view-url{
+      max-width: 200px;
+    }
+    .section-seller-experience, .section-seller-skills, .section-seller-service, .section-seller-links {
+        padding-left: 0;
+    }
+
     .fee-calculator-pannel{
        margin-right: 0;
        width: auto;
     }
-    sub-nav,.section-cell-detail-tab
+    .sub-nav-container
     {
         margin-left: 16px;
         margin-right: 16px;
@@ -485,11 +573,11 @@ sub-nav .nav-item .active
         padding-right: 0;
 
     }
-    .cell-intro-cover,.cell-intro-cover img
-{
-    width: 100%;
-    max-height: 130px;
-}
+//     .cell-intro-cover,.cell-intro-cover img
+// {
+//     width: 100%;
+//     aspect-ratio: 3.23 / 1;
+// }
 .brand-intro-cover, .brand-intro-cover img
 {
     height: 130px;
@@ -506,9 +594,7 @@ sub-nav .nav-item .active
     margin-left: 30px;
     margin-top: 40px;
 }
-.plan-panel-header{
-    height: 60px;
-}
+
 .plan-content-option-empty-block{
     display: none;
 }
@@ -518,5 +604,26 @@ sub-nav .nav-item .active
 }
 .logo{
     justify-content: flex-end !important;
+  }
+
+.header-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .header-container{
+    display: flex;
+    align-items:center
+  }
+  .header-container nav{
+    display: flex;
+    justify-content: space-between;
+    width: calc(100vw - 24px);
+  }
+  .mobile-nav-container{
+    display: block;
+  }
+  .header-primary-container .nav_links{
+    display: none;
   }
 }

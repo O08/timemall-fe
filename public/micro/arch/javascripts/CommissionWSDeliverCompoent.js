@@ -17,7 +17,6 @@ const CommissionWSDeliverCompoent = {
         }
     },
     methods: {
-        
         showAcceptDeliverFocusModalV(deliver){
             this.focusModal.feed="接受交付后，将解锁供应商的交付资料，同时您管理的基地负债项将增加，服务供应商有权从您管理的基地收账，您可点击 确定 接受交付"
             this.focusModal.confirmHandler=()=>{

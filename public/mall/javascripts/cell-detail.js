@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js";
 import {goLoginPage} from "/common/javascripts/pagenav.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
@@ -100,6 +100,7 @@ const RootComponent = {
                     if(!this.profile.content){
                         this.profile.content = []
                     }
+                    sortSbu();
                     var description=this.profile.content.items.length>0 ?  this.profile.content.items[0].section : "";
 
                     renderPageMetaInfo(this.profile.title,description);
@@ -320,8 +321,22 @@ function explainCellPlanType(planType){
 }
 function getSbuPrice()
 {
-   const selectedFee = cellDetailPage.profile.fee.filter(item=>item.sbu===cellDetailPage.selectedSbu)[0];
+   const selectedFee = getFeeItemBySbu(cellDetailPage.selectedSbu);
    return selectedFee.price;
+}
+function sortSbu(){
+
+  var sortFeeArr=[getFeeItemBySbu('second'),getFeeItemBySbu('week'),
+    getFeeItemBySbu('minute'),getFeeItemBySbu('month'),
+    getFeeItemBySbu('hour'),getFeeItemBySbu('quarter'),
+    getFeeItemBySbu('day'),getFeeItemBySbu('year')];
+
+    cellDetailPage.profile.fee = sortFeeArr;
+
+}
+function getFeeItemBySbu(sbu){
+    const filterFee = cellDetailPage.profile.fee.filter(item=>item.sbu===sbu)[0];
+   return filterFee;
 }
 function computeTotalFee(){
     if(cellDetailPage.selectedSbu === "" || !cellDetailPage.quantity ){
@@ -333,13 +348,13 @@ function computeTotalFee(){
 
 function renderPageMetaInfo(title,description){
     document.title = title + " - 市场";
-    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,游戏玩家服务,写作与翻译,原神游戏玩家服务,视频与动画制作剪辑";
+    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,超级玩家,写作与翻译,原神超级玩家,视频与动画制作剪辑";
     document.getElementsByTagName('meta')["description"].content = description;
     document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
 }
 
 function renderStructuredDataForSEO(product){
-    var url=window.location.origin + "/mall/cell-detail.html?cell_id=" + product.id + "&brand_id=" + product.brandId;
+    var url=window.location.origin + "/mall/cell-detail?cell_id=" + product.id + "&brand_id=" + product.brandId;
     var description=product.content.items.map(obj => obj.section).join("\n");
     var price=product.fee.filter(e=>e.sbu==="hour")[0].price;
 

@@ -22,6 +22,9 @@
     max-width: 18rem;
     height: 180px;
 }
+.option-th{
+    width: 2% !important;
+}
 table td{
     font-size: 14px;
     line-height: 1.565;
@@ -39,10 +42,7 @@ table td{
 .td-service{
     max-width: 600px;
 }
-body::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
+
 .pay_link{
     font-size: 12px;
 }

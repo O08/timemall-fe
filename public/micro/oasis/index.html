@@ -26,14 +26,14 @@
         <div class="sidebarContainer d-flex flex-row">
           <col-nav-main>
           <div class="nav-container-wrapper">
-            <a href="/micro/teixcalaanli.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="贤者时间"> 
+            <a href="/micro/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="贤者时间"> 
               <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 13C3.8 13 2 14.8 2 17C2 19.2 3.8 21 6 21C8.2 21 10 19.2 10 17C10 14.8 8.2 13 6 13ZM12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3ZM18 13C15.8 13 14 14.8 14 17C14 19.2 15.8 21 18 21C20.2 21 22 19.2 22 17C22 14.8 20.2 13 18 13Z" fill="#36F7E5"/>
                   </svg>
               </div>
             </a>
-            <a href="/micro/arch/channel-0002.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
+            <a href="/micro/arch/channel-0002" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
               <div class="nav-private nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.99991 11.9999H14.9999" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
@@ -42,7 +42,7 @@
                   </svg>              
               </div>
             </a>
-            <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis.html?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+            <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
               <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
                    :class="{'active': oasis.id==oasisId}">
                 <div class="oasis-avatar-wrapper">
@@ -62,7 +62,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end ms-5">
                   <li>
-                    <a href="/estudio/studio-setting-profile.html">
+                    <a href="/estudio/studio-setting-profile">
                       <button class="dropdown-item" type="button">
                         <i class="bi bi-person-vcard me-1"></i> 品牌形象
                        </button>
@@ -74,7 +74,7 @@
                       </button>
                   </li>
                   <li>
-                    <a href="/mall/delete-account.html">
+                    <a href="/mall/delete-account">
                       <button class="dropdown-item" type="button">
                         <i class="bi bi-trash3 me-1"></i> 删除账号
                        </button>
@@ -105,7 +105,7 @@
           
               <span>主页</span>  
             </a>
-            <a class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/arch/channel-0001.html?oasis_id='+ oasisId">
+            <a class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/arch/channel-0001?oasis_id='+ oasisId">
               <i class="bi bi-fan"></i>
               <span class="link-title">Fan</span>  
             </a>
@@ -135,13 +135,13 @@
       <div class="nav-oasis-container d-flex justify-content-between">
         <ul class="nav border-0 h-100">
           <li class="nav-item active" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis.html?oasis_id='+oasisId">宣传</a>
+            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis?oasis_id='+oasisId">宣传</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission.html?oasis_id='+oasisId">委托</a>
+            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent.html?oasis_id='+oasisId">透视</a>
+            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">透视</a>
           </li>
           <li class="nav-item" role="presentation">
             <!-- <a class="nav-link d-flex align-items-center" aria-current="page">
@@ -154,7 +154,7 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item">
                   <button type="button" class="btn btn-primary oasis-option" data-bs-toggle="modal" data-bs-target="#topUpToOasisModal">
-                    充值
+                    赞助
                   </button>
                   </a>
                 </li>
@@ -178,7 +178,7 @@
                 </a>
               </li>
               <li v-if="initiatorRoleV()">
-                <a  class="dropdown-item" :href="'/micro/create-oasis.html?option=edit&&oasis_id='+oasisId">
+                <a  class="dropdown-item" :href="'/micro/create-oasis?option=edit&&oasis_id='+oasisId">
                   <button type="button" class="btn btn-primary oasis-option">
                     基地设置
                   </button>
@@ -251,13 +251,13 @@
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title fs-5">充值</h1>
+                <h1 class="modal-title fs-5">赞助基地</h1>
                 <button type="button" id="closeTopUpToOasisModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center">
                 <form>
                   <div class="mt-3">
-                    <label for="t1" class="form-label">可充值金额</label>
+                    <label for="t1" class="form-label">可赞助金额</label>
                     <input :value="brandAccount.drawable" type="text" maxlength="255" class="form-control" disabled id="t1">
                   </div> 
                   <div class="mt-3">
@@ -265,7 +265,7 @@
                     <input id="t2" :value="oasisAccount.drawable" type="text" maxlength="255" class="form-control" disabled>
                   </div> 
                   <div class="mt-3">
-                    <label for="t3" class="form-label">充值金额</label>
+                    <label for="t3" class="form-label">赞助金额</label>
                     <input id="t3" v-model="amount"  @input="transformInputNumberV($event)" min="1" max="50000" step="1" type="number" class="form-control">
                   </div> 
                 </form>
@@ -276,7 +276,7 @@
                 :class="{'disabled': !amount || (brandAccount.drawable < amount) , 
                 'btn-primary': !!amount || (brandAccount.drawable >= amount) ,
                 'btn-secondary': !amount || (brandAccount.drawable < amount)  }"
-                @click="topUptoOasisV" type="button"  class="btn btn-primary">充值</button>
+                @click="topUptoOasisV" type="button"  class="btn btn-primary">赞助</button>
               </div>
             </div>
           </div>

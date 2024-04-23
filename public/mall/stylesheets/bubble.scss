@@ -8,14 +8,16 @@
     display: flex;
     flex-direction: column;
   } */
-  mall-app header{
-    height: 150px;
-    top: 0;
-    background-color: #2F2F2F;
+  // mall-app header{
+  //   height: 150px;
+  //   top: 0;
+  //   background-color: #121212;
+  // }
+
+
+  .modal-content{
+    background-color: #fff;
   }
-
-
-
   mall-app footer {
     height: 40px;
   }
@@ -31,6 +33,103 @@
     flex: 1;
   }
 
+
+.mobile-nav-container{
+  display: none;
+}
+
+.button_user{
+  display: block;
+}
+.appButton a {
+  text-decoration: none;
+}
+.header-wrapper,.nav_link{
+  height: 55px;
+}
+.header-container{
+  padding-left: 24px;
+  padding-right: 24px;
+}
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items:center ;
+}
+.header-primary-container{
+  display: flex;
+  align-items:center ;
+}
+
+
+.nav_links{
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: 16px;
+  line-height: 140%;
+  font-weight: 600;
+  display: flex;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 16px;
+}
+.nav_link{
+  display: flex;
+  align-items: center;
+}
+.nav_link a{
+  cursor: pointer;
+  margin: 10px;
+  padding: 10px;
+  color: #fff;
+  text-decoration:none;
+  position: relative;
+
+}
+.nav_link.active a{
+  color: #3887FE;
+}
+
+.nav_links > li:first-child a{
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+.logo_link{
+  padding-left: 0;
+  min-width: none;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.logo_link img{
+  height: 32px;
+  width: 32px;
+}
+
+.button_login{
+  border-color: #fff;
+  border-radius: 30px;
+  height: 34px;
+  width: 88px;
+}
+
+.join-now{
+  margin-left: 12px;
+  border-radius: 30px;
+  height: 34px;
+  width: 88px;
+}
 
  .section-bubble-brand-info {
     margin-top: 150px;
@@ -55,7 +154,7 @@
 .section-bubble-brand-info .nav-item .active
 {
     color: #949494; 
-    background-color: #2f2f2f;
+    background-color: #121212;
     border: none;
 }
 .section-bubble-brand-info,#bubble-tab-content,.section-tabs{
@@ -69,7 +168,7 @@
 .section-list-render
 {
     margin-top: 50px;
-    background-color: #2B2B2B;
+    background-color: #000;
     margin-right: 10%;
 }
 
@@ -88,20 +187,28 @@
   margin: 30px;
   display: inline-block;
 } */
-
+.nav-tabs .nav-link{
+  color: #a7a7a7;
+}
 .nav-tabs .nav-link.active{
 
   box-shadow: none;
-  border-radius: none;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
 }
-mall-app header{
+.header-container{
+  height: 150px;
+  background-color: #000;
+}
+.header-container{
   /* Pay special attention here! */
   position: fixed;
   top: 0px;
   z-index: 1045;
+  width: 100%;
 }
 .section-tabs{
-  background-color: #2F2F2F;
+  background-color: #121212;
   /* Pay special attention here! */
   position: sticky;
   top: 150px;
@@ -193,38 +300,41 @@ mall-app header{
 .cell-card-body-bg:hover{
   opacity: 1;
 }
-body{
-  overflow: overlay;
 
-  &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-  }
-
-  &:hover {
-      &::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-          background-color: rgba(170, 170, 170, 0.5);
-      }
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-
-      /* 滚动条里面小方块 */
-      border-radius: 6px;
-  }
-}
 @media (max-width: 576px) {
-  #bubble-tab-content,.section-tabs,.section-bubble-brand-info{
+
+.header-container {
+  padding-left: 12px;
+  padding-right: 12px;
+  position: relative;
+  height: 56px;
+}
+.section-tabs{
+  top: 0;
+}
+
+.header-container{
+  display: flex;
+  align-items:center
+}
+.header-container nav{
+  display: flex;
+  justify-content: space-between;
+  width: calc(100vw - 24px);
+}
+.mobile-nav-container{
+  display: block;
+}
+.header-primary-container .nav_links{
+  display: none;
+}
+.section-bubble-brand-info{
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 32px;
+}
+
+  #bubble-tab-content,.section-tabs{
     margin-left: 16px;
     padding-left: 0;
 

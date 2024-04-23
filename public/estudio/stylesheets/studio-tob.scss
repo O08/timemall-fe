@@ -67,10 +67,13 @@
   .paper_list-tb-filter-btn{
     border: none;
   }
-  .tob_list-search-btn,.asking-search-btn{
+  .tob_list-search-btn{
     border-radius: 0 5px 5px 0;
     height: 38px;
-
+  }
+  .asking-search-btn{
+    border-radius: 5px;
+    height: 38px;
   }
   .mps-list-header{
     min-width: 400px;

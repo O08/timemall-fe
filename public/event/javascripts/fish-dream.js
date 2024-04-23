@@ -79,7 +79,7 @@ async function shareDream(){
         closeShareModel();
     }
     if(data.code==2001){
-        window.location.href="/login.html";
+        window.location.href="/login";
     }
     if(data.code!=200&&data.code!=2001){
         const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+data.message;
@@ -107,7 +107,7 @@ async function likeDeream(dreamId,event){
         loadDreams("");
     }
     if(data.code==2001){
-        window.location.href="/login.html";
+        window.location.href="/login";
     }
     if(data.code!=200&&data.code!=2001){
         const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+data.message;
@@ -134,7 +134,7 @@ async function openBox(){
 
     }
     if(data.code==2001){
-        window.location.href="/login.html";
+        window.location.href="/login";
     }
     if(data.code!=200&&data.code!=2001){
         const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+data.message;

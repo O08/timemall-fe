@@ -10,21 +10,21 @@
     * 0.2-- go login page
     */
 export  function goLoginPage(){
-      go("/login.html")
+      go("/login")
    }
    /**
  * 
  * 0.3 go home page
  */ 
 export  function goHome(){
-    go("/home.html")
+    go("/home")
 }
 export  function goWelcome(){
-    go("/welcome.html")
+    go("/welcome")
 }
 
 export function goStudioStore(){
-    go("/estudio/studio-store.html")
+    go("/estudio/studio-store")
 }
 export function refresh(){
     window.location.reload();
@@ -33,7 +33,7 @@ export function goBackAndReload(){
     window.location.href = document.referrer;
 }
 export function nextPageWhenLoginSuccess(){
-    const isAuthPage = document.referrer.search("login.html") > 0 || document.referrer.search("signup.html")>0;
+    const isAuthPage = document.referrer.search("login") > 0 || document.referrer.search("signup")>0 || document.referrer.search("login.html") > 0 || document.referrer.search("signup.html")>0;
     if(isAuthPage){
         goHome();
     }else{

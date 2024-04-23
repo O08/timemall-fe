@@ -1,7 +1,11 @@
+import "vue-search-select/dist/VueSearchSelect.css";
+import {ModelSelect}  from 'vue-search-select';
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import SkillComponent from "/estudio/javascripts/studio-setting-profile-skill.js";
 import BrandLinksSettingCompoent from "/estudio/javascripts/compoent/BrandLinksSettingCompoent.js";
+import BrandAvatorAndBannerSetting from "/estudio/javascripts/compoent/BrandAvatorAndBannerSetting.js";
+import BrandBasicSetting from "/estudio/javascripts/compoent/BrandBasicSetting.js";
 
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
@@ -15,7 +19,6 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 const RootComponent = {
-
     data() {
         return {
             defaultExperienceImage,
@@ -60,30 +63,6 @@ const RootComponent = {
         loadBrandProfileV(){
             loadBrandProfile();
         },
-         clickBannerUploadBtn(){
-           $("#file_banner").trigger("click");
-         },
-         showPreviewBannerModalV(e){
-            showPreviewBannerModal(e);
-         },
-         closeBannerModalHandlerV(){
-            closeBannerModalHandler();
-         },
-         uploadBannerFileV(){
-            uploadBannerFile();
-         },
-         clickAvatorUploadBtn(){
-            $("#file_avator").trigger("click");
-         },
-         showPreviewAvatorModalV(e){
-            showPreviewAvatorModal(e);
-         },
-         closeAvatorModalHandlerV(){
-            closeAvatorModalHandler();
-         },
-         uploadAvatorFileV(){
-            uploadAvatorFile();
-         },
          showAddExperienceModalV(){
             showAddExperienceModal();
          },
@@ -165,23 +144,34 @@ const RootComponent = {
     }
 }
 const app = createApp(RootComponent);
+
 app.mixin(SkillComponent);
 app.mixin(BrandLinksSettingCompoent);
-app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(BrandAvatorAndBannerSetting);
+app.mixin(BrandBasicSetting);
+app.mixin(new Auth({need_permission : true,need_init: false}));
+app.mixin(new BrandInfoComponent({need_init: false}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
-    scene: EventFeedScene.STUDIO}));
+    scene: EventFeedScene.STUDIO,need_init: false
+}));
 
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.component("model-select",ModelSelect);
+
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
 // init 
 settingProfilePage.loadBrandProfileV();
+settingProfilePage.initBrandBasicSettingConfigV(); // brandBasicSeetting.js
+settingProfilePage.userAdapter(); // auth.js
+settingProfilePage.loadBrandInfo(); // load-brandinfo.js
+settingProfilePage.initEventFeedCompoentV();
+
 async function getBrandProfile(brandId){
     const url = "/api/v1/web_mall/brand/{brand_id}/profile".replace("{brand_id}",brandId);
     return await axios.get(url);
@@ -197,18 +187,6 @@ async function updateBasicInfoForBrand(brandId,dto){
     return await axios.put(url,dto)  
 }
 
-async function uploadBannerImgFile(brandId,files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_estudio/brand/{brand_id}/cover".replace("{brand_id}",brandId);
-    return await axios.put(url, fd);
-}
-async function uploadAvatorImgFile(brandId,files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_estudio/brand/{brand_id}/avator".replace("{brand_id}",brandId);
-    return await axios.put(url, fd);
-}
 function loadBrandProfile(){
     const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
     getBrandProfile(brandId).then(response=>{
@@ -217,6 +195,7 @@ function loadBrandProfile(){
         const profile = response.data.profile;
         settingProfilePage.identity.brand = profile.brand;
         settingProfilePage.identity.title = profile.title;
+        settingProfilePage.identity.location = profile.location;
         // location todo
         // set brand
         settingProfilePage.brand.avator = profile.avator;
@@ -228,6 +207,9 @@ function loadBrandProfile(){
         settingProfilePage.brandProfile.links = !profile.links ? [] : profile.links;
         // set experience
         settingProfilePage.brandProfile.experience = !profile.experience ? [] : profile.experience;
+
+        // set basic info
+        settingProfilePage.initBasicSettingV(profile);
 
 
         }
@@ -245,7 +227,7 @@ function setBrandExperience(){
 function setBrandBasicInfo(){
     // todo ip location
     const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
-    if(settingProfilePage.identity.location){
+    if(!settingProfilePage.identity.location){
         settingProfilePage.identity.location = "中国大陆"
     }
     updateBasicInfoForBrand(brandId,settingProfilePage.identity).then(response=>{
@@ -254,62 +236,9 @@ function setBrandBasicInfo(){
         }
     });
 }
-function uploadAvatorFile(){
-    const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
-    const file = $('#file_avator')[0].files[0];
-    uploadAvatorImgFile(brandId,file).then(response=>{
-        if(response.data.code ==200){
-          
-            const url = URL.createObjectURL(file);
-            $('#lastest_avator').attr('src',url);
-    
-            $("#avatorModal").modal("hide");
-            $('#avatorPreview').attr('src',"");
-        }
-    }).catch(error=>{
-        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
-    })
-}
-function showPreviewAvatorModal(e){
-    const file = e.target.files[0]
 
-    const url = URL.createObjectURL(file)
-    $('#avatorPreview').attr('src',url);
-    $("#avatorModal").modal("show");
-}
-function closeAvatorModalHandler(){
-    document.querySelector('#avatorPreview').src = "";
-    document.querySelector('#file_avator').value = null;
-}
-function uploadBannerFile(){
-    const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
-    const file = $('#file_banner')[0].files[0];
-    uploadBannerImgFile(brandId,file).then(response=>{
-        if(response.data.code ==200){
-          
-            const url = URL.createObjectURL(file);
-            $('#lastest_banner').attr('src',url);
-    
-            $("#bannerModal").modal("hide");
-            $('#bannerPreview').attr('src',"");
-        }
-    }).catch(error=>{
-        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
-    })
 
-}
 
-function showPreviewBannerModal(e){
-    const file = e.target.files[0]
-
-    const URL2 = URL.createObjectURL(file)
-    document.querySelector('#bannerPreview').src = URL2
-    $("#bannerModal").modal("show");
-}
-function closeBannerModalHandler(){
-    document.querySelector('#bannerPreview').src = "";
-    document.querySelector('#file_banner').value = null;
-}
 
 function showAddExperienceModal(){
     // clear modal tmp data

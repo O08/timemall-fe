@@ -37,6 +37,7 @@ $("#login-form").on("submit", function (e) {
 
     // prevent default submit
     e.preventDefault();
+    document.getElementsByName("submitBtn")[0].disabled=true;// prevent repeat submit
     if(e.target.checkValidity()){
         doLogin();
     }

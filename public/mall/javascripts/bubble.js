@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 // import InfiniteLoading from "v3-infinite-loading";
 // import "v3-infinite-loading/lib/style.css"; 
 
@@ -178,7 +178,7 @@ function getScrollHeight() {
 
 function renderPageMetaInfo(title,description){
     document.title = title + " 的品牌主页";
-    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,游戏玩家服务,写作与翻译,原神游戏玩家服务,视频与动画制作剪辑";
+    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,超级玩家,写作与翻译,原神超级玩家,视频与动画制作剪辑";
     document.getElementsByTagName('meta')["description"].content = description;
     document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
 }

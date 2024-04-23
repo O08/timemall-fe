@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
@@ -106,7 +106,7 @@ const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(DirectiveComponent);
 
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(MillstoneChatCompoent);
 app.mixin(RtmCompoent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,

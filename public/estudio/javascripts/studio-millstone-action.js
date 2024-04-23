@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Auth from "/estudio/javascripts/auth.js"
@@ -42,7 +42,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(MillstoneChatCompoent);
 app.mixin(RtmCompoent);
 app.mixin(DirectiveComponent);
@@ -112,7 +112,7 @@ optionSetting();
 function goViewOption(){
     const id = getQueryVariable("workflow_id");
     if(id){
-        let url = "/estudio/studio-millstone-action.html?option=view&workflow_id="+ id;
+        let url = "/estudio/studio-millstone-action?option=view&workflow_id="+ id;
         history.pushState(null, "", url);
         $("#section-fly-tool").hide();
     }

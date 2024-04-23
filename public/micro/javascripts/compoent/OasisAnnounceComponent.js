@@ -12,14 +12,14 @@ const OasisAnnounceComponent = {
         loadAnnounceV(){
             const oasisId =  getQueryVariable("oasis_id");
             if(!oasisId){
-                window.location.href="/micro/teixcalaanli.html";
+                window.location.href="/micro/teixcalaanli";
                 return ;
             }
             loadAnnounce(oasisId).then(response=>{
                 if(response.data.code == 200){
                     this.announce = response.data.announce;
                     if(!this.announce){
-                        window.location.href="/micro/teixcalaanli.html";
+                        window.location.href="/micro/teixcalaanli";
                     }
                 }
             })

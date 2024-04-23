@@ -1,12 +1,16 @@
 import "/common/javascripts/import-jquery.js";
 
 
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
+import { preHandleCellId ,addCellIdToUrl} from "/estudio/javascripts/compoent/DefineCellHelper.js";
+
 import axios from 'axios';
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
+import DefineCellCoverAndBanner from "/estudio/javascripts/compoent/DefineCellCoverAndBanner.js";
+
 
 import {CellStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import {goStudioStore} from "/common/javascripts/pagenav.js";
@@ -94,25 +98,7 @@ const RootComponent = {
         pannelRemoveText(index){
             removeText(index);
         },
-        // file handler
-        previewCellCoverV(e){
-            previewCellCover(e);
-        },
-        closeOverViewCoverModalHandlerV(){
-            closeOverViewCoverModalHandler();
-        },
-        uploadCellCoverV(){
-            uploadCellCover();
-        },
-        previewCellIntroBannerV(e){
-            previewCellIntroBanner(e);
-        },
-        closeIntroBannerModalHandlerV(){
-            closeIntroBannerModalHandler();
-        },
-        uploadCellIntroBannerV(){
-            uploadCellIntroBanner();
-        },
+        
         onlineCell(){
             // code 1--draft ; 2--onsale; 3--offsale;
             const cellId = getQueryVariable("cell_id");
@@ -144,8 +130,9 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.component('contenteditable', ContentediableComponent)
 app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(DirectiveComponent);
+app.mixin(DefineCellCoverAndBanner);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO}));
@@ -176,17 +163,6 @@ async function saveOverview(cellId,title,canProvideInvoice){
     }
     return await axios.put(url,param)  
 }
-async function requestCellId(){
-    const brandId =  defineCellPage.getIdentity().brandId; // Auth.getIdentity();
-   return await axios.get("/api/v1/web_estudio/services/initialize?brandId="+ brandId)
-}
-
-async function saveCellCoverImg(cellId, files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_estudio/services/{cell_id}/cover".replace("{cell_id}",cellId);
-    return await axios.put(url, fd);
-}
 
 
 async function savePricingInfo(cellId,pricing){
@@ -199,12 +175,7 @@ async function saveCellIntroContent(cellId,content){
     return await axios.put(url,{content});  
 }
 
-async function saveCellIntroBannerImg(cellId,files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/web_estudio/services/{cell_id}/intro/cover".replace("{cell_id}",cellId);
-    return await axios.put(url, fd);
-}
+
 /**
  * 
  * @param {*} cellId  cell id
@@ -245,7 +216,8 @@ function fetchCellPlan(){
 }
 async function defineCellOverview(){
 
-    const cellId =await preHandleCellId();
+    const brandId=defineCellPage.getIdentity().brandId;
+    const cellId =await preHandleCellId(brandId);
     if(!cellId){
         return;
     }
@@ -312,21 +284,8 @@ function transferPrice(arr,sbu){
  const obj = arr.filter(item => {return item.sbu === sbu})[0];
  return !obj ? "" : obj.price;
 }
-function addCellIdToUrl(cellId){
-    const id = getQueryVariable("cell_id");
-    if(!id){
-        let url = "/estudio/studio-store-define-cell.html?tab=pricing&cell_id="+ cellId
-        history.pushState(null, "", url);
-    }
-}
-async function preHandleCellId(){
-    let cellId = getQueryVariable("cell_id");
-    const option = getQueryVariable("option");
-    if(option === "new" && !cellId){
-        cellId =  (await requestCellId()).data.cellId;
-    }
-    return cellId;
-}
+
+
 
 
 function onOrOffSaleForCell(cellId,code){
@@ -338,68 +297,6 @@ function onOrOffSaleForCell(cellId,code){
      });
 }
 
-// file handler---------
-// 1. cell cover file handler
-function previewCellCover(e){
-    const file = e.target.files[0]
-    const URL2 = URL.createObjectURL(file)
-    document.querySelector('#coverPreview').src = URL2
-    $("#overviewCoverModal").modal("show");
-}
-function closeOverViewCoverModalHandler(){
-    document.querySelector('#coverPreview').src = "";
-    document.querySelector('#coverFile').value = null;
-}
-async function uploadCellCover(){
-    const cellId =await preHandleCellId();
-    if(!cellId){
-        return;
-    }
-    const file = $('#coverFile')[0].files[0];
-    saveCellCoverImg(cellId,file).then((response)=>{
-        if(response.data.code == 200){
-            const url = URL.createObjectURL(file)
-            document.querySelector('#lastestCover').src = url;
-
-            $("#overviewCoverModal").modal("hide");
-            document.querySelector('#coverPreview').src = "";
-            addCellIdToUrl(cellId);
-        }
-    }).catch(error=>{
-        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
-    });
-}
-
-// 2. cell intro banner file handler
-function previewCellIntroBanner(e){
-    const file = e.target.files[0]
-
-    const URL2 = URL.createObjectURL(file)
-    document.querySelector('#introBannerPreview').src = URL2
-    $("#introBannerModal").modal("show");
-}
-function closeIntroBannerModalHandler(){
-    document.querySelector('#introBannerPreview').src = "";
-    document.querySelector('#intro-banner-file').value = null;
-}
-function uploadCellIntroBanner(){
-    const cellId = getQueryVariable("cell_id");
-    if(!cellId){
-        return;
-    }
-    const file = $('#intro-banner-file')[0].files[0];
-    saveCellIntroBannerImg(cellId,file).then((response)=>{
-        if(response.data.code == 200){
-            const url = URL.createObjectURL(file)
-            document.querySelector('#lastestBanner').src = url;
-
-            $("#introBannerModal").modal("hide");
-            document.querySelector('#introBannerPreview').src = "";
-        }
-    }).catch(error=>{
-        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
-    })
-}
 
 function getConfigPlan(planType){
    var targetPlanArr= defineCellPage.cellplan.records.filter(e=>{return e.planType===planType});
@@ -489,7 +386,7 @@ function currentTabInt(currentTab){
 function changeUrlTabWithoutRefreshPage(tab){
     const id = getQueryVariable("cell_id");
     if(id){
-        let url = "/estudio/studio-store-define-cell.html?tab="+ tab+ "&cell_id="+ id;
+        let url = "/estudio/studio-store-define-cell?tab="+ tab+ "&cell_id="+ id;
         history.pushState(null, "", url);
     }
 }

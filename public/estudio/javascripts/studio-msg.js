@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
 
@@ -45,7 +45,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : true,
     scene: EventFeedScene.STUDIO}));

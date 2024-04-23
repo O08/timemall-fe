@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import Auth from "/estudio/javascripts/auth.js"
@@ -153,7 +153,7 @@ function transformInputNumber(val,min,max){
 }
 function changeUrlQueryvariable(q){
   
-  let url = "/home.html?q="+ q;
+  let url = "/home?q="+ q;
   history.pushState(null, "", url);
   
 }

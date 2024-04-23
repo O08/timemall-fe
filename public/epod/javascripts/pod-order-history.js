@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import axios from 'axios';
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
@@ -59,7 +59,7 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.POD}));

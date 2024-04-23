@@ -33,9 +33,6 @@
   .deliver-record:hover{
     opacity: 1;
   }
-  .help-text{
-    font-size: 12px;
-  }
   .deliver-record{
     padding: 1rem;
     border-bottom: 1px solid #efeff046;
@@ -44,7 +41,7 @@
   .deliver-record:hover{
     opacity: 1;
   }
-  
+
   .deltail-title{
     padding-top: 16px;
     text-align: center;
@@ -186,13 +183,19 @@
     height: 0;
 }
   
-  // @media (max-width: 1399.98px){
-  //   .chat-input-wrapper{
-  //     position: fixed;
-  //     left: calc(10% + .25rem + 24px);
-  //     right: calc(1.5rem + 5% + 24px);
-  //   }
-  // }
+.modal-content{
+  background-color: #fff;
+}
+.plan-content-feature p {
+  color: #aaa;
+  padding-left: 12px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.675;
+}
+.plan-feature-label,.which-plan-label {
+font-weight: 700;
+}
   @media (max-width: 1162px) {
     .chat-action-wrapper{
         display: block;

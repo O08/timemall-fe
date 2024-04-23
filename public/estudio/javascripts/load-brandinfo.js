@@ -1,27 +1,35 @@
 import axios from 'axios';
 import defaultAvatarImage from '/avator.webp';
 
-const BrandInfoComponent = {
-    data() {
-        return {
-            studio_brand: "",
-            studio_brand_avatar: "",
-            defaultAvatarImage
+export default function BrandInfoComponent(params) {
+    const {
+        need_init = true
+      } = params  
+    return {
+        data() {
+            return {
+                studio_brand: "",
+                studio_brand_avatar: "",
+                defaultAvatarImage
+            }
+        },
+        methods: {
+            loadBrandInfo(){
+                getBrandInfo().then(response=>{
+                    if(response.data.code == 200){
+                        this.studio_brand = response.data.brand.brand;
+                        this.studio_brand_avatar = response.data.brand.avatar;
+                    }
+                })
+            }
+        },
+        created() {
+            if(need_init){
+                this.loadBrandInfo();
+            }
         }
-    },
-    methods: {
-        loadBrandInfo(){
-            getBrandInfo().then(response=>{
-                if(response.data.code == 200){
-                    this.studio_brand = response.data.brand.brand;
-                    this.studio_brand_avatar = response.data.brand.avatar;
-                }
-            })
-        }
-    },
-    created() {
-        this.loadBrandInfo();
     }
+
 }
 
 async function getBrandInfo(){
@@ -29,4 +37,3 @@ async function getBrandInfo(){
     return await axios.get(url);
 }
 
-export default BrandInfoComponent;

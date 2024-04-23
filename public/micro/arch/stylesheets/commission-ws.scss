@@ -64,9 +64,6 @@ mall-app main {
   .deliver-record:hover{
     opacity: 1;
   }
-  .help-text{
-    font-size: 12px;
-  }
   .deliver-record{
     padding: 1rem;
     border-bottom: 1px solid #efeff046;
@@ -224,4 +221,14 @@ mall-app main {
         --gutterWidth: 16px;
     }
     
+}
+.modal-content{
+  background-color: #fff;
+}
+.custom-file-label::after {
+  content: "浏览";
+}
+ 
+.custom-file-label::after {
+  content: "浏览";
 }

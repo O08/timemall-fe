@@ -24,7 +24,7 @@ async function fetchUserInfo(){
         
     }
     if(data.code==2001 && needAuth){
-       window.location.href="/login.html";
+       window.location.href="/login";
     }
 
   }

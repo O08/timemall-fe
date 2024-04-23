@@ -65,12 +65,18 @@
     background-color: #212529;
   }
   .mps_list-tb-filter-btn{
+    border-radius: 5px;
+  }
+  .mps_list-tb-filter-btn{
     border: none;
   }
-  .mps_list-search-btn,.mps_chain-search-btn{
+  .mps_list-search-btn{
     border-radius: 0 5px 5px 0;
     height: 38px;
-
+  }
+  .mps_chain-search-btn{
+    border-radius: 5px 5px;
+    height: 38px;
   }
   .mps-list-header{
     min-width: 400px;
@@ -170,9 +176,6 @@ td a:hover{
 .btn-mps-action:hover{
   background-color: #555;
 }
-.help-text{
-  font-size: 12px;
-}
 .url-link-sm-1{
   color: #3887fe;
   background-color: #0000;
@@ -199,4 +202,8 @@ td a:hover{
 body::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+.modal-content{
+  background-color: #fff;
 }

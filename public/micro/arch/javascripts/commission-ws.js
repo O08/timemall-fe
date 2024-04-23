@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js";
 import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
@@ -96,7 +96,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);

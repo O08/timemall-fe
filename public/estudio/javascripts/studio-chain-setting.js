@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js";
 import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
@@ -186,7 +186,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(BrandInfoComponent);
+app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO}));
@@ -316,7 +316,7 @@ function saveMpsChain(title,tag){
 function addChainIdToUrl(chainId){
     const id = getQueryVariable("chain_id");
     if(!id){
-        let url = "/estudio/studio-chain-setting.html?chain_id="+ chainId
+        let url = "/estudio/studio-chain-setting?chain_id="+ chainId
         history.pushState(null, "", url);
     }
 }

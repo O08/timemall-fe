@@ -33,9 +33,6 @@
 .deliver-record:hover{
   opacity: 1;
 }
-.help-text{
-  font-size: 12px;
-}
 .deliver-record{
   padding: 1rem;
   border-bottom: 1px solid #efeff046;
@@ -66,6 +63,8 @@
   line-height: 1.875;
   font-size: 16px;
   min-height: 30px;
+  color: #aaa;
+  padding-left: 12px;
 }
 .detail-item-head{
   width: 100px;
@@ -139,11 +138,9 @@
 .room-msg-container{
   min-height: 400px;
 }
-// .chat-input-wrapper{
-//   position: fixed;
-//   left: calc(361px + 1.5rem + 24px);
-//   right: calc(1.5rem + 24px);
-// }
+.modal-content{
+  background-color: #fff;
+}
 body::-webkit-scrollbar {
   width: 0;
   height: 0;

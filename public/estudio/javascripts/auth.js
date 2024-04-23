@@ -8,7 +8,7 @@ import "/common/javascripts/pagenav.js";
 
 export default function Auth(params) {
     const {
-        need_permission = false
+        need_permission = false,need_init = true
       } = params   
      return {
         data() {
@@ -48,7 +48,9 @@ export default function Auth(params) {
             }
         },
         created: function() {
-            this.userAdapter();
+            if(need_init){
+                this.userAdapter();
+            }
         }
     }
     

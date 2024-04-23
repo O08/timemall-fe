@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp } from "vue/dist/vue.esm-browser.js";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
@@ -224,5 +224,5 @@ document.addEventListener("click", function (e) {
     });
 
 function goPrivatePageWithoutFriendQueryVariable(){
-  window.location.href="/micro/arch/channel-0002.html";
+  window.location.href="/micro/arch/channel-0002";
 }

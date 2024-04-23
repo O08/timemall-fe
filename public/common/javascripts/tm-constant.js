@@ -129,6 +129,10 @@ var DataLayerCellEvent=Object.freeze({
     "APPOINTMENTS": "appointments",
     "PURCHASES": "purchases"
 }); 
+var CodeMappingTypeEnum=Object.freeze({
+    "OCCUPATION": "occupation",
+    "INDUSTRY": "industry"
+}); 
 
 
 
@@ -139,5 +143,5 @@ export {
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     OasisMark,CommissionTag,
-    PriceSbu, CellStatus,WorkflowStatus,BillStatus
+    PriceSbu, CellStatus,WorkflowStatus,BillStatus,CodeMappingTypeEnum
 } ;

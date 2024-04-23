@@ -26,128 +26,213 @@
   }
       
 
-      @media (max-width: 576px) {
-        .mx-120 {
-          grid-template-columns: 1fr 1fr;
-        }
-        .logo{
-          justify-content: flex-end !important;
-        }
 
-      }
+.button_user{
+  display: block;
+}
+.appButton a {
+  text-decoration: none;
+}
+.header-container,.nav_link{
+  height: 55px;
+}
+.header-container{
+  padding-left: 24px;
+  padding-right: 24px;
+}
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items:center ;
+}
+.header-primary-container{
+  display: flex;
+  align-items:center ;
+}
+
+
+.nav_links{
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: 16px;
+  line-height: 140%;
+  font-weight: 600;
+  display: flex;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 16px;
+}
+.nav_link{
+  display: flex;
+  align-items: center;
+}
+.nav_link a{
+  cursor: pointer;
+  margin: 10px;
+  padding: 10px;
+  color: #fff;
+  text-decoration:none;
+  position: relative;
+}
+.nav_link.active a{
+  color: #3887FE;
+}
+
+.nav_links > li:first-child a{
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+.logo_link{
+  padding-left: 0;
+  min-width: none;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.logo_link img{
+  height: 32px;
+  width: 32px;
+}
+
+.button_login{
+  border-color: #fff;
+  border-radius: 30px;
+  height: 34px;
+  width: 88px;
+}
+
+.join-now{
+  margin-left: 12px;
+  border-radius: 30px;
+  height: 34px;
+  width: 88px;
+}
+@media (max-width: 576px) {
+
+.header-container {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.header-container{
+  display: flex;
+  align-items:center
+}
+.header-container nav{
+  display: flex;
+  justify-content: space-between;
+  width: calc(100vw - 24px);
+}
+
+.header-primary-container .nav_links{
+  display: none;
+}
+
+}
+
+
   </style>
 
 <body>
     <mall-app id="app" class="h-100">
-        <header class="p-3 text-white">
-            <div class="mx-120 d-grid gap-3 align-items-center justify-content-center">
-              <div class="d-flex align-items-center logo">
-                <a href="/welcome.html"  class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                  <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
-                  </svg>
-                  <div class="align-middle">
-                    <h2 class="my-0">咘噜咓</h2>
-                  </div>
+        
+      <!-- header section start -->
+      <div class="header-container">
+        <header>
+          <nav>
+            <div class="header-primary-container">
+
+              <div class="logo-contaienr">
+                <a class="logo_link" aria-current="page" href="/welcome">
+                  <img src="/common/icon/logo_blv-final-white.png" alt="logo">
                 </a>
               </div>
-              <div class="header-offcanvas">
-                <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                  <i class="bi bi-three-dots"></i>
-                </button>
-                <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                  <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasRightLabel">咘噜咓</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body justify-content-end">
-                    <nav>
-                      <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0 text-start">
-                        <li class="nav-item">
-                          <a href="/home.html" class="nav-link px-xxl-5 text-white">
-                            市场
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a rel="nofollow" href="/estudio/studio-store.html" class="nav-link px-xxl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="服务商业务区，快快乐乐工作，领取美美的薪水，薪动即行动，来上线你的第一个服务吧~"> 
-                            薪动工作室
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a rel="nofollow" href="/epod/pod-millstone.html" class="nav-link  px-xxl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区，你购买到的服务甚至账单，都在这里面喔~"> 
-                            E-Pod
-                          </a>
-                        </li>
-                        <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link px-xxl-5 text-white">登录</a></li>
-                        <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link  px-xxl-5 text-white">注册</a></li>
-                        <li v-if="user_already_login" class="nav-item display_account_xxl">
-                          <div class="btn-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="bi bi-person-circle"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                              <li>
-                                <a href="/estudio/studio-setting-profile.html">
-                                  <button class="dropdown-item" type="button">
-                                    <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                                   </button>
-                                </a>
-                              </li>
-                              <li>
-                                  <button @click="logout()" class="dropdown-item" type="button">   
-                                    <i class="bi bi-box-arrow-right me-1"></i> 注销 
-                                  </button>
-                              </li>
-                              <li>
-                                <a href="/mall/delete-account.html">
-                                  <button class="dropdown-item" type="button">
-                                    <i class="bi bi-trash3 me-1"></i> 删除账号
-                                   </button>
-                                </a>
-                              </li>
-                              
-                              <li>
-                                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                                  <i class="bi bi-flag me-1"></i> 反馈
-                                </button>
-                              </li>
-                            </ul>
-                          </div>
-                       </li>
-                      </ul>
-                      <ul  v-if="user_already_login" class="list-group display_account_xxl_small text-start mt-3">
-                        <li class="list-group-item"> 
-                          <a href="/estudio/studio-setting-profile.html">
-                            <button class="dropdown-item" type="button">
-                              <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                            </button>
-                          </a>
-                        </li>
-                        <li class="list-group-item">
-                          <button @click="logout()" class="dropdown-item" type="button">   
-                            <i class="bi bi-box-arrow-right me-1"></i> 注销 
-                          </button>
-                        </li>
-                        <li class="list-group-item">
-                          <a href="/mall/delete-account.html">
-                            <button class="dropdown-item" type="button">
-                              <i class="bi bi-trash3 me-1"></i> 删除账号
-                             </button>
-                          </a>
-                        </li>
-                        <li class="list-group-item">
-                          <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                            <i class="bi bi-flag me-1"></i> 反馈
-                          </button>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+
+              <ul class="nav_links">
+                <li class="nav_link">
+                  <a  href="/home">
+                    <span>
+                      精选商店
+                    </span> 
+                  </a>
+                </li>
+                <li class="nav_link">
+                  <a rel="nofollow" href="/estudio/studio-store" > 
+                    <span>
+                      薪动工作室
+                    </span>
+                  </a>
+                </li>
+                <li class="nav_link">
+                  <a rel="nofollow" href="/epod/pod-millstone" > 
+                    <span>
+                      E-Pod
+                    </span>
+                  </a>
+                </li>
               
+              </ul>
+
+
             </div>
-          </header>
+            
+            <div class="appButton">
+
+              <a v-if="!user_already_login" class="btn btn-outline-dark button_login text-white" href="/login">
+                登录
+              </a>
+              <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>
+
+              <div v-if="user_already_login" class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-person-circle"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a href="/estudio/studio-setting-profile">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                      <button id="logout-btn" @click="logout()" class="dropdown-item" type="button">   
+                        <i class="bi bi-box-arrow-right me-1"></i> 注销 
+                      </button>
+                  </li>
+                  <li>
+                    <a href="/mall/delete-account">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-trash3 me-1"></i> 删除账号
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                      <i class="bi bi-flag me-1"></i> 反馈
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+        </header>
+      </div>
+       <!-- header section end -->
+
+
           <content>
             <main class="content-main">
               <div class="container text-center mt-4 p-5">
@@ -179,7 +264,7 @@
                 <h3>4. 您的权利</h3>
                 <p>您拥有我们持有的有关您的个人信息的相关法定权利(在适用法律和法规允许范围内)。您可以请求访问或更正我们所处理的有关您的数据。</p>
                 <h3>5. 联系群巅</h3>
-                <p>如果您对本政策或个人信息保护相关事宜有任何疑问或投诉、建议，<a href="/mall/contact-us.html">请点击此处</a>。</p>
+                <p>如果您对本政策或个人信息保护相关事宜有任何疑问或投诉、建议，<a href="/mall/contact-us">请点击此处</a>。</p>
                 <h3>6. 变更</h3>
                 <p>如果本隐私政策有任何变更，我们将在此发布更新的隐私政策。请定期访问本页面，查看本政策是否有任何更新或变更。</p>
 
@@ -202,13 +287,13 @@
                 </span>
                 <ul class="footer-nav">
                   <li>
-                    <a class="nav-link" href="/mall/contact-us.html">联系我们</a>
+                    <a class="nav-link" href="/mall/contact-us">联系我们</a>
                   </li>
                   <li>
-                    <a class="nav-link" href="/mall/legal.html">法律声明</a>
+                    <a class="nav-link" href="/mall/legal">法律声明</a>
                   </li>
                   <li>
-                    <a class="nav-link" href="/mall/privacy-policy.html">隐私政策</a>
+                    <a class="nav-link" href="/mall/privacy-policy">隐私政策</a>
                   </li>
                 </ul>
               </div>

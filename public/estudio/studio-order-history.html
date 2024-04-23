@@ -36,8 +36,8 @@
               <h2 class="mb-0">E-Studio</h2>
             </div>
           </div>
-          <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-            <i class="bi bi-three-dots"></i>
+          <button class="btn btn-primary toggle-nav button_user_account" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="bi bi-person-circle"></i>
           </button>
           <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
@@ -47,10 +47,10 @@
             <div class="offcanvas-body justify-content-end">
               <nav>
                 <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0 text-start">
-                  <li class="nav-item"><a href="/home.html" class="nav-link  px-xxl-5 text-white">市场</a></li>
-                  <li class="nav-item"><a href="/epod/pod-millstone.html" class="nav-link   px-xxl-5 text-white">E-Pod</a></li>
-                  <li v-if="!user_already_login" class="nav-item"><a href="/login.html" class="nav-link  px-xxl-5 text-white">登录</a></li>
-                  <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup.html" class="nav-link  px-xxl-5 text-white">注册</a></li>
+                  <li class="nav-item"><a href="/home" class="nav-link  px-xxl-5 text-white">精选商店</a></li>
+                  <li class="nav-item"><a href="/epod/pod-millstone" class="nav-link   px-xxl-5 text-white">E-Pod</a></li>
+                  <li v-if="!user_already_login" class="nav-item"><a href="/login" class="nav-link  px-xxl-5 text-white">登录</a></li>
+                  <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup" class="nav-link  px-xxl-5 text-white">注册</a></li>
                   <li v-if="user_already_login" class="nav-item display_account_xxl">
                     <div class="btn-group">
                       <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +58,7 @@
                       </button>
                       <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                          <a href="/estudio/studio-setting-profile.html">
+                          <a href="/estudio/studio-setting-profile">
                             <button class="dropdown-item" type="button">
                               <i class="bi bi-person-vcard me-1"></i> 品牌形象
                              </button>
@@ -70,7 +70,7 @@
                             </button>
                         </li>
                         <li>
-                          <a href="/mall/delete-account.html">
+                          <a href="/mall/delete-account">
                             <button class="dropdown-item" type="button">
                               <i class="bi bi-trash3 me-1"></i> 删除账号
                              </button>
@@ -88,7 +88,7 @@
                 </ul>
                 <ul  v-if="user_already_login" class="list-group display_account_xxl_small text-start mt-3">
                   <li class="list-group-item"> 
-                    <a href="/estudio/studio-setting-profile.html">
+                    <a href="/estudio/studio-setting-profile">
                       <button class="dropdown-item" type="button">
                         <i class="bi bi-person-vcard me-1"></i> 品牌形象
                       </button>
@@ -100,7 +100,7 @@
                     </button>
                   </li>
                   <li class="list-group-item">
-                    <a href="/mall/delete-account.html">
+                    <a href="/mall/delete-account">
                       <button class="dropdown-item" type="button">
                         <i class="bi bi-trash3 me-1"></i> 删除账号
                        </button>
@@ -126,11 +126,11 @@
             <div class="customer-portrait-container">
               <div class="d-flex flex-column justify-content-center ">
                 <div class="customer-portrait">
-                  <a href="/estudio/studio-setting-profile.html" class="url-link">
+                  <a href="/estudio/studio-setting-profile" class="url-link">
                     <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                   </a>
                 </div>
-                <a href="/estudio/studio-setting-profile.html" class="url-link">
+                <a href="/estudio/studio-setting-profile" class="url-link">
                   <h6 class="customer-name mt-1">{{studio_brand}}</h6>
                 </a>
               </div>
@@ -138,13 +138,13 @@
             <!-- menu -->
             <div class="sidebar-wrapper">
               <nav class="sidebar nav flex-column">
-                <a class="nav-link" aria-current="page" href="/estudio/studio-millstone.html">
+                <a class="nav-link" aria-current="page" href="/estudio/studio-millstone">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M22.5 3V19.5H1.5V12H7.5V7.5H13.5V3H22.5ZM21 4.5H15V9H9V13.5H3V18H21V4.5Z"></path>
                   </svg>
                   <span>履约</span>        
                 </a>
-                <a class="nav-link" href="/estudio/studio-msg.html">
+                <a class="nav-link" href="/estudio/studio-msg">
                   <i class="bi bi-calendar2-event"></i>
                   <span>
                     连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
@@ -154,29 +154,29 @@
                   <i class="bi bi-shop"></i>
                   <span>预约</span>  
                 </a>
-                <a class="nav-link" href="/estudio/studio-dsp.html">
+                <a class="nav-link" href="/estudio/studio-dsp">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
                   </svg>
                   <span>DSP</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-bill.html">
+                <a class="nav-link" href="/estudio/studio-bill">
                   <i class="bi bi-bank"></i>
                   <span>账单</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-store.html">
+                <a class="nav-link" href="/estudio/studio-store">
                   <i class="bi bi-coin"></i>
                   <span>变现</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-tob.html">
+                <a class="nav-link" href="/estudio/studio-tob">
                   <i class="bi bi-bootstrap"></i>
                   <span>商单</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-mps.html">
+                <a class="nav-link" href="/estudio/studio-mps">
                   <i class="bi bi-link-45deg"></i>
                   <span>产单</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-shop.html">
+                <a class="nav-link" href="/estudio/studio-shop">
                   <i class="bi bi-bag"></i>
                   <span>商城</span>
                 </a>
@@ -203,7 +203,7 @@
                 <td class="td-option">   
                   <div class="option-container">
                      <span  class="btn-option-secondary option-view-contact ms-2" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
-                      <a :href="'/micro/arch/channel-0002.html?friend='+trans.customerUserId">
+                      <a :href="'/micro/arch/channel-0002?friend='+trans.customerUserId">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M7.49994 9.99992H12.4999" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
                           <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="white" stroke-width="1.5" stroke-linecap="round"/>

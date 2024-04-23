@@ -6,13 +6,16 @@
 /*----------------------------------------------------
     0. Basic 
 ------------------------------------------------------*/
+.modal-content{
+  background-color: #b6b6b6;
+}
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 
 { 
   font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
 }
 
 body {
-    background-color: #2F2F2F;
+    background-color: #000;
     color: #FDFDFD;
 }
 body {
@@ -156,10 +159,6 @@ body {
 /*----------------------------------------------------
     1. HEADER NAV
 ------------------------------------------------------*/
-.logo
-{
-  min-width: 200px;
-}
 .logo svg{
   display: none;
 }
@@ -244,7 +243,7 @@ body {
     3. Cell Card
 ------------------------------------------------------*/
 .cell-card-body-bg{
-    background: #2B2B2B;
+    background: #121212;
     }
 .cell-thumb{ 
     width: 100%;
@@ -375,9 +374,10 @@ body {
   .customer-portrait, .customer-portrait img
   {
       width: 160px;
-      height: 160px;
+      aspect-ratio: 1 / 1;
       border-radius: 80px;
       background-color: #2B2B2B;
+      object-fit: cover;
   } 
   .customer-name
   {
@@ -599,7 +599,7 @@ json-node {
   font-size: 0.875em;
   color: #dc3545;
 }
-.sign-up-header,.sign-in-header
+.sign-up-header
 {
   height: 60px;
   background: #000;
@@ -611,16 +611,8 @@ json-node {
   height: calc(100% - 60px);
   
 }
-.section-sign-up .card{
-   width: 600px;
-   height: 580px;
-   border-radius: 5px;
-}
-.section-sign-in .card{
-  width: 600px;
-  height: 460px;
-  border-radius: 5px;
-}
+
+
 .section-sign-up .card-header, .section-sign-in .card-header
 {
   height: 64px;
@@ -741,6 +733,18 @@ opacity: 0;
   background-color: #212529;
   color: darken(whitesmoke,10%);
   box-shadow: 2px 2px 2px rgba(21, 25, 29, 0.3);
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+}
+.button_user_account{
+  color: #4cffa9;
+  background-color: unset;
+  border: none;
+  padding: 7px 16px;
+}
+.navbar-toggler,.toggle-nav{
+  background-color: unset;
+  border: none;
 }
 .nav-tabs .nav-link{
   border: none;
@@ -771,7 +775,7 @@ json-node span{
 .help-text
 {
     color: #666666;
-    font-size: 18;
+    font-size: 12px;
 }
 
   /*----------------------------------------------------
@@ -784,7 +788,7 @@ json-node span{
   padding: 10px;
 }
 .copyright-container{
-  background-color: #393838;
+  background-color: #121212;
   height: 100px;
 }
 .footer-nav{
@@ -804,9 +808,6 @@ json-node span{
   }
   .logo{
   justify-content: center !important;
-  }
-  .section-sign-up .card,.section-sign-in .card{
-    width: 450px;
   }
 }
 @media only screen and (max-height: 700px) {
@@ -1159,35 +1160,13 @@ col-container{
 
 /* 滚动条 */
 .sidebar-wrapper ,pt-app main,pt-app main .page-title-container{
-  overflow: overlay;
-
-  &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-  }
-
-  &:hover {
-      &::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-          background-color: rgba(170, 170, 170, 0.5);
-      }
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-
-      /* 滚动条里面小方块 */
-      border-radius: 6px;
-  }
+  scrollbar-color: #727272 #a7a7a7;
+  scrollbar-width: thin;
 }
+
+
+
+
 .display-dialog-header-bg,.display-dialog-body-bg, .display-dialog-footer-bg {
   opacity: .9;
   background: #000000e7;
@@ -1238,6 +1217,8 @@ col-container{
 }
 .display_account_xxl_small{
   border-top: 1px solid rgba(203, 202, 202, 0.2);
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
 }
 .nav-setting .button_user_vue:hover{
   background-color: unset;
@@ -1267,4 +1248,9 @@ col-container{
   .tab-content > .tab-pane{
     height: calc(100vh - 72px);
   }
+}
+
+/* table */
+table th{
+  vertical-align: middle;
 }

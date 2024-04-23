@@ -22,14 +22,14 @@
       <div class="sidebarContainer d-flex flex-row">
         <col-nav-main>
       <div class="nav-container-wrapper">
-        <a href="/micro/teixcalaanli.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="贤者时间"> 
+        <a href="/micro/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="贤者时间"> 
           <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 13C3.8 13 2 14.8 2 17C2 19.2 3.8 21 6 21C8.2 21 10 19.2 10 17C10 14.8 8.2 13 6 13ZM12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3ZM18 13C15.8 13 14 14.8 14 17C14 19.2 15.8 21 18 21C20.2 21 22 19.2 22 17C22 14.8 20.2 13 18 13Z" fill="#36F7E5"/>
               </svg>
           </div>
         </a>
-        <a href="/micro/arch/channel-0002.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
+        <a href="/micro/arch/channel-0002" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
           <div class="nav-private-active nav-item-default nav-item-active   d-flex align-items-center justify-content-center mt-5 ms-3">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.99991 11.9999H14.9999" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
@@ -38,7 +38,7 @@
               </svg>              
           </div>
         </a>
-        <a href="/home.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="市场">
+        <a href="/home" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="精选商店">
           <div class="nav-discovery nav-item-default  nav-plus-13—street  d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <svg width="24" height="24" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -53,7 +53,7 @@
                
         </a>
 
-        <a href="/micro/discovery-oasis.html" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="探索">
+        <a href="/micro/discovery-oasis" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="探索">
           <div class="nav-discovery nav-item-default  d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end ms-5">
               <li>
-                <a href="/estudio/studio-setting-profile.html">
+                <a href="/estudio/studio-setting-profile">
                   <button class="dropdown-item" type="button">
                     <i class="bi bi-person-vcard me-1"></i> 品牌形象
                    </button>
@@ -86,7 +86,7 @@
                   </button>
               </li>
               <li>
-                <a href="/mall/delete-account.html">
+                <a href="/mall/delete-account">
                   <button class="dropdown-item" type="button">
                     <i class="bi bi-trash3 me-1"></i> 删除账号
                    </button>
@@ -121,7 +121,7 @@
            </a>
 
           <a @contextmenu.prevent="showFriendOptionV($event,friend.id)"
-             :href="'/micro/arch/channel-0002.html?friend='+ friend.id" v-for="friend in friends.records" class="nav-link p-2 ms-3  d-flex flex-row align-items-center " 
+             :href="'/micro/arch/channel-0002?friend='+ friend.id" v-for="friend in friends.records" class="nav-link p-2 ms-3  d-flex flex-row align-items-center " 
                     :class="{'nav-sub-link-active': friend.id == currentChatFriendId, 
                     'nva-link-default': friend.id != currentChatFriendId}" >
                     
@@ -227,7 +227,7 @@
             <div class="event-msg-content">
               <p v-if="record.msgType === 'text'" class="text-preline text-message">{{JSON.parse(record.msg).content}}</p>
               <div  v-if="record.msgType === 'image'">
-                <a target="_blank" :href="'/mall/preview.html?uri='+JSON.parse(record.msg).uri" rel="noopener noreferrer">
+                <a target="_blank" :href="'/mall/preview?uri='+JSON.parse(record.msg).uri" rel="noopener noreferrer">
                   <img  :src="JSON.parse(record.msg).uri" class="img-message">
                 </a>
                 <p>
