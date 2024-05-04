@@ -16,7 +16,7 @@
 <body>
     <mall-app id="app">
       <div class="app-container">
-        <header class="p-3 text-white">
+        <header v-if="display=='normal'" class="p-3 text-white">
           <div class="mx-120 d-grid gap-3 align-items-center justify-content-center">
             <div class="d-flex align-items-center logo">
               <a href="/home" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -101,10 +101,10 @@
               </div>
             </div>
             <div>
-              <button onclick="goBack()" type="button" class="btn btn-dark  me-5 mt-5 ">
+              <button  v-if="display=='normal'"  onclick="goBack()" type="button" class="btn btn-dark  me-5 mt-5 ">
                 返回
               </button>
-              <button v-preventreclick v-if="paperDetail.tag==='2'&&paperDetail.purchaserId!=getIdentity().brandId" @click="orderReceivingV" type="button" class="btn btn-primary ms-5 mt-5">
+              <button  :class="{'ms-5': display=='normal'}"  v-preventreclick v-if="paperDetail.tag==='2'&&paperDetail.purchaserId!=getIdentity().brandId" @click="orderReceivingV" type="button" class="btn btn-primary  mt-5">
                 接单
               </button>
             </div>

@@ -239,7 +239,7 @@
                   <label for="input-identity-brand" class="form-label">
                     品牌名称
                   </label>
-                  <input type="text" id="input-identity-brand" maxlength="255" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
+                  <input type="text" id="input-identity-brand" maxlength="80" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
                 </div>
               </span>
               <p class="brand-title mb-2 mt-1">
@@ -250,7 +250,7 @@
                   <input type="text" id="input-identity-title" maxlength="255" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.title">
                 </div>
               </p>
-              <p class="ip-location">ip 属地：{{ !identity.location? "未知" : identity.location}}</p>
+              <p class="ip-location">ip 属地：{{ parseIpLocationCityInfoV(identity.location) }}</p>
             </div>
             <button type="submit" 
             :class="{'disabled': !btn_ctl.activate_general_save_btn || !identity.brand, 
@@ -328,15 +328,52 @@
 
                   </div>
 
+                  <div v-if="brandTypeSelectedItem==='1'" class="row mb-3 mt-3">
+                    <label for="inputTypeOfBusiness" class="col-sm-4 col-form-label"> 
+                      主体
+                    </label>
+                    <div class="col-sm-8">
+                      <model-select
+                        :options="typeOfBusinessOptions"
+                        v-model="typeOfBusinessSelectedItem"
+                        placeholder=""
+                      >
+                      </model-select>
+                    </div>
+                  </div>
                   
-                  
+                  <div class="row mb-3 mt-3">
+                    <label for="inputHiring" class="col-sm-4 col-form-label"> 
+                      招聘
+                    </label>
+                    <div class="col-sm-8 input-area">
+                      <div>
+                        <input  id="inputHiring"
+                        class="form-check-input" type="checkbox" v-model="hiring" value=""> 开启
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3 mt-3">
+                    <label for="inputWork" class="col-sm-4 col-form-label"> 
+                      求职
+                    </label>
+                    <div class="col-sm-8 input-area">
+                      <div>
+                        <input  id="inputWork"
+                        class="form-check-input" type="checkbox" v-model="availableForWork" value=""> 开启
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row mb-3 mt-3">
                     <label for="inputActivity" class="col-sm-4 col-form-label"> 
                       自由合作<span @click="showExplainModelV(0)" class="help-text ms-1"><i class="bi bi-question-circle"></i></span>
                     </label>
-                    <div class="col-sm-8">
-                      <input  
-                      class="form-check-input" type="checkbox" v-model="supportFreeCooperation" value=""> 开放
+                    <div class="col-sm-8 input-area">
+                      <div>
+                        <input  
+                        class="form-check-input" type="checkbox" v-model="supportFreeCooperation" value=""> 开启
+                      </div>
                     </div>
                   </div>
                   <div class="row mb-3 mt-3">
@@ -345,7 +382,7 @@
                     </label>
                     <div class="col-sm-8">
                       <textarea 
-                      @input="autoHeightV($event)" v-model="cooperationScope" class="cooperation-scope" maxlength="200" placeholder="Enter your message here"></textarea>
+                      @input="autoHeightV($event)" v-model="cooperationScope" class="cooperation-scope" maxlength="500" placeholder="Enter your message here"></textarea>
                     </div>
                   </div>
 

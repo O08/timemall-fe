@@ -271,12 +271,42 @@
                             <input class="form-check-input" v-model="overview.canProvideInvoice" type="checkbox" value="" @change="btn_ctl.activate_general_save_btn = true" >
                           </div>
                         </div>
+
+                        <div class="row mb-3">
+
+                          <label  class="col-sm-4 col-form-label">
+                            标签
+                            <div class="help-text">
+                              按回车键Enter创建标签，标签帮助系统更好的将你的服务递送给目标客户   
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <div class="tags-wrapper">
+                              <div class="tag-content">
+                                <ul>
+                                  <li v-for="(tag, index) in overview.tags" :key="index" >
+                                    {{ tag }}
+                                    <i class="bi bi-x" @click="removeTagV(index)"></i>
+                                  </li>
+                                  <input class="form-control" @keyup="deleteContentOrTagV"
+                                      @keyup.enter.prevent="addTagV"
+                                      type="text" spellcheck="false">
+                                </ul>
+                              </div>
+                              <div class="tag-details">
+                                <p class="help-text">还可添加<span>{{5 - overview.tags.length}}</span>标签</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
                         <div class="row mb-3">
                           <div class="d-flex align-items-center  help-text"><i class="bi bi-book"></i><span class="ms-1"><a href="/blog/article/no-0012" class="text-decoration-none">咘噜咓服务开发者必看资源索引</a></span></div>
                         </div>                 
-                        <button type="submit" v-preventreclick @click="defineCellOverviewV" 
+                        <button type="button" v-preventreclick @click="defineCellOverviewV" 
                         :class="{'disabled': !btn_ctl.activate_general_save_btn || !overview.title, 
-                        'btn-primary': btn_ctl.activate_general_save_btn && overview.title,
+                        'btn-primary': btn_ctl.activate_general_save_btn && !!overview.title,
                         'btn-secondary': !btn_ctl.activate_general_save_btn || !overview.title}"
                         class="btn">保存并继续</button>
                       </form>
@@ -369,7 +399,7 @@
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                     <button :class="{'disable-text': currentTabIntV(2)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive" v-bind:disabled="currentTabIntV(2)">
-                      单品配置
+                      单品套餐配置(可选)
                     </button>
                   </h2>
                   <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
@@ -503,7 +533,7 @@
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5">配置{{planTypeToGradeV(cofingPlan.planType)}}单品：{{explainPlanTypeV(cofingPlan.planType)}}</h1>
+                  <h1 class="modal-title fs-5">配置{{planTypeToGradeV(cofingPlan.planType)}}套餐：{{explainPlanTypeV(cofingPlan.planType)}}</h1>
                   <button  type="button" id="closePlanConfigModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center">

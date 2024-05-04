@@ -13,6 +13,7 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 const RootComponent = {
     data() {
         return {
+            display: "normal",
             paperDetail:{
 
             }
@@ -42,6 +43,10 @@ const RootComponent = {
         }
     },
     created(){
+       var displayWay = getQueryVariable("display");
+       if(!!displayWay){
+          this.display=displayWay;
+       }
         this.findPaperDetailV();
     }
 }

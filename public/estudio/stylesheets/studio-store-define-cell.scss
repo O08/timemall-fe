@@ -106,6 +106,60 @@
     width: 80px;
     font-size: 32px;
 }
+// tags
+
+.tags-wrapper{
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.06);
+  }
+  .tags-wrapper :where(li, li i, .tag-details){
+    display: flex;
+    align-items: center;
+  }
+  .tags-wrapper .tag-content{
+    margin: 10px 0;
+  }
+
+  .tag-content ul{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+    margin: 12px 0;
+    border-radius: 5px;
+    border: 1px solid #a6a6a6;
+  }
+  .tag-content ul  li{
+    color: #333;
+    margin: 4px 3px;
+    list-style: none;
+    border-radius: 5px;
+    background: #F2F2F2;
+    padding: 5px 8px 5px 10px;
+    border: 1px solid #e3e1e1;
+  }
+  .tag-content ul li i{
+    height: 20px;
+    width: 20px;
+    color: #808080;
+    margin-left: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #dfdfdf;
+    justify-content: center;
+  }
+  .tag-content ul input{
+    flex: 1;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+  .tags-wrapper .tag-details{
+    justify-content: space-between;
+  }
+  
+
 @media (max-width: 767px) {
     .tip-font-sm{
         font-size: 8px;
@@ -137,6 +191,9 @@
     }
     .cropped-image-cover-container{
         width: calc(300px - 12px);
+    }
+    #cell-define-container .accordion-button{
+        font-size: 24px;
     }
 
 }

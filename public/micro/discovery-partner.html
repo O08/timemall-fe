@@ -7,7 +7,7 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
 <link rel="icon" href="/favicon.png">
-    <title>大贤者</title>
+    <title>资源碰撞</title>
     <meta name="description" content="贤者汇聚，构筑人力资源池，找伙伴，找基石，更多可能。">
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
@@ -119,7 +119,7 @@
               <path d="M9 22V8.775C7.48333 8.375 6.27067 7.53734 5.362 6.262C4.45333 4.98667 3.99933 3.566 4 2H6C6 3.38333 6.446 4.56267 7.338 5.538C8.23 6.51334 9.36733 7.00067 10.75 7H13.25C13.75 7 14.2167 7.09167 14.65 7.275C15.0833 7.45834 15.475 7.725 15.825 8.075L20.35 12.6L18.95 14L15 10.05V22H13V16H11V22H9ZM12 6C11.45 6 10.979 5.804 10.587 5.412C10.195 5.02 9.99933 4.54934 10 4C10 3.45 10.196 2.979 10.588 2.587C10.98 2.195 11.4507 1.99934 12 2C12.55 2 13.021 2.196 13.413 2.588C13.805 2.98 14.0007 3.45067 14 4C14 4.55 13.804 5.021 13.412 5.413C13.02 5.805 12.5493 6.00067 12 6Z" fill="rgba(255, 255, 255, 0.95)"/>
               </svg>
               
-            <span>大贤者</span>  
+            <span>资源碰撞</span>  
           </a>
           <a href="/micro/discovery-commercial-order" class="nav-link nva-link-default  p-2 ms-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bootstrap" viewBox="0 0 16 16" style="width: 24px;height: 24px">
@@ -142,7 +142,7 @@
                 <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
               </svg>
               <div class="align-middle">
-                <h2 class="my-0">绿洲</h2>
+                <h2 class="my-0">少数派</h2>
               </div>
             </a>
           </div>
@@ -172,61 +172,209 @@
       <div class="list-title">
         <h3>贤者在此降临</h3>
       </div>
-      <section class="section-team-grid pb-5">
-        <div  class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
-          <div v-for="talent in talentgrid_pagination.records" class="col">
-            <div class="team-card-container px-3">
-              <div class="partner-info-container">
-                <div :id="'a'+talent.id" class="carousel slide" data-interval="false">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img :src="adaptiveImageUriV(talent.avatar) || defaultPartnerPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultPartnerPreviewImage }">
-                    </div>
-                    <div v-if="talent.skill" class="carousel-item pt-4">
-                      <h6>品牌词条</h6>
-                      <div v-if="talent.skill && talent.skill.length>5" class="d-flex flex-column  ms-1">
-                        <span class="ms-5 help-text" v-for="i in 5">
-                          {{talent.skill[i-1].entry}}
-                        </span>
-                      </div>
-                      <div v-else class="d-flex flex-column ms-1">
-                        <span class="ms-5 help-text" v-for="skill in talent.skill">
-                          {{skill.entry}}
-                        </span>
-                      </div>
-                      
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev ms-2" type="button" :data-bs-target="'#a'+talent.id" data-bs-slide="prev">
-                    <div class="partner-icon-wrapper">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    </div>
-                  </button>
-                  <button class="carousel-control-next me-2" type="button" :data-bs-target="'#a'+talent.id" data-bs-slide="next">
-                    <div class="partner-icon-wrapper">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    </div>
-                  </button>
+      <section class="section-team-grid pb-5" v-cloak>
+        <div  class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3">
+
+           <div class="col" v-for="partner in talentgrid_pagination.records">
+            <div class="partner-card-container" v-preventreclick @click="showPartnerInfoPreviewModalV(partner.id)">
+              <div class="partner-header-container">
+                <img :src="adaptiveImageUriV(partner.avatar) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
+                <div class="partner-detail-container">
+                  <p class="partner-name display-one-content">
+                    {{partner.brandName}}
+                  </p>
                 </div>
               </div>
-              <div class="card-body mb-3">
-                <div class="brand-title-wrapper">
-                  <a :href="'/mall/bubble?brand_id='+ talent.id" class="url-link" ><h6 class="mt-3">{{talent.brandName}}</h6></a>
+
+              <div class="partner-occupation-or-bType">
+                <h3 class="display-one-content">{{ partner.brandTypeCode=='1' ?  (!partner.typeOfBusiness ? '未设置主体' :  parseTypeOfBusinessV(partner.typeOfBusiness)) : (!partner.occupation? '未设置职业' : partner.occupation)  }}</h3>
+              </div>
+              <p class="partner-intro">{{partner.title}}</p>
+              <div class="partner-meta-info">
+                <div  class="partner-meta-item">
+                  <i class="bi bi-person me-1"></i>
+                  {{ partner.brandTypeCode=='1' ? '机构' : '个人' }}
                 </div>
-                <div class="brand-intro-wrapper">
-                  <p class="help-text">{{talent.title}}</p>
+                <div 
+                :class="{'active': partner.supportFreeCooperation== '1'}"
+                  class="partner-meta-item text-end">
+                  <i class="bi bi-emoji-smile me-1"></i>
+                  
+                  {{  partner.supportFreeCooperation== '1' ?  '可自由合作' : '未开放对外合作' }}
+
+                </div>
+                <div 
+                :class="{'active': partner.availableForWork== '1'}"
+                  class="partner-meta-item">
+                  <i class="bi bi-airplane me-1"></i>
+                  
+                  {{  partner.availableForWork== '1' ?  '可雇佣' : '未开启求职' }}
+
+                </div>
+                <div 
+                   :class="{'active': partner.hiring== '1'}"
+                   class="partner-meta-item text-end">
+                  <i class="bi bi-lightning me-1"></i>
+                      {{  partner.hiring== '1' ?  '开放招聘' : '无招聘计划'}}
                 </div>
               </div>
+
             </div>
-            
-          </div>
+
+           </div>
+
+          
 
         </div>
       </section>
      
-
-
     </col-content>
+
+
+        <!-- preview partner info start -->
+        <div class="modal fade" id="partnerInfoPreviewModal" tabindex="-1" aria-labelledby="partnerInfoPreviewModalLabel" aria-modal="true" role="dialog">
+          <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="closeModalWrapper">
+                  <button v-preventreclick @click="closePartnerInfoPreviewModalV" type="button" class="btn-close-paper-prewview-modal">
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <div class="partner-archive-content">
+                  <div class="archive-detail-container">
+                    <div class="archiveDetail-avatar">
+                      <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
+                    </div>
+                    <div class="archiveDetail-header">
+                      <h1>{{brandProfile.brand}}</h1>
+                      <p>{{brandProfile.title}}</p>
+                      <div class="archiveDetail-action">
+
+                        <div class="can_opt_wrapper d-flex">
+                          <div class="opt_item_container d-flex flex-column justify-content-center">
+                            <div class="opt_item_head">
+                              <a :href="'/mall/bubble?brand_id='+ brandProfile.brandId" target="_blank">
+                                <button  class="btn btn-dark  copy-link d-flex justify-content-center">
+                                  <i class="bi bi-house"></i>
+                                </button>
+                              </a>
+                            </div>
+                            <span class="opt_item_desc">小店</span>
+                          </div>
+                          
+                          <div class="opt_item_container d-flex flex-column justify-content-center">
+                            <div class="opt_item_head">
+                              <a :href="'/micro/arch/channel-0002?friend='+ brandProfile.brandUserId" target="_blank">
+                                <button  class="btn btn-dark private-msg-link">
+                                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.49994 9.99992H12.4999" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
+                                  </svg> 
+                                </button>
+                              </a> 
+                            </div>
+                            <span class="opt_item_desc">聊一聊</span>
+                          </div>
+      
+                          
+                
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="archiveDetail-core">
+                      <div class="archiveDetail-core-cooperationScope">
+                        <div>
+                          <p>
+                            {{!brandProfile.cooperationScope ? '未录入合作信息' : brandProfile.cooperationScope}}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="archiveDetail-core-keyinfo-wrapper">
+
+                        <div class="archiveDetail-core-keyinfo">
+                          <div>
+                            <h2 class="keyInfo-heading">{{ brandProfile.brandTypeCode=='1' ?  (!brandProfile.typeOfBusiness ? '未设置主体' :  parseTypeOfBusinessV(brandProfile.typeOfBusiness)) : (!brandProfile.occupation? '未设置职业' : brandProfile.occupation)  }}</h2>
+                          </div>
+                          <div class="archiveDetailCore-keyinfo-item">
+                            <h3>IP 属地</h3>
+                            <h4>{{parseIpLocationCityInfoV(brandProfile.location)}}</h4>
+                          </div>
+                          <div class="archiveDetailCore-keyinfo-item">
+                            <h3>行业</h3>
+                            <h4>{{!brandProfile.industry? '无数据' : brandProfile.industry}}</h4>
+                          </div>
+  
+                          <div class="partner-meta-info">
+                            <div  class="partner-meta-item">
+                              <i class="bi bi-person me-1"></i>
+                              {{ brandProfile.brandTypeCode=='1' ? '机构' : '个人' }}
+                            </div>
+                            <div 
+                            :class="{'active': brandProfile.supportFreeCooperation== '1'}"
+                              class="partner-meta-item">
+                              <i class="bi bi-emoji-smile me-1"></i>
+                              
+                              {{  brandProfile.supportFreeCooperation== '1' ?  '可自由合作' : '未开放对外合作' }}
+            
+                            </div>
+                            <div 
+                            :class="{'active': brandProfile.availableForWork== '1'}"
+                              class="partner-meta-item">
+                              <i class="bi bi-airplane me-1"></i>
+                              
+                              {{  brandProfile.availableForWork== '1' ?  '可雇佣' : '未开启求职' }}
+            
+                            </div>
+                            <div 
+                               :class="{'active': brandProfile.hiring== '1'}"
+                               class="partner-meta-item">
+                              <i class="bi bi-lightning me-1"></i>
+                                  {{  brandProfile.hiring== '1' ?  '开放招聘' : '无招聘计划'}}
+                            </div>
+                          </div>
+  
+                        </div>
+
+                      </div>
+                      
+                    </div>
+                    <div class="archiveDetail-skills">
+                      <h2>词条</h2>
+                      <div v-for="skill in brandProfile.skills" class="archiveDetail-skills-item ms-2 ps-2 py-2">
+                        -- {{skill.entry}}
+                      </div>
+                    </div>
+                    <div class="archiveDetail-links">
+                      <h2>链接</h2>
+                      <div v-for="link in brandProfile.links" class="me-link ms-2 py-2 ps-2">
+                        <img class="link__favicon" width="24" height="24" :src="getLinkIconUrlV(link.uri)">
+                        <div class="link-view-wrapper">
+                           <span class="link-view-title">{{link.linkTitle}}</span>
+                           <span class="link-view-url">
+                            <a :href="parseLinkUriV(link.uri)" rel="nofollow" target="_blank" dir="auto" tabindex="0">
+                                {{link.uri}}
+                            </a>
+                           </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+                 
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- preview partner info  end -->
+
   </micro-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 

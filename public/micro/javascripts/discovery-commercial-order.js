@@ -7,6 +7,7 @@ import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import {FromWhere} from "/common/javascripts/tm-constant.js";
 import { uploadScienceData } from "/common/javascripts/science.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 const RootComponent = {
     data() {
@@ -36,6 +37,20 @@ const RootComponent = {
         }
     },
     methods: {
+        showCommericalOrderPreviewModalV(paperId){
+            const inframeUrl = "/estudio/studio-tob-detail?display=inframe&paper_id=" + paperId;
+            const windowUrl= "/estudio/studio-tob-detail?paper_id=" + paperId;
+
+            document.getElementById("commericalOrderPageInframe").src= inframeUrl;
+            $("#commericalOrderPreviewModal").modal("show");
+            history.pushState(null, "", windowUrl);
+
+        },
+        closeCommericalOrderPreviewModalV(){
+            $("#commericalOrderPreviewModal").modal("hide");
+            history.pushState(null, "", '/micro/discovery-commercial-order');
+
+        },
         retrievePaperGridV(){
             retrievePaperGrid();
             this.uploadScienceDataV();
@@ -58,6 +73,7 @@ const RootComponent = {
 const app =  createApp(RootComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(Pagination);
+app.mixin(DirectiveComponent);
 app.mixin(new Auth({need_permission : true}));
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('col-') || tag.startsWith('top-search') 

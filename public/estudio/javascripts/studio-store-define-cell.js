@@ -33,7 +33,8 @@ const RootComponent = {
             overview: {
                 cover: "",
                 title: "",
-                canProvideInvoice: false
+                canProvideInvoice: false,
+                tags: []
             },
             pricing: {},
             content: {
@@ -49,6 +50,17 @@ const RootComponent = {
         }
     },
     methods: {
+        //tags
+        removeTagV(index){
+            this.overview.tags.splice(index, 1);
+        },
+        addTagV(event){
+            addTag(event)
+        },
+        deleteContentOrTagV(event){
+            deleteContentOrTag(event);
+
+        },
         calAndFillPricingV(){
             calAndFillPricing();
         },
@@ -153,12 +165,13 @@ async function getCellInfo(cellId){
   return await axios.get(url);
 }
 
-async function saveOverview(cellId,title,canProvideInvoice){
+async function saveOverview(cellId,title,canProvideInvoice,tags){
     const url = "/api/v1/web_estudio/service/{cell_id}/define/overview".replace("{cell_id}",cellId);
     const param ={
         overview: {
             title: title,
-            canProvideInvoice: canProvideInvoice
+            canProvideInvoice: canProvideInvoice,
+            tags: tags
         }
     }
     return await axios.put(url,param)  
@@ -214,6 +227,33 @@ function fetchCellPlan(){
         }
     })
 }
+async function addTag(e){
+    
+    var tag = e.target.value.replace(/\s+/g, ' ');
+    var tags=defineCellPage.overview.tags;
+    if(tag.length > 0 && !tags.includes(tag)){
+        if(tags.length < 5){
+            defineCellPage.overview.tags.push(tag);
+            defineCellPage.btn_ctl.activate_general_save_btn=true;
+        }
+    }
+    e.target.value = "";
+
+}
+// tmp_global_val
+var gl_tag_before_del='';
+async function deleteContentOrTag(e){
+
+    if (e.keyCode == 8 || e.keyCode == 46) {
+        
+        if(e.target.value.length==0 && gl_tag_before_del.length==0 && defineCellPage.overview.tags.length>0){
+            defineCellPage.overview.tags.pop();
+            defineCellPage.btn_ctl.activate_general_save_btn=true;
+        }
+    }
+    gl_tag_before_del=e.target.value;
+
+}
 async function defineCellOverview(){
 
     const brandId=defineCellPage.getIdentity().brandId;
@@ -221,7 +261,8 @@ async function defineCellOverview(){
     if(!cellId){
         return;
     }
-    saveOverview(cellId,defineCellPage.overview.title,defineCellPage.overview.canProvideInvoice).then(function(response){
+    const tagsJsonStr=JSON.stringify(defineCellPage.overview.tags);
+    saveOverview(cellId,defineCellPage.overview.title,defineCellPage.overview.canProvideInvoice,tagsJsonStr).then(function(response){
         if(response.data.code == 200){
             addCellIdToUrl(cellId);
             defineCellPage.btn_ctl.activate_general_save_btn = false;
@@ -261,7 +302,8 @@ function loadCellInfo(){
         if(response.data.code == 200){
             defineCellPage.overview.title = response.data.profile.title;
             defineCellPage.overview.cover = response.data.profile.cover;
-            defineCellPage.overview.canProvideInvoice = response.data.profile.provideInvoice==='1'
+            defineCellPage.overview.canProvideInvoice = response.data.profile.provideInvoice==='1';
+            defineCellPage.overview.tags=!response.data.profile.tags ? [] : response.data.profile.tags;
             if(response.data.profile.content){
                 defineCellPage.content = response.data.profile.content;
             }

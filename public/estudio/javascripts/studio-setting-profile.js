@@ -17,6 +17,8 @@ import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import { parseIpLocationCityInfo } from "/common/javascripts/util.js";
+import {Api} from "/common/javascripts/common-api.js";
 
 const RootComponent = {
     data() {
@@ -60,6 +62,9 @@ const RootComponent = {
         }
     },
     methods: {
+        parseIpLocationCityInfoV(cityInfo){
+            return parseIpLocationCityInfo(cityInfo);
+        },
         loadBrandProfileV(){
             loadBrandProfile();
         },
@@ -166,16 +171,13 @@ app.component("model-select",ModelSelect);
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
 // init 
+settingProfilePage.userAdapter(); // auth.js
+
 settingProfilePage.loadBrandProfileV();
 settingProfilePage.initBrandBasicSettingConfigV(); // brandBasicSeetting.js
-settingProfilePage.userAdapter(); // auth.js
 settingProfilePage.loadBrandInfo(); // load-brandinfo.js
 settingProfilePage.initEventFeedCompoentV();
 
-async function getBrandProfile(brandId){
-    const url = "/api/v1/web_mall/brand/{brand_id}/profile".replace("{brand_id}",brandId);
-    return await axios.get(url);
-}
 
 async function updateExperienceForBrand(brandId,dto){
     const url = "/api/v1/web_estudio/brand/{brand_id}/experience".replace("{brand_id}",brandId);
@@ -189,7 +191,7 @@ async function updateBasicInfoForBrand(brandId,dto){
 
 function loadBrandProfile(){
     const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
-    getBrandProfile(brandId).then(response=>{
+    Api.getBrandProfile(brandId).then(response=>{
         if(response.data.code ==200){
         // set identity
         const profile = response.data.profile;

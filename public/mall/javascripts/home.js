@@ -19,6 +19,7 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 const RootComponent = {
   data() {
     return {
+      currentLocalCity: '',
       defaultAvatarImage,
       defaultCellPreviewImage,
       input_sbu: '',
@@ -33,7 +34,8 @@ const RootComponent = {
         param: {
           q: '',
           sort: '',
-          sbu: ''
+          sbu: '',
+          location: ''
         },
         paramHandler: (info)=>{
             info.param.sbu = !this.input_sbu ? "hour" : this.input_sbu;
@@ -46,6 +48,7 @@ const RootComponent = {
                 this.cellgrid_pagination.pages = response.cells.pages;
                 this.cellgrid_pagination.records = response.cells.records;
                 this.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+                this.currentLocalCity=this.cellgrid_pagination.param.location;
                 // capture cell indices data layer
                 var idsArr=[];
                 response.cells.records.forEach(element => {
@@ -123,9 +126,13 @@ home.pageInit(home.cellgrid_pagination);
     home.reloadPage(home.cellgrid_pagination);
  }   
  function retrieveCellGrid(){
-   const tmp = home.cellgrid_pagination.param.q;
+   const tmpq = home.cellgrid_pagination.param.q;
+   const tmplocation = home.cellgrid_pagination.param.location;
+
    initQueryParam();
-   home.cellgrid_pagination.param.q = tmp;
+   home.cellgrid_pagination.param.q = tmpq;
+   home.cellgrid_pagination.param.location = tmplocation;
+
 
    home.reloadPage(home.cellgrid_pagination);
 
@@ -138,7 +145,8 @@ home.pageInit(home.cellgrid_pagination);
     // budgetMin: 50,
     // budgetMax: 50,
     sort: '',
-    sbu: 'hour'
+    sbu: 'hour',
+    location: ''
   }
   home.cellgrid_pagination.current = 1;
   home.cellgrid_pagination.size = 12;

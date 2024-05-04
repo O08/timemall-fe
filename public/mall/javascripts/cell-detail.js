@@ -6,8 +6,6 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import { uploadCellDataLayerWhenClick,uploadCellDataLayerWhenAppointment,uploadCellDataLayerWhenBuyPlan } from "/common/javascripts/science.js";
 
-
-
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
@@ -19,6 +17,7 @@ import defaultCellIntroCoverImage from '/common/images/default-cell-intro-cover.
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
 import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-icon-parse.js";
+import {Api} from "/common/javascripts/common-api.js";
 
 
 
@@ -162,7 +161,7 @@ const SellerComponent = {
             if(!brandId){
                 return;
             }
-            getBrandProfile(brandId).then(response=>{
+            Api.getBrandProfile(brandId).then(response=>{
                 if(response.data.code == 200){
                     this.brandProfile = response.data.profile;
                 }
@@ -385,16 +384,6 @@ function doRenderStructuredDataForSEO(name,description,url,price,image){
 }
 
 
-/**
- * about seller ----------------
- */
-
-
-async function getBrandProfile(brandId)
-{
-    const url = "/api/v1/web_mall/brand/{brand_id}/profile".replace("{brand_id}",brandId);
-    return axios.get(url);
-}
 
 
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 var Api = {}
 
@@ -31,5 +32,13 @@ function logout(){
    return res;
  }
 Api.logout = logout;
+
+// brand profile
+async function getBrandProfile(brandId)
+{
+    const url = "/api/v1/web_mall/brand/{brand_id}/profile".replace("{brand_id}",brandId);
+    return axios.get(url);
+}
+Api.getBrandProfile=getBrandProfile;
 
 export {Api}

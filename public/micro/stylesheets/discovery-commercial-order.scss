@@ -104,13 +104,13 @@ header{
 }
 .obj-title-wrapper h6{
   width: 100%;
-  white-space:pre-wrap;
   text-overflow:ellipsis;       //用...省略号显示
   display:-webkit-box;          //将对象作为弹性伸缩盒子模型显示
   -webkit-box-orient:vertical;  //从上到下垂直排列子元素
   -webkit-line-clamp:2;         //显示的行数
   overflow:hidden;              //超出盒子宽度内容，便溢出隐藏  
   line-height: 1.765;
+  word-break: break-all;
 
 }
 .medium-text{
@@ -130,39 +130,41 @@ header{
   display: inline-block;
   overflow: hidden;
 }
-body::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+#commericalOrderPreviewModal .modal-content{
+  background-color: #000;
 }
-.nav-container-wrapper,.nav-sub-container,col-content {
-  overflow: overlay;
-
-  &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-  }
-
-  &:hover {
-      &::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-          background-color: rgba(170, 170, 170, 0.5);
-      }
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-
-      /* 滚动条里面小方块 */
-      border-radius: 6px;
-  }
+#commericalOrderPreviewModal  .modal-header{
+  border: none;
+  height: 42px;
+  padding: 0;
+}
+.closeModalWrapper{
+  padding: 5px 12px;
+  width: 100%;
+}
+#commericalOrderPreviewModal  .modal-body{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border: 1px solid #fff3;
+  border-bottom: none;
+}
+#commericalOrderPreviewModal iframe{
+  width: 100%;
+  height: 100%;
+}
+.btn-close-paper-prewview-modal{
+  background-color: #343434;
+  border-radius: 50%;
+  color: #fff;
+  border: none;
+  height: 32px;
+  width: 32px;
+  margin-left: calc(100% - 32px);
+  padding: 0px;
+}
+.btn-close-paper-prewview-modal i{
+  vertical-align: middle;
+  font-size: 20px;
 }
 @media (max-width: 576px) {
   .logo{

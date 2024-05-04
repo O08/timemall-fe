@@ -24,33 +24,3 @@
    display: flex;
    align-items: center;
 }
-.room-msg-container{
-    overflow: overlay;
-
-  &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-  }
-
-  &:hover {
-      &::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-          background-color: rgba(170, 170, 170, 0.5);
-      }
-  }
-
-  &::-webkit-scrollbar-thumb {
-      background-color: rgba(102, 102, 102, 0.1);
-
-      /* 滚动条里面小方块 */
-      border-radius: 6px;
-  }
-}

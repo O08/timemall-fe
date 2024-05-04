@@ -33,7 +33,8 @@ const RootComponent = {
         param: {
           q: '',
           sort: '',
-          sbu: ''
+          sbu: '',
+          location: ''
         },
         responesHandler: (response)=>{
             if(response.code == 200){
@@ -43,6 +44,8 @@ const RootComponent = {
                 this.plangrid_pagination.pages = response.plans.pages;
                 this.plangrid_pagination.records = response.plans.records;
                 this.paging = this.doPaging({current: response.plans.current, pages: response.plans.pages, max: 5});
+                this.currentLocalCity=this.plangrid_pagination.param.location;
+
             }
         }
     }
@@ -114,9 +117,12 @@ homePlan.pageInit(homePlan.plangrid_pagination);
   homePlan.reloadPage(homePlan.plangrid_pagination);
  }   
  function retrieveCellPlanGrid(){
-   const tmp = homePlan.plangrid_pagination.param.q;
+   const tmpq = homePlan.plangrid_pagination.param.q;
+   const tmplocation = homePlan.plangrid_pagination.param.location;
+
    initQueryParam();
-   homePlan.plangrid_pagination.param.q = tmp;
+   homePlan.plangrid_pagination.param.q = tmpq;
+   homePlan.plangrid_pagination.param.location = tmplocation;
 
    homePlan.reloadPage(homePlan.plangrid_pagination);
 
@@ -127,7 +133,8 @@ homePlan.pageInit(homePlan.plangrid_pagination);
     q: '',
     // budgetMin: 50,
     // budgetMax: 50,
-    sort: ''
+    sort: '',
+    location: ''
   }
   homePlan.plangrid_pagination.current = 1;
   homePlan.plangrid_pagination.size = 12;

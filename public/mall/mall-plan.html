@@ -138,12 +138,39 @@
       <!-- top search start-->
       <div class="search-container">
         <top-search class="section-top-serach">
-          <div class="input-group input-search-wrapper">
-            <input @keyup.enter.native="retrieveCellPlanGridV" v-model="plangrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索服务" aria-label="Search">
-            <button v-preventreclick @click="retrieveCellPlanGridV" class="btn btn-outline-secondary input-group-search-btn" type="button">
-              <i class="bi bi-search"></i>
-            </button>
+  
+          <div class="input-search-wrapper">
+           
+            <div class="input-search-area">
+              <div class="d-flex">
+                <input @keyup.enter.native="retrieveCellPlanGridV" v-model="plangrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索服务" aria-label="Search">
+                <div class="search-btn-container">
+                  <button v-preventreclick @click="retrieveCellPlanGridV" class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="location-container ms-2 d-flex align-items-center ">
+              
+              <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle d-flex align-items-center local-input-btn" data-bs-toggle="dropdown" aria-expanded="false" >
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span class="ms-1 local-city">{{!currentLocalCity ? '中国大陆' : currentLocalCity}}</span> 
+                </button>
+                <form class="dropdown-menu p-4 location-select-form" onsubmit="return false">
+                  <div class="mb-3">
+                    <label for="localCity" class="form-label">城市</label>
+                    <input v-model="plangrid_pagination.param.location" type="text" class="form-control" id="localCity">
+                  </div>
+                  <button v-preventreclick @click="retrieveCellPlanGridV"  type="submit" id="btn_local_confirm" class="btn btn-dark">确定</button>
+                </form>
+              </div>
+
+            </div>
           </div>
+
           <div class="s_type_wrapper">
   
             <div class="s_type">
