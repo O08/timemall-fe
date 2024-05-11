@@ -35,7 +35,8 @@ const RootComponent = {
           q: '',
           sort: '',
           sbu: '',
-          location: ''
+          location: '',
+          online: false
         },
         paramHandler: (info)=>{
             info.param.sbu = !this.input_sbu ? "hour" : this.input_sbu;
@@ -146,7 +147,8 @@ home.pageInit(home.cellgrid_pagination);
     // budgetMax: 50,
     sort: '',
     sbu: 'hour',
-    location: ''
+    location: '',
+    online: false
   }
   home.cellgrid_pagination.current = 1;
   home.cellgrid_pagination.size = 12;

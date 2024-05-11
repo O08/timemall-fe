@@ -20,7 +20,7 @@
 
 </head>
 <body>
-  <pt-app id="app">
+  <pt-app id="app" v-cloak>
       <!-- header nav -->
       <header class="p-3 text-white">
         <div class="mx-120 d-flex justify-content-between  align-items-center hdlayout">
@@ -386,6 +386,16 @@
                   </p>
                   <div class="detail-item">
                     <div class="detail-item-head">
+                      商单号
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{mpmc__paperDetail.paperId}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
                       职能
                     </div>
                     <div class="detail-item-content">
@@ -396,7 +406,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      奖金
+                      奖金/元
                     </div>
                     <div class="detail-item-content">
                       <span>
@@ -426,14 +436,45 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
+                      交付周期/天
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{mpmc__paperDetail.deliveryCycle}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      合约有效期/天
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{mpmc__paperDetail.contractValidityPeriod}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      创单时间
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{mpmc__paperDetail.createAt}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
                       状态
                     </div>
                     <div class="detail-item-content">
                       <span>
-                        {{explainPaperTagV(mpmc__paperDetail.tag)}}
+                        {{ (mpmc__paperDetail.tag==='2' && paperAlreadyInvalidV() )? '已失效' : explainPaperTagV(mpmc__paperDetail.tag)}}
                       </span>
                     </div>
                   </div>
+
                   <div class="mt-5 pb-5">
                     <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-primary">下线</button>
                     <!-- <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#editPaperModal">
@@ -577,7 +618,7 @@
               
                     <div class="row mb-3 mt-3">
                       <label   class="col-sm-4 col-form-label"> 
-                        合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物等 </div>
+                        合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等 </div>
                       </label>
                       <div class="col-sm-8">
                         <textarea rows="8" @change="btn_ctl.activate_edit_mps_save_btn=true" v-model="mpmc_putPaper.sow" class="form-control" aria-label="With textarea"></textarea>

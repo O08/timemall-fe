@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getQueryVariable } from "/common/javascripts/util.js";
 import {CommercialPaperTag} from "/common/javascripts/tm-constant.js";
 
 const MpsPaperManagementCompoent = {
@@ -17,6 +16,9 @@ const MpsPaperManagementCompoent = {
         }
     },
     methods: {
+        paperAlreadyInvalidV(){
+          return  (Date.parse(this.mpmc__paperDetail.modifiedAt) + (Number(this.mpmc__paperDetail.contractValidityPeriod) * (1000 * 3600 * 24)))  < new Date().getTime()
+        },
         closeEditPaperModalHandlerV(){
             this.btn_ctl.activate_edit_mps_save_btn=false;
         },

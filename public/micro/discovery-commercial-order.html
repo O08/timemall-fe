@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/micro/stylesheets/discovery-commercial-order.scss">
 </head>
 <body>
-  <micro-app class="d-flex flex-row" id="app">
+  <micro-app class="d-flex flex-row" id="app" v-cloak>
     <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
       <div class="sidebarContainer d-flex flex-row">
         <col-nav-main>
@@ -170,18 +170,27 @@
         <h3>商单来了</h3>
       </div>
       <section class="section-team-grid pb-5">
-        <div  class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
+        <div  class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3">
           <div v-for="paper in papergrid_pagination.records" class="col">
             <div v-preventreclick class="team-card-container px-3 pb-1" @click="showCommericalOrderPreviewModalV(paper.id)">
-              <img :src="adaptiveImageUriV(paper.avatar) || defaultObjPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultObjPreviewImage }">
+              <!-- <img :src="adaptiveImageUriV(paper.avatar) || defaultObjPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultObjPreviewImage }"> -->
+              <div class="paper-header-container">
+                <img :src="adaptiveImageUriV(paper.avatar) || defaultObjPreviewImage" alt="avatar" @error.once="e => { e.target.src = defaultObjPreviewImage }">
+                <div class="paper-detail-container">
+                  <p class="paper-name display-one-content">
+                    {{paper.brandName}}
+                  </p>
+                </div>
+              </div>
               <div class="card-body mb-3">
                 <div class="obj-title-wrapper">
                   <h6 class="mt-3">{{paper.title}}</h6>
                 </div>
                 <div class="mt-3 help-text d-flex flex-column justify-content-center">
-                  <span>采购商: {{paper.brandName}}</span>
-                  <span class="piece-detail">职能: {{paper.piece}}</span>
-                  <span>报价：{{paper.bonus}}</span>
+                  <span>商单号：{{paper.id}}</span>
+                  <span class="piece-detail">职能：{{paper.piece}}</span>
+                  <span>交付周期/天：{{paper.deliveryCycle}}</span>
+                  <span>报价/元：{{paper.bonus}}</span>
                 </div>
               </div>
             </div>

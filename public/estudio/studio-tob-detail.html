@@ -14,7 +14,7 @@
 
 
 <body>
-    <mall-app id="app">
+    <mall-app id="app" v-cloak>
       <div class="app-container">
         <header v-if="display=='normal'" class="p-3 text-white">
           <div class="mx-120 d-grid gap-3 align-items-center justify-content-center">
@@ -67,7 +67,17 @@
             </p>
             <div class="detail-item">
               <div class="detail-item-head">
-                职能:
+                商单号
+              </div>
+              <div class="detail-item-content">
+                <span>
+                  {{paperDetail.paperId}}
+                </span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-item-head">
+                职能
               </div>
               <div class="detail-item-content">
                 <span>
@@ -78,7 +88,7 @@
 
             <div class="detail-item">
               <div class="detail-item-head">
-                奖金:
+                奖金/元
               </div>
               <div class="detail-item-content">
                 <span>
@@ -89,7 +99,7 @@
 
             <div class="detail-item">
               <div class="detail-item-head">
-                采购商:
+                采购商
               </div>
               <div class="detail-item-content">
                 <span>
@@ -100,11 +110,32 @@
                 </span>
               </div>
             </div>
+            <div class="detail-item">
+              <div class="detail-item-head">
+                交付周期/天
+              </div>
+              <div class="detail-item-content">
+                <span>
+                  {{paperDetail.deliveryCycle}} 
+                </span>
+              </div>
+            </div>
+            <div class="detail-item pb-5">
+              <div class="detail-item-head">
+                状态
+              </div>
+              <div class="detail-item-content">
+                <span>
+                  {{ (paperDetail.tag==='2' && paperAlreadyInvalidV() )? '已失效' : explainPaperTagV(paperDetail.tag)}}
+                </span>
+              </div>
+            </div>
             <div>
               <button  v-if="display=='normal'"  onclick="goBack()" type="button" class="btn btn-dark  me-5 mt-5 ">
                 返回
               </button>
-              <button  :class="{'ms-5': display=='normal'}"  v-preventreclick v-if="paperDetail.tag==='2'&&paperDetail.purchaserId!=getIdentity().brandId" @click="orderReceivingV" type="button" class="btn btn-primary  mt-5">
+              <button  :class="{'ms-5': display=='normal'}"  v-preventreclick v-if=" paperDetail.tag==='2'&& (paperDetail.purchaserId!=getIdentity().brandId) && (!paperAlreadyInvalidV())" @click="orderReceivingV" 
+              type="button" class="btn btn-primary  mt-5">
                 接单
               </button>
             </div>

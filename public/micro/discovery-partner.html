@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/micro/stylesheets/discovery-partner.scss">
 </head>
 <body>
-  <micro-app class="d-flex flex-row" id="app">
+  <micro-app class="d-flex flex-row" id="app" v-cloak>
     <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
       <div class="sidebarContainer d-flex flex-row">
         <col-nav-main>
@@ -275,6 +275,10 @@
                                     <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
                                     <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
                                   </svg> 
+                                  <div v-if="brandProfile.brandMark=='3'"  class="online-indicator">
+                                    <div class="online-indicator-content">
+                                    </div>
+                                  </div>
                                 </button>
                               </a> 
                             </div>
@@ -308,6 +312,10 @@
                           <div class="archiveDetailCore-keyinfo-item">
                             <h3>行业</h3>
                             <h4>{{!brandProfile.industry? '无数据' : brandProfile.industry}}</h4>
+                          </div>
+                          <div class="archiveDetailCore-keyinfo-item">
+                            <h3>爱心服务</h3>
+                            <h4>{{ inNightV() && brandProfile.freeNightCounsellor=='1' ? '提供免费咨询' : '无'}}</h4>
                           </div>
   
                           <div class="partner-meta-info">

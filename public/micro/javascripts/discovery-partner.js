@@ -57,6 +57,11 @@ const RootComponent = {
         }
     },
     methods: {
+        inNightV(){
+            // 18:00 ~ 22:00
+            const localTime=new Date().getHours();
+            return localTime>=18 && localTime<=21;
+        },
         parseIpLocationCityInfoV(cityInfo){
             return parseIpLocationCityInfo(cityInfo);
         },

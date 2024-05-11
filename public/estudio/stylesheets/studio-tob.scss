@@ -106,3 +106,14 @@
     width: 0;
     height: 0;
 }
+
+.td-purchaser{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  display: inline-block;
+  overflow: hidden;
+}
+.td-purchaser{
+  max-width: 200px;
+}

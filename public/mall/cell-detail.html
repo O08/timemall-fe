@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/mall/stylesheets/cell-detail.scss">
 
 <body>
-  <mall-app id="app">
+  <mall-app id="app" v-cloak>
 
     <!-- header section start -->
     <div class="header-container">
@@ -150,7 +150,7 @@
     <!-- sub nav end -->
 
 
-    <content v-cloak class="content-container">
+    <content class="content-container">
       <main>
         <section class="section-cell-detail-tab" >
             
@@ -176,6 +176,10 @@
                               <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
                               <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
                             </svg> 
+                            <div v-if="profile.brandMark=='3'"  class="online-indicator">
+                              <div class="online-indicator-content">
+                              </div>
+                            </div>
                           </button>
                         </a> 
                       </div>
@@ -199,12 +203,6 @@
                         <p v-for="item in profile.content.items" class="cell-content-item">
                           {{item.section}}
                         </p>
-                        <!-- <p class="cell-content-item">
-                          Pride month highlights the collective quest for visibility, dignity and equality for lesbian, gay, bisexual, transgender and queer (LGBTQ+) people. It also marks and celebrates the progress since the 1969 Stonewall riots. On the one-year anniversary of this historic incident, the first Pride parade was held, evolving over time into the global monthlong celebration we know today. And Pride Month remains an important rallying point for equality and against discrimination.
-                        </p>
-                        <p class="cell-content-item">
-                          Pride month highlights the collective quest for visibility, dignity and equality for lesbian, gay, bisexual, transgender and queer (LGBTQ+) people. It also marks and celebrates the progress since the 1969 Stonewall riots. On the one-year anniversary of this historic incident, the first Pride parade was held, evolving over time into the global monthlong celebration we know today. And Pride Month remains an important rallying point for equality and against discrimination.
-                        </p> -->
                       </div>
                     </div>
                     <!-- right panel : pricing -->
@@ -280,7 +278,7 @@
 
                        <!-- seller experience -->
                        <section class="section-seller-experience">
-                        <div class="section-header ms-2">品牌发展史</div>
+                        <div class="section-header">品牌发展史</div>
                         <div class="section-container">
 
                           <div v-for="millstone in brandProfile.experience" class="exeperince-millstone card mt-2">
@@ -313,7 +311,7 @@
 
                        <!-- seller links -->
                     <section class="section-seller-links">
-                      <div class="section-header ms-2">链接</div>
+                      <div class="section-header">链接</div>
                       <div v-for="link in brandProfile.links" class="me-link ms-2 py-2 ps-2">
                         <img class="link__favicon" width="24" height="24" :src="getLinkIconUrlV(link.uri)">
                         <div class="link-view-wrapper">
@@ -330,7 +328,7 @@
                      
                     <!-- seller skills -->
                     <section class="section-seller-skills">
-                      <div class="section-header ms-2">品牌词条</div>
+                      <div class="section-header">品牌词条</div>
                       <div class="me-skills ms-2 pb-5">
                         <p v-for="skill in brandProfile.skills" class="fw-bold opt_item_desc">{{skill.entry}}</p>
                       </div>

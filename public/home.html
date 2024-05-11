@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  <mall-app id="app">
+  <mall-app id="app" v-cloak>
     <div class="app-container">
 
       <!-- header section start -->
@@ -201,19 +201,27 @@
             <div class="top-bar d-flex justify-content-between">
               <div class="dropdown ">
                 <button class="btn dropdown-toggle top-bar-filter-budget" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  预算
+                  筛选
                 </button>
                 <form class="dropdown-menu  p-4 budget-filter-form" onsubmit="return false">
                   <div class="row g-3">
                     <div class="col-6 input-wrapper">
-                      <label for="input_budget_min" class="form-label">最小</label>
+                      <label for="input_budget_min" class="form-label">最小预算</label>
                       <input v-model="cellgrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
                       <i>￥</i>
                     </div>
                     <div class="col-6 input-wrapper">
-                      <label for="input_budget_max" class="form-label">最大</label>
+                      <label for="input_budget_max" class="form-label">最大预算</label>
                       <input  v-model="cellgrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
                       <i>￥</i>
+                    </div>
+                  </div>
+                  <div class="row g-3 pb-4">
+                    <div class="col-6">
+                      <div class="form-check">
+                        <label for="input_online" class="form-check-label">仅显示在线品牌</label>
+                        <input v-model="cellgrid_pagination.param.online" type="checkbox" class="form-check-input"  id="input_online">
+                      </div>
                     </div>
                   </div>
                   
@@ -247,7 +255,7 @@
             </div>  
           </section>
         </div>
-        <main v-cloak>                    
+        <main>                    
                       <!-- service grid -->
           
                 <section class="section-service-grid">
@@ -298,10 +306,14 @@
                           </a>
                           <div class="card-body">
                             <div class="d-flex portrait align-items-center">
-                              <div>
+                              <div class="brand-logo-container">
                                 <img class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                                <div v-if="cell.brandMark=='3'" class="online-indicator">
+                                  <div class="online-indicator-content">
+                                  </div>
+                                </div>
                               </div>
-                              <h6 class="service-brand-name ms-1 my-0">{{cell.brand}}</h6>
+                              <h6 class="service-brand-name ms-2 my-0">{{cell.brand}}</h6>
                             </div>
                             <p class="card-text mt-2">
                               <a :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">

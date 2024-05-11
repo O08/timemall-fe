@@ -53,6 +53,7 @@ const RootComponent = {
         validateNewTemplateV(){
             if(!!this.newTemplate.title && !!this.newTemplate.sow 
                 && !!this.newTemplate.piece && !!this.newTemplate.bonus 
+                && !!this.newTemplate.deliveryCycle && !!this.newTemplate.contractValidityPeriod
                 && ((!this.newTemplate.firstSupplier && !this.newTemplate.duration)
                      || (!!this.newTemplate.firstSupplier && !!this.newTemplate.duration))){
 
@@ -63,6 +64,7 @@ const RootComponent = {
         validatePutTemplateV(){
             if(!!this.putTemplate.title && !!this.putTemplate.sow 
                 && !!this.putTemplate.piece && !!this.putTemplate.bonus 
+                && !!this.putTemplate.deliveryCycle && !!this.putTemplate.contractValidityPeriod
                 && ((!this.putTemplate.firstSupplier && !this.putTemplate.duration)
                      || (!!this.putTemplate.firstSupplier && !!this.putTemplate.duration))){
 
@@ -334,9 +336,15 @@ $(document).on('click', '.iop', function () {
     chainSettingPage.putTemplate.firstSupplier=$(this).attr("id"); // for update
     if(!chainSettingPage.newTemplate.firstSupplier){
         chainSettingPage.newTemplate.duration="";
+        chainSettingPage.newTemplate.firstSupplier="";
+        chainSettingPage.newTemplate.firstSupplierName="";
+
     }
     if(!chainSettingPage.putTemplate.firstSupplier){
         chainSettingPage.putTemplate.duration="";
+        chainSettingPage.putTemplate.firstSupplier="";
+        chainSettingPage.putTemplate.firstSupplierName="";
+
     }
 })
 function search() {

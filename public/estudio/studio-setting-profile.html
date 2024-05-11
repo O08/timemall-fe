@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <pt-app id="app">
+  <pt-app id="app" v-cloak>
 
       <!-- header nav -->
       <header class="p-3 text-white">
@@ -364,6 +364,17 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row mb-3 mt-3">
+                    <label for="inputFreeNightCounsellor" class="col-sm-4 col-form-label"> 
+                      夜间咨询<span @click="showExplainModelV(3)" class="help-text ms-1"><i class="bi bi-question-circle"></i></span>
+                    </label>
+                    <div class="col-sm-8 input-area">
+                      <div>
+                        <input  id="inputFreeNightCounsellor"
+                        class="form-check-input" type="checkbox" v-model="freeNightCounsellor"> 开启
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="row mb-3 mt-3">
                     <label for="inputActivity" class="col-sm-4 col-form-label"> 
@@ -408,7 +419,7 @@
               </div>
             </div>
             <div class="experience-edit-pannel">
-              <div v-for="(millstone,index) in brandProfile.experience" class="exeperince-millstone card">
+              <div v-for="(millstone,index) in brandProfile.experience" class="exeperince-millstone mt-2">
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="millstone-header d-flex  ms-3 mt-2">
                     <div class="img-shadow pt-2">
@@ -417,7 +428,7 @@
                     <div class="inner-header d-flex flex-column ms-3">
                       <span class="fw-semibold lh-lg mb-1">{{millstone.title}}</span>
                       <span class="fw-normal mb-0">{{millstone.subTitle}}</span>
-                      <span class="font-monospace">{{millstone.start}} - {{!millstone.end ? '现在' : millstone.end }}</span>
+                      <span class="help-text mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{!millstone.end ? '现在' : millstone.end }}</span>
                     </div>
                   </div>
                  
@@ -446,12 +457,12 @@
                     <li v-for="(entry,descIndex) in millstone.entries" class="timeline-item mb-5 d-flex justify-content-between align-items-center">
                       <div class="story-wrapper">
                         <h5 class="fw-bold">{{entry.title}}</h5>
-                        <p class="text-muted mb-2 fw-bold">{{entry.start}} - {{entry.end ? entry.end : '现在' }}</p>
-                        <p class="text-muted">
+                        <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : '现在' }}</p>
+                        <p class="opt_item_desc">
                           {{entry.story}}
                         </p>
                       </div>
-                      <span class="option-edit-wrapper mt-2 me-5" :class="{'display-el': descIndex == 0}">
+                      <span class="option-edit-wrapper me-5" :class="{'display-el': descIndex == 0}">
                         <div @click="editExperienceDescV(index,descIndex)" class="d-flex justify-content-center align-items-center option-container circle ">
                           <i class="bi bi-pen"></i>
                         </div>
@@ -680,7 +691,7 @@
                   <h1 class="modal-title fs-5" id="newExperienceModalLabel">编辑条目</h1>
                   <button type="button" id="closeNewExperienceModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex">
+                <div class="modal-body">
                   <form class="form-new-experience">
                     <div class="mb-3">
                       <label for="experience-input-title" class="form-label">标题
@@ -746,7 +757,7 @@
                         <span class="error-text">结束日期不能早于开始日期</span>
                       </div>
                     </div>
-                    <div class="mb-3 d-flex justify-content-between">
+                    <div class="py-5 d-flex justify-content-between">
                       <button v-show="!tmpMillstone.mode" type="button" :class="{'disabled': validateExperienceModal, 
                         'btn-primary': !validateExperienceModal,
                         'btn-secondary': validateExperienceModal}" id="btn-add-experience" class="btn" @click="addExperienceV">添加</button>
@@ -773,7 +784,7 @@
                   <h1 class="modal-title fs-5" id="newExperienceDescModalLabel">编辑描述</h1>
                   <button type="button" id="closenewExperienceDescModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex">
+                <div class="modal-body">
                    <form class="w-100">
                     <div class="mb-3">
                       <label for="input-experience-desc-title" class="form-label">标题
@@ -839,9 +850,9 @@
                     </div>
                     <div class="mb-3">
                       <label for="input-experience-desc-story" class="form-label">描述</label>
-                      <textarea v-model="tmpMillstioneDesc.story" maxlength="2500" type="text" class="form-control" id="input-experience-desc-story">
+                      <textarea v-model="tmpMillstioneDesc.story" maxlength="2500"  class="form-control" id="input-experience-desc-story" rows="10">
                     </div>
-                    <div class="mb-3 d-flex justify-content-between">
+                    <div class="py-5 d-flex justify-content-between">
                       <button v-show="!tmpMillstioneDesc.mode" @click="addExperienceDescV" :class="{'disabled': validateExperienceDescModal, 
                             'btn-primary': !validateExperienceDescModal,
                             'btn-secondary': validateExperienceDescModal}" type="button" id="btn-new-experience-desc" class="btn btn-primary">添加</button>
@@ -851,9 +862,6 @@
                         'btn-secondary': validateExperienceDescModal}" id="btn-update-experience-desc" class="btn" @click="modifyExperienceDescV(tmpMillstioneDesc.experienceIndex,tmpMillstioneDesc.descIndex)">更新</button>
                     </div>
                    </form>
-                </div>
-                <div class="modal-footer btn-light">
-                  
                 </div>
               </div>
             </div>

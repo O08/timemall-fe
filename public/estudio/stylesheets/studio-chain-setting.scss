@@ -11,7 +11,7 @@
 }
 .mps-panel-detail{
   background-color: #272727;
-  padding: 1rem;
+  padding: 2rem;
 }
 
 // customize select search start 
@@ -80,17 +80,8 @@
 .deltail-title{
   text-align: center;
 }
-.piece-content,.sow-container{
-  display: flex;
-}
-.sow-head{
-  width: 70px;
-}
 .piece-head{
   width: 48px;
-}
-.sow-detail{
-  width: calc(100% - 70px);
 }
 .piece-detail{
   width: calc(100% - 48px);
@@ -109,12 +100,55 @@ body::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
+
+.modal-content{
+  background-color: #fff;
+}
+
+.deltail-title{
+  padding-top: 16px;
+  text-align: center;
+  word-break: break-all;
+}
+.detail-item{
+  display: flex;
+} 
+.detail-sow-heading{
+  font-weight: 700;
+  line-height: 44px;
+  padding-top: 26px;
+  padding-bottom: 4px;
+  font-size: 28px;
+}
+.detail-sow-content{
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.875;
+  font-size: 16px;
+  min-height: 30px;
+  color: #aaa;
+  padding-left: 12px;
+}
+.detail-item-head{
+  width: 130px;
+  font-weight: 600;
+}
+.detail-item-content{
+  width: calc(100% - 130px);
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 16px;
+}
+
 @media (max-width: 576px) {
   pt-app content main {
     margin-left: 16px;
     margin-right: 16px;
 }
+.chain-setting-container{
+  padding: 0;
 }
-.modal-content{
-  background-color: #fff;
+.mps-panel-detail{
+  padding: .5rem;
+}
 }

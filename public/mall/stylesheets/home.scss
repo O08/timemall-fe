@@ -265,7 +265,7 @@ nav{
   -o-transition: border-color .35s ease;
   transition: border-color .35s ease;
 }
-.input-wrapper label,.location-select-form label{
+.input-wrapper label,.location-select-form label,#section_filter_wrapper .form-check-label{
   font-size: 12px;
   line-height: 24px;
   font-weight: 600;
@@ -402,6 +402,11 @@ nav{
     display: inline-block;
     overflow: hidden;
     font-size: 12px;
+}
+.brand-logo-container{
+  position: relative;
+  width: 30px;
+  height: 30px;
 }
 
 @media (max-width: 576px) {

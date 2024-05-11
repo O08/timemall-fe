@@ -34,7 +34,8 @@ const RootComponent = {
           q: '',
           sort: '',
           sbu: '',
-          location: ''
+          location: '',
+          online: false
         },
         responesHandler: (response)=>{
             if(response.code == 200){
@@ -134,7 +135,8 @@ homePlan.pageInit(homePlan.plangrid_pagination);
     // budgetMin: 50,
     // budgetMax: 50,
     sort: '',
-    location: ''
+    location: '',
+    online: false
   }
   homePlan.plangrid_pagination.current = 1;
   homePlan.plangrid_pagination.size = 12;

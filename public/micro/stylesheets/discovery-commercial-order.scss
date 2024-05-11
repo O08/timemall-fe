@@ -90,15 +90,12 @@ header{
   .team-card-container{
     background-color: #2e2e2e9d;
     border-radius: 10px;
-    height: 100%;
+    padding: 16px;
   }
   .team-card-container:hover{
     background-color: #2E2E2E;
   }
-.team-card-container img{
-    height: 130px;
-    border-radius: 5px;
-}
+
 .obj-title-wrapper{
   height: 50px;
 }
@@ -165,6 +162,35 @@ header{
 .btn-close-paper-prewview-modal i{
   vertical-align: middle;
   font-size: 20px;
+}
+.paper-header-container {
+  align-items: center;
+  display: flex;
+}
+.paper-header-container img {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  width: 40px;
+}
+.paper-detail-container {
+  width: calc(100% - 40px);
+  padding-left: 12px;
+}
+.paper-detail-container p {
+  margin-bottom: 0;
+}
+.display-one-content {
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
 }
 @media (max-width: 576px) {
   .logo{

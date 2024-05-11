@@ -11,7 +11,9 @@ const BrandBasicSetting = {
             explainTopic: [
                 {title: "自由合作",content: "自由合作用来标记你的对外合作意向，默认为关闭，表示你不支持各种合作方式；处于开放状态，表示你愿意与其他感兴趣的第三方讨论各种合作方式；平台鼓励各种形式的开放与合作，同时也在努力打造一个受信任的合作环境，但依然要求你采用零信任的方式去拥抱合作，规避金融、道德等欺诈风险。"},
                 {title: "合作资源",content: "合作的基础就是让各方的资源相互碰撞，补充你拥有的资源（比如：技术、设计、研发、流量、5万用户、5000资金），开始构建关系网络，着手超多合作吧。（支持最大长度 500 字符）"},
-                {title: "自定义职业",content: "职业门类丰富，如果平台提供的数据中没有你的职业，你可以通过自定义职业进行DIY.（提示：自定义职业生效需要确保职业选择为自定义。支持最大长度 60 字符）"}
+                {title: "自定义职业",content: "职业门类丰富，如果平台提供的数据中没有你的职业，你可以通过自定义职业进行DIY.（提示：自定义职业生效需要确保职业选择为自定义。支持最大长度 60 字符）"},
+                {title: "夜间咨询",content: "夜间咨询处于开启状态，表示在每天夜晚(18:00 ～ 22:00)，你为有需要的用户提供无偿、免费的咨询服务。建议每次咨询时长设置为15min、30min 或者 1h。默认为关闭状态"}
+
 
             ],
             explain: {},
@@ -49,6 +51,7 @@ const BrandBasicSetting = {
             supportFreeCooperation: false,
             hiring: false,
             availableForWork: false,
+            freeNightCounsellor: false,
             cooperationScope:  ""
         }
     },
@@ -84,6 +87,8 @@ const BrandBasicSetting = {
             this.referenceSetting.hiring=profile.hiring=="1" ? true : false;
             this.referenceSetting.availableForWork=profile.availableForWork=="1" ? true : false;
             this.referenceSetting.typeOfBusiness= !profile.typeOfBusiness ? "0" : profile.typeOfBusiness;
+            this.referenceSetting.freeNightCounsellor=profile.freeNightCounsellor=="1" ? true : false;
+
 
 
 
@@ -99,6 +104,8 @@ const BrandBasicSetting = {
            this.hiring=referenceSettingClone.hiring;
            this.availableForWork=referenceSettingClone.availableForWork;
            this.typeOfBusinessSelectedItem=referenceSettingClone.typeOfBusiness;
+           this.freeNightCounsellor=referenceSettingClone.freeNightCounsellor;
+
 
 
         },
@@ -114,7 +121,9 @@ const BrandBasicSetting = {
                    || this.referenceSetting.cooperationScope!=this.cooperationScope
                    || this.referenceSetting.hiring!=this.hiring
                    || this.referenceSetting.availableForWork!=this.availableForWork
-                   || this.referenceSetting.typeOfBusiness!=this.typeOfBusinessSelectedItem)
+                   || this.referenceSetting.typeOfBusiness!=this.typeOfBusinessSelectedItem
+                   || this.referenceSetting.freeNightCounsellor!=this.freeNightCounsellor
+                   )
 
         },
         initBrandBasicSettingConfigV(){
@@ -150,7 +159,8 @@ async function modifyBasicSetting(appObj){
         hiring: appObj.hiring ? "1" : "0",
         availableForWork: appObj.availableForWork ? "1" : "0",
         typeOfBusiness: appObj.typeOfBusinessSelectedItem,
-        industry: selectedIndustry.length>0 ? selectedIndustry[0].text : ""
+        industry: selectedIndustry.length>0 ? selectedIndustry[0].text : "",
+        freeNightCounsellor: appObj.freeNightCounsellor ? "1" : "0"
     }
     const response = await putBasicSetting(dto);
     var data = await response.json();
