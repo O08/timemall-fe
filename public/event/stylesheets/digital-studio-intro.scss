@@ -1,0 +1,262 @@
+.main-info-container{
+    padding-left: 72px;
+    padding-right: 72px;
+    font-size: 16px;
+    line-height: 1.65;
+
+}
+
+.hero-section{
+    padding-top: 80px;
+    justify-content: space-between;
+    display: flex;
+    padding-bottom: 80px;
+}
+.hero-title {
+    font-size: 72px;
+    font-weight: bold;
+    line-height: 1.25;
+}
+.hero-title,.hero_subtitle,.feature-heading h2{
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+.hero-desc{
+    padding-top: 12px;
+}
+.hero_subtitle{
+  width: 600px;
+}
+.hero_subtitle {
+    margin: 0;
+    font-size: 20px;
+    line-height: 36px;
+}
+.hero-opt-container{
+    padding-top: 48px;
+}
+.feature-section{
+    padding: 80px 0;
+}
+.feature-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+.featureList-item i{
+    color: #5390ec;
+    font-size: 72px;
+}
+.demo-section{
+    padding-top: 72px;
+}
+.demo-section h2{
+    text-align: center;
+    padding-bottom: 32px;
+}
+.demoVideos-item{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding-top: 16px;
+    padding-bottom: 32px;
+}
+
+
+.opt_container{
+    background-image: url( '/common/images/black-star-sky.svg' );
+    padding-bottom: 120px;
+    padding-top: 120px;
+    background-color: #161B22;
+}
+.opt_container .heading h2{
+    text-align: center;
+}
+.opt_container .heading{
+    display: flex;
+    justify-content: center;
+}
+.heading_desc{
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+}
+.heading_desc p{
+    max-width: 600px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 36px;
+}
+.cta-container{
+    display: flex;
+    justify-content: center;
+}
+.btn-open-studio{
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    height: 57px;
+    width: 265px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+.btn-get-starPlan{
+    border-color: #fff;
+    border-radius: 5px;
+    margin-left: 12px;
+    height: 57px;
+    width: 265px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+p{
+    font-size: 16px;
+    line-height: 1.645;
+}
+// super large screen >=1600px
+@media (min-width: 1600px) {
+    #app{
+        padding-left: calc((100% - 1600px)/2);
+        padding-right: calc((100% - 1600px)/2);
+    }
+
+}
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+    .main-info-container{
+        padding: 24px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .hero-title {
+        font-size: 48px;
+        font-weight: bold;
+        line-height: 1.456;
+    }
+    .hero-desc{
+        padding-top: 12px;
+    }
+    .hero_subtitle{
+        font-size: 16px;
+        line-height: 1.456;
+        width: 480px;
+    }
+    .hero-adorn img{
+        width: 260px;
+    }
+    .featureList-item i{
+        font-size: 48px;
+    }
+    .feature-heading h2,.demo-section h2{
+        font-size: 24px;
+    }
+    .video-detail h3{
+        font-size: 20px;
+    }
+}
+.feature-heading-container,.more-feature{
+    display: flex;
+    justify-content: space-between;
+}
+.feature-list,.feature-heading{
+    width: 50%;
+}
+// moblile
+@media (max-width: 767px){
+    .main-info-container{
+        padding: 0 24px;
+    }
+    .hero-section{
+        padding-bottom: 0;
+    }
+ .nav_links{
+    display: none;
+ }
+ .hero-section{
+    display: block;
+ }
+ 
+ .hero-title{
+    font-size: 32px;
+    text-align:center;
+ }
+ .hero_subtitle{
+    font-size: 16px;
+    line-height: 1.456;
+    width: 320px;
+    text-align:center;
+
+ }
+ .hero-adorn img{
+    width: 320px;
+}
+.hero-opt-container{
+    display: flex;
+    justify-content: center;
+}
+.feature-heading-container,.more-feature{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.feature-list, .feature-heading {
+    width: 100%;
+}
+.demoVideos-item{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.need-reverse{
+    flex-direction: column-reverse;
+}
+.cta-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn-get-starPlan{
+    margin-left: 0;
+    margin-top: 12px;
+}
+.opt_container{
+    padding: 48px 24px;
+}
+.heading_desc{
+    padding-top: 12px;
+    padding-bottom: 32px;
+}
+ p,.heading_desc p{
+    font-size: 12px;
+    line-height: 1.645;
+}
+.featureList-item{
+    text-align: center;
+}
+.feature-heading h2,.demo-section h2{
+    font-size: 20px;
+  
+
+}
+h3{
+    font-size: 18px;
+}
+.video-detail p{
+    margin-bottom: 0;
+}
+.video-detail h3{
+    margin-bottom: 1.5rem;
+}
+.feature-section{
+    padding: 0;
+}
+.btn-open-studio,.btn-get-starPlan{
+    font-size: 14px;
+}
+}
