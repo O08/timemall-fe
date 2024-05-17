@@ -786,11 +786,18 @@ json-node span{
   font-size: 0.8125em;
   text-align: center;
   padding: 10px;
+  line-height: 24px;
+  color: #fff;
+
 }
 .copyright-container{
   background-color: #121212;
   height: 100px;
 }
+.copyright .nav-link{
+  padding: 0 8px;
+}
+
 .footer-nav{
   display: inline-block;
   margin: 0;
@@ -1193,6 +1200,7 @@ col-container{
 #section_feedback_offcanvas .feedback-attachment-upload-container img{
   width: 100%;
   object-fit: cover;
+  color: rgba(0, 0, 0, 0) !important;
 }
 #section_feedback_offcanvas .btn-close ,.offcanvas-header .btn-close{
    background-color: #fff;
