@@ -1,3 +1,7 @@
+textarea{
+  word-wrap: break-word;
+  word-break: break-all;
+}
 .chain-setting-container{
   --gutterWidth: 24px;
   --containerWidth: 1200px;
@@ -104,7 +108,21 @@ body::-webkit-scrollbar {
 .modal-content{
   background-color: #fff;
 }
-
+#editChainTemplateModal .modal-dialog,#newChainTemplateModal .modal-dialog{
+  margin: 0;
+  max-width: 100%;
+  height: 100%;
+}
+#editChainTemplateModal .modal-content,#newChainTemplateModal .modal-content{
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important; 
+  height: 100%;
+  border: none;
+}
+#editChainTemplateModal form,#newChainTemplateModal form{
+  width: 100%;
+}
 .deltail-title{
   padding-top: 16px;
   text-align: center;
@@ -139,7 +157,13 @@ body::-webkit-scrollbar {
   word-break: break-all;
   font-size: 16px;
 }
-
+// xxl
+@media (min-width: 1400px) { 
+  #editChainTemplateModal form,#newChainTemplateModal form, #editChainTemplateModal  .modal-header,#newChainTemplateModal  .modal-header{
+    padding-left: calc(50% - 700px);
+    padding-right: calc(50% - 700px) ;
+  }
+ }
 @media (max-width: 576px) {
   pt-app content main {
     margin-left: 16px;
