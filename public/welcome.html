@@ -109,47 +109,47 @@
           <div class="hot-topic-container">
             <ul class="topic-list">
               <li class="topic-item">
-                <a  class="topic-item-link active" href="/home?q=游戏">
+                <a  class="topic-item-link active">
                   游戏
                 </a>
               </li>
               <li class="topic-item">
-                <a class="topic-item-link" href="/home?q=职场">
+                <a class="topic-item-link">
                   职场
                 </a>
               </li>
               <li class="topic-item">
-                <a  class="topic-item-link" href="/home?q=靓照">
+                <a  class="topic-item-link">
                   靓照
                 </a>
               </li>
               <li class="topic-item">
-                <a class="topic-item-link" href="/home?q=居家">
+                <a class="topic-item-link">
                   居家
                 </a>
               </li>
               <li class="topic-item">
-                <a  class="topic-item-link" href="/home?q=爱车">
+                <a  class="topic-item-link">
                   爱车
                 </a>
               </li>
               <li class="topic-item">
-                <a class="topic-item-link" href="/home?q=智库">
+                <a class="topic-item-link">
                   智库
                 </a>
               </li>
               <li class="topic-item">
-                <a  class="topic-item-link" href="/home?q=DIY">
+                <a  class="topic-item-link">
                   DIY
                 </a>
               </li>
               <li class="topic-item">
-                <a  class="topic-item-link" href="/home?q=治愈">
+                <a  class="topic-item-link">
                   治愈
                 </a>
               </li>
               <li class="topic-item">
-                <a class="topic-item-link" href="/home?q=次元风">
+                <a class="topic-item-link">
                   次元风
                 </a>
               </li>
@@ -208,22 +208,22 @@
                 </div>
                 <ul>
                   <li>
-                    <a  class="btn btn-outline-dark hot-search-item text-white" href="/home?q=原神">
+                    <a  class="btn btn-outline-dark hot-search-item text-white">
                       原神
                     </a>
                   </li>
                   <li>
-                    <a class="btn btn-outline-dark hot-search-item text-white" href="/home?q=人声治愈">
+                    <a class="btn btn-outline-dark hot-search-item text-white">
                       人声治愈
                     </a>
                   </li>
                   <li>
-                    <a  class="btn btn-outline-dark hot-search-item text-white" href="/home?q=下班时间">
+                    <a  class="btn btn-outline-dark hot-search-item text-white">
                       下班时间
                     </a>
                   </li>
                   <li>
-                    <a  class="btn btn-outline-dark hot-search-item text-white" href="/home?q=礼物">
+                    <a  class="btn btn-outline-dark hot-search-item text-white">
                       礼物
                     </a>
                   </li>
@@ -602,6 +602,24 @@
       // init hero cell
       loadHeroCell();
       // hero cell end
+
+      // hot topice forward
+      function goProductPage(q){
+        window.location.href="/home?q=" + q;
+      }
+      document.querySelectorAll('.topic-item-link').forEach( button => {
+         button.onclick = function () {
+           var q= button.textContent.trim();
+           goProductPage(q);
+         }
+      });
+
+      document.querySelectorAll('.hot-search-item').forEach( button => {
+         button.onclick = function () {
+           var q= button.textContent.trim();
+           goProductPage(q);
+         }
+      });
         
   
   
