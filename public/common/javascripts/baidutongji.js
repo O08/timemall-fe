@@ -1,8 +1,14 @@
 // baidu track
+
 var _hmt = _hmt || [];
 (function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?606e2a200184c22d0684dda57e5323f8";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
+  var isLocal=  (window.location.host=="127.0.0.1" || window.location.host=="localhost");
+  
+  if (!isLocal){
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?606e2a200184c22d0684dda57e5323f8";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  }
+
 })();
