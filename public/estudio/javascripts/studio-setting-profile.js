@@ -236,6 +236,10 @@ function setBrandBasicInfo(){
         if(response.data.code==200){
             settingProfilePage.btn_ctl.activate_general_save_btn = false;
         }
+        // brand name already exist and be used for other people
+        if(response.data.code==2010){
+           alert("品牌名称已被使用，重新想一个吧！")
+        }
     });
 }
 

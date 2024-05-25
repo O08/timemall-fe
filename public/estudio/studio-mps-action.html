@@ -230,8 +230,7 @@
                       </div>
                       <div class="col" v-for="record in mpmc__paperList.records">
                         <div  v-preventreclick  @click="changePaperChannelV(record.id)" class="record-container" >
-                          <div>
-                            <span 
+                            <div 
                             :class="{
                               'channel_active': currentRTMChannel===record.id
                             }"
@@ -239,13 +238,15 @@
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-dots" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                 <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                              </svg>                         
-                            </span>
+                              </svg>  
                           <sup v-if="paperChannelHaveNewMsgV(record.id)" class="disabled dot-info"></sup>
                         </div>
-                          <span class="paper-head">{{record.piece}}</span>
-                          
-                        </div>
+
+                          <div class="paper-head">
+                            <div>{{record.piece}}</div> 
+                            <div :style="{color: paperProgressColorV(record.tag)}">:::: {{record.id.substring(0,3)}} ::::</div>
+                          </div>
+
                       </div>
 
                     </div>
@@ -354,17 +355,18 @@
                       <div  v-for="record in mpmc__paperList.records" class="col">
 
                         <div v-preventreclick @click="findPaperDetailV(record.id)" class="record-container">
-                          <span class="event-icon new-order">
+                          <div class="event-icon new-order">
                             <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <circle v-show="!(mpmc__paperDetail.paperId===record.id)" cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
                               <rect v-show="mpmc__paperDetail.paperId===record.id"  rx="10" ry="10" width="100" height="100" fill="#4CFFA9" fill-opacity="0.7" />
                               <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
                               <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                               </svg>                          
-                          </span>
-                          <span class="paper-head">
-                            {{record.piece}}
-                          </span>
+                          </div>
+                          <div class="paper-head">
+                            <div>{{record.piece}}</div> 
+                            <div :style="{color: paperProgressColorV(record.tag)}">:::: {{record.id.substring(0,3)}} ::::</div>
+                          </div>
                         </div>
 
                       </div>
@@ -502,17 +504,18 @@
                       <div v-for="record in mpmc__paperList.records" class="col">
                        
                         <div v-preventreclick @click="fetchPaperDeliverDetailV(record.id)" class="record-container">
-                          <span class="event-icon new-order">
+                          <div class="event-icon new-order">
                             <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <circle v-show="!(mpdc__current_active_paper===record.id)" cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
                               <rect v-show="mpdc__current_active_paper===record.id"  rx="10" ry="10" width="100" height="100" fill="#4CFFA9" fill-opacity="0.7" />
                               <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
                               <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                               </svg>                          
-                          </span>
-                          <span class="paper-head">
-                            {{record.piece}}
-                          </span>
+                            </div>
+                          <div class="paper-head">
+                            <div>{{record.piece}}</div> 
+                            <div :style="{color: paperProgressColorV(record.tag)}">:::: {{record.id.substring(0,3)}} ::::</div>
+                          </div>
                         </div>
 
                       </div>

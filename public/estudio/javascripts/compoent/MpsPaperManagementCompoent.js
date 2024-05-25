@@ -75,6 +75,9 @@ const MpsPaperManagementCompoent = {
         },
         explainPaperTagV(tag){
             return explainPaperTag(tag);
+        },
+        paperProgressColorV(tag){
+         return paperProgressColor(tag);
         }
     }
 }
@@ -129,6 +132,31 @@ function explainPaperTag(paperTag){
                 break; 
     }
     return paperTagDesc;
+}
+
+function paperProgressColor(paperTag){
+    var paperProgressColor="unset";
+    switch(paperTag){
+        case CommercialPaperTag.CREATED:
+            paperProgressColor="unset";
+            break; 
+        case CommercialPaperTag.PUBLISH:
+            paperProgressColor="unset";
+                break; 
+        case CommercialPaperTag.OFFLINE:
+            paperProgressColor="unset";
+            break; 
+        case CommercialPaperTag.END:
+            paperProgressColor="#FD820B";
+                break; 
+        case CommercialPaperTag.DELIVERING:
+            paperProgressColor="#4CFFA9";
+                break; 
+        case CommercialPaperTag.CLOSED:
+            paperProgressColor="#FD820B";
+                break; 
+    }
+    return paperProgressColor;
 }
 
 
