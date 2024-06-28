@@ -278,10 +278,8 @@ table .btn{
     display: flex;
     align-items: center;
 }
-@media (max-width: 1199.98px){
-    table{
-        min-width: 1400px;
-    }
+table{
+    min-width: 1400px;
 }
 
 @media (max-width: 48rem) {
