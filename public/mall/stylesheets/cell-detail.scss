@@ -164,13 +164,13 @@ mall-app {
     2. Intro
 ------------------------------------------------------*/
 
-.cell-intro-cover,.cell-intro-cover img
+.cell-intro-cover,.cell-intro-cover .cell-banner
 {
     width: 100%;
     aspect-ratio: 3.23 / 1;
     
 }
-.cell-intro-cover img{
+.cell-intro-cover .cell-banner{
     width: 100%;
     object-fit: cover;
 }
@@ -549,7 +549,14 @@ mall-app {
   .can_opt_wrapper,.plan-panel-header{
     padding-top: 32px;
   }
+.alert-info{
+    padding: 0 3rem;
+}
 @media (max-width: 576px) {
+
+    .alert-info{
+        padding: 0 .5rem;
+    }
 
     .content-container{
         padding-left: 12px;
@@ -574,11 +581,7 @@ mall-app {
         padding-right: 0;
 
     }
-//     .cell-intro-cover,.cell-intro-cover img
-// {
-//     width: 100%;
-//     aspect-ratio: 3.23 / 1;
-// }
+
 .brand-intro-cover, .brand-intro-cover img
 {
     height: 130px;
@@ -627,4 +630,97 @@ mall-app {
   .header-primary-container .nav_links{
     display: none;
   }
+}
+#focusModal .modal-content{
+    background-color: #fff;
+    color: black;
+}
+#focusModal .bi-exclamation-circle{
+    font-size: 72px;
+    padding-top: 32px;
+}
+.separator.separator-dashed {
+    border-bottom-style: dashed;
+    border-bottom-color: var(--bs-border-dashed-color);
+}
+.border-dark {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--bs-dark-rgb), var(--bs-border-opacity)) !important;
+}
+.opacity-25 {
+    opacity: .25 !important;
+}
+.font12{
+    font-size: 12px;
+}
+
+#goTopUpModal .modal-content{
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+}
+#goTopUpModal .modal-header{
+    background: #47c9a2;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: -20px -20px 0;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+
+}
+
+#goTopUpModal .btn-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    text-shadow: none;
+    opacity: 0.5;
+}
+#goTopUpModal .modal-header .btn-close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+#goTopUpModal i {
+    font-size: 72px;
+    margin: -4px 0 0 -4px;
+}
+#goTopUpModal .modal-body{
+    color: #121212;
+}
+#goTopUpModal h4 {
+    text-align: center;
+    font-size: 36px;
+    margin: 10px 0;
+}
+#goTopUpModal p{
+    font-size: 12px;
+}
+#errorModal .modal-content{
+    background-color: #fff;
+    color: #121212;
+}
+.border-danger {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--bs-danger-rgb), var(--bs-border-opacity)) !important;
+}
+#errorModal .bi-exclamation-circle{
+    font-size: 72px;
+    padding-top: 16px;
+}
+#errorModal .modal-header{
+border-bottom: none;
+}
+.cell-intro-cover{
+    position: relative;
+}
+.offline-mark{
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: 200px;
+    transform:rotate(-45deg);
 }

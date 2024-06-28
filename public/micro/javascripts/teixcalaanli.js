@@ -3,7 +3,6 @@ import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
-import defaultAvatarImage from '/avator.webp'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 const RootComponent = {

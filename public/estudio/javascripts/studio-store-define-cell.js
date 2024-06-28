@@ -136,6 +136,15 @@ const RootComponent = {
             if(Number(val) !== Number(event.target.value)){
               event.currentTarget.dispatchEvent(new Event('input')); // update v-model
             }
+        },
+        transformInputNumberToIntV(event){
+            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
+            var min = Number(event.target.min);
+            var max = Number(event.target.max);
+            event.target.value = transformInputNumberToInt(val, min, max);
+            if(val !== Number(event.target.value)){
+              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
         }
     }
 }
@@ -165,13 +174,14 @@ async function getCellInfo(cellId){
   return await axios.get(url);
 }
 
-async function saveOverview(cellId,title,canProvideInvoice,tags){
+async function saveOverview(cellId,title,canProvideInvoice,tags,revshare){
     const url = "/api/v1/web_estudio/service/{cell_id}/define/overview".replace("{cell_id}",cellId);
     const param ={
         overview: {
             title: title,
             canProvideInvoice: canProvideInvoice,
-            tags: tags
+            tags: tags,
+            revshare: revshare
         }
     }
     return await axios.put(url,param)  
@@ -262,7 +272,8 @@ async function defineCellOverview(){
         return;
     }
     const tagsJsonStr=JSON.stringify(defineCellPage.overview.tags);
-    saveOverview(cellId,defineCellPage.overview.title,defineCellPage.overview.canProvideInvoice,tagsJsonStr).then(function(response){
+    const revshare=defineCellPage.overview.revshare;
+    saveOverview(cellId,defineCellPage.overview.title,defineCellPage.overview.canProvideInvoice,tagsJsonStr,revshare).then(function(response){
         if(response.data.code == 200){
             addCellIdToUrl(cellId);
             defineCellPage.btn_ctl.activate_general_save_btn = false;
@@ -304,6 +315,8 @@ function loadCellInfo(){
             defineCellPage.overview.cover = response.data.profile.cover;
             defineCellPage.overview.canProvideInvoice = response.data.profile.provideInvoice==='1';
             defineCellPage.overview.tags=!response.data.profile.tags ? [] : response.data.profile.tags;
+            defineCellPage.overview.revshare = response.data.profile.revshare;
+
             if(response.data.profile.content){
                 defineCellPage.content = response.data.profile.content;
             }
@@ -445,3 +458,8 @@ function transformInputNumber(val,max){
     return val>max ? max : val;
     
  } 
+
+ function transformInputNumberToInt(val,min,max){
+    val = val ? val == 0 ? 0 : val : val; // cope with 0000000
+    return val < min ? "" : val > max ? max : val;
+  }

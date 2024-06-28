@@ -329,7 +329,9 @@
                   <th class="w-auto">项目</th>
                   <th class="w-auto">服务</th>
                   <th scope="col">客户</th>
-                  <th scope="col">费用</th>
+                  <th scope="col">客户支付</th>
+                  <th scope="col">实收</th>
+                  <th scope="col">佣金</th>
                   <th scope="col" class="date-fixed-width">入库时间</th>
                 </tr>
               </thead>
@@ -352,6 +354,8 @@
                   </td>
                   <td>{{bill.customer}}</td>
                   <td>{{bill.amount}}</td>
+                  <td>{{bill.netIncome}}</td>
+                  <td>{{bill.commission}}</td>
                   <td>{{bill.added}}</td>
                 </tr>
                 

@@ -1,12 +1,16 @@
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js'
+
 export function copyValueToClipboard(val) {
+    let customAlert = new CustomAlertModal();
+
     if (navigator.clipboard && window.isSecureContext) {
         // navigator clipboard 向剪贴板写文本
          navigator.clipboard.writeText(val).then(
             () => {
-                alert('已复制，快去粘贴吧~')
+                customAlert.alert('已复制，快去粘贴吧~')
             },
             () => {
-                alert('有黑魔法，复制失败，尝试再次复制或者其他方式~')
+                customAlert.alert('有黑魔法，复制失败，尝试再次复制或者其他方式~')
             },
           );
           
@@ -19,7 +23,7 @@ export function copyValueToClipboard(val) {
         document.body.appendChild(textArea)
         textArea.focus()
         textArea.select()
-        alert('已复制，快去粘贴吧~')
+        customAlert.alert('已复制，快去粘贴吧~')
         new Promise((res, rej) => {
             // 执行复制命令并移除文本框
             document.execCommand('copy') ? res() : rej()

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content=”index,nofollow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  <meta name="keywords" content="咘噜咓API开发文档">
+  <meta name="description" content="开发资源, 指导, API 文档, 案列.">
+
+  <link rel="icon" href="/favicon.png">
+  <title>API参考 :-r 开发者 :-r 咘噜咓</title>
+
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+  <link rel="stylesheet" href="/docs/stylesheets/api-reference.scss">
+  <!-- https://platform.openai.com/docs/api-reference/introduction
+    https://docs.stripe.com/api/pagination/search
+    https://developer.spotify.com/documentation/web-api/reference/get-multiple-artists -->
+
+<body>
+  <mall-app id="app" class="h-100" v-cloak>
+
+    <!-- header section start -->
+    <div class="header-container">
+      <header>
+        <nav>
+          <div class="header-primary-container">
+
+            <div class="logo-contaienr">
+              <a class="logo_link" aria-current="page" href="/">
+                <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+              </a>
+            </div>
+
+            <ul class="nav_links">
+              <li class="nav_link">
+                <a  href="/micro/discovery-oasis">少数派</a>
+              </li>
+              <li class="nav_link">
+                <a  href="/estudio/studio-store">薪动工作室</a>
+              </li>
+              <li class="nav_link">
+                <a  href="/micro/affiliate/dashboard">带货中心</a>
+              </li>
+
+            </ul>
+
+
+          </div>
+        </nav>
+        <div class="toggle-nav d-md-none">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+          </button>
+        </div>
+
+      </header>
+    </div>
+    <!-- header section end -->
+
+    <div class="console">
+      <div class="offcanvas-md offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+        <div class="offcanvas-header">
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
+        </div>
+        <div class="scrollspy-container">
+
+          <nav id="console-navigation" class="h-100 flex-column align-items-stretch">
+            <nav class="nav  flex-column">
+              <a  class="nav-link nva-link-default" href="#introduction">简介</a>
+              <a class="nav-link nva-link-default" href="#affiliateProduct">获取带货商品列表</a>
+              <nav class="nav flex-column sub-nav">
+                <a class="nav-link nva-link-default" href="#affiliateProductQ">查询商品</a>
+                <a class="nav-link nva-link-default" href="#affiliateProductObject">商品列表数据结构</a>
+              </nav>
+            </nav>
+          </nav>
+  
+        </div>
+
+      </div>
+
+      <content class="api-ref">
+
+        <div id="console-content" data-bs-spy="scroll" data-bs-target="#console-navigation" data-bs-smooth-scroll="true"
+           tabindex="0">
+          <div id="introduction">
+            <div class="markdown-content">
+              <h4>简介</h4>
+              <p>
+                好呀，开发者，欢迎来到开发者中心，如果计划在网站、APP、小程序中接入咘噜咓相关服务，可阅读本文档。
+              </p>
+              <p>
+                开发过程中如需支持请访问以下链接联系我们:
+              </p>
+
+              <div class="code-sample code-sample-oneliner">
+                <div class="code-sample-body code-sample-body-large">
+                  <pre
+                    class="hljs syntax-highlighter dark-mode code-sample-pre"><code class="language-bash" style="white-space: pre;"><span><span>https://www.bluvarri.com/mall/contact-us</span></span></code></pre>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div id="affiliateProduct" class="section">
+            <div class="anchor-heading-root">
+              <h4 class="anchor-heading" data-name="images">获取带货商品列表</h4>
+            </div>
+            <div class="markdown-content">
+              <p>查询达人橱窗中的商品。</p>
+            </div>
+          </div>
+
+          <div id="affiliateProductQ">
+
+            <div class="section endpoint">
+              <div class="section-left">
+                <h4>查询商品</h4>
+                <p><span class="endpoint-text"><span class="endpoint-method endpoint-method-get">get</span>&nbsp;<span
+                      class="endpoint-path">https://www.bluvarri.com/api/open/affiliate/choice_product</span></span></p>
+                <div class="endpoint-summary">
+                  <p>返回给定达人的带货列表</p>
+                </div>
+                <div class="param-section">
+                  <h3>Query 参数</h3>
+                  <div class="param-table">
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover">
+                        <div class="param-name">influencer</div>
+                        <div class="param-type">
+                          <div class="markdown-content">
+                            <p>string</p>
+                          </div>
+                        </div>
+                        <div class="param-reqd">必填</div>
+                        <a target="_blank" href="/estudio/studio-setting-profile" class="param-view"> <i class="bi bi-link-45deg"></i> 查看你的品牌ID</a>
+                      </div>
+                      <div class="param-desc">
+                        <div class="markdown-content">
+                          <p>达人品牌ID，是带货达人的唯一标识。</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover">
+                        <div class="param-name">chn</div>
+                        <div class="param-type">
+                          <div class="markdown-content">
+                            <p>string</p>
+                          </div>
+                        </div>
+                        <div class="param-reqd">必填</div>
+                        <a target="_blank" href="/micro/affiliate/outreach-channel" class="param-view"> <i class="bi bi-link-45deg"></i> 查看你的渠道ID</a>
+                      </div>
+                      <div class="param-desc">
+                        <div class="markdown-content">
+                          <p>分销渠道ID，比如独立网站或者APP。</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover">
+                        <div class="param-name">current</div>
+                        <div class="param-type">
+                          <div class="markdown-content">
+                            <p>integer</p>
+                          </div>
+                        </div>
+                        <div class="param-reqd">必填</div>
+                      </div>
+                      <div class="param-desc">
+                        <div class="markdown-content">
+                          <p>分页查询当前页数。</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover">
+                        <div class="param-name">size</div>
+                        <div class="param-type">
+                          <div class="markdown-content">
+                            <p>integer</p>
+                          </div>
+                        </div>
+                        <div class="param-reqd">必填</div>
+                      </div>
+                      <div class="param-desc">
+                        <div class="markdown-content">
+                          <p>分页查询返回列表的数据条数。</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover">
+                        <div class="param-name">sort</div>
+                        <div class="param-type">
+                          <div class="markdown-content">
+                            <p>string</p>
+                          </div>
+                        </div>
+                        <div class="param-optl">可选</div>
+                      </div>
+                      <div class="param-desc">
+                        <div class="markdown-content">
+                          <p>数据顺序，可选值：plan_price -- 单品价格，revshare -- 佣金比例，plan_sale_volume -- 单品销量，sales -- 销售额，views -- 浏览量，add_time -- 添加时间</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="param-section">
+                  <h3>返回响应</h3>
+                  <div class="param-table">
+                    <div class="param-row">
+                      <div class="markdown-content">
+                        <p>响应数据结构：<a href="#affiliateProductObject">商品列表数据结构</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="section-right">
+                
+<div class="code-sample"><div class="code-sample-header"><div class="code-sample-title body-small">请求示例</div><div class="code-sample-select-wrap"><div class="code-sample-select-val">javascripts</div><select class="code-sample-select api-code-lang-select"><option disabled="" value="">语言</option><option value="javascripts">javascripts</option></select><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4.293 8.293a1 1 0 0 1 1.414 0L12 14.586l6.293-6.293a1 1 0 1 1 1.414 1.414l-7 7a1 1 0 0 1-1.414 0l-7-7a1 1 0 0 1 0-1.414Z" clip-rule="evenodd"></path></svg></div><div class="code-sample-copy"><button @click="copyValueToClipboardV" type="button" tabindex="0" class="btn btn-sm btn-minimal btn-neutral"><span class="btn-label-wrap"><span class="btn-node start-node"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2V5Zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v2ZM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5Z" clip-rule="evenodd"></path></svg></span></span></button></div></div><div class="code-sample-body code-sample-body-small code-sample-body-with-header"><pre class="hljs syntax-highlighter dark-mode code-sample-pre"><code class="language-node" style="white-space: pre;"><code style="float: left; padding-right: 10px;"><span class="react-syntax-highlighter-line-number">1
+</span><span class="react-syntax-highlighter-line-number">2
+</span><span class="react-syntax-highlighter-line-number">3
+</span><span class="react-syntax-highlighter-line-number">4
+</span><span class="react-syntax-highlighter-line-number">5
+</span><span class="react-syntax-highlighter-line-number">6
+</span><span class="react-syntax-highlighter-line-number">7
+</span><span class="react-syntax-highlighter-line-number">8
+</span><span class="react-syntax-highlighter-line-number">9
+</span><span class="react-syntax-highlighter-line-number">10
+</span><span class="react-syntax-highlighter-line-number">11
+</span><span class="react-syntax-highlighter-line-number">12
+</span><span class="react-syntax-highlighter-line-number">13
+</span></code><span class="hljs-keyword">async function fetchProduct(influencer,chn,current,size,sort){</span>
+<span>    const url="https://www.bluvarri.com/api/open/affiliate/choice_product?current="+current+"&size="+size+ "&influencer="+influencer+"&chn="+chn+"&sort="+sort;</span>
+<span>    return await fetch(url);</span>
+<span>}</span>
+<span></span>
+<span>async function loadProduct(){</span>
+<span>    const response = await fetchProduct('达人的品牌Id','渠道Id',1,20,'add_time');</span>
+<span>    var data = await response.json();</span>
+<span>    console.log(data);</span>
+<span>}</span>
+<span>loadProduct()</span>
+</code></pre></div></div>
+
+<div class="code-sample"><div class="code-sample-header"><div class="code-sample-title body-small">响应示例</div><div class="code-sample-copy"><button @click="copyValueToClipboardV" type="button" tabindex="0" class="btn btn-sm btn-minimal btn-neutral"><span class="btn-label-wrap"><span class="btn-node start-node"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2V5Zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v2ZM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5Z" clip-rule="evenodd"></path></svg></span></span></button></div></div><div class="code-sample-body code-sample-body-small code-sample-body-with-header"><pre class="hljs syntax-highlighter dark-mode code-sample-pre"><code class="language-json" style="white-space: pre;"><code style="float: left; padding-right: 10px;"><span class="react-syntax-highlighter-line-number">1
+</span><span class="react-syntax-highlighter-line-number">2
+</span><span class="react-syntax-highlighter-line-number">3
+</span><span class="react-syntax-highlighter-line-number">4
+</span><span class="react-syntax-highlighter-line-number">5
+</span><span class="react-syntax-highlighter-line-number">6
+</span><span class="react-syntax-highlighter-line-number">7
+</span><span class="react-syntax-highlighter-line-number">8
+</span><span class="react-syntax-highlighter-line-number">9
+</span><span class="react-syntax-highlighter-line-number">10
+</span><span class="react-syntax-highlighter-line-number">11
+</span><span class="react-syntax-highlighter-line-number">12
+</span><span class="react-syntax-highlighter-line-number">13
+</span><span class="react-syntax-highlighter-line-number">14
+</span><span class="react-syntax-highlighter-line-number">15
+</span><span class="react-syntax-highlighter-line-number">16
+</span><span class="react-syntax-highlighter-line-number">17
+</span><span class="react-syntax-highlighter-line-number">18
+</span><span class="react-syntax-highlighter-line-number">19
+</span><span class="react-syntax-highlighter-line-number">20
+</span><span class="react-syntax-highlighter-line-number">21
+</span><span class="react-syntax-highlighter-line-number">22
+</span></code><span>{</span>
+<span>    "code": 200,</span>
+<span>    "message": "Success",</span>
+<span>    "product": {</span>
+<span>        "records": [</span>
+<span>            {</span>
+<span>                "brandAvatar": "https://d13-dev-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/21eebe1523d948029e766b7ff10479a5.png.avif",</span>
+<span>                "brandName": "Yove",</span>
+<span>                "thumbnail": "https://d13-dev-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/b9ffb6a9a24a47f89505c4cf00118f1a.jpg.avif",</span>
+<span>                "productName": "新款大爱",</span>
+<span>                "productPrice": "242.00",</span>
+<span>                "affiliateLink": "https://www.bluvarri.com/mall/cell-detail?cell_id=8e041d10b9da4697b840c7ad01235ac1&brand_id=0298e729cdd4440fb9e77604511dac2b&influencer=91afe86c90ce45d3b3f59b33e9970f9d&chn=0044b89f7ecf476ea3ee62ad88102d6b&market=api"</span>
+<span>            }</span>
+<span>        ],</span>
+<span>        "total": 2,</span>
+<span>        "size": 30,</span>
+<span>        "current": 1,</span>
+<span>        "pages": 1</span>
+<span>    }</span>
+<span>}</span>
+</code></pre></div></div>
+
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+
+          <!-- affiliateProductObject::begain  -->
+          <div id="affiliateProductObject" class="section endpoint">
+            <div class="section-left">
+              <div class="anchor-heading-root">
+                <h2 class="anchor-heading">商品列表数据结构</h2>
+              </div>
+              <div class="markdown-content"><p>商品列表数据对象。</p></div>
+              <div class="param-table">
+                <div class="param-row">
+                  <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">code</div><div class="param-type"><div class="markdown-content"><p>integer</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>状态码：200 -- 成功，40023 -- 达人或渠道未配置正确。</p></div></div>
+                </div>
+                <div class="param-row">
+                  <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">message</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>请求状态消息。</p></div></div>
+                </div>
+                <div class="param-row">
+                  <div class="param-row-header api-ref-anchor-link-hover">
+                    <div class="param-name">product</div>
+                    <div class="param-type">
+                      <div class="markdown-content">
+                        <p>object</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-desc">
+                    <div class="markdown-content">
+                      <p>商品对象</p>
+                    </div>
+                  </div>
+                  <div class="param-table">
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover">
+                        <div class="param-name">records</div>
+                        <div class="param-type">
+                          <div class="markdown-content">
+                            <p>array</p>
+                          </div>
+                         </div>
+                      </div>
+                      <div class="param-desc">
+                        <div class="markdown-content">
+                          <p>商品数据数组.</p>
+                        </div>
+                      </div>
+                      <div class="param-table">
+                        <div class="param-row">
+                          <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">brandAvatar</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>品牌头像URL。</p></div></div>
+                        </div>
+                        <div class="param-row">
+                          <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">brandName</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>品牌名称。</p></div></div>
+                        </div>
+                        <div class="param-row">
+                          <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">thumbnail</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>商品封面URL。</p></div></div>
+                        </div>
+                        <div class="param-row">
+                          <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">productName</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>商品名称。</p></div></div>
+                        </div>
+                        <div class="param-row">
+                          <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">productPrice</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>商品价格。</p></div></div>
+                        </div>
+                        <div class="param-row">
+                          <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">affiliateLink</div><div class="param-type"><div class="markdown-content"><p>string</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>带货链接。</p></div></div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">total</div><div class="param-type"><div class="markdown-content"><p>integer</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>数据总条数.</p></div></div>
+                    </div>
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">size</div><div class="param-type"><div class="markdown-content"><p>integer</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>数据列表条数。</p></div></div>
+                    </div>
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">current</div><div class="param-type"><div class="markdown-content"><p>integer</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>分页查询当前页数。</p></div></div>
+                    </div>
+                    <div class="param-row">
+                      <div class="param-row-header api-ref-anchor-link-hover"><div class="param-name">pages</div><div class="param-type"><div class="markdown-content"><p>integer</p></div></div></div><div class="param-desc"><div class="markdown-content"><p>分页查询总页数。</p></div></div>
+                    </div>
+                  </div>
+                </div>
+          
+              </div>
+
+            </div>
+            <div class="section-right">
+
+<div class="code-sample"><div class="code-sample-header"><div class="code-sample-title body-small">商品列表数据结构示例</div><div class="code-sample-copy"><button @click="copyValueToClipboardV" type="button" tabindex="0" class="btn btn-sm btn-minimal btn-neutral"><span class="btn-label-wrap"><span class="btn-node start-node"><svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M7 5a3 3 0 0 1 3-3h9a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3h-2v2a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3h2V5Zm2 2h5a3 3 0 0 1 3 3v5h2a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v2ZM5 9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1H5Z" clip-rule="evenodd"></path></svg></span></span></button></div></div><div class="code-sample-body code-sample-body-small code-sample-body-with-header"><pre class="hljs syntax-highlighter dark-mode code-sample-pre"><code class="language-json" style="white-space: pre;"><code style="float: left; padding-right: 10px;"><span class="react-syntax-highlighter-line-number">1
+</span><span class="react-syntax-highlighter-line-number">2
+</span><span class="react-syntax-highlighter-line-number">3
+</span><span class="react-syntax-highlighter-line-number">4
+</span><span class="react-syntax-highlighter-line-number">5
+</span><span class="react-syntax-highlighter-line-number">6
+</span><span class="react-syntax-highlighter-line-number">7
+</span><span class="react-syntax-highlighter-line-number">8
+</span><span class="react-syntax-highlighter-line-number">9
+</span><span class="react-syntax-highlighter-line-number">10
+</span><span class="react-syntax-highlighter-line-number">11
+</span><span class="react-syntax-highlighter-line-number">12
+</span><span class="react-syntax-highlighter-line-number">13
+</span><span class="react-syntax-highlighter-line-number">14
+</span><span class="react-syntax-highlighter-line-number">15
+</span><span class="react-syntax-highlighter-line-number">16
+</span><span class="react-syntax-highlighter-line-number">17
+</span><span class="react-syntax-highlighter-line-number">18
+</span><span class="react-syntax-highlighter-line-number">19
+</span><span class="react-syntax-highlighter-line-number">20
+</span><span class="react-syntax-highlighter-line-number">21
+</span><span class="react-syntax-highlighter-line-number">22
+</span></code><span>{</span>
+<span>    "code": 200,</span>
+<span>    "message": "string",</span>
+<span>    "product": {</span>
+<span>        "records": [</span>
+<span>            {</span>
+<span>                "brandAvatar": "string",</span>
+<span>                "brandName": "string",</span>
+<span>                "thumbnail": "string",</span>
+<span>                "productName": "string",</span>
+<span>                "productPrice": "string",</span>
+<span>                "affiliateLink": "string"</span>
+<span>            }</span>
+<span>        ],</span>
+<span>        "total": 0,</span>
+<span>        "size": 10,</span>
+<span>        "current": 1,</span>
+<span>        "pages": 1</span>
+<span>    }</span>
+<span>}</span>
+</code></pre></div></div>
+
+            </div>
+          </div>
+          
+
+          <!-- affiliateProductObject::end -->
+
+        </div>
+      </content>
+
+
+
+
+
+    </div>
+
+
+
+
+
+  </mall-app>
+  <script type="module" src="/docs/javascripts/api-reference.js"></script>
+  <script  type="module" src="/common/javascripts/tm.js"></script>
+
+</body>
+
+</html>

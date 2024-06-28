@@ -250,7 +250,8 @@
                   <input type="text" id="input-identity-title" maxlength="255" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.title">
                 </div>
               </p>
-              <p class="ip-location">ip 属地：{{ parseIpLocationCityInfoV(identity.location) }}</p>
+              <p class="ip-location">品牌ID：<span class="white-box">{{ !getIdentity() ? "" : getIdentity().brandId }}</span> </p>
+              <p class="ip-location">ip 属地：<span class="white-box">{{ parseIpLocationCityInfoV(identity.location) }}</span> </p>
             </div>
             <button type="submit" 
             :class="{'disabled': !btn_ctl.activate_general_save_btn || !identity.brand, 

@@ -41,6 +41,8 @@ $("#login-form").on("submit", function (e) {
     if(e.target.checkValidity()){
         doLogin();
     }
+    document.getElementsByName("submitBtn")[0].disabled=false;
+
 
 });
 

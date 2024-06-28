@@ -134,6 +134,9 @@ var CodeMappingTypeEnum=Object.freeze({
     "INDUSTRY": "industry"
 }); 
 
+var EnvWebsite=Object.freeze({
+    "PROD": "https://bluvarri.com"
+}); 
 
 
 
@@ -143,5 +146,5 @@ export {
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     OasisMark,CommissionTag,
-    PriceSbu, CellStatus,WorkflowStatus,BillStatus,CodeMappingTypeEnum
+    PriceSbu, CellStatus,WorkflowStatus,BillStatus,CodeMappingTypeEnum,EnvWebsite
 } ;

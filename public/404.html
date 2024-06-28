@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Definitions -->
+    <meta charset="UTF-8">
+    <!-- Define the viewport for better responsive behavior -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.png" />
+    <!-- Theme colour Meta Tag -->
+    <meta name="theme-color" content="#FFFFFF" />
+    <!-- Other Meta Tags -->
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Title of the Webpage -->
+    <title>出错啦！～ - bluvarri.com</title>
+
+
+    <!-- Inline CSS for Styling -->
+<style>
+html,body,.content-container{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+body{
+  background-color: #dad7d7;
+}
+html::after {
+    content:'';
+    background: radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+h1, p {
+    margin: 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.5);
+}
+h1 {
+    font-size: 16rem;
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+}
+p {
+    font-size: 2rem;
+}
+
+.content-container{
+
+ /* Internet Explorer 10 */
+display:-ms-flexbox;
+-ms-flex-pack:center;
+-ms-flex-align:center;
+
+/* Firefox */
+display:-moz-box;
+-moz-box-pack:center;
+-moz-box-align:center;
+
+/* Safari, Opera, and Chrome */
+display:-webkit-box;
+-webkit-box-pack:center;
+-webkit-box-align:center;
+
+/* W3C */
+display:box;
+box-pack:center;
+box-align:center;
+}
+@media (max-width: 48rem) {
+    h1 {
+      font-size: 12rem;
+  }
+  p {
+      font-size: 1.5rem;
+  }
+
+} 
+    </style>
+</head>
+<body>
+    <div class="content-container">
+      <div class="center">
+        <h1>404</h1>
+
+        <p>[:] 很抱歉，你要找的页面不见了.</p>
+    </div>
+    </div>
+
+
+ </body>
+</html>

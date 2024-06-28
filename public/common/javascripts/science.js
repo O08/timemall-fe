@@ -1,4 +1,5 @@
 import {DataLayerCellEvent} from "/common/javascripts/tm-constant.js";
+import { getQueryVariable } from "/common/javascripts/util.js";
 
 async function handleErrors(response) {
     if (!response.ok){
@@ -30,7 +31,8 @@ export async function uploadCellDataLayer(event,indicesObj){
   }
   var model={
     event: event,
-    cell: {}
+    cell: {},
+    affiliate: {}
   }
   if(DataLayerCellEvent.IMPRESSIONS==event){
     model.cell.impressions=indicesObj;
@@ -44,6 +46,18 @@ export async function uploadCellDataLayer(event,indicesObj){
   if(DataLayerCellEvent.PURCHASES==event){
     model.cell.purchases=indicesObj;
   }
+  const influencer=getQueryVariable("influencer");
+  const chn=getQueryVariable("chn");
+  const market=getQueryVariable("market");
+  const isValidAffiliateLink=(!!influencer) && (!!chn) && (!!market);
+  if(isValidAffiliateLink){
+    
+    model.affiliate.influencer=influencer;
+    model.affiliate.chn=chn;
+    model.affiliate.market=market;
+    
+  }
+
   const response= await doUploadCellDataLayer(model);
   await handleErrors(response);
   var data = await response.json();

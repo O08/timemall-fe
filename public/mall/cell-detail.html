@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
 
     <link rel="stylesheet" href="/mall/stylesheets/cell-detail.scss">
-
+</head>
 <body>
   <mall-app id="app" v-cloak>
 
@@ -169,7 +169,7 @@
                     
                     <div class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
-                        <a :href="'/micro/arch/channel-0002?friend='+ brandProfile.brandUserId">
+                        <a :href="'/micro/arch/channel-0002?friend='+ brandProfile.brandUserId" target="_blank">
                           <button  class="btn btn-outline-primary private-msg-link">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M7.49994 9.99992H12.4999" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
@@ -194,7 +194,8 @@
                     <div class="intro-content">
                           <!-- cell intro cover -->
                       <div class="cell-intro-cover">
-                        <img :src="adaptiveImageUriV(profile.introCover)  || defaultCellIntroCoverImage" @error.once="e => { e.target.src = defaultCellIntroCoverImage }">
+                        <img v-if="profile.cellMark=='3'" class="offline-mark" src="/common/icon/offline.svg" alt="cell already offline">
+                        <img class="cell-banner" :src="adaptiveImageUriV(profile.introCover)  || defaultCellIntroCoverImage" @error.once="e => { e.target.src = defaultCellIntroCoverImage }">
                       </div>
                       <!-- cell title -->
 
@@ -411,48 +412,129 @@
 
       <div class="modal-container">
               
-        <!--TopUp Fund  Modal -->
-        <div  class="modal fade" id="goTopUpModal" data-bs-backdrop="static" tabindex="-1">
+        <!--Error  Modal -->
+        <div  class="modal fade" id="errorModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                <h1 class="modal-title fs-5">操作提示</h1>
+
+              <div class="modal-header justify-content-center">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body d-flex justify-content-center display-dialog-body-bg text-white">
-                <form>
-                <div  v-if="isEmptyObjectV(error)" class="row mt-3">
-                  <label>下单成功!<a class="url-link-sm-1 ms-2" href="/epod/pod-millstone">查看履约</a></label>
+              <div class="modal-body text-center">
+                
+                <!--begin::Alert-->
+              <div class="d-flex text-center flex-column alert-info mb-5">
+
+
+                <!--begin::Icon-->
+                <i class="bi bi-exclamation-circle text-danger mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="text-center">
+                    <!--begin::Title-->
+                    <h1 class="fw-bold mb-2">识别到异常</h1>
+                    <!--end::Title-->
+
+                    <!--begin::Separator-->
+                    <div class="separator separator-dashed border-danger opacity-25 mb-2"></div>
+                    <!--end::Separator-->
+
+                    <!--begin::Content-->
+                    <div class="font12">
+                        {{error}}
+                    </div>
+                    <!--end::Content-->
+
+                    <!--begin::Buttons-->
+                    <div class="d-flex justify-content-center flex-wrap pt-5">
+
+                      <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">商城充值</a>
+                      <a href="/mall/contact-us"  target="_blank" class="btn btn-dark m-3">寻求支持</a>
+
+                    </div>
+                    <!--end::Buttons-->
                 </div>
-                <div v-if="error.length>0" class="row mt-3">
-                  <span class="error-notice">异常信息：{{error}}</span>
-                </div> 
-                </form>
+                <!--end::Wrapper-->
               </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <a href="/estudio/studio-shop"><button   type="button"  class="btn btn-primary">前往商城充值</button></a>
+              <!--end::Alert-->
+
               </div>
+              
+
             </div>
           </div>
         </div>
       </div>
+
+
+      <div class="modal-container">
+              
+        <!--TopUp Fund  Modal -->
+        <div  class="modal fade" id="goTopUpModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-header justify-content-center">
+                <i class="bi bi-check-circle"></i>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <h4>下单成功!</h4>	
+                <p>哇喔，成功下单，继续享受愉快的旅程，追寻更多发现吧！</p>
+                <div class="d-flex justify-content-center flex-wrap pt-2">
+
+                  <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">前往商城充值</a>
+                  <a href="/epod/pod-millstone"  class="btn btn-dark m-3">查看履约</a>
+                </div>
+              </div>
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+
          <!-- focus modal -->
          <div class="modal-container">
           <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
-                <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                  <h1 class="modal-title fs-5">操作提示</h1>
+                <!--begin::Alert-->
+              <div class="d-flex text-center flex-column alert-info mb-5">
+
+
+                <!--begin::Icon-->
+                <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="text-center">
+                    <!--begin::Title-->
+                    <h1 class="fw-bold mb-2">操作提示</h1>
+                    <!--end::Title-->
+
+                    <!--begin::Separator-->
+                    <div class="separator separator-dashed border-dark opacity-25 mb-2"></div>
+                    <!--end::Separator-->
+
+                    <!--begin::Content-->
+                    <div class="font12">
+                        {{focusModal.feed}}
+                    </div>
+                    <!--end::Content-->
+
+                    <!--begin::Buttons-->
+                    <div class="d-flex justify-content-center flex-wrap pt-5">
+
+                        <a href="#" @click="closeOrderCellPlanFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">取消操作</a>
+                        <a href="#"  v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">继续支付</a>
+                    </div>
+                    <!--end::Buttons-->
                 </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                  <div class="product-feature">
-                    <p class="card-text">{{focusModal.feed}}</p>
-                  </div>
-                </div>
-                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-                  <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">确定</button>
-                </div>
+                <!--end::Wrapper-->
+              </div>
+              <!--end::Alert-->
               </div>
             </div>
           </div>

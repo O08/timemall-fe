@@ -18,6 +18,7 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
 import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-icon-parse.js";
 import {Api} from "/common/javascripts/common-api.js";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 
 
@@ -59,13 +60,16 @@ const RootComponent = {
             return explainCellPlanType(planType);
         },
         showOrderCellPlanFocusModalV(){
-            this.focusModal.feed="您即将购买单品："+ this.explainCellPlanTypeV(this.displayPlan.planType);
+            this.focusModal.feed="即将为您下单单品套餐： "+ this.explainCellPlanTypeV(this.displayPlan.planType)+" ,单品价格为：" + this.displayPlan.price;
             this.focusModal.confirmHandler=()=>{
                 this.orderCellPlanV();
                 $("#focusModal").modal("hide"); // show modal
 
             };
             $("#focusModal").modal("show"); // show modal
+        },
+        closeOrderCellPlanFocusModalV(){
+            $("#focusModal").modal("hide");
         },
         hasCellPlanV(planType){
           return this.cellplan.records.filter(item=>item.planType===planType).length>0;
@@ -185,6 +189,9 @@ const cellDetailPage = app.mount('#app');
 
 
 window.cellDetail = cellDetailPage;
+
+let customAlert = new CustomAlertModal();
+
 /**
  * intro -------------
  */
@@ -193,9 +200,18 @@ async function getIntroInfoForCell(cellId){
     return await axios.get(url);
 }
 async function order(cellId){
-    const dto= {
+    var dto= {
         sbu: cellDetailPage.selectedSbu,
         quantity: cellDetailPage.quantity
+    }
+    const influencer=getQueryVariable("influencer");
+    const chn=getQueryVariable("chn");
+    const market=getQueryVariable("market");
+    const isValidAffiliateLink=(!!influencer) && (!!chn) && (!!market);
+    if(isValidAffiliateLink){
+        dto.influencer=influencer;
+        dto.chn=chn;
+        dto.market=market;
     }
     const url = "/api/v1/web_mall/services/{cell_id}/order".replace("{cell_id}",cellId);
     return await axios.post(url,dto); 
@@ -209,8 +225,19 @@ async function doFetchCellPlan(cellId){
     return await axios.get(url);
 }
 async function doOrderCellPlan(planId){
+
+    var dto={};
+    const influencer=getQueryVariable("influencer");
+    const chn=getQueryVariable("chn");
+    const market=getQueryVariable("market");
+    const isValidAffiliateLink=(!!influencer) && (!!chn) && (!!market);
+    if(isValidAffiliateLink){
+        dto.influencer=influencer;
+        dto.chn=chn;
+        dto.market=market;
+    }
     const url="/api/v1/web_mall/services/plan/{id}/order".replace("{id}",planId);
-    return await axios.post(url);
+    return await axios.post(url,dto);
 }
 function orderCellPlan(planId){
      // 用户未登录，跳到登录页面
@@ -228,13 +255,23 @@ function orderCellPlan(planId){
 
             $("#goTopUpModal").modal("show"); 
         }
+        if(response.data.code==40024){
+            $("#errorModal").modal("show"); 
+            cellDetailPage.error=response.data.message + ",不能购买自己的商品和服务。";
+            return ;
+        }
+        if(response.data.code==40007){
+            $("#errorModal").modal("show"); 
+            cellDetailPage.error=response.data.message + ",可前往商城充值。";
+            return ;
+        }
         if(response.data.code!=200){
-            $("#goTopUpModal").modal("show"); 
+            $("#errorModal").modal("show"); 
             cellDetailPage.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
         }
 
     }).catch(error=>{
-        $("#goTopUpModal").modal("show"); 
+        $("#errorModal").modal("show"); 
         cellDetailPage.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error;
     });
 }
@@ -256,7 +293,7 @@ function orderNow(){
     const cellId= getQueryVariable("cell_id");
     if(!cellId || !cellDetailPage.total || !cellDetailPage.quantity 
         || cellDetailPage.total<=0 || cellDetailPage.quantity<=0){
-            alert("请选择需要预约的服务数量与标准付费单元");
+            customAlert.alert("请选择需要预约的服务数量与标准付费单元");
             return
     }
     // 用户未登录，跳到登录页面
@@ -276,8 +313,17 @@ function orderNow(){
             uploadCellDataLayerWhenAppointment([cellId]);
 
             // give option
-            alert("成功预约，可在E-pod查看预约记录");
+            customAlert.alert("成功预约，可在E-pod查看预约记录");
 
+        }
+        if(response.data.code==40024){
+            $("#errorModal").modal("show"); 
+            cellDetailPage.error=response.data.message + ",不能购买自己的商品和服务。";
+            return ;
+        }
+        if(response.data.code!=200){
+            $("#errorModal").modal("show"); 
+            cellDetailPage.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
         }
     })
 }

@@ -271,6 +271,17 @@
                             <input class="form-check-input" v-model="overview.canProvideInvoice" type="checkbox" value="" @change="btn_ctl.activate_general_save_btn = true" >
                           </div>
                         </div>
+                        <div class="row mb-3">
+                          <label for="inputTitle" class="col-sm-4 col-form-label">
+                            佣金比例
+                            <div class="help-text">
+                              佣金比例大于0的服务将自动同步到带货中心，设置一个均衡的比例，让达人帮你推广。
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <input type="text" class="form-control input-sbu" v-model="overview.revshare"  max="100" min="1" @input="transformInputNumberToIntV($event)" @change="btn_ctl.activate_general_save_btn = true" >
+                          </div>
+                        </div>
 
                         <div class="row mb-3">
 
