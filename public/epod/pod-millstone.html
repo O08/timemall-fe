@@ -6,12 +6,12 @@
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="/favicon.png">
-    <title>履约 - E-Pod</title>
+    <link rel="icon" href="/favicon.png">
+    <title>履约中心 - E-Pod</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
-    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
     
     <link rel="stylesheet" href="/epod/stylesheets/pod-millstone.scss">
 
@@ -20,100 +20,159 @@
 <body>
   <pt-app id="app" v-cloak>
     <!-- header nav -->
-    <header class="p-3 text-white">
-      <div class="mx-120 d-flex justify-content-between  align-items-center hdlayout">
-        <div class="toggle-nav">
-          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
-            </svg>
-          </button>
-        </div>
-        <div class="d-flex align-items-center logo">
-          <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
-          </svg>
-          <h2 class="mb-0">E-Pod</h2>
-        </div>
-        <button class="btn btn-primary toggle-nav button_user_account" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-          <i class="bi bi-person-circle"></i>
-        </button>
-        <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">E-pod</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+    <header class="text-white">
+      <div class="d-flex justify-content-between align-items-center hdlayout">
+
+        <div class="d-flex">
+          <div class="toggle-nav">
+            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+              </svg>
+            </button>
           </div>
-          <div class="offcanvas-body justify-content-end">
-            <nav>
-              <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0">
-                <li class="nav-item"><a href="/home" class="nav-link   px-xxl-5 text-white">精选商店</a></li>
-                <li class="nav-item"><a href="/estudio/studio-store" class="nav-link  px-xxl-5 text-white">E-Studio</a></li>
-                <li v-if="!user_already_login" class="nav-item"><a href="/login" class="nav-link px-xxl-5 text-white">登录</a></li>
-                <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup" class="nav-link  px-xxl-5 text-white">注册</a></li>
-                <li v-if="user_already_login" class="nav-item display_account_xxl">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="bi bi-person-circle"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li>
-                        <a href="/estudio/studio-setting-profile">
-                          <button class="dropdown-item" type="button">
-                            <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                           </button>
-                        </a>
-                      </li>
-                      <li>
-                          <button @click="logout()" class="dropdown-item" type="button">   
-                            <i class="bi bi-box-arrow-right me-1"></i> 注销 
-                          </button>
-                      </li>
-                      <li>
-                        <a href="/mall/delete-account">
-                          <button class="dropdown-item" type="button">
-                            <i class="bi bi-trash3 me-1"></i> 删除账号
-                           </button>
-                        </a>
-                      </li>
-                      
-                      <li>
-                        <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                          <i class="bi bi-flag me-1"></i> 反馈
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-               </li>
-              </ul>
-              <ul  v-if="user_already_login" class="list-group display_account_xxl_small text-start mt-3">
-                <li class="list-group-item"> 
-                  <a href="/estudio/studio-setting-profile">
-                    <button class="dropdown-item" type="button">
-                      <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                    </button>
+          <a href="/epod/pod-millstone">
+            <div class="d-flex align-items-center logo">
+              <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+              <h2 class="mb-0 ms-2">E-Pod</h2>
+            </div>
+          </a>
+
+        </div>
+        
+        <div>
+          
+          <div class="btn-group" style="margin-right: 8px;" >
+          
+            <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+              <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                  </svg>                  
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a href="/">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                   </button>
+                </a>
+              </li>
+              <li>
+                <a href="/micro/discovery-oasis">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 少数派
+                   </button>
+                </a>
+              </li>
+              <li>
+                <a href="/home">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 精选商店
+                   </button>
+                </a>
+              </li>
+              <li>
+                <a href="/micro/affiliate/dashboard">
+                  <button class="dropdown-item" type="button" >
+                    <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                   </button>
+                </a>
+              </li>
+              
+              <li>
+                <a href="/estudio/studio-store">
+                  <button class="dropdown-item" type="button" >
+                    <i class="bi bi-laptop me-2"></i> 薪动工作室
+                   </button>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+
+         
+
+          <div class="btn-group private-msg-atom" style="margin-right: 8px;">
+            <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="tooltip-nav" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="消息">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M2.80403 8.3533C2.52389 10.9562 2.53637 13.9582 2.9262 16.5505C3.1419 17.9849 4.31257 19.0845 5.75763 19.2102L7.26787 19.3414C10.4169 19.6152 13.5838 19.6152 16.7328 19.3414L18.2431 19.2102C19.6881 19.0845 20.8588 17.9849 21.0745 16.5505C21.4643 13.9582 21.4768 10.9564 21.1967 8.35345C21.1605 8.05169 21.1197 7.75034 21.0745 7.44949C20.8588 6.0151 19.6881 4.91545 18.2431 4.78983L16.7328 4.65855C13.5838 4.38481 10.4169 4.38481 7.26787 4.65855L5.75763 4.78983C4.31257 4.91545 3.1419 6.0151 2.9262 7.44949C2.88096 7.75028 2.84024 8.05159 2.80403 8.3533ZM7.39777 6.15292C10.4604 5.88669 13.5403 5.88669 16.6029 6.15292L18.1131 6.2842C18.8675 6.34977 19.4786 6.92379 19.5912 7.67254C19.6029 7.7503 19.6142 7.82809 19.6253 7.90592L14.0643 10.9954C12.7807 11.7085 11.2199 11.7085 9.93632 10.9954L4.37539 7.90596C4.38645 7.82812 4.39783 7.75031 4.40952 7.67254C4.52211 6.92379 5.13321 6.34977 5.88754 6.2842L7.39777 6.15292ZM19.8088 9.51989C20.0028 11.7876 19.9303 14.0725 19.5912 16.3274C19.4786 17.0762 18.8675 17.6502 18.1132 17.7158L16.6029 17.8471C13.5403 18.1133 10.4604 18.1133 7.39777 17.8471L5.88754 17.7158C5.13321 17.6502 4.52211 17.0762 4.40952 16.3274C4.07043 14.0725 3.99787 11.7877 4.19184 9.51992L9.20786 12.3066C10.9445 13.2714 13.0561 13.2714 14.7928 12.3066L19.8088 9.51989Z" fill="white"/>
+                  </svg>  
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <div class="friend-header">
+                私信（{{friends.totalUnRead}}）
+              </div>
+              <div class="friend-list">
+
+                <li class="friend-item"   v-for="friend in friends.records">
+                  <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                    <div class="friend-container">
+                      <div class="frend-avatar-container">
+                        <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                        <div v-if="friend.brandMark=='3'" class="online-indicator">
+                          <div class="online-indicator-content">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="friend-info">
+                        <div class="friend-name"><span class="ellipsis-1">{{friend.title}}</span> </div>
+                        <div class="friend-msg"> <span class="ellipsis-1">{{friend.latestContent}}</span> </div>
+                        <div class="msg-time">{{getPublishTimeV(friend.modifiedAt)}}</div>
+                      </div>
+                    </div>
                   </a>
                 </li>
-                <li class="list-group-item">
+
+               
+
+              </div>
+              
+
+
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a href="/estudio/studio-setting-profile">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-person-vcard me-2"></i> 品牌形象
+                   </button>
+                </a>
+              </li>
+              <li>
                   <button @click="logout()" class="dropdown-item" type="button">   
-                    <i class="bi bi-box-arrow-right me-1"></i> 注销 
+                    <i class="bi bi-box-arrow-right me-2"></i> 注销 
                   </button>
-                </li>
-                <li class="list-group-item">
-                  <a href="/mall/delete-account">
-                    <button class="dropdown-item" type="button">
-                      <i class="bi bi-trash3 me-1"></i> 删除账号
-                     </button>
-                  </a>
-                </li>
-                <li class="list-group-item">
-                  <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                    <i class="bi bi-flag me-1"></i> 反馈
-                  </button>
-                </li>
-              </ul>
-            </nav>
+              </li>
+              <li>
+                <a href="/mall/delete-account">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-trash3 me-2"></i> 删除账号
+                   </button>
+                </a>
+              </li>
+              
+              <li>
+                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                  <i class="bi bi-flag me-2"></i> 反馈
+                </button>
+              </li>
+            </ul>
           </div>
+  
+          
         </div>
+
+
       </div>
     </header>
     <content class="bd-layout">
@@ -121,43 +180,29 @@
         <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
           <div class="offcanvas-header">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
-          </div>
-          <div class="customer-portrait-container">
-            <div class="d-flex flex-column justify-content-center ">
-              <div class="customer-portrait">
-                <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-              </div>
-              <h6 class="customer-name mt-1">{{studio_brand}}</h6>
-            </div>
-          </div>
+          </div> 
           <!-- menu -->
           <div class="sidebar-wrapper">
-            <nav class="sidebar nav flex-column">
+            <nav class="sidebar nav">
               <a class="nav-link active" aria-current="page">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M22.5 3V19.5H1.5V12H7.5V7.5H13.5V3H22.5ZM21 4.5H15V9H9V13.5H3V18H21V4.5Z"></path>
-                </svg>
-                <span>履约</span>        
-              </a>
-              <a class="nav-link" href="/epod/pod-msg">
-                <i class="bi bi-calendar2-event"></i>
-                <span>
-                  连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
-                </span>
+                <i class="bi bi-truck"></i>
+                <span>履约中心</span>        
               </a>
               <a class="nav-link" href="/epod/pod-order-history">
-                <i class="bi bi-shop"></i>
-                <span>预约</span>  
-              </a>
-              <a class="nav-link" href="/epod/pod-dsp">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
-                </svg>
-                <span>DSP</span>
+                <i class="bi bi-calendar2-check"></i>
+                <span>我的预约</span>  
               </a>
               <a class="nav-link" href="/epod/pod-bill">
-                <i class="bi bi-bank"></i>
-                <span>账单</span>
+                <i class="bi bi-receipt"></i>
+                <span>账单管理</span>
+              </a>
+              <a class="nav-link" href="/epod/pod-dsp">
+                <i class="bi bi-shield-plus"></i>
+                <span>争端解决</span>
+              </a>
+              <a class="nav-link" href="/epod/pod-msg">
+                <i class="bi bi-bell"></i>
+                <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
               </a>
             </nav>
           </div>
@@ -165,8 +210,9 @@
       </aside>
       <main>
         <div class="page-title">
-          <h1>履约</h1>
+          <h1>履约中心</h1>
         </div>  
+        <div class="data-tag">服务类型</div>
         <!-- first tablist -->
         <div class="first-nav-tabs-container">
           <ul class="nav nav-tabs border-0 " id="millstone-first-tab" role="tablist">
@@ -185,103 +231,92 @@
 
             <div class="tab-pane fade show active" id="plan-order-tab-pane" role="tabpanel" aria-labelledby="plan-order-tab" tabindex="0">
 
-              <div class="d-flex justify-content-between cell-plan-order-list-header mt-5 mb-3">
+              <div class="d-flex  cell-plan-order-list-header mt-4 mb-3">
                 <div class="plan-order-search d-flex">
                   <form class="nosubmit" onsubmit="return false">
                     <input  @keyup.enter.native="retrieveCellPlanOrderTbV" v-model="plan_pagination.param.q"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
                   </form>
-                </div>           
+                </div>  
+
+                <select v-model="plan_pagination.param.planType" @change="retrieveCellPlanOrderListByPlanTypeV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
+                  <option value="">全部单品</option>
+                  <option value="bird">小鸟</option>
+                  <option value="eagle">老鹰</option>
+                  <option value="albatross">信天翁</option>
+                </select>
+
+                <select v-model="plan_pagination.param.tag" @change="retrieveMpsPaperListByTagV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
+                  <option value="">全部标签</option>
+                  <option value="4">交付中</option>
+                  <option value="7">已退款</option>
+                  <option value="3">已支付</option>
+                  <option value="5">订单履约完成</option>
+                  <option value="0">订单创建中</option>
+                  <option value="1">已创建订单</option>
+                  <option value="2">等待支付</option>
+                  <option value="6">取消订单</option>
+                  <option value="8">失败订单</option>
+                  <option value="9">失效订单</option>
+                </select> 
+
               </div>
-              <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">
-                    <div class="dropdown">
-                      <button class="btn cell_plan_order_list-tb-filter-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="table-responsive">
+
+                <table class="table table-width-fixed table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th>服务</th>
+                      <th scope="col">
                         单品
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('bird')">小鸟</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('eagle')">老鹰</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('albatross')">信天翁</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveCellPlanOrderListByPlanTypeV('')">全部</a></li>
-                      </ul>
-                    </div>
-                  </th>
-                  <th scope="col">费用</th>
-                  <th scope="col">
-                    <div class="dropdown">
-                      <button class="btn cell_plan_order_list-tb-filter-btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      </th>
+                      <th scope="col">费用</th>
+                      <th scope="col">
                         标签
-                      </button>
-                      <ul class="dropdown-menu">
-                        
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('4')">交付中</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('7')">已退款</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('3')">已支付</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('5')">订单履约完成</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('0')">订单创建中</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('1')">已创建订单</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('2')">等待支付</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('6')">取消订单</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('8')">失败</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('9')">失效</a></li>
-                        <li><a class="dropdown-item" v-preventreclick  @click="retrieveMpsPaperListByTagV('')">全部</a></li>
+                      </th>
+                      <th scope="col">下单时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in plan_pagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/epod/pod-plan?id=' + item.orderId">
+                          <span class="ellipsis-1">
+                            {{item.cellTitle}}
+                          </span>
+                        </a>
+                      </td>
+                      <td class="col-fee"><span>{{explainCellPlanTypeV(item.planType)}}</span> </td>
+                      <td class="col-fee"><span>{{item.price}} </span> </td>
+                      <td>{{explainCellPlanOrderTagV(item.tag)}}</td>
+                      <td class="col-addTime"><span> {{item.createAt}}</span></td>
+                    </tr>
+                    
+                    
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(plan_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
+                          @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(plan_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
 
-                      </ul>
-                    </div>
-                  </th>
-                  <th scope="col">入库时间</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in plan_pagination.records">
-                  <td>
-                    <!-- <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                      <span class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作任务">
-                        <i class="bi bi-eye"></i>
-                      </span>
-                    </a> -->
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-plan?id=' + item.orderId">
-                      <span class="td-service">
-                        {{item.cellTitle}}
-                      </span>
-                    </a>
-                  </td>
-                  <td>{{explainCellPlanTypeV(item.planType)}}</td>
-                  <td>{{item.price}}</td>
-                  <td>{{explainCellPlanOrderTagV(item.tag)}}</td>
-                  <td>{{item.createAt}}</td>
-                </tr>
-                
-                
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
-
-              没有可用的内容！
-
-            </div>
-            <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(plan_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
-                      @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(plan_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+              </div>
 
           </div>
           <!--  plan content end -->
@@ -291,486 +326,463 @@
          <div class="tab-pane fade" id="sp-order-tab-pane" role="tabpanel" aria-labelledby="sp-order-tab" tabindex="0">
 
           <!-- tablist -->
-        <div class="nav-tabs-container sub-tabs-header mt-5">
-          <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
+        <div class="nav-tabs-container sub-tabs-header mt-4">
+          <ul class="nav nav-tabs" id="bubble-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">配置任务</button>
+              <button v-preventreclick  @click="refreshTranspaginationV" class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">配置任务</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="auditing-tab" data-bs-toggle="tab" data-bs-target="#auditing-tab-pane" type="button" role="tab" aria-controls="auditing-tab-pane" aria-selected="true">审计中</button>
+              <button v-preventreclick  @click="refreshAuditingPaginationV" class="nav-link" id="auditing-tab" data-bs-toggle="tab" data-bs-target="#auditing-tab-pane" type="button" role="tab" aria-controls="auditing-tab-pane" aria-selected="true">审计中</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿</button>
+              <button v-preventreclick  @click="refreshConfirmPaginationV" class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
+              <button v-preventreclick @click="refreshStarredTranspaginationV" class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
+              <button v-preventreclick @click="refreshPausedPaginationV" class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">中止</button>
+              <button v-preventreclick @click="refreshSuspendPaginationV" class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">中止</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
+              <button v-preventreclick @click="refreshfinishPaginationV" class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
             </li>
+            <li class="pointer"></li>
         </ul>
         </div>
         <!--  tablist content-->
         <div class="tab-content" id="millstone-tab-content">
           <div class="tab-pane fade show active" id="workflow-tab-pane" role="tabpanel" aria-labelledby="workflow-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="trans in transpagination.records">
-                  <td class="td-option-mid">
-                    <div class="option-container">
-                     
-                      <span class="option-edit me-4">
-                        <a :href="'/epod/pod-millstone-edit?workflow_id=' + trans.id">
-                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务内容">           
-                            <i class="bi bi-pencil-square"></i>                    
+            
+            <div class="table-responsive">
+              <table class="table  table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="trans in transpagination.records">
+                    <td class="col-option">
+                      <div class="option-container">
+                       
+                        <span class="option-edit me-4">
+                          <a :href="'/epod/pod-millstone-edit?workflow_id=' + trans.id">
+                            <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务内容">           
+                              <i class="bi bi-pencil-square"></i>                    
+                            </button>
+                          </a>
+                        </span>
+                        <span class="option-go-audit me-4">
+                          <button v-preventreclick @click="goAuditV(trans.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="通知服务商确认服务内容">           
+                            <i class="bi bi-hand-index"></i>                  
                           </button>
-                        </a>
-                      </span>
-                      <span class="option-go-audit me-4">
-                        <button @click="goAuditV(trans.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="通知服务商确认服务内容">           
-                          <i class="bi bi-hand-index"></i>                  
-                        </button>
-                      </span>
-                      <!-- <span class="option-view">
-                        <a :href="'/epod/pod-millstone-view?workflow_id=' + trans.id">
-                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
-                            <i class="bi bi-eye"></i>
-                          </button>
-                        </a>
-                      </span> -->
-                    </div>
-                  </td>
-                  <td>
-                      <span class="td-service">
-                        {{trans.service}}
-                      </span>
-                  </td>
-                  <td>{{trans.supplier}}</td>
-                  <td>{{trans.fee}}</td>
-                  <td>{{trans.added}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
-
-              没有可用的内容！
+                        </span>
+                      </div>
+                    </td>
+                    <td class="col-product">
+                        <span class="ellipsis-1">
+                          {{trans.service}}
+                        </span>
+                    </td>
+                    <td class="col-brand"><span class="ellipsis-1">{{trans.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{trans.fee.toFixed(2)}}</span> </td>
+                    <td class="col-addTime"><span> {{trans.added}}</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(transpagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in transpagination.paging.items" :class="{'current-page-active': transpagination.paging.current == page}" 
+                        @click="pageGo(transpagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(transpagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(transpagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in transpagination.paging.items" :class="{'current-page-active': transpagination.paging.current == page}" 
-                      @click="pageGo(transpagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(transpagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
           <!--  任务箱-->
           <div class="tab-pane fade" id="task-tab-pane" role="tabpanel" aria-labelledby="task-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in starredTranspagination.records">
-                  <td class="td-option-lg">
-                    <div class="option-container">
-                     
-                      
-                      <span class="option-pause me-4">
-                        <button @click="pausedTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="暂停服务进程">           
-                          <i class="bi bi-pause"></i>               
-                        </button>
-                      </span>
-                      <span class="option-suspend me-4">
-                        <button @click="suspendTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="中止服务">           
-                          <i class="bi bi-slash-circle"></i>                
-                        </button>
-                      </span>
-                      <span class="option-finish me-4">
-                        <button @click="finishTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="履约结束">           
-                          <i class="bi bi-sign-dead-end"></i>              
-                        </button>
-                      </span>
-                    </div>
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                      <span class="td-service">
-                        {{item.service}}
-                      </span>
-                    </a>
-                  </td>
-                  <td>{{item.supplier}}</td>
-                  <td>{{item.fee}}</td>
-                  <td>{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(starredTranspagination.records)" class="empty-content-block">
-
-              没有可用的内容！
+            <div class="table-responsive">
+              <table class="table table-width-fixed table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in starredTranspagination.records">
+                    <td class="col-option">
+                      <div class="option-container">
+                       
+                        
+                        <span class="option-pause me-4">
+                          <button v-preventreclick @click="pausedTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="暂停服务进程">           
+                            <i class="bi bi-pause"></i>               
+                          </button>
+                        </span>
+                        <span class="option-suspend me-4">
+                          <button v-preventreclick @click="suspendTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="中止服务">           
+                            <i class="bi bi-slash-circle"></i>                
+                          </button>
+                        </span>
+                        <span class="option-finish me-4">
+                          <button v-preventreclick @click="finishTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="履约结束">           
+                            <i class="bi bi-sign-dead-end"></i>              
+                          </button>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="col-product">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                        <span class="ellipsis-1">
+                          {{item.service}}
+                        </span>
+                      </a>
+                    </td>
+                    <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span> </td>
+                    <td class="col-addTime"><span>{{item.added}}</span></td>
+                  </tr>
+                  
+                 
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(starredTranspagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!starredTranspagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(starredTranspagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in starredTranspagination.paging.items" :class="{'current-page-active': starredTranspagination.paging.current == page}" 
+                        @click="pageGo(starredTranspagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(starredTranspagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav v-if="!!starredTranspagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(starredTranspagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in starredTranspagination.paging.items" :class="{'current-page-active': starredTranspagination.paging.current == page}" 
-                      @click="pageGo(starredTranspagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(starredTranspagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
           <!-- 审计中 -->
           <div class="tab-pane fade" id="auditing-tab-pane" role="tabpanel" aria-labelledby="auditing-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in auditing_pagination.records">
-                  <td>
-                    <!-- <div class="option-container">
-                      <span class="option-view">
-                        <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
-                            <i class="bi bi-eye"></i>
-                          </button>
-                        </a>
-                      </span>
-                    </div> -->
-                    
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                      <span class="td-service">
-                        {{item.service}}
-                      </span>
-                    </a>
-                  </td>
-                  <td>{{item.supplier}}</td>
-                  <td>{{item.fee}}</td>
-                  <td>{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(auditing_pagination.records)" class="empty-content-block">
-
-              没有可用的内容！
+            <div class="table-responsive">
+              <table class="table table-width-fixed table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in auditing_pagination.records">
+                    <td class="col-product-no-option">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                        <span class="ellipsis-1">
+                          {{item.service}}
+                        </span>
+                      </a>
+                    </td>
+                    <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
+                    <td class="col-addTime"><span>{{item.added}}</span></td>
+                  </tr>
+                  
+                 
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(auditing_pagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!auditing_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(auditing_pagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in auditing_pagination.paging.items" :class="{'current-page-active': auditing_pagination.paging.current == page}" 
+                        @click="pageGo(auditing_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(auditing_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav v-if="!!auditing_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(auditing_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in auditing_pagination.paging.items" :class="{'current-page-active': auditing_pagination.paging.current == page}" 
-                      @click="pageGo(auditing_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(auditing_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
 <!-- 定稿 -->
           <div class="tab-pane fade" id="confirm-tab-pane" role="tabpanel" aria-labelledby="confirm-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in confirm_pagination.records">
-                  <td class="td-option">
-                    <div class="option-container">
-                      <span class="option-mark-millstone me-4">
-                        <button @click="confirmMillstoneV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="定稿服务内容，定稿之后不再更改">           
-                          <i class="bi bi-star"></i>
-                        </button>
-                      </span>
-                      <!-- <span class="option-view">
-                        <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
-                            <i class="bi bi-eye"></i>
+            <div class="table-responsive">
+              <table class="table table-width-fixed table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in confirm_pagination.records">
+                    <td class="col-option">
+                      <div class="option-container">
+                        <span class="option-mark-millstone me-4">
+                          <button v-preventreclick @click="confirmMillstoneV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="定稿服务内容，定稿之后不再更改">           
+                            <i class="bi bi-star"></i>
                           </button>
-                        </a>
-                      </span> -->
-                    </div>
-                    
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                      <span class="td-service">
-                        {{item.service}}
-                      </span>
-                    </a>
-                  </td>
-                  <td>{{item.supplier}}</td>
-                  <td>{{item.fee}}</td>
-                  <td>{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(confirm_pagination.records)" class="empty-content-block">
-
-              没有可用的内容！
+                        </span>
+                      </div>
+                    </td>
+                    <td class="col-product">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                        <span class="ellipsis-1">
+                          {{item.service}}
+                        </span>
+                      </a>
+                    </td>
+                    <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
+                    <td class="col-addTime"><span>{{item.added}}</span></td>
+                  </tr>
+                  
+                 
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(confirm_pagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!confirm_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(confirm_pagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in confirm_pagination.paging.items" :class="{'current-page-active': confirm_pagination.paging.current == page}" 
+                        @click="pageGo(confirm_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(confirm_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav v-if="!!confirm_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(confirm_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in confirm_pagination.paging.items" :class="{'current-page-active': confirm_pagination.paging.current == page}" 
-                      @click="pageGo(confirm_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(confirm_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
 
           <!-- 暂停 -->
           <div class="tab-pane fade" id="paused-tab-pane" role="tabpanel" aria-labelledby="paused-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in paused_pagination.records">
-                  <td class="td-option">
-                    <span class="option-suspend me-4">
-                      <button @click="resumeTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="恢复服务进程">           
-                        <i class="bi bi-skip-start-circle"></i>             
-                      </button>
-                    </span>
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                      <span class="td-service">
-                        {{item.service}}
+            <div class="table-responsive">
+              <table class="table table-width-fixed table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in paused_pagination.records">
+                    <td class="col-option">
+                      <span class="option-suspend me-4">
+                        <button v-preventreclick @click="resumeTaskV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="恢复服务进程">           
+                          <i class="bi bi-caret-right"></i>           
+                        </button>
                       </span>
-                    </a>
-                  </td>
-                  <td>{{item.supplier}}</td>
-                  <td>{{item.fee}}</td>
-                  <td>{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(paused_pagination.records)" class="empty-content-block">
-
-              没有可用的内容！
+                    </td>
+                    <td class="col-product">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                        <span class="ellipsis-1">
+                          {{item.service}}
+                        </span>
+                      </a>
+                    </td>
+                    <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
+                    <td class="col-addTime"><span>{{item.added}}</span></td>
+                  </tr>
+                  
+                 
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(paused_pagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!paused_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(paused_pagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in paused_pagination.paging.items" :class="{'current-page-active': paused_pagination.paging.current == page}" 
+                        @click="pageGo(paused_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(paused_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav v-if="!!paused_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(paused_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in paused_pagination.paging.items" :class="{'current-page-active': paused_pagination.paging.current == page}" 
-                      @click="pageGo(paused_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(paused_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
 
           <!-- 中止 -->
           <div class="tab-pane fade" id="suspend-tab-pane" role="tabpanel" aria-labelledby="suspend-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in suspend_pagination.records">
-                  <td>
-                    <!-- <span class="option-view">
+            <div class="table-responsive">
+              <table class="table table-width-fixed table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in suspend_pagination.records">
+                    <td class="col-product-no-option">
                       <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                        <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
-                          <i class="bi bi-eye"></i>
-                        </button>
+                        <span class="ellipsis-1">
+                          {{item.service}}
+                        </span>
                       </a>
-                    </span> -->
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                      <span class="td-service">
-                        {{item.service}}
-                      </span>
-                    </a>
-                  </td>
-                  <td>{{item.supplier}}</td>
-                  <td>{{item.fee}}</td>
-                  <td>{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(suspend_pagination.records)" class="empty-content-block">
-
-              没有可用的内容！
+                    </td>
+                    <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
+                    <td class="col-addTime"><span>{{item.added}}</span></td>
+                  </tr>
+                  
+                 
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(suspend_pagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!suspend_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(suspend_pagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in suspend_pagination.paging.items" :class="{'current-page-active': suspend_pagination.paging.current == page}" 
+                        @click="pageGo(suspend_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(suspend_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav v-if="!!suspend_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(suspend_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in suspend_pagination.paging.items" :class="{'current-page-active': suspend_pagination.paging.current == page}" 
-                      @click="pageGo(suspend_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(suspend_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
 
         <!-- 完成 -->
           <div class="tab-pane fade" id="finish-tab-pane" role="tabpanel" aria-labelledby="finish-tab" tabindex="0">
-            <table class="table table-width-fixed table-dark table-hover align-middle">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th class="w-50">服务</th>
-                  <th scope="col">供应商</th>
-                  <th scope="col">预计费用</th>
-                  <th scope="col">入库日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in finish_pagination.records">
-                  <td>
-                    <!-- <span class="option-view">
-                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                        <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看工作流">           
-                          <i class="bi bi-eye"></i>
-                        </button>
-                      </a>
-                    </span> -->
-                  </td>
-                  <td>
-                    <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                      <span class="td-service">
-                        {{item.service}}
-                      </span>
-                    </a>
-                  </td>
-                  <td>{{item.supplier}}</td>
-                  <td>{{item.fee}}</td>
-                  <td>{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(finish_pagination.records)" class="empty-content-block">
+            <div class="table-responsive">
 
-              没有可用的内容！
+              <table class="table table-width-fixed table-dark table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th class="col">服务</th>
+                    <th scope="col">服务商</th>
+                    <th scope="col">预计费用</th>
+                    <th scope="col">预约日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in finish_pagination.records">
+                    <td class="col-product-no-option">
+                      <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                        <span class="ellipsis-1">
+                          {{item.service}}
+                        </span>
+                      </a>
+                    </td>
+                    <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                    <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
+                    <td class="col-addTime"><span>{{item.added}}</span></td>
+                  </tr>
+                  
+                 
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(finish_pagination.records)" class="empty-content-block">
   
+                没有可用的内容！
+    
+              </div>
+              <nav v-if="!!finish_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(finish_pagination)">
+                    <a class="page-link"  aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"  v-for="page in finish_pagination.paging.items" :class="{'current-page-active': finish_pagination.paging.current == page}" 
+                        @click="pageGo(finish_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(finish_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+
             </div>
-            <nav v-if="!!finish_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(finish_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in finish_pagination.paging.items" :class="{'current-page-active': finish_pagination.paging.current == page}" 
-                      @click="pageGo(finish_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(finish_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            
           </div>
           
         </div>

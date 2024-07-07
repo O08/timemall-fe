@@ -25,23 +25,8 @@
 .option-th{
     width: 2% !important;
 }
-table td{
-    font-size: 14px;
-    line-height: 1.565;
-}
-.td-stage,.td-service{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
-    display: inline-block;
-    overflow: hidden;
-}
-.td-stage{
-    max-width: 200px;
-}
-.td-service{
-    max-width: 600px;
-}
+
+
 
 .pay_link{
     font-size: 12px;
@@ -55,3 +40,20 @@ table td{
   .disabled{
     color: gray;
   }
+
+  #focusModal form{
+    width: 100%;
+  }
+
+  .col-product {
+    width: 25%;
+    min-width: 240px;
+}
+.col-bill-item{
+    width: 30%;
+    min-width: 240px;
+}
+.col-brand{
+    width: 20%;
+    min-width: 120px;
+}

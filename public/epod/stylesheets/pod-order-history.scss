@@ -1,32 +1,29 @@
-table td{
-    font-size: 14px;
-    line-height: 1.565;
-}
-.td-stage,.td-service{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
-    display: inline-block;
-    overflow: hidden;
-}
-.td-stage{
-    max-width: 200px;
-}
-.td-service{
-    max-width: 600px;
-}
+
 body::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
-.wechatQr-upload-container, .wechatQr-upload-container img {
-    max-width: 200px;
-    height: 200px;
+.wechatQr-upload-container{
+    width: 204px;
+    height: 204px;
 }
 .wechatQr-upload-container img {
-    width: 100%;
-    object-fit: cover;
+    width: 200px;
+    height: 200px;
 }
+
 .btn-close {
     background-color: #fff;
+}
+.section-contact-info {
+    padding: 32px 0;
+}
+.col-product {
+    width: 50%;
+    min-width: 240px;
+}
+
+.col-brand{
+    width: 15%;
+    min-width: 120px;
 }

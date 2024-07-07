@@ -12,7 +12,8 @@ import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 const RootComponent = {
     data() {
@@ -26,6 +27,11 @@ const RootComponent = {
     methods: {
         loadWorkflowInfoV(){
             loadWorkflowInfo();
+        }
+    },
+    updated(){
+        if(document.getElementById("event-tab").ariaSelected=='true'){
+            document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
         }
     }
 }
@@ -43,7 +49,17 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            onMessage: (e)=>{
+                millstoneViewPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const millstoneViewPage = app.mount('#app');
 window.pMillstoneView= millstoneViewPage;
 
@@ -65,3 +81,6 @@ function loadWorkflowInfo(){
 // init 
 millstoneViewPage.loadWorkflowInfoV();
 
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

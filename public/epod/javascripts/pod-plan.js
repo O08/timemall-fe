@@ -14,7 +14,8 @@ import  CellPlanOrderChatCompoent from "/estudio/javascripts/compoent/CellPlanOr
 import CellPlanOrderDeliverCompoent from "/estudio/javascripts/compoent/CellPlanOrderDeliverCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 const RootComponent = {
     data() {
@@ -41,6 +42,11 @@ const RootComponent = {
     created(){
         this.findPlanDetailV();
         this.fetchPaperDeliverDetailV();
+    },
+    updated(){
+        if(document.getElementById("event-tab").ariaSelected=='true'){
+            document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
+        }
     }
 }
 const app = createApp(RootComponent);
@@ -58,7 +64,17 @@ app.mixin(CodeExplainComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }   
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            onMessage: (e)=>{
+                podPlanPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const podPlanPage = app.mount('#app');
 window.cPodPlanPage = podPlanPage;
 
@@ -73,3 +89,6 @@ function findPlanDetail(){
 }
 
 
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

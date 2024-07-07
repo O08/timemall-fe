@@ -1,11 +1,21 @@
+
 .millstone-input-box {
-    background-color: #2c3e50;
-    border-radius: 2px;
-    min-height: 2.5rem;
-    border: none;
-    min-width: 400px;
-    color: #d3d3d3;
+  background-color: #141414;
+ border-radius: 2px;
+ border: none;
+ min-width: 400px;
+ font-size: 12px;
+ color: #d3d3d3;
+ border: 1px solid rgba(255, 255, 255, 0.032);
 }
+
+.millstone-input-box:hover{
+  border: 1px solid rgba(115, 125, 243, 0.458);
+
+}
+.millstone-title .millstone-input-box:focus{
+ color: black;
+  }
 .option-remove {
     padding: 5px;
 }
@@ -26,14 +36,12 @@
     padding: 2px;
     margin-bottom: 5px;
 }
-.item-setting-x i:hover,.item-setting-plus i:hover
+.item-setting-x i:hover,.item-setting-plus i:hover,.option-remove:hover
 {
     background-color: #2c3e50;
+    border-radius: 10%;
 }
 
-.option-remove:hover,.json-item-node:hover{
-    background-color: darken(#2c3e50, 9%);
-}
 
 .dot{
     width: 8px;
@@ -66,6 +74,90 @@
     width: 0;
     height: 0;
 }
+#millstone-sub-tablist{
+    border-bottom: 1px solid #fff3;
+  }
+  #millstone-sub-tablist .nav-link {
+    font-size: 20px;
+    background-color: unset;
+    color: #a7a7a7;
+    letter-spacing: .1rem;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+    font-weight: 800;
+  }
+  #millstone-sub-tablist  .nav-link.active{
+    color: #fff;
+    background-color: unset;
+  }
+
+    /*----------------------------------------------------
+    8. Json node
+------------------------------------------------------*/
+.timeline-item > json-node:first-child{
+ margin-top: 0;
+}
+json-node {
+  margin-left: 20px;
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 12px;
+}
+.timeline-item > json-node:first-child{
+  padding-left: 0;
+  color: #fff;  
+  margin-left: 0;
+}
+.timeline-item > json-node{
+  padding-left: 1.6rem;
+  display: block;
+}
+
+.millstone-input-box::placeholder ,.millstone-input-box::-ms-input-placeholder{
+  color: #a7a7a7;
+  opacity: 1; /* Firefox */
+}
+
+.timeline{
+  padding-right: 32px;
+}
+.millstone-title .millstone-input-box{
+  font-weight: 800;
+  color: #fff;
+}
+.room-msg-panel{
+  height: calc(100vh - 303px);
+}
+.room-msg-container {
+  height: calc(100% - 118px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 8px 28px 16px 32px;
+  margin: 12px 4px 12px 0;
+  overflow-y: auto;
+}
+.chat-input-wrapper{
+  position: relative;
+}
+pt-app content main {
+  overflow-x: scroll;
+  padding: 32px;
+}
+
+.main-content-container{
+  min-width: 1000px;
+}
+@media (width <= 1162px) {
+  .room-msg-container {
+    height: calc(100% - 166px);
+  }
+}
+
+
+
+
 @media (max-width: 1162px) {
     .chat-action-wrapper{
         display: block;
@@ -73,4 +165,13 @@
       .chat-send-btn{
         margin-top: 1rem;
       }
+}
+
+@media (width <= 576px) {
+  .room-msg-container {
+    height: calc(100% - 206px);
+  }
+  pt-app content main {
+    padding: 32px 0;
+  }
 }

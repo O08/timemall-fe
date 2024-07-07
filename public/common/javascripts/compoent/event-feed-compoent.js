@@ -14,7 +14,10 @@ export default function EventFeed(params) {
         data() {
             return {
                 includeUnprocessedFeed: false,
-                eventFeed: {}
+                envent_feed_page_init_load_finish: false,
+                eventFeed: {
+                    records: []
+                }
             }
         },
         methods: {
@@ -34,6 +37,7 @@ export default function EventFeed(params) {
                 fetchMutipleCreatedEventFeed(scene).then(response=>{
                     if(response.data.code==200){
                         this.eventFeed = response.data.eventFeed;
+                        this.envent_feed_page_init_load_finish=true;
                     }
                  })
             }

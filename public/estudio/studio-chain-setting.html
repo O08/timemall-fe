@@ -296,7 +296,7 @@
 
                 <div  v-if="!!templateDetail.firstSupplierName" class="detail-item">
                   <div class="detail-item-head">
-                    一级供应商
+                    一级服务商
                   </div>
                   <div class="detail-item-content">
                     <span>
@@ -380,7 +380,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置以更精确匹配您的供应商 (最大80字符) </div>
+                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置以更精确匹配您的服务商 (最大80字符) </div>
                         </label>
                         <div class="col-sm-8">
                           <input class="form-control" v-model="newTemplate.piece" maxlength="80" type="text">
@@ -388,7 +388,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          奖金 <div class="help-text"> 完成合约时支付给供应商的货币奖励(单位：元) </div>
+                          奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元) </div>
                         </label>
                         <div class="col-sm-8">
                           <input class="form-control" v-model="newTemplate.bonus" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  type="number">
@@ -396,7 +396,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          1级供应商 <div class="help-text"> 指定特定供应商，商单会直接提交给该供应商 </div>
+                          1级服务商 <div class="help-text"> 指定特定服务商，商单会直接提交给该服务商 </div>
                         </label>
                         <div class="col-sm-8">
                           <div>
@@ -411,7 +411,7 @@
                       </div>
                       <div class="row mb-3 mt-3" >
                         <label for="inputDuration" class="col-sm-4 col-form-label"> 
-                          机遇期 <div class="help-text"> 指定1级供应商接单周期，超出该时间间隔1级供应商未接单，商单进入商单市场(单位：天)</div>
+                          机遇期 <div class="help-text"> 指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场(单位：天)</div>
                         </label>
                         <div class="col-sm-8">
                           <input id="inputDuration" 
@@ -421,7 +421,7 @@
 
                       <div class="row mb-3 mt-3" >
                         <label for="inputDeliveryCycle" class="col-sm-4 col-form-label"> 
-                          交付周期 <div class="help-text"> 告知供应商理想条件下，应在指定的时间内给出最终交付(单位：天)</div>
+                          交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天)</div>
                         </label>
                         <div class="col-sm-8">
                           <input id="inputDeliveryCycle" 
@@ -431,7 +431,7 @@
 
                       <div class="row pb-3 mt-3" >
                         <label for="inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
-                          合约有效期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有供应商接单的商单将自动失效，失效的商单不可招商(单位：天)</div>
+                          合约有效期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天)</div>
                         </label>
                         <div class="col-sm-8">
                           <input id="inputContractValidityPeriod" 
@@ -484,7 +484,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置以更精确匹配您的供应商(最大80字符)  </div>
+                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置以更精确匹配您的服务商(最大80字符)  </div>
                         </label>
                         <div class="col-sm-8">
                           <input class="form-control" v-model="putTemplate.piece" maxlength="80" type="text">
@@ -492,7 +492,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          奖金 <div class="help-text"> 完成合约时支付给供应商的货币奖励(单位：元) </div>
+                          奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元) </div>
                         </label>
                         <div class="col-sm-8">
                           <input class="form-control" v-model="putTemplate.bonus" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  type="number">
@@ -500,7 +500,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          1级供应商 <div class="help-text"> 指定特定供应商，商单会直接提交给该供应商 </div>
+                          1级服务商 <div class="help-text"> 指定特定服务商，商单会直接提交给该服务商 </div>
                         </label>
                         <div class="col-sm-8">
                           <div>
@@ -515,7 +515,7 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          机遇期 <div class="help-text"> 指定1级供应商接单周期，超出该时间间隔1级供应商未接单，商单进入商单市场(单位：天)</div>
+                          机遇期 <div class="help-text"> 指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场(单位：天)</div>
                         </label>
                         <div class="col-sm-8">
                           <input class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="putTemplate.duration" type="number" v-bind:disabled="!putTemplate.firstSupplier">
@@ -524,7 +524,7 @@
 
                       <div class="row mb-3 mt-3" >
                         <label for="inputDeliveryCycle" class="col-sm-4 col-form-label"> 
-                          交付周期 <div class="help-text"> 告知供应商理想条件下，应在指定的时间内给出最终交付(单位：天)</div>
+                          交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天)</div>
                         </label>
                         <div class="col-sm-8">
                           <input 
@@ -534,7 +534,7 @@
 
                       <div class="row pb-3 mt-3" >
                         <label for="inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
-                          合约有效期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有供应商接单的商单将自动失效，失效的商单不可招商(单位：天)</div>
+                          合约有效期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天)</div>
                         </label>
                         <div class="col-sm-8">
                           <input  

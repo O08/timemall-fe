@@ -5,7 +5,8 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 const RootComponent = {
 }
 const app = createApp(RootComponent);
@@ -18,5 +19,21 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
+
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            onMessage: (e)=>{
+                dspPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const dspPage = app.mount('#app');
 window.cDsp = dspPage;
+
+
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

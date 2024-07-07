@@ -20,7 +20,7 @@ const CellPlanOrderDeliverCompoent = {
     methods: {
         
         showAcceptDeliverFocusModalV(deliver){
-            this.focusModal.feed="接受交付后，将解锁供应商的交付资料，同时您的服务款项将打入供应商账户，您可点击 确定 接受交付"
+            this.focusModal.feed="接受交付后，将解锁服务商的交付资料，同时您的服务款项将打入服务商账户，您可点击 确定 接受交付"
             this.focusModal.confirmHandler=()=>{
                 this.acceptPaperDeliverV(deliver);
                 $("#focusModal").modal("hide"); // show modal

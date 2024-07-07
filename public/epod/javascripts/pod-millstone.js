@@ -10,7 +10,8 @@ import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 
 
@@ -186,6 +187,8 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    planType: "",
+                    tag: ""
                 },
                 paging: {},
                 responesHandler: (response)=>{
@@ -232,22 +235,60 @@ const RootComponent = {
         retrieveCellPlanOrderTbV(){
             retrieveCellPlanOrderTb();
         },
-        retrieveCellPlanOrderListByPlanTypeV(planType){
-            retrieveCellPlanOrderListByPlanType(planType);
+        retrieveCellPlanOrderListByPlanTypeV(){
+            retrieveCellPlanOrderListByPlanType();
         },
-        retrieveMpsPaperListByTagV(tag){
-            retrieveMpsPaperListByTag(tag);
+        retrieveMpsPaperListByTagV(){
+            retrieveMpsPaperListByTag();
+        },
+        refreshTranspaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "40px";
+            this.transpagination.current = 1;
+            this.reloadPage(this.transpagination);
+        },
+        refreshStarredTranspaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "320px";
+            this.starredTranspagination.current = 1;
+            this.reloadPage(this.starredTranspagination);
+        },
+        refreshConfirmPaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "240px";
+            this.confirm_pagination.current = 1;
+            this.reloadPage(this.confirm_pagination);
+        },
+        refreshSuspendPaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "510px";
+            this.suspend_pagination.current = 1;
+            this.reloadPage(this.suspend_pagination);
+        },
+        refreshPausedPaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "420px";
+            this.paused_pagination.current = 1;
+            this.reloadPage(this.paused_pagination);
+
+        },
+        refreshfinishPaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "600px";
+            this.finish_pagination.current = 1;
+            this.reloadPage(this.finish_pagination);
+
+        },
+        refreshAuditingPaginationV(){
+            document.querySelector("#bubble-tab li.pointer").style.left = "150px";
+            this.auditing_pagination.current = 1;
+            this.reloadPage(this.auditing_pagination);
+
         }
     },
     created() {
         // todo url replace {brand_id}
         this.pageInit(this.transpagination);
-        this.pageInit(this.starredTranspagination);
-        this.pageInit(this.confirm_pagination);
-        this.pageInit(this.suspend_pagination);
-        this.pageInit(this.paused_pagination);
-        this.pageInit(this.finish_pagination);
-        this.pageInit(this.auditing_pagination);
+        // this.pageInit(this.starredTranspagination);
+        // this.pageInit(this.confirm_pagination);
+        // this.pageInit(this.suspend_pagination);
+        // this.pageInit(this.paused_pagination);
+        // this.pageInit(this.finish_pagination);
+        // this.pageInit(this.auditing_pagination);
         this.pageInit(this.plan_pagination);
     },
     updated(){
@@ -274,7 +315,17 @@ app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            onMessage: (e)=>{
+                millStonePage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const millStonePage = app.mount('#app');
 window.pMillstone= millStonePage;
 
@@ -289,12 +340,12 @@ function retrieveCellPlanOrderTb(){
     millStonePage.plan_pagination.current = 1;
     millStonePage.reloadPage(millStonePage.plan_pagination);
 }
-function retrieveCellPlanOrderListByPlanType(planType){
-    millStonePage.plan_pagination.param.planType=planType;
+function retrieveCellPlanOrderListByPlanType(){
+    millStonePage.plan_pagination.current=1;
     millStonePage.reloadPage(millStonePage.plan_pagination);
 }
-function retrieveMpsPaperListByTag(tag){
-    millStonePage.plan_pagination.param.tag=tag;
+function retrieveMpsPaperListByTag(){
+    millStonePage.plan_pagination.current=1;
     millStonePage.reloadPage(millStonePage.plan_pagination); 
 }
 // 定稿
@@ -381,3 +432,6 @@ showTabContent();
  // Enable popovers 
  $('[data-bs-toggle="popover"]').popover();
 
+ $(function(){
+	$(".tooltip-nav").tooltip();
+});
