@@ -317,6 +317,9 @@ pt-app footer {
 .hdlayout{
     height: 56px;
 }
+.hdlayout div:first-child{
+  align-items: center;
+}
 .sidebar-wrapper {
     height: 100%;
     min-height: 400px; 
