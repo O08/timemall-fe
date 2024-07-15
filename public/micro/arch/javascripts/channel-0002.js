@@ -142,6 +142,7 @@ app.mixin(new StemChatCompoent({
 app.mixin(
     new Ssecompoent({
         sslSetting:{
+            need_init: true,
             onMessage: (e)=>{
                console.log("msg is :" + e.data);
                var data= JSON.parse(e.data);

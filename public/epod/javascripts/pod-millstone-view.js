@@ -54,6 +54,7 @@ app.mixin(new FriendListCompoent({need_init: true}));
 app.mixin(
     new Ssecompoent({
         sslSetting:{
+            need_init: true,
             onMessage: (e)=>{
                 millstoneViewPage.onMessageHandler(e); //  source: FriendListCompoent
             }

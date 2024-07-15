@@ -9,7 +9,9 @@ import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 
 import {CellStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 const RootComponent = {
     data() {
@@ -139,7 +141,18 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
-
+app.mixin(new FriendListCompoent({need_init: true}));
+app.mixin(DirectiveComponent);
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                studioStorePage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const studioStorePage = app.mount('#app');
 window.cStore = studioStorePage;
 // init
@@ -183,3 +196,7 @@ function showContent(){
     }
 }
 showContent();
+
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

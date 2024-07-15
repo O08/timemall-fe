@@ -1203,7 +1203,10 @@ col-container{
 #section_feedback_offcanvas .offcanvas-title,#section_feedback_offcanvas .form-label{
   color: #FDFDFD;
 }
-#section_feedback_offcanvas .feedback-attachment-upload-container,#section_feedback_offcanvas  .feedback-attachment-upload-container img{
+#section_feedback_offcanvas .feedback-attachment-upload-container{
+  height: 204px;
+}
+#section_feedback_offcanvas  .feedback-attachment-upload-container img{
   height: 200px;
 }
 #section_feedback_offcanvas .feedback-attachment-upload-container img{

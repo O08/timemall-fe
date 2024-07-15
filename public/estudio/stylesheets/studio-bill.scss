@@ -1,36 +1,33 @@
+.col-bill-item{
+  width: 33%;
+  min-width: 330px;
+}
+.col-bill-item-have-commission{
+  width: 20%;
+  min-width: 200px;
+}
+.col-bill-item-no-option{
+  width: 40%;
+  min-width: 240px;
+}
+.col-product {
+  width: 22%;
+  min-width: 200px;
+}
 
-
-.pay-binary-code, .pay-binary-code img
-{
-   max-width: 18rem;
-   height: 180px;
-   border: 2px dashed #91b0b3;
+.col-brand{
+  width: 15%;
+  min-width: 120px;
 }
-.pay-binary-code img{
-    object-fit: cover;
-    width: 100%;
+.col-fee{
+  width: 10%;
+  min-width: 100px;
 }
-.td-option {
-    width: 100px;
+.col-addTime{
+  width: 13%;
+  min-width: 130px;
 }
-table td{
-    font-size: 14px;
-    line-height: 1.565;
-}
-.td-stage,.td-service{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
-    display: inline-block;
-    overflow: hidden;
-}
-.td-stage{
-    max-width: 200px;
-}
-.td-service{
-    max-width: 600px;
-}
-body::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+.col-option {
+  width: 7%;
+  min-width: 70px;
 }

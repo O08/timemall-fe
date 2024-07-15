@@ -9,7 +9,8 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 
 
@@ -27,7 +28,7 @@ const RootComponent = {
                 records: [],
                 param: {
                     q: "",
-                    sort: "",
+                    sort: "1",
                     fromWhere: ""
                 },
                 paging: {},
@@ -87,6 +88,18 @@ app.mixin(CodeExplainComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }     
+app.mixin(new FriendListCompoent({need_init: true}));
+
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                openDataPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const openDataPage = app.mount('#app');
 window.openDataPage = openDataPage;
 
@@ -103,7 +116,7 @@ function retrieveSemiData(){
   function initQueryParam(){
     openDataPage.open_data_pagination.param = {
         q: "",
-        sort: "",
+        sort: "1",
         fromWhere: ""
     }
     openDataPage.open_data_pagination.current = 1;
@@ -127,3 +140,8 @@ function retrieveSemiData(){
   
     return true;
   }
+
+
+  $(function(){
+	$(".tooltip-nav").tooltip();
+});

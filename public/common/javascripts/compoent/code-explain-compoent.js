@@ -54,7 +54,7 @@ function explainCellPlanOrderTag(tag){
             orderTagDesc="交付中";
                 break; 
         case CellPlanOrderTag.COMPLETED:
-            orderTagDesc="订单履约完成";
+            orderTagDesc="履约完成";
                 break;  
         case CellPlanOrderTag.CANCELLED:
             orderTagDesc="取消订单";

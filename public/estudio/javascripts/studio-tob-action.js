@@ -14,7 +14,8 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import  TobChatCompoent from "/estudio/javascripts/compoent/TobChatCompoent.js";
 import MpsPaperDeliverCompoent from "/estudio/javascripts/compoent/MpsPaperDeliverCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 const RootComponent = {
     data() {
@@ -75,6 +76,12 @@ const RootComponent = {
     created(){
         this.findPaperDetailV();
         this.doFetchPaperDeliverDetailV();
+    },
+    updated(){
+
+        if(document.getElementById("event-tab").ariaSelected=='true'){
+            document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
+        }
     }
 }
 const app = createApp(RootComponent);
@@ -91,7 +98,18 @@ app.mixin(RtmCompoent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                tobActionPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;
@@ -129,3 +147,7 @@ function explainPaperTag(paperTag){
     }
     return paperTagDesc;
 }
+
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

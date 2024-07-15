@@ -108,7 +108,7 @@
   z-index: 1;
   width: 0;
   height: 0;
-  left: 40px;
+  left: 25px;
   bottom: 0;
   margin: 0;
   border-bottom: 10px solid #dddddd;
@@ -135,13 +135,17 @@ body::-webkit-scrollbar {
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="%23555" d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>') right 1rem center/8px 10px no-repeat;
 }
 
+.col-product {
+    width: 53%;
+    min-width: 240px;
+  }
 .col-product-no-option{
-  width: 37%;
-  min-width: 370px;
+  width: 60%;
+  min-width: 600px;
 }
-.col-type{
-    width: 10%;
-    min-width: 100px;
+.col-brand{
+    width: 17%;
+    min-width: 170px;
 }
 .col-fee{
   width: 10%;
@@ -151,7 +155,10 @@ body::-webkit-scrollbar {
   width: 13%;
   min-width: 130px;
 }
-
+.col-option {
+    width: 7%;
+    min-width: 70px;
+  }
 .main-content-container{
   min-width: 1000px;
 }

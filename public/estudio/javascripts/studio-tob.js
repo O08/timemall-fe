@@ -9,7 +9,8 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 const RootComponent = {
     data() {
         return {
@@ -75,8 +76,8 @@ const RootComponent = {
         retrieveOrderReceivingPaperTbV(){
             retrieveOrderReceivingPaperTb();
         },
-        retrieveMpsPaperListByTagV(tag){
-            retrieveMpsPaperListByTag(tag); 
+        retrieveMpsPaperListByTagV(){
+            retrieveMpsPaperListByTag(); 
         },
         explainPaperTagV(tag){
             return explainPaperTag(tag);
@@ -100,7 +101,18 @@ app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                tobPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 
     
 const tobPage = app.mount('#app');
@@ -108,23 +120,26 @@ window.cTobPage = tobPage;
 
 function filterPaperList(filter){
     tobPage.mps_list_pagination.param.filter=filter;
+    tobPage.mps_list_pagination.current=1;
     tobPage.reloadPage(tobPage.mps_list_pagination);
 }
-function retrieveMpsPaperListByTag(tag){
-    tobPage.mps_list_pagination.param.tag=tag;
+function retrieveMpsPaperListByTag(){
+    tobPage.mps_list_pagination.current=1;
     tobPage.reloadPage(tobPage.mps_list_pagination);
 }
 
 function resetAndRetrieveMpsPaperList(){
-    tobPage.mps_list_pagination.param={};
+    tobPage.mps_list_pagination.current=1;
+    tobPage.mps_list_pagination.param={tag: CommercialPaperTag.DELIVERING};
     tobPage.reloadPage(tobPage.mps_list_pagination);
 }
 function retrieveMpsTb(){
-
+    tobPage.mps_list_pagination.current=1;
     tobPage.reloadPage(tobPage.mps_list_pagination);
 
 }
 function retrieveOrderReceivingPaperTb(){
+    tobPage.mps_order_receiving_pagination.current=1;
     tobPage.reloadPage(tobPage.mps_order_receiving_pagination);
 }
 function explainPaperTag(paperTag){
@@ -151,3 +166,7 @@ function explainPaperTag(paperTag){
     }
     return paperTagDesc;
 }
+
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

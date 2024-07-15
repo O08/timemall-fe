@@ -1,16 +1,21 @@
-table td{
-    font-size: 14px;
-    line-height: 1.565;
+.col-product {
+    width: 50%;
+    min-width: 240px;
 }
-.td-service{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
-    display: inline-block;
-    overflow: hidden;
-    max-width: 600px;
+
+.col-brand{
+    width: 20%;
+    min-width: 120px;
 }
-body::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+.col-option {
+    width: 7%;
+    min-width: 70px;
+}
+.col-fee{
+    width: 10%;
+    min-width: 100px;
+}
+.col-addTime{
+    width: 13%;
+    min-width: 130px;
 }

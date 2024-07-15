@@ -155,7 +155,7 @@ async function joinRoomsInit(defaultChannel,uid,rooms,channelMessageFallback){
     console.log("roomChannel: "+channelId);
     await roomChannel.join();
     roomChannel.on('ChannelMessage', function (message, memberId) {
-      channelMessageFallback();
+      channelMessageFallback(channelId);
     })
     channels.push({
       channelId: channelId,

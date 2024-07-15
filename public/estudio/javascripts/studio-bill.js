@@ -10,7 +10,8 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {BillStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 const RootComponent = {
     data() {
@@ -116,6 +117,19 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
+
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                studioBillPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
+
 const studioBillPage = app.mount('#app');
 window.cBill= studioBillPage;
 
@@ -157,3 +171,7 @@ function launchPay(billId){
 
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

@@ -73,6 +73,7 @@ app.mixin(new FriendListCompoent({need_init: true}));
 app.mixin(
     new Ssecompoent({
         sslSetting:{
+            need_init: true,
             onMessage: (e)=>{
                 transactionPage.onMessageHandler(e); //  source: FriendListCompoent
             }

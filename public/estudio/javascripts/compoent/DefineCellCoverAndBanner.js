@@ -4,6 +4,8 @@ import Cropper from 'cropperjs';
 import { getQueryVariable } from "/common/javascripts/util.js";
 import { preHandleCellId ,addCellIdToUrl} from "/estudio/javascripts/compoent/DefineCellHelper.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const DefineCellCoverAndBanner = {
     data(){
@@ -89,7 +91,7 @@ function previewCellCover(e,appObj){
     var maxSizeMB = 6; //Size in MB.
     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
     if (size > maxSize) {
-        alert("图片最大为6M!");
+        customAlert.alert("图片最大为6M!");
         return false;
     }
     const coverImageRaw = document.getElementById('coverPreview');
@@ -97,7 +99,7 @@ function previewCellCover(e,appObj){
     coverImgFile.onload = ()=> {
          // validate image pixel
          if(!(coverImgFile.width>=640 && coverImgFile.height>=320)){
-            alert("图片必须至少为 640 x 320 像素!");
+            customAlert.alert("图片必须至少为 640 x 320 像素!");
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -161,7 +163,7 @@ async function uploadCellCover(appObj){
             }
         }).catch(error=>{
             document.querySelector('#coverFile').value = null;
-            alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
+            customAlert.alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
         });
 
       }/*, 'image/png' */);
@@ -181,7 +183,7 @@ function previewCellIntroBanner(e,appObj){
     var maxSizeMB = 6; //Size in MB.
     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
     if (size > maxSize) {
-        alert("图片最大为6M!");
+        customAlert.alert("图片最大为6M!");
         return false;
     }
 
@@ -193,7 +195,7 @@ function previewCellIntroBanner(e,appObj){
         // validate image pixel
         if(!(bannerImgFile.width>=1024 && bannerImgFile.height>=576)){
             console.log("current image: width=" + bannerImgFile.width + "  height="+bannerImgFile.height);
-            alert("图片必须至少为 1024 x 576 像素!");
+            customAlert.alert("图片必须至少为 1024 x 576 像素!");
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -250,7 +252,7 @@ function uploadCellIntroBanner(appObj){
             }
         }).catch(error=>{
             document.querySelector('#intro-banner-file').value = null;
-            alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
+            customAlert.alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
         })
 
       }/*, 'image/png' */);

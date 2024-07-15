@@ -185,23 +185,33 @@
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
               <a class="nav-link active" href="/epod/pod-millstone">
-                <i class="bi bi-truck"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-truck"></i>
+                </div>
                 <span>履约中心</span>        
               </a>
               <a class="nav-link" href="/epod/pod-order-history">
-                <i class="bi bi-calendar2-check"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-calendar2-check"></i>
+                </div>
                 <span>我的预约</span>  
               </a>
               <a class="nav-link" href="/epod/pod-bill">
-                <i class="bi bi-receipt"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-receipt"></i>
+                </div>
                 <span>账单管理</span>
               </a>
               <a class="nav-link" href="/epod/pod-dsp">
-                <i class="bi bi-shield-plus"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
                 <span>争端解决</span>
               </a>
               <a class="nav-link" href="/epod/pod-msg">
-                <i class="bi bi-bell"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-bell"></i>
+                </div>
                 <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
               </a>
             </nav>
@@ -397,7 +407,7 @@
             <section class="section-workspace d-flex  px-3 pb-5 px-lg-5 mx-lg-5">
                 <div class="display-pannel">
                     <ul class="timeline">
-                      <li :class="{'active': i >= Number(workflow.doneStageNo)}" v-for="(millstone,i) in workflow.millstones" class="timeline-item pb-3">
+                      <li :class="{'active': !!workflow.doneStageNo && i >= Number(workflow.doneStageNo)}" v-for="(millstone,i) in workflow.millstones" class="timeline-item pb-3">
                         <json-node class="json-item-node millstone-title my-0 d-flex align-items-center">
                           <h5>{{millstone.title}}</h5>
                         </json-node>

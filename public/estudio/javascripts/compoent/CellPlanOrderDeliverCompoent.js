@@ -3,7 +3,8 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import {CommercialPaperDeliverTag} from "/common/javascripts/tm-constant.js";
 import {RefundSceneEnum} from "/common/javascripts/tm-constant.js";
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const CellPlanOrderDeliverCompoent = {
     data() {
@@ -41,15 +42,15 @@ const CellPlanOrderDeliverCompoent = {
                 if(response.data.code==200){
                     this.findPlanDetailV();// from studio-plan.js
                     this.doFetchPaperDeliverDetailV();
-                    alert("单品订单已退款！");
+                    customAlert.alert("单品订单已退款！");
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
                 }
 
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         closeDeliverPaperModalHandlerV(){
@@ -89,10 +90,10 @@ const CellPlanOrderDeliverCompoent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         leaveMessageV(deliver){
@@ -102,10 +103,10 @@ const CellPlanOrderDeliverCompoent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error); 
+                    customAlert.alert(error); 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         revisionPaperDeliverV(deliver){
@@ -118,10 +119,10 @@ const CellPlanOrderDeliverCompoent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);        
+                    customAlert.alert(error);        
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         acceptPaperDeliverV(deliver){
@@ -134,11 +135,11 @@ const CellPlanOrderDeliverCompoent = {
                  }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         paperDeliverTagExplainV(tag){

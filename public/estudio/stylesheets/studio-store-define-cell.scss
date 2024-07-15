@@ -159,7 +159,12 @@
     justify-content: space-between;
   }
   
-
+  img:after{
+    background-color: #2F2F2F;
+  }
+  .modal-content{
+    padding: unset;
+  }
 @media (max-width: 767px) {
     .tip-font-sm{
         font-size: 8px;

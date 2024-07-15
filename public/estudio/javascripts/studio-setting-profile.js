@@ -19,6 +19,9 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { parseIpLocationCityInfo } from "/common/javascripts/util.js";
 import {Api} from "/common/javascripts/common-api.js";
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import BrandContactSetting from "/estudio/javascripts/compoent/BrandContactSetting.js"
 
 const RootComponent = {
     data() {
@@ -167,6 +170,21 @@ app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
 app.component("model-select",ModelSelect);
+app.mixin(new FriendListCompoent({need_init: false}));
+
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                settingProfilePage.onMessageHandler(e); //  source: FriendListCompoent
+            },
+            need_init: false
+        }
+    })
+);
+app.mixin(new BrandContactSetting({need_init: false}));
+
 
 const settingProfilePage = app.mount('#app');
 window.cProfile = settingProfilePage;
@@ -177,8 +195,9 @@ settingProfilePage.loadBrandProfileV();
 settingProfilePage.initBrandBasicSettingConfigV(); // brandBasicSeetting.js
 settingProfilePage.loadBrandInfo(); // load-brandinfo.js
 settingProfilePage.initEventFeedCompoentV();
-
-
+settingProfilePage.loadBrandContactV(); // BrandContactSetting.js
+settingProfilePage.fetchPrivateFriendV();// FriendListCompoent.js
+settingProfilePage.sseInitV();// Ssecompoent.js
 async function updateExperienceForBrand(brandId,dto){
     const url = "/api/v1/web_estudio/brand/{brand_id}/experience".replace("{brand_id}",brandId);
     return await axios.put(url,dto)  
@@ -467,3 +486,7 @@ function closeExperienceDescModal(){
     // clear tmp data
     settingProfilePage.tmpMillstioneDesc = emptyTmpMillstoneDescData();
 }
+
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

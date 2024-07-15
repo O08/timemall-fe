@@ -1,0 +1,177 @@
+.millstone-title h5{
+    line-height: 1.765;
+    font-size: 18px;
+    font-weight: 600;
+}
+.sow-cell-title{
+    width: 400px;
+    min-height: 30px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-size: 16px;
+    line-height: 1.875;
+  }
+  .sow-brand-name{
+    width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    overflow: hidden;
+    display: inline-block;
+  }
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+#millstone-sub-tablist{
+    border-bottom: 1px solid #fff3;
+  }
+  #millstone-sub-tablist .nav-link {
+    font-size: 20px;
+    background-color: unset;
+    color: #a7a7a7;
+    letter-spacing: .1rem;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+    font-weight: 800;
+  }
+  #millstone-sub-tablist  .nav-link.active{
+    color: #fff;
+    background-color: unset;
+  }
+
+.timeline-item > json-node{
+  padding-left: 1rem;
+  color: #87888c;
+  font-size: 12px;
+  padding-top: 4px ;
+  padding-bottom: 4px ;
+  display: block;
+  font-weight: 800;
+
+}
+.timeline-item > json-node:first-child{
+  padding-left: 0;
+  color: #fff;  
+}
+json-node > json-node{
+  padding-left: 1.5rem;
+  display: block;
+}
+json-node  span{
+  font-size: 12px;
+  font-weight: 400;
+}
+.workspace-pps{
+  color: #87888c;
+  font-size: 12px;
+}
+.room-msg-panel{
+  height: calc(100vh - 303px);
+}
+.room-msg-container {
+  height: calc(100% - 118px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 8px 28px 16px 32px;
+  margin: 12px 4px 12px 0;
+  overflow-y: auto;
+}
+.chat-input-wrapper{
+  position: relative;
+}
+pt-app content main {
+  overflow-x: scroll;
+  padding: 32px;
+}
+
+.main-content-container{
+  min-width: 1000px;
+}
+.section-flex-tool{
+    display: none;
+}
+.stage-panel-header {
+    background-color: #1a1a1a;
+}
+.opt_item_container {
+    text-align: center;
+    min-width: 66px;
+  }
+  .opt_item_head {
+    padding-bottom: .5rem;
+  }
+  .opt_item_desc {
+    color: #aaa;
+    margin-bottom: 8px;
+    font-size: smaller;
+  }
+  .opt_item_head .btn {
+    color: #aaa;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #474545;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    position: relative;
+    font-size: 24px;
+  }
+  .opt_item_head .btn:hover{
+    border-radius: 5px;
+    color: #fff;
+  }
+  .section-rule-check .display-pannel{
+    font-size: 12px;
+    color: #87888c;
+  }
+@media (max-width: 1162px) {
+    .chat-action-wrapper{
+        display: block;
+      }
+      .chat-send-btn{
+        margin-top: 1rem;
+      }
+      .room-msg-container {
+        height: calc(100% - 166px);
+      }
+}
+@media (max-width: 767px) {
+    .timeline {
+        padding-left: .5rem;
+    }
+    .timeline .timeline-item:after {
+        left: -.8rem;
+    }
+    .millstone-title h5{
+        line-height: 1.665;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    json-node h6{
+        line-height: 1.565;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    json-node span{
+        font-size: 12px;
+    }
+}
+
+@media (width <= 576px) {
+  .room-msg-container {
+    height: calc(100% - 206px);
+  }
+  pt-app content main {
+    padding: 32px 0;
+  }
+}
+
+
+
+

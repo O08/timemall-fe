@@ -14,7 +14,9 @@ import  MpsPaperChatCompoent from "/estudio/javascripts/compoent/MpsPaperChatCom
 import MpsPaperManagementCompoent from "/estudio/javascripts/compoent/MpsPaperManagementCompoent.js";
 import MpsPaperDeliverCompoent from "/estudio/javascripts/compoent/MpsPaperDeliverCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
 
 const RootComponent = {
     data() {
@@ -36,13 +38,7 @@ const RootComponent = {
             return $.isEmptyObject(obj);
         },
         transformInputNumberV(event){
-            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
-            var min = Number(event.target.min);
-            var max = Number(event.target.max);
-            event.target.value = transformInputNumber(val, min, max);
-            if(val !== Number(event.target.value)){
-              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
-            }
+            return  transformInputNumberAsPositive(event);
         }
     },
     created(){
@@ -64,7 +60,18 @@ app.mixin(RtmCompoent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }    
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                mpsActionPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const mpsActionPage = app.mount('#app');
 window.cMpsActionPage = mpsActionPage;
 
@@ -77,6 +84,9 @@ function findAllMpsPaper(){
     const mpsId=getQueryVariable("mps_id");
     return fetchAllMpsPaperOwnedMps(mpsId);
 }
-function transformInputNumber(val,min,max){
-    return val < min ? "" : val > max ? max : val;
-  }
+
+
+
+  $(function(){
+	$(".tooltip-nav").tooltip();
+});

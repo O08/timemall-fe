@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {CommercialPaperTag} from "/common/javascripts/tm-constant.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 const MpsPaperManagementCompoent = {
     data() {
         return {
@@ -34,7 +36,7 @@ const MpsPaperManagementCompoent = {
         showEditPaperModelV(){
             $("#editPaperModal").modal("show"); // show modal
             this.mpmc_putPaper.sow=this.mpmc__paperDetail.sow;
-            this.mpmc_putPaper.bonus=this.mpmc__paperDetail.bonus;
+            this.mpmc_putPaper.bonus=Number(this.mpmc__paperDetail.bonus).toFixed(0);
             this.mpmc_putPaper.paperId=this.mpmc__paperDetail.paperId;
 
         },
@@ -45,10 +47,10 @@ const MpsPaperManagementCompoent = {
                     this.findPaperDetailV(this.mpmc_putPaper.paperId);
                 }
                 if(response.data.code!=200){
-                    alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         onlineMpsPaperV(paperId){

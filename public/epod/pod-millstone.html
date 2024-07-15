@@ -185,23 +185,33 @@
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
               <a class="nav-link active" aria-current="page">
-                <i class="bi bi-truck"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-truck"></i>
+                </div>
                 <span>履约中心</span>        
               </a>
               <a class="nav-link" href="/epod/pod-order-history">
-                <i class="bi bi-calendar2-check"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-calendar2-check"></i>
+                </div>
                 <span>我的预约</span>  
               </a>
               <a class="nav-link" href="/epod/pod-bill">
-                <i class="bi bi-receipt"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-receipt"></i>
+                </div>
                 <span>账单管理</span>
               </a>
               <a class="nav-link" href="/epod/pod-dsp">
-                <i class="bi bi-shield-plus"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
                 <span>争端解决</span>
               </a>
               <a class="nav-link" href="/epod/pod-msg">
-                <i class="bi bi-bell"></i>
+                <div class="nav-icon">
+                  <i class="bi bi-bell"></i>
+                </div>
                 <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
               </a>
             </nav>
@@ -253,7 +263,7 @@
                     <option value="4">交付中</option>
                     <option value="7">已退款</option>
                     <option value="3">已支付</option>
-                    <option value="5">订单履约完成</option>
+                    <option value="5">履约完成</option>
                     <option value="0">订单创建中</option>
                     <option value="1">已创建订单</option>
                     <option value="2">等待支付</option>
@@ -520,7 +530,7 @@
                           </span>
                         </a>
                       </td>
-                      <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
                       <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                       <td class="col-addTime"><span>{{item.added}}</span></td>
                     </tr>
@@ -583,7 +593,7 @@
                           </span>
                         </a>
                       </td>
-                      <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
                       <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                       <td class="col-addTime"><span>{{item.added}}</span></td>
                     </tr>
@@ -645,7 +655,7 @@
                           </span>
                         </a>
                       </td>
-                      <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
                       <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                       <td class="col-addTime"><span>{{item.added}}</span></td>
                     </tr>
@@ -699,7 +709,7 @@
                           </span>
                         </a>
                       </td>
-                      <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
                       <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                       <td class="col-addTime"><span>{{item.added}}</span></td>
                     </tr>
@@ -754,7 +764,7 @@
                           </span>
                         </a>
                       </td>
-                      <td class="col-brand"><span>{{item.supplier}}</span> </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
                       <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                       <td class="col-addTime"><span>{{item.added}}</span></td>
                     </tr>

@@ -19,7 +19,8 @@ import {ContentediableComponent} from "/common/javascripts/contenteditable-compo
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 const RootComponent = {
 
     data() {
@@ -40,7 +41,7 @@ const RootComponent = {
             content: {
                 items: []
             },
-            introCover: "https://picsum.photos/1100/300",
+            introCover: "",
             agree_check: false,
             cofingPlan:{},
             cellplan:{
@@ -161,7 +162,18 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag == 'content'
 }
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                defineCellPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const defineCellPage = app.mount('#app');
 window.cDefineCell= defineCellPage;
 
@@ -463,3 +475,7 @@ function transformInputNumber(val,max){
     val = val ? val == 0 ? 0 : val : val; // cope with 0000000
     return val < min ? "" : val > max ? max : val;
   }
+
+  $(function(){
+	$(".tooltip-nav").tooltip();
+});

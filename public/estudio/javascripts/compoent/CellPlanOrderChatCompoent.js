@@ -3,6 +3,8 @@ import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const CellPlanOrderChatCompoent = {
   data(){
@@ -54,7 +56,7 @@ const CellPlanOrderChatCompoent = {
         //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     retrieveMessageV(){
@@ -76,7 +78,7 @@ const CellPlanOrderChatCompoent = {
 
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     sendAttachmentV(){
@@ -90,7 +92,7 @@ const CellPlanOrderChatCompoent = {
           $("#sendBigFileModal").modal("hide"); // show modal
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
 
     },

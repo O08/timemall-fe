@@ -11,7 +11,8 @@ import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 
 
@@ -52,6 +53,18 @@ app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
+
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                shopPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 const shopPage = app.mount('#app');
 window.cShop = shopPage;
 
@@ -107,3 +120,6 @@ $(".product-top_up .product-img").on("click",()=>{
     $("#topUpModal").modal("show");
 })
 
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

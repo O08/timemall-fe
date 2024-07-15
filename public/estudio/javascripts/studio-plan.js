@@ -15,8 +15,10 @@ import  CellPlanOrderChatCompoent from "/estudio/javascripts/compoent/CellPlanOr
 import CellPlanOrderDeliverCompoent from "/estudio/javascripts/compoent/CellPlanOrderDeliverCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
-
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
@@ -38,10 +40,10 @@ const RootComponent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         findPlanDetailV(){
@@ -87,6 +89,12 @@ const RootComponent = {
     created(){
         this.findPlanDetailV();
         this.doFetchPaperDeliverDetailV();
+    },
+    updated(){
+
+        if(document.getElementById("event-tab").ariaSelected=='true'){
+            document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
+        }
     }
 }
 const app = createApp(RootComponent);
@@ -104,7 +112,18 @@ app.mixin(CodeExplainComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                tobActionPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;
@@ -128,3 +147,6 @@ function findPlanDetail(){
     return fetchPlanDetail(orderId);
 }
 
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

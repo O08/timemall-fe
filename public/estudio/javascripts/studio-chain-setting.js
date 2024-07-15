@@ -9,8 +9,10 @@ import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
@@ -20,7 +22,7 @@ const RootComponent = {
             },
             chain: {
                 title: "",
-                tag: ""
+                tag: "1"
             },
             template: {},
             templateDetail: {},
@@ -94,7 +96,12 @@ const RootComponent = {
                     this.newTemplate={}; // reset 
                     $('.iput').val(""); // reset suplier selector
                 }
-            })
+                if(response.data.code!=200){
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                }
+            }).catch(error=>{
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
         },
         putMpsTemplateV(){
             modifyMpsTemplate(this.putTemplate).then(response=>{
@@ -104,6 +111,11 @@ const RootComponent = {
                     $("#editChainTemplateModal").modal("hide"); // hide modal
 
                 }
+                if(response.data.code!=200){
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                }
+            }).catch(error=>{
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         findChainInfoV(){
@@ -166,6 +178,7 @@ const RootComponent = {
         },
         showEditTemplateModelV(){
             this.putTemplate=JSON.parse(JSON.stringify(this.templateDetail));// deep copy
+            this.putTemplate.bonus=Number(this.putTemplate.bonus).toFixed(0);
             $('#put_iput_supplier').val(this.templateDetail.firstSupplierName);
             $("#editChainTemplateModal").modal("show"); // show modal
         },
@@ -197,7 +210,18 @@ app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
-    
+app.mixin(new FriendListCompoent({need_init: true}));
+
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                chainSettingPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);    
 const chainSettingPage = app.mount('#app');
 window.chainSettingPage = chainSettingPage;
 
@@ -295,10 +319,10 @@ function saveMpsChain(title,tag){
                 chainSettingPage.btn_ctl.activate_save_mps_chain__btn=false;
             }
             if(response.data.code!=200){
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
             }
         }).catch(error=>{
-            alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
         });
     }
     if(chainId){
@@ -307,10 +331,10 @@ function saveMpsChain(title,tag){
             chainSettingPage.btn_ctl.activate_save_mps_chain__btn=false;
         }
         if(response.data.code!=200){
-            alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
         }
     }).catch(error=>{
-        alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
     });
     }
    
@@ -362,3 +386,7 @@ $(document).on("click",function (e) {
 function transformInputNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
   }
+
+  $(function(){
+	$(".tooltip-nav").tooltip();
+});

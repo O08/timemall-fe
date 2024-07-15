@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.png">
     <title>单品工作空间 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
-    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
     <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/studio-plan.scss">
 
@@ -22,102 +22,159 @@
 <body>
   <pt-app id="app" v-cloak>
       <!-- header nav -->
-      <header class="p-3 text-white">
-        <div class="mx-120 d-flex justify-content-between  align-items-center hdlayout">
-          <div class="toggle-nav">
-            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
-              </svg>
-            </button>
-          </div>
-          <div class="d-flex align-items-center logo">
-            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
-            </svg>
-            <div class="align-middle">
-              <h2 class="mb-0">E-Studio</h2>
+      <header class="text-white">
+        <div class="d-flex justify-content-between align-items-center hdlayout">
+  
+          <div class="d-flex">
+            <div class="toggle-nav">
+              <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+              </button>
             </div>
+            <a href="/estudio/studio-store">
+              <div class="d-flex align-items-center logo">
+                <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                <h2 class="mb-0 ms-2">E-Studio</h2>
+              </div>
+            </a>
+  
           </div>
-          <button class="btn btn-primary toggle-nav button_user_account" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-            <i class="bi bi-person-circle"></i>
-          </button>
-          <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">E-Studio</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+          
+          <div>
+            
+            <div class="btn-group" style="margin-right: 8px;" >
+            
+              <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                    </svg>                  
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="/">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/micro/discovery-oasis">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 少数派
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/home">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 精选商店
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/micro/affiliate/dashboard">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                     </button>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="/epod/pod-millstone">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-tags me-2"></i> E-Pod
+                     </button>
+                  </a>
+                </li>
+              </ul>
+  
             </div>
-            <div class="offcanvas-body justify-content-end">
-              <nav>
-                <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0 text-start">
-                  <li class="nav-item"><a href="/home" class="nav-link  px-xxl-5 text-white">精选商店</a></li>
-                  <li class="nav-item"><a href="/epod/pod-millstone" class="nav-link   px-xxl-5 text-white">E-Pod</a></li>
-                  <li v-if="!user_already_login" class="nav-item"><a href="/login" class="nav-link  px-xxl-5 text-white">登录</a></li>
-                  <li v-if="!user_already_login" class="nav-item join-now"><a href="/signup" class="nav-link  px-xxl-5 text-white">注册</a></li>
-                  <li v-if="user_already_login" class="nav-item display_account_xxl">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                          <a href="/estudio/studio-setting-profile">
-                            <button class="dropdown-item" type="button">
-                              <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                             </button>
-                          </a>
-                        </li>
-                        <li>
-                            <button @click="logout()" class="dropdown-item" type="button">   
-                              <i class="bi bi-box-arrow-right me-1"></i> 注销 
-                            </button>
-                        </li>
-                        <li>
-                          <a href="/mall/delete-account">
-                            <button class="dropdown-item" type="button">
-                              <i class="bi bi-trash3 me-1"></i> 删除账号
-                             </button>
-                          </a>
-                        </li>
-                        
-                        <li>
-                          <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                            <i class="bi bi-flag me-1"></i> 反馈
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                 </li>
-                </ul>
-                <ul  v-if="user_already_login" class="list-group display_account_xxl_small text-start mt-3">
-                  <li class="list-group-item"> 
-                    <a href="/estudio/studio-setting-profile">
-                      <button class="dropdown-item" type="button">
-                        <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                      </button>
+  
+           
+  
+            <div class="btn-group private-msg-atom" style="margin-right: 8px;">
+              <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="tooltip-nav" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="消息">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.80403 8.3533C2.52389 10.9562 2.53637 13.9582 2.9262 16.5505C3.1419 17.9849 4.31257 19.0845 5.75763 19.2102L7.26787 19.3414C10.4169 19.6152 13.5838 19.6152 16.7328 19.3414L18.2431 19.2102C19.6881 19.0845 20.8588 17.9849 21.0745 16.5505C21.4643 13.9582 21.4768 10.9564 21.1967 8.35345C21.1605 8.05169 21.1197 7.75034 21.0745 7.44949C20.8588 6.0151 19.6881 4.91545 18.2431 4.78983L16.7328 4.65855C13.5838 4.38481 10.4169 4.38481 7.26787 4.65855L5.75763 4.78983C4.31257 4.91545 3.1419 6.0151 2.9262 7.44949C2.88096 7.75028 2.84024 8.05159 2.80403 8.3533ZM7.39777 6.15292C10.4604 5.88669 13.5403 5.88669 16.6029 6.15292L18.1131 6.2842C18.8675 6.34977 19.4786 6.92379 19.5912 7.67254C19.6029 7.7503 19.6142 7.82809 19.6253 7.90592L14.0643 10.9954C12.7807 11.7085 11.2199 11.7085 9.93632 10.9954L4.37539 7.90596C4.38645 7.82812 4.39783 7.75031 4.40952 7.67254C4.52211 6.92379 5.13321 6.34977 5.88754 6.2842L7.39777 6.15292ZM19.8088 9.51989C20.0028 11.7876 19.9303 14.0725 19.5912 16.3274C19.4786 17.0762 18.8675 17.6502 18.1132 17.7158L16.6029 17.8471C13.5403 18.1133 10.4604 18.1133 7.39777 17.8471L5.88754 17.7158C5.13321 17.6502 4.52211 17.0762 4.40952 16.3274C4.07043 14.0725 3.99787 11.7877 4.19184 9.51992L9.20786 12.3066C10.9445 13.2714 13.0561 13.2714 14.7928 12.3066L19.8088 9.51989Z" fill="white"/>
+                    </svg>  
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <div class="friend-header">
+                  私信（{{friends.totalUnRead}}）
+                </div>
+                <div class="friend-list">
+  
+                  <li class="friend-item"   v-for="friend in friends.records">
+                    <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                      <div class="friend-container">
+                        <div class="frend-avatar-container">
+                          <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                          <div v-if="friend.brandMark=='3'" class="online-indicator">
+                            <div class="online-indicator-content">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="friend-info">
+                          <div class="friend-name"><span class="ellipsis-1">{{friend.title}}</span> </div>
+                          <div class="friend-msg"> <span class="ellipsis-1">{{friend.latestContent}}</span> </div>
+                          <div class="msg-time">{{getPublishTimeV(friend.modifiedAt)}}</div>
+                        </div>
+                      </div>
                     </a>
                   </li>
-                  <li class="list-group-item">
+  
+                 
+  
+                </div>
+                
+  
+  
+              </ul>
+            </div>
+  
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                <img  :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="/estudio/studio-setting-profile">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-person-vcard me-2"></i> 品牌形象
+                     </button>
+                  </a>
+                </li>
+                <li>
                     <button @click="logout()" class="dropdown-item" type="button">   
-                      <i class="bi bi-box-arrow-right me-1"></i> 注销 
+                      <i class="bi bi-box-arrow-right me-2"></i> 注销 
                     </button>
-                  </li>
-                  <li class="list-group-item">
-                    <a href="/mall/delete-account">
-                      <button class="dropdown-item" type="button">
-                        <i class="bi bi-trash3 me-1"></i> 删除账号
-                       </button>
-                    </a>
-                  </li>
-                  <li class="list-group-item">
-                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                      <i class="bi bi-flag me-1"></i> 反馈
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+                </li>
+                <li>
+                  <a href="/mall/delete-account">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-trash3 me-2"></i> 删除账号
+                     </button>
+                  </a>
+                </li>
+                
+                <li>
+                  <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                    <i class="bi bi-flag me-2"></i> 反馈
+                  </button>
+                </li>
+              </ul>
             </div>
+    
+            
           </div>
+  
+  
         </div>
       </header>
       <content class="bd-layout">
@@ -125,86 +182,90 @@
           <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
             <div class="offcanvas-header">
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
-            </div>
-            <div class="customer-portrait-container">
-              <div class="d-flex flex-column justify-content-center ">
-                <div class="customer-portrait">
-                  <a href="/estudio/studio-setting-profile" class="url-link">
-                    <img class="customer-avator" :src="adaptiveImageUriV(studio_brand_avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                  </a>
-                </div>
-                <a href="/estudio/studio-setting-profile" class="url-link">
-                  <h6 class="customer-name mt-1">{{studio_brand}}</h6>
-                </a>
-              </div>
-            </div>
+            </div> 
             <!-- menu -->
             <div class="sidebar-wrapper">
-              <nav class="sidebar nav flex-column">
-                <a class="nav-link" aria-current="page" href="/estudio/studio-millstone">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.5 3V19.5H1.5V12H7.5V7.5H13.5V3H22.5ZM21 4.5H15V9H9V13.5H3V18H21V4.5Z"></path>
-                  </svg>
-                  <span>履约</span>        
-                </a>
-                <a class="nav-link" href="/estudio/studio-msg">
-                  <i class="bi bi-calendar2-event"></i>
-                  <span>
-                    连线<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup>
-                  </span>
+              <nav class="sidebar nav">
+                <a class="nav-link" href="/estudio/studio-store">
+                  <div class="nav-icon">
+                    <i class="bi bi-shop-window"></i>
+                  </div>
+                  <span>我的店铺</span>
                 </a>
                 <a class="nav-link" href="/estudio/studio-order-history">
-                  <i class="bi bi-shop"></i>
-                  <span>预约</span>  
+                  <div class="nav-icon">
+                    <i class="bi bi-calendar2-check"></i>
+                  </div>
+                  <span>预约订单</span>  
                 </a>
-                <a class="nav-link" href="/estudio/studio-dsp">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.945 10.5L19.5 4.5H21V3H13.5V1.5H12V3H4.5V4.5H6L3.57 10.5H3V12H3.225C3.459 12.747 3.9345 13.395 4.575 13.845C5.20747 14.3036 5.96874 14.5506 6.75 14.5506C7.53126 14.5506 8.29253 14.3036 8.925 13.845C9.56604 13.3923 10.0446 12.7454 10.29 12H10.5V10.5H9.825L7.32 4.5H12V16.5H9L8.415 16.77L5.415 20.535L6 21.75H19.5L20.085 20.535L17.085 16.77L16.5 16.5H13.5V4.5H18.195L15.69 10.5H15V12H15.225C15.4703 12.7432 15.9438 13.39 16.578 13.8485C17.2122 14.3071 17.9749 14.5539 18.7575 14.5539C19.5401 14.5539 20.3028 14.3071 20.937 13.8485C21.5712 13.39 22.0447 12.7432 22.29 12H22.5V10.5H21.945ZM7.83 12.765C7.4992 12.9481 7.12806 13.046 6.75 13.05C6.37641 13.048 6.00963 12.9499 5.685 12.765C5.35397 12.5835 5.07506 12.3201 4.875 12H8.625C8.42662 12.3162 8.15363 12.5789 7.83 12.765ZM8.205 10.5H5.205L6.705 6.9L8.205 10.5ZM16.14 18L18 20.25H7.5L9.36 18H16.14ZM18.81 6.93L20.31 10.53H17.31L18.81 6.93ZM19.83 12.795C19.502 12.9851 19.129 13.0835 18.75 13.08C18.3755 13.0853 18.0068 12.9867 17.685 12.795C17.3535 12.601 17.0752 12.3278 16.875 12H20.625C20.4391 12.3337 20.1637 12.6091 19.83 12.795Z"></path>
-                  </svg>
-                  <span>DSP</span>
+                <a class="nav-link active" href="/estudio/studio-millstone">
+                  <div class="nav-icon">
+                    <i class="bi bi-truck"></i>
+                  </div>
+                  <span>履约中心</span>        
                 </a>
                 <a class="nav-link" href="/estudio/studio-bill">
-                  <i class="bi bi-bank"></i>
-                  <span>账单</span>
-                </a>
-                <a class="nav-link" href="/estudio/studio-store">
-                  <i class="bi bi-coin"></i>
-                  <span>变现</span>
-                </a>
-                <a class="nav-link" href="/estudio/studio-tob">
-                  <i class="bi bi-bootstrap"></i>
-                  <span>商单</span>
+                  <div class="nav-icon">
+                    <i class="bi bi-receipt"></i>
+                  </div>
+                  <span>账单管理</span>
                 </a>
                 <a class="nav-link" href="/estudio/studio-mps">
-                  <i class="bi bi-link-45deg"></i>
-                  <span>产单</span>
+                  <div class="nav-icon">
+                    <i class="bi bi-columns"></i>
+                  </div>
+                  <span>产单助手</span>
+                </a>
+                <a class="nav-link" href="/estudio/studio-msg">
+                  <div class="nav-icon">
+                    <i class="bi bi-bell"></i>
+                  </div>
+                  <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
+                </a>
+                <a class="nav-link" href="/estudio/studio-dsp">
+                  <div class="nav-icon">
+                    <i class="bi bi-shield-plus"></i>
+                  </div>
+                  <span>争端解决</span>
                 </a>
                 <a class="nav-link" href="/estudio/studio-shop">
-                  <i class="bi bi-bag"></i>
-                  <span>商城</span>
+                  <div class="nav-icon">
+                    <i class="bi bi-bag"></i>
+                  </div>
+                  <span>补给商城</span>
                 </a>
               </nav>
             </div>
           </div>
         </aside>
         <main>
-          <div class="section-container">
-            <div class="nav-tabs-container pb-5">
-              <ul class="nav nav-tabs border-0" id="tob-tablist" role="tablist">
+          <div class="main-content-container">
+            <div class="nav-tabs-container">
+              <ul class="nav nav-tabs" id="tob-tablist" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">服务内容</button>
+                  <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">
+                    <i class="bi bi-briefcase"></i>
+                    服务内容
+                  </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="true">事件</button>
+                  <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="false">
+                    <i class="bi bi-chat-dots"></i>
+                    沟通
+                  </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="deliver-tab" data-bs-toggle="tab" data-bs-target="#deliver-tab-pane" type="button" role="tab" aria-controls="deliver-tab-pane" aria-selected="true">交付</button>
+                  <button class="nav-link" id="deliver-tab" data-bs-toggle="tab" data-bs-target="#deliver-tab-pane" type="button" role="tab" aria-controls="deliver-tab-pane" aria-selected="false">
+                    <i class="bi bi-box-seam"></i>
+                    交付
+                  </button>
                 </li>
               </ul>
             </div>
             <!-- tab content -->
             <div class="tab-content">
               <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
+
                 <div class="room-msg-panel">
 
                   <div class="room-msg-container">
@@ -219,11 +280,6 @@
                         <section v-for="record in item.cards" class="event-wrapper new-order">
                           <label>
                             <span class="event-icon new-order">
-                              <!-- <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
-                                <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
-                                <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>                           -->
                                 <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                             </span>
                             <p class="event-header-base border-0">
@@ -256,48 +312,44 @@
 
                   </div>
 
-                  
-
-                  
-
-
-                </div>
-
-                <div class="chat-input-wrapper">
-                  <div class="input-wrapper">
-                    <textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="Enter your message here"></textarea>
-                  </div>
-                  <div class="chat-action-wrapper">
-                    <div class="chat-action-option">
-                      <span>
-                        <div class="chat-attachment-btn chat-btn-container">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
-                            <defs></defs>
-                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"></path>
-                          </svg>
-                          <input @change="handleBigFileChange($event)" id="selection_attachment" type="file" class="input-file">
-                        </div>
-                      </span>
-                      <span>
-                        <div id="selection-outer" class="selection-outer ms-2 chat-btn-container">
-                          <div id="selection">
-                            <button id="selection-emoji" class="empty emoji-btn">
-                              <i class="bi bi-emoji-smile"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </span>
-                      <span>
-                        <div class="ms-2 chat-btn-container">
-                          <div class="img-btn" >
-                            <i class="bi bi-image chat-image-btn"></i>
-                            <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
-                          </div>
-                        </div>
-                      </span>
+                  <div class="chat-input-wrapper">
+                    <div class="input-wrapper">
+                      <textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="Enter your message here"></textarea>
                     </div>
-                    <button v-preventreclick @click="sendTextMessageV" class="chat-send-btn">发送</button>
+                    <div class="chat-action-wrapper">
+                      <div class="chat-action-option">
+                        <span>
+                          <div class="chat-attachment-btn chat-btn-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
+                              <defs></defs>
+                              <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"></path>
+                            </svg>
+                            <input @change="handleBigFileChange($event)" id="selection_attachment" type="file" class="input-file">
+                          </div>
+                        </span>
+                        <span>
+                          <div id="selection-outer" class="selection-outer ms-2 chat-btn-container">
+                            <div id="selection">
+                              <button id="selection-emoji" class="empty emoji-btn">
+                                <i class="bi bi-emoji-smile"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </span>
+                        <span>
+                          <div class="ms-2 chat-btn-container">
+                            <div class="img-btn" >
+                              <i class="bi bi-image chat-image-btn"></i>
+                              <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                      <button v-preventreclick @click="sendTextMessageV" class="chat-send-btn">发送</button>
+                    </div>
                   </div>
+
+                  
                 </div>
 
                 
@@ -307,7 +359,11 @@
             <!-- event tab end -->
             <!-- sow tab begin -->
               <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
-                <section class="section-plan-header ps-4">
+                
+                <div class="plan-info-container pb-5">
+
+
+                <section class="section-plan-header ps-4 pt-5">
                   <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
                       <div class="col">
                           <h3>服务</h3>
@@ -386,85 +442,115 @@
                   </div>
 
               </section>
-                
-                
-                
+
+                </div>            
 
               </div>
             <!-- sow tab end -->
             <!-- deliver tab begin -->
               <div class="tab-pane fade" id="deliver-tab-pane" role="tabpanel" aria-labelledby="deliver-tab" tabindex="0">
-                <div v-if="orderDetail.tag==='4'"  class="deliver-panel-header">
-                  <section class="event-wrapper new-order">
-                    <div @click="showAddNewDeliverModalV" class="btn-container ms-5">
-                      <div class="package-icon new-order">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 6H8V2H6V6H2V8H6V12H8V8H12V6Z" />
-                          <path d="M29.919 16.606L26.919 9.606C26.842 9.42608 26.7139 9.27273 26.5505 9.165C26.3871 9.05727 26.1957 8.99989 26 9H23V7C23 6.73478 22.8946 6.48043 22.7071 6.29289C22.5196 6.10536 22.2652 6 22 6H15V8H21V20.556C20.5443 20.8206 20.1456 21.1728 19.8267 21.5922C19.5078 22.0117 19.2751 22.4902 19.142 23H12.858C12.6405 22.1418 12.143 21.3806 11.4442 20.8368C10.7455 20.2931 9.88538 19.9979 9 19.9979C8.11462 19.9979 7.25452 20.2931 6.55578 20.8368C5.85703 21.3806 5.35953 22.1418 5.142 23H4V14H2V24C2 24.2652 2.10536 24.5196 2.29289 24.7071C2.48043 24.8946 2.73478 25 3 25H5.142C5.35953 25.8582 5.85703 26.6194 6.55578 27.1632C7.25452 27.7069 8.11462 28.0021 9 28.0021C9.88538 28.0021 10.7455 27.7069 11.4442 27.1632C12.143 26.6194 12.6405 25.8582 12.858 25H19.142C19.3595 25.8582 19.857 26.6194 20.5558 27.1632C21.2545 27.7069 22.1146 28.0021 23 28.0021C23.8854 28.0021 24.7455 27.7069 25.4442 27.1632C26.143 26.6194 26.6405 25.8582 26.858 25H29C29.2652 25 29.5196 24.8946 29.7071 24.7071C29.8946 24.5196 30 24.2652 30 24V17C30 16.8645 29.9725 16.7305 29.919 16.606ZM9 26C8.60444 26 8.21776 25.8827 7.88886 25.6629C7.55996 25.4432 7.30362 25.1308 7.15224 24.7654C7.00087 24.3999 6.96126 23.9978 7.03843 23.6098C7.1156 23.2219 7.30608 22.8655 7.58579 22.5858C7.86549 22.3061 8.22186 22.1156 8.60982 22.0384C8.99778 21.9613 9.39991 22.0009 9.76537 22.1522C10.1308 22.3036 10.4432 22.56 10.6629 22.8889C10.8827 23.2178 11 23.6044 11 24C10.9992 24.5302 10.7882 25.0384 10.4133 25.4133C10.0384 25.7882 9.53019 25.9992 9 26ZM23 11H25.34L27.484 16H23V11ZM23 26C22.6044 26 22.2178 25.8827 21.8889 25.6629C21.56 25.4432 21.3036 25.1308 21.1522 24.7654C21.0009 24.3999 20.9613 23.9978 21.0384 23.6098C21.1156 23.2219 21.3061 22.8655 21.5858 22.5858C21.8655 22.3061 22.2219 22.1156 22.6098 22.0384C22.9978 21.9613 23.3999 22.0009 23.7654 22.1522C24.1308 22.3036 24.4432 22.56 24.6629 22.8889C24.8827 23.2178 25 23.6044 25 24C24.9995 24.5303 24.7886 25.0387 24.4136 25.4136C24.0387 25.7886 23.5303 25.9995 23 26ZM28 23H26.858C26.6377 22.1434 26.1394 21.3842 25.4412 20.8413C24.743 20.2983 23.8844 20.0025 23 20V18H28V23Z"/>
-                        </svg>
-                      </div>
-                      <span class="paper-head">
-                        新交付
-                      </span>
-                    </div>
-                  </section>
-                </div>
-                <div v-show="isEmptyObjectV(mpdc__paperDeliver.records)" class="content-block">
 
-                  <div  v-if="orderDetail.tag==='3'" class="d-flex flex-column">
-                    <span>单品订单已支付，点击【启动交付】开始履约交付</span>
-                    <div class="py-3">
-                      <button v-preventreclick @click="tagCellPlanOrderAsDeliveringV" type="button" class="btn btn-primary">启动交付</button>
+                <div class="deliver-panel-container">
+
+                  <div class="deliver-panel-header">
+                    <section class="event-wrapper new-order">
+
+                      <div class="d-flex ps-3">
+
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <button  @click="showAddNewDeliverModalV"  class="btn btn-outline-primary">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 4.5H6V1.5H4.5V4.5H1.5V6H4.5V9H6V6H9V4.5Z" fill="currentColor"/>
+                                <path d="M22.4393 12.4545L20.1893 7.2045C20.1315 7.06956 20.0354 6.95455 19.9129 6.87375C19.7903 6.79295 19.6468 6.74992 19.5 6.75H17.25V5.25C17.25 5.05109 17.1709 4.86032 17.0303 4.71967C16.8897 4.57902 16.6989 4.5 16.5 4.5H11.25V6H15.75V15.417C15.4082 15.6154 15.1092 15.8796 14.87 16.1941C14.6309 16.5088 14.4563 16.8676 14.3565 17.25H9.6435C9.48037 16.6063 9.10725 16.0354 8.58315 15.6276C8.05912 15.2198 7.41404 14.9984 6.75 14.9984C6.08596 14.9984 5.44089 15.2198 4.91683 15.6276C4.39277 16.0354 4.01965 16.6063 3.8565 17.25H3V10.5H1.5V18C1.5 18.1989 1.57902 18.3897 1.71967 18.5303C1.86032 18.6709 2.05109 18.75 2.25 18.75H3.8565C4.01965 19.3937 4.39277 19.9646 4.91683 20.3724C5.44089 20.7802 6.08596 21.0016 6.75 21.0016C7.41404 21.0016 8.05912 20.7802 8.58315 20.3724C9.10725 19.9646 9.48037 19.3937 9.6435 18.75H14.3565C14.5196 19.3937 14.8927 19.9646 15.4168 20.3724C15.9409 20.7802 16.586 21.0016 17.25 21.0016C17.914 21.0016 18.5591 20.7802 19.0832 20.3724C19.6073 19.9646 19.9804 19.3937 20.1435 18.75H21.75C21.9489 18.75 22.1397 18.6709 22.2803 18.5303C22.4209 18.3897 22.5 18.1989 22.5 18V12.75C22.5 12.6484 22.4794 12.5479 22.4393 12.4545ZM6.75 19.5C6.45333 19.5 6.16332 19.412 5.91665 19.2472C5.66997 19.0824 5.47771 18.8481 5.36418 18.574C5.25065 18.2999 5.22095 17.9984 5.27882 17.7074C5.3367 17.4164 5.47956 17.1491 5.68934 16.9394C5.89912 16.7296 6.1664 16.5867 6.45737 16.5288C6.74834 16.471 7.04993 16.5007 7.32403 16.6142C7.5981 16.7277 7.8324 16.92 7.99717 17.1667C8.16202 17.4134 8.25 17.7033 8.25 18C8.2494 18.3977 8.09115 18.7788 7.80997 19.06C7.5288 19.3411 7.14764 19.4994 6.75 19.5ZM17.25 8.25H19.005L20.613 12H17.25V8.25ZM17.25 19.5C16.9533 19.5 16.6634 19.412 16.4167 19.2472C16.17 19.0824 15.9777 18.8481 15.8642 18.574C15.7507 18.2999 15.721 17.9984 15.7788 17.7074C15.8367 17.4164 15.9796 17.1491 16.1894 16.9394C16.3991 16.7296 16.6664 16.5867 16.9574 16.5288C17.2484 16.471 17.5499 16.5007 17.824 16.6142C18.0981 16.7277 18.3324 16.92 18.4972 17.1667C18.662 17.4134 18.75 17.7033 18.75 18C18.7496 18.3977 18.5915 18.779 18.3102 19.0602C18.029 19.3415 17.6477 19.4996 17.25 19.5ZM21 17.25H20.1435C19.9783 16.6076 19.6046 16.0381 19.0809 15.631C18.5573 15.2237 17.9133 15.0019 17.25 15V13.5H21V17.25Z" fill="currentColor"/>
+                                </svg>                                
+                            </button>
+                         
+                          </div>
+                            <span class="opt_item_desc">新交付</span>
+                        </div>
+
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <a :href="'/micro/arch/channel-0002?friend='+orderDetail.consumerUserId">
+                              <button   class="btn btn-outline-primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M8.99991 11.9999H14.9999" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                                  <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                                  <path d="M15 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H15" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                                  </svg> 
+                              </button>
+                            </a>
+                          </div>
+                            <span class="opt_item_desc">私信客户</span>
+                        </div>
+
+                      </div>
+                    </section>
+                  </div>
+                  <div v-show="isEmptyObjectV(mpdc__paperDeliver.records)" class="content-block">
+  
+                    <div  v-if="orderDetail.tag==='3'" class="d-flex flex-column">
+                      <span>单品订单已支付，点击【启动交付】开始履约交付</span>
+                      <div class="py-3">
+                        <button v-preventreclick @click="tagCellPlanOrderAsDeliveringV" type="button" class="btn btn-primary">启动交付</button>
+                      </div>
+                    </div>
+                    <span  v-if="orderDetail.tag!='3'" >
+                      还没有交付记录！
+                    </span>
+                  </div>
+                  <div class="deliver-record-container">
+                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
+                  
+                      <div class="d-flex">
+                        <div>
+                          交付内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.deliverName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+  
+                      <div class="d-flex">
+                        
+                        <div>
+                          预览内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.previewName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                   
+                      </div>
+  
+                      <div>
+                        <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
+                      </div>
+                      <div>
+                        <span>提交时间：{{record.createAt}}</span>
+                      </div>
+  
+                      <div class="d-flex">
+                        <div class="delivery-remark-heading">留言：</div>
+                        <div class="delivery-remark-content">
+                          <p class="delivery-remark">
+                            {{record.msg}}
+                          </p>
+                        </div>
+                      </div>
+  
                     </div>
                   </div>
-                  <span  v-if="orderDetail.tag!='3'" >
-                    还没有交付记录！
-                  </span>
+
                 </div>
-                <div class="deliver-record-container">
-                  <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
+
                 
-                    <div class="d-flex">
-                      <div>
-                        交付内容：
-                      </div>
-                      <div class="record-filename">
-                        {{record.deliverName}}
-                      </div>
-                      <div class="ms-2">
-                        <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                      </div>
-                    </div>
-
-                    <div class="d-flex">
-                      
-                      <div>
-                        预览内容：
-                      </div>
-                      <div class="record-filename">
-                        {{record.previewName}}
-                      </div>
-                      <div class="ms-2">
-                        <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                      </div>
-                 
-                    </div>
-
-                    <div>
-                      <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
-                    </div>
-
-                    <div class="d-flex">
-                      <div class="delivery-remark-heading">留言：</div>
-                      <div class="delivery-remark-content">
-                        <p class="delivery-remark">
-                          {{record.msg}}
-                        </p>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
                 
               </div>
 
@@ -474,7 +560,7 @@
 
             </div>
           </div>
-      
+          
            
           
         </main>

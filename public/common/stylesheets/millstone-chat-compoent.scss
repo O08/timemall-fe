@@ -201,7 +201,10 @@ main{
   margin-right: 5px;
 }
 .download{
-color: #2AC230;
+color: #fff9;
+}
+.download:hover{
+  color: #00ba9d;
 }
 .chat-image-btn,.emoji-btn i{
 font-size: 24px;
@@ -288,6 +291,7 @@ display: block;
 .chat-input-wrapper{
 border-radius: 0;
 }
+
 @media (max-width: 576px) {
 .chat-action-wrapper{
   display: block;
@@ -313,5 +317,8 @@ pt-app content main{
 .text-message{
   font-size: 12px;
   line-height: 1.575;
+}
+#imagePreviewModal .modal-body{
+  font-size: 10px;
 }
 }

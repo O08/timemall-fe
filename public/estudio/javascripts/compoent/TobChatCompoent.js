@@ -3,6 +3,8 @@ import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const TobChatCompoent = {
   data(){
@@ -107,7 +109,7 @@ const TobChatCompoent = {
           this.retrieveMessageV(); // fetch message
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     retrieveMessageV(){
@@ -129,7 +131,7 @@ const TobChatCompoent = {
 
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     sendAttachmentV(){
@@ -143,7 +145,7 @@ const TobChatCompoent = {
           $("#sendBigFileModal").modal("hide"); // hide modal
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
 
     },

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const MillstoneChatCompoent = {
   data(){
@@ -54,7 +56,7 @@ const MillstoneChatCompoent = {
           this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     retrieveMessageV(){
@@ -77,7 +79,7 @@ const MillstoneChatCompoent = {
 
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     sendAttachmentV(){
@@ -92,7 +94,7 @@ const MillstoneChatCompoent = {
           $("#sendBigFileModal").modal("hide"); // show modal
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
 
     },

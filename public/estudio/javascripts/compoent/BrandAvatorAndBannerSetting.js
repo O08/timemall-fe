@@ -4,7 +4,8 @@ import axios from 'axios';
 import Cropper from 'cropperjs';
 
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const BrandAvatorAndBannerSetting = {
     data(){
@@ -78,7 +79,7 @@ function showPreviewBannerModal(e,appObj){
     var maxSizeMB = 6; //Size in MB.
     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
     if (size > maxSize) {
-        alert("图片最大为6M!");
+        customAlert.alert("图片最大为6M!");
         return false;
     }
 
@@ -90,7 +91,7 @@ function showPreviewBannerModal(e,appObj){
         // validate image pixel
         if(!(bannerImgFile.width>=1024 && bannerImgFile.height>=576)){
             console.log("current image: width=" + bannerImgFile.width + "  height="+bannerImgFile.height);
-            alert("图片必须至少为 1024 x 576 像素!");
+            customAlert.alert("图片必须至少为 1024 x 576 像素!");
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -156,7 +157,7 @@ function uploadAvatorFile(appObj){
             }
         }).catch(error=>{
             document.querySelector('#file_avator').value = null;
-            alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
+            customAlert.alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
         })
 
       }/*, 'image/png' */);
@@ -181,7 +182,7 @@ function showPreviewAvatorModal(e,appObj){
     var maxSizeMB = 6; //Size in MB.
     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
     if (size > maxSize) {
-        alert("图片最大为6M!");
+        customAlert.alert("图片最大为6M!");
         return false;
     }
 
@@ -191,7 +192,7 @@ function showPreviewAvatorModal(e,appObj){
 
         // validate image pixel
         if(!(avatarImgFile.width>=99 && avatarImgFile.height>=99)){
-            alert("图片必须至少为 99 x 99 像素!");
+            customAlert.alert("图片必须至少为 99 x 99 像素!");
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -256,7 +257,7 @@ function uploadBannerFile(appObj){
             }
         }).catch(error=>{
             document.querySelector('#file_banner').value = null;
-            alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
+            customAlert.alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于6M。异常信息(" + error+ ")");
         })
 
       }/*, 'image/png' */);

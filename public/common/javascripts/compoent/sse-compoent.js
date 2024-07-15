@@ -2,7 +2,9 @@ let source = null;
 
 export default function Ssecompoent(config)  {
     const {
-        sslSetting = {}
+        sslSetting = {
+            need_init: true
+        }
     } = config  
     return {
         data() {
@@ -16,7 +18,9 @@ export default function Ssecompoent(config)  {
             }
         },
         created(){
-            this.sseInitV();
+            if(sslSetting.need_init){
+                this.sseInitV();
+            }
         }
     }
 }

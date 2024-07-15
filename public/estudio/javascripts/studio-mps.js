@@ -10,7 +10,10 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
@@ -29,6 +32,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    tag: ""
                 },
                 paging: {},
                 responesHandler: (response)=>{
@@ -51,7 +55,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
-                  
+                    tag: ""
                 },
                 paging: {},
                 responesHandler: (response)=>{
@@ -101,11 +105,11 @@ const RootComponent = {
             this.mpsTopUpAmount = "";
             this.error="";
         },
-        retrieveMpsChainListByTagV(tag){
-            retrieveMpsChainListByTag(tag);
+        retrieveMpsChainListByTagV(){
+            retrieveMpsChainListByTag();
         },
-        retrieveMpsListByTagV(tag){
-            retrieveMpsListByTag(tag);
+        retrieveMpsListByTagV(){
+            retrieveMpsListByTag();
         },
         resetAndRetrieveMpsListV(){
             resetAndRetrieveMpsList();
@@ -145,10 +149,10 @@ const RootComponent = {
                     $('.iput').val("");
                 }
                 if(response.data.code!=200){
-                    alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         taggingMpsV(chainId,mpsId,tag){
@@ -165,11 +169,11 @@ const RootComponent = {
                     this.findMpsFundInfoV();
                 }
                 if(response.data.code!=200){
-                    alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
                 }
             })
             .catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         retrieveMpsChainTbV(){
@@ -235,7 +239,18 @@ app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 } 
 
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                mpsPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
     
 const mpsPage = app.mount('#app');
 window.cMpsPage = mpsPage;
@@ -286,28 +301,33 @@ function topUpMpsFundB(mpsfundId,amount){
 function addAMps(mps){
     return newMps(mps);
 }
-function retrieveMpsChainListByTag(tag){
-    mpsPage.mps_chain_pagination.param.tag=tag;
+function retrieveMpsChainListByTag(){
+    mpsPage.mps_chain_pagination.current=1;
     mpsPage.reloadPage(mpsPage.mps_chain_pagination);
 };
 function resetAndRetrieveMpsList(){
-
-    mpsPage.mps_list_pagination.param={};
+    mpsPage.mps_list_pagination.current=1;
+    mpsPage.mps_list_pagination.param={tag: ""};
     mpsPage.reloadPage(mpsPage.mps_list_pagination);
 }
 function retrieveMpsChainTb(){
+    mpsPage.mps_chain_pagination.current=1;
     mpsPage.mps_chain_pagination.param.tag="";// reset tag
     mpsPage.reloadPage(mpsPage.mps_chain_pagination);
 }
 function retrieveMpsTb(){
+    mpsPage.mps_list_pagination.current=1;
     mpsPage.reloadPage(mpsPage.mps_list_pagination);
 }
 function filterMpsList(filter){
+    mpsPage.mps_list_pagination.current=1;
+    mpsPage.mps_list_pagination.param.q="";
+    mpsPage.mps_list_pagination.param.tag="";// reset tag
     mpsPage.mps_list_pagination.param.filter=filter;
     mpsPage.reloadPage(mpsPage.mps_list_pagination);
 }
-function retrieveMpsListByTag(tag){
-    mpsPage.mps_list_pagination.param.tag=tag;
+function retrieveMpsListByTag(){
+    mpsPage.mps_list_pagination.current=1;
     mpsPage.reloadPage(mpsPage.mps_list_pagination);
 }
 // search selector start
@@ -378,3 +398,8 @@ function explianMpsChainTag(chainTag){
 function transformInputNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
   }
+
+
+  $(function(){
+	$(".tooltip-nav").tooltip();
+});

@@ -2,7 +2,8 @@ import { createPopup } from "@picmo/popup-picker";
 import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const MpsPaperChatCompoent = {
   data(){
@@ -46,13 +47,19 @@ const MpsPaperChatCompoent = {
       });
 
       rooms.push(mpsId);
-      this.joinRoomsV(mpsId,rooms,()=>{
-        console.log("msg arrivial!");
-        this.retrieveMessageV();
-        // update room msg as read
-        this.putMsgHelperV();
-        // fetch have new msg room
+      this.joinRoomsV(mpsId,rooms,(room)=>{
+        // if in current session ,fetch info
+        if(this.currentRTMChannel==room){
+          this.retrieveMessageV();
+          // update room msg as read
+          this.putMsgHelperV();
+        }
+
+        // fetch have new msg 
+
         this.fetchHaveNewMpsMsgRoomV();
+
+
 
       });
 
@@ -104,7 +111,7 @@ const MpsPaperChatCompoent = {
           this.retrieveMessageV(); // fetch message
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     retrieveMessageV(){
@@ -126,7 +133,7 @@ const MpsPaperChatCompoent = {
 
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
     },
     sendAttachmentV(){
@@ -140,7 +147,7 @@ const MpsPaperChatCompoent = {
           $("#sendBigFileModal").modal("hide"); // hide modal
         }
       }).catch(err=>{
-        alert("系统异常，请检查网络或者重新发送！")
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
       });
 
     },
@@ -298,9 +305,9 @@ const MpsPaperChatCompoent = {
     this.retrieveMessageV();
  },
  updated(){
-  if(document.getElementById("event-tab").ariaSelected=='true'){
-    document.querySelector('main').scrollTop = document.querySelector('main').scrollHeight;
-  }
+    if(document.getElementById("event-tab").ariaSelected=='true'){
+      document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
+    }
  }
 }
 

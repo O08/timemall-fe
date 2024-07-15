@@ -13,7 +13,7 @@
     background-color: #1a1a1a;
   }
   .room-msg-panel,.deliver-record-container{
-    background-color: #272727;
+    background-color: unset;
   }
   .btn-new-deliver{
     border-radius: 5px 0 0 5px;
@@ -35,7 +35,7 @@
   }
   .deliver-record{
     padding: 1rem;
-    border-bottom: 1px solid #efeff046;
+    border-bottom: 1px solid #efeff01c;
     opacity: .7;
   }
   .deliver-record:hover{
@@ -90,7 +90,7 @@
     text-align: center;
     flex-direction: column;
     justify-content: center;
-    background-color: #272727;
+    background-color: unset;
   }
   .btn-container{
     width: 50px;
@@ -112,7 +112,6 @@
     }
   }
   .record-filename{
-    width: 200px;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: left;
@@ -196,6 +195,85 @@
 .plan-feature-label,.which-plan-label {
 font-weight: 700;
 }
+#tob-tablist{
+  border-bottom: 1px solid #fff3;
+}
+#tob-tablist .nav-link {
+  font-size: 20px;
+  background-color: unset;
+  color: #a7a7a7;
+  letter-spacing: .1rem;
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+  font-weight: 800;
+}
+#tob-tablist  .nav-link.active{
+  color: #fff;
+  background-color: unset;
+}
+.main-content-container {
+  min-width: 1000px;
+}
+.plan-info-container,.deliver-panel-container{
+  height: calc(100vh - 142px);
+  overflow-y: scroll;
+}
+.opt_item_container {
+  text-align: center;
+  min-width: 66px;
+}
+.opt_item_head {
+  padding-bottom: .5rem;
+}
+.opt_item_desc {
+  color: #aaa;
+  margin-bottom: 8px;
+  font-size: smaller;
+}
+.opt_item_head .btn {
+  color: #aaa;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #474545;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  position: relative;
+}
+.opt_item_head .btn:hover{
+  border-radius: 5px;
+  color: #fff;
+}
+.record-filename{
+  width: 50%;
+}
+
+.room-msg-panel{
+  height: calc(100vh - 142px);
+}
+.room-msg-container {
+  height: calc(100% - 118px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 8px 28px 16px 32px;
+  margin: 0 4px 0 0;
+  overflow-y: auto;
+}
+.chat-input-wrapper{
+  position: relative;
+}
+pt-app content main {
+  overflow-x: scroll;
+  padding: 32px;
+}
+pt-app content main {
+  padding-bottom: 0;
+}
+
   @media (max-width: 1162px) {
     .chat-action-wrapper{
         display: block;
@@ -203,6 +281,34 @@ font-weight: 700;
       .chat-send-btn{
         margin-top: 1rem;
       }
+      .record-filename{
+        width: 200px;
+      }
+      .room-msg-container {
+        height: calc(100% - 166px);
+      }
+}
+@media (width <= 576px) {
+  .room-msg-panel,.plan-info-container, .deliver-panel-container  {
+    height: calc(100vh - 174px);
+  }
+  .room-msg-container {
+    height: calc(100% - 206px);
+  }
+  pt-app content main {
+    padding: 32px 0;
+  }
+  .papaer-info-container, .deliver-panel-container,.chat-container {
+    height: calc(100vh - 174px);
+}
+.plan-info-container, .deliver-panel-container {
+  padding-bottom: 100px !important;
+}
+.room-msg-container{
+  min-height: unset;
+}
+
+
 }
 
   

@@ -360,6 +360,15 @@ body::-webkit-scrollbar {
     margin-bottom: 8px;
     font-size: smaller;
 }
+.wechatQr-upload-container{
+    width: 204px;
+    height: 204px;
+}
+ .wechatQr-upload-container img{
+    width: 200px;
+    height: 200px;
+}
+
 @media (max-width: 767px){
     .cropped-banner-container, .cropped-avatar-container{
         width: 600px;

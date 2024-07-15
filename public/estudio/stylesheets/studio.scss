@@ -145,7 +145,10 @@ body {
 }
 
 .sidebar .nav-link span {
-    padding-left: 10px;
+    padding-left: 12px;
+}
+.sidebar .nav-link i{
+   font-size: 18px;
 }
 .pagination {
     --bs-pagination-color: #95979d;
@@ -516,29 +519,7 @@ img:after {
   #section_feedback_offcanvas .btn-close ,.offcanvas-header .btn-close{
      background-color: #fff;
   }
-  /*----------------------------------------------------
-    16. contentediable compoent default style
-------------------------------------------------------*/
-.textarea {
-  border: 1px solid #ccc;
-  font-family: inherit;
-  font-size: inherit;
-  padding: 5px 6px;
-}
 
-.textarea {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  resize: both;
-  min-height: 40px;
-  line-height: 20px;
-}
-
-.textarea[contenteditable]:empty::before {
-  content: attr(placeholder);
-  color: gray;
-}
   /*----------------------------------------------------
 file upload
 ------------------------------------------------------*/
@@ -728,7 +709,40 @@ file upload
 	font-weight: 400;
 	font-size: 0.75rem;
 }
-/* other */
+.z-index-2{
+  z-index: 2;
+}
+.dot-info {
+  width: 8px;
+  height: 8px;
+  vertical-align: super;
+  background-color: #4CFFA9 !important;
+  border-radius: 50%;
+  display: inline-block;
+}
+  /*----------------------------------------------------
+    16. contentediable compoent default style
+------------------------------------------------------*/
+.textarea {
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 5px 6px;
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  resize: both;
+  min-height: 40px;
+  line-height: 20px;
+}
+
+.textarea[contenteditable]:empty::before {
+  content: attr(placeholder);
+  color: gray;
+}
 
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
 @media only screen and (min-width: 1400px) {

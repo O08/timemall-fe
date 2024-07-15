@@ -7,6 +7,12 @@
     background-color: #212529;
     border: none;
     font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    padding-left: 0;
+}
+.data-tb-filter:hover{
+    background-color: #212529;
 }
 .data-tb-container th{
     vertical-align: middle;
@@ -18,12 +24,7 @@
     display: inline-block;
     overflow: hidden;
 }
-.td-snippet{
-    max-width: 500px;
-}
-.td-details{
-    max-width: 200px;
-}
+
 .table-group-divider {
     border-color: #373b3e;
 }
@@ -33,6 +34,61 @@
 #fullViewDataModal .btn-close{
    background-color: #666;
 }
+.col-time{
+    width: 13%;
+    min-width: 130px;
+}
+.col-option {
+    width: 7%;
+    min-width: 70px;
+}
+.col-type{
+    width: 10%;
+    min-width: 100px;
+}
+.col-snippet{
+    width: 35%;
+    min-width: 350px;
+}
+.col-details{
+    width: 35%;
+    min-width: 350px;
+}
+.top-search-input {
+    color: #b5b6ba;
+    letter-spacing: .6px;
+    background: #212529;
+    border: 1px solid #555;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: 44px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .top-search-input::placeholder {
+    color: #bbb;
+  }
+  .input-group-search-btn{
+      border: 1px solid #555;
+  }
+.top-search-input:focus{
+    background: #212529;
+    caret-color:#fff;
+    color: #fff;
+}
+#fullViewDataModal .btn-close{
+    background-color: #f1f1f1;
+}
+#fullViewDataModal  .modal-content{
+  padding: unset;
+}
+
+@media only screen and (width >= 1400px) {
+    .input-normal-search {
+        width: 45%;
+    }
+}
+
 @media (max-width: 576px) {
     .data-tb-filter{
         font-size: 14px;
