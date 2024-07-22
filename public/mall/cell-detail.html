@@ -158,24 +158,28 @@
                 <div  class="tab-pane fade show active" id="intro-tab-pane" role="tabpanel" aria-labelledby="intro-tab" tabindex="0">
            
                   <div class="can_opt_wrapper d-flex">
+
                     <div class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
-                        <button class="btn btn-outline-primary  copy-link" @click="copyWindowUrlToClipboardV(profile.title)">
-                          <i class="bi bi-link-45deg"></i>
-                        </button>
+                        <a>
+                          <button  class="btn btn-dark  copy-link d-flex justify-content-center" @click="copyWindowUrlToClipboardV(profile.title)">
+                            <i class="bi bi-link-45deg"></i>
+                          </button>
+                        </a>
                       </div>
                       <span class="opt_item_desc">复制链接</span>
                     </div>
+
                     
                     <div class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
                         <a :href="'/micro/arch/channel-0002?friend='+ brandProfile.brandUserId" target="_blank">
                           <button  class="btn btn-outline-primary private-msg-link">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M7.49994 9.99992H12.4999" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
-                              <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
-                              <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="#949494" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg> 
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M8.99991 11.9999H14.9999" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                              <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                              <path d="M15 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H15" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                              </svg>  
                             <div v-if="profile.brandMark=='3'"  class="online-indicator">
                               <div class="online-indicator-content">
                               </div>
@@ -183,7 +187,19 @@
                           </button>
                         </a> 
                       </div>
-                      <span class="opt_item_desc">问一问</span>
+                      <span class="opt_item_desc">问一问商家</span>
+                    </div>
+
+
+                    <div class="opt_item_container d-flex flex-column justify-content-center">
+                      <div class="opt_item_head">
+                        <a :href="'/micro/arch/channel-0002?friend='+ hostingPartner" target="_blank">
+                          <button  class="btn btn-dark  copy-link d-flex justify-content-center">
+                            <i class="bi bi-slash-circle"></i>
+                          </button>
+                        </a>
+                      </div>
+                      <span class="opt_item_desc">接线员</span>
                     </div>
 
                     

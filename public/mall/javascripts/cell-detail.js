@@ -41,6 +41,7 @@ const RootComponent = {
                 records: []
             },
             displayPlan:{},
+            hostingPartner: "",
             focusModal:{
                 feed: "",
                 confirmHandler:()=>{
@@ -81,6 +82,9 @@ const RootComponent = {
         },
         fetchCellPlanV(){
             fetchCellPlan();
+        },
+        fetchBluvarrierV(){
+            fetchBluvarrier();
         },
         orderCellPlanV(){
             orderCellPlan(this.displayPlan.planId);
@@ -136,7 +140,7 @@ const RootComponent = {
             return $.isEmptyObject(obj);
         },
         copyWindowUrlToClipboardV(productTitle){
-            const content = "【Bluvarri】 " + window.location.href + " 「 " +productTitle + "」 点击链接直接打开 或者 Bluvarri 搜索直接打开 ";
+            const content = "【Bluvarri】 " + window.location.href + " 「 " +productTitle + "」 点击链接直接打开 或者 bluvarri.com 搜索直接打开 ";
             copyValueToClipboard(content);
         }
     },
@@ -144,6 +148,7 @@ const RootComponent = {
       this.loadCellInfoV();
       this.fetchCellPlanV();
       this.uploadCellDataLayerClicksV();
+      this.fetchBluvarrierV();
     },
     updated(){
         
@@ -223,6 +228,17 @@ async function doSendOrderReceivingEmail(dto){
 async function doFetchCellPlan(cellId){
     const url="/api/v1/web_mall/services/{cell_id}/plan".replace("{cell_id}",cellId);
     return await axios.get(url);
+}
+async function doFetchBluvarrier(){
+    const url="/api/v1/web_mall/bluvarrier";
+    return await axios.get(url);
+}
+async function fetchBluvarrier(){
+    doFetchBluvarrier().then(response=>{
+        if(response.data.code==200){
+           cellDetailPage.hostingPartner=response.data.bluvarrier.customerId;
+        }
+    })
 }
 async function doOrderCellPlan(planId){
 
