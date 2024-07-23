@@ -2,6 +2,7 @@ import "/common/javascripts/import-jquery.js";
 import { goLoginPage,goWelcome } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
+import defaultAvatarImage from '/avator.webp';
 
 
 
@@ -13,8 +14,9 @@ export default function Auth(params) {
      return {
         data() {
             return {
-                user_already_login: false
-               
+                user_already_login: false,
+                defaultAvatarImage
+
             }
         },
         methods: {

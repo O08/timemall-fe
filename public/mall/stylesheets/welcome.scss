@@ -678,9 +678,23 @@ svg:not(:root) {
 .thumbnail-container:hover img {
     transform: scale(.97)!important
 }
-
+.button_user,.join-now,.button_login{
+    display: none;
+}
+.join-now,.button_login{
+    height: unset;
+}
 // tablets ipad air mini pro
 @media (min-width: 768px) and  (max-width: 1024px) {
+    header .nav_links{
+        font-size: 12px;
+    }
+    .join-now,.button_login{
+        padding: .325rem .275rem;
+        width: 66px;
+        font-size: 12px;
+        border-radius: 16px;
+    }
     .brand-info .display_name {
         width: 80px;
     }

@@ -300,8 +300,17 @@ nav{
 .cell-card-body-bg:hover{
   opacity: 1;
 }
-
+.join-now,.button_login{
+  height: unset;
+}
 @media (max-width: 576px) {
+
+  .join-now,.button_login{
+    padding: .325rem .275rem;
+    width: 66px;
+    font-size: 12px;
+    border-radius: 16px;
+}
 
 .header-container {
   padding-left: 12px;

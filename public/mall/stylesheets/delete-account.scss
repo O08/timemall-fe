@@ -198,7 +198,12 @@ a{
     color: var(--bs-gray-600);
     font-size: small;
 }
-
+.button_user,.join-now,.button_login{
+    display: none;
+}
+.join-now,.button_login{
+    height: unset;
+}
 @media (max-width: 600px) {
     html { font-size: 12px; }
 }

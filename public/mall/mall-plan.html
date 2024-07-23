@@ -8,7 +8,7 @@
     <meta name=”robots” content=”index,follow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="/favicon.png">
+   <link rel="icon" href="/favicon.png">
     <title>超多品质单品，浏览、购买、交付一步到位，体验不满意随刻退 - 咘噜咓单品</title>
     <meta name="description" content="超多品类单品，交付流程标准化，交付内容具体化，不满意随时退。">
 
@@ -69,8 +69,8 @@
               <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>
 
               <div v-if="user_already_login" class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle button_user" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i>
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>

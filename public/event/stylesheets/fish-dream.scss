@@ -59,45 +59,20 @@ a{
     -ms-flex-align: center;
     align-items: center;
 }
-.appButton{
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    width: 124px;
-    text-align: end;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    -ms-flex-flow: row-reverse;
-    flex-flow: row-reverse;
-}
+
 .button_login{
-    white-space: nowrap;
-    border-radius: 40px;
-    font-size: 14px;
-    padding: 7px 16px;
-    line-height: 24px;
-    cursor: pointer;
-    font-weight: 500;
-    display: -webkit-inline-box;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-transition-property: background-color,color,-webkit-box-shadow;
-    transition-property: background-color,color,-webkit-box-shadow;
-    transition-property: background-color,color,box-shadow;
-    transition-property: background-color,color,box-shadow,-webkit-box-shadow;
-    -webkit-transition-duration: .2s;
-    transition-duration: .2s;
-    -webkit-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-}
+    border-color: #fff;
+    border-radius: 30px;
+    height: 34px;
+    width: 88px;
+  }
+  
+  .join-now{
+    margin-left: 12px;
+    border-radius: 30px;
+    height: 34px;
+    width: 88px;
+  }
 
 .nav_links{
     -webkit-box-flex: 1;
@@ -251,22 +226,33 @@ a{
     padding-left: .5rem;
 }
 
-
+.button_user,.join-now,.button_login{
+    display: none;
+}
+.join-now,.button_login{
+    height: unset;
+}
 @media (max-width: 600px) {
     html { font-size: 12px; }
 }
 @media (max-width: 48rem){
-   
+    header .nav_links{
+        font-size: 12px;
+    }
+    .header-container{
+        padding: 0 6px;
+    }
+    .join-now,.button_login{
+        padding: .325rem .275rem;
+        width: 66px;
+        font-size: 12px;
+        border-radius: 16px;
+    }
     .nav_links{
       font-size: 14px;
     }
-    .header-container{
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .appButton{
-        width: 64px;
-    }
+
+
     .nav_link{
         margin: 2px;
     }

@@ -78,7 +78,7 @@
 
                 <div class="btn-group">
                   <button type="button" class="btn btn-secondary dropdown-toggle button_user" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-circle"></i>
+                    <img  src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/avator.png" alt="brand avatar">
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
@@ -250,7 +250,6 @@
             </div>
             <div class="hero-adorn">
               <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/hero_image_dog.png" alt="hero-adorn-dog">
-
             </div>
 
           </div>
@@ -556,12 +555,13 @@
             shotDetailContainer.className="shot-detail-container";
 
               const brandInfo=document.createElement("div");
+              const defaultBrandAvatar="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/avator.png";
               brandInfo.className="brand-info";
                 const brandAvatarEl=new Image();
                 brandAvatarEl.onerror=function(){
-                  brandAvatarEl.src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/avator.png";
+                  brandAvatarEl.src=defaultBrandAvatar;
                 }
-                brandAvatarEl.src=element.brandAvatar;
+                brandAvatarEl.src= !element.brandAvatar ? defaultBrandAvatar : element.brandAvatar;
                 brandAvatarEl.alt=element.brandName;
                 brandAvatarEl.className="photo";
                 const brandNameEl=document.createElement("span");

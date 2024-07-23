@@ -409,7 +409,17 @@ nav{
   height: 30px;
 }
 
+.join-now,.button_login{
+  height: unset;
+}
+
 @media (max-width: 576px) {
+  .join-now,.button_login{
+    padding: .325rem .275rem;
+    width: 66px;
+    font-size: 12px;
+    border-radius: 16px;
+}
 .input-search-area {
     width: 200px;
 }

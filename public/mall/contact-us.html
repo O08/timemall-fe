@@ -10,6 +10,7 @@
     <meta name="description" content="咘噜咓对外通道,合作、咨询、支持和反馈建议随时与我们取得联系">
     <link rel="icon" href="/favicon.png">
     <title>咘噜咓友好型客户支持随时为您提供帮助 - 咘噜咓</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/mall/stylesheets/contact-us.scss">
 
@@ -66,8 +67,8 @@
               <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>
 
               <div v-if="user_already_login" class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle button_user" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i>
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>

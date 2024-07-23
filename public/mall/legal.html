@@ -8,8 +8,10 @@
 
     <meta name="keywords" content="咘噜咓官网适用法律条款">
     <meta name="description" content="法律声明阐述用户使用群巅产品与服务相关的权利与义务">
-<link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.png">
     <title>法律声明 - 咘噜咓</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <style>
@@ -116,6 +118,9 @@ nav{
   height: 34px;
   width: 88px;
 }
+.join-now,.button_login{
+    height: unset;
+}
 @media (max-width: 576px) {
 
 .header-container {
@@ -136,6 +141,12 @@ nav{
 .header-primary-container .nav_links{
   display: none;
 }
+.join-now,.button_login{
+        padding: .325rem .275rem;
+        width: 66px;
+        font-size: 12px;
+        border-radius: 16px;
+    }
 
 }
     </style>
@@ -192,8 +203,8 @@ nav{
               <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>
 
               <div v-if="user_already_login" class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle button_user" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i>
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <li>

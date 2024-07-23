@@ -154,8 +154,21 @@ text-align: center;
     color:#848d97;
     word-break: break-all;
 }
+.button_user,.join-now,.button_login{
+    display: none;
+}
+.join-now,.button_login{
+    height: unset;
+}
+
 // mobile
 @media (max-width: 48rem){
+    .join-now,.button_login{
+        padding: .325rem .275rem;
+        width: 66px;
+        font-size: 12px;
+        border-radius: 16px;
+    }
     .header-container{
         padding-bottom: 0;
     }
