@@ -3,23 +3,8 @@ header{
   z-index: 1035;
 }
 
-@media only screen and (min-width: 1400px) {
-  .oasis-risk-box{
-    width: 800px;
-  }
-  .form-floating{
-    width: 800px;
-  }
-}
-@media (min-width: 767px) {
-  .oasis-risk-box{
-    width: 600px;
-  }
-  .form-floating{
-    width: 500px;
 
-  }
-}
+
 // }
 .carousel-item {
   margin-top: 4%;
@@ -30,30 +15,46 @@ header{
 .oasis-base {
   margin-left: 20%;
 }
-
-.cover-upload-container,.cover-upload-container img{
+.cover-upload-container{
+  width: 204px;
+  height: 204px;
+}
+.cover-upload-container img{
   width: 200px;
   height: 200px;
 }
 .form-floating{
-  min-width: 400px;
-  height: 70px;
   color: #666;
+  width: 100%;
 }
 .text-preline{
   white-space: pre-line;
 }
 .oasis-risk-box{
-  color: #fff;
-  background-color: #2c3e50;
+  color: #000;
+  background-color: #fff;
   border: none;
   border-radius: 5px;
-  font-size: 20px;
-  font-weight: normal;
-  min-width: 400px;
   min-height: 200px;
-  max-width: 800px;
+  max-width: 1200px;
   white-space: pre-line;
+  padding: 1rem .75rem;
+  padding-top: 1.625rem;
+  padding-bottom: .625rem;
+  font-size: 16px;
+  line-height: 1.765;
+}
+.announce-container{
+  max-width: 1200px;
+  border-radius: 5px;
+  width: 100%;
+  min-height: 320px;
+
+}
+.announce-container img{
+  width: 100%;
+  border-radius: 5px;
+
 }
 .publish-agreement ol{
   padding-right: 4rem;
@@ -64,6 +65,15 @@ header{
   font-weight: 700;
   line-height: 1.575;
 }
+.form-floating > .form-control{
+  height: unset;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.765;
+}
+:after{
+  content: "";
+}
 @media (max-width: 576px) {
   .btn-option-primary-micro,.btn-option-secondary-micro{
     width: 120px;
@@ -73,14 +83,11 @@ header{
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .input-base-item{
-    max-width: 300px;
-  }
-  .oasis-risk-box{
-    min-width: 300px;
-    width: 300px;
-  }
+
   .publish-agreement ol{
     padding-right: 1rem;
   }
+}
+.modal-content{
+  background-color: #fff;
 }

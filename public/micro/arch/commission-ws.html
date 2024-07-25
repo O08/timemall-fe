@@ -6,7 +6,7 @@
     <meta name=”robots” content=”index,follow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.png">
     <title>委托空间</title>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
@@ -18,59 +18,214 @@
 <body>
     <mall-app id="app" v-cloak>
       <div class="app-container">
-        <header class="p-3 text-white">
-          <div class="mx-120 d-grid gap-3 align-items-center justify-content-center">
-            <div class="d-flex align-items-center logo">
-              <div class="d-flex align-items-center logo">
-                <a href="/micro/discovery-oasis" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                  <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+        <!-- header nav -->
+        <header class="text-white">
+          <div class="d-flex justify-content-between align-items-center hdlayout">
+
+            <div class="d-flex align-items-center">
+              <div class="toggle-nav">
+                <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
                   </svg>
-                  <div class="align-middle">
-                    <h2 class="my-0">少数派</h2>
-                  </div>
-                </a>
+                </button>
               </div>
-            </div>
-            <div class="header-offcanvas">
-              <button class="btn btn-primary toggle-nav" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="offcanvas-xxl flex-grow-1 offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="offcanvasRightLabel">咘噜咓</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasRight" aria-label="Close"></button>
+              <a href="/micro/discovery-oasis">
+                <div class="d-flex align-items-center logo">
+                  <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                  <h2 class="mb-0 ms-2">少数派</h2>
                 </div>
-                <div class="offcanvas-body justify-content-end">
-                  <nav>
-                    <ul class="nav header-navbar col-12 col-lg-auto me-lg-auto mb-2 justify-content-end mb-md-0 text-center">
-                      <li class="nav-item">
-                        <a href="/blog/blog" class="nav-link  px-lg-3 px-xl-5 text-white" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="媒体与资源"> 
-                          最新资讯
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
+              </a>
+
             </div>
             
+            <div>
+              
+              <div class="btn-group" style="margin-right: 8px;" >
+              
+                <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+                  <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                      </svg>                  
+                  </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a href="/">
+                      <button class="dropdown-item" type="button">
+                        <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/micro/discovery-oasis">
+                      <button class="dropdown-item" type="button">
+                        <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 少数派
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/home">
+                      <button class="dropdown-item" type="button">
+                        <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 精选商店
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/micro/affiliate/dashboard">
+                      <button class="dropdown-item" type="button" >
+                        <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                      </button>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="/epod/pod-millstone">
+                      <button class="dropdown-item" type="button" >
+                        <i class="bi bi-tags me-2"></i> E-Pod
+                      </button>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/estudio/studio-store">
+                      <button class="dropdown-item" type="button" >
+                        <i class="bi bi-laptop me-2"></i> 薪动工作室
+                      </button>
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+
+            
+
+              <div class="btn-group private-msg-atom" style="margin-right: 8px;">
+                <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="tooltip-nav" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="消息">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M2.80403 8.3533C2.52389 10.9562 2.53637 13.9582 2.9262 16.5505C3.1419 17.9849 4.31257 19.0845 5.75763 19.2102L7.26787 19.3414C10.4169 19.6152 13.5838 19.6152 16.7328 19.3414L18.2431 19.2102C19.6881 19.0845 20.8588 17.9849 21.0745 16.5505C21.4643 13.9582 21.4768 10.9564 21.1967 8.35345C21.1605 8.05169 21.1197 7.75034 21.0745 7.44949C20.8588 6.0151 19.6881 4.91545 18.2431 4.78983L16.7328 4.65855C13.5838 4.38481 10.4169 4.38481 7.26787 4.65855L5.75763 4.78983C4.31257 4.91545 3.1419 6.0151 2.9262 7.44949C2.88096 7.75028 2.84024 8.05159 2.80403 8.3533ZM7.39777 6.15292C10.4604 5.88669 13.5403 5.88669 16.6029 6.15292L18.1131 6.2842C18.8675 6.34977 19.4786 6.92379 19.5912 7.67254C19.6029 7.7503 19.6142 7.82809 19.6253 7.90592L14.0643 10.9954C12.7807 11.7085 11.2199 11.7085 9.93632 10.9954L4.37539 7.90596C4.38645 7.82812 4.39783 7.75031 4.40952 7.67254C4.52211 6.92379 5.13321 6.34977 5.88754 6.2842L7.39777 6.15292ZM19.8088 9.51989C20.0028 11.7876 19.9303 14.0725 19.5912 16.3274C19.4786 17.0762 18.8675 17.6502 18.1132 17.7158L16.6029 17.8471C13.5403 18.1133 10.4604 18.1133 7.39777 17.8471L5.88754 17.7158C5.13321 17.6502 4.52211 17.0762 4.40952 16.3274C4.07043 14.0725 3.99787 11.7877 4.19184 9.51992L9.20786 12.3066C10.9445 13.2714 13.0561 13.2714 14.7928 12.3066L19.8088 9.51989Z" fill="white"/>
+                      </svg>  
+                  </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <div class="friend-header">
+                    私信（{{friends.totalUnRead}}）
+                  </div>
+                  <div class="friend-list">
+
+                    <li class="friend-item"   v-for="friend in friends.records">
+                      <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                        <div class="friend-container">
+                          <div class="frend-avatar-container">
+                            <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            <div v-if="friend.brandMark=='3'" class="online-indicator">
+                              <div class="online-indicator-content">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="friend-info">
+                            <div class="friend-name"><span class="ellipsis-1">{{friend.title}}</span> </div>
+                            <div class="friend-msg"> <span class="ellipsis-1">{{friend.latestContent}}</span> </div>
+                            <div class="msg-time">{{getPublishTimeV(friend.modifiedAt)}}</div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+
+                  
+
+                  </div>
+                  
+
+
+                </ul>
+              </div>
+
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a href="/estudio/studio-setting-profile">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-person-vcard me-2"></i> 品牌形象
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                      <button @click="logout()" class="dropdown-item" type="button">   
+                        <i class="bi bi-box-arrow-right me-2"></i> 注销 
+                      </button>
+                  </li>
+                  <li>
+                    <a href="/mall/delete-account">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-trash3 me-2"></i> 删除账号
+                      </button>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                      <i class="bi bi-flag me-2"></i> 反馈
+                    </button>
+                  </li>
+                </ul>
+              </div>
+      
+              
+            </div>
+
+
           </div>
         </header>
         <content>
           <main class="content-main">
-            <div class="btn-go-back pb-5 ps-2"><a onclick="goBack()" class="url-link"><i class="bi bi-caret-left"></i>返回</a></div>
+            <div class="data-tag">快速访问</div>
+            <div class="nav-tabs-container">
 
-            <div class="nav-tabs-container pb-5">
-              <ul class="nav nav-tabs border-0" id="tob-tablist" role="tablist">
+              <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">服务内容</button>
+                  <a class="text-decoration-none" :href="'/micro/oasis/commission?oasis_id=' + commissionDetail.oasisId">
+                    <button class="nav-link">基地委托</button>
+                  </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="true">事件</button>
+                  <a class="text-decoration-none" :href="'/micro/oasis/?oasis_id=' + commissionDetail.oasisId">
+                    <button class="nav-link">基地主页</button>
+                  </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                <button class="nav-link" id="deliver-tab" data-bs-toggle="tab" data-bs-target="#deliver-tab-pane" type="button" role="tab" aria-controls="deliver-tab-pane" aria-selected="true">交付</button>
+                  <a class="text-decoration-none" :href="'/micro/arch/channel-0001?oasis_id=' + commissionDetail.oasisId">
+                    <button class="nav-link">Fan圈</button>
+                  </a>
+                </li>
+              </ul>
+
+            </div>
+
+            <div class="nav-tabs-container">
+              <ul class="nav nav-tabs" id="tob-tablist" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">
+                  <i class="bi bi-briefcase"></i>
+                  服务内容
+                </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="true">
+                  <i class="bi bi-chat-dots"></i>
+                  沟通
+                </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="deliver-tab" data-bs-toggle="tab" data-bs-target="#deliver-tab-pane" type="button" role="tab" aria-controls="deliver-tab-pane" aria-selected="true">
+                  <i class="bi bi-box-seam"></i>
+                  交付
+                </button>
                 </li>
               </ul>
             </div>
@@ -80,7 +235,7 @@
               <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
                 <div class="room-msg-panel">
 
-                  <div class="room-msg-container h-100">
+                  <div class="room-msg-container">
 
                     <div v-for="(item,i) in eventObj.records" class="event-date">
                       <a class="btn btn-dark tag-collapse-ctl" data-bs-toggle="collapse" :href="'#block_'+i" role="button" :aria-expanded="eventObj.records.length<3 || i > eventObj.records.length-3">
@@ -129,49 +284,51 @@
 
                   </div>
 
-                  
-
-                  
-
-
-                </div>
-
-                <div class="chat-input-wrapper">
-                  <div class="input-wrapper">
-                    <textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="Enter your message here"></textarea>
-                  </div>
-                  <div class="chat-action-wrapper">
-                    <div class="chat-action-option">
-                      <span>
-                        <div class="chat-attachment-btn chat-btn-container">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
-                            <defs></defs>
-                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"></path>
-                          </svg>
-                          <input @change="handleBigFileChange($event)" id="selection_attachment" type="file" class="input-file">
-                        </div>
-                      </span>
-                      <span>
-                        <div id="selection-outer" class="selection-outer ms-2 chat-btn-container">
-                          <div id="selection">
-                            <button id="selection-emoji" class="empty emoji-btn">
-                              <i class="bi bi-emoji-smile"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </span>
-                      <span>
-                        <div class="ms-2 chat-btn-container">
-                          <div class="img-btn" >
-                            <i class="bi bi-image chat-image-btn"></i>
-                            <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
-                          </div>
-                        </div>
-                      </span>
+                  <div class="chat-input-wrapper">
+                    <div class="input-wrapper">
+                      <textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="Enter your message here"></textarea>
                     </div>
-                    <button v-preventreclick @click="sendTextMessageV" class="chat-send-btn">发送</button>
+                    <div class="chat-action-wrapper">
+                      <div class="chat-action-option">
+                        <span>
+                          <div class="chat-attachment-btn chat-btn-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
+                              <defs></defs>
+                              <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"></path>
+                            </svg>
+                            <input @change="handleBigFileChange($event)" id="selection_attachment" type="file" class="input-file">
+                          </div>
+                        </span>
+                        <span>
+                          <div id="selection-outer" class="selection-outer ms-2 chat-btn-container">
+                            <div id="selection">
+                              <button id="selection-emoji" class="empty emoji-btn">
+                                <i class="bi bi-emoji-smile"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </span>
+                        <span>
+                          <div class="ms-2 chat-btn-container">
+                            <div class="img-btn" >
+                              <i class="bi bi-image chat-image-btn"></i>
+                              <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                      <button v-preventreclick @click="sendTextMessageV" class="chat-send-btn">发送</button>
+                    </div>
                   </div>
+
+                  
+
+                  
+
+
                 </div>
+
+                
 
                 
                 
@@ -180,7 +337,11 @@
             <!-- event tab end -->
             <!-- sow tab begin -->
               <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
-                <section class="section-commission-header ps-4">
+
+                <div class="commission-info-container pb-5">
+
+
+                <section class="section-commission-header ps-4 pt-5">
                   <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
                       <div class="col">
                           <h3>服务</h3>
@@ -203,184 +364,132 @@
               <section class="section-commission-info ps-4">
                   <div class="which-commission d-flex">
                     <div>
-                      <h3>摘要:</h3>
+                      <h6>摘要:</h6>
                     </div>
                   </div>
-                  <div class="commission-content-wrapper ps-5 pt-3">
-                      <div class="commission-content-info pt-5">
+                  <div class="commission-content-wrapper ps-4">
+                      <div class="commission-content-info">
                         <p class="paragraph">
                           {{commissionDetail.sow}}
                         </p>
                       </div>
-                      <div class="price py-4">
-                        <i>
-                          ￥
-                        </i>
-                        <ins class="text-decoration-none price-txt">{{commissionDetail.bonus}}</ins>
-                      </div>
-                      <div class="plan-mark">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
-                          <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
-                          <defs>
-                          <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
-                          <stop offset="0.314" stop-color="#FF9800"/>
-                          <stop offset="0.662" stop-color="#FF6D00"/>
-                          <stop offset="0.972" stop-color="#F44336"/>
-                          </radialGradient>
-                          <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
-                          <stop offset="0.214" stop-color="#FFF176"/>
-                          <stop offset="0.328" stop-color="#FFF27D"/>
-                          <stop offset="0.487" stop-color="#FFF48F"/>
-                          <stop offset="0.672" stop-color="#FFF7AD"/>
-                          <stop offset="0.793" stop-color="#FFF9C4"/>
-                          <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
-                          <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
-                          <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
-                          <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
-                          </radialGradient>
-                          </defs>
-                          </svg>
-                          
-                        <span class="ms-2 tag-desc">{{explainOasisCommissionTagV(commissionDetail.tag)}}</span>
-                      </div>
+                  </div>
+                  <div class="price py-3">
+                    <i>
+                      ￥
+                    </i>
+                    <ins class="text-decoration-none price-txt">{{commissionDetail.bonus}}</ins>
+                  </div>
+
+                  <div class="plan-mark">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
+                      <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
+                      <defs>
+                      <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
+                      <stop offset="0.314" stop-color="#FF9800"/>
+                      <stop offset="0.662" stop-color="#FF6D00"/>
+                      <stop offset="0.972" stop-color="#F44336"/>
+                      </radialGradient>
+                      <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
+                      <stop offset="0.214" stop-color="#FFF176"/>
+                      <stop offset="0.328" stop-color="#FFF27D"/>
+                      <stop offset="0.487" stop-color="#FFF48F"/>
+                      <stop offset="0.672" stop-color="#FFF7AD"/>
+                      <stop offset="0.793" stop-color="#FFF9C4"/>
+                      <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
+                      <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
+                      <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
+                      <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
+                      </radialGradient>
+                      </defs>
+                      </svg>
+                      
+                    <span class="ms-2 tag-desc">{{explainOasisCommissionTagV(commissionDetail.tag)}}</span>
                   </div>
 
               </section>
-                
-                
-                
+
+                </div>
 
               </div>
             <!-- sow tab end -->
             <!-- deliver tab begin -->
               <div class="tab-pane fade" id="deliver-tab-pane" role="tabpanel" aria-labelledby="deliver-tab" tabindex="0">
-                <div v-if="commissionDetail.tag==='2' && mpdc__paperDeliver.role==='supplier' && !taskInConfirmIngV()"  class="deliver-panel-header">
-                  <section class="event-wrapper new-order">
-                    <div @click="showAddNewDeliverModalV" class="btn-container ms-5">
-                      <div class="package-icon new-order">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 6H8V2H6V6H2V8H6V12H8V8H12V6Z" />
-                          <path d="M29.919 16.606L26.919 9.606C26.842 9.42608 26.7139 9.27273 26.5505 9.165C26.3871 9.05727 26.1957 8.99989 26 9H23V7C23 6.73478 22.8946 6.48043 22.7071 6.29289C22.5196 6.10536 22.2652 6 22 6H15V8H21V20.556C20.5443 20.8206 20.1456 21.1728 19.8267 21.5922C19.5078 22.0117 19.2751 22.4902 19.142 23H12.858C12.6405 22.1418 12.143 21.3806 11.4442 20.8368C10.7455 20.2931 9.88538 19.9979 9 19.9979C8.11462 19.9979 7.25452 20.2931 6.55578 20.8368C5.85703 21.3806 5.35953 22.1418 5.142 23H4V14H2V24C2 24.2652 2.10536 24.5196 2.29289 24.7071C2.48043 24.8946 2.73478 25 3 25H5.142C5.35953 25.8582 5.85703 26.6194 6.55578 27.1632C7.25452 27.7069 8.11462 28.0021 9 28.0021C9.88538 28.0021 10.7455 27.7069 11.4442 27.1632C12.143 26.6194 12.6405 25.8582 12.858 25H19.142C19.3595 25.8582 19.857 26.6194 20.5558 27.1632C21.2545 27.7069 22.1146 28.0021 23 28.0021C23.8854 28.0021 24.7455 27.7069 25.4442 27.1632C26.143 26.6194 26.6405 25.8582 26.858 25H29C29.2652 25 29.5196 24.8946 29.7071 24.7071C29.8946 24.5196 30 24.2652 30 24V17C30 16.8645 29.9725 16.7305 29.919 16.606ZM9 26C8.60444 26 8.21776 25.8827 7.88886 25.6629C7.55996 25.4432 7.30362 25.1308 7.15224 24.7654C7.00087 24.3999 6.96126 23.9978 7.03843 23.6098C7.1156 23.2219 7.30608 22.8655 7.58579 22.5858C7.86549 22.3061 8.22186 22.1156 8.60982 22.0384C8.99778 21.9613 9.39991 22.0009 9.76537 22.1522C10.1308 22.3036 10.4432 22.56 10.6629 22.8889C10.8827 23.2178 11 23.6044 11 24C10.9992 24.5302 10.7882 25.0384 10.4133 25.4133C10.0384 25.7882 9.53019 25.9992 9 26ZM23 11H25.34L27.484 16H23V11ZM23 26C22.6044 26 22.2178 25.8827 21.8889 25.6629C21.56 25.4432 21.3036 25.1308 21.1522 24.7654C21.0009 24.3999 20.9613 23.9978 21.0384 23.6098C21.1156 23.2219 21.3061 22.8655 21.5858 22.5858C21.8655 22.3061 22.2219 22.1156 22.6098 22.0384C22.9978 21.9613 23.3999 22.0009 23.7654 22.1522C24.1308 22.3036 24.4432 22.56 24.6629 22.8889C24.8827 23.2178 25 23.6044 25 24C24.9995 24.5303 24.7886 25.0387 24.4136 25.4136C24.0387 25.7886 23.5303 25.9995 23 26ZM28 23H26.858C26.6377 22.1434 26.1394 21.3842 25.4412 20.8413C24.743 20.2983 23.8844 20.0025 23 20V18H28V23Z"/>
-                        </svg>
-                      </div>
-                      <span class="paper-head">
-                        新交付
-                      </span>
-                    </div>
-                  </section>
-                </div>
-                <div v-show="isEmptyObjectV(mpdc__paperDeliver.records)" class="content-block">
-
-                  <div  v-if="commissionDetail.tag==='3'" class="d-flex flex-column">
-                    <span>单品订单已支付，点击【启动交付】开始履约交付</span>
-                    <div class="py-3">
-                      <button v-preventreclick @click="tagCellPlanOrderAsDeliveringV" type="button" class="btn btn-primary">启动交付</button>
-                    </div>
-                  </div>
-                  <span  v-if="commissionDetail.tag!='3'" >
-                    还没有交付记录！
-                  </span>
-                </div>
-                <!-- role is supplier start -->
-                <div v-if="mpdc__paperDeliver.role==='supplier'" class="deliver-record-container">
-                  <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
                 
-                    <div class="d-flex">
-                      <div>
-                        交付内容：
-                      </div>
-                      <div class="record-filename">
-                        {{record.deliverName}}
-                      </div>
-                      <div class="ms-2">
-                        <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                      </div>
-                    </div>
+                <div class="deliver-panel-container">
 
-                    <div class="d-flex">
-                      
-                      <div>
-                        预览内容：
+                  <div v-if="commissionDetail.tag==='2' && mpdc__paperDeliver.role==='supplier' && !taskInConfirmIngV()"  class="deliver-panel-header">
+                    <section class="event-wrapper new-order">
+                      <div @click="showAddNewDeliverModalV" class="btn-container ms-5">
+                        <div class="package-icon new-order">
+                          <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 6H8V2H6V6H2V8H6V12H8V8H12V6Z" />
+                            <path d="M29.919 16.606L26.919 9.606C26.842 9.42608 26.7139 9.27273 26.5505 9.165C26.3871 9.05727 26.1957 8.99989 26 9H23V7C23 6.73478 22.8946 6.48043 22.7071 6.29289C22.5196 6.10536 22.2652 6 22 6H15V8H21V20.556C20.5443 20.8206 20.1456 21.1728 19.8267 21.5922C19.5078 22.0117 19.2751 22.4902 19.142 23H12.858C12.6405 22.1418 12.143 21.3806 11.4442 20.8368C10.7455 20.2931 9.88538 19.9979 9 19.9979C8.11462 19.9979 7.25452 20.2931 6.55578 20.8368C5.85703 21.3806 5.35953 22.1418 5.142 23H4V14H2V24C2 24.2652 2.10536 24.5196 2.29289 24.7071C2.48043 24.8946 2.73478 25 3 25H5.142C5.35953 25.8582 5.85703 26.6194 6.55578 27.1632C7.25452 27.7069 8.11462 28.0021 9 28.0021C9.88538 28.0021 10.7455 27.7069 11.4442 27.1632C12.143 26.6194 12.6405 25.8582 12.858 25H19.142C19.3595 25.8582 19.857 26.6194 20.5558 27.1632C21.2545 27.7069 22.1146 28.0021 23 28.0021C23.8854 28.0021 24.7455 27.7069 25.4442 27.1632C26.143 26.6194 26.6405 25.8582 26.858 25H29C29.2652 25 29.5196 24.8946 29.7071 24.7071C29.8946 24.5196 30 24.2652 30 24V17C30 16.8645 29.9725 16.7305 29.919 16.606ZM9 26C8.60444 26 8.21776 25.8827 7.88886 25.6629C7.55996 25.4432 7.30362 25.1308 7.15224 24.7654C7.00087 24.3999 6.96126 23.9978 7.03843 23.6098C7.1156 23.2219 7.30608 22.8655 7.58579 22.5858C7.86549 22.3061 8.22186 22.1156 8.60982 22.0384C8.99778 21.9613 9.39991 22.0009 9.76537 22.1522C10.1308 22.3036 10.4432 22.56 10.6629 22.8889C10.8827 23.2178 11 23.6044 11 24C10.9992 24.5302 10.7882 25.0384 10.4133 25.4133C10.0384 25.7882 9.53019 25.9992 9 26ZM23 11H25.34L27.484 16H23V11ZM23 26C22.6044 26 22.2178 25.8827 21.8889 25.6629C21.56 25.4432 21.3036 25.1308 21.1522 24.7654C21.0009 24.3999 20.9613 23.9978 21.0384 23.6098C21.1156 23.2219 21.3061 22.8655 21.5858 22.5858C21.8655 22.3061 22.2219 22.1156 22.6098 22.0384C22.9978 21.9613 23.3999 22.0009 23.7654 22.1522C24.1308 22.3036 24.4432 22.56 24.6629 22.8889C24.8827 23.2178 25 23.6044 25 24C24.9995 24.5303 24.7886 25.0387 24.4136 25.4136C24.0387 25.7886 23.5303 25.9995 23 26ZM28 23H26.858C26.6377 22.1434 26.1394 21.3842 25.4412 20.8413C24.743 20.2983 23.8844 20.0025 23 20V18H28V23Z"/>
+                          </svg>
+                        </div>
+                        <span class="paper-head">
+                          新交付
+                        </span>
                       </div>
-                      <div class="record-filename">
-                        {{record.previewName}}
-                      </div>
-                      <div class="ms-2">
-                        <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                      </div>
-                 
-                    </div>
-
-                    <div>
-                      <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
-                    </div>
-
-                    <div class="d-flex">
-                      <div class="delivery-remark-heading">留言：</div>
-                      <div class="delivery-remark-content">
-                        <p class="delivery-remark">
-                          {{record.msg}}
-                        </p>
-                      </div>
-                    </div>
-
+                    </section>
                   </div>
-                </div>
-              <!-- role is supplier end -->
-              <!-- role is viewer start -->
-              <div v-if="mpdc__paperDeliver.role==='viewer'" class="deliver-record-container">
-                <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                  <div v-if="record.tag=='3'" class="d-flex">
-                    <div>
-                      交付内容：
-                    </div>
-                    <div class="record-filename">
-                      {{record.deliverName}}
-                    </div>
-                    <div class="ms-2">
-                      <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                    </div>
-                  </div>
-                  <div v-else class="d-flex">
-                    
-                      <div>
-                        预览内容：
-                      </div>
-                      <div class="record-filename">
-                        {{record.previewName}}
-                      </div>
-                      <div class="ms-2">
-                        <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                      </div>
-                 
-                  </div>
-                  <div class="py-2">
-                    <span>
-                      状态：
-                      {{paperDeliverTagExplainV(record.tag)}}
+                  <div v-show="isEmptyObjectV(mpdc__paperDeliver.records)" class="content-block">
+                    <span  v-if="commissionDetail.tag!='3'" >
+                      还没有交付记录！
                     </span>
-                    
                   </div>
+                  <!-- role is supplier start -->
+                  <div v-if="mpdc__paperDeliver.role==='supplier'" class="deliver-record-container">
+                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
                   
-                  <div class="d-flex">
-                    <div class="delivery-remark-heading">留言：</div>
-                    <div class="delivery-remark-content">
-                      <p class="delivery-remark">
-                        {{record.msg}}
-                      </p>
+                      <div class="d-flex">
+                        <div>
+                          交付内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.deliverName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+  
+                      <div class="d-flex">
+                        
+                        <div>
+                          预览内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.previewName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                   
+                      </div>
+  
+                      <div>
+                        <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
+                      </div>
+                      <div>
+                        <span>提交时间：{{record.createAt}}</span>
+                      </div>
+  
+                      <div class="d-flex">
+                        <div class="delivery-remark-heading">留言：</div>
+                        <div class="delivery-remark-content">
+                          <p class="delivery-remark">
+                            {{record.msg}}
+                          </p>
+                        </div>
+                      </div>
+  
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <!-- role is viewer end -->
-                 
-                 
-
-                <!-- role is admin start -->
-
-                <div v-if="mpdc__paperDeliver.role==='admin'" class="deliver-record-container">
+                <!-- role is supplier end -->
+                <!-- role is viewer start -->
+                <div v-if="mpdc__paperDeliver.role==='viewer'" class="deliver-record-container">
                   <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
                     <div v-if="record.tag=='3'" class="d-flex">
                       <div>
@@ -406,27 +515,17 @@
                         </div>
                    
                     </div>
-                    <div class="py-2">
+                    <div>
                       <span>
-                        状态：
+                        交付状态：
                         {{paperDeliverTagExplainV(record.tag)}}
                       </span>
-                      
                     </div>
-
-
-
-                     <div v-if="!record.msg && record.tag=='1'" class="leave-msg-container py-4" >
-                        <textarea class="form-control" rows="6" v-model="record.newMsg"></textarea>
-                        <div class="py-2">
-                          <button 
-                          :class="{'disabled': !record.newMsg, 
-                          'btn-primary': record.newMsg,
-                          'btn-secondary': !record.newMsg}"
-                           v-preventreclick class="btn" @click="leaveMessageV(record)">留言</button>
-                        </div>
+                    <div>
+                      <span>提交时间：{{record.createAt}}</span>
                     </div>
-                    <div v-else class="d-flex">
+                    
+                    <div class="d-flex">
                       <div class="delivery-remark-heading">留言：</div>
                       <div class="delivery-remark-content">
                         <p class="delivery-remark">
@@ -434,17 +533,84 @@
                         </p>
                       </div>
                     </div>
-                   
-                    <div v-show="record.tag=='1'" class="py-4">
-                      <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-dark">再次修订</button>
-                      <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-primary ms-5">接受交付</button>
-                    </div>
                   </div>
                 </div>
+  
+                <!-- role is viewer end -->
+                   
+                   
+  
+                  <!-- role is admin start -->
+  
+                  <div v-if="mpdc__paperDeliver.role==='admin'" class="deliver-record-container">
+                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
+                      <div v-if="record.tag=='3'" class="d-flex">
+                        <div>
+                          交付内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.deliverName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+                      <div v-else class="d-flex">
+                        
+                          <div>
+                            预览内容：
+                          </div>
+                          <div class="record-filename">
+                            {{record.previewName}}
+                          </div>
+                          <div class="ms-2">
+                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                          </div>
+                     
+                      </div>
+                      <div>
+                        <span>
+                          交付状态：
+                          {{paperDeliverTagExplainV(record.tag)}}
+                        </span>
+                        
+                      </div>
+                      <div>
+                        <span>提交时间：{{record.createAt}}</span>
+                      </div>
+  
+  
+  
+                       <div v-if="!record.msg && record.tag=='1'" class="leave-msg-container py-4" >
+                          <textarea class="form-control" rows="6" v-model="record.newMsg"></textarea>
+                          <div class="py-2">
+                            <button 
+                            :class="{'disabled': !record.newMsg, 
+                            'btn-primary': record.newMsg,
+                            'btn-secondary': !record.newMsg}"
+                             v-preventreclick class="btn" @click="leaveMessageV(record)">留言</button>
+                          </div>
+                      </div>
+                      <div v-else class="d-flex">
+                        <div class="delivery-remark-heading">留言：</div>
+                        <div class="delivery-remark-content">
+                          <p class="delivery-remark">
+                            {{record.msg}}
+                          </p>
+                        </div>
+                      </div>
+                     
+                      <div v-show="record.tag=='1'" class="py-4">
+                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-dark">再次修订</button>
+                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-primary ms-5">接受交付</button>
+                      </div>
+                    </div>
+                  </div>
+  
+                <!-- role is admin end-->
 
-              <!-- role is admin end-->
-
-
+                </div>
+                
                 
               </div>
 
@@ -598,7 +764,40 @@
         
           
     </mall-app>
-    
+    <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+          <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <form id="feedback-form">
+            <div class="mt-3">
+              <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+              <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+            </div> 
+            <div class="mt-3">
+              <label class="form-label">附件图片(选填)</label>
+              <div class="feedback-attachment-upload-container dropzone-wrapper">
+                <img  id="lastestFeedbackAttachment" >
+                <div class="dropzone-desc">
+                  <i class="bi bi-cloud-plus"></i>
+                </div>
+                <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+              </div>
+            </div>  
+            <div class="mt-3">
+              <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+              <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+            </div> 
+            <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+          </form>
+        </div>
+      </div>
+  
+    </section>
+    <script type="module" src="/common/javascripts/feedback.js"></script>
     <script type="module" src="/common/javascripts/tm.js"></script>
     <script type="module" src="/micro/arch/javascripts/commission-ws.js"></script>
     <script>

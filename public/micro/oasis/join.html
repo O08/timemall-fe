@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/favicon.png">
     <title>基地邀请</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
@@ -72,8 +72,8 @@
           <div class="nav-setting">
             <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
               <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-circle"></i>
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end ms-5">
                   <li>

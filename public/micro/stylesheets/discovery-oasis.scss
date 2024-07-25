@@ -125,7 +125,13 @@ header{
   font-weight: 700;
   line-height: 1.575;
 }
-
+.nav-title h3 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #fff;
+  width: 200px;
+  overflow: hidden;
+}
 @media (max-width: 576px) {
   .logo{
     justify-content: flex-end !important;

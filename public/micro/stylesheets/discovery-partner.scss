@@ -5,6 +5,13 @@ col-content {
 header{
   z-index: 1035;
 }
+.nav-title h3 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #fff;
+  width: 200px;
+  overflow: hidden;
+}
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
 @media only screen and (min-width: 1400px) {
   header{

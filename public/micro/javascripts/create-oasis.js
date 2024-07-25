@@ -9,6 +9,8 @@ import {OasisMark} from "/common/javascripts/tm-constant.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
@@ -25,6 +27,12 @@ const RootComponent = {
       }
     },
     methods: {
+        clickAvatorUploadBtn(){
+            $("#file_avator").trigger("click");
+         },
+         clickAnnounceUploadBtn(){
+            $("#file_announce").trigger("click");
+         },
         nextSlideV(){
             $("#slide_next").trigger("click");
         },
@@ -104,7 +112,7 @@ const RootComponent = {
     }
 }
 let app =  createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
@@ -117,6 +125,8 @@ const createOasisPage = app.mount('#app');
 
 window.createOasisPage = createOasisPage;
 // init
+createOasisPage.userAdapter(); // auth.js
+
 createOasisPage.recoverOasisInfoV();
 
 async function createOasis(dto){
@@ -169,7 +179,7 @@ function markOasisB(oasisId,mark){
 function uploadAnnounceFile(){
     const oasisId = getQueryVariable("oasis_id");
 
-    const file = $('#announceFile')[0].files[0];
+    const file = $('#file_announce')[0].files[0];
     putAnnounce(oasisId,file).then(response=>{
         if(response.data.code ==200){
           
@@ -178,6 +188,7 @@ function uploadAnnounceFile(){
     
             $("#announceFileModal").modal("hide");
             $('#announceFilePreview').attr('src',"");
+            document.querySelector('#file_announce').value = null;
         }
     }).catch(error=>{
         alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
@@ -187,7 +198,7 @@ function uploadAnnounceFile(){
 function uploadOasisCover(){
     const oasisId = getQueryVariable("oasis_id");
 
-    const file = $('#oasisCoverFile')[0].files[0];
+    const file = $('#file_avator')[0].files[0];
     putAvatar(oasisId,file).then(response=>{
         if(response.data.code ==200){
           
@@ -196,6 +207,7 @@ function uploadOasisCover(){
     
             $("#oasisCoverModal").modal("hide");
             $('#oasisCoverPreview').attr('src',"");
+            document.querySelector('#file_avator').value = null;
         }
     }).catch(error=>{
         alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
@@ -255,21 +267,66 @@ function previewOasisCover(e){
     const file = e.target.files[0]
 
     const URL2 = URL.createObjectURL(file)
-    document.querySelector('#oasisCoverPreview').src = URL2
-    $("#oasisCoverModal").modal("show");
+    document.querySelector('#oasisCoverPreview').src = URL2;
+     // validate image size <=6M
+     var size = parseFloat(file.size);
+     var maxSizeMB = 6; //Size in MB.
+     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
+     if (size > maxSize) {
+         customAlert.alert("图片最大为6M!");
+         return false;
+     }
+     const imgFile = new Image();
+     imgFile.onload = ()=> {
+        if(!(imgFile.width>=99 && imgFile.height>=99)){
+            console.log("current image: width=" + imgFile.width + "  height="+imgFile.height);
+            customAlert.alert("图片必须至少为 99 x 99 像素!");
+            return false;
+        }
+        $("#oasisCoverModal").modal("show");
+
+     };
+     imgFile.src = URL.createObjectURL(file);
+
 }
 function closeOasisCoverModalHandler(){
     document.querySelector('#oasisCoverPreview').src = "";
-    document.querySelector('#oasisCoverFile').value = null;
+    var previewEl=document.querySelector('#oasisCoverPreview');
+    if(!!previewEl.src){
+        previewEl.src="";
+    }
+   document.querySelector('#file_avator').value = null;
 }
 function previewAnnounceFile(e){
     const file = e.target.files[0]
 
     const URL2 = URL.createObjectURL(file)
-    document.querySelector('#announceFilePreview').src = URL2
-    $("#announceFileModal").modal("show");
+    document.querySelector('#announceFilePreview').src = URL2;
+      // validate image size <=6M
+      var size = parseFloat(file.size);
+      var maxSizeMB = 6; //Size in MB.
+      var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
+      if (size > maxSize) {
+          customAlert.alert("图片最大为6M!");
+          return false;
+      }
+      const imgFile = new Image();
+      imgFile.onload = ()=> {
+         if(!(imgFile.width>=576 && imgFile.height>=576)){
+             console.log("current image: width=" + imgFile.width + "  height="+imgFile.height);
+             customAlert.alert("图片必须至少为 576 x 576 像素!");
+             return false;
+         }
+         $("#announceFileModal").modal("show");
+      };
+      imgFile.src = URL.createObjectURL(file);
+
 }
 function closeAnnounceFileModalHandler(){
     document.querySelector('#announceFilePreview').src = "";
-    document.querySelector('#announceFile').value = null;
+    var previewEl=document.querySelector('#announceFilePreview');
+    if(!!previewEl.src){
+        previewEl.src="";
+    }
+   document.querySelector('#file_announce').value = null;
 }

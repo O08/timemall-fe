@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,8 +74,8 @@
       <div class="nav-setting">
         <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
           <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle"></i>
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
             </button>
             <ul class="dropdown-menu dropdown-menu-end ms-5">
               <li>
@@ -111,7 +111,7 @@
     </col-nav-main>
     <col-nav-sub>
       <div class="nav-title ms-3 mt-3">
-        <h3>启动器</h3>
+        <h3>贤者时间</h3>
       </div>
       <div class="nav-sub-container mt-3">
         <a  class="nav-link nav-sub-link-active p-2 ms-3 d-flex flex-row align-items-center">
@@ -211,17 +211,17 @@
           </div>
           <div class="carousel-item">
             <h4>基本信息:</h4>
-            <div class="d-flex align-items-center mt-5 pt-5 mx-2 oasis-base ">
+            <div class="mt-5 pt-5 mx-2 oasis-base ">
               <div>
                 <div class="form-floating mb-3">
-                  <input type="text" maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control input-base-item" id="floatingInputTitle" placeholder="title" required>
-                  <label for="floatingInputTitle">名称(最大200字符) </label>
+                  <input type="text" maxlength="80" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control input-base-item" id="floatingInputTitle" placeholder="title" required>
+                  <label for="floatingInputTitle">名称(最大80字符) </label>
                   <div class="invalid-feedback">
                     名称超出允许长度，请提供一个有效名称！
                   </div>
                 </div>
                 <div class="form-floating">
-                  <input type="text"  maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control input-base-item" id="floatingInputSubtitle" placeholder="subTitle" required>
+                  <textarea rows="10" class="form-control"  maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control input-base-item" id="floatingInputSubtitle" placeholder="subTitle" required></textarea>
                   <label for="floatingInputSubtitle">简介(最大200字符) </label>
                   <div class="invalid-feedback">
                     简介超出允许长度，请提供一个有效简介！
@@ -239,16 +239,25 @@
             </div>
           </div>
           <div class="carousel-item">
-            <h4>形象:</h4>
-            <div class="d-flex align-items-center flex-column justify-content-center mt-5 pt-5 ">
+            <h4>头像:</h4>
+            <div class="row mb-3">
+              <div class="col-form-label col-sm-6 pt-0">
+                <div class="help-text">
+                  头像能充分体现社区的个性、价值，具有独一无二的感染力。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 99 x 99 像素)。
+                  <a @click="clickAvatorUploadBtn" class="btn-upload">上传
+                    <input id="file_avator" @change="previewOasisCoverV($event)"type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
+                  </a>
+                </div>
+              </div>
+            </div> 
+            <div class="mt-5 pt-5 ">
               <div class="cover-upload-container dropzone-wrapper">
                 <img alt="avatar" id="lastestOasisCover">
-                <div class="dropzone-desc">
+                <!-- <div class="dropzone-desc">
                   <i class="bi bi-cloud-plus"></i>
-                </div>
-                <input  @change="previewOasisCoverV($event)" type="file" accept="image/jpg, image/png, image/jpeg" id="oasisCoverFile" class="dropzone">
+                </div> -->
+                <!-- <input  @change="previewOasisCoverV($event)" type="file" accept="image/jpg, image/png, image/jpeg" id="oasisCoverFile" class="dropzone"> -->
               </div>
-             <div class="help-text mt-2">当前仅支持图片形象(格式要求：png,jpg,jpeg;文件大小：最大为1M)</div>
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
@@ -257,16 +266,20 @@
           </div>
           <div class="carousel-item">
             <h4>基地宣言:</h4>
-            <div class="d-flex align-items-center flex-column justify-content-center mt-5 pt-5 ">
-              <div class="cover-upload-container dropzone-wrapper">
-                <img alt="announce" id="lastestAnnounceFile">
-                <div class="dropzone-desc">
-                  <i class="bi bi-cloud-plus"></i>
+            <div class="row mb-3">
+              <div class="col-form-label col-sm-6 pt-0">
+                <div class="help-text">
+                  基地介绍，运行规则告知。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 576 x 576 像素)。
+                  <a @click="clickAnnounceUploadBtn" class="btn-upload">上传
+                    <input id="file_announce" @change="previewAnnounceFileV($event)"type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
+                  </a>
                 </div>
-                <input  @change="previewAnnounceFileV($event)"  type="file" accept="image/jpg, image/png, image/jpeg" id="announceFile" class="dropzone">
               </div>
-              <div class="help-text mt-2">当前仅支持图片(格式要求：png,jpg,jpeg;文件大小：最大为1M)</div>
-
+            </div> 
+            <div class="d-flex align-items-center flex-column justify-content-center mt-5 pt-5 ">
+              <div class="announce-container dropzone-wrapper">
+                <img alt="announce" id="lastestAnnounceFile">
+              </div>
             </div>
             <div class="mt-5 pt-5">
               <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
@@ -276,10 +289,10 @@
           </div>
           <div class="carousel-item">
             <h4>基地风险:</h4>
-            <div class="d-flex align-items-center justify-content-center mt-5 pt-5 mx-2">
-              <section class="section-workspace d-flex justify-content-start align-items-center mx-2">
+            <div class="d-flex align-items-center justify-content-center mt-5 pt-5">
+              <section class="section-workspace d-flex justify-content-start align-items-center w-100">
                 <div class="edit-pannel d-flex flex-column w-100">
-                  <contenteditable  class="oasis-risk-box"   placeholder="添加基地风险信息" v-model="risk"></contenteditable>
+                  <contenteditable  class="oasis-risk-box"   placeholder="添加基地风险信息" v-model="risk"/>
                 </div>
               </section>
             </div>
@@ -344,7 +357,7 @@
               </div>
               <div class="modal-body d-flex justify-content-center">
                 <div class="cover-upload-container">
-                  <img alt="preview" id="oasisCoverPreview" src="https://picsum.photos/200/200">
+                  <img alt="preview" id="oasisCoverPreview">
                 </div>
               </div>
               <div class="modal-footer btn-light">
@@ -366,7 +379,7 @@
               </div>
               <div class="modal-body d-flex justify-content-center">
                 <div class="cover-upload-container">
-                  <img alt="preview" id="announceFilePreview" src="https://picsum.photos/200/200">
+                  <img alt="preview" id="announceFilePreview">
                 </div>
               </div>
               <div class="modal-footer btn-light">

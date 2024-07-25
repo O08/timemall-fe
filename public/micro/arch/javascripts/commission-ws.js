@@ -6,7 +6,6 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 
 
 
-import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import {CellPlanOrderTag} from "/common/javascripts/tm-constant.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
@@ -14,7 +13,8 @@ import CommissionWSDeliverCompoent from "/micro/arch/javascripts/CommissionWSDel
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import DefaultChatCompoent from "/micro/arch/javascripts/DefaultChatCompoent.js";
-
+import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
+import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 const chatChannel=getQueryVariable("id");
 
@@ -96,7 +96,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(new BrandInfoComponent({need_init: true}));
+// app.mixin(new BrandInfoComponent({need_init: true}));
 
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
@@ -114,7 +114,18 @@ app.mixin(new DefaultChatCompoent({
         enableRtc: true
     }
 }));
+app.mixin(new FriendListCompoent({need_init: true}));
 
+app.mixin(
+    new Ssecompoent({
+        sslSetting:{
+            need_init: true,
+            onMessage: (e)=>{
+                tobActionPage.onMessageHandler(e); //  source: FriendListCompoent
+            }
+        }
+    })
+);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
   }
@@ -141,3 +152,6 @@ function findCommissionDetail(){
     return fetchCommissionDetail(id);
 }
 
+$(function(){
+	$(".tooltip-nav").tooltip();
+});
