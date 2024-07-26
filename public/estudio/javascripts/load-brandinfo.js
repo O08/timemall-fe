@@ -1,5 +1,5 @@
 import axios from 'axios';
-import defaultAvatarImage from '/avator.webp';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
 export default function BrandInfoComponent(params) {
     const {

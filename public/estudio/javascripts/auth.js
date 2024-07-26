@@ -2,7 +2,7 @@ import "/common/javascripts/import-jquery.js";
 import { goLoginPage,goWelcome } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
-import defaultAvatarImage from '/avator.webp';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
 
 

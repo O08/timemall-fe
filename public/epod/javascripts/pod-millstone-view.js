@@ -3,7 +3,7 @@ import { createApp } from "vue";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
-import defaultAvatarImage from '/avator.webp'
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";

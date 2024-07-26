@@ -10,7 +10,7 @@ import  PrivateApi from "/micro/arch/javascripts/PrivateApi.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {SseEventBusScene} from "/common/javascripts/tm-constant.js";
-import defaultAvatarImage from '/avator.png';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import StemChatCompoent from "/micro/arch/javascripts/StemChatCompoent.js";
 
 

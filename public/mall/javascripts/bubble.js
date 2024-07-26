@@ -9,8 +9,8 @@ import axios from 'axios';
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg';
-import defaultAvatarImage from '/avator.webp';
-import defaultBannerImage from '/common/images/default-brand-banner.jpg';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
+import defaultBannerImage from '/common/images/default-brand-banner-4x3.svg';
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 

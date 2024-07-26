@@ -13,7 +13,7 @@ import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {GroupChatPolicyRel} from "/common/javascripts/tm-constant.js";
 
 import axios from "axios";
-import defaultAvatarImage from '/avator.png';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
 

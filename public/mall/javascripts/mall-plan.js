@@ -4,7 +4,7 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import Auth from "/estudio/javascripts/auth.js"
 
-import defaultAvatarImage from '/avator.webp'
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
 
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';

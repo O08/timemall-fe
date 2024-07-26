@@ -1,4 +1,4 @@
-const defaultBrandAvatar="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/avator.png";
+const defaultBrandAvatar="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/panda-kawaii.svg";
 
 async function fetchUserInfo(){
     const url="/api/v1/web_mall/me";

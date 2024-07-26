@@ -8,7 +8,7 @@ import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
-import defaultAvatarImage from '/avator.webp';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";

@@ -10,9 +10,9 @@ import BrandBasicSetting from "/estudio/javascripts/compoent/BrandBasicSetting.j
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
-import defaultExperienceImage from '/common/images/default-experience.jpg';
-import defaultBrandBanner from '/common/images/default-brand-banner.jpg';
-import defaultAvatarImage from '/avator.webp';
+import defaultExperienceImage from '/common/images/default-experience-1x1.svg';
+import defaultBrandBanner from '/common/images/default-brand-banner-4x3.svg';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 

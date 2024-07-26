@@ -274,7 +274,7 @@
 
           <section class="section-seller-banner position-relative">
             <div class="brand-avator position-absolute">
-              <img v-if="brand.avator" id="lastest_avator" :src="adaptiveImageUriV(brand.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              <img  id="lastest_avator" :src="adaptiveImageUriV(brand.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
             </div>
       
             <div class="brand-intro-cover-container">

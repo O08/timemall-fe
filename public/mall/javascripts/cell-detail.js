@@ -9,10 +9,9 @@ import { uploadCellDataLayerWhenClick,uploadCellDataLayerWhenAppointment,uploadC
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import defaultAvatarImage from '/avator.webp';
-import defaultBrandBannerImage from '/common/images/default-brand-banner.jpg';
-import defaultExperienceImage from '/common/images/default-experience.jpg';
-import defaultCellIntroCoverImage from '/common/images/default-cell-intro-cover.jpg'
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
+import defaultBrandBannerImage from '/common/images/default-brand-banner-4x3.svg';
+import defaultExperienceImage from '/common/images/default-experience-1x1.svg';
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
@@ -20,7 +19,7 @@ import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-ico
 import {Api} from "/common/javascripts/common-api.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
-
+const defaultCellIntroCoverImage ="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/default-cell-intro-cover.svg";
 
 const RootComponent = {
     data() {

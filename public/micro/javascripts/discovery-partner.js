@@ -3,7 +3,7 @@ import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
-import defaultAvatarImage from '/avator.png'
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {FromWhere} from "/common/javascripts/tm-constant.js";
 import { uploadScienceData } from "/common/javascripts/science.js";

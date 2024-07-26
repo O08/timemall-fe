@@ -6,7 +6,7 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-import defaultAvatarImage from '/avator.webp';
+import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
 const RootComponent = {
     data() {
