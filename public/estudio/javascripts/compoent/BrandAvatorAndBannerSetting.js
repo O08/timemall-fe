@@ -154,6 +154,8 @@ function uploadAvatorFile(appObj){
                 $("#avatorModal").modal("hide");
                 document.querySelector('#file_avator').value = null;
                 $('#avatorPreview').attr('src',"");
+                // reset auth.js
+                appObj.removeIdentity(); // from auth.js
             }
         }).catch(error=>{
             document.querySelector('#file_avator').value = null;

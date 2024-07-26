@@ -3,8 +3,6 @@ import { createApp } from "vue";
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 
-import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
-
 import {getDaysBetween}from "/common/javascripts/util.js";
 import TopUpCompoent from "/estudio/javascripts/compoent/TopUpCompoent.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
@@ -43,7 +41,6 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(TopUpCompoent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,

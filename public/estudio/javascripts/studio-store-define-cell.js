@@ -8,7 +8,6 @@ import { preHandleCellId ,addCellIdToUrl} from "/estudio/javascripts/compoent/De
 
 import axios from 'axios';
 
-import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import DefineCellCoverAndBanner from "/estudio/javascripts/compoent/DefineCellCoverAndBanner.js";
 
 
@@ -152,7 +151,6 @@ const RootComponent = {
 const app = createApp(RootComponent);
 app.component('contenteditable', ContentediableComponent)
 app.mixin(new Auth({need_permission : true}));
-app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(DirectiveComponent);
 app.mixin(DefineCellCoverAndBanner);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,

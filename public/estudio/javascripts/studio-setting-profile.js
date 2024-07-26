@@ -9,7 +9,6 @@ import BrandBasicSetting from "/estudio/javascripts/compoent/BrandBasicSetting.j
 
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
-import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import defaultExperienceImage from '/common/images/default-experience-1x1.svg';
 import defaultBrandBanner from '/common/images/default-brand-banner-4x3.svg';
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
@@ -158,7 +157,6 @@ app.mixin(BrandLinksSettingCompoent);
 app.mixin(BrandAvatorAndBannerSetting);
 app.mixin(BrandBasicSetting);
 app.mixin(new Auth({need_permission : true,need_init: false}));
-app.mixin(new BrandInfoComponent({need_init: false}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO,need_init: false
@@ -193,7 +191,6 @@ settingProfilePage.userAdapter(); // auth.js
 
 settingProfilePage.loadBrandProfileV();
 settingProfilePage.initBrandBasicSettingConfigV(); // brandBasicSeetting.js
-settingProfilePage.loadBrandInfo(); // load-brandinfo.js
 settingProfilePage.initEventFeedCompoentV();
 settingProfilePage.loadBrandContactV(); // BrandContactSetting.js
 settingProfilePage.fetchPrivateFriendV();// FriendListCompoent.js

@@ -47,6 +47,9 @@ export default function Auth(params) {
             },
             isEmptyObjV(obj){
                 return $.isEmptyObject(obj);
+            },
+            removeIdentity(){
+                localStorage.removeItem("Tidentity001");
             }
         },
         created: function() {

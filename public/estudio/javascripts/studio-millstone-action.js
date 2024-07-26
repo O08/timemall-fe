@@ -4,7 +4,6 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Auth from "/estudio/javascripts/auth.js"
 
-import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 
 import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
@@ -52,7 +51,6 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(MillstoneChatCompoent);
 app.mixin(RtmCompoent);
 app.mixin(DirectiveComponent);

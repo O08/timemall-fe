@@ -6,7 +6,6 @@ import axios from 'axios';
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 
-import BrandInfoComponent from "/estudio/javascripts/load-brandinfo.js";
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
@@ -39,7 +38,6 @@ const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(DirectiveComponent);
 
-app.mixin(new BrandInfoComponent({need_init: true}));
 app.mixin(MillstoneChatCompoent);
 app.mixin(RtmCompoent);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
