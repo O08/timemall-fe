@@ -43,7 +43,12 @@ export default function Auth(params) {
                 }
             },
             getIdentity(){
-                return getTidentity();
+                var userInfo=  getTidentity();
+                if(!userInfo){
+                    this.userAdapter();
+                    userInfo= getTidentity();
+                }
+                return userInfo;
             },
             isEmptyObjV(obj){
                 return $.isEmptyObject(obj);
