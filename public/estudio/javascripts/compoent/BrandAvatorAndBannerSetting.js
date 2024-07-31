@@ -98,7 +98,7 @@ function showPreviewBannerModal(e,appObj){
 
         if(Object.keys(appObj.bannerCropper).length === 0){
             appObj.bannerCropper = new Cropper(bannerImageRaw, {
-                aspectRatio: 317 / 50,
+                aspectRatio: 310 / 50,
                 minContainerWidth: minContainerSize,   //容器最小的宽度
                 minContainerHeight: minContainerSize,  //容器最小的高度
                 dragMode:'move', 

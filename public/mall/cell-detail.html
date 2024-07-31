@@ -33,21 +33,21 @@
 
             <ul class="nav_links">
               <li class="nav_link active">
-                <a  href="/home">
+                <a  href="/">
                   <span>
                     精选商店
                   </span> 
                 </a>
               </li>
               <li class="nav_link">
-                <a rel="nofollow" href="/estudio/studio-store"  data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="服务商业务区，快快乐乐工作，领取美美的薪水，薪动即行动，来上线你的第一个服务吧~"> 
+                <a  href="/estudio/studio-store"  data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="服务商业务区，快快乐乐工作，领取美美的薪水，薪动即行动，来上线你的第一个服务吧~"> 
                   <span>
                     薪动工作室
                   </span>
                 </a>
               </li>
               <li class="nav_link">
-                <a rel="nofollow" href="/epod/pod-millstone"  data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区，你购买到的服务甚至账单，都在这里面喔~"> 
+                <a  href="/epod/pod-millstone"  data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区，你购买到的服务甚至账单，都在这里面喔~"> 
                   <span>
                     E-Pod
                   </span>
@@ -108,19 +108,19 @@
      <div class="mobile-nav-container">
       <ul class="nav_links">
         <li class="nav_link active">
-          <a  href="/home">
+          <a  href="/">
             <span>精选商店</span> 
           </a>
         </li>
         <li class="nav_link">
-          <a rel="nofollow" href="/estudio/studio-store" > 
+          <a  href="/estudio/studio-store" > 
             <span>
               薪动工作室
             </span>
           </a>
         </li>
         <li class="nav_link">
-          <a rel="nofollow" href="/epod/pod-millstone"  > 
+          <a  href="/epod/pod-millstone"  > 
             <span>
               E-Pod
             </span>
@@ -278,19 +278,24 @@
                       <!-- seller info -->
                       <!-- seller banner -->
                       <section class="section-seller-banner position-relative">
-                        <div class="brand-avator position-absolute">
-                          <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                        </div>
+                    
                         <div class="brand-intro-cover">
                           <img :src="adaptiveImageUriV(brandProfile.cover) || defaultBrandBannerImage" @error.once="e => { e.target.src = defaultBrandBannerImage }">
                         </div>
+                        <div class="brand-container">
+                          <div class="brand-avator">
+                            <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                          </div>
                         <div class="brand-identity">
                           <a :href="'/mall/bubble?brand_id='+profile.brandId" class="url-link">
                             <div class="brand-name text-decoration-none">{{brandProfile.brand}}</div>
                           </a>
                           <p class="brand-title opt_item_desc mb-2 mt-1">{{brandProfile.title}}</p>
-                          <p class="ip-location opt_item_desc">IP属地：{{brandProfile.location}}</p>
+                          <p class="ip-location ">IP属地：{{brandProfile.location}}</p>
                         </div>
+
+                        </div>
+                        
                       </section>
 
                        <!-- seller experience -->
@@ -302,8 +307,8 @@
                             <div class="card-header">
                               <div class="millstone-header d-flex">
                                 <img :src="millstone.icon || defaultExperienceImage" @error.once="e => { e.target.src = defaultExperienceImage }">
-                                <div class="inner-header d-flex flex-column mx-3">
-                                  <span class="fw-semibold lh-lg mb-2">{{millstone.title}}</span>
+                                <div class="inner-header d-flex flex-column mx-2">
+                                  <span class="fw-semibold lh-lg mb-1">{{millstone.title}}</span>
                                   <span class="fw-normal">{{millstone.subTitle}}</span>
                                   <span class="help-text mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{ millstone.end ? millstone.end : "现在"}}</span>
                                 </div>
@@ -311,7 +316,7 @@
                             </div>
                             <div class="card-body">
                               <ul class="timeline">
-                                <li v-for="entry in millstone.entries" class="timeline-item mb-3">
+                                <li v-for="entry in millstone.entries" class="timeline-item mb-2">
                                   <h5 class="fw-bold mb-0">{{entry.title}}</h5>
                                   <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : "现在"}}</p>
                                   <p class="opt_item_desc">

@@ -43,7 +43,7 @@ mall-app {
   .appButton a {
     text-decoration: none;
   }
-  .header-container,.nav_link{
+  .header-container,.nav_link,header{
     height: 55px;
   }
   .header-container{
@@ -130,8 +130,8 @@ mall-app {
     width: 88px;
   }
   .sub-nav-container,.content-container{
-    padding-left: 120px;
-    padding-right: 120px;
+    padding-left: 60px;
+    padding-right: 60px;
   }
   .sub-nav-container{
     padding-top: 72px;
@@ -191,7 +191,7 @@ mall-app {
 {
     font-size: 16px;
     font-weight: normal;
-    line-height: 1.875;
+    line-height: 1.675;
 }
 
 /*----------------------------------------------------
@@ -302,12 +302,12 @@ mall-app {
 /*----------------------------------------------------
     4. About Seller
 ------------------------------------------------------*/
-@media (max-width: 1399.98px) {
-    .brand-avator
-    {
-        margin-top: 30%;
-        margin-left: 10%;
-    }
+.brand-container{
+    padding-bottom: 32px;
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
 }
 .section-seller-experience,.section-seller-skills,.section-seller-service,.section-seller-links
 {
@@ -323,46 +323,43 @@ mall-app {
     margin-bottom: 36px;
 
 }
-.brand-intro-cover, .brand-intro-cover img
-{
-    height: 300px;
-}
+
 .brand-intro-cover img{
     object-fit: cover;
     width: 100%;
+    aspect-ratio: 310/50;
 }
  .brand-avator, .brand-avator img
 {
-    width: 160px;
-    height: 160px;
-    border-radius: 80px;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
     background-color: #2B2B2B;
 } 
-.brand-avator
-{
-    margin-top: 200px;
-    margin-left: 100px;
-}
+
 .brand-identity
 {
     width: calc(100% - 100px);
-    // max-height: 150px;
-    margin-left: 100px;
-    margin-top: 100px;
-    padding-bottom: 50px;
+    padding-left: 12px;
 }
 .brand-identity .brand-name{
     font-size: 24px;
     font-weight: bold;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 100%;
+    display: -webkit-box;
+    overflow: hidden;
 }
 .brand-identity .brand-title{
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.675;
+    line-height: 16px;
+    font-size: 12px;
 }
 .ip-location{
-    font-size: 20px;
-    font-weight: normal;
+    line-height: 16px;
+    font-size: 12px;
     color: #aaa;
 }
 .exeperince-millstone
@@ -460,7 +457,7 @@ mall-app {
 .plan-content-feature p{
     color: #aaa;
     padding-left: 12px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: normal;
     line-height: 1.675;
 }
@@ -470,7 +467,10 @@ mall-app {
     word-break: break-all;
     min-height: 30px;
     font-size: 16px;
-    line-height: 1.875;
+    line-height: 1.675;
+}
+.card-header{
+    padding-left: unset;
 }
 .plan-item{
     width: 80px;
@@ -555,6 +555,9 @@ mall-app {
 .join-now,.button_login{
     height: unset;
 }
+.exeperince-millstone .card-body{
+    padding-left: 4.5rem;
+}
 @media (max-width: 576px) {
 
     .join-now,.button_login{
@@ -592,22 +595,37 @@ mall-app {
 
     }
 
-.brand-intro-cover, .brand-intro-cover img
-{
-    height: 130px;
-}
-.brand-avator {
-    margin-top: 90px;
-    margin-left: 30px;
-}
+
 .brand-avator, .brand-avator img {
-    width: 80px;
-    height: 80px;
+    width: 32px;
+    height: 32px;
 }
-.brand-identity{
-    margin-left: 30px;
-    margin-top: 40px;
+.brand-identity .brand-name {
+    -webkit-line-clamp: 1;
+    font-size: 1em;
 }
+.brand-container{
+    align-items: baseline;
+    padding-bottom: unset;
+}
+.brand-identity .brand-title{
+    font-size: 12px;
+}
+.brand-identity {
+    width: calc(100% - 32px);
+}
+.millstone-header img {
+    width: 32px;
+    height: 32px;
+}
+.timeline-item h5{
+    font-size: .85em;
+}
+.exeperince-millstone .card-body {
+    padding-left: 3rem;
+}
+
+
 
 .plan-content-option-empty-block{
     display: none;
@@ -633,6 +651,7 @@ mall-app {
     display: flex;
     justify-content: space-between;
     width: calc(100vw - 24px);
+    height: 100%;
   }
   .mobile-nav-container{
     display: block;
@@ -640,6 +659,7 @@ mall-app {
   .header-primary-container .nav_links{
     display: none;
   }
+
 }
 #focusModal .modal-content{
     background-color: #fff;
