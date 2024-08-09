@@ -10,11 +10,21 @@ import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
         return {
+            couponInfo: {},
+            cellExpense: {
+                promotionCreditPointDeductionDifference: 0,
+                earlyBirdDiscountDifference: 0,
+                repurchaseDiscountDifference: 0,
+                amount: 0,
+                promotionDeduction: 0,
+                total: 0
+            },
             error:{},
             focusModal:{
                 item: "",
@@ -74,14 +84,7 @@ const RootComponent = {
     },
     methods: {
         showBillPayFocusModalV(bill){
-            this.focusModal.item=bill.stage;
-            this.focusModal.amount=bill.amount;
-            this.focusModal.confirmHandler=()=>{
-                this.payBillV(bill.billId);
-                $("#focusModal").modal("hide"); // show modal
-
-            };
-            $("#focusModal").modal("show"); // show modal
+            showBillDetailModal(bill,this);
         },
         payBillV(billId){
             payBill(billId).then(response=>{
@@ -113,8 +116,7 @@ const RootComponent = {
         },
         isEmptyObjectV(obj){
             return $.isEmptyObject(obj);
-        }
-        
+        }      
     },
     created() {
         // todo url replace {brand_id}
@@ -166,11 +168,60 @@ async function getBrandFinInfo(){
     const url= "/api/v1/team/finance_board";
     return await axios.get(url);
 }
+async function getBillDetail(billId){
+    const url="/api/v1/web_epod/bill/{id}/detail".replace("{id}",billId);
+    return await axios.get(url);
+}
+async function showBillDetailModal(bill,appObj){
+
+    getBillDetail(bill.billId).then(response=>{
+
+       if(response.data.code==200){
+            
+            calCellExpense(appObj,response.data.detail);
+            appObj.focusModal.item=bill.stage;
+            appObj.focusModal.amount=appObj.cellExpense.total;
+            appObj.focusModal.confirmHandler=()=>{
+               appObj.payBillV(bill.billId);
+               $("#focusModal").modal("hide"); // show modal
+            };
+           $("#focusModal").modal("show"); // show modal
+       }
+
+    }).catch(err=>{
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
+      });
+
+
+}
 function payBill(billId){
     return doPay(billId);
 }
 function retrieveBrandFinInfo(){
     return getBrandFinInfo();
+}
+function calCellExpense(appObj,billDetail){
+    appObj.couponInfo=billDetail;
+    appObj.cellExpense.amount=Number(billDetail.amount);
+    
+    if(!billDetail.creditPoint){
+        billDetail.creditPoint=0;
+    }
+    appObj.cellExpense.promotionCreditPointDeductionDifference= (billDetail.amount >= Number(billDetail.creditPoint)) ? billDetail.creditPoint : billDetail.amount;
+
+    appObj.cellExpense.repurchaseDiscountDifference=(!!billDetail.repurchaseDiscount) ? (appObj.cellExpense.amount*(100-Number(billDetail.repurchaseDiscount))/100).toFixed(2) : 0; 
+
+    appObj.cellExpense.earlyBirdDiscountDifference= (!!billDetail.earlyBirdDiscount) ? (appObj.cellExpense.amount*(100-Number(billDetail.earlyBirdDiscount))/100).toFixed(2) : 0;
+
+    var totalPromotionDeduction = (Number(appObj.cellExpense.promotionCreditPointDeductionDifference) + Number(appObj.cellExpense.repurchaseDiscountDifference) + Number(appObj.cellExpense.earlyBirdDiscountDifference)).toFixed(2);
+    
+    if(totalPromotionDeduction>=appObj.cellExpense.amount){
+        appObj.cellExpense.promotionDeduction=appObj.cellExpense.amount;
+    }
+    if(totalPromotionDeduction<appObj.cellExpense.amount){
+        appObj.cellExpense.promotionDeduction=totalPromotionDeduction;
+    }
+    appObj.cellExpense.total=(appObj.cellExpense.amount-appObj.cellExpense.promotionDeduction).toFixed(2);
 }
 
 

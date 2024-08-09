@@ -3,7 +3,7 @@ import { createApp } from "vue";
 import axios from 'axios';
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js"
-import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import {EventFeedScene,PriceSbu} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
@@ -40,7 +40,10 @@ const RootComponent = {
     methods: {
         showContactInfoV(brandId){
             showContactInfo(brandId);
-        }
+        },
+        transformSbuV(sbu){
+            return PriceSbu.get(sbu);
+        }  
     },
     created() {
         // todo url replace {brand_id}

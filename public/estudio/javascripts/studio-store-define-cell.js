@@ -150,22 +150,23 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.component('contenteditable', ContentediableComponent)
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(DirectiveComponent);
 app.mixin(DefineCellCoverAndBanner);
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
-    scene: EventFeedScene.STUDIO}));
+    scene: EventFeedScene.STUDIO,need_init: false
+}));
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag == 'content'
 }
-app.mixin(new FriendListCompoent({need_init: true}));
+app.mixin(new FriendListCompoent({need_init: false}));
 
 app.mixin(
     new Ssecompoent({
         sslSetting:{
-            need_init: true,
+            need_init: false,
             onMessage: (e)=>{
                 defineCellPage.onMessageHandler(e); //  source: FriendListCompoent
             }
@@ -178,7 +179,10 @@ window.cDefineCell= defineCellPage;
 
 // init
 defineCellPage.initPage();
-
+defineCellPage.userAdapter(); // auth.js
+defineCellPage.fetchPrivateFriendV();// FriendListCompoent.js
+defineCellPage.sseInitV();// Ssecompoent.js
+defineCellPage.initEventFeedCompoentV(); // EventFeed.js
 async function getCellInfo(cellId){
   const url = "/api/v1/web_estudio/cell/{cell_id}/profile".replace("{cell_id}",cellId);
   return await axios.get(url);

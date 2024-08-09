@@ -5,7 +5,7 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 
-import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import {EventFeedScene,PriceSbu} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
@@ -221,7 +221,10 @@ const RootComponent = {
             this.auditpagination.current = 1;
             this.reloadPage(this.auditpagination);
 
-        }
+        },
+        transformSbuV(sbu){
+            return PriceSbu.get(sbu);
+        } 
     },
     updated(){
         $('[data-popper-reference-hidden]').remove();

@@ -173,11 +173,10 @@ app.mixin(new FriendListCompoent({need_init: false}));
 app.mixin(
     new Ssecompoent({
         sslSetting:{
-            need_init: true,
+            need_init: false,
             onMessage: (e)=>{
                 settingProfilePage.onMessageHandler(e); //  source: FriendListCompoent
-            },
-            need_init: false
+            }
         }
     })
 );

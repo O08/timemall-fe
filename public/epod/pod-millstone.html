@@ -278,15 +278,17 @@
                   <table class="table table-width-fixed table-dark table-hover align-middle">
                     <thead>
                       <tr>
-                        <th>服务</th>
-                        <th scope="col">
+                        <th class="col-product-no-option">服务</th>
+                        <th class="col-fee">
                           单品
                         </th>
-                        <th scope="col">费用</th>
-                        <th scope="col">
+                        <th class="col-fee">费用</th>
+                        <th class="col-fee">优惠减免</th>
+                        <th class="col-fee">实际付款</th>
+                        <th class="col-fee">
                           标签
                         </th>
-                        <th scope="col">下单时间</th>
+                        <th class="col-addTime">下单时间</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -300,7 +302,9 @@
                         </td>
                         <td class="col-fee"><span>{{explainCellPlanTypeV(item.planType)}}</span> </td>
                         <td class="col-fee"><span>{{item.price}} </span> </td>
-                        <td>{{explainCellPlanOrderTagV(item.tag)}}</td>
+                        <td class="col-fee"><span>{{item.promotionDeduction}}</span> </td>
+                        <td class="col-fee"><span>{{item.revenue}}</span></td>
+                        <td class="col-fee">{{explainCellPlanOrderTagV(item.tag)}}</td>
                         <td class="col-addTime"><span> {{item.createAt}}</span></td>
                       </tr>
                       
@@ -400,9 +404,10 @@
                         </div>
                       </td>
                       <td class="col-product">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{trans.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{trans.quantity}} {{transformSbuV(trans.sbu)}}</div>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{trans.supplier}}</span> </td>
                       <td class="col-fee"><span>{{trans.fee.toFixed(2)}}</span> </td>
@@ -472,9 +477,10 @@
                       </td>
                       <td class="col-product">
                         <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
@@ -525,9 +531,10 @@
                     <tr v-for="item in auditing_pagination.records">
                       <td class="col-product-no-option">
                         <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
@@ -588,9 +595,10 @@
                       </td>
                       <td class="col-product">
                         <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
@@ -650,9 +658,10 @@
                       </td>
                       <td class="col-product">
                         <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
@@ -704,9 +713,10 @@
                     <tr v-for="item in suspend_pagination.records">
                       <td class="col-product-no-option">
                         <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
@@ -759,9 +769,10 @@
                     <tr v-for="item in finish_pagination.records">
                       <td class="col-product-no-option">
                         <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
                       <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>

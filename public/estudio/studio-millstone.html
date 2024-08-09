@@ -212,6 +212,12 @@
                 </div>
                 <span>产单助手</span>
               </a>
+              <a class="nav-link" href="/estudio/studio-promotion">
+                <div class="nav-icon">
+                  <i class="bi bi-gift"></i>
+                </div>
+                <span>营销活动</span>
+              </a>
               <a class="nav-link" href="/estudio/studio-msg">
                 <div class="nav-icon">
                   <i class="bi bi-bell"></i>
@@ -304,8 +310,10 @@
                   <th scope="col">
                     单品
                   </th>
-                  <th scope="col">客户支付</th>
                   <th scope="col">实收</th>
+                  <th scope="col">价格</th>
+                  <th scope="col">促销优惠</th>
+                  <th scope="col">客户支付</th>
                   <th scope="col">佣金</th>
                   <th scope="col">
                     标签
@@ -323,8 +331,10 @@
                     </a>
                   </td>
                   <td class="col-type">{{explainCellPlanTypeV(item.planType)}}</td>
-                  <td class="col-fee">{{item.price}}</td>
                   <td class="col-fee">{{item.netIncome}}</td>
+                  <td class="col-fee">{{item.price}}</td>
+                  <td class="col-fee">{{item.promotionDeduction}}</td>
+                  <td class="col-fee">{{item.revenue}}</td>
                   <td class="col-fee">{{item.commission}}</td>
                   <td class="col-type">{{explainCellPlanOrderTagV(item.tag)}}</td>
                   <td class="col-addTime">{{item.createAt}}</td>

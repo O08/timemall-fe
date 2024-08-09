@@ -212,6 +212,12 @@
                 </div>
                 <span>产单助手</span>
               </a>
+              <a class="nav-link" href="/estudio/studio-promotion">
+                <div class="nav-icon">
+                  <i class="bi bi-gift"></i>
+                </div>
+                <span>营销活动</span>
+              </a>
               <a class="nav-link" href="/estudio/studio-msg">
                 <div class="nav-icon">
                   <i class="bi bi-bell"></i>
@@ -312,9 +318,11 @@
                   <tr v-for="item in newOrderPagination.records">
                     <td class="col-product-no-option">
                         <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                          <span class="ellipsis-1">
+                          <div class="ellipsis-1">
                             {{item.service}}
-                          </span>
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+
                         </a>
                     </td>
                     <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
@@ -380,9 +388,10 @@
                       
                     </td>
                     <td class="col-product">
-                        <span class="ellipsis-1">
-                          {{item.service}}
-                        </span>
+                      <div class="ellipsis-1">
+                        {{item.service}}
+                      </div>
+                      <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                     </td>
                     <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
                     <td class="col-fee">{{item.fee}}</td>
@@ -435,9 +444,10 @@
                   <tr v-for="item in confirm_pagination.records">
                     <td class="col-product-no-option">
                       <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <span class="ellipsis-1">
+                        <div class="ellipsis-1">
                           {{item.service}}
-                        </span>
+                        </div>
+                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                       </a>
                     </td>
                     <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
@@ -491,9 +501,10 @@
                   <tr v-for="item in taskpagination.records">
                     <td class="col-product-no-option">
                       <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <span class="ellipsis-1">
+                        <div class="ellipsis-1">
                           {{item.service}}
-                        </span>
+                        </div>
+                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                       </a>
                     </td>
                     <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
@@ -548,9 +559,10 @@
                   <tr v-for="item in paused_pagination.records">
                     <td class="col-product-no-option">
                       <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <span class="ellipsis-1">
+                        <div class="ellipsis-1">
                           {{item.service}}
-                        </span>
+                        </div>
+                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                       </a>
                     </td>
                     <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
@@ -605,9 +617,10 @@
                   <tr v-for="item in suspend_pagination.records">
                     <td class="col-product-no-option">
                       <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <span class="ellipsis-1">
+                        <div class="ellipsis-1">
                           {{item.service}}
-                        </span>
+                        </div>
+                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                       </a>
                     </td>
                     <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
@@ -663,9 +676,10 @@
                 <tr v-for="item in finishpagination.records">
                   <td class="col-product-no-option">
                     <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                      <span class="ellipsis-1">
+                      <div class="ellipsis-1">
                         {{item.service}}
-                      </span>
+                      </div>
+                      <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                     </a>
                   </td>
                   <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>

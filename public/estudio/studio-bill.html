@@ -213,6 +213,12 @@
                 </div>
                 <span>产单助手</span>
               </a>
+              <a class="nav-link" href="/estudio/studio-promotion">
+                <div class="nav-icon">
+                  <i class="bi bi-gift"></i>
+                </div>
+                <span>营销活动</span>
+              </a>
               <a class="nav-link" href="/estudio/studio-msg">
                 <div class="nav-icon">
                   <i class="bi bi-bell"></i>
@@ -265,7 +271,7 @@
                 <thead>
                   <tr>
                     <th scope="col"></th>
-                    <th scope="col">项目</th>
+                    <th scope="col">账目</th>
                     <th scope="col">金额</th>
                     <th scope="col">服务</th>
                     <th scope="col">客户</th>
@@ -328,7 +334,7 @@
               <table class="table table-sm table-hover align-middle">
                 <thead>
                   <tr>
-                    <th scope="col">项目</th>
+                    <th scope="col">账目</th>
                     <th scope="col">金额</th>
                     <th scope="col">服务</th>
                     <th scope="col">客户</th>
@@ -386,7 +392,9 @@
               <table class="table table-sm table-hover align-middle">
                 <thead>
                   <tr>
-                    <th scope="col">项目</th>
+                    <th scope="col">账目</th>
+                    <th scope="col">金额</th>
+                    <th scope="col">优惠减免</th>
                     <th scope="col">客户支付</th>
                     <th scope="col">实收</th>
                     <th scope="col">佣金</th>
@@ -403,6 +411,8 @@
                       </span>
                     </td>
                     <td class="col-fee">{{bill.amount}}</td>
+                    <td class="col-fee">{{bill.promotionDeduction}}</td>
+                    <td class="col-fee">{{(Number(bill.amount)-Number(bill.promotionDeduction)).toFixed(2) }}</td>
                     <td class="col-fee">{{bill.netIncome}}</td>
                     <td class="col-fee">{{bill.commission}}</td>
                     <td class="col-product">

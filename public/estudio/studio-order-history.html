@@ -213,6 +213,12 @@
                   </div>
                   <span>产单助手</span>
                 </a>
+                <a class="nav-link" href="/estudio/studio-promotion">
+                  <div class="nav-icon">
+                    <i class="bi bi-gift"></i>
+                  </div>
+                  <span>营销活动</span>
+                </a>
                 <a class="nav-link" href="/estudio/studio-msg">
                   <div class="nav-icon">
                     <i class="bi bi-bell"></i>
@@ -267,9 +273,10 @@
                     </div>   
                   </td>
                   <td class="col-product">
-                    <span class="ellipsis-1">
+                    <div class="ellipsis-1">
                       {{trans.service}}
-                    </span>
+                    </div>
+                    <div class="cell-package">时长：{{trans.quantity}} {{transformSbuV(trans.sbu)}}</div>
                   </td>
                   <td class="col-brand"><span class="ellipsis-1">{{trans.customer}}</span> </td>
                   <td class="col-fee"><span class="ellipsis-1">{{trans.fee}}</span> </td>

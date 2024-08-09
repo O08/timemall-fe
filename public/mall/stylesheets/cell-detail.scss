@@ -12,14 +12,9 @@ mall-app {
     height: 50px;
   }
 
-
-  mall-app footer {
-    height: 40px;
-  }
-
   mall-app content {
     display: flex;
-    height: calc(100% - 240px);
+    height: calc(100vh - 186px);
   }
 
 
@@ -362,14 +357,14 @@ mall-app {
     font-size: 12px;
     color: #aaa;
 }
-.exeperince-millstone
+.exeperince-millstone,.me-links,.me-skills 
 {
     background-color: #121212;
 }
-.me-skills 
+.me-skills ,.me-links
 {
-    padding-left: 36px;
-    padding-bottom: 36px;
+    padding-top: .75rem;
+    padding-bottom: .5rem;
 }
 .millstone-header img
 {
@@ -448,7 +443,7 @@ mall-app {
 .plan-content-feature {
     min-height: 80px ;
 }
-.plan-content-header p ,.plan-feature-label{
+.plan-content-header p ,.plan-feature-label,.cell-coupon-label,.plan-panel-header-label,.plan-expense-label{
     font-weight: 700;
 }
 .plan-feature-label{
@@ -456,7 +451,6 @@ mall-app {
 }
 .plan-content-feature p{
     color: #aaa;
-    padding-left: 12px;
     font-size: 16px;
     font-weight: normal;
     line-height: 1.675;
@@ -557,6 +551,83 @@ mall-app {
 }
 .exeperince-millstone .card-body{
     padding-left: 4.5rem;
+}
+.cell-coupon{
+    padding-top: .5rem;
+}
+.coupon-item{
+    border: 1px solid rgb(254, 40, 58);
+    box-sizing: border-box;
+    display: inline-block;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-shrink: 1;
+    font-size: 10px;
+    padding: 0vw 3px;
+    border-radius: 3px;
+    height: 15px;
+    line-height: 13px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(255, 0, 54);
+    background: rgb(254, 238, 244);
+}
+.expense{
+    border: 1px solid #4d5154;
+    border-radius: 5px;
+    padding: .5rem;
+    padding-left: 1.5rem;
+}
+.expense,.sub-total{
+    font-size: 12px;
+    font-weight: bold;
+    color:#fff;
+}
+.expense li{
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+.plan-content-option {
+    display: flex;
+    align-items: center;
+}
+.coupon-notice{
+    border-radius: 5px;
+    border: 1px solid #4cffa9;
+    color: #4cffa9;
+    padding: .2rem;
+    font-size: 10px; 
+}
+.plan-init-price{
+    font-size: smaller;
+    color: #aaa;
+}
+.plan-content-header p{
+    font-size: 20px
+}
+
+.plan-block{
+    background-color: #121212;
+    border-radius: 24px;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 5px;
+}
+.plan-content-info .paragraph{
+    color: #aaa;
+}
+.plan-expense{
+    font-size: 12px;
+    max-width: 320px;
+    margin-top: .5rem;
+    padding-left: 1rem;
+    color: #aaa;
+}
+.plan-content-container .cell-coupon{
+    margin-bottom: 1rem;
 }
 @media (max-width: 576px) {
 

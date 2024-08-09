@@ -4,7 +4,7 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
-import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
+import {WorkflowStatus,EventFeedScene,PriceSbu} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
@@ -277,7 +277,10 @@ const RootComponent = {
             this.auditing_pagination.current = 1;
             this.reloadPage(this.auditing_pagination);
 
-        }
+        },
+        transformSbuV(sbu){
+            return PriceSbu.get(sbu);
+        } 
     },
     created() {
         // todo url replace {brand_id}

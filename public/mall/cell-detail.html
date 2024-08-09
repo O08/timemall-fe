@@ -33,7 +33,7 @@
 
             <ul class="nav_links">
               <li class="nav_link active">
-                <a  href="/">
+                <a  href="/home">
                   <span>
                     精选商店
                   </span> 
@@ -108,7 +108,7 @@
      <div class="mobile-nav-container">
       <ul class="nav_links">
         <li class="nav_link active">
-          <a  href="/">
+          <a  href="/home">
             <span>精选商店</span> 
           </a>
         </li>
@@ -215,6 +215,17 @@
                       </div>
                       <!-- cell title -->
 
+                      <div class="cell-coupon">
+                        <span v-if="brandPromotionData.creditPointTag=='1' && !user_already_login" class="coupon-item">新用户体验金{{brandPromotionData.creditPoint}}元</span>
+                        <span v-if="brandPromotionData.earlyBirdDiscountTag=='1' && !user_already_login"  class="ms-2 coupon-item">尝鲜神券{{brandPromotionData.earlyBirdDiscount}}%</span>
+                        <span v-if="brandPromotionData.repurchaseDiscountTag=='1' && !user_already_login"  class="ms-2 coupon-item">复购尊享{{brandPromotionData.repurchaseDiscount}}%</span>
+
+                        <span v-if="user_already_login && !!userPromotionBenefit.creditPoint && userPromotionBenefit.creditPoint>0" class="coupon-item">本单可用体验金{{userPromotionBenefit.creditPoint}}元</span>
+                        <span v-if="brandPromotionData.earlyBirdDiscountTag=='1' && user_already_login && userPromotionBenefit.canUseEarlyBirdCoupon=='1'"  class="ms-2 coupon-item">尝鲜神券{{brandPromotionData.earlyBirdDiscount}}%</span>
+                        <span v-if="brandPromotionData.repurchaseDiscountTag=='1' && user_already_login && userPromotionBenefit.canUseRepurchaseCoupon=='1'"  class="ms-2 coupon-item">复购尊享{{brandPromotionData.repurchaseDiscount}}%</span>
+                        
+                      </div>
+
                       <p class="cell-title my-4">{{profile.title}}</p>
                       <div  class="cell-intro-content pb-5">
                         <p v-for="item in profile.content.items" class="cell-content-item">
@@ -226,7 +237,7 @@
                     <div class="fee-calculator-pannel">
                       <div class="card fee-calculator-bg fee-calculator">
                         <div class="d-flex justify-content-between">
-                          <h5 class="card-header ">
+                          <h5 class="card-header ps-3">
                             费用计算
                           </h5>
                           <div>
@@ -249,20 +260,35 @@
                             </div>
                           </div>
                           <div class="input-group w-75 mb-3">
-                            <input type="text" class="form-control border-0 option-sbu-input" min="1" max="50000" step="1" v-model="quantity" @change="computeTotalFeeV" @input="transformInputNumberV($event)" aria-label="Text input with dropdown button">
-                            <select class="form-select option-sbu" v-model="selectedSbu" @change="computeTotalFeeV" aria-label="Default select example">
+                            <input type="text" class="form-control border-0 option-sbu-input" min="1" max="50000" step="1" v-model="quantity" @change="computeFeeV" @input="transformInputNumberV($event)" aria-label="Text input with dropdown button">
+                            <select class="form-select option-sbu" v-model="selectedSbu" @change="computeFeeV" aria-label="Default select example">
                               <option value="">计量</option>
                               <option :value="item.sbu" v-for="item in profile.fee">{{transformSbuV(item.sbu)}}</option>
                             </select>
                           </div>
-                          <div class="help-text">
+                          <div class="help-text mb-3">
                             <span v-if="profile.provideInvoice==='1'"> 服务可申请开具发票</span>
                             <span v-else>服务不提供发票</span>
                           </div>
+                          <div v-if="user_already_login" class="expense-container">
+                            <div>
+                              <ul class="expense">
+                                <li><div class="d-flex justify-content-between"><div>服务费用</div><div>¥ {{cellExpense.amount}}</div> </div> </li>
+                                <li v-if="(!!userPromotionBenefit.creditPoint) &&  userPromotionBenefit.creditPoint>0" ><div class="d-flex justify-content-between"><div>用户体验金</div><div>- ¥ {{cellExpense.promotionCreditPointDeductionDifference}}</div> </div> </li>
+                                <li v-if="userPromotionBenefit.canUseRepurchaseCoupon=='1' && brandPromotionData.repurchaseDiscountTag=='1'"><div class="d-flex justify-content-between"><div>复购神券{{brandPromotionData.repurchaseDiscount}}%</div><div>- ¥ {{cellExpense.repurchaseDiscountDifference}}</div> </div> </li>
+                                <li v-if="userPromotionBenefit.canUseEarlyBirdCoupon=='1' && brandPromotionData.earlyBirdDiscountTag=='1'"><div class="d-flex justify-content-between"><div>尝鲜尊享{{brandPromotionData.earlyBirdDiscount}}%</div><div>- ¥ {{cellExpense.earlyBirdDiscountDifference}}</div> </div> </li>
+                              </ul>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                              <div class="sub-total">优惠 ¥ {{cellExpense.promotionDeduction}} &nbsp; &nbsp; 小计 ¥ {{cellExpense.total}}</div>
+                            </div>
+                          </div>
+                          
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
                           <div class="price">
-                            <ins class="text-decoration-none">￥{{total}}</ins>
+                            <i>￥</i>
+                            <ins class="text-decoration-none">{{cellExpense.total}}</ins>
                           </div>
                           <button type="button" @click="orderNowV" v-preventreclick class="btn btn-primary">即刻预约</button>
                         </div>
@@ -334,6 +360,8 @@
                        <!-- seller links -->
                     <section class="section-seller-links">
                       <div class="section-header">链接</div>
+                      <div class="me-links">
+
                       <div v-for="link in brandProfile.links" class="me-link ms-2 py-2 ps-2">
                         <img class="link__favicon" width="24" height="24" :src="getLinkIconUrlV(link.uri)">
                         <div class="link-view-wrapper">
@@ -345,14 +373,17 @@
                            </span>
                         </div>
                       </div>
+
+                      </div>
+                      
                     </section>
 
                      
                     <!-- seller skills -->
                     <section class="section-seller-skills">
                       <div class="section-header">品牌词条</div>
-                      <div class="me-skills ms-2 pb-5">
-                        <p v-for="skill in brandProfile.skills" class="fw-bold opt_item_desc">{{skill.entry}}</p>
+                      <div class="me-skills">
+                        <p v-for="skill in brandProfile.skills" class="fw-bold opt_item_desc ps-4"><i class="bi bi-stars"></i> <span>{{skill.entry}}</span> </p>
                       </div>
                     </section>
                      
@@ -363,8 +394,8 @@
                 </div>
                 <div class="tab-pane fade " id="plan-tab-pane" role="tabpanel" aria-labelledby="plan-tab" tabindex="0">
                   <div class="plan-panel-header">
-                    <div>
-                      套餐：
+                    <div class="plan-panel-header-label">
+                      可选套餐：
                     </div>
                     <div 
                       :class="{'active': displayPlan.planType==='bird' }"
@@ -390,37 +421,78 @@
                   </div>
                   <div class="plan-content-container">
                    
-                    <div class="plan-content-header">
-                      <p class="paragraph">
-                       {{displayPlan.title}}
-                      </p>
-                    </div>
-                    <div class="plan-content-info pt-2">
-                      <p class="paragraph">
-                          {{displayPlan.content}}
-                      </p>
-                    </div>
-                    
+                   
 
-                    <div class="plan-content-feature">
+                    <div class="plan-fast-view-block plan-block">
+                      <div class="plan-content-header">
+                        <p class="paragraph">
+                         {{displayPlan.title}}
+                        </p>
+                      </div>
+                      <div class="plan-content-info">
+                        <p class="paragraph">
+                            {{displayPlan.content}}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="plan-content-feature mt-2 plan-block">
                       <div class="plan-feature-label">
-                        套餐内容：
+                        套餐内容
                       </div>
                       <p class="paragraph">
                           {{displayPlan.feature}}
                       </p>
                     </div>
 
-                    <div class="plan-content-option py-4">
-                      <div class="price">
-                        <ins class="text-decoration-none">￥ {{displayPlan.price}}</ins>
-                      </div>
-                      <div class="plan-content-option-empty-block">
+                    <div v-if="haveDiscount" class="plan-coupon-block  mt-2 plan-block">
 
+                      <div  class="cell-coupon-label">
+                        促销优惠
                       </div>
-                      <button type="button" @click="showOrderCellPlanFocusModalV" v-preventreclick class="btn btn-primary">购买单品</button>
+                      <div class="cell-coupon">
+                        <span v-if="brandPromotionData.creditPointTag=='1' && !user_already_login" class="coupon-item">新用户体验金{{brandPromotionData.creditPoint}}元</span>
+                        <span v-if="brandPromotionData.earlyBirdDiscountTag=='1' && !user_already_login"  class="ms-2 coupon-item">尝鲜神券{{brandPromotionData.earlyBirdDiscount}}%</span>
+                        <span v-if="brandPromotionData.repurchaseDiscountTag=='1' && !user_already_login"  class="ms-2 coupon-item">复购尊享{{brandPromotionData.repurchaseDiscount}}%</span>
+  
+                        <span v-if="user_already_login && !!userPromotionBenefit.creditPoint && userPromotionBenefit.creditPoint>0" class="coupon-item">本单可用体验金{{userPromotionBenefit.creditPoint}}元</span>
+                        <span v-if="brandPromotionData.earlyBirdDiscountTag=='1' && user_already_login && userPromotionBenefit.canUseEarlyBirdCoupon=='1'"  class="ms-2 coupon-item">尝鲜神券{{brandPromotionData.earlyBirdDiscount}}%</span>
+                        <span v-if="brandPromotionData.repurchaseDiscountTag=='1' && user_already_login && userPromotionBenefit.canUseRepurchaseCoupon=='1'"  class="ms-2 coupon-item">复购尊享{{brandPromotionData.repurchaseDiscount}}%</span>
+                        
+                      </div>
 
                     </div>
+
+                    <div v-if="planExpense.promotionDeduction>0"  class="plan-expense-block  mt-2 plan-block">
+
+                      <div  class="plan-expense-label">
+                        费用明细
+                      </div>
+  
+                      <div v-if="planExpense.promotionDeduction>0">
+                        <ul class="plan-expense">
+                          <li><div class="d-flex justify-content-between"><div>服务费用</div><div>¥ {{planExpense.amount}}</div> </div> </li>
+                          <li v-if="(!!userPromotionBenefit.creditPoint) &&  userPromotionBenefit.creditPoint>0" ><div class="d-flex justify-content-between"><div>用户体验金</div><div>- ¥ {{planExpense.promotionCreditPointDeductionDifference}}</div> </div> </li>
+                          <li v-if="userPromotionBenefit.canUseRepurchaseCoupon=='1' && brandPromotionData.repurchaseDiscountTag=='1'"><div class="d-flex justify-content-between"><div>复购尊享{{brandPromotionData.repurchaseDiscount}}%</div><div>- ¥ {{planExpense.repurchaseDiscountDifference}}</div> </div> </li>
+                          <li v-if="userPromotionBenefit.canUseEarlyBirdCoupon=='1' && brandPromotionData.earlyBirdDiscountTag=='1'"><div class="d-flex justify-content-between"><div>尝鲜神券{{brandPromotionData.earlyBirdDiscount}}%</div><div>- ¥ {{planExpense.earlyBirdDiscountDifference}}</div> </div> </li>
+                        </ul>
+                      </div>
+
+                    </div>
+
+                    <div class="py-4">
+                      <div class="plan-content-option ">
+                        <div class="price">
+                          <i>￥</i>
+                          <ins class="text-decoration-none">{{planExpense.total}}</ins>
+                        </div>
+                        <span v-if="planExpense.promotionDeduction>0" class="coupon-notice mx-2">优惠后共减{{planExpense.promotionDeduction}}元</span>
+                        <s v-if="planExpense.promotionDeduction>0" class="plan-init-price"> ¥{{planExpense.amount}} </s>
+                      </div>
+                    </div>
+
+                    <button type="button" @click="showOrderCellPlanFocusModalV" v-preventreclick class="btn btn-primary">购买单品</button>
+
 
                   </div>
                 </div>

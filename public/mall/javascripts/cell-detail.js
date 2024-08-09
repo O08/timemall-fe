@@ -17,6 +17,9 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
 import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-icon-parse.js";
 import {Api} from "/common/javascripts/common-api.js";
+import  PromotionComponent  from "/mall/javascripts/component/PromotionComponent.js";
+
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 const defaultCellIntroCoverImage ="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/default-cell-intro-cover.svg";
@@ -24,6 +27,22 @@ const defaultCellIntroCoverImage ="https://d13-content.oss-cn-hangzhou.aliyuncs.
 const RootComponent = {
     data() {
         return {
+            planExpense: {
+                promotionCreditPointDeductionDifference: 0,
+                earlyBirdDiscountDifference: 0,
+                repurchaseDiscountDifference: 0,
+                amount: 0,
+                promotionDeduction: 0,
+                total: 0
+            },
+            cellExpense: {
+                promotionCreditPointDeductionDifference: 0,
+                earlyBirdDiscountDifference: 0,
+                repurchaseDiscountDifference: 0,
+                amount: 0,
+                promotionDeduction: 0,
+                total: 0
+            },
             error:{},
             defaultAvatarImage,
             defaultExperienceImage,
@@ -60,7 +79,7 @@ const RootComponent = {
             return explainCellPlanType(planType);
         },
         showOrderCellPlanFocusModalV(){
-            this.focusModal.feed="即将为您下单单品套餐： "+ this.explainCellPlanTypeV(this.displayPlan.planType)+" ,单品价格为：" + this.displayPlan.price;
+            this.focusModal.feed="即将为您下单单品套餐： "+ this.explainCellPlanTypeV(this.displayPlan.planType)+" ,付款金额为：" + this.planExpense.total;
             this.focusModal.confirmHandler=()=>{
                 this.orderCellPlanV();
                 $("#focusModal").modal("hide"); // show modal
@@ -132,8 +151,8 @@ const RootComponent = {
               event.currentTarget.dispatchEvent(new Event('input')); // update v-model
             }
         },
-        computeTotalFeeV(){
-            computeTotalFee()
+        computeFeeV(){
+            computeFee()
         },
         isEmptyObjectV(obj){
             return $.isEmptyObject(obj);
@@ -143,11 +162,22 @@ const RootComponent = {
             copyValueToClipboard(content);
         }
     },
-    created(){
-      this.loadCellInfoV();
-      this.fetchCellPlanV();
-      this.uploadCellDataLayerClicksV();
-      this.fetchBluvarrierV();
+    watch: {
+        'displayPlan.planType': function(newV, oldV){
+            if(newV){
+                calPlanExpenseObj();
+            }
+        },
+        'userPromotionBenefitLoadFinish': function(newV, oldV){
+            if(newV){
+                calPlanExpenseObj();
+            }
+        },
+        'brandPromotionDataLoadFinish': function(newV, oldV){
+            if(newV){
+                calPlanExpenseObj();
+            }
+        },
     },
     updated(){
         
@@ -189,12 +219,20 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content') || tag.startsWith('sub-nav')
 }
+app.mixin(PromotionComponent);
 const cellDetailPage = app.mount('#app');
 
 
 window.cellDetail = cellDetailPage;
 
 let customAlert = new CustomAlertModal();
+
+// init load 
+cellDetailPage.__initPromotionComponentV();
+cellDetailPage.loadCellInfoV();
+cellDetailPage.uploadCellDataLayerClicksV();
+cellDetailPage.fetchBluvarrierV();
+cellDetailPage.fetchCellPlanV();
 
 /**
  * intro -------------
@@ -217,7 +255,7 @@ async function order(cellId){
         dto.chn=chn;
         dto.market=market;
     }
-    const url = "/api/v1/web_mall/services/{cell_id}/order".replace("{cell_id}",cellId);
+    const url = "/api/v1/mall/services/{cell_id}/order".replace("{cell_id}",cellId);
     return await axios.post(url,dto); 
 }
 async function doSendOrderReceivingEmail(dto){
@@ -251,7 +289,7 @@ async function doOrderCellPlan(planId){
         dto.chn=chn;
         dto.market=market;
     }
-    const url="/api/v1/web_mall/services/plan/{id}/order".replace("{id}",planId);
+    const url="/api/v1/mall/services/plan/{id}/order".replace("{id}",planId);
     return await axios.post(url,dto);
 }
 function orderCellPlan(planId){
@@ -306,8 +344,8 @@ function fetchCellPlan(){
 
 function orderNow(){
     const cellId= getQueryVariable("cell_id");
-    if(!cellId || !cellDetailPage.total || !cellDetailPage.quantity 
-        || cellDetailPage.total<=0 || cellDetailPage.quantity<=0){
+    if(!cellId || !cellDetailPage.quantity 
+        || cellDetailPage.cellExpense.total<0 || cellDetailPage.quantity<=0){
             customAlert.alert("请选择需要预约的服务数量与标准付费单元");
             return
     }
@@ -322,7 +360,7 @@ function orderNow(){
             sendOrderReceivingEmail(EmailNoticeEnum.CELL_ORDER_RECEIVING,response.data.orderId);
             // reset 
             cellDetailPage.quantity ="";
-            cellDetailPage.total = 0;
+            initCellExpense();
 
             // science data
             uploadCellDataLayerWhenAppointment([cellId]);
@@ -398,11 +436,35 @@ function getFeeItemBySbu(sbu){
     const filterFee = cellDetailPage.profile.fee.filter(item=>item.sbu===sbu)[0];
    return filterFee;
 }
-function computeTotalFee(){
+function computeFee(){
     if(cellDetailPage.selectedSbu === "" || !cellDetailPage.quantity ){
         cellDetailPage.total = 0;
+        initCellExpense();
         return ;
     }
+    cellDetailPage.cellExpense.amount=getSbuPrice() * cellDetailPage.quantity;
+    if((!!cellDetailPage.userPromotionBenefit.creditPoint) &&  cellDetailPage.userPromotionBenefit.creditPoint>0 && cellDetailPage.userPromotionBenefit.creditPoint>= cellDetailPage.cellExpense.amount){
+        cellDetailPage.cellExpense.promotionCreditPointDeductionDifference=cellDetailPage.cellExpense.amount;
+    }
+    if((!!cellDetailPage.userPromotionBenefit.creditPoint) &&  cellDetailPage.userPromotionBenefit.creditPoint>0 && cellDetailPage.userPromotionBenefit.creditPoint< cellDetailPage.cellExpense.amount){
+        cellDetailPage.cellExpense.promotionCreditPointDeductionDifference=cellDetailPage.userPromotionBenefit.creditPoint;
+    }
+    if(cellDetailPage.userPromotionBenefit.canUseRepurchaseCoupon=='1' && cellDetailPage.brandPromotionData.repurchaseDiscountTag=='1'){
+        cellDetailPage.cellExpense.repurchaseDiscountDifference=(cellDetailPage.cellExpense.amount*(100-Number(cellDetailPage.brandPromotionData.repurchaseDiscount))/100).toFixed(2);
+    }
+    if(cellDetailPage.userPromotionBenefit.canUseEarlyBirdCoupon=='1' && cellDetailPage.brandPromotionData.earlyBirdDiscountTag=='1'){
+        cellDetailPage.cellExpense.earlyBirdDiscountDifference=(cellDetailPage.cellExpense.amount*(100-Number(cellDetailPage.brandPromotionData.earlyBirdDiscount))/100).toFixed(2);
+    }
+    var totalPromotionDeduction = (Number(cellDetailPage.cellExpense.promotionCreditPointDeductionDifference) + Number(cellDetailPage.cellExpense.repurchaseDiscountDifference) + Number(cellDetailPage.cellExpense.earlyBirdDiscountDifference)).toFixed(2);
+    
+    if(totalPromotionDeduction>=cellDetailPage.cellExpense.amount){
+        cellDetailPage.cellExpense.promotionDeduction=cellDetailPage.cellExpense.amount;
+    }
+    if(totalPromotionDeduction<cellDetailPage.cellExpense.amount){
+        cellDetailPage.cellExpense.promotionDeduction=totalPromotionDeduction;
+    }
+    cellDetailPage.cellExpense.total=(Number(cellDetailPage.cellExpense.amount)-Number(cellDetailPage.cellExpense.promotionDeduction)).toFixed(2);
+
     cellDetailPage.total  = getSbuPrice() * cellDetailPage.quantity;
 }
 
@@ -444,8 +506,42 @@ function doRenderStructuredDataForSEO(name,description,url,price,image){
       document.head.appendChild(script);
 }
 
+function initCellExpense(){
+    cellDetailPage.cellExpense={
+        promotionCreditPointDeductionDifference: 0,
+        earlyBirdDiscountDifference: 0,
+        repurchaseDiscountDifference: 0,
+        amount: 0,
+        promotionDeduction: 0,
+        total: 0
+    }
+}
 
+function calPlanExpenseObj(){
+    cellDetailPage.planExpense.amount=Number(cellDetailPage.displayPlan.price);
 
+    if((!!cellDetailPage.userPromotionBenefit.creditPoint) &&  cellDetailPage.userPromotionBenefit.creditPoint>0 && cellDetailPage.userPromotionBenefit.creditPoint>= cellDetailPage.displayPlan.price){
+        cellDetailPage.planExpense.promotionCreditPointDeductionDifference=cellDetailPage.displayPlan.price;
+    }
+    if((!!cellDetailPage.userPromotionBenefit.creditPoint) &&  cellDetailPage.userPromotionBenefit.creditPoint>0 && cellDetailPage.userPromotionBenefit.creditPoint< cellDetailPage.displayPlan.price){
+        cellDetailPage.planExpense.promotionCreditPointDeductionDifference=cellDetailPage.userPromotionBenefit.creditPoint;
+    }
+    if(cellDetailPage.userPromotionBenefit.canUseRepurchaseCoupon=='1' && cellDetailPage.brandPromotionData.repurchaseDiscountTag=='1'){
+        cellDetailPage.planExpense.repurchaseDiscountDifference=(cellDetailPage.planExpense.amount*(100-Number(cellDetailPage.brandPromotionData.repurchaseDiscount))/100).toFixed(2);
+    }
+    if(cellDetailPage.userPromotionBenefit.canUseEarlyBirdCoupon=='1' && cellDetailPage.brandPromotionData.earlyBirdDiscountTag=='1'){
+        cellDetailPage.planExpense.earlyBirdDiscountDifference=(cellDetailPage.planExpense.amount*(100-Number(cellDetailPage.brandPromotionData.earlyBirdDiscount))/100).toFixed(2);
+    }
+    var totalPromotionDeduction = (Number(cellDetailPage.planExpense.promotionCreditPointDeductionDifference) + Number(cellDetailPage.planExpense.repurchaseDiscountDifference) + Number(cellDetailPage.planExpense.earlyBirdDiscountDifference)).toFixed(2);
+    
+    if(totalPromotionDeduction>=cellDetailPage.planExpense.amount){
+        cellDetailPage.planExpense.promotionDeduction=cellDetailPage.planExpense.amount;
+    }
+    if(totalPromotionDeduction<cellDetailPage.planExpense.amount){
+        cellDetailPage.planExpense.promotionDeduction=totalPromotionDeduction;
+    }
+    cellDetailPage.planExpense.total=(Number(cellDetailPage.planExpense.amount)- Number(cellDetailPage.planExpense.promotionDeduction)).toFixed(2);
+}
 
 
 function transformInputNumber(val,min,max){
