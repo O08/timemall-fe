@@ -191,7 +191,7 @@ function uploadAnnounceFile(){
             document.querySelector('#file_announce').value = null;
         }
     }).catch(error=>{
-        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
+        customAlert.alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
     })
 }
 
@@ -210,7 +210,7 @@ function uploadOasisCover(){
             document.querySelector('#file_avator').value = null;
         }
     }).catch(error=>{
-        alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
+        customAlert.alert("文件上传失败，请检查图片格式,大小, 若异常信息出现code 413, 说明图片大于1M。异常信息(" + error+ ")");
     })
 }
 function modifyBaseInfo(base,oasisId){
@@ -235,12 +235,18 @@ function saveBaseInfo(base){
             addOasisIdToUrl(response.data.oasisId);
             createOasisPage.nextSlideV();
         }
+        if(response.data.code==2010){
+            customAlert.alert("基地名字已被使用");
+        }
     });
    }
    if(id){
     modifyBaseInfo(base,id).then(response=>{
         if(response.data.code == 200){
             createOasisPage.nextSlideV();
+        }
+        if(response.data.code==2010){
+            customAlert.alert("基地名字已被使用");
         }
     });
    }
@@ -278,9 +284,9 @@ function previewOasisCover(e){
      }
      const imgFile = new Image();
      imgFile.onload = ()=> {
-        if(!(imgFile.width>=99 && imgFile.height>=99)){
+        if(!(imgFile.width>=99 && imgFile.height>=99  && imgFile.width<4096 && imgFile.height<4096 )){
             console.log("current image: width=" + imgFile.width + "  height="+imgFile.height);
-            customAlert.alert("图片必须至少为 99 x 99 像素!");
+            customAlert.alert("图片必须至少为 99 x 99 像素且单边长度不能超过4096像素!");
             return false;
         }
         $("#oasisCoverModal").modal("show");
@@ -312,9 +318,9 @@ function previewAnnounceFile(e){
       }
       const imgFile = new Image();
       imgFile.onload = ()=> {
-         if(!(imgFile.width>=576 && imgFile.height>=576)){
+         if(!(imgFile.width>=576 && imgFile.height>=576  && imgFile.width<4096 && imgFile.height<4096)){
              console.log("current image: width=" + imgFile.width + "  height="+imgFile.height);
-             customAlert.alert("图片必须至少为 576 x 576 像素!");
+             customAlert.alert("图片必须至少为 576 x 576 像素且单边长度不能超过4096像素!");
              return false;
          }
          $("#announceFileModal").modal("show");

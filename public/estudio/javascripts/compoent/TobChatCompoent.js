@@ -1,5 +1,7 @@
 import { createPopup } from "@picmo/popup-picker";
 import axios from 'axios';
+import emojiData from 'emojibase-data/zh/data.json';
+import messages from 'emojibase-data/zh/messages.json';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 
@@ -270,7 +272,9 @@ const TobChatCompoent = {
     const inputBox = document.querySelector(".chat-input");
     
     const picker = createPopup(
-      {
+      {        
+        emojiData: emojiData,
+        messages: messages,
         locale: 'zh'
       },
       {
