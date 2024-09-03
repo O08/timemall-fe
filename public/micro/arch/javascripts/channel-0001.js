@@ -16,6 +16,9 @@ import axios from "axios";
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
+const currentOasisId = getQueryVariable("oasis_id");
+
+const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 
 
@@ -26,6 +29,7 @@ import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 const RootComponent = {
     data() {
       return {
+        channelSort, oaisiChannelList,getChannelDataV,
         timer: null,
         viewerProfile: {},
         defaultAvatarImage,

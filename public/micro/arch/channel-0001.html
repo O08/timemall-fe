@@ -105,9 +105,10 @@
             <i class="bi bi-fan"></i>
             <span class="link-title">Fan</span>  
           </a>
-          <a  class="nav-link nva-link-default p-2 ms-3 d-flex flex-row align-items-center" :href="'/micro/oasis/mini?oasis_id=' + oasisId">
+          <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
             <i class="bi bi-filetype-html"></i>
-            <span>创客资源</span>  
+              
+            <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
           </a>
  
           
