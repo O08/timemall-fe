@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
 const OasisAnnounceComponent = {
     data() {
@@ -15,7 +16,7 @@ const OasisAnnounceComponent = {
                 window.location.href="/micro/teixcalaanli";
                 return ;
             }
-            loadAnnounce(oasisId).then(response=>{
+            OasisApi.loadAnnounce(oasisId).then(response=>{
                 if(response.data.code == 200){
                     this.announce = response.data.announce;
                     if(!this.announce){
@@ -34,12 +35,6 @@ const OasisAnnounceComponent = {
         this.oasisId =  getQueryVariable("oasis_id");
     }
 }
-async function getAnnounce(oasisId){
-    const url = "/api/v1/team/oasis/announce/{oasis_id}".replace("{oasis_id}",oasisId);
-    return await axios.get(url);
-}
-function loadAnnounce(oasisId){
-    return getAnnounce(oasisId);
-}
+
 
 export default OasisAnnounceComponent;

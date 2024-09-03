@@ -1,5 +1,6 @@
 import axios from 'axios';
 import oasisAvatarDefault from "/micro/images/oasis-default-building.jpeg"
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
 const TeicallaanliSubNavComponent = {
     data() {
@@ -13,7 +14,7 @@ const TeicallaanliSubNavComponent = {
         loadInvitedOases(){
             const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
 
-            getAListOfInvitedOases(brandId).then(response=>{
+            OasisApi.getAListOfInvitedOases(brandId).then(response=>{
                 if(response.data.code == 200){
                     this.invitedoases = response.data.invited;
                 }
@@ -21,7 +22,7 @@ const TeicallaanliSubNavComponent = {
         },
         loadJoinedOases(){
             const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
-            getAListOfJoinedOases(brandId).then(response=>{
+            OasisApi.getAListOfJoinedOases(brandId).then(response=>{
                 if(response.data.code == 200){
                     this.joinedoases = response.data.joined;
                 }
@@ -35,14 +36,6 @@ const TeicallaanliSubNavComponent = {
     created(){
        this.loadSubNav();
     }
-}
-async function getAListOfInvitedOases(brandId){
-    const url ="/api/v1/team/invitedOases?brandId="+brandId;
-    return axios.get(url);
-}
-async function getAListOfJoinedOases(brandId){
-    const url ="/api/v1/team/joinedOases?brandId="+brandId;
-    return axios.get(url);
 }
 
 

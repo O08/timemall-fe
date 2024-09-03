@@ -10,9 +10,17 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
 
+
+const currentOasisId = getQueryVariable("oasis_id");
+
+const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+
 const RootComponent = {
     data() {
+
+    
         return {
+            channelSort, oaisiChannelList,getChannelDataV,
             brandAccount:{
                 drawable: 0.00
             },
@@ -112,7 +120,9 @@ const RootComponent = {
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
-        document.title = this.announce.title + " | 基地";
+        if(!!this.announce.title){
+            document.title = this.announce.title + " | 基地";
+        }
 
     }
 }
@@ -205,5 +215,3 @@ function closeTopUpOasisModel(){
 function transformInputNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
   }
-
-

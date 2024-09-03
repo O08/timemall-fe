@@ -10,12 +10,17 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import {CommissionTag} from "/common/javascripts/tm-constant.js";
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
+const currentOasisId = getQueryVariable("oasis_id");
 
+const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 const RootComponent = {
     data() {
+
         return {
+            channelSort, oaisiChannelList,getChannelDataV,
             commissionForm: {
               title: "",
               bonus: "",
@@ -37,7 +42,7 @@ const RootComponent = {
                     worker: ""
                 },
                 paramHandler: (info)=>{
-                    info.param.oasisId = this.oasisId;
+                    info.param.oasisId = currentOasisId;
                  },
                 responesHandler: (response)=>{
                     if(response.code == 200){

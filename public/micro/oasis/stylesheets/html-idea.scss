@@ -1,0 +1,79 @@
+body{
+    background-color: #000;
+    color: #fff;
+    margin: unset;
+}
+.content-container{
+    height: 100vh;
+}
+.head-pannel{
+    height: 56px;
+}
+.code-pannel{
+    justify-content: center;
+    display: flex;
+    height: calc(100% - 56px);
+}
+.code-pannel .code-input{
+    height: 100%;
+    width: calc(100% - 20px);
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    overflow: auto;
+    background-color: unset;
+    border-radius: 5px;
+    background-color: rgb(33, 33, 33);
+
+}
+.code-pannel .code-input:focus{
+    outline: unset;
+}
+.head-pannel{
+    display: flex;
+    align-items: center;
+}
+.code-option{
+    display: flex;
+}
+.iphone-12-frame{
+    width: 390px;
+    height: 844px;
+    overflow: auto;
+}
+.pc-imac-frame{
+    width: 1440px;
+    height: 900px;
+    overflow: auto;
+}
+.head-btn{
+    background-color: #000;
+    border: none;
+    color: rgb(118, 118, 118);
+}
+.head-btn:hover{
+    color: #fff;
+
+}
+.modal-content{
+    background-color: #fff;
+}
+.btn-close:focus{
+    box-shadow: none;
+}
+#pcPreviewModal .modal-dialog{
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+}
+#pcPreviewModal .modal-content{
+    border: none;
+    height: 100%;
+    border-radius: 0 !important;
+}
+
+#mobilePreviewModal .modal-content{
+   width: 400px;
+}
+

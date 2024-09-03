@@ -28,9 +28,13 @@ app.get('/',(req,res)=>{
   res.sendFile(__dirname+"/dist"+"/welcome.html")        //设置/ 下访问文件位置
 });
 
+app.get('/idea/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/micro/oasis/idea.html")        //设置/ 下访问文件位置
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404).sendFile(__dirname+"/dist"+"/404.html") 
 });
 
 // error handler

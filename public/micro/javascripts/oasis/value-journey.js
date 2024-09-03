@@ -9,10 +9,16 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+const currentOasisId = getQueryVariable("oasis_id");
+
+const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 const RootComponent = {
     data() {
+
         return {
+            channelSort, oaisiChannelList,getChannelDataV,
             oasisInd: {}
         }
     },

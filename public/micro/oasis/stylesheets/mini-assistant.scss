@@ -1,0 +1,125 @@
+.mini-main-container{
+    padding: 24px;
+}
+.mini-col{
+    max-width: unset;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #373b3e52;
+    box-shadow: 0 1px 2px 0 rgba(122, 161, 225, .2);
+}
+.mini-inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.mini-icon{
+
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 48px;
+    height: 48px;
+    background-color: #FC5C42;
+}
+.mini-icon i{
+
+    font-size: 32px;
+}
+.mini-info-title{
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    word-break: break-all;
+}
+.mini-detail-wrapper{
+    display: flex;
+    position: relative;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+.mini-info-desc{
+    font-size: 12px;
+    line-height: 20px;
+    opacity: 1;
+    color: #87888c;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    word-break: break-all;
+}
+.mini-ctl .btn{
+    font-size: 10px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background-color: unset;
+    color: #87888c;
+
+}
+.mini-ctl .btn:hover{
+    color: whitesmoke;
+
+}
+.mini-ctl{
+    display: none;
+    width: 100%;
+
+}
+.mini-detail-wrapper{
+    height: 42px;
+    margin-top: 8px;
+}
+.mini-inner:hover .mini-info-desc{
+   display: none;
+}
+.mini-inner:hover .mini-ctl{
+    display: flex;
+    align-items: center;
+}
+
+html,
+body,
+#app,
+.v-application--wrap,
+.v-content,
+.v-content__wrap {
+  height: 100%;
+}
+
+.drop-in {
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+}
+
+.item {
+    padding: unset;
+    background-color: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.feedback {
+      background-color: rgb(255, 220, 220);
+      border: 2px dashed black;
+    }
+
+    &.drag-image {
+      background-color: rgb(220, 255, 220);
+      transform: translate(-50%, -50%);
+    }
+  }

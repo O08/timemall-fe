@@ -8,9 +8,16 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+const currentOasisId = getQueryVariable("oasis_id");
+
+const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+
 const RootComponent = {
     data() {
+
         return {
+            channelSort, oaisiChannelList,getChannelDataV,
             defaultAvatarImage,
             member: {}
         }

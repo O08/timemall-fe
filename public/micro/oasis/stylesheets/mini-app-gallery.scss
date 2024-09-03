@@ -1,0 +1,65 @@
+.app-main-container{
+    padding: 24px;
+}
+.app-card{
+    border-radius: 5px;
+    box-shadow: 0 0 10px grey;
+    
+}
+
+.app-card:hover{
+    box-shadow: 0 0 10px whitesmoke;
+}
+.app-card-top{
+  width: 100%;
+  aspect-ratio: 3/2;   
+  border-radius: 5px;
+
+}
+.app-card-cover{
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.app-card-bottom{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.app-info{
+    display: flex;
+    align-items: center;
+    width: 75%;
+}
+.app-info-name{
+    font-size: 12px;
+}
+.app-info-desc{
+    color: #87888c;
+    font-size: 10px;
+
+}
+.app-info-icon{
+    background-color: #FC5C42;
+    width: 32px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+.app-option{
+    font-size: 12px;
+    font-weight: bold;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3D3D3D;
+    border-radius: 16px;
+    padding: 2px;
+    color: #1871AC;
+}
+.app-option:hover{
+    background-color: #2e2e2e;
+}
