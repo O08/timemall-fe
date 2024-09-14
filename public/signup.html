@@ -61,10 +61,33 @@
    --bs-card-bg: none;
 }
 
+.register-method{
+        display: flex;
+        text-align: center;
+        align-items: center;
+      }
+      .register-method-item-list {
+        margin-left: 12px;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+      }
+
+      .register-method-item-list .register-method-item:not(:last-child) {
+         margin-right: 16px;
+      }
+      .register-method-item-list .register-method-item .common-icon {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+       }
+
 @media (max-width: 576px) {
   .section-sign-up{
     display: block;
-    padding-top: 48px;
+    padding-top: 16px;
   }
   .section-sign-up .card{
     height: auto;
@@ -73,6 +96,16 @@
   .auth-header{
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .section-sign-up form {
+    margin-top: 0;
+  }
+  .card-header{
+    display: flex;
+    align-items: center;
+  }
+  .card-header h1{
+    margin-bottom: 0;
   }
 
 }
@@ -135,7 +168,15 @@
                 <div class="mb-3">
                   已有账号?<a class="sign-in-link" href="login">&nbsp; 点击登录</a>
                 </div>
-                <button type="submit" class="btn btn-primary fs-4 form-send">创建账号</button>
+                <button type="submit" class="btn btn-primary w-100  fs-4 form-send">创建账号</button>
+                <div class="my-4 register-method">
+                  <span>其他方式</span>
+                  <div class="register-method-item-list">
+                    <div class="register-method-item">
+                      <img class="common-icon wechat-login" src="/common/icon/wechat.svg" alt="wechat icon">
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>

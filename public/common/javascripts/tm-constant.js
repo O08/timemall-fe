@@ -135,7 +135,10 @@ var CodeMappingTypeEnum=Object.freeze({
 }); 
 
 var EnvWebsite=Object.freeze({
-    "PROD": "https://bluvarri.com"
+    "PROD": "https://bluvarri.com",
+    "PROD_WWW": "https://www.bluvarri.com",
+    "PROD_WX_APPID": "wx6b5d8cfe8cfbece5",
+    "PROD_WX_QRCONNECT_URI": "https://open.weixin.qq.com/connect/qrconnect"
 }); 
 
 

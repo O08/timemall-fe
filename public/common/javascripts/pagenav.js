@@ -40,3 +40,11 @@ export function nextPageWhenLoginSuccess(){
         goBackAndReload();
     }
 }
+export function nextPageWhenWxLoginSuccess(){
+    const isAuthPage = document.referrer.search("login") > 0 || document.referrer.search("signup")>0 || document.referrer.search("login.html") > 0 || document.referrer.search("signup.html")>0;
+    if(isAuthPage){
+        goHome();
+    }else{
+        goBackAndReload();
+    }
+}
