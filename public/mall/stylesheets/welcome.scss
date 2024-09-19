@@ -797,3 +797,31 @@ svg:not(:root) {
     line-height: 20px;
 }
 }
+.friend-links-container{
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted #656c7699;
+    border-top: 1px dotted #656c7699;
+}
+.link-wrp {
+  list-style: none; 
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.link-wrp li{
+    font-size: 10px;
+    padding-left: 18px;
+}
+.link-wrp a{
+    text-decoration: none;
+    color: #eee;
+}
+.link-heading{
+    font-size: .8125em;
+    line-height: 24px;
+    font-weight: 800;
+    padding-bottom: 2px;
+}
