@@ -80,6 +80,7 @@ const RootComponent = {
 
                     customAlert.alert("保存成功！");
                     this.historyHtmlCode=this.htmlcode;
+                    this.htmlChanged=false;
                 }
             });
         },

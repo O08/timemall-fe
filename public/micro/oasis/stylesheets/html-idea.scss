@@ -44,7 +44,8 @@ body{
 }
 .pc-imac-frame{
     width: 1440px;
-    height: 900px;
+    height: 100%;
+    min-height: 500px;
     overflow: auto;
 }
 .head-btn{
