@@ -111,7 +111,7 @@ function explainOpenDataFromWhere(dataSourceCode){
             desc="基地搜索"
             break;
         case FromWhere.TALENT_SEARCH:
-            desc="资源碰撞搜索"
+            desc="商务拓展搜索"
             break;
         case FromWhere.BUSINESS_PAPER_SEARCH:
             desc="商单搜索"
