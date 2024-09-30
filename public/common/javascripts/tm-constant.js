@@ -141,6 +141,11 @@ var EnvWebsite=Object.freeze({
     "PROD_WX_QRCONNECT_URI": "https://open.weixin.qq.com/connect/qrconnect"
 }); 
 
+var BrandAccessWay=Object.freeze({
+    "RAW": "1",
+    "BRAND": "2",
+    "HANDLE": "3"
+}); 
 
 
 
@@ -149,5 +154,5 @@ export {
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
     OasisMark,CommissionTag,
-    PriceSbu, CellStatus,WorkflowStatus,BillStatus,CodeMappingTypeEnum,EnvWebsite
+    PriceSbu, CellStatus,WorkflowStatus,BillStatus,CodeMappingTypeEnum,EnvWebsite,BrandAccessWay
 } ;

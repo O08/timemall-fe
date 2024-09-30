@@ -289,32 +289,50 @@
                 <img  id="lastest_banner" :src="adaptiveImageUriV(brand.banner)  || defaultBrandBanner" @error.once="e => { e.target.src = defaultBrandBanner }">
               </div>
             </div>
-            <div class="brand-identity">
-              <span class="brand-name text-decoration-none">
-                <div class="mb-3">
-                  <label for="input-identity-brand" class="form-label">
-                    品牌名称
-                  </label>
-                  <input type="text" id="input-identity-brand" maxlength="80" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
-                </div>
-              </span>
-              <p class="brand-title mb-2 mt-1">
-                <div class="mb-3">
-                  <label for="input-identity-title" class="form-label">
-                    品牌简介
-                  </label>
-                  <input type="text" id="input-identity-title" maxlength="255" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.title">
-                </div>
-              </p>
-              <p class="ip-location">品牌ID：<span class="white-box">{{ !getIdentity() ? "" : getIdentity().brandId }}</span> </p>
-              <p class="ip-location">ip 属地：<span class="white-box">{{ parseIpLocationCityInfoV(identity.location) }}</span> </p>
-            </div>
-            <button type="submit" 
-            :class="{'disabled': !btn_ctl.activate_general_save_btn || !identity.brand, 
-                          'btn-primary': btn_ctl.activate_general_save_btn,
-                          'btn-secondary': !btn_ctl.activate_general_save_btn || !identity.brand}"
-            v-preventreclick
-            @click="settingBrandBasicInfoV" class="btn btn-primary">保存</button>
+            <form>
+
+              <div class="brand-identity">
+                <span class="brand-name text-decoration-none">
+                  <div class="mb-3">
+                    <label for="input-identity-brand" class="form-label">
+                      品牌名称
+                    </label>
+                    <input type="text" id="input-identity-brand" maxlength="80" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
+                  </div>
+                </span>
+                <p class="brand-title mb-2 mt-1">
+                  <div class="mb-3">
+                    <label for="input-identity-title" class="form-label">
+                      品牌简介
+                    </label>
+                    <input type="text" id="input-identity-title" maxlength="255" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.title">
+                  </div>
+                </p>
+                <p class="brand-title mb-2 mt-1">
+                  <div class="mb-3">
+                    <label for="input-identity-handle" class="form-label">
+                      品牌唯一标识<span @click="showExplainModelV(4)" class="help-text ms-1"><i class="bi bi-question-circle"></i></span>
+                    </label>
+                    <div class="input-group">
+                      <span class="input-group-text">@</span>
+                      <input type="text" @input="transformInputTextV($event)" id="input-identity-handle" maxlength="40" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.handle">
+                    </div>
+                    
+                  </div>
+                </p>
+                <p class="ip-location">品牌ID：<span class="white-box">{{ !getIdentity() ? "" : getIdentity().brandId }}</span> </p>
+                <p class="ip-location">ip 属地：<span class="white-box">{{ parseIpLocationCityInfoV(identity.location) }}</span> </p>
+              </div>
+              <button type="submit" 
+              :class="{'disabled': !btn_ctl.activate_general_save_btn || !identity.brand || !identity.handle, 
+                            'btn-primary': btn_ctl.activate_general_save_btn,
+                            'btn-secondary': !btn_ctl.activate_general_save_btn || !identity.brand || !identity.handle}"
+              v-preventreclick
+              @click="settingBrandBasicInfoV" class="btn btn-primary">保存</button>
+
+            </form>
+
+            
 
           </section>
 
@@ -451,7 +469,7 @@
                     </label>
                     <div class="col-sm-8">
                       <textarea 
-                      @input="autoHeightV($event)" v-model="cooperationScope" class="cooperation-scope" maxlength="500" placeholder="Enter your message here"></textarea>
+                      @input="autoHeightV($event)" v-model="cooperationScope" class="cooperation-scope" maxlength="500" placeholder="合作意向、范围..."></textarea>
                     </div>
                   </div>
 

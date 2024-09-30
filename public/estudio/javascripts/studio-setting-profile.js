@@ -21,6 +21,8 @@ import {Api} from "/common/javascripts/common-api.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import BrandContactSetting from "/estudio/javascripts/compoent/BrandContactSetting.js"
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
@@ -103,6 +105,9 @@ const RootComponent = {
          },
          settingBrandBasicInfoV(){
             setBrandBasicInfo();
+         },
+         transformInputTextV(e){
+            return transformInputText(e);
          }
          
     },
@@ -213,6 +218,7 @@ function loadBrandProfile(){
         settingProfilePage.identity.brand = profile.brand;
         settingProfilePage.identity.title = profile.title;
         settingProfilePage.identity.location = profile.location;
+        settingProfilePage.identity.handle=profile.handle.substr(1);
         // location todo
         // set brand
         settingProfilePage.brand.avator = profile.avator;
@@ -247,13 +253,19 @@ function setBrandBasicInfo(){
     if(!settingProfilePage.identity.location){
         settingProfilePage.identity.location = "中国大陆"
     }
-    updateBasicInfoForBrand(brandId,settingProfilePage.identity).then(response=>{
+    var dto = JSON.parse(JSON.stringify(settingProfilePage.identity));
+    dto.handle="@"+dto.handle;
+
+    updateBasicInfoForBrand(brandId,dto).then(response=>{
         if(response.data.code==200){
             settingProfilePage.btn_ctl.activate_general_save_btn = false;
         }
         // brand name already exist and be used for other people
         if(response.data.code==2010){
-           alert("品牌名称已被使用，重新想一个吧！")
+            customAlert.alert("品牌名称已被使用，重新想一个吧！")
+        }
+        if(response.data.code==2011){
+            customAlert.alert("品牌唯一标识已被使用，重新想一个吧！")
         }
     });
 }
@@ -482,6 +494,16 @@ function closeExperienceDescModal(){
     // clear tmp data
     settingProfilePage.tmpMillstioneDesc = emptyTmpMillstoneDescData();
 }
+
+function  transformInputText(e){
+    var val = e.target.value.replace(/[^\a-\z\A-\Z0-9\_]/g,'');// type int
+    const needUpdate = (val !== e.target.value);
+    if(needUpdate){
+        e.target.value=val;
+        e.currentTarget.dispatchEvent(new Event('input')); // update v-model
+    }
+}
+
 
 $(function(){
 	$(".tooltip-nav").tooltip();

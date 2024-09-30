@@ -32,6 +32,16 @@ app.get('/idea/:och', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/micro/oasis/idea.html")        //设置/ 下访问文件位置
 })
 
+app.get('/brand/:id', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置
+})
+
+// match @abc @bcdddd,for brand handle mapping
+app.get( /^\/@/, (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置
+})
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.status(404).sendFile(__dirname+"/dist"+"/404.html") 

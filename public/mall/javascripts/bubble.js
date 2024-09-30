@@ -6,7 +6,7 @@ import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
-import {PriceSbu} from "/common/javascripts/tm-constant.js";
+import {PriceSbu,BrandAccessWay} from "/common/javascripts/tm-constant.js";
 
 import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg';
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
@@ -14,6 +14,7 @@ import defaultBannerImage from '/common/images/default-brand-banner-4x3.svg';
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+
 
 
 
@@ -42,6 +43,19 @@ const RootComponent = {
         },
         transformSbuV(sbu){
             return PriceSbu.get(sbu);
+        },
+        loadBrandGuideV(){
+            loadBrandGuide().then(response=>{
+                if(response.data.code == 200){
+                    this.homeInfo = response.data.responseContext.homeInfo;
+                    renderPageMetaInfo(this.homeInfo.brand,this.homeInfo.brandTitle);
+
+                    this.queryParam.brandId=this.homeInfo.browseBrandId;
+                    this.cells=response.data.responseContext.cells.records;
+                    this.queryParam.pages = response.data.responseContext.cells.pages;
+
+                }
+            })
         }
 
     },
@@ -68,14 +82,34 @@ window.bubble = bubblePage;
 
 // init 
 // bubblePage.loadCellListsV();
-bubblePage.loadHomeInfoV();
-bubblePage.initServiceTabV();
+bubblePage.loadBrandGuideV();
 
-async function getHomeInfo(brandId){
-    const url = "/api/v1/web_mall/brand/{brand_id}/homeinfo".replace("{brand_id}",brandId);
-    return await axios.get(url);
+
+async function getBrandGuide(dto){
+    const url = "/api/v1/web_mall/brand/guide";
+    return await axios.post(url,dto);
 }
+async function loadBrandGuide(){
+    const urlParam=window.location.pathname.split('/').pop();
+    const brandId=getQueryVariable("brand_id");
+    const originUrl=window.location.href;
+    var accessWay=BrandAccessWay.BRAND;
+    var param = urlParam;
+    if(!!brandId){
+         accessWay=BrandAccessWay.RAW;
+         param=brandId;
+    }
+    if(urlParam.startsWith("@")){
+        accessWay=BrandAccessWay.HANDLE;
+    }
+    const dto={
+        originalUrl: originUrl,
+        accessWay: accessWay,
+        param: param
+    }
+    return getBrandGuide(dto);
 
+}
 function getBrandMutipleCell(param){
     var res = {};
     $.ajaxSetup({async: false});
@@ -92,27 +126,13 @@ function getBrandMutipleCell(param){
 
  function initQueryParam(){
     return {
-      brandId: getQueryVariable("brand_id"),
+      brandId: "",
       sbu: 'hour',
       current: 1,
       size: 12
     }
    }
 
-function loadHomeInfo()
-{
-    const brandId= getQueryVariable("brand_id");
-    if(!brandId){
-        return;
-    }
-    getHomeInfo(brandId).then(response=>{
-        if(response.data.code == 200){
-            bubblePage.homeInfo = response.data.data;
-            renderPageMetaInfo(bubblePage.homeInfo.brand,bubblePage.homeInfo.brandTitle);
-        }
-
-    });
-}
 function initServiceTab(){
     if(!bubblePage.queryParam.brandId){
         return
