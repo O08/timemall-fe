@@ -81,6 +81,16 @@ table{
    .accordionMarketingMenu .accordion-item{
        border: none;
    }
+   .accordion-button span {
+    margin-left: 10px;
+}
+   .marketingMenu span{
+    margin-left: 16px;
+    font-weight: 400;
+}
+.accordionMarketingMenu .accordion-button   {
+ width: 95%;
+}
    
    .accordion-button:not(.collapsed)::after {
        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
@@ -90,16 +100,7 @@ table{
        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
    }
      
-   .accordion-button span{
-       margin-left: 10px;
-   }
-   .marketingMenu span{
-    margin-left: 16px;
-    font-weight: 400;
-}
-.accordionMarketingMenu .accordion-button   {
- width: 95%;
-}
+
 
 .tool-tip-form{
     min-width: 300px;
@@ -129,6 +130,10 @@ table{
     min-height: 36px;
     transition: border-color .35s;
 }
+
+#accordionMarketingMenu .accordion-button{
+    width: 95%;
+}
 .empty-content-block{
     width: 100%;
     height: 240px;
@@ -151,6 +156,8 @@ table .btn{
     display: inline-flex;
     font-size: 8px;
     padding: 3px 8px;
+    width: 100%;
+    word-break: break-all;
 }
 .sort-select{
     width: 96px;
@@ -181,7 +188,6 @@ table .btn{
     overflow: hidden;
 }
 .col-chn{
-    min-width: 320px;
     width: 20%;
 }
 .col-options{
@@ -233,6 +239,18 @@ table .btn{
 .search-menu-container .form-check{
     min-height: auto;
 }
+tr td {
+    vertical-align: middle;
+}
+tbody tr {
+    height: unset;
+}
+.nav-link-active:hover{
+    color: #fff;
+}
 .content-block .heading {
     padding-bottom: 32px;
+}
+.channel-id-txt i:hover{
+    color: #1276e5;
 }

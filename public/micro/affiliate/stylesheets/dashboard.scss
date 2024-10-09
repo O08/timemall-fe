@@ -36,7 +36,7 @@ header{
     margin-left: 12px;
 }
 
-#accordionMarketingMenu .accordion-button,#accordionMarketingMenu .accordion-header,#marketingMenu{
+.accordionMarketingMenu .accordion-button,.accordionMarketingMenu .accordion-header,.marketingMenu{
     background-color: #141414;
     border-radius: unset;
     box-shadow: none;
@@ -44,7 +44,7 @@ header{
     font-weight: 800;
    }
    
-   #accordionMarketingMenu .accordion-item{
+   .accordionMarketingMenu .accordion-item{
        border: none;
    }
    
@@ -59,11 +59,11 @@ header{
    .accordion-button span{
        margin-left: 10px;
    }
-   #marketingMenu span{
+   .marketingMenu span{
        margin-left: 16px;
        font-weight: 400;
    }
-   #accordionMarketingMenu .accordion-button{
+   .accordionMarketingMenu .accordion-button   {
     width: 95%;
 }
 .time-span .btn{

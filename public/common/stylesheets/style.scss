@@ -448,7 +448,13 @@ body {
 }
 
 .current-page-active{
-  background-color: #666666;
+  background-color: #373b3e52;
+}
+.page-link {
+  padding: 2px 12px;
+}
+.page-link:hover{
+  color: #fff;
 }
 tbody tr{
     height: 70px;

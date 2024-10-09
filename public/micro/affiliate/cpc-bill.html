@@ -7,15 +7,15 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="/favicon.png">
-    <title>商品数据查询 :-r 带货中心 :-r 咘噜咓</title>
-    <meta name="description" content="专业服务选品库，海量商品多维筛选排行与分析。全网首家提供专业服务销量和商品转化率数据以及爆款商品历史佣金与价格查询等数据，助力您轻松选品，快速制作爆款，高效变现流量。">
+    <title>CPC结算报告 :-r 带货中心 :-r 咘噜咓</title>
+    <meta name="description" content="查看cpc账单，推广结算页面">
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/micro/stylesheets/teixcalaanli.scss">
-    <link rel="stylesheet" href="/micro/affiliate/stylesheets/gallery.scss">
+    <link rel="stylesheet" href="/micro/affiliate/stylesheets/cpc-bill.scss">
 
 </head>
 <body>
@@ -114,19 +114,19 @@
       <h3>带货中心</h3>
     </div>
     <div class="nav-sub-container mt-3">
-      <a href="/micro/affiliate/dashboard" class="nav-link nva-link-default py-2 ps-3">
+      <a href="/micro/affiliate/dashboard" class="nav-link nva-link-default  p-2 ms-2">
         <i class="bi bi-graph-up-arrow"></i>
         <span>大盘数据</span>  
       </a>
-      <a href="#" class="nav-link nav-link-active py-2 ps-3 ">
+      <a href="/micro/affiliate/gallery" class="nav-link p-2 ms-2 nva-link-default ">
         <i class="bi bi-cup-hot"></i>
         <span>选品</span>  
       </a>
-      <a href="/micro/affiliate/choice" class="nav-link nva-link-default  py-2 ps-3">
+      <a href="/micro/affiliate/choice" class="nav-link nva-link-default  p-2 ms-2">
         <i class="bi bi-bag"></i>
         <span>橱窗</span>  
       </a>
-      <a href="/micro/affiliate/outreach-channel" class="nav-link nva-link-default  py-2 ps-3">
+      <a href="/micro/affiliate/outreach-channel" class="nav-link nva-link-default  p-2 ms-2">
         <i class="bi bi-signpost-split"></i>
         <span>渠道</span>  
       </a>
@@ -138,7 +138,7 @@
               <span>营销</span> 
             </button>
           </h2>
-          <div id="marketingMenu" class="accordion-collapse collapse marketingMenu" data-bs-parent="#accordionMarketingMenu">
+          <div id="marketingMenu" class="accordion-collapse collapse  marketingMenu" data-bs-parent="#accordionMarketingMenu">
             <a href="/micro/affiliate/marketing" class="nav-link  py-2 ps-3 nva-link-default">
               <span>通用分销</span>  
             </a>
@@ -150,22 +150,23 @@
         </div>
         
       </div>
+
       <div class="accordion accordionMarketingMenu" id="accordionCPCMenu">
         <div class="accordion-item">
           <h2 class="accordion-header">
-            <button class="accordion-button collapsed py-2 ps-3" type="button" data-bs-toggle="collapse" data-bs-target="#cpcMarketingMenu" aria-expanded="true" aria-controls="cpcMarketingMenu">
+            <button class="accordion-button  py-2 ps-3" type="button" data-bs-toggle="collapse" data-bs-target="#cpcMarketingMenu" aria-expanded="true" aria-controls="cpcMarketingMenu">
               <i class="bi bi-badge-ad"></i>
               <span>CPC推广</span> 
             </button>
           </h2>
-          <div id="cpcMarketingMenu" class="accordion-collapse collapse marketingMenu" data-bs-parent="#accordionCPCMenu">
+          <div id="cpcMarketingMenu" class="accordion-collapse collapse show marketingMenu" data-bs-parent="#accordionCPCMenu">
             <a href="/micro/affiliate/cpc-link" class="nav-link  py-2 ps-3 nva-link-default">
               <span>推广链接</span>  
             </a>
             <a href="/micro/affiliate/cpc-achievement" class="nav-link  py-2 ps-3 nva-link-default">
               <span>绩效表现</span>  
             </a>
-            <a href="/micro/affiliate/cpc-bill" class="nav-link  py-2 ps-3 nva-link-default">
+            <a href="#" class="nav-link  p-2 ms-2 nav-link-active">
               <span>结算报告</span>  
             </a>
           </div>
@@ -176,8 +177,6 @@
       
       
     </div>
-
-    
     </col-nav-sub>
       </div>
     </div>
@@ -209,241 +208,68 @@
      <div class="content-wrapper w-100">
       
       <!-- search  pannel start -->
-      <div class="content-block pt-5">
-        <div class="d-flex justify-content-center">
+      <div class="content-block">
 
-          <top-search class="section-top-serach">
-            <div class="search">
-              <input @keyup.enter.native="retrieveProductTableV" v-model="gallery_pagination.param.q" class="form-control Search-Button-Placeholder" type="text" placeholder="请输入商品名称或关键词" aria-label="Search">
+        <div class="search-menu-container pt-0">
 
-              <div class="Search-Icon-Container d-flex align-items-center ms-n5"> 
-                <svg width="20" height="20" class="Search-Icon" viewBox="0 0 20 20">
-                  <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="#616161" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>  
-              </div>
-            </div>
-          </top-search>
-
-        </div>
-
-        
-        <div class="search-menu-container">
+          
 
           <div class="condition-box">
-            <label class="search-cfg">品牌</label>
+            <label class="search-cfg">账单信息</label>
             <div class="cdn-field">
-              
-              <div class="field-content">
-                <div class="dropdown ">
-                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    经营年限
-                  </button>
-                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
-                    <div class="row g-3">
-                      <div class="col-6 input-wrapper">
-                        <label for="input_account_age_left" class="form-label">最小年限</label>
-                        <input  v-model="gallery_pagination.param.supplierAccountAgeLeft" type="text" min="1" max="50000" step="1" class="form-control" id="input_account_age_left" @input="transformInputNumberV($event)">
-                        <i>月</i>
-                      </div>
-                      <div class="col-6 input-wrapper">
-                        <label for="input_account_age_right" class="form-label">最大年限</label>
-                        <input  v-model="gallery_pagination.param.supplierAccountAgeRight"  type="text" min="1" max="50000" step="1" class="form-control" id="input_account_age_right" @input="transformInputNumberV($event)">
-                        <i>月</i>
-                      </div>
-                    </div>        
-                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
-                  </form>
-                </div>
-              </div>
-              
-              <div class="field-content">
-                <select @change="filterPrductTableV" v-model="gallery_pagination.param.heartbeat" class="form-select tm-select account-age-select" >
-                  <option value=""><span>最近活跃</span></option>
-                  <option value="1"><span>一周内活跃</span> </option>
-                  <option value="2"><span>一个月内活跃</span> </option>
-                  <option value="3"><span>三个月内活跃</span> </option>
-                </select>
-              </div>
-
-              <div class="field-content">
-                <div class="form-check ms-2">
-                  <input 
-                  :true-value="1"
-                  :false-value="0"
-                  v-preventreclick
-                  @change="filterPrductTableV"
-                   v-model="gallery_pagination.param.blue" class="form-check-input" type="checkbox" value="" id="vip">
-                  <label class="form-check-label" for="vip">
-                    蓝标
-                  </label>
-                </div>
-              </div>
-              
-
-             
-
             
-            </div>
-
-            
-          </div>
-
-          <div class="condition-box">
-            <label class="search-cfg">商品信息</label>
-            <div class="cdn-field">
-
               <div class="field-content">
                 <div class="dropdown ">
                   <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    价格
+                    IP数
                   </button>
                   <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
                     <div class="row g-3">
                       <div class="col-6 input-wrapper">
-                        <label for="input_plan_price_left" class="form-label">单品价格下限</label>
-                        <input v-model="gallery_pagination.param.planPriceLeft"type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_price_left" @input="transformInputNumberV($event)">
-                        <i>￥</i>
+                        <label for="input_ip_volume_left" class="form-label">IP数量下限</label>
+                        <input v-model="link_pagination.param.ipVolumeLeft" type="text" min="1" max="5000000" step="1" class="form-control" id="input_ip_volume_left" @input="transformInputNumberAsPositiveV($event)">
+                        <i>个</i>
                       </div>
                       <div class="col-6 input-wrapper">
-                        <label for="input_plan_price_right" class="form-label">单品价格上限</label>
-                        <input v-model="gallery_pagination.param.planPriceRight" type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_price_right" @input="transformInputNumberV($event)">
-                        <i>￥</i>
-                      </div>
-                    </div>
-  
-                    
-                    <button v-preventreclick @click="filterPrductTableV"  type="submit" class="btn btn-dark">确定</button>
-                  </form>
-                </div>
-
-              </div>
-              
-              <div class="field-content">
-                <div class="form-check ms-2">
-                  <input 
-                  v-preventreclick
-                  :true-value="1"
-                  :false-value=""
-                  v-model="gallery_pagination.param.provideInvoice"
-                  @change="filterPrductTableV"
-                  class="form-check-input" type="checkbox"  id="provideInvoice">
-                  <label class="form-check-label" for="provideInvoice">
-                    可开发票
-                  </label>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="condition-box">
-            <label class="search-cfg">商品佣金</label>
-            <div class="cdn-field">
-              
-              <div class="field-content">
-                <div class="dropdown ">
-                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    佣金比例
-                  </button>
-                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
-                    <div class="row g-3">
-                      <div class="col-6 input-wrapper">
-                        <label for="input_revshare_left" class="form-label">最低</label>
-                        <input  v-model="gallery_pagination.param.revshareLeft" type="text" min="1" max="100" step="1" class="form-control" id="input_revshare_left" @input="transformInputNumberV($event)">
-                        <i>%</i>
-                      </div>
-                      <div class="col-6 input-wrapper">
-                        <label for="input_revshare_right" class="form-label">最高</label>
-                        <input  v-model="gallery_pagination.param.revshareRight" type="text" min="1" max="100" step="1" class="form-control" id="input_revshare_right" @input="transformInputNumberV($event)">
-                        <i>%</i>
-                      </div>
-                    </div>
-  
-                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
-                  </form>
-                </div>
-              </div>
-              
-            </div>
-
-          </div>
-
-          <div class="condition-box">
-            <label class="search-cfg">带货信息</label>
-            <div class="cdn-field">
-
-              <div class="field-content">
-                <div class="dropdown ">
-                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    浏览量
-                  </button>
-                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
-                    <div class="row g-3">
-                      <div class="col-6 input-wrapper">
-                        <label for="input_views_left" class="form-label">下限</label>
-                        <input  v-model="gallery_pagination.param.viewsLeft" type="text" min="1" max="50000" step="1" class="form-control" id="input_views_left" @input="transformInputNumberV($event)">
-                        <i>千</i>
-                      </div>
-                      <div class="col-6 input-wrapper">
-                        <label for="input_views_right" class="form-label">上限</label>
-                        <input  v-model="gallery_pagination.param.viewsRight"  type="text" min="1" max="50000" step="1" class="form-control" id="input_views_right" @input="transformInputNumberV($event)">
-                        <i>千</i>
-                      </div>
-                    </div>
-                    
-                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
-                  </form>
-                </div>
-              </div>
-              
-              <div class="field-content">
-
-                <div class="dropdown ">
-                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    单品销量
-                  </button>
-                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
-                    <div class="row g-3">
-                      <div class="col-6 input-wrapper">
-                        <label for="input_plan_sale_volume_left" class="form-label">销量下限</label>
-                        <input v-model="gallery_pagination.param.saleVolumeLeft" type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_sale_volume_left" @input="transformInputNumberV($event)">
-                        <i>单</i>
-                      </div>
-                      <div class="col-6 input-wrapper">
-                        <label for="input_plan_sale_volume_right" class="form-label">销量上限</label>
-                        <input v-model="gallery_pagination.param.saleVolumeRight"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_sale_volume_right" @input="transformInputNumberV($event)">
-                        <i>单</i>
+                        <label for="input_ip_volume_right" class="form-label">IP数量上限</label>
+                        <input v-model="link_pagination.param.ipVolumeRight"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_ip_volume_right" @input="transformInputNumberAsPositiveV($event)">
+                        <i>个</i>
                       </div>
                     </div>                  
-                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                    <button v-preventreclick @click="filterCpcBillTableV" type="submit" class="btn btn-dark">确定</button>
                   </form>
                 </div>
-
               </div>
               
               <div class="field-content">
                 <div class="dropdown ">
                   <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    关联达人数
+                  金额
                   </button>
                   <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
                     <div class="row g-3">
                       <div class="col-6 input-wrapper">
-                        <label for="input_influencers_left" class="form-label">带货人数下限</label>
-                        <input v-model="gallery_pagination.param.influencersLeft"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_influencers_left" @input="transformInputNumberV($event)">
-                        <i>人</i>
+                        <label for="input_amount_left" class="form-label">最小金额</label>
+                        <input v-model="link_pagination.param.amountLeft" type="text" min="1" max="5000000" step="1" class="form-control" id="input_amount_left" @input="transformInputNumberAsPositiveV($event)">
+                        <i>￥</i>
                       </div>
                       <div class="col-6 input-wrapper">
-                        <label for="input_influencers_right" class="form-label">带货人数上限</label>
-                        <input v-model="gallery_pagination.param.influencersRight"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_influencers_right" @input="transformInputNumberV($event)">
-                        <i>人</i>
+                        <label for="input_amount_right" class="form-label">最大金额</label>
+                        <input v-model="link_pagination.param.amountRight"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_amount_right" @input="transformInputNumberAsPositiveV($event)">
+                        <i>￥</i>
                       </div>
-                    </div>
-                    
-                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                    </div>             
+                    <button v-preventreclick @click="filterCpcBillTableV" type="submit" class="btn btn-dark">确定</button>
                   </form>
                 </div>
+              </div>
+
+              <div class="field-content">
+                <select @change="filterCpcBillTableV" v-model="link_pagination.param.tag" class="form-select tm-select sort-select" >
+                  <option value="">状态</option>
+                  <option value="1">财务审核</option>
+                  <option value="2">已打款</option>
+                </select>
               </div>
               
 
@@ -451,24 +277,17 @@
             </div>
 
           </div>
-
 
           <div class="condition-box">
             <label class="search-cfg">展示</label>
             <div class="cdn-field">
-
               <div class="field-content">
-                <select @change="filterPrductTableV" v-model="gallery_pagination.param.sort" class="form-select tm-select sort-select" >
+                <select @change="filterCpcBillTableV" v-model="link_pagination.param.sort" class="form-select tm-select sort-select" >
                   <option value="">排序</option>
-                  <option value="1">单品价格</option>
-                  <option value="2">佣金</option>
-                  <option value="3">单品销量</option>
-                  <option value="4">销售额</option>
-                  <option value="5">浏览量</option>
-                  <option value="6">关联达人数</option>
+                  <option value="1">结算时间</option>
+                  <option value="2">金额</option>
                 </select>
               </div>
-
 
             </div>
 
@@ -482,82 +301,74 @@
 
        <!-- service list pannel start -->
       <div class="content-block mt-5">
-        <div class="heading">商品列表</div>
+        <div class="heading d-flex align-items-center">
+          <div>
+            CPC账单
+          </div> 
+        </div>
         <div class="table-responsive">
           <table class="table table-dark">
             <thead>
               <tr>
-                <th scope="col">操作</th>
-                <th scope="col">商品</th>
-                <th scope="col">佣金比例</th>
-                <th scope="col">每单可赚</th>
-                <th scope="col">单品销量</th>
-                <th scope="col">特约销量</th>
-                <th scope="col">销售额</th>
-                <th scope="col">浏览量</th>
-                <th scope="col">转化率%</th>
-                <th scope="col">单品退款率%</th>
-                <th scope="col">关联达人数</th>
+                <th scope="col" class="col-options">操作</th>
+                <th scope="col" class="col-chn">编号</th>
+                <th scope="col" class="col-ips">结算IP数</th>
+                <th scope="col" class="col-ips">金额</th>
+                <th scope="col">状态</th>
+                <th scope="col">结算批次</th>
+                <th scope="col">结算时间</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in gallery_pagination.records">
-                <th class="col-options">           
-                   <button 
-                    v-preventreclick
-                    @click="addProductToChoiceV(item.cellId)"
-                   :class="{'disabled': item.inChoice=='1' , 
-                   'btn-primary': item.inChoice=='0'  ,
-                   'btn-secondary': item.inChoice=='1' }" 
-                     class="btn" type="button">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    添加橱窗
-                   </button>
+              <tr v-for="item in link_pagination.records">
+                <th class="col-options">
+                  <a :href="'/micro/arch/channel-0002?friend='+item.adminCustomerId">
+                    <button  class="btn btn-outline-primary" type="button">
+                      联系账务
+                    </button>
+                  </a>
+                  <a :href="'/micro/affiliate/cpc-achievement?batch='+item.batch" target="_blank">
+                    <button  class="btn btn-primary ms-3" type="button">
+                      查看明细
+                    </button>
+                  </a>
                 </th>
-                <td class="col-product">
-                  <div class="product-name text-start pb-2 ellipsis-2">
-                    <a :href="'/mall/cell-detail?cell_id=' + item.cellId+ '&brand_id=' + item.supplierBrandId" class="text-white text-decoration-none ellipsis-2" target="_blank">{{item.productName}}</a>
-                  </div>
-                  <div class="product-price d-flex align-items-center">
-                    <div>
-                      <span>￥{{item.planPrice}} <img  v-if="getIdentity().brandId==item.supplierBrandId" src="/common/icon/u.svg" class="ms-1"></span>
-                    </div>
-                  </div>
+                <td class="col-chn">{{item.id}}</td>
+                <td class="col-ips">
+                  {{item.ips}}
                 </td>
-                <td>{{ Number(item.revshare).toFixed(0) }}%</td>
-                <td>{{(item.revshare * item.planPrice / 100).toFixed(2)}}</td>
-                <td>{{ !item.planSaleVolume ? "0" : formatCmpctNumberV(item.planSaleVolume)}}</td>
-                <td>{{ !item.cellSaleVolume ? "0" : formatCmpctNumberV(item.cellSaleVolume)}}</td>
-                <td>{{ !item.sales ? "0" : formatCmpctNumberV(item.sales)}}</td>
-                <td>{{ !item.views ? "0" : formatCmpctNumberV(item.views)}}</td>
-                <td>{{ (!item.views || Number(item.views)==0 ) ? "0" : ((100*(Number(item.planSaleVolume)+Number(item.cellSaleVolume)))/Number(item.views)).toFixed(2)}}</td>
-                <td>{{(!item.planSaleVolume || Number(item.planSaleVolume)==0)? "0" : (100*item.refundOrders/item.planSaleVolume).toFixed(2)}}</td>
-                <td>{{ !item.influencers ? "0" : item.influencers}}</td>
+                <td class="col-ips">{{item.amount}}</td>
+                <td>{{item.tag}}</td>
+                <td>{{item.batch}}</td>
+                <td>{{item.createAt}}</td>
               </tr>
+              
             </tbody>
           </table>
-          <div v-show="gallery_pagination.records.length==0" class="empty-content-block">
+          <div v-show="link_pagination.records.length==0" class="empty-content-block">
   
             没有可用的内容！
   
           </div>
-          <nav v-if="!!gallery_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+          <nav v-if="!!link_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
             <ul class="pagination pagination-lg pagination-dark  border-0">
-              <li class="page-item" @click="pagePre(gallery_pagination)">
+              <li class="page-item" @click="pagePre(link_pagination)">
                 <a class="page-link"  aria-label="Previous">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              <li class="page-item"  v-for="page in gallery_pagination.paging.items" :class="{'current-page-active': gallery_pagination.paging.current == page}" 
-                    @click="pageGo(gallery_pagination,page)"><a class="page-link">{{page}}</a></li>
-              <li class="page-item" @click="pageNext(gallery_pagination)">
+              <li class="page-item"  v-for="page in link_pagination.paging.items" :class="{'current-page-active': link_pagination.paging.current == page}" 
+                    @click="pageGo(link_pagination,page)"><a class="page-link">{{page}}</a></li>
+              <li class="page-item" @click="pageNext(link_pagination)">
                 <a class="page-link" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
             </ul>
           </nav>
+
         </div>
+        
 
       </div>
 
@@ -568,6 +379,7 @@
 
 
     </col-content>
+    
 
   </micro-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
@@ -605,7 +417,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/micro/affiliate/javascripts/gallery.js"></script>
+  <script type="module" src="/micro/affiliate/javascripts/cpc-bill.js"></script>
 
 
 </body>

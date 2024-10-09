@@ -106,7 +106,7 @@ table{
 .guidance-txt{
     font-size: 12px;
 }
-#accordionMarketingMenu .accordion-button,#accordionMarketingMenu .accordion-header,#marketingMenu{
+.accordionMarketingMenu .accordion-button,.accordionMarketingMenu .accordion-header,.marketingMenu{
     background-color: #141414;
     border-radius: unset;
     box-shadow: none;
@@ -114,7 +114,7 @@ table{
     font-weight: 800;
    }
    
-   #accordionMarketingMenu .accordion-item{
+   .accordionMarketingMenu .accordion-item{
        border: none;
    }
    
@@ -129,10 +129,13 @@ table{
    .accordion-button span{
        margin-left: 10px;
    }
-   #marketingMenu span{
-       margin-left: 16px;
-       font-weight: 400;
-   }
+   .marketingMenu span{
+    margin-left: 16px;
+    font-weight: 400;
+}
+.accordionMarketingMenu .accordion-button   {
+ width: 95%;
+}
    .tool-tip-form{
     min-width: 300px;
     font-size: 12px;
@@ -183,9 +186,6 @@ table{
 }
 .form-check-label{
     min-width: 32px;
-}
-#accordionMarketingMenu .accordion-button{
-    width: 95%;
 }
 
 .empty-content-block{
@@ -310,4 +310,7 @@ font-size: 12px;
 } 
 .search-menu-container .form-check{
     min-height: auto;
+}
+.content-block .heading {
+    padding-bottom: 32px;
 }
