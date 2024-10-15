@@ -798,6 +798,19 @@ svg:not(:root) {
     font-size: 20px;
     line-height: 20px;
 }
+.btn-view-studio-moblile {
+    color: white;
+    background-color: unset;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 265px;
+    height: 57px;
+    display: flex;
+    font-size: 20px;
+    line-height: 20px;
+    border: 1px solid white;
+}
 }
 .friend-links-container{
     padding-left: 12px;
