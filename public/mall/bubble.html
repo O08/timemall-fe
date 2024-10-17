@@ -9,7 +9,7 @@
     <meta name="keywords" content="市场服务供应商数字服务空间">
     <meta name="description" content="市场服务供应商数字服务、数字空间">
     <link rel="icon" href="/favicon.png">
-    <title>Bubble - 市场</title>
+    <title>品牌主页 - 精选商店</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
@@ -161,7 +161,7 @@
               <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">全部服务</button>
             </li>
             <li v-if="user_already_login" class="nav-item" role="presentation">
-              <button class="nav-link" id="cooperation-tab" data-bs-toggle="tab" data-bs-target="#cooperation-tab-pane" type="button" role="tab" aria-controls="cooperation-tab-pane" aria-selected="false">合作</button>
+              <button class="nav-link" id="cooperation-tab" data-bs-toggle="tab" data-bs-target="#cooperation-tab-pane" type="button" role="tab" aria-controls="cooperation-tab-pane" aria-selected="false">互动</button>
             </li>
           </ul>
         </section>
@@ -247,10 +247,17 @@
               </div>
               <div class="tab-pane fade" id="cooperation-tab-pane" role="tabpanel" aria-labelledby="cooperation-tab" tabindex="0">
                 <section class="section-list-render" id="cooperation_library">
-                  <div  class="row gx-3 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 ms-3 me-3">
+                  <div  class="row gx-0 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 ms-3 me-3">
+                    <div v-if="!!homeInfo.pdOasisId" class="col actio-item">
+                      <a :href="'/micro/oasis/?oasis_id='+homeInfo.pdOasisId" target="_blank">
+                        <button type="button"  class="btn btn-primary option-swap" >
+                          <i class="bi bi-forward"></i> 访问私域基地
+                        </button>
+                      </a>
+                    </div>
                     <div  class="col actio-item">
                       <button type="button" @click="retrieveOasesCreatedV" class="btn btn-primary option-invitation" data-bs-toggle="modal" data-bs-target="#inviteModal">
-                        邀请成为基地成员
+                        <i class="bi bi-send"></i> 邀请加入基地
                       </button>
                     </div>
                   </div>

@@ -27,6 +27,7 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            rawProfile: {},
             defaultExperienceImage,
             defaultBrandBanner,
             defaultAvatarImage,
@@ -108,6 +109,16 @@ const RootComponent = {
          },
          transformInputTextV(e){
             return transformInputText(e);
+         },
+        activiateSaveBtnWhenGeneralChangeV(){
+
+            if(((this.identity.pdOasisId!=this.pdOasisSelectedItem) || this.btn_ctl.activate_general_save_btn)
+               && (!!this.identity.brand) && (!!this.identity.handle)
+            ){
+             return true;
+            }
+            return false;
+ 
          }
          
     },
@@ -213,12 +224,18 @@ function loadBrandProfile(){
     const brandId =  settingProfilePage.getIdentity().brandId; // Auth.getIdentity();
     Api.getBrandProfile(brandId).then(response=>{
         if(response.data.code ==200){
+        // raw clone
+        settingProfilePage.rawProfile=JSON.parse(JSON.stringify(response.data.profile));
+
         // set identity
         const profile = response.data.profile;
         settingProfilePage.identity.brand = profile.brand;
         settingProfilePage.identity.title = profile.title;
         settingProfilePage.identity.location = profile.location;
         settingProfilePage.identity.handle=profile.handle.substr(1);
+        settingProfilePage.identity.pdOasisId=profile.pdOasisId;
+        settingProfilePage.pdOasisSelectedItem=profile.pdOasisId;
+
         // location todo
         // set brand
         settingProfilePage.brand.avator = profile.avator;
@@ -253,12 +270,19 @@ function setBrandBasicInfo(){
     if(!settingProfilePage.identity.location){
         settingProfilePage.identity.location = "中国大陆"
     }
+    
     var dto = JSON.parse(JSON.stringify(settingProfilePage.identity));
     dto.handle="@"+dto.handle;
+    // set pdOasisiId
+    dto.pdOasisId=settingProfilePage.pdOasisSelectedItem;
+    if(!!settingProfilePage.pdOasisSelectedItem){
+        settingProfilePage.identity.pdOasisId=settingProfilePage.pdOasisSelectedItem.slice();
+    }
 
     updateBasicInfoForBrand(brandId,dto).then(response=>{
         if(response.data.code==200){
-            settingProfilePage.btn_ctl.activate_general_save_btn = false;
+             settingProfilePage.btn_ctl.activate_general_save_btn = false;
+
         }
         // brand name already exist and be used for other people
         if(response.data.code==2010){

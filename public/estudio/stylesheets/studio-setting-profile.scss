@@ -97,8 +97,8 @@
     }
 }
 .input-box{
-    height: calc(3.5rem + 2px);
     line-height: 1.25;
+    font-size: 14px;
 }
 .input-box::placeholder,.input-box::-ms-input-placeholder{
     color: #383838;
@@ -391,4 +391,13 @@ body::-webkit-scrollbar {
     color: #fff;
     display: inline-flex;
     padding: 3px 8px;
+}
+.timeline .timeline-item:before{
+    left: 14px;
+}
+.timeline .timeline-item:after{
+    top: 0;
+    left: 11px;
+    width: 8px;
+    height: 8px;
 }

@@ -13,8 +13,8 @@ const BrandBasicSetting = {
                 {title: "合作资源",content: "合作的基础就是让各方的资源相互碰撞，补充你拥有的资源（比如：技术、设计、研发、流量、5万用户、5000资金），开始构建关系网络，着手超多合作吧。（支持最大长度 500 字符）"},
                 {title: "自定义职业",content: "职业门类丰富，如果平台提供的数据中没有你的职业，你可以通过自定义职业进行DIY.（提示：自定义职业生效需要确保职业选择为自定义。支持最大长度 60 字符）"},
                 {title: "夜间咨询",content: "夜间咨询处于开启状态，表示在每天夜晚(18:00 ～ 22:00)，你为有需要的用户提供无偿、免费的咨询服务。建议每次咨询时长设置为15min、30min 或者 1h。默认为关闭状态"},
-                {title: "品牌唯一标识",content: "品牌唯一标识是由字母、数字、_组成的简单的身份字符串，更容易分享和传播，你可通过 https://bluvarri.com/@品牌唯一标识 直接访问相应的品牌主页。支持最大长度为40"}
-
+                {title: "品牌唯一标识",content: "品牌唯一标识是由字母、数字、_组成的简单的身份字符串，更容易分享和传播，你可通过 https://bluvarri.com/@品牌唯一标识 直接访问相应的品牌主页。支持最大长度为40"},
+                {title: "私域基地",content: "品牌基地是一个活跃的社群，通过基地与客户、粉丝高效互动，提升产品力，提升营销力，提升服务力；品牌可前往【创硅谷】-- 【创建基地】设立新社群"},
 
             ],
             explain: {},
@@ -53,7 +53,11 @@ const BrandBasicSetting = {
             hiring: false,
             availableForWork: false,
             freeNightCounsellor: false,
-            cooperationScope:  ""
+            cooperationScope:  "",
+
+            pdOasisOptions: [],
+            pdOasisSelectedItem: ""
+            
         }
     },
     methods: {
@@ -89,6 +93,7 @@ const BrandBasicSetting = {
             this.referenceSetting.availableForWork=profile.availableForWork=="1" ? true : false;
             this.referenceSetting.typeOfBusiness= !profile.typeOfBusiness ? "0" : profile.typeOfBusiness;
             this.referenceSetting.freeNightCounsellor=profile.freeNightCounsellor=="1" ? true : false;
+            this.referenceSetting.pdOasisId=profile.pdOasisId;
 
 
 
@@ -130,10 +135,12 @@ const BrandBasicSetting = {
         initBrandBasicSettingConfigV(){
             loadOccupationList(this);
             loadIndustryList(this);
+            loadPdOasisList(this);
         },
         settingBasicInfoV(){
             modifyBasicSetting(this);
         }
+        
        
     }
 }
@@ -147,6 +154,21 @@ async function putBasicSetting(dto){
     return await fetch(url,{method: "PUT",body: JSON.stringify(dto),headers:{
 		'Content-Type':'application/json'
 	}});
+}
+async function fetchPdOasisInfo(){
+    const url="/api/v1/team/oasis_list_create_by_current_brand";
+    return await fetch(url);
+}
+async function loadPdOasisList(appObj){
+    const response = await fetchPdOasisInfo();
+    var data = await response.json();
+    if(data.code==200){
+       var pdOasisArr=[];
+       data.oasis.records.forEach(element => {
+        pdOasisArr.push({value: element.id,text: element.title});
+       });
+       appObj.pdOasisOptions=pdOasisArr;
+    }
 }
 async function modifyBasicSetting(appObj){
     const selectedIndustry=appObj.industryOptions.filter(e=>e.value===appObj.industrySelectedItem);

@@ -469,7 +469,7 @@ function computeFee(){
 }
 
 function renderPageMetaInfo(title,description){
-    document.title = title + " - 市场";
+    document.title = title + " - 精选商店";
     var keywords="咘噜咓,bluvarri,up主商业化数字工作室,超级玩家,写作与翻译,原神超级玩家,视频与动画制作剪辑";
     document.getElementsByTagName('meta')["description"].content = description;
     document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
