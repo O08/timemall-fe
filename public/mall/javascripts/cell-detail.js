@@ -366,7 +366,7 @@ function orderNow(){
             uploadCellDataLayerWhenAppointment([cellId]);
 
             // give option
-            customAlert.alert("成功预约，可在E-pod查看预约记录");
+            customAlert.alert("成功预约，可在【我的定制】查看预约记录");
 
         }
         if(response.data.code==40024){
