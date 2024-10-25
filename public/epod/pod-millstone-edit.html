@@ -266,6 +266,12 @@
                   <button class="nav-link">私信服务商</button>
                 </a>
               </li>
+              <li v-if="workflow.ac=='0'" class="nav-item" role="presentation">
+                <button v-preventreclick @click="authorizeEditV" class="nav-link">开启协作</button>
+              </li>
+              <li v-if="workflow.ac=='1'" class="nav-item" role="presentation">
+                <button v-preventreclick @click="reclaimEditV" class="nav-link">关闭协作</button>
+              </li>
             </ul>
           </div>
           <div>
@@ -514,6 +520,14 @@
                           </ul>
                     </div>
                 </section>
+                <div class="workspace-pps ps-4 pb-5">
+                  <div>
+                    <span><i class="bi bi-pin-angle me-2"></i>可授权服务商「编辑服务内容」权限，开启协作.</span> 
+                  </div>
+                  <div>
+                    <span><i class="bi bi-pin-angle me-2"></i>特约采用分步交付设计，如果服务商告知你需要在任务启动前收账，可拒绝，推荐任务交付结果满足验收标准再进行付款.账单支付请前往【账单管理】.</span> 
+                  </div>
+                </div>
               </div>
             </div>
           </div>

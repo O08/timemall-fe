@@ -91,7 +91,9 @@ pt-app content main {
 .main-content-container{
   min-width: 1000px;
 }
-
+.timeline .timeline-item:before {
+  top: 2px;
+}
 @media (max-width: 1162px) {
     .chat-action-wrapper{
         display: block;

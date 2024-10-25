@@ -147,9 +147,13 @@ var BrandAccessWay=Object.freeze({
     "HANDLE": "3"
 }); 
 
-
+var MillstoneAc = Object.freeze({
+    "OPEN": "1", // 创建
+    "CLOSED": "0" // 发布
+});
 
 export {
+    MillstoneAc,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,

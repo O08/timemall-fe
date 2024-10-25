@@ -395,7 +395,7 @@
               </div>
               <div class="tab-pane fade show active" id="stage-tab-pane" role="tabpanel" aria-labelledby="stage-tab" tabindex="0">
 
-                <div v-if="url_var_option=='audit'" class="stage-panel-header">
+                <div v-if="workflow.mark=='2'" class="stage-panel-header">
                   <section class="event-wrapper new-order">
                     <div class="d-flex ps-3">
 
@@ -443,12 +443,135 @@
                       </div>
                   </div>
               </section>
-            <section class="section-display-header ps-4 my-4">
+
+            <!-- edit feature start  -->
+            <section v-if="workflow.mark=='1' && workflow.ac=='1'" class="section-tool-bar ps-4 mb-5">
+              <div class="d-flex tool-bar mt-5">
+                <span>
+                  <button v-preventreclick  @click="newMillstoneV" type="button" id="btn-save-workflow" class="btn btn-outline-light">
+                    <i class="bi bi-plus"></i>
+                    <span>添加任务</span>
+                  </button>
+                </span>
+                <span class="ms-5">
+                  
+                  <button v-preventreclick  @click="replaceWorkflowV" type="button" id="btn-save-workflow" class="btn btn-outline-primary">
+                    <i class="bi bi-check-lg"></i>
+                    保存任务集
+                    <sup 
+                    :class="{'disabled': !btn_ctl.activate_general_save_btn, 
+                            'dot-red': btn_ctl.activate_general_save_btn}"
+                    class="dot"></sup>
+                  </button>
+                </span>
+                
+              </div>
+            </section>
+            <section v-if="workflow.mark=='1' && workflow.ac=='1'" class="section-workspace">
+                <div class="edit-pannel">
+                    <ul class="timeline">
+                        <li v-for="(item,mIndex) in workflow.millstones" class="timeline-item">
+                          <json-node class="json-item-node millstone-title d-flex flex-row">
+                            <div class="pt-2">
+                              <span v-preventreclick  @click="removeMillstoneV(mIndex)" class="option-remove me-2">
+                                <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="删除任务">           
+                                  <i class="bi bi-dash-circle"></i>
+                                </a>
+                              </span>
+                            </div>
+                            <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="item.title" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务标题" aria-describedby="addon-wrapping">
+
+                          </json-node>
+                          <json-node class="d-flex flex-column">
+                            <span>
+                              目标
+                              <span v-preventreclick  @click="newObjToFirstV(mIndex)" class="item-setting-plus">
+                                <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务目标">           
+                                  <i class="bi bi-plus"></i>
+                                </a>
+                              </span>
+                            </span>
+                            <json-node v-for="(obj,objIndex) in item.objective" class="json-item-node d-flex flex-row">  
+                              <div class="item-setting mx-1 my-1">
+                                <span v-preventreclick  @click="newObjAfterV(mIndex,objIndex)" class="item-setting-plus">
+                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务目标">           
+                                    <i class="bi bi-plus"></i>
+                                  </a>
+                                </span>
+                                <span v-preventreclick  @click="removeObjV(mIndex,objIndex)" class="item-setting-x">
+                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除任务目标">           
+                                    <i class="bi bi-dash"></i>
+                                  </a>
+                                </span>
+                              </div>  
+                              <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">           
+                            </json-node>
+                          </json-node>
+                          <json-node class="d-flex flex-column">
+                            <span>
+                              关键结果
+                              <span v-preventreclick  @click="newMetricToFirstV(mIndex)" class="item-setting-plus">
+                                <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务验收指标">           
+                                  <i class="bi bi-plus"></i>
+                                </a>
+                              </span>
+                            </span>
+                            <json-node v-for="(metric,metricIndex) in item.metric" class="json-item-node d-flex flex-row"> 
+                              <div class="item-setting mx-1 my-1">
+                                <span v-preventreclick  @click="newMetricAfterV(mIndex,metricIndex)" class="item-setting-plus">
+                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务验收指标">           
+                                    <i class="bi bi-plus"></i>
+                                  </a>
+                                </span>
+                                <span  v-preventreclick  @click="removeMetric(mIndex,metricIndex)" class="item-setting-x">
+                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除任务验收指标">           
+                                    <i class="bi bi-dash"></i>
+                                  </a>
+                                </span>
+                              </div>               
+                              <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="metric.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写验收指标" aria-describedby="addon-wrapping">
+                            </json-node>
+                          </json-node>
+
+                          <json-node class="d-flex align-items-center">
+                            <span>
+                              结算比例(%) 
+                              <a data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="完成该任务结算比例，假设订单200，结算比例 20 ，任务完成时结算金额为200 * 0.2 = 40">           
+                                <i class="bi bi-info-circle"></i>           
+                              </a>
+                            </span> 
+                            <span>
+                              <input @change="btn_ctl.activate_general_save_btn = true"  
+                              @input="transformInputNumberV($event)"
+                               min="1" max="100" step="1"
+                        type="text" v-model="item.payRate" class="form-control millstone-input-box ms-2" placeholder="填写完成任务时结算比例" aria-describedby="addon-wrapping">                                </span>
+                          </json-node>  
+
+                          <json-node class="d-flex align-items-center">
+                            <span>开始时间</span> 
+                            <span>
+                              <input data-olddate="" @input="userInputDatePickerHandlerV($event)" @change="btn_ctl.activate_general_save_btn = true" type="text"   v-model="item.start"  class="form-control millstone-input-box datepicker ms-2"  placeholder="填写任务开始时间"  autocomplete="off"> 
+                            </span>
+                          </json-node>  
+
+                          <json-node class="d-flex align-items-center pb-5">
+                            <span>结束时间</span> 
+                            <span>
+                              <input data-olddate="" @input="userInputDatePickerHandlerV($event)" @change="btn_ctl.activate_general_save_btn = true" type="text"   v-model="item.end"  class="form-control millstone-input-box datepicker ms-2"  placeholder="填写任务结束时间"  autocomplete="off">
+                            </span>
+                          </json-node>  
+                        </li>
+                        
+                      </ul>
+                </div>
+            </section>
+            <!-- edit feature end -->
+            <section v-if="!(workflow.mark=='1' && workflow.ac=='1')" class="section-display-header ps-4 my-4">
               <div class="d-flex inner-header">
                 <span>任务集</span>
               </div>
             </section>
-            <section class="section-workspace d-flex  px-3 pb-5 px-lg-5 mx-lg-5">
+            <section v-if="!(workflow.mark=='1' && workflow.ac=='1')" class="section-workspace d-flex  px-3 pb-5 px-lg-5 mx-lg-5">
                 <div class="display-pannel">
                     <ul class="timeline">
                       <li :class="{'active': !!workflow.doneStageNo && i >= Number(workflow.doneStageNo)}" v-for="(millstone,i) in workflow.millstones" class="timeline-item pb-3">
@@ -494,7 +617,12 @@
               </div>
             </section>
             <div class="workspace-pps ps-4 pb-5">
-              小技巧：特约采用分步交付设计，服务商在每一阶段任务完成之后，向客户发起账单支付请求.账单支付请前往【账单管理】.
+              <div>
+                <span><i class="bi bi-pin-angle me-2"></i>服务商可联系客户授权「编辑服务内容」权限，开启协作.</span> 
+              </div>
+              <div>
+                <span><i class="bi bi-pin-angle me-2"></i>特约采用分步交付设计，服务商在每一阶段任务完成之后，向客户发起账单支付请求.账单支付请前往【账单管理】.</span> 
+              </div>
             </div>
 
               </div>

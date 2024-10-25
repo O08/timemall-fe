@@ -90,6 +90,13 @@
     color: #fff;
     background-color: unset;
   }
+  .timeline .timeline-item:before {
+    top: 2px;
+  }
+  .workspace-pps{
+    color: #87888c;
+    font-size: 12px;
+  }
 
     /*----------------------------------------------------
     8. Json node

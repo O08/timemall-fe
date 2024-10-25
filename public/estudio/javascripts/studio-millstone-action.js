@@ -4,19 +4,23 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Auth from "/estudio/javascripts/auth.js"
 
+import 'jquery-ui/ui/widgets/datepicker.js';
+import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
 
 import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
-import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {getDaysBetween}from "/common/javascripts/util.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
+
 let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
@@ -26,10 +30,62 @@ const RootComponent = {
             defaultAvatarImage,
             workflow: {
                 serviceInfo: {}
+            },
+            btn_ctl:{
+                activate_general_save_btn: false
             }
         }
     },
     methods: {
+        newMillstoneV(){
+            const m = this.emptyMillstone();
+            this.workflow.millstones.unshift(m)
+          },
+          removeMillstoneV(mIndex){
+             this.workflow.millstones.splice(mIndex,1);
+          },
+          newObjToFirstV(mIndex){
+             this.workflow.millstones[mIndex].objective.unshift({});
+          },
+          newObjAfterV(mIndex,objIndex){
+             this.workflow.millstones[mIndex].objective.splice(objIndex + 1,0,{});
+          },
+          removeObjV(mIndex,objIndex){
+             this.workflow.millstones[mIndex].objective.splice(objIndex,1);
+          },
+          newMetricToFirstV(mIndex){
+             this.workflow.millstones[mIndex].metric.unshift({});
+          },
+          newMetricAfterV(mIndex,metricIndex){
+             this.workflow.millstones[mIndex].metric.splice(metricIndex + 1,0,{});
+          },
+          removeMetric(mIndex,metricIndex){
+             this.workflow.millstones[mIndex].metric.splice(metricIndex,1);
+          },
+          replaceWorkflowV(){
+             replaceWorkflow();
+          },
+          emptyMillstone(){
+             return {
+                 objective: [{}],
+                 metric: [{}]
+             }
+          },
+          transformInputNumberV(event){
+            return transformInputNumberAsPositive(event);
+        },
+        userInputDatePickerHandlerV(e){    
+
+            if(!e.target.dataset.olddate){
+                e.target.dataset.olddate="2022-02-21";
+            }
+            e.target.value =  e.target.dataset.olddate;
+            $("#" + e.target.id).datepicker("setDate", e.target.dataset.olddate);
+            if(!!e.data){
+                e.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
+
+        },
         loadWorkflowInfoV(){
             loadWorkflowInfo();
         },
@@ -47,6 +103,34 @@ const RootComponent = {
         if(document.getElementById("event-tab").ariaSelected=='true'){
             document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
         }
+         // init auto height for textarea
+         [...$("textarea")].forEach(el=>{ 
+            if(el.id === 'twemoji-picker'){ // exclude emoji picker 
+                console.log("emoji picker");
+            }else{
+                autoHeight(el);
+            }
+        })
+        $(function() {
+            // Remove already delete element popover ,maybe is bug
+            $('[data-popper-reference-hidden]').remove();
+            $('.popover.custom-popover.bs-popover-auto.fade.show').remove();
+            // Enable popovers 
+            $('[data-bs-toggle="popover"]').popover();
+        });
+
+            $( ".datepicker" ).datepicker({
+                dateFormat: "yy-mm-dd",
+                duration: "fast",
+                onSelect: function(selectedDate,inst) {
+                    if(inst.lastVal !=selectedDate){
+                        document.getElementById(inst.id).dataset.olddate=selectedDate;
+                        document.getElementById(inst.id).dispatchEvent(new Event('input'))
+                        document.getElementById(inst.id).dispatchEvent(new Event('change'))
+                    }
+                }
+            });
+            $( ".datepicker" ).datepicker( $.datepicker.regional[ "zh-CN" ] );
     }
 }
 const app = createApp(RootComponent);
@@ -76,6 +160,11 @@ app.mixin(
 const millstoneAuditPage = app.mount('#app');
 window.cMillstoneAudit= millstoneAuditPage;
 
+async function saveWorkflow(workflowId){
+    const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
+    return axios.put(url,{workflow: millstoneAuditPage.workflow});
+}
+
 async function getSingleWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
     return axios.get(url);
@@ -92,6 +181,9 @@ function loadWorkflowInfo(){
     getSingleWorkflow(workflowId).then(response=>{
         if(response.data.code == 200){
             millstoneAuditPage.workflow = response.data.workflow;
+            if(!millstoneAuditPage.workflow.millstones){
+                millstoneAuditPage.workflow.millstones=[];
+            }
             ruleCheck(response.data.workflow);
          }
     });
@@ -102,6 +194,7 @@ function approvedWorkflow(){
     markMillstone(workflowId,WorkflowStatus.Audited).then(response=>{
         if(response.data.code == 200){
             goViewOption();
+            millstoneAuditPage.workflow.mark=WorkflowStatus.Audited;
             customAlert.alert("好棒，任务已经提交到客户进行定稿.");
         }
         if(response.data.code!=200){
@@ -116,6 +209,7 @@ function rejectWorkflow(){
     markMillstone(workflowId,WorkflowStatus.InQueue).then(response=>{
         if(response.data.code == 200){
             goViewOption();
+            millstoneAuditPage.workflow.mark=WorkflowStatus.InQueue;
             customAlert.alert("特约任务已驳回，接下来请与客户一起完善交付内容吧.")
         }
         if(response.data.code!=200){
@@ -189,4 +283,54 @@ function ruleCheck(workflow){
 
 
 
+}
+
+function replaceWorkflow(){
+    // validate data
+    const id= getQueryVariable("workflow_id");// workflow id
+    if(!id || millstoneAuditPage.workflow.millstones.length==0){
+        return;
+    }
+    if(millstoneAuditPage.workflow.millstones.filter(e=> (  $.isEmptyObject(e.objective[0])  || $.isEmptyObject(e.metric[0]) )).length>0){
+        customAlert.alert("有任务未填写完整，请检查.");
+        return;
+    }
+    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.title).length>0){
+        customAlert.alert("存在任务标题未填写，请检查.");
+        return;
+    }
+    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.payRate).length>0){
+        customAlert.alert("有任务结算比率未填写，请检查.");
+        return;
+    }
+    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.start).length>0){
+        customAlert.alert("有任务开始时间未填写，请检查.");
+        return;
+    }
+    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.end).length>0){
+        customAlert.alert("有任务结束时间未填写，请检查.");
+        return;
+    }
+    if(millstoneAuditPage.workflow.millstones.filter(e=>new Date(e.start) > new Date(e.end)).length>0){
+        customAlert.alert("有任务【开始日期】大于【结束日期】，请检查.");
+        return;
+    }
+    const totalPayRate= millstoneAuditPage.workflow.millstones.reduce(
+        (accumulator, currentValue) => accumulator + Number(currentValue.payRate),
+        0,
+    );
+    if(totalPayRate>100){
+        customAlert.alert( "所有任务【结算比率】求和大于100 ，请检查.");
+        return;
+    }
+
+    saveWorkflow(id).then(response=>{
+        if(response.data.code==200){
+            ruleCheck(millstoneAuditPage.workflow);
+            millstoneAuditPage.btn_ctl.activate_general_save_btn = false;
+        }
+        if(response.data.code!=200){
+            customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+        }
+    });
 }

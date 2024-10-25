@@ -8,7 +8,7 @@ import 'jquery-ui/ui/widgets/datepicker.js';
 import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
-import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import {EventFeedScene,MillstoneAc} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
@@ -83,6 +83,28 @@ const RootComponent = {
                 e.currentTarget.dispatchEvent(new Event('input')); // update v-model
             }
 
+        },
+        authorizeEditV(){
+           modifyMillstoneAc(MillstoneAc.OPEN).then(response=>{
+            if(response.data.code==200){
+                this.workflow.ac=MillstoneAc.OPEN;
+                customAlert.alert("已授权服务商「编辑服务内容」 权限！");
+            }
+            if(response.data.code!=200){
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+            }
+           });
+        },
+        reclaimEditV(){
+            modifyMillstoneAc(MillstoneAc.CLOSED).then(response=>{
+                if(response.data.code==200){
+                    this.workflow.ac=MillstoneAc.CLOSED;
+                    customAlert.alert("已回收服务商「编辑服务内容」 权限！");
+                }
+                if(response.data.code!=200){
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                }
+               });
         }
     },
     updated(){
@@ -163,6 +185,21 @@ async function getSingleWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
     return await axios.get(url);
 }
+async function doMillstoneAuth(dto){
+    const url = "/api/v1/web_epod/millstone/permission";
+    return axios.put(url,dto);
+}
+async function modifyMillstoneAc(ac){
+
+     const id = getQueryVariable("workflow_id"); 
+     const dto={
+        id,
+        ac
+     }
+     return doMillstoneAuth(dto);
+
+}
+
 function loadWorkflowInfo(){
     const workflowId = getQueryVariable("workflow_id"); 
     getSingleWorkflow(workflowId).then(response=>{
@@ -217,6 +254,9 @@ function replaceWorkflow(){
     saveWorkflow(id).then(response=>{
         if(response.data.code==200){
             millstoneEditPage.btn_ctl.activate_general_save_btn = false;
+        }
+        if(response.data.code!=200){
+            customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);
         }
     });
 }

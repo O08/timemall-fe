@@ -34,6 +34,8 @@
   },
   "devDependencies": {
     "@parcel/compressor-gzip": "^2.11.0",
+    "@parcel/packager-raw-url": "^2.12.0",
+    "@parcel/transformer-jsonld": "^2.12.0",
     "@parcel/transformer-sass": "^2.11.0",
     "assert": "^2.1.0",
     "browserify-zlib": "^0.2.0",
