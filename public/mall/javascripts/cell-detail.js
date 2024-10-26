@@ -424,10 +424,13 @@ function getSbuPrice()
 }
 function sortSbu(){
 
-  var sortFeeArr=[getFeeItemBySbu('second'),getFeeItemBySbu('week'),
-    getFeeItemBySbu('minute'),getFeeItemBySbu('month'),
-    getFeeItemBySbu('hour'),getFeeItemBySbu('quarter'),
-    getFeeItemBySbu('day'),getFeeItemBySbu('year')];
+  var sortFeeArr=[
+        getFeeItemBySbu('minute'),getFeeItemBySbu('hour'),
+        getFeeItemBySbu('day'),getFeeItemBySbu('week'),getFeeItemBySbu('month'),
+        getFeeItemBySbu('quarter'),
+        getFeeItemBySbu('year'),
+        getFeeItemBySbu('second')
+      ];
 
     cellDetailPage.profile.fee = sortFeeArr;
 

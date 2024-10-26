@@ -290,12 +290,12 @@
                       <div class="cell-item">
                         <div class="card border-0">
                           <a :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                            <img :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                            <img loading="lazy" :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                           </a>
                           <div class="card-body">
                             <div class="d-flex portrait align-items-center">
                               <div class="brand-logo-container">
-                                <img class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                                <img loading="lazy" class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                                 <div v-if="cell.brandMark=='3'" class="online-indicator">
                                   <div class="online-indicator-content">
                                   </div>
