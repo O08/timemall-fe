@@ -1,0 +1,423 @@
+body,.copyright-container{
+    background-color: #000000;
+}
+.appButton a {
+    text-decoration: none;
+}
+.header-container,.nav_link{
+    height: 55px;
+}
+.header-container,.ppt_item_container,.search-section,h1{
+    padding-left: 24px;
+    padding-right: 24px;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items:center ;
+}
+.header-primary-container{
+    display: flex;
+    align-items:center ;
+}
+
+
+.nav_links{
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    text-align: center;
+    font-size: 16px;
+    line-height: 140%;
+    font-weight: 600;
+    display: flex;
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 16px;
+}
+.nav_link{
+    display: flex;
+    align-items: center;
+}
+.nav_link a{
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px;
+    color: #fff;
+    text-decoration:none;
+
+}
+.nav_link a:hover{
+    color: #fff;
+    text-decoration: underline;
+}
+.nav_links > li:first-child a{
+    margin-left: 0;
+    padding-left: 0;
+}
+
+
+.logo_link{
+    padding-left: 0;
+    min-width: none;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.logo_link img{
+    height: 32px;
+    width: 32px;
+}
+
+
+
+.eZdGJU {
+    box-sizing: border-box;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    width: 100%;
+    padding: 0rem;
+    margin: 0rem;
+}
+.ffdmbA {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.llxqUr {
+    box-sizing: border-box;
+    display: block;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    padding: 0rem;
+    margin: 0rem;
+}
+
+.jZwsWJ {
+    background-color: rgb(245, 244, 242);
+    border-radius: 9999px;
+    cursor: default;
+    padding: 0.5rem 0.75rem;
+    position: static;
+    right: 0px;
+    width: 100%;
+    z-index: 1000;
+}
+.ehdChx {
+    align-self: center;
+    box-sizing: border-box;
+    position: relative;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    padding: 0rem;
+    margin: 0rem;
+}
+.lhpgSe {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    margin-bottom: 0px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+.bmywFn {
+    -webkit-box-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    padding: 0rem;
+    margin: 0rem;
+}
+.hXhurX {
+    align-self: center;
+    -webkit-box-align: center;
+    align-items: center;
+    display: inline-flex;
+    cursor: pointer;
+    vertical-align: unset;
+}
+.bHRhSP input[type="search"] {
+    line-height: 2rem;
+    width: 100%;
+    font-size: 18px !important;
+    outline: none;
+}
+input[type="search"] {
+    appearance: textfield;
+    box-sizing: content-box;
+}
+
+.SHYlA {
+    background-color: rgb(245, 244, 242);
+    border: 0px;
+    font-weight: 500;
+    line-height: 1rem;
+    padding-left: 0.75rem;
+    text-overflow: ellipsis;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    width: 100%;
+    z-index: 900;
+    font-size: 0.875rem !important;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.hXhurX svg {
+    align-self: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: rgb(112, 108, 100);
+}
+
+
+ 
+.bNScZE {
+    box-sizing: border-box;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    padding: 0.5rem 0rem 0rem;
+    margin: 0rem;
+}
+
+
+
+.fDBvuv {
+    -webkit-box-align: center;
+    align-items: center;
+    backface-visibility: hidden;
+    background-color: rgb(255, 66, 77);
+    border-radius: 9999px;
+    border: 1px solid rgb(255, 66, 77);
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 500;
+    height: unset;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 0.78125rem 1.5rem;
+    position: relative;
+    pointer-events: unset;
+    text-align: center;
+    text-decoration: none;
+    text-transform: none;
+    transition: all 300ms cubic-bezier(0.19, 1, 0.22, 1) 0s;
+    user-select: none;
+    white-space: unset;
+    width: 100%;
+    color: rgb(255, 255, 255) !important;
+    font-size: 1rem !important;
+}
+.cTMagC {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    display: none;
+}
+.cIeVvp {
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    visibility: visible;
+}
+.juzFiH.juzFiH.juzFiH {
+    overflow: visible;
+}
+.juzFiH {
+    margin-left: auto;
+    margin-right: auto;
+    animation: 1.116s linear 0s infinite normal none running cJiLXh;
+    display: block;
+    padding: 1.5px;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.g-md-special{
+    --bs-gutter-y: 36px;
+    --bs-gutter-x: 36px;
+}
+.showcase-wrp{
+    position: relative;
+}
+.ppt-title{
+    font-weight: 600;
+    width: 100%;
+}
+.storyboard img{
+    width: 100%;
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+}
+.tag-wrp{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.support-dim{
+    --tm-border-opacity: 1;
+    font-weight: 500;
+    font-size: .5rem;
+    padding-top: .15rem;
+    padding-bottom: .15rem;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 9999px;
+    margin-left: .25rem;
+}
+.support-dim:first-child{
+    margin-left: 0;
+}
+.search-section { 
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding-bottom: 32px;
+ padding-top: 32px;
+}
+.eZdGJU{
+    max-width: 560px;
+}
+
+.ppt-format,.ppt-title{
+    padding-top: .35rem;
+}
+.template-thumbnail-video{
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: .375rem;
+}
+.TemplateThumbnailVideo_container{
+    position: relative;
+}
+
+.TemplateThumbnailVideo_videoPlayer {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+
+
+    opacity: 0;
+  
+
+    transition: opacity 0.5s;
+}
+
+.TemplateThumbnailVideo_videoPlayer:hover {
+
+
+    opacity: 1;
+  
+  
+  }
+
+  .dropdown-menu{
+    z-index: 1001;
+  }
+  .join-now{
+    margin-left: 16px;
+ }
+ .download-btn{
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 999px;
+    color: #000;
+    font-weight: 500;
+    font-size: 12px;
+    z-index: 2;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ .download-btn{
+    background-color: #eee;
+ }
+ .download-btn i{
+    font-size: 10px;
+    -webkit-text-stroke: .75px;
+ }
+ .download-btn:hover i{
+    color: cornflowerblue;
+ }
+ .ellipsis-1 {
+    -webkit-line-clamp: 1;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+}
+  @media (max-width: 767px){
+    .nav_links,.appButton .btn{
+        font-size: 12px;
+    }
+    .bHRhSP input[type="search"] {
+        font-size: 12px !important;
+    }
+    .jZwsWJ {
+        padding: .25rem .5rem;
+    }
+    h1{
+        font-size: 16px;
+    }
+    .ppt-title{
+        font-size: 10px;
+    }
+    .support-dim{
+        font-size: .35rem;
+        padding: .125rem .5rem;
+    }
+    .appButton .btn{
+        padding: .25rem .6rem;
+    }
+    .nav_link a {
+        margin: 5px;
+        padding: 5px;
+    }
+    .join-now{
+        margin-left: 5px;
+     }
+
+  }
+
+  @media (width <= 576px) {
+     
+.header-container, .ppt_item_container, .search-section, h1{
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+  
