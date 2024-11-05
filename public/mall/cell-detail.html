@@ -226,7 +226,7 @@
                         
                       </div>
 
-                      <p class="cell-title my-4">{{profile.title}}</p>
+                      <h1 class="cell-title my-4">{{profile.title}}</h1>
                       <div  class="cell-intro-content pb-5">
                         <p v-for="item in profile.content.items" class="cell-content-item">
                           {{item.section}}
@@ -526,7 +526,7 @@
                 <!--begin::Wrapper-->
                 <div class="text-center">
                     <!--begin::Title-->
-                    <h1 class="fw-bold mb-2">识别到异常</h1>
+                    <span class="fw-bold mb-2 modal-head">识别到异常</span>
                     <!--end::Title-->
 
                     <!--begin::Separator-->
@@ -573,7 +573,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body text-center">
-                <h4>下单成功!</h4>	
+                <div class="modal-head my-3">下单成功!</div>	
                 <p>哇喔，成功下单，继续享受愉快的旅程，追寻更多发现吧！</p>
                 <div class="d-flex justify-content-center flex-wrap pt-2">
 
@@ -604,7 +604,7 @@
                 <!--begin::Wrapper-->
                 <div class="text-center">
                     <!--begin::Title-->
-                    <h1 class="fw-bold mb-2">操作提示</h1>
+                    <span class="fw-bold mb-2 modal-head">操作提示</span>
                     <!--end::Title-->
 
                     <!--begin::Separator-->

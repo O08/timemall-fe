@@ -629,6 +629,14 @@ mall-app {
 .plan-content-container .cell-coupon{
     margin-bottom: 1rem;
 }
+.modal-head{
+    font-size: calc(1.375rem + 1.5vw);
+}
+@media (width >= 1200px) {
+    .modal-head{
+        font-size: 2.5rem;
+    }
+}
 @media (max-width: 576px) {
 
     .join-now,.button_login{
@@ -791,11 +799,6 @@ mall-app {
 }
 #goTopUpModal .modal-body{
     color: #121212;
-}
-#goTopUpModal h4 {
-    text-align: center;
-    font-size: 36px;
-    margin: 10px 0;
 }
 #goTopUpModal p{
     font-size: 12px;

@@ -128,7 +128,7 @@ const RootComponent = {
                     sortSbu();
                     var description=this.profile.content.items.length>0 ?  this.profile.content.items[0].section : "";
 
-                    renderPageMetaInfo(this.profile.title,description);
+                    renderPageMetaInfo(this.profile.title,description,this.profile.tags);
                     renderStructuredDataForSEO(this.profile);
                 }
                 this.profile.dataLoadFinish = true;
@@ -471,9 +471,9 @@ function computeFee(){
     cellDetailPage.total  = getSbuPrice() * cellDetailPage.quantity;
 }
 
-function renderPageMetaInfo(title,description){
+function renderPageMetaInfo(title,description,tags){
     document.title = title + " - 精选商店";
-    var keywords="咘噜咓,bluvarri,up主商业化数字工作室,超级玩家,写作与翻译,原神超级玩家,视频与动画制作剪辑";
+    var keywords= "咘噜咓商品" + ( (!tags || tags.length==0) ? "" : ","+tags.join(","));
     document.getElementsByTagName('meta')["description"].content = description;
     document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
 }
