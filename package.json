@@ -59,5 +59,8 @@
   },
   "alias": {
     "vue": "vue/dist/vue.esm-browser.js"
+  },
+  "staticFiles": {
+    "staticPath": "public/favicon.png"
   }
 }
