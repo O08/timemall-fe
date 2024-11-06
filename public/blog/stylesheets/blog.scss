@@ -20,7 +20,7 @@ footer {
     margin-top: -100px;
     position: relative;
 }
-.content-main{
+.content-main,.header-container{
     padding-bottom: 100px;
     --gutterWidth: 24px;
     --containerWidth: 1100px;
@@ -31,6 +31,33 @@ footer {
     margin-bottom: 96px;
     margin-top: 50px;
 }
+.header-container{
+    margin-bottom: 0;
+    margin-top: 0; 
+    height: 55px;
+    position: relative;
+}
+.blog-cta{
+    position: absolute;
+    right: 26px;
+    top: 16px;
+}
+.blog-cta a{
+   color: #fff;
+   text-decoration: none;
+   background-color: #BF5A03;
+   padding: .8rem;
+   border-radius: 5px;
+   font-size: 14px;
+}
+.tm-rotate-m30 {
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+    display: inline-block;
+  }
 h3,p{
     margin-bottom: 30px;
 }
@@ -127,6 +154,7 @@ h3,p{
     display: block;
     color: rgb(106, 106, 106);
 }
+
 .article-widget-head h1{
     text-align: center;
 }
@@ -149,12 +177,20 @@ h3,p{
     min-height: 30px;
 }
 .nav-link{
-    line-height: 1.5;
-    font-size: var(--t2-fs);
-    letter-spacing: var(--t2-ls);
-    margin-right: 32px;
-    color: inherit;
+    cursor: pointer;
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
     position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 140%;
+}
+.nav-link:hover{
+    color: #3887fe;
+}
+.header-navbar > li{
+    padding: 10px;
 }
 .nav-link.active::after{
     content: "";
@@ -163,7 +199,7 @@ h3,p{
     bottom: -4px;
     height: 3px;
     width: 100%;
-    background:rgb(106, 106, 106);
+    background:#3887fe;
 }
 .article-content-wrapper p a{
   outline: none;
@@ -197,6 +233,32 @@ h3,p{
 }
 .what_if p{
     padding-left: 1rem;
+}
+.logo_link {
+    min-width: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    display: flex;
+}
+.logo_link img {
+    width: 32px;
+    height: 32px;
+}
+.content-main ul{
+    margin-bottom: 30px;
+  }
+  .content-main ul li{
+    margin-bottom: 8px;
+  }
+@media (max-width: 1399.98px) {
+    .header-container {
+        justify-content: space-between;
+    }
+    .blog-cta{
+        display: none;
+    }
 }
 @media (max-width: 576px) {
     .mx-120 {
