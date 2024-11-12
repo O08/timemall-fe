@@ -2,6 +2,8 @@
 col-content{
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
 }
 .sidebarContainer{
   max-height: 100vh;
@@ -80,7 +82,9 @@ col-content{
     height: calc(100% - 100px);
 }
 
-
+.help-text-color{
+  color: #aaa;
+}
 @media (max-width: 576px) {
   .logo{
     justify-content: flex-end !important;

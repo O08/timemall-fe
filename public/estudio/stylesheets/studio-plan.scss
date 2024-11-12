@@ -216,7 +216,8 @@ font-weight: 700;
 }
 .plan-info-container,.deliver-panel-container{
   height: calc(100vh - 142px);
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .opt_item_container {
   text-align: center;
@@ -267,7 +268,7 @@ font-weight: 700;
   position: relative;
 }
 pt-app content main {
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 32px;
 }
 pt-app content main {

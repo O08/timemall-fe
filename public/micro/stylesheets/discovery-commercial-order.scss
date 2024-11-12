@@ -199,6 +199,9 @@ header{
   width: 200px;
   overflow: hidden;
 }
+#commericalOrderPreviewModal .modal-fullscreen .modal-body {
+  overflow-y: unset;
+}
 @media (max-width: 576px) {
   .logo{
     justify-content: flex-end !important;

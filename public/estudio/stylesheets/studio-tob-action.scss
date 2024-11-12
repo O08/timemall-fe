@@ -167,7 +167,7 @@ body::-webkit-scrollbar {
 }
 .papaer-info-container,.deliver-panel-container{
   height: calc(100vh - 142px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .opt_item_container {
   text-align: center;
@@ -218,7 +218,8 @@ body::-webkit-scrollbar {
   position: relative;
 }
 pt-app content main {
-  overflow-x: scroll;
+  overflow-x: auto;
+  scrollbar-width: none;
   padding: 32px;
 }
 pt-app content main {

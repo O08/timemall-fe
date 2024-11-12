@@ -1,5 +1,6 @@
 html, body, mall-app {
     height: 100%;
+    scrollbar-width: none;
 }
 .nav-tabs-container{
   min-width: unset;
@@ -302,7 +303,7 @@ width: 360px;;
     text-align: center;
     flex-direction: column;
     justify-content: center;
-    background-color: #272727;
+    background-color: transparent;
   }
   .btn-container{
     width: 50px;
@@ -435,4 +436,8 @@ width: 360px;;
  
 .custom-file-label::after {
   content: "浏览";
+}
+
+.commission-info-container ,.deliver-panel-container{
+  overflow-x: hidden;
 }

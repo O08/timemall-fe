@@ -21,6 +21,7 @@ body {
 body {
   margin: 0;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 [v-cloak] {
@@ -1042,6 +1043,7 @@ col-container{
   height: calc(100% - 100px);
   overflow-y: scroll;
   padding-top: 2.5rem;
+  scrollbar-width: none;
 }
 .nav-setting i{
   color: #666666;
@@ -1191,11 +1193,44 @@ col-container{
 
 // channel chat end
 
-/* 滚动条 */
-.sidebar-wrapper ,pt-app main,pt-app main .page-title-container{
-  scrollbar-color: #727272 #a7a7a7;
-  scrollbar-width: thin;
+/*  滚动条 */
+.scroller {
+  --scrollbar-color-thumb: #4c4c4c;
+  --scrollbar-color-thumb-hover: #707070;
+  --scrollbar-color-track: transparent;
+  --scrollbar-width: thin;
+  --scrollbar-width-legacy: 10px;
 }
+
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .scroller {
+      scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+      scrollbar-width: var(--scrollbar-width);
+  }
+
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .scroller::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color-thumb);
+  }
+  .scroller::-webkit-scrollbar-track {
+      background: var(--scrollbar-color-track);
+  }
+  .scroller::-webkit-scrollbar {
+      max-width: var(--scrollbar-width-legacy);
+      max-height: var(--scrollbar-width-legacy);
+  }
+}
+
+
+*{
+  @extend .scroller;
+}
+
 
 
 

@@ -25,3 +25,30 @@
 .empty-content-block{
     width: 100%;
 }
+
+.table{
+    --bs-table-bg: #141414 !important;
+    --bs-table-color: #fff !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    --bs-table-hover-bg: #000 !important;
+    --bs-table-hover-color: #fff !important;
+}
+.table > thead > tr > th{
+    background-color:  #373b3e52!important;
+    height: 48px;
+    vertical-align: middle !important;
+}
+tr td:first-child,tr th:first-child{
+  padding-left: 24px;
+}
+
+.table ,.table td{
+    font-size: 12px;
+}
+
+.table td{
+    height: 42px;
+}
+tbody tr {
+    height: unset;
+}

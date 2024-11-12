@@ -195,16 +195,17 @@
   position: relative;
 }
 pt-app content main {
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 32px;
 }
 
 .main-content-container{
-  min-width: 1000px;
+  min-width: 360px;
 }
 .plan-info-container,.deliver-panel-container{
   height: calc(100vh - 142px);
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 pt-app content main {
   padding-bottom: 0;
