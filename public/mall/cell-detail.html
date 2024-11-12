@@ -310,7 +310,9 @@
                         </div>
                         <div class="brand-container">
                           <div class="brand-avator">
-                            <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            <a :href="'/'+brandProfile.handle" class="url-link">
+                              <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            </a>
                           </div>
                         <div class="brand-identity">
                           <a :href="'/'+brandProfile.handle" class="url-link">

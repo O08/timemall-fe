@@ -705,6 +705,8 @@
           colEl.className = "col";
             const thumbnailContainer=document.createElement("div");
             thumbnailContainer.className="thumbnail-container";
+              const gigLinkInCover=document.createElement("a");
+              gigLinkInCover.href="/mall/cell-detail?cell_id=" + element.cellId + "&brand_id=" + element.brandId;
               const cellCoverEl =new Image();
               cellCoverEl.src=adaptiveImageUriV(element.cellCover);
               cellCoverEl.alt=element.cellTitle;
@@ -726,6 +728,8 @@
               const brandInfo=document.createElement("div");
               const defaultBrandAvatar="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/panda-kawaii.svg";
               brandInfo.className="brand-info";
+                const brandHomeLinkInAvatar=document.createElement("a");
+                brandHomeLinkInAvatar.href="/" + element.handle;
                 const brandAvatarEl=new Image();
                 brandAvatarEl.onerror=function(){
                   brandAvatarEl.src=defaultBrandAvatar;
@@ -749,13 +753,13 @@
 
             const heroCellExampleFrag = document.createDocumentFragment();
             const exampleCol=heroCellExampleFrag.appendChild(colEl);
-            exampleCol.appendChild(thumbnailContainer).appendChild(cellCoverEl);
+            exampleCol.appendChild(thumbnailContainer).appendChild(gigLinkInCover).appendChild(cellCoverEl);
 
             exampleCol.appendChild(gigTitle).appendChild(gigLink);
 
             const shotDetailContainerFg= exampleCol.appendChild(shotDetailContainer);
               const brandInfoFg =  shotDetailContainerFg.appendChild(brandInfo);
-                brandInfoFg.appendChild(brandAvatarEl);
+                brandInfoFg.appendChild(brandHomeLinkInAvatar).appendChild(brandAvatarEl);
                 brandInfoFg.appendChild(brandNameEl).appendChild(brandHomeLink);
 
               const shotStatisticsContainerFg=shotDetailContainerFg.appendChild(shotStatisticsContainer);
