@@ -375,7 +375,6 @@ nav{
   background: #000;
   border-radius: 2px;
   color: white;
-  font-weight: 700;
   border: none;
 }
 .location-select-form{
@@ -423,9 +422,16 @@ nav{
   text-align: center;
 }
 @media (max-width: 576px) {
+  .top-bar-filter-budget,.sort-by , .sbu-option,.sbu-option option,.s_type{
+    font-size: 14px;
+  }
+  .top-search-input{
+    font-size: 12px;
+    height: unset;
+  }
   .join-now,.button_login{
-    padding: .325rem .275rem;
-    width: 66px;
+    width: 50px;
+    padding: .125rem .2rem;
     font-size: 12px;
     border-radius: 16px;
 }
@@ -437,7 +443,10 @@ nav{
   padding-right: 12px;
 }
 .search-container{
-  padding-top: 72px;
+  padding-top: 36px;
+}
+.section-filter{
+  margin-top: 24px;
 }
 .header-container{
   display: flex;

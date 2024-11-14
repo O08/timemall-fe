@@ -237,9 +237,9 @@
                     <div class="fee-calculator-pannel">
                       <div class="card fee-calculator-bg fee-calculator">
                         <div class="d-flex justify-content-between">
-                          <h5 class="card-header ps-3">
+                          <div class="card-header ps-3 font-w-500">
                             费用计算
-                          </h5>
+                          </div>
                           <div>
                             <a class="btn btn-outline-primary price-list ms-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                               <i class="bi bi-tag"></i>
@@ -251,7 +251,7 @@
                         <div class="card-body">
                           <div class="collapse" id="collapseExample">
                             <div class="d-flex row row-cols-2">
-                              <p v-for="item in profile.fee" class="col fee-sbu-wrapper price px-5">
+                              <p v-for="item in profile.fee" class="col fee-sbu-wrapper price">
                                 <i>￥</i>
                                 <ins class="text-decoration-none price-txt">{{item.price}}</ins>
                                 /
@@ -397,7 +397,7 @@
                 <div class="tab-pane fade " id="plan-tab-pane" role="tabpanel" aria-labelledby="plan-tab" tabindex="0">
                   <div class="plan-panel-header">
                     <div class="plan-panel-header-label">
-                      可选套餐：
+                      套餐：
                     </div>
                     <div 
                       :class="{'active': displayPlan.planType==='bird' }"
