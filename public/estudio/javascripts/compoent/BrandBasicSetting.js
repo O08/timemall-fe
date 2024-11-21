@@ -15,6 +15,8 @@ const BrandBasicSetting = {
                 {title: "夜间咨询",content: "夜间咨询处于开启状态，表示在每天夜晚(18:00 ～ 22:00)，你为有需要的用户提供无偿、免费的咨询服务。建议每次咨询时长设置为15min、30min 或者 1h。默认为关闭状态"},
                 {title: "品牌唯一标识",content: "品牌唯一标识是由字母、数字、_组成的简单的身份字符串，更容易分享和传播，你可通过 https://bluvarri.com/@品牌唯一标识 直接访问相应的品牌主页。支持最大长度为40"},
                 {title: "私域基地",content: "品牌基地是一个活跃的社群，通过基地与客户、粉丝高效互动，提升产品力，提升营销力，提升服务力；品牌可前往【创硅谷】-- 【创建基地】设立新社群"},
+                {title: "经营范围",content: "经营范围是个人或者组织从事商业化相关活动时生产和经营的商品类别、品种及服务项目（支持最大长度 500 字符）"},
+
 
             ],
             explain: {},
@@ -54,6 +56,7 @@ const BrandBasicSetting = {
             availableForWork: false,
             freeNightCounsellor: false,
             cooperationScope:  "",
+            businessScope: "",
 
             pdOasisOptions: [],
             pdOasisSelectedItem: ""
@@ -94,6 +97,7 @@ const BrandBasicSetting = {
             this.referenceSetting.typeOfBusiness= !profile.typeOfBusiness ? "0" : profile.typeOfBusiness;
             this.referenceSetting.freeNightCounsellor=profile.freeNightCounsellor=="1" ? true : false;
             this.referenceSetting.pdOasisId=profile.pdOasisId;
+            this.referenceSetting.businessScope=profile.businessScope;
 
 
 
@@ -111,6 +115,8 @@ const BrandBasicSetting = {
            this.availableForWork=referenceSettingClone.availableForWork;
            this.typeOfBusinessSelectedItem=referenceSettingClone.typeOfBusiness;
            this.freeNightCounsellor=referenceSettingClone.freeNightCounsellor;
+           this.businessScope=referenceSettingClone.businessScope;
+
 
 
 
@@ -129,6 +135,8 @@ const BrandBasicSetting = {
                    || this.referenceSetting.availableForWork!=this.availableForWork
                    || this.referenceSetting.typeOfBusiness!=this.typeOfBusinessSelectedItem
                    || this.referenceSetting.freeNightCounsellor!=this.freeNightCounsellor
+                   || this.referenceSetting.businessScope!=this.businessScope
+
                    )
 
         },
@@ -183,7 +191,8 @@ async function modifyBasicSetting(appObj){
         availableForWork: appObj.availableForWork ? "1" : "0",
         typeOfBusiness: appObj.typeOfBusinessSelectedItem,
         industry: selectedIndustry.length>0 ? selectedIndustry[0].text : "",
-        freeNightCounsellor: appObj.freeNightCounsellor ? "1" : "0"
+        freeNightCounsellor: appObj.freeNightCounsellor ? "1" : "0",
+        businessScope: appObj.businessScope
     }
     const response = await putBasicSetting(dto);
     var data = await response.json();

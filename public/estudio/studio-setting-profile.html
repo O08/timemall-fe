@@ -489,6 +489,15 @@
                       @input="autoHeightV($event)" v-model="cooperationScope" class="cooperation-scope" maxlength="500" placeholder="合作意向、范围..."></textarea>
                     </div>
                   </div>
+                  <div class="row mb-3 mt-3">
+                    <label for="inputBusinessScope" class="col-sm-4 col-form-label"> 
+                      经营范围<span @click="showExplainModelV(6)"  class="help-text ms-1"><i class="bi bi-question-circle"></i></span>
+                    </label>
+                    <div class="col-sm-8">
+                      <textarea 
+                      @input="autoHeightV($event)" name="inputBusinessScope" v-model="businessScope" class="business-scope" maxlength="500" placeholder="商业化经营业务范围..."></textarea>
+                    </div>
+                  </div>
 
               
                 </div>

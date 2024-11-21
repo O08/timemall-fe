@@ -361,9 +361,15 @@
                       
                     </div>
                     <div class="archiveDetail-skills">
+                      <h2>经营范围</h2>
+                      <div  class="business-scope ms-2 ps-2 py-2">
+                        <p>{{brandProfile.businessScope}}</p>
+                      </div>
+                    </div>
+                    <div class="archiveDetail-skills">
                       <h2>词条</h2>
                       <div v-for="skill in brandProfile.skills" class="archiveDetail-skills-item ms-2 ps-2 py-2">
-                        -- {{skill.entry}}
+                        <i class="bi bi-stars"></i> {{skill.entry}}
                       </div>
                     </div>
                     <div class="archiveDetail-links">

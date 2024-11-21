@@ -350,14 +350,17 @@ header{
 }
 .archiveDetail-skills-item{
   text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  margin-bottom: 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.2rem;
-  display: block;
   overflow: hidden;
+  white-space: nowrap;
+
+}
+.business-scope,.archiveDetail-skills-item{
+  width: 100%;
+  word-break: break-all;
+  min-height: 30px;
+  font-size: 16px;
+  line-height: 1.875;
+  display: block;
 }
 .archiveDetail-header p{
   font-size: 12px;
