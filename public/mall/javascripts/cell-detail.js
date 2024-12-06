@@ -472,7 +472,7 @@ function computeFee(){
 }
 
 function renderPageMetaInfo(title,description,tags){
-    document.title = title + " - 精选商店";
+    document.title = title + " - 心选商店";
     var keywords= "咘噜咓商品" + ( (!tags || tags.length==0) ? "" : ","+tags.join(","));
     document.getElementsByTagName('meta')["description"].content = description;
     document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;

@@ -170,6 +170,12 @@ h3,p{
     --breakoutMarginDistance: calc(((min(100vw, var(--containerWidth)) - 100%) / -2) + var(--gutterWidth));
     margin: 56px auto 0px;
 }
+h1{
+    padding-left: calc(50% - 340px);
+    padding-right: calc(50% - 340px);
+    line-height: 1.425;
+
+}
 .article-content-wrapper p{
     word-break: break-all;
     line-height: 1.875;
