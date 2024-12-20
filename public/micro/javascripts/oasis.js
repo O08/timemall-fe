@@ -121,7 +121,7 @@ const RootComponent = {
             $('[data-bs-toggle="popover"]').popover();
         });
         if(!!this.announce.title){
-            document.title = this.announce.title + " | 基地";
+            document.title = this.announce.title + " | 部落";
         }
 
     }

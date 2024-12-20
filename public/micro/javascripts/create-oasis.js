@@ -236,7 +236,7 @@ function saveBaseInfo(base){
             createOasisPage.nextSlideV();
         }
         if(response.data.code==2010){
-            customAlert.alert("基地名字已被使用");
+            customAlert.alert("部落名字已被使用");
         }
     });
    }
@@ -246,7 +246,7 @@ function saveBaseInfo(base){
             createOasisPage.nextSlideV();
         }
         if(response.data.code==2010){
-            customAlert.alert("基地名字已被使用");
+            customAlert.alert("部落名字已被使用");
         }
     });
    }

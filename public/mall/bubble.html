@@ -251,13 +251,13 @@
                     <div v-if="!!homeInfo.pdOasisId" class="col actio-item">
                       <a :href="'/micro/oasis/?oasis_id='+homeInfo.pdOasisId" target="_blank">
                         <button type="button"  class="btn btn-primary option-swap" >
-                          <i class="bi bi-forward"></i> 访问私域基地
+                          <i class="bi bi-forward"></i> 访问私域部落
                         </button>
                       </a>
                     </div>
                     <div  class="col actio-item">
                       <button type="button" @click="retrieveOasesCreatedV" class="btn btn-primary option-invitation" data-bs-toggle="modal" data-bs-target="#inviteModal">
-                        <i class="bi bi-send"></i> 邀请加入基地
+                        <i class="bi bi-send"></i> 邀请加入部落
                       </button>
                     </div>
                   </div>
@@ -280,10 +280,10 @@
                 </div>
                 <div class="modal-body">
                   <div class="input-group mb-3">
-                    <input  @keyup.enter.native="searchOasesV" v-model="searchOasesQ" class="bubble-search-btn form-control" type="search" placeholder="搜索基地...">
+                    <input  @keyup.enter.native="searchOasesV" v-model="searchOasesQ" class="bubble-search-btn form-control" type="search" placeholder="搜索部落...">
                   </div>
                   <div class="mt-3">
-                    <span>基地:</span>
+                    <span>部落:</span>
                     <ul class="list-group ms-5">
                       <li v-for="oasis in displayOases" class="list-group-item">
                         <div class="form-check">

@@ -108,7 +108,7 @@ function explainOpenDataFromWhere(dataSourceCode){
             desc="特约搜索"
             break;
         case FromWhere.OASIS_SEARCH:
-            desc="基地搜索"
+            desc="部落搜索"
             break;
         case FromWhere.TALENT_SEARCH:
             desc="商务拓展搜索"

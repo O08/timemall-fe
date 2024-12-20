@@ -7,7 +7,7 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
 <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>基地</title>
+    <title>部落</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
@@ -26,7 +26,7 @@
         <div class="sidebarContainer d-flex flex-row">
           <col-nav-main>
           <div class="nav-container-wrapper">
-            <a href="/micro/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="创硅谷"> 
+            <a href="/micro/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="部落纪元"> 
               <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 13C3.8 13 2 14.8 2 17C2 19.2 3.8 21 6 21C8.2 21 10 19.2 10 17C10 14.8 8.2 13 6 13ZM12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3ZM18 13C15.8 13 14 14.8 14 17C14 19.2 15.8 21 18 21C20.2 21 22 19.2 22 17C22 14.8 20.2 13 18 13Z" fill="#36F7E5"/>
@@ -172,21 +172,21 @@
               </li>
               <li v-if="!inOasisV()"><a  class="dropdown-item">
                 <button @click="followOasisV"  v-preventreclick  type="button" class="btn  oasis-option">
-                  加入基地
+                  加入部落
                 </button>
                 </a>
               </li>
               <li v-if="inOasisV()&&!initiatorRoleV()">
                 <a  class="dropdown-item">
                   <button @click="unfollowOasisV"  v-preventreclick  type="button" class="btn oasis-option" >
-                    退出基地
+                    退出部落
                   </button>
                 </a>
               </li>
               <li v-if="initiatorRoleV()">
                 <a  class="dropdown-item" :href="'/micro/create-oasis?option=edit&&oasis_id='+oasisId">
                   <button type="button" class="btn  oasis-option">
-                    基地设置
+                    部落设置
                   </button>
                 </a>
               </li>
@@ -264,7 +264,7 @@
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title fs-5">赞助基地</h1>
+                <h1 class="modal-title fs-5">赞助部落</h1>
                 <button type="button" id="closeTopUpToOasisModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center">
@@ -274,7 +274,7 @@
                     <input :value="brandAccount.drawable" type="text" maxlength="255" class="form-control" disabled id="t1">
                   </div> 
                   <div class="mt-3">
-                    <label for="t2" class="form-label">基地余额</label>
+                    <label for="t2" class="form-label">部落余额</label>
                     <input id="t2" :value="oasisAccount.drawable" type="text" maxlength="255" class="form-control" disabled>
                   </div> 
                   <div class="mt-3">
@@ -308,7 +308,7 @@
               <div class="modal-body d-flex justify-content-center">
                 <form>
                   <div class="mt-3">
-                    <label for="t1" class="form-label">基地余额</label>
+                    <label for="t1" class="form-label">部落余额</label>
                     <input :value="oasisAccount.drawable" type="text" maxlength="255" class="form-control" disabled id="t1">
                   </div> 
                   <div class="mt-3">
@@ -320,7 +320,7 @@
                     <input id="t3" @input="transformInputNumberV($event)" min="1" max="50000" step="1" v-model="collectAccountAmount" type="number" class="form-control">
                   </div> 
                   <div class="help-text fs-6 ms-1 mt-1">
-                    <i class="bi bi-question-circle"></i><span class="ms-1">规则：每日只能收账一次,收账金额最大为基地余额的10%</span>
+                    <i class="bi bi-question-circle"></i><span class="ms-1">规则：每日只能收账一次,收账金额最大为部落余额的10%</span>
                   </div>
                 </form>
                 
