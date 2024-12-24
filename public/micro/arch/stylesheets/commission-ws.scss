@@ -2,6 +2,9 @@ html, body, mall-app {
     height: 100%;
     scrollbar-width: none;
 }
+html::-webkit-scrollbar,body::-webkit-scrollbar, mall-app::-webkit-scrollbar { 
+  display: none; 
+}
 .nav-tabs-container{
   min-width: unset;
 }

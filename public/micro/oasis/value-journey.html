@@ -7,7 +7,7 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>价值流</title>
+    <title>部落相关指标</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
@@ -131,7 +131,7 @@
             </div>
            <div class="ms-4">
             <h2>{{announce.title}}</h2>
-            <p class="help-text">{{announce.subTitle}}</p>
+            <p>{{announce.subTitle}}</p>
            </div>
         </div>
       </div>
@@ -145,7 +145,7 @@
               <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>
             </li>
             <li class="nav-item active" role="presentation">
-              <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">洞察</a>
+              <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">数据</a>
             </li>
           </ul>
           <div class="toggle-nav me-3 ">
@@ -176,23 +176,30 @@
         
       </div>
     <div class="mt-5 mx-4">
-        <div>
-          <button type="button" @click="refreshOasisIndV" v-preventreclick  class="btn btn-primary mb-3">
-            刷新
+        <div class="box-header">
+          <h5>部落概况</h5>
+          <button type="button" @click="refreshOasisIndV" v-preventreclick  class="btn btn-refresh"  data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="刷新数据">
+            <i class="bi bi-arrow-repeat"></i>
           </button>
         </div>
         <table class="table table-sm table-dark table-hover align-middle">
             <tbody>
               <tr v-for="record in oasisInd.records">
                 <td>
-                    <h6 class="ps-4">{{record.item}}</h6>
+                  {{record.item}}
                 </td>
                 <td>{{record.val}}</td>
                 <td class="text-center">
                 </td>
               </tr>
+              <div v-show="oasisInd.records.length==0" class="empty-content-block w-100">
+  
+                没有可用的内容！
+      
+              </div>
             </tbody>
-          </table>
+        </table>
+
     </div>
 
      

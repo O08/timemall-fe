@@ -118,6 +118,9 @@ header{
   border-bottom: none;
   scrollbar-width: none;
 }
+#partnerInfoPreviewModal  .modal-body::-webkit-scrollbar { 
+  display: none; 
+}
 #partnerInfoPreviewModal iframe{
   width: 100%;
   height: 100%;

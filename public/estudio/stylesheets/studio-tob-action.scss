@@ -222,6 +222,9 @@ pt-app content main {
   scrollbar-width: none;
   padding: 32px;
 }
+pt-app content main::-webkit-scrollbar { 
+  display: none; 
+}
 pt-app content main {
   padding-bottom: 0;
 }

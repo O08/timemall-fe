@@ -5,6 +5,9 @@ col-content{
   overflow-x: hidden;
   scrollbar-width: none;
 }
+col-content::-webkit-scrollbar { 
+  display: none; 
+}
 .sidebarContainer{
   max-height: 100vh;
 }

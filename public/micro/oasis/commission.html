@@ -132,7 +132,7 @@
             </div>
            <div class="ms-4">
             <h2>{{announce.title}}</h2>
-            <p class="help-text">{{announce.subTitle}}</p>
+            <p>{{announce.subTitle}}</p>
            </div>
         </div>
       </div>
@@ -145,7 +145,7 @@
         <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">洞察</a>
+        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">数据</a>
       </li>
     </ul>
     <div class="toggle-nav me-3 ">
@@ -175,16 +175,19 @@
         <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" class="nosubmit commission-search-btn" type="search" placeholder="搜索...">
       </form>
     </div>
-    <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#addTaskModal">
-      新任务
+    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+      <i class="bi bi-plus-circle-fill"></i> 新委托
     </button>
 
   </div>
-  <div class="mt-2 me-lg-5  commission-tb-container">
+  <div class="mt-2 me-2 commission-tb-container">
+    <div class="table-responsive">
+
+
     <table class="table table-dark table-hover align-middle mb-0">
       <thead class="help-text">
         <tr>
-          <th class="w-md-75 w-lg-75 w-sm-70"></th>
+          <th class="w-75"></th>
           <th>
             <div class="dropdown">
               <button class="btn commission-tb-filter btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -196,11 +199,11 @@
                 <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('2')">处理中</a></li>
                 <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('4')">已交付</a></li>
                 <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('5')">已废除</a></li>
-
+                <li><a class="dropdown-item" v-preventreclick  @click="retrieveOasisCommissionByTagV('')">全部</a></li>
               </ul>
             </div>
           </th>
-          <th class="text-center">
+          <th class="text-start">
             <div class="dropdown">
               <button class="btn commission-tb-filter btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 排序
@@ -228,22 +231,35 @@
           <td class="commission-tag">
             {{explainOasisCommissionTagV(record.tag)}}
           </td>
-          <td class="text-center">
-            <button v-if="record.tag=='6' && !isOasisFounder()"  v-preventreclick   @click="receiveCommissionV(record.id)" type="button" 
-              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="接受任务"
-              class="btn btn-commission-action ms-3">
-              <i class="bi bi-envelope-open"></i>
+          <td class="text-start">
+            <button v-if="record.tag=='6' && !isOasisFounder()"  v-preventreclick   @click="openViewTaskModalV(record)" type="button" 
+              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="接委托"
+              class="btn btn-commission-action">
+              <i class="bi bi-briefcase"></i>
             </button>
-            <button v-if="record.tag=='1' && isOasisFounder()"  v-preventreclick   @click="abortTaskV(record.id)" type="button" 
-              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="否决"
-              class="btn btn-commission-action ms-3">
-              <i class="bi bi-x-octagon"></i>
+
+            <button v-if="record.tag=='5' && isOasisFounder()"  v-preventreclick   @click="deleteCommissionV(record.id)" type="button" 
+              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="删除委托"
+              class="btn btn-commission-action">
+              <i class="bi bi-trash"></i>                            
             </button>
-            <button v-if="record.tag=='1' && isOasisFounder()"  v-preventreclick   @click="addTaskToPoolV(record.id)" type="button" 
-              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="通过"
-              class="btn btn-commission-action ms-3">
-              <i class="bi bi-patch-check"></i>
+            
+            <button v-if="(record.tag=='1' || record.tag=='6' || record.tag=='7') && isOasisFounder()"  v-preventreclick   @click="openEditTaskModalV(record)" type="button" 
+              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑任务"
+               class="btn btn-commission-action">
+               <i class="bi bi-pencil-square"></i>
             </button>
+
+            <button v-if="record.tag=='1' && isOasisFounder()"  v-preventreclick   @click="openAuditTaskModalV(record)" type="button" 
+              data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="审核任务"
+              class="btn btn-commission-action ms-3">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 13.5L3.00188 10.5161C3.00188 10.4167 3.04138 10.3213 3.11171 10.251C3.18204 10.1806 3.27742 10.1411 3.37688 10.1411H7.12762C7.47337 10.1411 7.4715 9.83437 7.4715 9.10462C7.4715 8.37487 5.63325 7.76025 5.63325 5.19487C5.63325 2.6295 7.5375 1.875 9.12 1.875C10.7025 1.875 12.4264 2.6295 12.4264 5.19487C12.4264 7.76025 10.5979 8.16825 10.5979 9.10462C10.5979 10.041 10.5979 10.1411 10.8904 10.1411H14.6254C14.7248 10.1411 14.8202 10.1806 14.8905 10.251C14.9609 10.3213 15.0004 10.4167 15.0004 10.5161V13.5H3Z" stroke="white" stroke-linejoin="round"/>
+                <path d="M3 15.75H15" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>                              
+            </button>
+
+
           </td>
         </tr>
       </tbody>
@@ -269,6 +285,9 @@
         </li>
       </ul>
     </nav>
+
+    </div>
+    
   </div>
   
      
@@ -281,7 +300,7 @@
     
     <section class="modals">
       <div class="modal-container">
-        <div class="modal fade" id="addTaskModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade fullscreen-modal" id="addTaskModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
@@ -291,7 +310,7 @@
               <div class="modal-body">
                 <div class="row mb-3 mt-3">
                   <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                    标题 <div class="help-text"> 任务标题(必填,最大80字符) </div>
+                    标题 <div class="help-text"> 任务标题(最大80字符,必填) </div>
                   </label>
                   <div class="col-sm-8">
                     <textarea id="inputTitle" v-model="commissionForm.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
@@ -299,7 +318,7 @@
                 </div>
                 <div class="row mb-3">
                   <label for="inputBonus" class="col-sm-4 col-form-label"> 
-                    佣金 <div class="help-text"> 任务佣金(必填) </div>
+                    佣金 <div class="help-text"> 任务佣金(单位为元,必填) </div>
                   </label>
                   <div class="col-sm-8">
                     <input type="number" @input="transformInputNumberV($event)" v-model="commissionForm.bonus" min="1" max="50000" step="1"  type="number" class="form-control" id="inputBonus">
@@ -310,24 +329,129 @@
                     摘要 <div class="help-text"> 任务工作范围等内容(必填) </div>
                   </label>
                   <div class="col-sm-8">
-                    <textarea type="text" maxlength="4500" rows="13" v-model="commissionForm.sow" class="form-control" id="inputSow">
+                    <textarea type="text" maxlength="4500" rows="15" v-model="commissionForm.sow" class="form-control" id="inputSow">
                     </textarea>
                   </div>
                 </div>
                
+              </div>
 
-                <div class="row mb-3 d-flex justify-content-center">
-                  <button 
-                  :class="{'disabled': !validitateCommissionFormV(), 
-                  'btn-primary': validitateCommissionFormV() ,
-                  'btn-secondary': !validitateCommissionFormV()  }" 
-                   type="button"  v-preventreclick   @click="addCommissionV" class="btn btn-save">提交任务</button>
-                </div>
+              <div class="modal-footer btn-light  "> 
+                <button 
+                :class="{'disabled': !validitateCommissionFormV(), 
+                'btn-primary': validitateCommissionFormV() ,
+                'btn-secondary': !validitateCommissionFormV()  }" 
+                 type="button"  v-preventreclick   @click="addCommissionV" class="btn btn-primary">提交任务</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-container">
+        <div class="modal fade fullscreen-modal" id="auditTaskModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">审核委托任务</h1>
+                <button @click="closeAuditTaskModalHandlerV" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p><strong>任务:</strong></p>
+                <p>{{auditingCommission.title}}</p>
+                <p><strong>摘要:</strong></p>
+                <p>{{auditingCommission.sow}}</p>
+                <p><strong>佣金:</strong></p>
+                <p>{{auditingCommission.bonus}}</p>
+
+              </div>
+              <div class="modal-footer btn-light  "> 
+                <button class="btn-primary btn" type="button" v-preventreclick   @click="addTaskToPoolV(auditingCommission.id)" >通过</button> 
+                <button class="btn-outline-danger btn ms-4" type="button" v-preventreclick   @click="abortTaskV(auditingCommission.id)">否决</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="modal-container">
+        <div class="modal fade fullscreen-modal" id="acceptTaskModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">接受委托任务</h1>
+                <button @click="closeAcceptTaskModalHandlerV" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+              </div>
+              <div class="modal-body">
+                <p><strong>任务:</strong></p>
+                <p>{{viewCommission.title}}</p>
+                <p><strong>摘要:</strong></p>
+                <p>{{viewCommission.sow}}</p>
+                <p><strong>佣金:</strong></p>
+                <p>{{viewCommission.bonus}}</p>
+
+              </div>
+              <div class="modal-footer btn-light  "> 
+                <button class="btn-primary btn" type="button"  v-preventreclick   @click="receiveCommissionV(viewCommission.id)">接受委托</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-container">
+        <div class="modal fade fullscreen-modal" id="editTaskModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">编辑委托任务</h1>
+                <button @click="closeEditTaskModalHandlerV" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="row mb-3 mt-3">
+                  <label for="edit_inputTitle" class="col-sm-4 col-form-label"> 
+                    标题 <div class="help-text"> 任务标题(最大80字符,必填) </div>
+                  </label>
+                  <div class="col-sm-8">
+                    <textarea id="edit_inputTitle" v-model="editingCommission.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="eidt_inputBonus" class="col-sm-4 col-form-label"> 
+                    佣金 <div class="help-text"> 任务佣金(单位为元,必填) </div>
+                  </label>
+                  <div class="col-sm-8">
+                    <input type="number" @input="transformInputNumberV($event)" v-model="editingCommission.bonus" min="1" max="50000" step="1"  type="number" class="form-control" id="eidt_inputBonus">
+                  </div>
+                </div>
+                <div class="row mb-5">
+                  <label for="edit_inputSow" class="col-sm-4 col-form-label"> 
+                    摘要 <div class="help-text"> 任务工作范围等内容(必填) </div>
+                  </label>
+                  <div class="col-sm-8">
+                    <textarea type="text" maxlength="4500" rows="15" v-model="editingCommission.sow" class="form-control" id="edit_inputSow">
+                    </textarea>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="modal-footer btn-light  "> 
+                <button :class="{'disabled': !validitateCommissionEditFormV(), 
+                'btn-primary': validitateCommissionEditFormV() ,
+                'btn-secondary': !validitateCommissionEditFormV()  }" class="btn-primary btn" type="button" v-preventreclick   @click="changeCommissionV" >保存</button> 
+                <button class="btn-outline-danger btn ms-4" type="button" v-preventreclick   @click="deleteCommissionV(editingCommission.id)">删除</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   </micro-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">

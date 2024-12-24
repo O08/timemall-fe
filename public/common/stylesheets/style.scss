@@ -1045,6 +1045,9 @@ col-container{
   padding-top: 2.5rem;
   scrollbar-width: none;
 }
+.nav-container-wrapper::-webkit-scrollbar { 
+  display: none; 
+}
 .nav-setting i{
   color: #666666;
 }
@@ -1199,7 +1202,8 @@ col-container{
   --scrollbar-color-thumb-hover: #707070;
   --scrollbar-color-track: transparent;
   --scrollbar-width: thin;
-  --scrollbar-width-legacy: 10px;
+  --scrollbar-width-legacy: 6px;
+  --scrollbar-border-radius-thumb: 3px;
 }
 
 
@@ -1216,6 +1220,7 @@ col-container{
 @supports selector(::-webkit-scrollbar) {
   .scroller::-webkit-scrollbar-thumb {
       background: var(--scrollbar-color-thumb);
+      border-radius: var(--scrollbar-border-radius-thumb);
   }
   .scroller::-webkit-scrollbar-track {
       background: var(--scrollbar-color-track);
@@ -1367,4 +1372,18 @@ table th{
   width: 32px;
   height: 32px;
   margin: 0 8px;
+}
+/* fullscreen modal */
+.fullscreen-modal{
+  --bs-modal-width: 100%;
+
+}
+.fullscreen-modal .modal-content{
+  height: 100vh;
+  border: none;
+  border-radius: unset;
+}
+.fullscreen-modal .modal-dialog{
+  margin: 0;
+  height: 100%;
 }

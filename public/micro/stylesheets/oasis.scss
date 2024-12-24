@@ -1,16 +1,22 @@
 
 .nav-item{
     border-radius: 0;
+    border-bottom: 4px transparent solid;
 }
 .nav-item.active{
     border-bottom: 4px #5390EC solid;
 }
 .nav-item .nav-link{
     height: 100%;
+    color: #c3bfbf;
+}
+.nav-item .nav-link:hover{
+  color: #fff;
+
 }
 .hero-container{
     background: linear-gradient(180deg, #68A4FD 0%, rgba(152, 193, 255, 0.1) 100%);
-    height: 300px;
+    height: 240px;
     position: relative;
   }
   .oasis-avatar{
@@ -21,7 +27,7 @@
   .hero-info{
     position:absolute;
     bottom:20px;
-    left: 60px;
+    left: 40px;
   }
   .hero-info h2{
     max-width: 900px;
@@ -32,19 +38,22 @@
     width: calc(100% - 260px);
   }
   .hero-info p {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.575;
+    line-height: 16px;
+    font-size: 12px;
+    color: #fff;
   }
   .nav-oasis-container{
-    background: linear-gradient(180deg, #3E444E 8.28%, rgba(66, 73, 85, 0.29) 100%);
+    background: #3e444e;
     height: 80px;
   }
   .toggle-nav{
     background: none;
   }
   .nav-oasis-container ul,.navbar-wrapper ul{
-    margin-left: 60px;
+    margin-left: 40px;
+  }
+  .nav-oasis-container ul .nav-item:first-child a{
+    padding-left: 0;
   }
 .nav-oasis-container{
     z-index: 1044;
@@ -83,6 +92,9 @@
   overflow: auto;
   scrollbar-width: none;
 }
+.info-container::-webkit-scrollbar { 
+  display: none; 
+}
 .spacer{
   height: 600px;
   display: block;
@@ -100,6 +112,9 @@
   border: none;
   color: #5390EC;
   opacity: .7;
+}
+.nav-item:hover{
+  box-shadow:none;
 }
 .btn-oasis-option:hover{
   opacity: 1;

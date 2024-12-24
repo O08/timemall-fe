@@ -811,7 +811,8 @@ file upload
   --scrollbar-color-thumb-hover: #707070;
   --scrollbar-color-track: transparent;
   --scrollbar-width: thin;
-  --scrollbar-width-legacy: 10px;
+  --scrollbar-width-legacy: 6px;
+  --scrollbar-border-radius-thumb: 3px;
 }
 
 
@@ -828,6 +829,7 @@ file upload
 @supports selector(::-webkit-scrollbar) {
   .scroller::-webkit-scrollbar-thumb {
       background: var(--scrollbar-color-thumb);
+      border-radius: var(--scrollbar-border-radius-thumb);
   }
   .scroller::-webkit-scrollbar-track {
       background: var(--scrollbar-color-track);

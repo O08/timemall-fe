@@ -12,6 +12,9 @@ import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-co
 import {CommissionTag} from "/common/javascripts/tm-constant.js";
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 const currentOasisId = getQueryVariable("oasis_id");
 
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
@@ -25,6 +28,24 @@ const RootComponent = {
               title: "",
               bonus: "",
               sow: ""
+            },
+            auditingCommission: {
+                title: "",
+                bonus: "",
+                sow: "",
+                id: ""
+            },
+            editingCommission: {
+                title: "",
+                bonus: "",
+                sow: "",
+                id: ""
+            },
+            viewCommission:{
+                title: "",
+                bonus: "",
+                sow: "",
+                id: ""
             },
             commissionTb_pagination: {
                 url: "/api/v1/team/commission",
@@ -62,20 +83,28 @@ const RootComponent = {
             examineTask(commissionId,CommissionTag.ABOLISH).then(response=>{
                 if(response.data.code == 200){
                    this.reloadPage(this.commissionTb_pagination);
+                   this.closeAuditTaskModalHandlerV();
                 }
-            })
+                if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    customAlert.alert(error); 
+                }
+            }).catch(error=>{
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
         },
         addTaskToPoolV(commissionId){
             examineTask(commissionId,CommissionTag.ADD_TO_NEED_POOL).then(response=>{
                 if(response.data.code == 200){
                    this.reloadPage(this.commissionTb_pagination);
+                   this.closeAuditTaskModalHandlerV();
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error); 
+                    customAlert.alert(error); 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         addCommissionV(){
@@ -88,23 +117,27 @@ const RootComponent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error); 
+                    customAlert.alert(error); 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
+        },
+        deleteCommissionV(id){
+            deleteCommission(id);
         },
         receiveCommissionV(commissionId){
             receiveCommission(commissionId).then(response=>{
                 if(response.data.code == 200){
                     this.reloadPage(this.commissionTb_pagination);
+                    this.closeAcceptTaskModalHandlerV();
                  }
                  if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error); 
+                    customAlert.alert(error); 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         filterCommissionV(filter){
@@ -130,8 +163,68 @@ const RootComponent = {
                 sow: ""
             };
         },
+        openAuditTaskModalV(record){
+            this.auditingCommission={
+                title: record.title,
+                bonus: record.bonus,
+                sow: record.sow,
+                id: record.id
+            };
+
+            $("#auditTaskModal").modal("show");
+        },
+        closeAuditTaskModalHandlerV(){
+            $("#auditTaskModal").modal("hide");
+        },
+        openEditTaskModalV(record){
+            this.editingCommission={
+                title: record.title,
+                bonus: Number(record.bonus).toFixed(0),
+                sow: record.sow,
+                id: record.id
+            };
+
+            $("#editTaskModal").modal("show");
+        },
+        closeEditTaskModalHandlerV(){
+            this.editingCommission={
+                title: "",
+                bonus: "",
+                sow: "",
+                id: ""
+            };
+            $("#editTaskModal").modal("hide");
+        },
+        changeCommissionV(){
+            changeCommission();
+        },
+        openViewTaskModalV(record){
+            this.viewCommission={
+                title: record.title,
+                bonus: record.bonus,
+                sow: record.sow,
+                id: record.id
+            };
+
+            $("#acceptTaskModal").modal("show");
+        },
+        closeAcceptTaskModalHandlerV(){
+            this.viewCommission={
+                title: "",
+                bonus: "",
+                sow: "",
+                id: ""
+            };
+            $("#acceptTaskModal").modal("hide");
+        },
         validitateCommissionFormV(){
             if(!!this.commissionForm.title && !!this.commissionForm.bonus && !!this.commissionForm.sow){
+                return true;
+            }
+            return false;
+        },
+        validitateCommissionEditFormV(){
+            if(!!this.editingCommission.title && !!this.editingCommission.bonus && !!this.editingCommission.sow){
                 return true;
             }
             return false;
@@ -186,9 +279,37 @@ async function acceptCommission(dto){
 
 async function doExamineTask(dto){
     const url="/api/v1/team/commission/examine";
+    return  axios.put(url,dto);
+}
+async function doDeleteCommission(id){
+    const url="/api/v1/team/commission/{id}/del".replace("{id}",id);
+    return  axios.delete(url);
+}
+async function doUpdateCommission(dto){
+    const url ="/api/v1/team/commission/change";
     return axios.put(url,dto);
 }
+function changeCommission(){
+    const dto ={
+        id: teamCommission.editingCommission.id,
+        title: teamCommission.editingCommission.title,
+        bonus: teamCommission.editingCommission.bonus,
+        sow: teamCommission.editingCommission.sow
+    }
+    doUpdateCommission(dto).then(response=>{
+        if(response.data.code == 200){
+            teamCommission.reloadPage(teamCommission.commissionTb_pagination);
+            teamCommission.closeEditTaskModalHandlerV();
+         }
+         if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error); 
+        }
+    }).catch(error=>{
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+    });
 
+}
 function examineTask(commissionId,tag){
     const dto={
         commissionId: commissionId,
@@ -207,6 +328,21 @@ function addCommission(){
     return newCommission(dto);
 }
  
+function deleteCommission(id){
+    doDeleteCommission(id).then(response=>{
+        if(response.data.code == 200){
+            teamCommission.reloadPage(teamCommission.commissionTb_pagination);
+            teamCommission.closeEditTaskModalHandlerV();
+         }
+         if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error); 
+        }
+    }).catch(error=>{
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+    });
+}
+
 function receiveCommission(commissionId){
     const oasisId = getQueryVariable("oasis_id");
     const brandId =  teamCommission.getIdentity().brandId; // Auth.getIdentity();
@@ -223,29 +359,24 @@ function filterCommission(filter){
     teamCommission.commissionTb_pagination.param.worker =  teamCommission.getIdentity().brandId; ;
     teamCommission.commissionTb_pagination.param.tag = "";
     teamCommission.commissionTb_pagination.param.q="";
-    teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.commissionTb_pagination.param.sort="1";
     teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function retrieveOasisCommissionGrid(){
     teamCommission.commissionTb_pagination.param.filter = "";
     teamCommission.commissionTb_pagination.param.tag = "";
-    teamCommission.commissionTb_pagination.param.sort="";
+    teamCommission.commissionTb_pagination.param.sort="1";
     teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function retrieveOasisCommissionByTag(tag){
-    teamCommission.commissionTb_pagination.param.filter = "";
     teamCommission.commissionTb_pagination.param.tag = tag;
-    teamCommission.commissionTb_pagination.param.q="";
-    teamCommission.commissionTb_pagination.param.sort="";
     teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function sortCommission(sort){
-    teamCommission.commissionTb_pagination.param.filter = "";
-    teamCommission.commissionTb_pagination.param.tag = "";
-    teamCommission.commissionTb_pagination.param.q="";
+
     teamCommission.commissionTb_pagination.param.sort=sort;
     teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);

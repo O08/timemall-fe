@@ -19,7 +19,7 @@ const RootComponent = {
 
         return {
             channelSort, oaisiChannelList,getChannelDataV,
-            oasisInd: {}
+            oasisInd: {records: []},
         }
     },
     methods: {
