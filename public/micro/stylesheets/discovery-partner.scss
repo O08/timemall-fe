@@ -88,7 +88,28 @@ header{
 .list-title{
     margin-left: 20px;
     margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+    margin-right: 20px;
   }
+  .list-title h3{
+    margin-bottom: 0;
+    padding-right: .5rem;
+  }
+  .filter-btn {
+    color: cornflowerblue;
+    font-size: 18px;
+    padding: .15rem .5rem;
+    border: none;
+}
+.filter-btn:hover,.filter-btn.show{
+  color: #ff6464;
+}
+.filter-btn::after{
+  content: none;
+}
   .section-team-grid{
     margin-left: 20px;
     margin-right: 20px;

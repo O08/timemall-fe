@@ -96,7 +96,8 @@ header{
     background-color: #2E2E2E;
   }
 .team-card-container img{
-    height: 130px;
+    aspect-ratio: 1;
+    width: 100%;
     border-radius: 5px;
     // width: 280px;
 }
@@ -108,6 +109,7 @@ header{
 
 }
 .oasis-intro-wrapper p{
+  margin-bottom: 0;
   width: 100%;
   white-space:pre-wrap;
   text-overflow:ellipsis;       //用...省略号显示

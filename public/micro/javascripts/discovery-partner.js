@@ -41,7 +41,12 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
-                q: ''
+                  q: '',
+                  freeNightCounsellor: '',
+                  hiring: '',
+                  availableForWork: '',
+                  supportFreeCooperation: '',
+                  loginInWeek: ''
                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -97,6 +102,9 @@ const RootComponent = {
             retrieveTalentGrid();
             this.uploadScienceDataV();
         },
+        filterTalentGridV(){
+            filterTalentGrid();
+        },
         uploadScienceDataV(){
             const snippet = this.talentgrid_pagination.param.q;
             const details= JSON.stringify(this.talentgrid_pagination.param);
@@ -130,5 +138,19 @@ window.disTalent = disTalent;
 disTalent.pageInit(disTalent.talentgrid_pagination);
 
 function retrieveTalentGrid(){
+    const tmpq = disTalent.talentgrid_pagination.param.q;
+    disTalent.talentgrid_pagination.param={
+        q: tmpq,
+        freeNightCounsellor: '',
+        hiring: '',
+        availableForWork: '',
+        supportFreeCooperation: '',
+        loginInWeek: ''
+      };
+
     disTalent.reloadPage(disTalent.talentgrid_pagination);
 }
+
+function filterTalentGrid(){
+    disTalent.reloadPage(disTalent.talentgrid_pagination);
+ } 

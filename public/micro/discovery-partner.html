@@ -164,8 +164,8 @@
         </div>
       </header>
       <div class="partner-banner-container d-flex align-items-center justify-content-center flex-column">
-          <h3>与贤者同行</h3>
-          <span>逐光者从不孤独!</span>
+          <h3>再小的个人和组织</h3>
+          <span>都是一个独特的品牌!</span>
           <top-search class="section-top-serach">
             <div class="search">
               <input type="text" @keyup.enter.native="retrieveTalentGridV" v-model="talentgrid_pagination.param.q" class="form-control Search-Button-Placeholder" placeholder="搜索...">
@@ -179,6 +179,60 @@
       </div>
       <div class="list-title">
         <h3>品牌银行</h3>
+        <div class="dropdown">
+          <button type="button" class="btn filter-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <i class="bi bi-filter-circle"></i>
+          </button>
+          <form class="dropdown-menu p-4">
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.hiring" type="checkbox" class="form-check-input" id="inputHiring">
+                <label class="form-check-label" for="inputHiring">
+                  正在招聘
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.availableForWork" type="checkbox" class="form-check-input" id="inputWork">
+                <label class="form-check-label" for="inputWork">
+                  正在求职
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.supportFreeCooperation" type="checkbox" class="form-check-input" id="inputSupportFreeCooperation">
+                <label class="form-check-label" for="inputSupportFreeCooperation">
+                  自由合作
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.loginInWeek" type="checkbox" class="form-check-input" id="inputWeekActivity">
+                <label class="form-check-label" for="inputWeekActivity">
+                  一周内活跃
+                </label>
+              </div>
+            </div>
+            
+
+            <div>
+              <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.freeNightCounsellor" type="checkbox" class="form-check-input" id="inputFreeNightCounsellor">
+                <label class="form-check-label" for="inputFreeNightCounsellor">
+                  免费咨询
+                </label>
+              </div>
+            </div>
+
+          </form>
+        </div>
       </div>
       <section class="section-team-grid pb-5">
         <div  class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3">
