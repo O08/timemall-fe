@@ -153,50 +153,58 @@
             <!-- <a class="nav-link d-flex align-items-center" aria-current="page">
               <i class="bi bi-three-dots"></i>
             </a> -->
-            <div class="dropdown nav-link d-flex align-items-center">
+            <div id="oasis-more-option-menu" class="dropdown nav-link d-flex align-items-center">
               <a class="btn btn-secondary dropdown-toggle btn-oasis-option" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-three-dots"></i>
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item">
                   <button type="button" class="btn  oasis-option" data-bs-toggle="modal" data-bs-target="#topUpToOasisModal">
-                    赞助
+                    <i class="bi bi-gift me-1"></i> 赞助部落
                   </button>
                   </a>
                 </li>
                 <li><a class="dropdown-item">
                   <button type="button" class="btn  oasis-option" data-bs-toggle="modal" data-bs-target="#collectAccountModal">
-                    收账
+                    <i class="bi bi-coin me-1"></i> 每日收账
                   </button>
                   </a>
               </li>
-              <li v-if="!inOasisV()"><a  class="dropdown-item">
+              <li v-if="!inOasisV() && announce.canAddMember == '1'"><a  class="dropdown-item">
                 <button @click="followOasisV"  v-preventreclick  type="button" class="btn  oasis-option">
-                  加入部落
+                  <i class="bi bi-node-plus me-1"></i> 加入部落
                 </button>
                 </a>
               </li>
               <li v-if="inOasisV()&&!initiatorRoleV()">
                 <a  class="dropdown-item">
                   <button @click="unfollowOasisV"  v-preventreclick  type="button" class="btn oasis-option" >
-                    退出部落
+                    <i class="bi bi-box-arrow-right me-1"></i> 离开部落
                   </button>
                 </a>
               </li>
               <li v-if="initiatorRoleV()">
-                <a  class="dropdown-item" :href="'/micro/create-oasis?option=edit&&oasis_id='+oasisId">
+                <a  class="dropdown-item"  :href="'/micro/oasis/setting?oasis_id='+oasisId">
                   <button type="button" class="btn  oasis-option">
-                    部落设置
+                    <i class="bi bi-gear me-1"></i> 部落设置
                   </button>
                 </a>
               </li>
               <li v-if="initiatorRoleV()">
                 <a  class="dropdown-item" :href="'/micro/oasis/mini-assistant?oasis_id='+oasisId">
                   <button type="button" class="btn oasis-option">
-                    频道助手
+                    <i class="bi bi-speedometer2 me-1"></i> 频道助手
                   </button>
                 </a>
               </li>
+              <li  v-if="announce.canAddMember == '1' && (initiatorRoleV() || (!initiatorRoleV() && announce.forPrivate == '0') )">
+                <a  class="dropdown-item">
+                  <button @click="showInvitationModalV" type="button" class="btn oasis-option">
+                    <i class="bi bi-person-plus me-1"></i> 邀请&招新
+                  </button>
+                </a>
+              </li>
+
               </ul>
             </div>
           </li>
@@ -211,39 +219,23 @@
           </div>
         </div>
       </div>
-      <div class="oasis-announce-body ms-3 me-3">
-        <div class="nav-announce-wrapper">
-          <nav id="nav-announce" class="navbar navbar-dark  mt-5">
-            <div class="navbar-wrapper">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="#oasis_announce">宣言</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#oasis_risk">风险</a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
+      <div class="oasis-announce-body me-3">
+
         <div class="info-container me-5 mt-2" data-bs-spy="scroll" data-bs-target="#nav-announce" data-bs-offset="50">
         
           
-          <div id="section1">
-            <div id="oasis_announce" class="pb-4">
-              <h3>宣言</h3>
-            </div>
+          <div id="oasis_announce">
             <div class="template asset" contenteditable="false" data-alt-text="" data-caption="" data-id="39875611">
               <figure v-if="announce.announceUrl">
                 <img class="announceContent" alt="" class="fit" :src="adaptiveImageUriV(announce.announceUrl)" >
               </figure>
-              <p v-else>未设置宣言</p>
+              <p v-else>未设置海报</p>
             </div>
           </div>
           
-          <div id="section2">
-            <div id="oasis_risk" class="py-4">
-              <h3>风险与挑战</h3>
+          <div id="oasis_risk">
+            <div class="py-4">
+              <h3>风险告知</h3>
             </div>
             <p class="text-preline risk-info">{{ announce.risk}}</p>
   
@@ -336,6 +328,107 @@
           </div>
         </div>
       </div>
+
+      <div class="modal-container">
+        <!-- Modal -->
+        <div class="modal fade" id="inputPrivateCodeModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">请输入邀请码</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                
+                <form> 
+                  <div class="mt-3">
+                    <input v-model="inputPrivateCode" type="text" class="form-control">
+                  </div> 
+                </form>
+
+              </div>
+              <div class="modal-footer btn-light">
+                <button @click="followPrivateOasisV"
+                :class="{'disabled': !inputPrivateCode, 
+                      'btn-primary': !!inputPrivateCode,
+                      'btn-secondary': !inputPrivateCode }"
+                 v-preventreclick type="button" class="btn btn-primary">加入</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-container">
+        <!-- share or invite Modal -->
+        <div class="modal fade" id="invitationModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">邀请伙伴加入部落</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+                <div class="search-container">
+
+                  <!-- top search -->
+                 <top-search class="section-top-serach">
+                  <div class="input-group input-normal-search">
+                    <input  @keyup.enter.native="getAvailableFriendsWhenInvationV" v-model="oasisFriendsQueryParam.q" class="form-control top-search-input" type="text"
+                      placeholder="搜索好友..." aria-label="Search">
+                    <button v-preventreclick @click="getAvailableFriendsWhenInvationV" class="btn  input-group-search-btn" type="button">
+                      <i class="bi bi-search"></i>
+                    </button>
+                  </div>
+                </top-search>
+
+                </div>
+                 
+                <div class="friend-list-container">
+                  <ul class="list-group">
+                    <li v-for="friend in oasisAvailableFriendsForInvation" class="list-group-item">
+                      <div class="friend-head">
+                        <img  class="oasis-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                        {{friend.title}}
+                      </div>
+                      <button 
+                      :class="{'disabled': friend.invited=='1','btn-outline-secondary': friend.invited=='1', 'btn-outline-success': friend.invited!='1'}"
+                       v-preventreclick @click="inviteBrandV(friend)" class="btn link-btn" type="button" >
+                        {{friend.invited=='1' ? '已邀请' : '邀请'}}
+                      </button>
+                    </li>
+                    
+                    
+                  </ul>
+                </div>
+
+                <div class="link-invite-section">
+                  <div class="other-invite">或者，将链接贴到博客论坛</div>
+
+                  <div class="invite-link-container">
+                    <div class="invite-link-wrp">
+                      <div class="link-content-block">
+                        <input type="text" class="input-link"
+                        :value="oasisUrl" disabled>
+                      </div>
+                      <div>
+                        <button 
+                         v-preventreclick @click="copyOasisInvitationLinkToClipboardV" type="button" class="btn btn-primary link-btn">复制</button>
+                      </div>
+  
+                    </div>
+                  </div>
+
+                </div>
+                
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   </micro-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">

@@ -12,6 +12,8 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+
 const RootComponent = {
     data() {
       return {
@@ -138,18 +140,8 @@ async function putOasisBase(dto){
     return await axios.put(url,dto);
 }
 
-async function putAvatar(oasisId,files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/team/oasis/{oasis_id}/avatar".replace("{oasis_id}",oasisId);
-    return await axios.put(url, fd);
-}
-async function putAnnounce(oasisId,files){
-    var fd = new FormData();
-    fd.append('file', files);
-    const url = "/api/v1/team/oasis/{oasis_id}/announce".replace("{oasis_id}",oasisId);
-    return await axios.put(url, fd);
-}
+
+
 async function putOasisRisk(dto){
     const url = "/api/v1/team/risk";
     return await axios.put(url,dto)  
@@ -180,7 +172,7 @@ function uploadAnnounceFile(){
     const oasisId = getQueryVariable("oasis_id");
 
     const file = $('#file_announce')[0].files[0];
-    putAnnounce(oasisId,file).then(response=>{
+    OasisApi.putAnnounce(oasisId,file).then(response=>{
         if(response.data.code ==200){
           
             const url = URL.createObjectURL(file);
@@ -199,7 +191,7 @@ function uploadOasisCover(){
     const oasisId = getQueryVariable("oasis_id");
 
     const file = $('#file_avator')[0].files[0];
-    putAvatar(oasisId,file).then(response=>{
+    OasisApi.putAvatar(oasisId,file).then(response=>{
         if(response.data.code ==200){
           
             const url = URL.createObjectURL(file);

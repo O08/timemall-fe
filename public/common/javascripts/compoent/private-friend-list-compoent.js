@@ -21,7 +21,7 @@ export default function FriendListCompoent(params)  {
         methods: {
             fetchPrivateFriendV(){
     
-                PrivateApi.fetchPrivateFriend().then(response=>{
+                PrivateApi.fetchPrivateFriend({q:""}).then(response=>{
                    if(response.data.code==200){
                       this.friends=response.data.friend;
                       const totalUnRead = this.friends.records.reduce(

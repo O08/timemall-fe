@@ -42,6 +42,7 @@ col-content{
 }
 .simple-time{
     font-size: 12px;
+    color: #61666D;
 }
 .msg_option_container{
     background-color: #060415;
@@ -62,6 +63,81 @@ col-content{
 .msg_option .dropstart .dropdown-toggle:before{
     content: none;
 }
+#nav-searchform {
+    display: flex;
+    align-items: center;
+    padding: 0 4px 0 32px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border: 1px solid #e3e5e7;
+    background-color: #fff;
+    opacity: .9;
+    transition: background-color .3s;
+    border-radius: 4px;
+}
+
+.nav-search-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0;
+    padding-right: 8px;
+    width: 100%;
+    height: 32px;
+    border: 2px solid transparent;
+    border-radius: 6px;
+}
+.nav-search-content .nav-search-input {
+    flex: 1;
+    overflow: hidden;
+    padding-right: 8px;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    color: #61666D;
+    font-size: 14px;
+    line-height: 20px;
+}
+.nav-search-content .nav-search-input:focus{
+    outline: none;
+    color: #61666D;
+}
+.nav-search-btn {
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    color: #18191C;
+    line-height: 32px;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+.nav-title{
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+.nav-find-new-friend-btn{
+    margin-left: 10px;
+    color: #6495ed;
+    border: none;
+    padding: .15rem .5rem;
+    font-size: 18px;
+}
+.nav-find-new-friend-btn:hover{
+    color: #ff6464;
+}
+
 
 @media (max-width: 576px) {
     col-content header{

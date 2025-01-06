@@ -89,6 +89,9 @@ col-content{
 .chat-input-wrapper{
     border-radius: 0;
 }
+#inputPrivateCodeModal .modal-content{
+    background-color: #fff;
+  }
 @media (max-width: 576px) {
     col-content header{
         height: 72px;

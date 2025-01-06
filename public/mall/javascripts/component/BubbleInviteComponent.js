@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { getQueryVariable } from "/common/javascripts/util.js";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+
 
 const BubbleInviteComponent = {
     data() {
@@ -21,11 +24,11 @@ const BubbleInviteComponent = {
             });
         },
         inviteBrandV(){
-            const brandId = getQueryVariable("brand_id"); // Auth.getIdentity();
-            inviteBrand(brandId,this.checkedOasisId).then(response=>{
+            const brandId = this.queryParam.brandId; // from bubble .js
+            OasisApi.inviteBrand(brandId,this.checkedOasisId).then(response=>{
                 if(response.data.code==200){
                     this.checkedOasisId=""; // 复位
-                    alert("已发送邀请");
+                    customAlert.alert("已发送邀请");
                     $("#inviteModal").modal("hide");
                 }
             });
@@ -42,17 +45,7 @@ async function getOasisCreated(brandId){
     const url="/api/v1/team/joinedOases?brandId=" + brandId;
     return await axios.get(url);
 }
-async function inviteBrandToOasis(dto){
-    const url="/api/v1/team/invite";
-    return await axios.put(url,dto);
-}
-function inviteBrand(brandId,oasisId){
-    const dto={
-        oasisId: oasisId,
-        brandId: brandId
-    }
-    return inviteBrandToOasis(dto);
-}
+
 function retrieveOasesCreated(brandId,q){
     return getOasisCreated(brandId,q);
 }

@@ -440,6 +440,9 @@ header{
   display: flex;
   justify-content: center;
 }
+.nav-sub-container .nav-link{
+  margin-bottom: 2px;
+}
 @media (max-width: 576px) {
   .logo{
     justify-content: flex-end !important;

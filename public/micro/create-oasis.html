@@ -6,8 +6,8 @@
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>部落设置</title>
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>创建部落</title>
     <meta name="description" content="部落创建、设置，康庄道路的第一步，从建设一个部落开始！">
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
@@ -183,12 +183,12 @@
               <div class="row h-100">
                 <div class="col-6 d-flex justify-content-center align-items-center">
                 <h3>
-                  伟大的第一步，从创建部落开始
+                  旅途的第一步，从创建部落开始
                 </h3>
                 </div>
                 <div class="col-6 pt-5 mt-5 pe-2">
                   <div class="mt-5 pt-5">
-                    <h5>1.部落的创建宣言</h5>
+                    <h5>1.部落的宣传海报</h5>
                     <div class="help-text ms-2">提供部落的规则、愿景和可能的风险等信息</div>
                   </div>
                   <div class="mt-3">
@@ -239,11 +239,11 @@
             </div>
           </div>
           <div class="carousel-item">
-            <h4>头像:</h4>
+            <h4>图标:</h4>
             <div class="row mb-3">
               <div class="col-form-label col-sm-6 pt-0">
                 <div class="help-text">
-                  头像能充分体现社区的个性、价值，具有独一无二的感染力。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 99 x 99 像素且单边长度不能超过4096像素)。
+                  图标能充分体现社区的个性、价值，具有独一无二的感染力。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 99 x 99 像素且单边长度不能超过4096像素)。
                   <a @click="clickAvatorUploadBtn" class="btn-upload">上传
                     <input id="file_avator" @change="previewOasisCoverV($event)"type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
                   </a>
@@ -265,11 +265,11 @@
             </div>
           </div>
           <div class="carousel-item">
-            <h4>部落宣言:</h4>
+            <h4>海报:</h4>
             <div class="row mb-3">
               <div class="col-form-label col-sm-6 pt-0">
                 <div class="help-text">
-                  部落介绍，运行规则告知。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 576 x 576 像素且单边长度不能超过4096像素)。
+                  宣传，运行规则相关内容。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 576 x 576 像素且单边长度不能超过4096像素)。
                   <a @click="clickAnnounceUploadBtn" class="btn-upload">上传
                     <input id="file_announce" @change="previewAnnounceFileV($event)"type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
                   </a>
@@ -288,7 +288,7 @@
   
           </div>
           <div class="carousel-item">
-            <h4>部落风险:</h4>
+            <h4>风险告知:</h4>
             <div class="d-flex align-items-center justify-content-center mt-5 pt-5">
               <section class="section-workspace d-flex justify-content-start align-items-center w-100">
                 <div class="edit-pannel d-flex flex-column w-100">
@@ -352,7 +352,7 @@
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h2 class="modal-title fs-5" id="oasisCoverModalLabel">预览</h2>
+                <h2 class="modal-title fs-5" id="oasisCoverModalLabel">图标预览</h2>
                 <button @click="closeOasisCoverModalHandlerV" type="button" id="closeOasisCoverModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center">
@@ -361,7 +361,7 @@
                 </div>
               </div>
               <div class="modal-footer btn-light">
-                <button  v-preventreclick  @click="uploadOasisCoverV"  type="button" id="btn-save-oasis_cover" class="btn btn-primary">设置为部落形象</button>
+                <button  v-preventreclick  @click="uploadOasisCoverV"  type="button" id="btn-save-oasis_cover" class="btn btn-primary">设置为部落图标</button>
               </div>
             </div>
           </div>
@@ -374,16 +374,16 @@
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h2 class="modal-title fs-5" id="announceFileModalLabel">预览</h2>
+                <h2 class="modal-title fs-5" id="announceFileModalLabel">海报预览</h2>
                 <button @click="closeAnnounceFileModalHandlerV" type="button" id="closeAnnounceFileModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center">
-                <div class="cover-upload-container">
+                <div class="poster-upload-container">
                   <img alt="preview" id="announceFilePreview">
                 </div>
               </div>
               <div class="modal-footer btn-light">
-                <button  v-preventreclick  @click="uploadAnnounceFileV"  type="button" id="btn-save-oasis_announce" class="btn btn-primary">设置为部落宣言</button>
+                <button  v-preventreclick  @click="uploadAnnounceFileV"  type="button" id="btn-save-oasis_announce" class="btn btn-primary">设置为部落海报</button>
               </div>
             </div>
           </div>

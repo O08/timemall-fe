@@ -273,10 +273,11 @@ overflow: hidden;
 max-width: 300px;
 }
 .text-message{
-font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.375rem;
 font-weight: normal;
-line-height: 1.875;
 word-break: break-all;
+color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
 }
 #imagePreviewModal .image-upload-container,#imagePreviewModal  img{
 width: 300px;

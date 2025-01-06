@@ -9,6 +9,8 @@ import axios from "axios";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
@@ -27,6 +29,15 @@ const RootComponent = {
             if(response.data.code==200){
                this.disableAcceptBtn = true;
                this.disableDelBtn = true;
+            }
+            if(response.data.code==40030){
+              customAlert.alert("部落已停止招新，加入失败！"); 
+            }
+            if(response.data.code==40032){
+              customAlert.alert("已转为私密部落，加入失败！"); 
+            }
+            if(response.data.code==40009){
+              customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
             }
           });
          },

@@ -16,6 +16,9 @@ import axios from "axios";
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 const currentOasisId = getQueryVariable("oasis_id");
 
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
@@ -34,18 +37,54 @@ const RootComponent = {
         viewerProfile: {},
         defaultAvatarImage,
         currentOptionMember: "",
+        inputPrivateCode: "",
         currentOptionMemberProfile: {}
       }
     },
     methods: {
         followOasisV(){
-            const brandId = this.getIdentity().brandId; // Auth.getIdentity();
-            OasisApi.followOasis(this.oasisId,brandId).then(response=>{
+            if(this.announce.canAddMember == '0'){
+              return
+            }
+            if(this.announce.canAddMember == '1' && this.announce.forPrivate=='1'){
+                $("#inputPrivateCodeModal").modal("show");
+                return
+              }
+
+            const privateCode="";
+            OasisApi.followOasis(this.oasisId,privateCode).then(response=>{
                 if(response.data.code==200){
                     this.fetchViewerProfileV();
                     this.loadJoinedOases();
                     this.initMessageRecordV();
                 }
+                if(response.data.code==40030){
+                    customAlert.alert("部落已停止招新，加入失败！"); 
+                  }
+                  if(response.data.code==40031){
+                    customAlert.alert("邀请码校验不通过，加入失败！"); 
+                  }
+                  if(response.data.code==40009){
+                    customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
+                  }
+            });
+        },
+        followPrivateOasisV(){
+            OasisApi.followOasis(this.oasisId,this.inputPrivateCode).then(response=>{
+                if(response.data.code==200){
+                    this.fetchViewerProfileV();
+                    this.loadJoinedOases();
+                    this.initMessageRecordV();
+                }
+                if(response.data.code==40030){
+                    customAlert.alert("部落已停止招新，加入失败！"); 
+                  }
+                  if(response.data.code==40031){
+                    customAlert.alert("邀请码校验不通过，加入失败！"); 
+                  }
+                  if(response.data.code==40009){
+                    customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
+                  }
             });
         },
         fetchViewerProfileV(){

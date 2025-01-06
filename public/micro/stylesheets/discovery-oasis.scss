@@ -134,6 +134,9 @@ header{
   width: 200px;
   overflow: hidden;
 }
+.nav-sub-container .nav-link{
+  margin-bottom: 2px;
+}
 @media (max-width: 576px) {
   .logo{
     justify-content: flex-end !important;

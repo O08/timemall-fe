@@ -10,8 +10,8 @@ const PrivateApi = {
 }
 
 
-function fetchPrivateFriend(){
-    return doFetchPrivateFriend();
+function fetchPrivateFriend(queryParam){
+    return doFetchPrivateFriend(queryParam);
 }
 function markAllMsgAsRead(friend){
     if(!friend){
@@ -38,8 +38,8 @@ function fetchFriendProfile(friend){
     return doFetchFriendProfile(friend);
 }
 
-async function doFetchPrivateFriend(){
-    const url="/api/v1/ms/private/me/event/friend/list";
+async function doFetchPrivateFriend(queryParam){
+    const url="/api/v1/ms/private/me/event/friend/list?q="+queryParam.q;
     return await axios.get(url);
 }
 async function doMarkAllMsgAsRead(friend){

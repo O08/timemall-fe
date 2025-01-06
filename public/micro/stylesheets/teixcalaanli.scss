@@ -25,6 +25,10 @@ col-content::-webkit-scrollbar {
   border-radius: 18px;
 
 }
+.modal-header .btn-close{
+  border: none;
+  box-shadow: none;
+ }
 @media only screen and (min-width: 1400px) {
   header{
     display: none;
@@ -84,7 +88,15 @@ col-content::-webkit-scrollbar {
     overflow-y: scroll;
     height: calc(100% - 100px);
 }
-
+.nav-sub-container .nav-link {
+  margin-bottom: 2px;
+}
+#collapseInvitedOasis span{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 200px;
+    overflow: hidden;
+}
 .help-text-color{
   color: #aaa;
 }

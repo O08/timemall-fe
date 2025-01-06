@@ -8,8 +8,11 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const currentOasisId = getQueryVariable("oasis_id");
 
@@ -29,10 +32,34 @@ const RootComponent = {
             },
             amount: "",
             collectAccountAmount: "",
-            point: ""
+            point: "",
+            inputPrivateCode: "",
+            oasisAvailableFriendsForInvation: [],
+            oasisFriendsQueryParam:{
+                q: "",
+                oasisId: ""
+            },
+            oasisUrl: window.location.href
         }
     },
     methods: {
+        getAvailableFriendsWhenInvationV(){
+
+            this.oasisFriendsQueryParam.oasisId=this.oasisId; //from oasisAnnounceComponent.js
+            OasisApi.fetchFriendListNotInOasis(this.oasisFriendsQueryParam.q,this.oasisFriendsQueryParam.oasisId).then(response=>{
+                if(response.data.code==200){
+                    this.oasisAvailableFriendsForInvation=response.data.friend.records;
+                }
+            });
+
+        },
+        inviteBrandV(friend){
+            OasisApi.inviteBrand(friend.brandId,this.oasisId).then(response=>{
+                if(response.data.code==200){
+                    friend.invited="1";// 标记为已邀请
+                }
+            });
+        },
         closeTopUpOasisModelV(){
             closeTopUpOasisModel();
         },
@@ -43,9 +70,9 @@ const RootComponent = {
                     this.retrieveOasisFinInfoV();
                     this.retrieveBrandFinInfoV();
                     this.amount="";
-                    alert("充值成功");
+                    customAlert.alert("充值成功");
                 }else{
-                    alert(response.data.message);
+                    customAlert.alert(response.data.message);
                 }
             });
         },
@@ -56,9 +83,9 @@ const RootComponent = {
                     this.retrieveBrandFinInfoV();
                     this.retrieveBrandPointV();
                     this.collectAccountAmount="";
-                    alert("收账成功");
+                    customAlert.alert("收账成功");
                 }else{
-                    alert(response.data.message);
+                    customAlert.alert(response.data.message);
                 }
             });
         },
@@ -84,12 +111,52 @@ const RootComponent = {
                 }
             });
         },
+        showInvitationModalV(){
+            this.oasisFriendsQueryParam.q="";
+            this.getAvailableFriendsWhenInvationV();
+            $("#invitationModal").modal("show");
+
+        },
         followOasisV(){
-            const brandId = this.getIdentity().brandId; // Auth.getIdentity();
-            OasisApi.followOasis(this.oasisId,brandId).then(response=>{
+            if(this.announce.canAddMember == '0'){
+               return
+            }
+            if(this.announce.canAddMember == '1' && this.announce.forPrivate=='1'){
+                $("#inputPrivateCodeModal").modal("show");
+                return
+            }
+            const privateCode="";
+            OasisApi.followOasis(this.oasisId,privateCode).then(response=>{
                 if(response.data.code==200){
                     this.loadJoinedOases();
                 }
+                if(response.data.code==40030){
+                   customAlert.alert("部落已停止招新，加入失败！"); 
+                }
+                if(response.data.code==40031){
+                   customAlert.alert("邀请码校验不通过，加入失败！"); 
+                }
+                if(response.data.code==40009){
+                   customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
+                }
+            });
+        },
+        followPrivateOasisV(){
+            OasisApi.followOasis(this.oasisId,this.inputPrivateCode).then(response=>{
+                if(response.data.code==200){
+                    this.fetchViewerProfileV();
+                    this.loadJoinedOases();
+                    this.initMessageRecordV();
+                }
+                if(response.data.code==40030){
+                    customAlert.alert("部落已停止招新，加入失败！"); 
+                  }
+                  if(response.data.code==40031){
+                    customAlert.alert("邀请码校验不通过，加入失败！"); 
+                  }
+                  if(response.data.code==40009){
+                    customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
+                  }
             });
         },
         unfollowOasisV(){
@@ -111,6 +178,12 @@ const RootComponent = {
         },
         inOasisV(){
             return inOasisB(this.joinedoases);
+        },
+        copyOasisInvitationLinkToClipboardV(){
+
+            const content =  this.oasisUrl;
+            copyValueToClipboard(content);
+
         }
 
     },

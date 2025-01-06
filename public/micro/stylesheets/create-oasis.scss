@@ -18,10 +18,18 @@ header{
 .cover-upload-container{
   width: 204px;
   height: 204px;
+  border: 2px dashed #91b0b3;
 }
 .cover-upload-container img{
   width: 200px;
   height: 200px;
+}
+.poster-upload-container{
+  border: 2px dashed #91b0b3;
+}
+.poster-upload-container img{
+  width: 100%;
+
 }
 .form-floating{
   color: #666;

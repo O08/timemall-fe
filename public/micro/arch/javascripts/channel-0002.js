@@ -29,7 +29,10 @@ const RootComponent = {
         currentFriendForOption: "",
         currentChatFriendId: "",
         friends:{records: []},
-        friendProfile: {}
+        friendProfile: {},
+        friedListQueryParam:{
+          q: ""
+        }
       }
     },
     methods: {
@@ -50,7 +53,7 @@ const RootComponent = {
         },
         fetchPrivateFriendV(){
 
-            PrivateApi.fetchPrivateFriend().then(response=>{
+            PrivateApi.fetchPrivateFriend(this.friedListQueryParam).then(response=>{
                if(response.data.code==200){
                   this.friends=response.data.friend;
                }
