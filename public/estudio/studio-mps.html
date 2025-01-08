@@ -7,7 +7,7 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>产单助手 - E-Studio</title>
+    <title>合约助手 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
@@ -62,7 +62,7 @@
                 <li>
                   <a href="/micro/discovery-oasis">
                     <button class="dropdown-item" type="button">
-                      <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 部落纪元
+                      <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
                      </button>
                   </a>
                 </li>
@@ -212,7 +212,7 @@
                   <div class="nav-icon">
                     <i class="bi bi-columns"></i>
                   </div>
-                  <span>产单助手</span>
+                  <span>合约助手</span>
                 </a>
                 <a class="nav-link" href="/estudio/studio-promotion">
                   <div class="nav-icon">
@@ -249,19 +249,19 @@
         <div class="page-title-container">
           <!-- 文章:粘性约束元素 -->
           <div class="page-title">
-            <h1>产单助手</h1>
+            <h1>合约助手</h1>
           </div>
           <!-- tablist -->
           <div class="paper-tab">
             <ul class="nav nav-tabs border-0 store-tab" id="store-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="mps_list-tab" data-bs-toggle="tab" data-bs-target="#mps_list-tab-pane" type="button" role="tab" aria-controls="mps_list-tab-pane" aria-selected="true"><div class="nav-icon"> <i class="bi bi-list-task"></i> </div> <span class="ms-2">我的产单</span> </button>
+                  <button class="nav-link active" id="mps_list-tab" data-bs-toggle="tab" data-bs-target="#mps_list-tab-pane" type="button" role="tab" aria-controls="mps_list-tab-pane" aria-selected="true"><div class="nav-icon"> <i class="bi bi-list-task"></i> </div> <span class="ms-2">商单跟踪</span> </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="mps_chain-tab" data-bs-toggle="tab" data-bs-target="#mps_chain-tab-pane" type="button" role="tab" aria-controls="mps_chain-tab-pane" aria-selected="true"><div class="nav-icon"> <i class="bi bi-upc"></i></div> <span class="ms-2">产链</span></button>
+                  <button class="nav-link" id="mps_chain-tab" data-bs-toggle="tab" data-bs-target="#mps_chain-tab-pane" type="button" role="tab" aria-controls="mps_chain-tab-pane" aria-selected="true"><div class="nav-icon"> <i class="bi bi-upc"></i></div> <span class="ms-2">商单模版</span></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="mps_fund-tab" data-bs-toggle="tab" data-bs-target="#mps_fund-tab-pane" type="button" role="tab" aria-controls="mps_fund-tab-pane" aria-selected="true"><div class="nav-icon"><i class="bi bi-currency-bitcoin"></i></div> <span class="ms-2">产链基金</span></button>
+                  <button class="nav-link" id="mps_fund-tab" data-bs-toggle="tab" data-bs-target="#mps_fund-tab-pane" type="button" role="tab" aria-controls="mps_fund-tab-pane" aria-selected="true"><div class="nav-icon"><i class="bi bi-currency-bitcoin"></i></div> <span class="ms-2">合约基金</span></button>
                 </li>
               </ul>
           </div>
@@ -305,7 +305,7 @@
 
 
                 <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#newMpsModal">
-                  <i class="bi bi-plus"></i> 新产单
+                  <i class="bi bi-plus"></i> 派发商单
                 </button>
             
               </div>
@@ -316,7 +316,7 @@
                 <thead>
                   <tr>
                     <th class="col-option"></th>
-                    <th class="col-mps-title">产单名称</th>
+                    <th class="col-mps-title">项目名称</th>
                     <th class="col-type">
                       标签
                     </th>
@@ -409,7 +409,7 @@
 
                 <a href="/estudio/studio-chain-setting">
                   <button type="button" class="btn btn-primary me-5">
-                    <i class="bi bi-plus"></i> 新设产链
+                    <i class="bi bi-plus"></i> 新设模版
                   </button>
                 </a>
               </div>
@@ -418,12 +418,12 @@
                 <table class="table table-sm table-hover align-middle">
                   <thead>
                     <tr>
-                      <th class="col-chain-title-no-option">产链名称</th>
+                      <th class="col-chain-title-no-option">模版集</th>
                       <th class="col-type">
                         标签
                       </th>
-                      <th class="col-fee">正在处理产单数</th>
-                      <th class="col-fee">已处理产单数</th>
+                      <th class="col-fee">正在处理项目数</th>
+                      <th class="col-fee">已处理项目数</th>
                       <th class="col-addTime">入库日期</th>
                     </tr>
                   </thead>
@@ -474,7 +474,7 @@
               
               <div class="fund-info-container">
                 <div class="mps-fund-tip">
-                  <span class="help-text">功能告知：产单运营账户，当您接受商单服务商的服务交付时，系统从该账户划转资金给服务商。</span>
+                  <span class="help-text">功能告知：合约运营账户，当您接受商单服务商的服务交付时，系统从该账户划转资金给服务商。</span>
                 </div>
                 <div v-if="!!mpsFund" class="fund_info-wrapper">
                   <div class="fund_head">
@@ -491,7 +491,7 @@
                 </div>
                 <div v-else class="fund_info-unopen-wrapper py-3">
                   <div class="pt-5">
-                    <span>您还未开通产链基金账户</span>
+                    <span>您还未开通合约基金账户</span>
                   </div>
                   <div class="py-3">
                   <button v-preventreclick @click="appleMpsFundAccountV"  type="button" class="btn btn-primary" >
@@ -514,14 +514,14 @@
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
-                    <h2 class="modal-title fs-5">编辑产单</h2>
+                    <h2 class="modal-title fs-5">编辑商单</h2>
                     <button  type="button" @click="closeMpsModalHandlerV" id="closeMpsModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     
                     <div class="row mb-3 mt-3">
                       <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                        名称 <div class="help-text"> 产单名称(必填,最大80字符) </div>
+                        名称 <div class="help-text"> 项目名称(必填,最大80字符) </div>
                       </label>
                       <div class="col-sm-8">
                         <textarea v-model="newMps.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
@@ -529,7 +529,7 @@
                     </div>
                     <div class="row mb-3 mt-3">
                       <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                        处理链 <div class="help-text"> 选择需要使用的产链，必填</div>
+                        模版集 <div class="help-text"> 选择需要使用的合约模版，必填</div>
                       </label>
                       <div class="col-sm-8">
                         <div>
@@ -561,10 +561,10 @@
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5">转账到产链基金账户</h1>
+                    <h1 class="modal-title fs-5">转账到合约基金账户</h1>
                     <button type="button" @click="closeTopUpFundModalHandlerV" id="closeTopUpFundModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body d-flex justify-content-center">
+                  <div class="modal-body">
                     <form>
                       <div class="row">
                         <label for="t1" class="form-label">可调用资金</label>

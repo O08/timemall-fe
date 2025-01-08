@@ -7,7 +7,7 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>设置产链 - E-Studio</title>
+    <title>设置合约模版 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/studio-chain-setting.scss">
@@ -60,7 +60,7 @@
               <li>
                 <a href="/micro/discovery-oasis">
                   <button class="dropdown-item" type="button">
-                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 部落纪元
+                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
                   </button>
                 </a>
               </li>
@@ -210,7 +210,7 @@
                 <div class="nav-icon">
                   <i class="bi bi-columns"></i>
                 </div>
-                <span>产单助手</span>
+                <span>合约助手</span>
               </a>
               <a class="nav-link" href="/estudio/studio-promotion">
                 <div class="nav-icon">
@@ -247,7 +247,7 @@
           <form onsubmit="return false">
             <div class="row mb-3 mt-3">
               <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                名称 <div class="help-text"> 产链名称(最大80字符) </div>
+                合集名称 <div class="help-text"> 模版集名称(最大80字符) </div>
               </label>
               <div class="col-sm-8">
                 <textarea v-model="chain.title" @change="btn_ctl.activate_save_mps_chain__btn=true" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
@@ -255,7 +255,7 @@
             </div>
             <div v-if="inEditChainModeV()" class="row mb-3 mt-3">
               <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                状态 <div class="help-text"> 设置产链状态 </div>
+                合集状态 <div class="help-text"> 设置模版集状态 </div>
               </label>
               <div class="col-sm-8">
                 <select class="form-select" v-model="chain.tag" @change="btn_ctl.activate_save_mps_chain__btn=true">

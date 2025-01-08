@@ -148,6 +148,10 @@ const RootComponent = {
             $('[data-bs-toggle="popover"]').popover();
         });
 
+        if(!!this.announce.title){
+            document.title = this.announce.title + " | 日常";
+        }
+
         // document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
         
     }

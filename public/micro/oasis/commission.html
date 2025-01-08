@@ -27,7 +27,7 @@
         <div class="sidebarContainer d-flex flex-row">
           <col-nav-main>
           <div class="nav-container-wrapper">
-            <a href="/micro/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="部落纪元"> 
+            <a href="/micro/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落"> 
               <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M6 13C3.8 13 2 14.8 2 17C2 19.2 3.8 21 6 21C8.2 21 10 19.2 10 17C10 14.8 8.2 13 6 13ZM12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3ZM18 13C15.8 13 14 14.8 14 17C14 19.2 15.8 21 18 21C20.2 21 22 19.2 22 17C22 14.8 20.2 13 18 13Z" fill="#36F7E5"/>
@@ -107,7 +107,7 @@
           </a>
           <a class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/arch/channel-0001?oasis_id='+ oasisId">
             <i class="bi bi-fan"></i>
-            <span class="link-title">Fan</span>  
+            <span class="link-title">日常</span>  
           </a>
           <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
             <i class="bi bi-filetype-html"></i>
@@ -139,7 +139,7 @@
   <div class="nav-oasis-container d-flex justify-content-between">
     <ul class="nav border-0 h-100">
       <li class="nav-item" role="presentation">
-        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis?oasis_id='+oasisId">宣传</a>
+        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis?oasis_id='+oasisId">公告</a>
       </li>
       <li class="nav-item active" role="presentation">
         <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>

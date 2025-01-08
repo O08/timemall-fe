@@ -748,6 +748,11 @@ file upload
   color: gray;
 }
 
+.modal-header .btn-close{
+  border: none;
+  box-shadow: none;
+}
+
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
 @media only screen and (min-width: 1400px) {
     pt-app content main{
