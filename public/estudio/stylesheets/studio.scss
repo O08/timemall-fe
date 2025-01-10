@@ -753,6 +753,21 @@ file upload
   box-shadow: none;
 }
 
+/* fullscreen modal */
+.fullscreen-modal{
+  --bs-modal-width: 100%;
+
+}
+.fullscreen-modal .modal-content{
+  height: 100vh;
+  border: none;
+  border-radius: unset;
+}
+.fullscreen-modal .modal-dialog{
+  margin: 0;
+  height: 100%;
+}
+
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
 @media only screen and (min-width: 1400px) {
     pt-app content main{

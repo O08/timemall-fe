@@ -1,3 +1,5 @@
+import "vue-search-select/dist/VueSearchSelect.css";
+import {ModelSelect}  from 'vue-search-select';
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
@@ -11,15 +13,31 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import  StudioApi from "/estudio/javascripts/compoent/StudioApi.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            supplierOptions: [
+            ],
+            supplierSelectedItem: "",
             error:{},
             newMps:{
                 title: "",
                 chainId: ""
+            },
+            newFastPaper: {
+                mpsTitle: "",
+                title: "",
+                sow: "",
+                piece: "",
+                bonus: "",
+                firstSupplier: "",
+                duration: ""
+            },
+            supplier:{
+                records: []
             },
             mpsFund: {},
             mpsTopUpAmount: "",
@@ -95,6 +113,10 @@ const RootComponent = {
         }
     },
     methods: {
+        showMpsModalV(){
+            this.searchV();// load template info
+            $("#newMpsModal").modal("show"); // hide modal
+        },
         closeMpsModalHandlerV(){
             // reset
             this.newMps={};
@@ -181,6 +203,45 @@ const RootComponent = {
         retrieveMpsTbV(){
             retrieveMpsTb();
         },
+        closeNewFastPaperHandlerV(){
+            // reset
+            this.newFastPaper={};
+            this.supplierSelectedItem="";
+            $('.iput').val("");
+        },
+        validateNewFastPaperV(){
+            if(!!this.newFastPaper.mpsTitle && !!this.newFastPaper.title && !!this.newFastPaper.sow 
+                && !!this.newFastPaper.piece && !!this.newFastPaper.bonus 
+                && !!this.newFastPaper.deliveryCycle && !!this.newFastPaper.contractValidityPeriod
+                && ((!this.supplierSelectedItem && !this.newFastPaper.duration)
+                     || (!!this.supplierSelectedItem && !!this.newFastPaper.duration))){
+
+                return true;
+            }
+            return false;
+        },
+        fetchFirstSupplierV(){
+            fetchFirstSupplier(this);
+        },
+        createOneFastMpsV(){
+            this.newFastPaper.firstSupplier=this.supplierSelectedItem;
+            createOneFastMps(this.newFastPaper).then(response=>{
+                if(response.data.code==200){
+                    $("#newFastPaperModal").modal("hide"); // hide modal
+                    this.reloadPage(this.mps_list_pagination);
+                      // reset
+                    this.newFastPaper={};
+                    this.supplierSelectedItem="";
+                    $('.iput').val("");
+                }
+                if(response.data.code!=200){
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                }
+            }).catch(error=>{
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
+
+        },
         // search selector
         showOptionV(){
             showOption();
@@ -209,12 +270,6 @@ const RootComponent = {
 
 
     },
-    created() {
-        this.pageInit(this.mps_list_pagination);
-        this.pageInit(this.mps_chain_pagination);
-        this.pageInit(this.mps_chain_search_pagination);
-        this.findMpsFundInfoV();
-    },
     updated(){
         
         $(function() {
@@ -223,13 +278,21 @@ const RootComponent = {
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
+    },
+    watch: {
+        'supplierSelectedItem': function(newV, oldV){
+            if(!newV){
+                this.newFastPaper.duration="";
+            }
+        }
     }
 }
 const app = createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
-    scene: EventFeedScene.STUDIO}));
+    scene: EventFeedScene.STUDIO,need_init: false
+}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(Pagination);
 app.mixin(DirectiveComponent);
@@ -237,21 +300,37 @@ app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 } 
 
-app.mixin(new FriendListCompoent({need_init: true}));
+app.mixin(new FriendListCompoent({need_init: false}));
 
 app.mixin(
     new Ssecompoent({
         sslSetting:{
-            need_init: true,
+            need_init: false,
             onMessage: (e)=>{
                 mpsPage.onMessageHandler(e); //  source: FriendListCompoent
             }
         }
     })
 );
+
+app.component("model-select",ModelSelect);
     
 const mpsPage = app.mount('#app');
 window.cMpsPage = mpsPage;
+
+// init
+mpsPage.userAdapter(); // auth.js
+mpsPage.initEventFeedCompoentV();
+
+mpsPage.fetchPrivateFriendV();// FriendListCompoent.js
+mpsPage.sseInitV();// Ssecompoent.js
+
+
+mpsPage.pageInit(mpsPage.mps_list_pagination);
+mpsPage.pageInit(mpsPage.mps_chain_pagination);
+mpsPage.pageInit(mpsPage.mps_chain_search_pagination);
+mpsPage.findMpsFundInfoV();
+mpsPage.fetchFirstSupplierV();
 
 async function doApplyMpsFundAccount(){
     const url="/api/v1/web_estudio/mps_fund/apply_account";
@@ -274,6 +353,13 @@ async function newMps(dto){
 async function doTaggingMps(dto){
     const url="/api/v1/web_estudio/mps/tag";
     return await axios.put(url,dto);
+}
+async function newFastMps(dto){
+    const url="/api/v1/web_estudio/brand/mps/new_fast_paper";
+    return await axios.post(url,dto);
+}
+function createOneFastMps(newFastPaper){
+   return newFastMps(newFastPaper);
 }
 function taggingMps(chainId,mpsId,tag){
     const dto={
@@ -348,6 +434,9 @@ $(document).on("click",function (e) {
     if ('iput' != e.target.className) {
         $('.op-list').addClass('hidden');
     }
+    if ('iput' == e.target.className) {
+        $('.op-list').removeClass('hidden');
+    }
 });
 // search selector end
 
@@ -357,8 +446,12 @@ function explainMpsType(mpsType){
         case MpsType.FROM_MILLSTONE:
             mpsTypeDesc="订单";
             break; 
-        case MpsType.FROM_PLAN:
-            mpsTypeDesc="自建";
+        case MpsType.FROM_TEMPLATE:
+            mpsTypeDesc="模版商单";
+                break; 
+
+        case MpsType.FAST:
+            mpsTypeDesc="快捷商单";
                 break; 
     }
     return mpsTypeDesc;
@@ -401,3 +494,18 @@ function transformInputNumber(val,min,max){
   $(function(){
 	$(".tooltip-nav").tooltip();
 });
+
+ async function fetchFirstSupplier(appObj){
+
+    StudioApi.doFetchFirstSupplier("").then(response=>{
+        if(response.data.code==200){
+            var suplierArr=[{value:"",text:"请选择"}];
+            response.data.supplier.records.forEach(element => {
+             suplierArr.push({value: element.id,text: element.brandName});
+            });
+            appObj.supplierOptions=suplierArr;
+         }
+    });
+    
+}
+

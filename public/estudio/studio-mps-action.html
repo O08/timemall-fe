@@ -699,7 +699,7 @@
           <div class="modal-container">
               
             <!-- edit paper  Modal -->
-            <div class="modal fade" id="editPaperModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal fullscreen-modal fade" id="editPaperModal" data-bs-backdrop="static" tabindex="-1">
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
@@ -713,7 +713,7 @@
                         合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等 </div>
                       </label>
                       <div class="col-sm-8">
-                        <textarea rows="8" @change="btn_ctl.activate_edit_mps_save_btn=true" v-model="mpmc_putPaper.sow" class="form-control" aria-label="With textarea"></textarea>
+                        <textarea rows="13" @change="btn_ctl.activate_edit_mps_save_btn=true" v-model="mpmc_putPaper.sow" class="form-control" aria-label="With textarea"></textarea>
                       </div>
                     </div>
                     <div class="row mb-3 mt-3">

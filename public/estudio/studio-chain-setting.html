@@ -454,7 +454,7 @@
                       </label>
                       <div class="col-sm-8">
                         <div>
-                          <input class="iput" placeholder="请点击或输入搜索字段,键入回车搜索..." @click="showOptionV()" @keyup.enter.native="searchV">
+                          <input class="iput" placeholder="输入关键词,键入回车搜索" @click="showOptionV()" @keyup.enter.native="searchV($event)">
                         </div>
                         <div class="op-list hidden">
                             <div class="iop">--请选择--</div>
@@ -558,7 +558,7 @@
                       </label>
                       <div class="col-sm-8">
                         <div>
-                          <input id="put_iput_supplier" class="iput" placeholder="请点击或输入搜索字段,键入回车搜索..." @click="showOptionV()" @keyup.enter.native="searchV">
+                          <input id="put_iput_supplier" class="iput" placeholder="输入关键词,键入回车搜索" @click="showOptionV()" @keyup.enter.native="searchV($event)">
                         </div>
                         <div class="op-list hidden">
                             <div class="iop">--请选择--</div>

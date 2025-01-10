@@ -10,6 +10,8 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import  StudioApi from "/estudio/javascripts/compoent/StudioApi.js";
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 const RootComponent = {
@@ -45,7 +47,8 @@ const RootComponent = {
             },
             supplier:{
                 records: []
-            }
+            },
+            supplierQ: ""
 
         }
 },
@@ -74,6 +77,10 @@ const RootComponent = {
             return false;
         },
         showNewChainTemplateModalV(){
+            // load supplier info
+            this.supplierQ="";
+            this.fetchFirstSupplierV();
+            
             this.newTemplate={};
             $('.iput').val("");
             $("#newChainTemplateModal").modal("show"); // hide modal
@@ -151,7 +158,7 @@ const RootComponent = {
             });
         },
         fetchFirstSupplierV(){
-            fetchFirstSupplier().then(response=>{
+            fetchFirstSupplier(this.supplierQ).then(response=>{
                 if(response.data.code==200){
                     this.supplier=response.data.supplier;
                 }
@@ -161,8 +168,8 @@ const RootComponent = {
         showOptionV(){
             showOption();
         },
-        searchV(){
-            search();
+        searchV(event){
+            search(event);
         },
         isEmptyObjectV(obj){
             return $.isEmptyObject(obj);
@@ -176,6 +183,10 @@ const RootComponent = {
           return option==='edit';
         },
         showEditTemplateModelV(){
+            // load supplier info
+            this.supplierQ="";
+            this.fetchFirstSupplierV();
+
             this.putTemplate=JSON.parse(JSON.stringify(this.templateDetail));// deep copy
             this.putTemplate.bonus=Number(this.putTemplate.bonus).toFixed(0);
             $('#put_iput_supplier').val(this.templateDetail.firstSupplierName);
@@ -194,7 +205,6 @@ const RootComponent = {
     created() {
        this.findChainInfoV();
        this.findAllTemplateOwnedChainV();
-       this.fetchFirstSupplierV();
        this.queryVariableHasChainIdV();
     }
 }
@@ -258,13 +268,9 @@ async function fetchAllTemplateOwnedChain(chainId){
     const url="/api/v1/web_estudio/mps_chain/template?chainId="+chainId;
     return await axios.get(url);
 }
-async function doFetchFirstSupplier(q){
-    const url="/api/v1/web_estudio/mps_chain/supplier?q="+q;
-    return await axios.get(url);
-}
-function fetchFirstSupplier(){
-    const q= $('.iput').val();
-    return doFetchFirstSupplier(!q ? "": q);
+
+function fetchFirstSupplier(q){
+    return StudioApi.doFetchFirstSupplier(!q ? "": q);
 }
 function modifyMpsTemplate(template){
     template.chainId=getQueryVariable("chain_id");
@@ -369,14 +375,18 @@ $(document).on('click', '.iop', function () {
 
     }
 })
-function search() {
+function search(e) {
     $('.iop').show();
+    chainSettingPage.supplierQ=e.target.value;
     chainSettingPage.fetchFirstSupplierV();
     
 }
 $(document).on("click",function (e) {
     if ('iput' != e.target.className) {
         $('.op-list').addClass('hidden');
+    }
+    if ('iput' == e.target.className) {
+        $('.op-list').removeClass('hidden');
     }
 });
 // search selector end

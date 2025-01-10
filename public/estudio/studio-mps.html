@@ -303,10 +303,28 @@
 
                 </div>
 
-
-                <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#newMpsModal">
-                  <i class="bi bi-plus"></i> 派发商单
-                </button>
+                <div id="new-paper-trigger" class="dropdown">
+                  <a class="btn  btn-outline-success btn-save bgPrimaryBlue me-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-file-earmark-plus me-1"></i>派发商单
+                  </a>
+                
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#">            
+                        <button @click="showMpsModalV" type="button" class="btn btn-dropdown-option" >
+                          <i class="bi bi-collection me-1"></i> 模版商单
+                       </button>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <button type="button" class="btn btn-dropdown-option" data-bs-toggle="modal" data-bs-target="#newFastPaperModal">
+                          <i class="bi bi-lightning me-1"></i> 快捷商单
+                       </button>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
             
               </div>
 
@@ -514,14 +532,14 @@
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
-                    <h2 class="modal-title fs-5">编辑商单</h2>
+                    <h2 class="modal-title fs-5">派发模版商单</h2>
                     <button  type="button" @click="closeMpsModalHandlerV" id="closeMpsModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     
                     <div class="row mb-3 mt-3">
                       <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                        名称 <div class="help-text"> 项目名称(必填,最大80字符) </div>
+                        项目 <div class="help-text"> 项目名称(必填,最大80字符) </div>
                       </label>
                       <div class="col-sm-8">
                         <textarea v-model="newMps.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
@@ -532,13 +550,21 @@
                         模版集 <div class="help-text"> 选择需要使用的合约模版，必填</div>
                       </label>
                       <div class="col-sm-8">
-                        <div>
-                          <input class="iput" placeholder="请点击或输入搜索字段,键入回车搜索..." @click="showOptionV()" @keyup.enter.native="searchV">
+                        <div class="input-chain-ctn">
+                          <div class="input-chain-wrp">
+
+                            <div>
+                              <input class="iput" placeholder="输入关键词,键入回车搜索" @click="showOptionV()" @keyup.enter.native="searchV">
+                            </div>
+                            <div class="op-list hidden">
+                                <div class="iop">--请选择--</div>
+                                <div v-for="opt in mps_chain_search_pagination.records" class="iop" :id="opt.id">{{opt.title}}</div>
+                            </div>
+
+                          </div>
+
                         </div>
-                        <div class="op-list hidden">
-                            <div class="iop">--请选择--</div>
-                            <div v-for="opt in mps_chain_search_pagination.records" class="iop" :id="opt.id">{{opt.title}}</div>
-                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -547,7 +573,7 @@
                     :class="{'disabled':  !newMps.title || !newMps.chainId, 
                         'btn-primary': newMps.title && newMps.chainId,
                         'btn-secondary': !newMps.title || !newMps.chainId}"
-                     type="button"  v-preventreclick class="btn btn-primary">保存</button>
+                     type="button"  v-preventreclick class="btn btn-primary">创建商单</button>
                   </div>
                 </div>
               </div>
@@ -591,6 +617,117 @@
                     <button :class="{'disabled': !mpsTopUpAmount || (mpsFund.drawable < mpsTopUpAmount) , 
                     'btn-primary': !!mpsTopUpAmount || (mpsFund.drawable >= mpsTopUpAmount) ,
                     'btn-secondary': !mpsTopUpAmount || (mpsFund.drawable < mpsTopUpAmount)  }"  type="button" v-preventreclick @click="topUpMpsFundV"  class="btn">转账</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-container">
+            <!-- Modal -->
+            <div class="modal fullscreen-modal fade" id="newFastPaperModal" data-bs-backdrop="static" tabindex="-1">
+              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content text-color-dark">
+                  <div class="modal-header">
+                    <h2 class="modal-title fs-5" >派发快捷商单</h2>
+                    <button @click="closeNewFastPaperHandlerV"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form onsubmit="return false">
+                      <div class="row mb-3 mt-3">
+                        <label for="inputMpsTitle" class="col-sm-4 col-form-label"> 
+                          项目<div class="help-text"> 项目名称(最大80字符) </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <textarea v-model="newFastPaper.mpsTitle" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3 mt-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
+                          商单名称 <div class="help-text"> 商单标题，(比如，logo设计，最大80字符) </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <textarea v-model="newFastPaper.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
+                        </div>
+                      </div>
+                      <div class="row mb-3 mt-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
+                          合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等 </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <textarea v-model="newFastPaper.sow" class="form-control" rows="13"  aria-label="With textarea"></textarea>
+                        </div>
+                      </div>
+                      <div class="row mb-3 mt-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
+                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置以更精确匹配您的服务商 (最大80字符) </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <input class="form-control" v-model="newFastPaper.piece" maxlength="80" type="text">
+                        </div>
+                      </div>
+                      <div class="row mb-3 mt-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
+                          奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元) </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <input class="form-control" v-model="newFastPaper.bonus" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  type="number">
+                        </div>
+                      </div>
+                      <div class="row mb-3 mt-3">
+                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
+                          1级服务商 <div class="help-text"> 指定特定服务商，商单会直接提交给该服务商 </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <model-select
+                            :options="supplierOptions"
+                            v-model="supplierSelectedItem"
+                            placeholder="">
+                          </model-select>
+                          
+                        </div>
+                      </div>
+                      <div class="row mb-3 mt-3" >
+                        <label for="inputDuration" class="col-sm-4 col-form-label"> 
+                          机遇期 <div class="help-text"> 指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场(单位：天)</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <input id="inputDuration" 
+                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.duration" type="number" v-bind:disabled="!supplierSelectedItem">
+                        </div>
+                      </div>
+  
+                      <div class="row mb-3 mt-3" >
+                        <label for="inputDeliveryCycle" class="col-sm-4 col-form-label"> 
+                          交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天)</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <input id="inputDeliveryCycle" 
+                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.deliveryCycle" type="number">
+                        </div>
+                      </div>
+  
+                      <div class="row pb-3 mt-3" >
+                        <label for="inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
+                          合约有效期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天)</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <input id="inputContractValidityPeriod" 
+                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.contractValidityPeriod" type="number">
+                        </div>
+                      </div>
+  
+  
+                    </form>
+                    
+                  </div>
+                  <div class="modal-footer btn-light">
+                    <button 
+                    :class="{'disabled': !validateNewFastPaperV() , 
+                    'btn-primary': validateNewFastPaperV()  ,
+                    'btn-secondary': !validateNewFastPaperV()  }" 
+                       @click="createOneFastMpsV" type="button"  v-preventreclick class="btn">创建商单</button>
                   </div>
                 </div>
               </div>

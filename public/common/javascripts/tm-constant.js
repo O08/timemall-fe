@@ -77,7 +77,8 @@ var MpsTag = Object.freeze({
 }); 
 var MpsType= Object.freeze({
     "FROM_MILLSTONE": "1", // millstone order
-    "FROM_PLAN": "2"  // 自建
+    "FROM_TEMPLATE": "2",  // 模版生成商单
+    "FAST": "3" // 快捷商单
 }); 
 var MpsChainTag= Object.freeze({
     "PUBLISH": "1", // 运行中
