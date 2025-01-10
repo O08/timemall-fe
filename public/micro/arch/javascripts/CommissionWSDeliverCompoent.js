@@ -2,7 +2,8 @@ import axios from "axios";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {CommercialPaperDeliverTag} from "/common/javascripts/tm-constant.js";
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const CommissionWSDeliverCompoent = {
     data() {
@@ -51,10 +52,10 @@ const CommissionWSDeliverCompoent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         leaveMessageV(deliver){
@@ -64,10 +65,10 @@ const CommissionWSDeliverCompoent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error); 
+                    customAlert.alert(error); 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         revisionPaperDeliverV(deliver){
@@ -80,10 +81,10 @@ const CommissionWSDeliverCompoent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);        
+                    customAlert.alert(error);        
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         acceptPaperDeliverV(deliver){
@@ -96,11 +97,11 @@ const CommissionWSDeliverCompoent = {
                  }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
 
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         paperDeliverTagExplainV(tag){

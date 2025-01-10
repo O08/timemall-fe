@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 var Api = {}
 
@@ -11,7 +13,7 @@ function getUserInfo(){
     })
       .fail(function(data) {
         // place error code here
-        alert('芜湖,系统裂开了！请稍后重试！')
+        customAlert.alert('芜湖,系统裂开了！请稍后重试！')
       });
    return res;
  }
@@ -27,7 +29,7 @@ function logout(){
     })
       .fail(function(data) {
         // place error code here
-        alert('芜湖,系统裂开了！请稍后重试！')
+        customAlert.alert('芜湖,系统裂开了！请稍后重试！')
       });
    return res;
  }

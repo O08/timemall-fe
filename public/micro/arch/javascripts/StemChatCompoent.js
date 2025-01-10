@@ -2,9 +2,9 @@ import { createPopup } from "@picmo/popup-picker";
 import axios from 'axios';
 import emojiData from 'emojibase-data/zh/data.json';
 import messages from 'emojibase-data/zh/messages.json';
-import { getQueryVariable } from "/common/javascripts/util.js";
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 export default function StemChatCompoent(config) {
   const {
@@ -118,10 +118,10 @@ export default function StemChatCompoent(config) {
           //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
           }
           if(response.data.code==40016){
-            alert(response.data.message);
+            customAlert.alert(response.data.message);
           }
         }).catch(err=>{
-          alert("系统异常，请检查网络或者重新发送！")
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
       },
       // retrieveMessageV(){
@@ -152,10 +152,10 @@ export default function StemChatCompoent(config) {
   
           }
           if(response.data.code==40016){
-            alert(response.data.message);
+            customAlert.alert(response.data.message);
           }
         }).catch(err=>{
-          alert("系统异常，请检查网络或者重新发送！")
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
       },
       sendAttachmentV(){
@@ -174,10 +174,10 @@ export default function StemChatCompoent(config) {
             }
           }
           if(response.data.code==40016){
-            alert(response.data.message);
+            customAlert.alert(response.data.message);
           }
         }).catch(err=>{
-          alert("系统异常，请检查网络或者重新发送！")
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
   
       },

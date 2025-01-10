@@ -254,30 +254,30 @@
               <p class="partner-intro">{{partner.title}}</p>
               <div class="partner-meta-info">
                 <div  class="partner-meta-item">
-                  <i class="bi bi-person me-1"></i>
+                  <i class="bi bi-buildings me-1"></i>
                   {{ partner.brandTypeCode=='1' ? '机构' : '个人' }}
                 </div>
                 <div 
                 :class="{'active': partner.supportFreeCooperation== '1'}"
                   class="partner-meta-item text-end">
-                  <i class="bi bi-emoji-smile me-1"></i>
+                  <i class="bi bi-opencollective me-1"></i>
                   
-                  {{  partner.supportFreeCooperation== '1' ?  '可自由合作' : '未开放对外合作' }}
+                  {{  partner.supportFreeCooperation== '1' ?  '支持自由合作' : '未开放外部合作' }}
 
                 </div>
                 <div 
                 :class="{'active': partner.availableForWork== '1'}"
                   class="partner-meta-item">
-                  <i class="bi bi-airplane me-1"></i>
+                  <i class="bi bi-mortarboard me-1"></i>
                   
-                  {{  partner.availableForWork== '1' ?  '可雇佣' : '未开启求职' }}
+                  {{  partner.availableForWork== '1' ?  '可聘用' : '未开启求职' }}
 
                 </div>
                 <div 
                    :class="{'active': partner.hiring== '1'}"
                    class="partner-meta-item text-end">
-                  <i class="bi bi-opencollective me-1"></i>
-                      {{  partner.hiring== '1' ?  '开放招聘' : '无招聘计划'}}
+                  <i class="bi bi-duffle me-1"></i>
+                      {{  partner.hiring== '1' ?  '招聘中' : '无招聘计划'}}
                 </div>
               </div>
 
@@ -376,36 +376,36 @@
                             <h4>{{!brandProfile.industry? '无数据' : brandProfile.industry}}</h4>
                           </div>
                           <div class="archiveDetailCore-keyinfo-item">
-                            <h3>爱心服务</h3>
+                            <h3>公益服务</h3>
                             <h4>{{ inNightV() && brandProfile.freeNightCounsellor=='1' ? '提供免费咨询' : '无'}}</h4>
                           </div>
   
                           <div class="partner-meta-info">
                             <div  class="partner-meta-item">
-                              <i class="bi bi-person me-1"></i>
+                              <i class="bi bi-buildings me-1"></i>
                               {{ brandProfile.brandTypeCode=='1' ? '机构' : '个人' }}
                             </div>
                             <div 
                             :class="{'active': brandProfile.supportFreeCooperation== '1'}"
                               class="partner-meta-item">
-                              <i class="bi bi-emoji-smile me-1"></i>
+                              <i class="bi bi-opencollective me-1"></i>
                               
-                              {{  brandProfile.supportFreeCooperation== '1' ?  '可自由合作' : '未开放对外合作' }}
+                              {{  brandProfile.supportFreeCooperation== '1' ?  '支持自由合作' : '未开放外部合作' }}
             
                             </div>
                             <div 
                             :class="{'active': brandProfile.availableForWork== '1'}"
                               class="partner-meta-item">
-                              <i class="bi bi-airplane me-1"></i>
+                              <i class="bi bi-mortarboard me-1"></i>
                               
-                              {{  brandProfile.availableForWork== '1' ?  '可雇佣' : '未开启求职' }}
+                              {{  brandProfile.availableForWork== '1' ?  '可聘用' : '未开启求职' }}
             
                             </div>
                             <div 
                                :class="{'active': brandProfile.hiring== '1'}"
                                class="partner-meta-item">
-                              <i class="bi bi-opencollective me-1"></i>
-                                  {{  brandProfile.hiring== '1' ?  '开放招聘' : '无招聘计划'}}
+                              <i class="bi bi-duffle me-1"></i>
+                                  {{  brandProfile.hiring== '1' ?  '招聘中' : '无招聘计划'}}
                             </div>
                           </div>
   

@@ -16,6 +16,9 @@ import DefaultChatCompoent from "/micro/arch/javascripts/DefaultChatCompoent.js"
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 const chatChannel=getQueryVariable("id");
 
 const RootComponent = {
@@ -39,10 +42,10 @@ const RootComponent = {
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    alert(error);
+                    customAlert.alert(error);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         findCommissionDetailV(){

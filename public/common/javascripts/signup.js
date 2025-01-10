@@ -4,7 +4,8 @@ import {goLoginPage,goHome} from "./pagenav.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 // Form validation
@@ -142,7 +143,7 @@ function doSignUp(){
       })
         .fail(function(data) {
           // place error code here
-            alert('芜湖,系统裂开了！请稍后重试！')
+          customAlert.alert('芜湖,系统裂开了！请稍后重试！')
         });
 }
 

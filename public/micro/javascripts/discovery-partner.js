@@ -11,7 +11,8 @@ import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-ico
 import {Api} from "/common/javascripts/common-api.js";
 import { parseIpLocationCityInfo } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
@@ -92,7 +93,7 @@ const RootComponent = {
                     $("#partnerInfoPreviewModal").modal("show");
                 }
             }).catch(error=>{
-                alert("操作失败");
+                customAlert.alert("操作失败");
             });
         },
         closePartnerInfoPreviewModalV(){

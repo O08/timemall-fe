@@ -2,7 +2,8 @@ import "./import-jquery";
 import {nextPageWhenLoginSuccess,goHome} from "./pagenav.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 $("#email").on("blur", function (e) {
     const flag = document.getElementById("email").checkValidity();
     if(!flag)
@@ -89,7 +90,7 @@ function doLogin(){
           nextPageWhenLoginSuccess();
         }
         if(data.code === 503){
-          alert('芜湖,系统裂开了！请稍后重试！')
+          customAlert.alert('芜湖,系统裂开了！请稍后重试！')
         }
         if(data.code == 2007 || data.code == 2002 || data.code == 2005
           || data.code == 2006 || data.code == 2008 || data.code == 2009){
@@ -109,7 +110,7 @@ function doLogin(){
       })
         .fail(function(data) {
           // place error code here
-          alert('芜湖,系统裂开了！请稍后重试！')
+          customAlert.alert('芜湖,系统裂开了！请稍后重试！')
         });
 }
 async function fetchUserInfo(){

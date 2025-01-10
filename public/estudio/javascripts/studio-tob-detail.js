@@ -7,7 +7,8 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import {EventFeedScene,CommercialPaperTag} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
@@ -33,10 +34,10 @@ const RootComponent = {
 
                 }
                 if(response.data.code!=200){
-                    alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
                 }
             }).catch(error=>{
-                alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
         findPaperDetailV(){

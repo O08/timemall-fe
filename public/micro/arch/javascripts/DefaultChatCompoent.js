@@ -3,9 +3,10 @@ import emojiData from 'emojibase-data/zh/data.json';
 import messages from 'emojibase-data/zh/messages.json';
 
 import axios from 'axios';
-import { getQueryVariable } from "/common/javascripts/util.js";
 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 export default function DefaultChatCompoent(config) {
   const {
@@ -55,7 +56,7 @@ export default function DefaultChatCompoent(config) {
           //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
           }
         }).catch(err=>{
-          alert("系统异常，请检查网络或者重新发送！")
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
       },
       retrieveMessageV(){
@@ -82,7 +83,7 @@ export default function DefaultChatCompoent(config) {
   
           }
         }).catch(err=>{
-          alert("系统异常，请检查网络或者重新发送！")
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
       },
       sendAttachmentV(){
@@ -98,7 +99,7 @@ export default function DefaultChatCompoent(config) {
             $("#sendBigFileModal").modal("hide"); // show modal
           }
         }).catch(err=>{
-          alert("系统异常，请检查网络或者重新发送！")
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
   
       },

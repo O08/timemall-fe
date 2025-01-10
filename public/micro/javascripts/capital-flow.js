@@ -6,6 +6,8 @@ import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/Teicallaanl
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 const RootComponent = {
     data() {
@@ -42,10 +44,10 @@ const RootComponent = {
                 if(response.data.code==200){
                     this.retrieveFinInfoV();
                     this.trans.amount=""; // 复位
-                    alert("处理成功！");
+                    customAlert.alert("处理成功！");
                 }
                 if(response.data.code==503){
-                    alert("处理失败，请检查账号信息或到联系我们页面寻求支持！");
+                    customAlert.alert("处理失败，请检查账号信息或到联系我们页面寻求支持！");
                 }
             });
         },
