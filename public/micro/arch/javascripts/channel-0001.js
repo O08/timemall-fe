@@ -16,6 +16,9 @@ import axios from "axios";
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
+import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
+
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
@@ -30,6 +33,9 @@ const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelL
 
 
 const RootComponent = {
+    components: {
+        oasisoptions: OasisOptionCtlComponent
+    },
     data() {
       return {
         channelSort, oaisiChannelList,getChannelDataV,
@@ -37,55 +43,18 @@ const RootComponent = {
         viewerProfile: {},
         defaultAvatarImage,
         currentOptionMember: "",
-        inputPrivateCode: "",
         currentOptionMemberProfile: {}
       }
     },
     methods: {
-        followOasisV(){
-            if(this.announce.canAddMember == '0'){
-              return
-            }
-            if(this.announce.canAddMember == '1' && this.announce.forPrivate=='1'){
-                $("#inputPrivateCodeModal").modal("show");
-                return
-              }
-
-            const privateCode="";
-            OasisApi.followOasis(this.oasisId,privateCode).then(response=>{
-                if(response.data.code==200){
-                    this.fetchViewerProfileV();
-                    this.loadJoinedOases();
-                    this.initMessageRecordV();
-                }
-                if(response.data.code==40030){
-                    customAlert.alert("部落已停止招新，加入失败！"); 
-                  }
-                  if(response.data.code==40031){
-                    customAlert.alert("邀请码校验不通过，加入失败！"); 
-                  }
-                  if(response.data.code==40009){
-                    customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
-                  }
-            });
+        handleJoinSuccessEventV(){
+            this.fetchViewerProfileV();
+            this.loadJoinedOases();
+            this.initMessageRecordV();
         },
-        followPrivateOasisV(){
-            OasisApi.followOasis(this.oasisId,this.inputPrivateCode).then(response=>{
-                if(response.data.code==200){
-                    this.fetchViewerProfileV();
-                    this.loadJoinedOases();
-                    this.initMessageRecordV();
-                }
-                if(response.data.code==40030){
-                    customAlert.alert("部落已停止招新，加入失败！"); 
-                  }
-                  if(response.data.code==40031){
-                    customAlert.alert("邀请码校验不通过，加入失败！"); 
-                  }
-                  if(response.data.code==40009){
-                    customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
-                  }
-            });
+        handleUnfollowSuccessEventV(){
+            this.fetchViewerProfileV();
+            this.loadJoinedOases();
         },
         fetchViewerProfileV(){
             const channel=getQueryVariable("oasis_id");
@@ -160,7 +129,7 @@ const RootComponent = {
 const chatChannel=getQueryVariable("oasis_id");
 
 let app =  createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(OasisAnnounceComponent);
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
@@ -179,13 +148,19 @@ app.mixin(new StemChatCompoent({
 }))
 
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('col-')
+    return tag.startsWith('col-') || tag.startsWith('top-')
 }
 
 const oasisGroupMsg = app.mount('#app');
 
 window.oasisGroupMsgPage = oasisGroupMsg;
 
+oasisGroupMsg.joinRoomInitV(); // rtm.js
+oasisGroupMsg.userAdapter(); // auth.js init
+oasisGroupMsg.loadAnnounceV(); // oasis announce component .js init
+oasisGroupMsg.loadSubNav() // sub nav component .js init 
+// oasisGroupMsg.sseInitV();// Ssecompoent.js
+oasisGroupMsg.initMessageRecordV(); // stemchatcomponent.js
 // member option menu
 
 //refer menu div

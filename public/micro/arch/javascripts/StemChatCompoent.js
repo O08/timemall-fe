@@ -86,6 +86,10 @@ export default function StemChatCompoent(config) {
             response.data.event.records.forEach(element => {
               this.eventObj.records.unshift(element);
             });
+
+            this.$nextTick(() => {
+              document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
+            })
           
           }
         })
@@ -347,11 +351,7 @@ export default function StemChatCompoent(config) {
       });
 
   
-    },
-    created(){
-      this.initMessageRecordV();
-  
-  }
+    }
   }
 }
 

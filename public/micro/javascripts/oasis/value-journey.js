@@ -8,13 +8,17 @@ import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceCom
 import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+
 const currentOasisId = getQueryVariable("oasis_id");
 
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 const RootComponent = {
+    components: {
+        oasisoptions: OasisOptionCtlComponent
+    },
     data() {
 
         return {
@@ -23,6 +27,12 @@ const RootComponent = {
         }
     },
     methods: {
+        handleJoinSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
+        },
+        handleUnfollowSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
+        },
         retrieveOasisIndexV(){
             retrieveOasisIndex().then(response=>{
                 if(response.data.code == 200){
@@ -47,14 +57,14 @@ const RootComponent = {
     }
 }
 let app =  createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('col-')
-  }
+    return tag.startsWith('col-') || tag.startsWith('top-')
+}
 
 const oasisValPage = app.mount('#app');
 
@@ -62,6 +72,9 @@ window.oasisValPage = oasisValPage;
 
 // init 
 oasisValPage.retrieveOasisIndexV();
+oasisValPage.userAdapter(); // auth.js init
+oasisValPage.loadAnnounceV(); // oasis announce component .js init
+oasisValPage.loadSubNav() // sub nav component .js init 
 
 async function getOasisIndex(oasisId){
     const url ="/api/v1/team/oasis_value_index?oasisId=" + oasisId;

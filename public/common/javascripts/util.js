@@ -115,3 +115,31 @@ export function Ftime (timespan) {
     }
     return timeSpanStr;
 }
+
+
+const isValidUrl = urlString=> {
+    var url;
+    try { 
+          url =new URL(urlString); 
+    }
+    catch(e){ 
+      return false; 
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+export function isValidHttpUrl(urlString){
+var valid= isValidUrl(urlString);
+
+if(!valid && urlString.includes('.') && !urlString.endsWith('.')){
+valid = true;
+}
+return valid;
+}
+
+export  function isValidHttpUrlNeedScheme(urlString){
+  if(urlString.startsWith("http://") || urlString.startsWith("https://") ){
+    return isValidHttpUrl(urlString);
+  }
+  return false;
+  
+}

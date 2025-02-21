@@ -6,7 +6,7 @@
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
     <title>部落委托</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/micro/stylesheets/oasis.scss">
     <link rel="stylesheet" href="/micro/arch/stylesheets/teixcalaanli-arch.scss">
     <link rel="stylesheet" href="/micro/stylesheets/commission.scss">
-
+    <link rel="stylesheet" href="/micro/stylesheets/oasis-action-compoent.scss">
 
 
 </head>
@@ -48,7 +48,7 @@
                    :class="{'active': oasis.id==oasisId}">
                 <div class="oasis-avatar-wrapper">
                   <img class="oasis-avatar-tiny" 
-                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
+                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
                 </div>
               </div>
             </a>
@@ -94,9 +94,11 @@
           </div>
     </col-nav-main>
     <col-nav-sub>
-      <div class="nav-title ms-3 mt-3">
-        <h3>{{announce.title}}</h3>
+    
+      <div>
+        <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce"  :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
       </div>
+
       <div class="nav-sub-container mt-3">
         <div>
           <a  class="nav-link nav-sub-link-active p-2 ms-3 d-flex flex-row align-items-center">
@@ -110,7 +112,7 @@
             <span class="link-title">日常</span>  
           </a>
           <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-            <i class="bi bi-filetype-html"></i>
+            <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
               
             <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
           </a>
@@ -145,7 +147,7 @@
         <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">数据</a>
+        <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/value-journey?oasis_id='+oasisId">数据</a>
       </li>
     </ul>
     <div class="toggle-nav me-3 ">
@@ -158,7 +160,7 @@
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-between oasis-commission-header mt-3">
+  <div class="d-flex justify-content-between oasis-commission-header mt-2">
     <div class="oasis-search d-flex">
 
       <div class="dropdown">
@@ -180,7 +182,7 @@
     </button>
 
   </div>
-  <div class="mt-2 me-2 commission-tb-container">
+  <div class="mt-2  commission-tb-container">
     <div class="table-responsive">
 
 
@@ -458,7 +460,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

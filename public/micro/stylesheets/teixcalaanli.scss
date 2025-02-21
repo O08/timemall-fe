@@ -23,6 +23,7 @@ col-content::-webkit-scrollbar {
   width: 36px;
   height: 36px;
   border-radius: 18px;
+  position: relative;
 
 }
 .modal-header .btn-close{
@@ -49,6 +50,7 @@ col-content::-webkit-scrollbar {
     left: 0;
     background: #161416;
     z-index: 2;
+    height: 56px;
   }
   .toggle-nav{
     background: inherit;

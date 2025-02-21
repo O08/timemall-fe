@@ -10,7 +10,7 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
-
+import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
 
 
 const currentOasisId = getQueryVariable("oasis_id");
@@ -21,6 +21,9 @@ const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelL
 
 
 const RootComponent = {
+    components: {
+        oasisoptions: OasisOptionCtlComponent
+    },
     data() {
 
 
@@ -28,11 +31,16 @@ const RootComponent = {
         currentOasisId,
         currentOch,
         channelSort, oaisiChannelList,getChannelDataV,
-        appViewUrl: "/idea/"+currentOch
+        appViewUrl: ""
       }
     },
     methods: {
-       
+        handleJoinSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
+        },
+        handleUnfollowSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
+        },
         
     },
     updated(){
@@ -42,17 +50,13 @@ const RootComponent = {
             $('[data-bs-toggle="popover"]').popover();
         });
 
-     
-
-        // document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
-        
+             
     }
 }
 
-const chatChannel=getQueryVariable("oasis_id");
 
 let app =  createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(OasisAnnounceComponent);
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
@@ -60,18 +64,22 @@ app.mixin(DirectiveComponent);
 
 
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('col-')
+    return tag.startsWith('col-') || tag.startsWith('top-')
 }
 
 const mini = app.mount('#app');
 
 window.oasisGroupMsgPage = mini;
 
-
+mini.userAdapter(); // auth.js init
+mini.loadAnnounceV(); // oasis announce component .js init
+mini.loadSubNav() // sub nav component .js init 
 
 watch(oaisiChannelList, async (newQuestion, oldQuestion) => {
     if (!!oaisiChannelList) {
-        document.title = getChannelDataV(currentOch,oaisiChannelList.value).channelName;
+        const channelMetaInfo=getChannelDataV(currentOch,oaisiChannelList.value);
+        document.title = channelMetaInfo.channelName;
+        mini.appViewUrl = channelMetaInfo.appViewUrl+ currentOch;
     }
   })
 

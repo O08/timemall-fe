@@ -5,21 +5,16 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js";
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js";
 
+import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
-import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js";
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 let customAlert = new CustomAlertModal();
-
-
-
-
 
 
 const RootComponent = {
@@ -60,12 +55,10 @@ const RootComponent = {
             $('[data-bs-toggle="popover"]').popover();
         });
 
-        // document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
         
     }
 }
 
-const chatChannel=getQueryVariable("oasis_id");
 
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
@@ -82,6 +75,9 @@ app.config.compilerOptions.isCustomElement = (tag) => {
 const miniApp = app.mount('#app');
 
 window.miniAppPage = miniApp;
+
+miniApp.loadAnnounceV(); // oasis announce component .js init
+miniApp.loadSubNav() // sub nav component .js init 
 
 async function fetchAppList(){
   const url="/api/v1/team/oasis/app/list";

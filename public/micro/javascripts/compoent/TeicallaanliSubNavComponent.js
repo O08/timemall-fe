@@ -32,9 +32,6 @@ const TeicallaanliSubNavComponent = {
             this.loadInvitedOases();
             this.loadJoinedOases();
         }
-    },
-    created(){
-       this.loadSubNav();
     }
 }
 

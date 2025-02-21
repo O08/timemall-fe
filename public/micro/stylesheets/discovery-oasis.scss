@@ -28,25 +28,26 @@ header{
   top: 0;
   left: 0;
   background: #161416;
+  height: 56px;
 }
 .toggle-nav{
   background: inherit;
 }
 .team-banner-container{
-    height: 32%;
-    min-height: 200px;
-    width: calc(100% - 40px);
-    margin-left: 20px;
-    margin-right: 20px;
-    background-image: url("/micro/images/discovery-oasis-banner.jpg");
-    background-size: 100% 100%;
-    border-radius: 10px;
-    margin-top: 10px;
-  }
+  height: 32%;
+  min-height: 200px;
+  width: calc(100% - 40px);
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url("/micro/images/discovery-oasis-banner.jpg");
+  background-size: 100% 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
 
 .Search-Button-Placeholder{
-    font-size: 1rem;
-    color: #616161;
+  font-size: 1rem;
+  color: #616161;
 }
 .section-top-serach{
   max-width: 800px;
@@ -54,52 +55,52 @@ header{
   width: calc(100% - 100px);
 }
 .search{
-    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
-    display: flex;
-    font-weight: 500;
-    justify-content: space-between;
+  box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+  display: flex;
+  font-weight: 500;
+  justify-content: space-between;
 
-    }
+}
 
-    .search input{
+.search input{
 
-     height: 50px;
-     text-indent: 25px;
-     padding-right: 2.3rem;
-    }
+  height: 50px;
+  text-indent: 25px;
+  padding-right: 2.3rem;
+}
 
-    .search input:focus{
+.search input:focus{
 
-     box-shadow: none;
-     border: 4px solid rgba(222, 151, 246, 0.673);;
+  box-shadow: none;
+  border: 4px solid rgba(222, 151, 246, 0.673);;
 
-    }
-    .ms-n5 {
-        margin-left: -60px;
-        padding-right: 0.75rem;
-    }
+}
+.ms-n5 {
+    margin-left: -60px;
+    padding-right: 0.75rem;
+}
 
 .list-title{
-    margin-left: 20px;
-    margin-top: 40px;
-  }
-  .section-team-grid{
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  .team-card-container{
-    background-color: #2e2e2e9d;
-    border-radius: 10px;
-    height: 100%;
-  }
-  .team-card-container:hover{
-    background-color: #2E2E2E;
-  }
+  margin-left: 20px;
+  margin-top: 40px;
+}
+.section-team-grid{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.team-card-container{
+  background-color: #2e2e2e9d;
+  border-radius: 10px;
+  height: 100%;
+}
+.team-card-container:hover{
+  background-color: #2E2E2E;
+}
 .team-card-container img{
-    aspect-ratio: 1;
-    width: 100%;
-    border-radius: 5px;
-    // width: 280px;
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 5px;
+
 }
 .oasis-title-wrapper h6{
   overflow: hidden;
@@ -141,5 +142,34 @@ header{
   .logo{
     justify-content: flex-end !important;
   }
+}
+.not-found-resource{
+  border-radius: 10px;
+  padding: 16px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #141414;
+  width: 100%;
+}
+.not-found-resource img{
+  height: 145px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.not-found-resource  p{
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 400;
+  color: #61666d;
+}
+.not-found-resource h4{
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #b5bac1;
 }
 

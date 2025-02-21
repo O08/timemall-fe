@@ -1,5 +1,5 @@
 .mini-main-container{
-    padding: 24px;
+    height: 100%;
 }
 .mini-col{
     max-width: unset;
@@ -26,11 +26,11 @@
     border-radius: 5px;
     width: 48px;
     height: 48px;
-    background-color: #FC5C42;
+    background-color: #141414;
 }
-.mini-icon i{
+.mini-icon img{
 
-    font-size: 32px;
+    width: 32px;
 }
 .mini-info-title{
     margin-top: 16px;
@@ -123,3 +123,40 @@ body,
       transform: translate(-50%, -50%);
     }
   }
+
+  .not-found-resource{
+    border-radius: 10px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #141414;
+      width: 100%;
+      height: 100%;
+  }
+  .not-found-resource img{
+      height: 145px;
+      background-repeat: no-repeat;
+      background-size: contain;
+  }
+  .not-found-resource  p{
+    font-size: 16px;
+      line-height: 1.25;
+      font-weight: 400;
+      color: #61666d;
+  }
+  .not-found-resource h4{
+    font-size: 20px;
+      line-height: 1.25;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #b5bac1;
+  }
+
+  
+  @media only screen and (min-width: 1400px) {
+    .mini-main-container{
+        padding: 24px;
+    }
+}

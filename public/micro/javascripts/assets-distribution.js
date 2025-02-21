@@ -42,7 +42,7 @@ window.teamFinanceDistribution = teamFinanceDistribution;
 
 // init 
 teamFinanceDistribution.loadAssetDistributionV();
-
+teamFinanceDistribution.loadSubNav() // sub nav component .js init 
 async function getFinanceDistribution(){
     const url = "/api/v1/team/finance_distribute";
   return await axios.get(url);

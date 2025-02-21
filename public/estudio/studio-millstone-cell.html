@@ -305,55 +305,61 @@
 
             <div class="table-responsive">
 
-              <table class="table table-sm  table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-product-no-option">服务</th>
-                    <th class="col-brand">客户</th>
-                    <th class="col-fee">预估金额</th>
-                    <th class="col-addTime">预约日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in newOrderPagination.records">
-                    <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                          <div class="ellipsis-1">
-                            {{item.service}}
-                          </div>
-                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+              <div class="table-wrp">
 
-                        </a>
-                    </td>
-                    <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                    <td class="col-fee">{{item.fee}}</td>
-                    <td class="col-addTime">{{item.added}}</td>
-                  </tr>
-                  
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(newOrderPagination.records)" class="empty-content-block">
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-product-no-option">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in newOrderPagination.records">
+                      <td class="col-product-no-option">
+                          <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                            <div class="ellipsis-1">
+                              {{item.service}}
+                            </div>
+                            <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
   
-                没有可用的内容！
-  
+                          </a>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(newOrderPagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!newOrderPagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(newOrderPagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in newOrderPagination.paging.items" :class="{'current-page-active': newOrderPagination.paging.current == page}" 
+                          @click="pageGo(newOrderPagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(newOrderPagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!newOrderPagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(newOrderPagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in newOrderPagination.paging.items" :class="{'current-page-active': newOrderPagination.paging.current == page}" 
-                        @click="pageGo(newOrderPagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(newOrderPagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+
+              
 
             </div>
             
@@ -362,66 +368,72 @@
 
             <div class="table-responsive">
 
-              <table class="table table-sm table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-option"></th>
-                    <th class="col-product">服务</th>
-                    <th class="col-brand">客户</th>
-                    <th class="col-fee">预估金额</th>
-                    <th class="col-addTime">预约日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in auditpagination.records">
-                    <td class="col-option">
-                      <a :href="'/estudio/studio-millstone-action?option=audit&workflow_id=' + item.id">
-                        <button  type="button" 
-                        data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="审查客户设置的工作任务"
-                        class="btn-option-secondary">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M2 9L2.00125 7.01075C2.00125 6.94445 2.02759 6.88085 2.07448 6.83395C2.12136 6.7871 2.18495 6.76075 2.25125 6.76075H4.75175C4.98225 6.76075 4.981 6.55625 4.981 6.06975C4.981 5.58325 3.7555 5.1735 3.7555 3.46325C3.7555 1.753 5.025 1.25 6.08 1.25C7.135 1.25 8.28425 1.753 8.28425 3.46325C8.28425 5.1735 7.06525 5.4455 7.06525 6.06975C7.06525 6.694 7.06525 6.76075 7.26025 6.76075H9.75025C9.81655 6.76075 9.88015 6.7871 9.92705 6.83395C9.9739 6.88085 10.0002 6.94445 10.0002 7.01075V9H2Z" stroke="white" stroke-linejoin="round"/>
-                          <path d="M2 10.5H10" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>                          
-                      </button>
+              <div class="table-wrp">
+
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-option"></th>
+                      <th class="col-product">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in auditpagination.records">
+                      <td class="col-option">
+                        <a :href="'/estudio/studio-millstone-action?option=audit&workflow_id=' + item.id">
+                          <button  type="button" 
+                          data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="审查客户设置的工作任务"
+                          class="btn-option-secondary">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 9L2.00125 7.01075C2.00125 6.94445 2.02759 6.88085 2.07448 6.83395C2.12136 6.7871 2.18495 6.76075 2.25125 6.76075H4.75175C4.98225 6.76075 4.981 6.55625 4.981 6.06975C4.981 5.58325 3.7555 5.1735 3.7555 3.46325C3.7555 1.753 5.025 1.25 6.08 1.25C7.135 1.25 8.28425 1.753 8.28425 3.46325C8.28425 5.1735 7.06525 5.4455 7.06525 6.06975C7.06525 6.694 7.06525 6.76075 7.26025 6.76075H9.75025C9.81655 6.76075 9.88015 6.7871 9.92705 6.83395C9.9739 6.88085 10.0002 6.94445 10.0002 7.01075V9H2Z" stroke="white" stroke-linejoin="round"/>
+                            <path d="M2 10.5H10" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                          
+                        </button>
+                        </a>
+                        
+                      </td>
+                      <td class="col-product">
+                        <div class="ellipsis-1">
+                          {{item.service}}
+                        </div>
+                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(auditpagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!auditpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(auditpagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                       </a>
-                      
-                    </td>
-                    <td class="col-product">
-                      <div class="ellipsis-1">
-                        {{item.service}}
-                      </div>
-                      <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
-                    </td>
-                    <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                    <td class="col-fee">{{item.fee}}</td>
-                    <td class="col-addTime">{{item.added}}</td>
-                  </tr>
-                  
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(auditpagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
-  
+                    </li>
+                    <li class="page-item"  v-for="page in auditpagination.paging.items" :class="{'current-page-active': auditpagination.paging.current == page}" 
+                          @click="pageGo(auditpagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(auditpagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!auditpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(auditpagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in auditpagination.paging.items" :class="{'current-page-active': auditpagination.paging.current == page}" 
-                        @click="pageGo(auditpagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(auditpagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+
+              
 
             </div>
             
@@ -431,54 +443,60 @@
 
             <div class="table-responsive">
 
-              <table class="table table-sm  table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-product-no-option">服务</th>
-                    <th class="col-brand">客户</th>
-                    <th class="col-fee">预估金额</th>
-                    <th class="col-addTime">预约日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in confirm_pagination.records">
-                    <td class="col-product-no-option">
-                      <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <div class="ellipsis-1">
-                          {{item.service}}
-                        </div>
-                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+              <div class="table-wrp">
+
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-product-no-option">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in confirm_pagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                          <div class="ellipsis-1">
+                            {{item.service}}
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+                        </a>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(confirm_pagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!confirm_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(confirm_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                       </a>
-                    </td>
-                    <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                    <td class="col-fee">{{item.fee}}</td>
-                    <td class="col-addTime">{{item.added}}</td>
-                  </tr>
-                  
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(confirm_pagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
-  
+                    </li>
+                    <li class="page-item"  v-for="page in confirm_pagination.paging.items" :class="{'current-page-active': confirm_pagination.paging.current == page}" 
+                          @click="pageGo(confirm_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(confirm_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!confirm_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(confirm_pagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in confirm_pagination.paging.items" :class="{'current-page-active': confirm_pagination.paging.current == page}" 
-                        @click="pageGo(confirm_pagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(confirm_pagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+
+              
 
             </div>
             
@@ -488,54 +506,60 @@
 
             <div class="table-responsive">
 
-              <table class="table table-sm  table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-product-no-option">服务</th>
-                    <th class="col-brand">客户</th>
-                    <th class="col-fee">预估金额</th>
-                    <th class="col-addTime">预约日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in taskpagination.records">
-                    <td class="col-product-no-option">
-                      <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <div class="ellipsis-1">
-                          {{item.service}}
-                        </div>
-                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+              <div class="table-wrp">
+
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-product-no-option">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in taskpagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                          <div class="ellipsis-1">
+                            {{item.service}}
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+                        </a>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(taskpagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!taskpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(taskpagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                       </a>
-                    </td>
-                    <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                    <td class="col-fee">{{item.fee}}</td>
-                    <td class="col-addTime">{{item.added}}</td>
-                  </tr>
-                  
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(taskpagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
-  
+                    </li>
+                    <li class="page-item"  v-for="page in taskpagination.paging.items" :class="{'current-page-active': taskpagination.paging.current == page}" 
+                          @click="pageGo(taskpagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(taskpagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!taskpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(taskpagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in taskpagination.paging.items" :class="{'current-page-active': taskpagination.paging.current == page}" 
-                        @click="pageGo(taskpagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(taskpagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+
+              
 
             </div>
             
@@ -546,54 +570,60 @@
 
             <div class="table-responsive">
 
-              <table class="table table-sm table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-product-no-option">服务</th>
-                    <th class="col-brand">客户</th>
-                    <th class="col-fee">预估金额</th>
-                    <th class="col-addTime">预约日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in paused_pagination.records">
-                    <td class="col-product-no-option">
-                      <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <div class="ellipsis-1">
-                          {{item.service}}
-                        </div>
-                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+              <div class="table-wrp">
+
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-product-no-option">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in paused_pagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                          <div class="ellipsis-1">
+                            {{item.service}}
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+                        </a>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(paused_pagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!paused_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(paused_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                       </a>
-                    </td>
-                    <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                    <td class="col-fee">{{item.fee}}</td>
-                    <td class="col-addTime">{{item.added}}</td>
-                  </tr>
-                  
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(paused_pagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
-  
+                    </li>
+                    <li class="page-item"  v-for="page in paused_pagination.paging.items" :class="{'current-page-active': paused_pagination.paging.current == page}" 
+                          @click="pageGo(paused_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(paused_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!paused_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(paused_pagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in paused_pagination.paging.items" :class="{'current-page-active': paused_pagination.paging.current == page}" 
-                        @click="pageGo(paused_pagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(paused_pagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+
+              
 
             </div>
             
@@ -604,54 +634,59 @@
 
             <div class="table-responsive">
 
-              <table class="table table-sm table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-product-no-option">服务</th>
-                    <th class="col-brand">客户</th>
-                    <th class="col-fee">预估金额</th>
-                    <th class="col-addTime">预约日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in suspend_pagination.records">
-                    <td class="col-product-no-option">
-                      <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                        <div class="ellipsis-1">
-                          {{item.service}}
-                        </div>
-                        <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+              <div class="table-wrp">
+
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-product-no-option">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in suspend_pagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                          <div class="ellipsis-1">
+                            {{item.service}}
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+                        </a>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(suspend_pagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!suspend_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(suspend_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
                       </a>
-                    </td>
-                    <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                    <td class="col-fee">{{item.fee}}</td>
-                    <td class="col-addTime">{{item.added}}</td>
-                  </tr>
-                  
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(suspend_pagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
-  
+                    </li>
+                    <li class="page-item"  v-for="page in suspend_pagination.paging.items" :class="{'current-page-active': suspend_pagination.paging.current == page}" 
+                          @click="pageGo(suspend_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(suspend_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!suspend_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(suspend_pagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in suspend_pagination.paging.items" :class="{'current-page-active': suspend_pagination.paging.current == page}" 
-                        @click="pageGo(suspend_pagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(suspend_pagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              
 
             </div>
             
@@ -662,55 +697,59 @@
 
             <div class="table-responsive">
 
+              <div class="table-wrp">
 
-            <table class="table table-sm  table-hover align-middle">
-              <thead>
-                <tr>
-                  <th class="col-product-no-option">服务</th>
-                  <th class="col-brand">客户</th>
-                  <th class="col-fee">预估金额</th>
-                  <th class="col-addTime">预约日期</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in finishpagination.records">
-                  <td class="col-product-no-option">
-                    <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
-                      <div class="ellipsis-1">
-                        {{item.service}}
-                      </div>
-                      <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
-                    </a>
-                  </td>
-                  <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
-                  <td class="col-fee">{{item.fee}}</td>
-                  <td class="col-addTime">{{item.added}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(finishpagination.records)" class="empty-content-block">
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-product-no-option">服务</th>
+                      <th class="col-brand">客户</th>
+                      <th class="col-fee">预估金额</th>
+                      <th class="col-addTime">预约日期</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in finishpagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                          <div class="ellipsis-1">
+                            {{item.service}}
+                          </div>
+                          <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
+                        </a>
+                      </td>
+                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td class="col-fee">{{item.fee}}</td>
+                      <td class="col-addTime">{{item.added}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(finishpagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!finishpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(finishpagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in finishpagination.paging.items" :class="{'current-page-active': finishpagination.paging.current == page}" 
+                          @click="pageGo(finishpagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(finishpagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
 
-              没有可用的内容！
-
-            </div>
-            <nav v-if="!!finishpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(finishpagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in finishpagination.paging.items" :class="{'current-page-active': finishpagination.paging.current == page}" 
-                      @click="pageGo(finishpagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(finishpagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+              </div>
+            
 
             </div>
             
@@ -734,7 +773,7 @@
 
       <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
           <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">

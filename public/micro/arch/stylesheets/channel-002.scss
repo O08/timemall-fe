@@ -159,3 +159,11 @@ col-content{
 .modal-content{
     background-color: #fff;
   }
+
+  .content-wrapper{
+    scrollbar-width: none;
+    &::-webkit-scrollbar { 
+      display: none; 
+    }
+    overflow: auto;
+}

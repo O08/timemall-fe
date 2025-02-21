@@ -81,7 +81,7 @@ body {
 } 
 .toggle-nav{
   width: 50px;
-  background-color: #2F2F2F;
+  background-color: unset;
   border: none;
 }
 .toggle-nav:hover
@@ -90,7 +90,7 @@ body {
 }
 .offcanvas-start.show,.offcanvas-end.show
 {
-  background-color: #2B2B2B;
+  background-color: #141414;
 }
 .show .header-navbar {
   flex-direction: column !important;
@@ -406,7 +406,7 @@ body {
   text-align: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #212529;
+  background-color: #141414;
 }
 .millstone-pagination{
   margin-top: 1.2rem;
@@ -436,6 +436,7 @@ body {
     --bs-pagination-focus-bg: #373b3e;
     --bs-pagination-hover-bg:  #373b3e;
     --bs-pagination-hover-border-color: #373b3e;
+    margin-top: 1rem;
 }
 
 .td-option {
@@ -1039,6 +1040,15 @@ col-container{
   position: relative;
 }
 
+.nav-setting .dropdown-item:hover, .nav-setting .dropdown-item:focus,.nav-setting .dropdown-item:active {
+  background-color: #e3e5e7;
+  color: #000;
+}
+ 
+.appButton .dropdown-item:hover, .appButton .dropdown-item:focus,.appButton .dropdown-item:active {
+  background-color: #e3e5e7;
+  color: #000;
+}
 .nav-container-wrapper{
   height: calc(100% - 100px);
   overflow-y: scroll;
@@ -1272,7 +1282,16 @@ col-container{
   color: rgba(0, 0, 0, 0) !important;
 }
 #section_feedback_offcanvas .btn-close ,.offcanvas-header .btn-close{
-   background-color: #fff;
+  color: #fff;
+  background-color: #343434;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  outline: none;
+  box-shadow: none;
+  --bs-btn-close-bg: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23fff%22%20class%3D%22bi%20bi-x-circle%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2015A7%207%200%201%201%208%201a7%207%200%200%201%200%2014m0%201A8%208%200%201%200%208%200a8%208%200%200%200%200%2016%22%2F%3E%3Cpath%20d%3D%22M4.646%204.646a.5.5%200%200%201%20.708%200L8%207.293l2.646-2.647a.5.5%200%200%201%20.708.708L8.707%208l2.647%202.646a.5.5%200%200%201-.708.708L8%208.707l-2.646%202.647a.5.5%200%200%201-.708-.708L7.293%208%204.646%205.354a.5.5%200%200%201%200-.708%22%2F%3E%3C%2Fsvg%3E");
 }
 .display_nav{
   text-align: center;

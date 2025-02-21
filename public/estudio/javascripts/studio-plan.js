@@ -125,6 +125,7 @@ app.mixin(
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;
+tobActionPage.joinRoomInitV(); // rtm.js
 
 async function fetchPlanDetail(planOrderId){
     const url="/api/v1/web_estudio/cell/plan_order/{id}".replace("{id}",planOrderId);

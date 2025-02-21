@@ -220,71 +220,77 @@
           <h1>我的预约</h1>
         </div>  
         <div class="table-responsive">
-          <table class="table table-sm  table-hover align-middle">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th>服务</th>
-                <th scope="col">预估费用</th>
-                <th scope="col">预约日期</th>
-                <th scope="col">服务商</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="trans in transpagination.records">
-                <td class="td-option">   
-                  <div class="option-container">
-                     <span @click="showContactInfoV(trans.brandId)" class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看服务商联系方式">
-                      <i class="bi bi-person-rolodex"></i>
-                     </span>
-                     <span  class="btn-option-secondary option-view-contact ms-4" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
-                      <a target="_blank" :href="'/micro/arch/channel-0002?friend='+trans.supplierUserId">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M7.49994 9.99992H12.4999" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                          <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                          <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                          </svg>  
-                      </a>          
-                    </span>
-                  </div>   
-                </td>
-                <td class="col-product">
-                  <div class="ellipsis-1">
-                    {{trans.service}}
-                  </div>
-                  <div class="cell-package">时长：{{trans.quantity}} {{transformSbuV(trans.sbu)}}</div>
-                </td>
-                <td>{{trans.fee.toFixed(2)}}</td>
-                <td>{{trans.added}}</td>
-                <td class="col-brand">
-                  <div class="ellipsis-1">
-                    {{trans.supplier}}
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
-  
-            没有可用的内容！
-  
+
+          <div class="table-wrp">
+
+            <table class="table table-sm  table-hover align-middle">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th>服务</th>
+                  <th scope="col">预估费用</th>
+                  <th scope="col">预约日期</th>
+                  <th scope="col">服务商</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="trans in transpagination.records">
+                  <td class="td-option">   
+                    <div class="option-container">
+                       <span @click="showContactInfoV(trans.brandId)" class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看服务商联系方式">
+                        <i class="bi bi-person-rolodex"></i>
+                       </span>
+                       <span  class="btn-option-secondary option-view-contact ms-4" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
+                        <a target="_blank" :href="'/micro/arch/channel-0002?friend='+trans.supplierUserId">
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.49994 9.99992H12.4999" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>  
+                        </a>          
+                      </span>
+                    </div>   
+                  </td>
+                  <td class="col-product">
+                    <div class="ellipsis-1">
+                      {{trans.service}}
+                    </div>
+                    <div class="cell-package">时长：{{trans.quantity}} {{transformSbuV(trans.sbu)}}</div>
+                  </td>
+                  <td>{{trans.fee.toFixed(2)}}</td>
+                  <td>{{trans.added}}</td>
+                  <td class="col-brand">
+                    <div class="ellipsis-1">
+                      {{trans.supplier}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
+    
+              没有可用的内容！
+    
+            </div>
+            <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+              <ul class="pagination pagination-lg pagination-dark  border-0">
+                <li class="page-item" @click="pagePre(transpagination)">
+                  <a class="page-link"  aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"  v-for="page in transpagination.paging.items" :class="{'current-page-active': transpagination.paging.current == page}" 
+                      @click="pageGo(transpagination,page)"><a class="page-link">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(transpagination)">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
           </div>
-          <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-            <ul class="pagination pagination-lg pagination-dark  border-0">
-              <li class="page-item" @click="pagePre(transpagination)">
-                <a class="page-link"  aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"  v-for="page in transpagination.paging.items" :class="{'current-page-active': transpagination.paging.current == page}" 
-                    @click="pageGo(transpagination,page)"><a class="page-link">{{page}}</a></li>
-              <li class="page-item" @click="pageNext(transpagination)">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          
         </div>
         
       </main>
@@ -349,7 +355,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

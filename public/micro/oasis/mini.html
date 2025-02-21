@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/micro/arch/stylesheets/teixcalaanli-arch.scss">
 
     <link rel="stylesheet" href="/micro/oasis/stylesheets/mini.scss">
+    <link rel="stylesheet" href="/micro/stylesheets/oasis-action-compoent.scss">
 
 
 </head>
@@ -45,7 +46,7 @@
                :class="{'active': oasis.id==oasisId}">
             <div class="oasis-avatar-wrapper">
               <img class="oasis-avatar-tiny" 
-            :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
+            :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
             </div>
           </div>
         </a>
@@ -91,8 +92,8 @@
       </div>
     </col-nav-main>
     <col-nav-sub>
-      <div class="nav-title ms-3 mt-3">
-        <h3>{{announce.title}}</h3>
+      <div>
+        <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce"  :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
       </div>
       <div class="nav-sub-container mt-3">
         <div>
@@ -111,7 +112,7 @@
           'nva-link-default': currentOch!=channel,
           'nav-sub-link-active ':  currentOch==channel}"
             class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-            <i class="bi bi-filetype-html"></i>
+            <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
               
             <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
           </a>
@@ -150,7 +151,9 @@
     </header>
 
      <div class="mini-app-sandbox">
-        <iframe  style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;" :src="appViewUrl"></iframe>
+      <object :data="appViewUrl+'?sandbox=1'"  type="text/html" >
+        mini app
+      </object>
      </div>
 
 
@@ -162,7 +165,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

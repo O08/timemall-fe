@@ -72,7 +72,7 @@ app.mixin(
 );
 const mpsActionPage = app.mount('#app');
 window.cMpsActionPage = mpsActionPage;
-
+mpsActionPage.joinRoomInitV(); // rtm.js
 async function fetchAllMpsPaperOwnedMps(mpsId){
     const url ="/api/v1/web_estudio/mps/paper?mpsId="+mpsId;
     return await axios.get(url);

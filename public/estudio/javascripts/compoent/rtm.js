@@ -36,9 +36,6 @@ const RtmCompoent = {
         changeRoomV(channelId){
           changeRoom(channelId);
         }
-      },
-      created(){
-        this.joinRoomInitV();
       }
 }
 

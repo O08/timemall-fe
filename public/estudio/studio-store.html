@@ -282,61 +282,67 @@
 
               <div class="table-responsive">
 
-                <table class="table table-sm table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th scope="col"></th>
-                      <th scope="col">服务</th>
-                      <th scope="col">曝光量</th>
-                      <th scope="col">点击量</th>
-                      <th scope="col">特约销量</th>
-                      <th scope="col">小鸟（销量）</th>
-                      <th scope="col">老鹰（销量）</th>
-                      <th scope="col">信天翁（销量）</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in online_pagination.records">
-                      <td class="col-option">
-                          <span v-preventreclick  @click="offlineCell(item.id)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="下线服务">
-                            <i class="bi bi-caret-down-fill"></i>
+                <div class="table-wrp">
+
+                  <table class="table table-sm table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">服务</th>
+                        <th scope="col">曝光量</th>
+                        <th scope="col">点击量</th>
+                        <th scope="col">特约销量</th>
+                        <th scope="col">小鸟（销量）</th>
+                        <th scope="col">老鹰（销量）</th>
+                        <th scope="col">信天翁（销量）</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in online_pagination.records">
+                        <td class="col-option">
+                            <span v-preventreclick  @click="offlineCell(item.id)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="下线服务">
+                              <i class="bi bi-caret-down-fill"></i>
+                            </span>
+                        </td>
+                        <td class="col-product">
+                          <span class="ellipsis-1">
+                            {{item.title}}
                           </span>
-                      </td>
-                      <td class="col-product">
-                        <span class="ellipsis-1">
-                          {{item.title}}
-                        </span>
-                      </td>
-                      <td class="col-index">{{item.impressions}}</td>
-                      <td class="col-index">{{item.clicks}}</td>
-                      <td class="col-index">{{item.orders}}</td>
-                      <td class="col-index">{{item.birdPurchases}}</td>
-                      <td class="col-index">{{item.eaglePurchases}}</td>
-                      <td class="col-index">{{item.albatrossPurchases}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-show="isEmptyObjV(online_pagination.records)" class="empty-content-block">
-  
-                  没有可用的内容！
-      
+                        </td>
+                        <td class="col-index">{{item.impressions}}</td>
+                        <td class="col-index">{{item.clicks}}</td>
+                        <td class="col-index">{{item.orders}}</td>
+                        <td class="col-index">{{item.birdPurchases}}</td>
+                        <td class="col-index">{{item.eaglePurchases}}</td>
+                        <td class="col-index">{{item.albatrossPurchases}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(online_pagination.records)" class="empty-content-block">
+    
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!online_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(online_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in online_pagination.paging.items" :class="{'current-page-active': online_pagination.paging.current == page}" 
+                            @click="pageGo(online_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(online_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
                 </div>
-                <nav v-if="!!online_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(online_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in online_pagination.paging.items" :class="{'current-page-active': online_pagination.paging.current == page}" 
-                          @click="pageGo(online_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(online_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+
+                
 
               </div>
               
@@ -348,62 +354,68 @@
 
               <div class="table-responsive">
 
-                <table class="table table-sm table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th scope="col"></th>
-                      <th scope="col">服务</th>
-                      <th scope="col">曝光量</th>
-                      <th scope="col">点击量</th>
-                      <th scope="col">特约销量</th>
-                      <th scope="col">小鸟（销量）</th>
-                      <th scope="col">老鹰（销量）</th>
-                      <th scope="col">信天翁（销量）</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in offline_pagination.records">
-                      <td class="col-option">
-                          
-                          <span v-preventreclick  @click="onlineCell(item.id)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上线服务">
-                            <i class="bi bi-caret-up-fill"></i>
+                <div class="table-wrp">
+
+                  <table class="table table-sm table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">服务</th>
+                        <th scope="col">曝光量</th>
+                        <th scope="col">点击量</th>
+                        <th scope="col">特约销量</th>
+                        <th scope="col">小鸟（销量）</th>
+                        <th scope="col">老鹰（销量）</th>
+                        <th scope="col">信天翁（销量）</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in offline_pagination.records">
+                        <td class="col-option">
+                            
+                            <span v-preventreclick  @click="onlineCell(item.id)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上线服务">
+                              <i class="bi bi-caret-up-fill"></i>
+                            </span>
+                        </td>
+                        <td class="col-product">
+                          <span class="ellipsis-1">
+                            {{item.title}}
                           </span>
-                      </td>
-                      <td class="col-product">
-                        <span class="ellipsis-1">
-                          {{item.title}}
-                        </span>
-                      </td>
-                      <td class="col-index">{{item.impressions}}</td>
-                      <td class="col-index">{{item.clicks}}</td>
-                      <td class="col-index">{{item.orders}}</td>
-                      <td class="col-index">{{item.birdPurchases}}</td>
-                      <td class="col-index">{{item.eaglePurchases}}</td>
-                      <td class="col-index">{{item.albatrossPurchases}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-show="isEmptyObjV(offline_pagination.records)" class="empty-content-block">
-  
-                  没有可用的内容！
-      
+                        </td>
+                        <td class="col-index">{{item.impressions}}</td>
+                        <td class="col-index">{{item.clicks}}</td>
+                        <td class="col-index">{{item.orders}}</td>
+                        <td class="col-index">{{item.birdPurchases}}</td>
+                        <td class="col-index">{{item.eaglePurchases}}</td>
+                        <td class="col-index">{{item.albatrossPurchases}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(offline_pagination.records)" class="empty-content-block">
+    
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!offline_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(offline_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in offline_pagination.paging.items" :class="{'current-page-active': offline_pagination.paging.current == page}" 
+                            @click="pageGo(offline_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(offline_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
                 </div>
-                <nav v-if="!!offline_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(offline_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in offline_pagination.paging.items" :class="{'current-page-active': offline_pagination.paging.current == page}" 
-                          @click="pageGo(offline_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(offline_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+
+                
 
               </div>
               
@@ -414,70 +426,76 @@
 
               <div class="table-responsive">
 
-                <table class="table table-sm table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th scope="col"></th>
-                      <th scope="col">服务</th>
-                      <th scope="col">曝光量</th>
-                      <th scope="col">点击量</th>
-                      <th scope="col">特约销量</th>
-                      <th scope="col">小鸟（销量）</th>
-                      <th scope="col">老鹰（销量）</th>
-                      <th scope="col">信天翁（销量）</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in draft_pagination.records">
-                      <td class="col-option">
-                        <div class="option-container">
-                          <span class="option-edit me-3">
-                            <a :href="'/estudio/studio-store-define-cell?option=edit&tab=general&cell_id=' + item.id" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务">           
-                              <i class="bi bi-pencil-square"></i>                    
-                            </a>
+                <div class="table-wrp">
+
+                  <table class="table table-sm table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">服务</th>
+                        <th scope="col">曝光量</th>
+                        <th scope="col">点击量</th>
+                        <th scope="col">特约销量</th>
+                        <th scope="col">小鸟（销量）</th>
+                        <th scope="col">老鹰（销量）</th>
+                        <th scope="col">信天翁（销量）</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in draft_pagination.records">
+                        <td class="col-option">
+                          <div class="option-container">
+                            <span class="option-edit me-3">
+                              <a :href="'/estudio/studio-store-define-cell?option=edit&tab=general&cell_id=' + item.id" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务">           
+                                <i class="bi bi-pencil-square"></i>                    
+                              </a>
+                            </span>
+                            <span class="option-mark-cell">
+                              <a v-preventreclick  @click="removeSingleCellV(item.id)" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除服务">           
+                                <i class="bi bi-trash"></i>
+                              </a>
+                            </span>
+                          </div>
+                        </td>
+                        <td class="col-product">
+                          <span class="ellipsis-1">
+                            {{item.title}}
                           </span>
-                          <span class="option-mark-cell">
-                            <a v-preventreclick  @click="removeSingleCellV(item.id)" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除服务">           
-                              <i class="bi bi-trash"></i>
-                            </a>
-                          </span>
-                        </div>
-                      </td>
-                      <td class="col-product">
-                        <span class="ellipsis-1">
-                          {{item.title}}
-                        </span>
-                      </td>
-                      <td class="col-index">{{item.impressions}}</td>
-                      <td class="col-index">{{item.clicks}}</td>
-                      <td class="col-index">{{item.orders}}</td>
-                      <td class="col-index">{{item.birdPurchases}}</td>
-                      <td class="col-index">{{item.eaglePurchases}}</td>
-                      <td class="col-index">{{item.albatrossPurchases}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-show="isEmptyObjV(draft_pagination.records)" class="empty-content-block">
-  
-                  没有可用的内容！
-      
+                        </td>
+                        <td class="col-index">{{item.impressions}}</td>
+                        <td class="col-index">{{item.clicks}}</td>
+                        <td class="col-index">{{item.orders}}</td>
+                        <td class="col-index">{{item.birdPurchases}}</td>
+                        <td class="col-index">{{item.eaglePurchases}}</td>
+                        <td class="col-index">{{item.albatrossPurchases}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(draft_pagination.records)" class="empty-content-block">
+    
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!draft_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(draft_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in draft_pagination.paging.items" :class="{'current-page-active': draft_pagination.paging.current == page}" 
+                            @click="pageGo(draft_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(draft_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
                 </div>
-                <nav v-if="!!draft_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(draft_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in draft_pagination.paging.items" :class="{'current-page-active': draft_pagination.paging.current == page}" 
-                          @click="pageGo(draft_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(draft_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+
+                
 
               </div>
               
@@ -493,7 +511,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

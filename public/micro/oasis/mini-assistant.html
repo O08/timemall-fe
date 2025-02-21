@@ -135,8 +135,9 @@
       </div>
     </header>
 
-    <div class="mini-main-container">
-        <drop-list
+    <div class="mini-main-container" :class="{'py-0 pe-0': items.length==0}">
+        <div v-show="items.length>0" class="mini-info-desc"><i class="bi bi-bell me-1"></i>拖动频道调整顺序；可从原型馆中获取原型来创建频道</div>
+        <drop-list v-show="items.length>0" 
         :items="items"
         class="list row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4"
         @insert="onInsert"
@@ -150,7 +151,7 @@
                         <div class="mini-inner">
                             <div class="mini-top">
                                 <div class="mini-icon position-relative">
-                                    <i class="bi bi-filetype-html"></i>
+                                    <img :src="getChannelDataV(item).appLogo">
                                 </div>
                                 <div class="mini-info-title"> 
                                     {{getChannelDataV(item).channelName}} 
@@ -186,8 +187,15 @@
             </div>
         </template>
 
+
     </drop-list>
 
+
+    <div v-if="items.length==0" class="not-found-resource">
+      <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+      <h4>未找到频道</h4>
+      <p>试试从原型馆中添加吧。</p>
+    </div>
 
 
     </div>
@@ -203,7 +211,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

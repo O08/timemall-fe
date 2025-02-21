@@ -245,35 +245,41 @@
           </div>  
               
           <div class="table-responsive">
-            <table class="table table-sm  table-hover align-middle">
-              <thead>
-                <tr>
-                  <th class="col-msg">消息内容</th>
-                  <th class="col-addTime">接收时间</th>
-                  <th class="col-type">类别</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="notice in eventFeed.records">
-                  <td class="col-msg">
-                    <div>
-                      <a class="url-link" :href="'/epod/pod-millstone-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
-                        <p class="pt-1"><span class="ellipsis-1" style="max-width: calc(100% - 132px);display: -webkit-inline-box; vertical-align: middle; font-weight: bolder;">{{JSON.parse(notice.feed).upDesc}}</span><span>的新消息，点击查看</span></p>
-                      </a>
-                    </div>
-                  </td>
-                  <td class="col-addTime"> 
-                    {{notice.createAt}}
-                  </td>
-                  <td class="col-type">履约消息</td>
-                </tr>
-              </tbody>
-            </table>
-            <div v-show="eventFeed.records.length==0 && envent_feed_page_init_load_finish" class="empty-content-block">
-  
-              没有可用的内容！
-  
+
+            <div class="table-wrp">
+
+              <table class="table table-sm  table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th class="col-msg">消息内容</th>
+                    <th class="col-addTime">接收时间</th>
+                    <th class="col-type">类别</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="notice in eventFeed.records">
+                    <td class="col-msg">
+                      <div>
+                        <a class="url-link" :href="'/epod/pod-millstone-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
+                          <p class="pt-1"><span class="ellipsis-1" style="max-width: calc(100% - 132px);display: -webkit-inline-box; vertical-align: middle; font-weight: bolder;">{{JSON.parse(notice.feed).upDesc}}</span><span>的新消息，点击查看</span></p>
+                        </a>
+                      </div>
+                    </td>
+                    <td class="col-addTime"> 
+                      {{notice.createAt}}
+                    </td>
+                    <td class="col-type">履约消息</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div v-show="eventFeed.records.length==0 && envent_feed_page_init_load_finish" class="empty-content-block">
+    
+                没有可用的内容！
+    
+              </div>
+
             </div>
+            
           </div>
       
            
@@ -287,7 +293,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

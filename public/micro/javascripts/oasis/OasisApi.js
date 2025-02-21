@@ -12,7 +12,9 @@ const OasisApi = {
     putAvatar,
     putAnnounce,
     inviteBrand,
-    fetchFriendListNotInOasis
+    fetchFriendListNotInOasis,
+    topUptoOasis,
+    retrieveOasisFinInfo
 }
 async function putAnnounce(oasisId,files){
     var fd = new FormData();
@@ -54,6 +56,16 @@ async function doFetchFriendListNotInOasis(queryParam){
     const url="/api/v1/team/oasis/friends?q="+queryParam.q+"&oasisId="+queryParam.oasisId;
     return await axios.get(url);
 }
+async function getOasisFinInfo(oasisId){
+    const url="/api/v1/team/oasis_finance_board?oasisId=" + oasisId;
+    return await axios.get(url);
+}
+
+async function retrieveOasisFinInfo(oasisId){
+    return getOasisFinInfo(oasisId);
+}
+
+
 function fetchFriendListNotInOasis(q,oasisId){
     const queryParam={
         q,oasisId
@@ -64,6 +76,18 @@ async function inviteBrandToOasis(dto){
     const url="/api/v1/team/invite";
     return await axios.put(url,dto);
 }
+async function topUp2Oasis(dto){
+    const url="/api/v1/team/top_up_to_oasis";
+    return axios.post(url,dto);
+  }
+function topUptoOasis(amount,oasisId){
+    const dto={
+     amount: amount,
+     oasisId: oasisId
+    }
+    return topUp2Oasis(dto);
+ }
+
 function inviteBrand(brandId,oasisId){
     const dto={
         oasisId: oasisId,

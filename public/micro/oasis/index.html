@@ -6,7 +6,7 @@
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
     <title>部落</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="/micro/arch/stylesheets/teixcalaanli-arch.scss">
 
     <link rel="stylesheet" href="/micro/stylesheets/oasis.scss">
+    <link rel="stylesheet" href="/micro/stylesheets/oasis-action-compoent.scss">
+
 
 </head>
 <body>
@@ -47,7 +49,7 @@
                    :class="{'active': oasis.id==oasisId}">
                 <div class="oasis-avatar-wrapper">
                   <img class="oasis-avatar-tiny" 
-                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
+                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
                 </div>
               </div>
             </a>
@@ -93,9 +95,9 @@
           </div>
         </col-nav-main>
         <col-nav-sub>
-        <div class="nav-title ms-3 mt-3">
-          <h3>{{announce.title}}</h3>
-        </div>
+          <div>
+            <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce"  :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
+          </div>
         <div class="nav-sub-container mt-3">
           <div>
     
@@ -111,7 +113,7 @@
             </a>
 
             <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-              <i class="bi bi-filetype-html"></i>
+              <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
                 
               <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
             </a>
@@ -147,66 +149,7 @@
             <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">数据</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <!-- <a class="nav-link d-flex align-items-center" aria-current="page">
-              <i class="bi bi-three-dots"></i>
-            </a> -->
-            <div id="oasis-more-option-menu" class="dropdown nav-link d-flex align-items-center">
-              <a class="btn btn-secondary dropdown-toggle btn-oasis-option" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-three-dots"></i>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item">
-                  <button type="button" class="btn  oasis-option" data-bs-toggle="modal" data-bs-target="#topUpToOasisModal">
-                    <i class="bi bi-droplet"></i> 赞助部落
-                  </button>
-                  </a>
-                </li>
-                <li><a class="dropdown-item">
-                  <button type="button" class="btn  oasis-option" data-bs-toggle="modal" data-bs-target="#collectAccountModal">
-                    <i class="bi bi-coin me-1"></i> 每日收账
-                  </button>
-                  </a>
-              </li>
-              <li v-if="!inOasisV() && announce.canAddMember == '1'"><a  class="dropdown-item">
-                <button @click="followOasisV"  v-preventreclick  type="button" class="btn  oasis-option">
-                  <i class="bi bi-node-plus me-1"></i> 加入部落
-                </button>
-                </a>
-              </li>
-              <li v-if="inOasisV()&&!initiatorRoleV()">
-                <a  class="dropdown-item">
-                  <button @click="unfollowOasisV"  v-preventreclick  type="button" class="btn oasis-option" >
-                    <i class="bi bi-box-arrow-right me-1"></i> 离开部落
-                  </button>
-                </a>
-              </li>
-              <li v-if="initiatorRoleV()">
-                <a  class="dropdown-item"  :href="'/micro/oasis/setting?oasis_id='+oasisId">
-                  <button type="button" class="btn  oasis-option">
-                    <i class="bi bi-gear me-1"></i> 部落设置
-                  </button>
-                </a>
-              </li>
-              <li v-if="initiatorRoleV()">
-                <a  class="dropdown-item" :href="'/micro/oasis/mini-assistant?oasis_id='+oasisId">
-                  <button type="button" class="btn oasis-option">
-                    <i class="bi bi-speedometer2 me-1"></i> 频道助手
-                  </button>
-                </a>
-              </li>
-              <li  v-if="announce.canAddMember == '1' && (initiatorRoleV() || (!initiatorRoleV() && announce.forPrivate == '0') )">
-                <a  class="dropdown-item">
-                  <button @click="showInvitationModalV" type="button" class="btn oasis-option">
-                    <i class="bi bi-person-plus me-1"></i> 邀请&招新
-                  </button>
-                </a>
-              </li>
-
-              </ul>
-            </div>
+            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/value-journey?oasis_id='+oasisId">数据</a>
           </li>
         </ul>
         <div class="toggle-nav me-3 ">
@@ -248,194 +191,13 @@
     </main>
     
    
-    <section class="modals">
-      <div class="modal-container">
-              
-        <!-- Modal -->
-        <div class="modal fade" id="topUpToOasisModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">赞助部落</h1>
-                <button type="button" id="closeTopUpToOasisModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body d-flex justify-content-center">
-                <form>
-                  <div class="mt-3">
-                    <label for="t1" class="form-label">可赞助金额</label>
-                    <input :value="brandAccount.drawable" type="text" maxlength="255" class="form-control" disabled id="t1">
-                  </div> 
-                  <div class="mt-3">
-                    <label for="t2" class="form-label">部落余额</label>
-                    <input id="t2" :value="oasisAccount.drawable" type="text" maxlength="255" class="form-control" disabled>
-                  </div> 
-                  <div class="mt-3">
-                    <label for="t3" class="form-label">赞助金额</label>
-                    <input id="t3" v-model="amount"  @input="transformInputNumberV($event)" min="1" max="50000" step="1" type="number" class="form-control">
-                  </div> 
-                </form>
-                
-              </div>
-              <div class="modal-footer btn-light">
-                <button  v-preventreclick 
-                :class="{'disabled': !amount || (brandAccount.drawable < amount) , 
-                'btn-primary': !!amount || (brandAccount.drawable >= amount) ,
-                'btn-secondary': !amount || (brandAccount.drawable < amount)  }"
-                @click="topUptoOasisV" type="button"  class="btn btn-primary">赞助</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-container">
-              
-        <!-- Modal -->
-        <div class="modal fade" id="collectAccountModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">收账</h1>
-                <button type="button" id="closeCollectAccountModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body d-flex justify-content-center">
-                <form>
-                  <div class="mt-3">
-                    <label for="t1" class="form-label">部落余额</label>
-                    <input :value="oasisAccount.drawable" type="text" maxlength="255" class="form-control" disabled id="t1">
-                  </div> 
-                  <div class="mt-3">
-                    <label for="t2" class="form-label">累计贡献</label>
-                    <input id="t2" :value="point" type="text" maxlength="255" class="form-control" disabled>
-                  </div> 
-                  <div class="mt-3">
-                    <label for="t3" class="form-label">收账金额</label>
-                    <input id="t3" @input="transformInputNumberV($event)" min="1" max="50000" step="1" v-model="collectAccountAmount" type="number" class="form-control">
-                  </div> 
-                  <div class="help-text fs-6 ms-1 mt-1">
-                    <i class="bi bi-question-circle"></i><span class="ms-1">规则：每日只能收账一次,收账金额最大为部落余额的10%</span>
-                  </div>
-                </form>
-                
-              </div>
-              <div class="modal-footer btn-light">
-                <button   v-preventreclick 
-                :class="{'disabled': !collectAccountAmount || (oasisAccount.drawable < 10*collectAccountAmount ) || (point <  collectAccountAmount ) , 
-                'btn-primary': !!amount && (oasisAccount.drawable >= 10*collectAccountAmount ) && (point >=collectAccountAmount ) ,
-                'btn-secondary': !collectAccountAmount || (oasisAccount.drawable < 10*collectAccountAmount ) || (point < collectAccountAmount )  }"
-                @click="collectAccountV" type="button"  class="btn btn-primary">收账</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-container">
-        <!-- Modal -->
-        <div class="modal fade" id="inputPrivateCodeModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">请输入邀请码</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body d-flex justify-content-center">
-                
-                <form> 
-                  <div class="mt-3">
-                    <input v-model="inputPrivateCode" type="text" class="form-control">
-                  </div> 
-                </form>
-
-              </div>
-              <div class="modal-footer btn-light">
-                <button @click="followPrivateOasisV"
-                :class="{'disabled': !inputPrivateCode, 
-                      'btn-primary': !!inputPrivateCode,
-                      'btn-secondary': !inputPrivateCode }"
-                 v-preventreclick type="button" class="btn btn-primary">加入</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-container">
-        <!-- share or invite Modal -->
-        <div class="modal fade" id="invitationModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">邀请伙伴加入部落</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                
-                <div class="search-container">
-
-                  <!-- top search -->
-                 <top-search class="section-top-serach">
-                  <div class="input-group input-normal-search">
-                    <input  @keyup.enter.native="getAvailableFriendsWhenInvationV" v-model="oasisFriendsQueryParam.q" class="form-control top-search-input" type="text"
-                      placeholder="搜索好友..." aria-label="Search">
-                    <button v-preventreclick @click="getAvailableFriendsWhenInvationV" class="btn  input-group-search-btn" type="button">
-                      <i class="bi bi-search"></i>
-                    </button>
-                  </div>
-                </top-search>
-
-                </div>
-                 
-                <div class="friend-list-container">
-                  <ul class="list-group">
-                    <li v-for="friend in oasisAvailableFriendsForInvation" class="list-group-item">
-                      <div class="friend-head">
-                        <img  class="oasis-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                        {{friend.title}}
-                      </div>
-                      <button 
-                      :class="{'disabled': friend.invited=='1','btn-outline-secondary': friend.invited=='1', 'btn-outline-success': friend.invited!='1'}"
-                       v-preventreclick @click="inviteBrandV(friend)" class="btn link-btn" type="button" >
-                        {{friend.invited=='1' ? '已邀请' : '邀请'}}
-                      </button>
-                    </li>
-                    
-                    
-                  </ul>
-                </div>
-
-                <div class="link-invite-section">
-                  <div class="other-invite">或者，将链接贴到博客论坛</div>
-
-                  <div class="invite-link-container">
-                    <div class="invite-link-wrp">
-                      <div class="link-content-block">
-                        <input type="text" class="input-link"
-                        :value="oasisUrl" disabled>
-                      </div>
-                      <div>
-                        <button 
-                         v-preventreclick @click="copyOasisInvitationLinkToClipboardV" type="button" class="btn btn-primary link-btn">复制</button>
-                      </div>
-  
-                    </div>
-                  </div>
-
-                </div>
-                
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
+    
   </micro-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

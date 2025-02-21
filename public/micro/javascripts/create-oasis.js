@@ -130,6 +130,7 @@ window.createOasisPage = createOasisPage;
 createOasisPage.userAdapter(); // auth.js
 
 createOasisPage.recoverOasisInfoV();
+createOasisPage.loadSubNav() // sub nav component .js init 
 
 async function createOasis(dto){
     const url="/api/v1/team/oasis/new";

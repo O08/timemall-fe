@@ -18,6 +18,7 @@
 }
 .app-card-cover{
     width: 100%;
+    aspect-ratio: 3/2;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -40,7 +41,7 @@
 
 }
 .app-info-icon{
-    background-color: #FC5C42;
+    background-color: #141414;
     width: 32px;
     aspect-ratio: 1;
     display: flex;

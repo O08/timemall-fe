@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/micro/stylesheets/teixcalaanli.scss">
     <link rel="stylesheet" href="/micro/arch/stylesheets/teixcalaanli-arch.scss">
     <link rel="stylesheet" href="/micro/arch/stylesheets/channel-001.scss">
+    <link rel="stylesheet" href="/micro/stylesheets/oasis-action-compoent.scss">
+
 
 </head>
 <body>
@@ -44,7 +46,7 @@
                :class="{'active': oasis.id==oasisId}">
             <div class="oasis-avatar-wrapper">
               <img class="oasis-avatar-tiny" 
-            :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
+            :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
             </div>
           </div>
         </a>
@@ -90,8 +92,8 @@
       </div>
     </col-nav-main>
     <col-nav-sub>
-      <div class="nav-title ms-3 mt-3">
-        <h3>{{announce.title}}</h3>
+      <div>
+        <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce" :initiator_role="initiatorRoleV()" :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
       </div>
       <div class="nav-sub-container mt-3">
         <div>
@@ -106,7 +108,7 @@
             <span class="link-title">日常</span>  
           </a>
           <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-            <i class="bi bi-filetype-html"></i>
+            <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
               
             <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
           </a>
@@ -146,19 +148,11 @@
 
 
      <div class="content-wrapper w-100">
-      <div v-if="!viewerProfile" class="w-100 h-100 d-flex justify-content-center align-items-center">
-        <div class="welcome">
-          <div class="d-flex flex-column">
-            <p class="text-center">你可以在这里唠嗑、吃瓜、闲逛，分享知识，连接世界，体验多彩的生活方式！</p>
-            <div v-if="announce.canAddMember == '1' " class="mt-3 pt-3 d-flex justify-content-center">
-              <button @click="followOasisV"  v-preventreclick  type="button" class="btn btn-primary oasis-option">
-                现在加入
-              </button>
-            </div>
-          
-          </div>
-      
-        </div>
+
+      <div v-if="!viewerProfile" class="not-found-resource">
+        <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+        <h4>你还不是部落成员</h4>
+        <p>期待你的加入。</p>
       </div>
 
       <div v-show="!!viewerProfile" 
@@ -172,11 +166,6 @@
                 v-on:touchstart="contextMenuMoblieHanderOnStartV($event,record.authorId)" 
                 v-on:touchend="contextMenuMoblieHanderOnEndV"
                 class="event-icon new-order">
-                <!-- <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
-                  <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
-                  <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>                           -->
                   <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
               </span>
               <div class="event-header-base border-0">
@@ -362,35 +351,7 @@
         </div>
       </div>
 
-      <div class="modal-container">
-        <!-- Modal -->
-        <div class="modal fade" id="inputPrivateCodeModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">请输入邀请码</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body d-flex justify-content-center">
-                
-                <form> 
-                  <div class="mt-3">
-                    <input v-model="inputPrivateCode" type="text" class="form-control">
-                  </div> 
-                </form>
-
-              </div>
-              <div class="modal-footer btn-light">
-                <button @click="followPrivateOasisV"
-                :class="{'disabled': !inputPrivateCode, 
-                      'btn-primary': !!inputPrivateCode,
-                      'btn-secondary': !inputPrivateCode }"
-                 v-preventreclick type="button" class="btn btn-primary">提交</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
     </section>
 
@@ -399,7 +360,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

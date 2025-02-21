@@ -330,76 +330,82 @@
 
               <div class="table-responsive">
 
-              <table class="table table-sm table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-option"></th>
-                    <th class="col-mps-title">项目名称</th>
-                    <th class="col-type">
-                      标签
-                    </th>
-                    <th class="col-type">类型</th>
-                    <th class="col-addTime">入库日期</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="trans in mps_list_pagination.records">
-                   <td class="col-option">
+                <div class="table-wrp">
 
-                    <span>
-                      <button v-if="trans.tag=='1'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'2')" type="button" 
-                      data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="进入线上商单交易市场招商"
-                      class="btn-option-secondary ms-3">
-                      <i class="bi bi-cloud-arrow-up"></i>
-                      </button>
-                      <button v-if="trans.tag=='1'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'3')" type="button" 
-                        data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="废弃"
-                        class="btn-option-secondary ms-3">
-                        <i class="bi bi-trash2"></i>
-                      </button>
-                      <button v-if="trans.tag=='2'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'4')" type="button" 
-                        data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="标记为已完成"
-                        class="btn-option-secondary ms-3">
-                        <i class="bi bi-star"></i>
-                      </button>
-                    </span>
-
-                   </td>
-                    <td class="col-mps-title">
-
-                      <a :href="'/estudio/studio-mps-action?mps_id='+trans.id">
-                        <span class="ellipsis-1">
-                          {{trans.title}}
-                        </span>
-                      </a>
-                    </td>
-                    <td class="col-type">{{exlpainMpsTagV(trans.tag)}}</td>
-                    <td class="col-type">{{explainMpsTypeV(trans.mpsType)}}</td>
-                    <td class="col-addTime">{{trans.createAt}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(mps_list_pagination.records)" class="empty-content-block">
-
-                没有可用的内容！
+                  <table class="table table-sm table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-option"></th>
+                        <th class="col-mps-title">项目名称</th>
+                        <th class="col-type">
+                          标签
+                        </th>
+                        <th class="col-type">类型</th>
+                        <th class="col-addTime">入库日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="trans in mps_list_pagination.records">
+                       <td class="col-option">
     
-              </div>
-              <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(mps_list_pagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in mps_list_pagination.paging.items" :class="{'current-page-active': mps_list_pagination.paging.current == page}" 
-                        @click="pageGo(mps_list_pagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(mps_list_pagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+                        <span>
+                          <button v-if="trans.tag=='1'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'2')" type="button" 
+                          data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="进入线上商单交易市场招商"
+                          class="btn-option-secondary ms-3">
+                          <i class="bi bi-cloud-arrow-up"></i>
+                          </button>
+                          <button v-if="trans.tag=='1'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'3')" type="button" 
+                            data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="废弃"
+                            class="btn-option-secondary ms-3">
+                            <i class="bi bi-trash2"></i>
+                          </button>
+                          <button v-if="trans.tag=='2'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'4')" type="button" 
+                            data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="标记为已完成"
+                            class="btn-option-secondary ms-3">
+                            <i class="bi bi-star"></i>
+                          </button>
+                        </span>
+    
+                       </td>
+                        <td class="col-mps-title">
+    
+                          <a :href="'/estudio/studio-mps-action?mps_id='+trans.id">
+                            <span class="ellipsis-1">
+                              {{trans.title}}
+                            </span>
+                          </a>
+                        </td>
+                        <td class="col-type">{{exlpainMpsTagV(trans.tag)}}</td>
+                        <td class="col-type">{{explainMpsTypeV(trans.mpsType)}}</td>
+                        <td class="col-addTime">{{trans.createAt}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(mps_list_pagination.records)" class="empty-content-block">
+    
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(mps_list_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in mps_list_pagination.paging.items" :class="{'current-page-active': mps_list_pagination.paging.current == page}" 
+                            @click="pageGo(mps_list_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(mps_list_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
+                </div>
+
+              
 
               </div>
               
@@ -433,55 +439,61 @@
               </div>
               <div class="table-responsive">
 
-                <table class="table table-sm table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-chain-title-no-option">模版集</th>
-                      <th class="col-type">
-                        标签
-                      </th>
-                      <th class="col-fee">正在处理项目数</th>
-                      <th class="col-fee">已处理项目数</th>
-                      <th class="col-addTime">入库日期</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="trans in mps_chain_pagination.records">
-                      <td class="col-chain-title-no-option">
-                        <a :href="'/estudio/studio-chain-setting?option=edit&chain_id='+trans.id">
-                          <span class="ellipsis-1">
-                            {{trans.title}}
-                          </span>
-                        </a>
-                      </td>
-                      <td class="col-type">{{explianMpsChainTagV(trans.tag)}}</td>
-                      <td class="col-fee">{{trans.processingCnt}}</td>
-                      <td class="col-fee">{{trans.processedCnt}}</td>
-                      <td class="col-addTime">{{trans.createAt}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-show="isEmptyObjV(mps_chain_pagination.records)" class="empty-content-block">
+                <div class="table-wrp">
 
-                  没有可用的内容！
-      
+                  <table class="table table-sm table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-chain-title-no-option">模版集</th>
+                        <th class="col-type">
+                          标签
+                        </th>
+                        <th class="col-fee">正在处理项目数</th>
+                        <th class="col-fee">已处理项目数</th>
+                        <th class="col-addTime">入库日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="trans in mps_chain_pagination.records">
+                        <td class="col-chain-title-no-option">
+                          <a :href="'/estudio/studio-chain-setting?option=edit&chain_id='+trans.id">
+                            <span class="ellipsis-1">
+                              {{trans.title}}
+                            </span>
+                          </a>
+                        </td>
+                        <td class="col-type">{{explianMpsChainTagV(trans.tag)}}</td>
+                        <td class="col-fee">{{trans.processingCnt}}</td>
+                        <td class="col-fee">{{trans.processedCnt}}</td>
+                        <td class="col-addTime">{{trans.createAt}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(mps_chain_pagination.records)" class="empty-content-block">
+  
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!mps_chain_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(mps_chain_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in mps_chain_pagination.paging.items" :class="{'current-page-active': mps_chain_pagination.paging.current == page}" 
+                            @click="pageGo(mps_chain_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(mps_chain_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
                 </div>
-                <nav v-if="!!mps_chain_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(mps_chain_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in mps_chain_pagination.paging.items" :class="{'current-page-active': mps_chain_pagination.paging.current == page}" 
-                          @click="pageGo(mps_chain_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(mps_chain_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+
+                
 
               </div>
              
@@ -743,7 +755,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

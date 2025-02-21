@@ -1,24 +1,69 @@
-.nav-oasis-container{
-    height: 120px;
+.insight-menu{
+    padding-right: 20px;
+    width: 220px;
 }
-.transparent-category{
-    display: inline-block;
-    margin-bottom: 0;
+.menu-content{
+    width: calc(100% - 220px);
+}
+.transparent-category ul{
+ list-style-type: none;
+ padding-left: 0;
+ margin-bottom: 0;
 }
 .transparent-category li{
     text-decoration: none;
-    display: inline-block;
-
+    
 }
 .transparent-category-item{
-    width:80px;
-    height: 30px;
+    padding: .5rem;
+    margin-bottom: 1px;
+    font-size: 14px;
+}
+.transparent-category-item.active{
+    background: #373b3e52;
+    border-radius: .375rem;
 }
 .transparent-category-item:hover{
-    background: #000;
-    border-radius: 2px;
+    background: #373b3e52;
+    border-radius: .375rem;
     color: white;
 
+
+}
+.small-device-menu{
+    display: none;
+    margin-bottom: .5rem;
+}
+.small-device-menu-trigger.btn.show, .small-device-menu-trigger{
+    display: flex;
+    align-items: center;
+    border:none;
+    color: white;
+    background-color: #373b3e52;
+}
+
+.small-device-menu .dropdown-menu{
+    padding: 0;
+    border: 1px solid #61666d;
+    background-color: #141414;
+}
+.small-device-menu .dropdown-menu .dropdown-item{
+    padding: 7px 12px;
+    width: 200px;
+    border-bottom: 1px solid #61666d;
+    color: azure;
+
+}
+.small-device-menu .dropdown-menu .dropdown-item:hover{
+    background-color: #000;
+}
+.small-device-menu .dropdown-menu li:first-child .dropdown-item{
+    border-top-left-radius: .375rem;
+    border-top-right-radius: .375rem;
+}
+.small-device-menu .dropdown-menu li:last-child .dropdown-item{
+    border-bottom-left-radius: .375rem;
+    border-bottom-right-radius: .375rem;
 }
 .member-avatar,.member-title{
     display: flex;
@@ -30,9 +75,8 @@
     border-radius: 40px;
 }
 .section-member-grid{
-    margin-top: 100px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 .member-title{
     min-width: 80px;
@@ -43,3 +87,44 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.not-found-resource{
+    border-radius: 10px;
+      height: 456px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background-color: #141414;
+      width: 100%;
+  }
+  .not-found-resource img{
+      height: 145px;
+      background-repeat: no-repeat;
+      background-size: contain;
+  }
+  .not-found-resource  p{
+    font-size: 16px;
+      line-height: 1.25;
+      font-weight: 400;
+      color: #61666d;
+  }
+  .not-found-resource h4{
+    font-size: 20px;
+      line-height: 1.25;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #b5bac1;
+  }
+
+  @media (max-width: 48rem) {
+    .insight-menu{
+        display: none;
+    }
+    .menu-content{
+      width: 100%;
+    }
+    .small-device-menu{
+        display: block;
+    }
+  }

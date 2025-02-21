@@ -36,6 +36,18 @@ app.get('/brand/:id', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置
 })
 
+app.get('/fb/admin', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/feedsboard/admin.html")        //设置/ 下访问文件位置
+})
+
+app.get('/fb/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/feedsboard/fb.html")        //设置/ 下访问文件位置
+})
+
+app.get('/fb/:och/:feedId', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/feedsboard/feed.html")        //设置/ 下访问文件位置
+})
+
 // match @abc @bcdddd,for brand handle mapping
 app.get( /^\/@/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置

@@ -70,7 +70,8 @@
 
   }
   .commission-tb-container, .oasis-commission-header{
-    margin-left: 40px;
+    margin-left: 24px;
+    margin-right: 24px;
   }
   .table-group-divider{
     border-color: #373b3e;
@@ -101,11 +102,11 @@
 }
 #auditTaskModal .modal-body p,#acceptTaskModal .modal-body p{
   white-space: pre-wrap;
-    word-break: break-all;
-    min-height: 30px;
-    font-size: 16px;
-    line-height: 1.875;
-    margin-bottom: 20px;
+  word-break: break-all;
+  min-height: 30px;
+  font-size: 16px;
+  line-height: 1.875;
+  margin-bottom: 20px;
 }
 #auditTaskModal .modal-body,#acceptTaskModal .modal-body{
   padding: 50px 50px 20px;
@@ -141,6 +142,22 @@ table{
   height: 50px;
   border-radius: 50px;
   border: none;
+}
+.table, .table td {
+  font-size: 12px;
+}
+.table {
+  --bs-table-bg: #141414 !important;
+  --bs-table-color: #fff !important;
+  --bs-table-hover-bg: #000 !important;
+  --bs-table-hover-color: #fff !important;
+  border-color: #ffffff1a !important;
+}
+
+.table > thead > tr > th {
+  height: 48px;
+  vertical-align: middle !important;
+  background-color: #373b3e52 !important;
 }
 @media (max-width: 991.98px) {
   .title-thread{

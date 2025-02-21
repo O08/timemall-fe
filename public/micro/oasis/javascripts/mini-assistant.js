@@ -15,12 +15,6 @@ import oasisAvatarDefault from "/micro/images/oasis-default-building.jpeg"
 
 
 
-
-
-
-
-
-
 const RootComponent = {
   components: {
     Drag,
@@ -101,8 +95,6 @@ const RootComponent = {
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
-
-        // document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
         
     }
 }

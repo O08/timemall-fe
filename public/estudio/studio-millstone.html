@@ -303,67 +303,73 @@
 
             <div class="table-responsive">
 
-            <table class="table table-sm  table-hover align-middle">
-              <thead>
-                <tr>
-                  <th>服务</th>
-                  <th scope="col">
-                    单品
-                  </th>
-                  <th scope="col">实收</th>
-                  <th scope="col">价格</th>
-                  <th scope="col">促销优惠</th>
-                  <th scope="col">客户支付</th>
-                  <th scope="col">佣金</th>
-                  <th scope="col">
-                    标签
-                  </th>
-                  <th scope="col">入库时间</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in plan_pagination.records">
-                  <td class="col-product-no-option">
-                    <a :href="'/estudio/studio-plan?id=' + item.orderId">
-                      <span class="ellipsis-1">
-                        {{item.cellTitle}}
-                      </span>
-                    </a>
-                  </td>
-                  <td class="col-type">{{explainCellPlanTypeV(item.planType)}}</td>
-                  <td class="col-fee">{{item.netIncome}}</td>
-                  <td class="col-fee">{{item.price}}</td>
-                  <td class="col-fee">{{item.promotionDeduction}}</td>
-                  <td class="col-fee">{{item.revenue}}</td>
-                  <td class="col-fee">{{item.commission}}</td>
-                  <td class="col-type">{{explainCellPlanOrderTagV(item.tag)}}</td>
-                  <td class="col-addTime">{{item.createAt}}</td>
-                </tr>
-                
-               
-              </tbody>
-            </table>
-            <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
+              <div class="table-wrp">
 
-              没有可用的内容！
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th>服务</th>
+                      <th scope="col">
+                        单品
+                      </th>
+                      <th scope="col">实收</th>
+                      <th scope="col">价格</th>
+                      <th scope="col">促销优惠</th>
+                      <th scope="col">客户支付</th>
+                      <th scope="col">佣金</th>
+                      <th scope="col">
+                        标签
+                      </th>
+                      <th scope="col">入库时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in plan_pagination.records">
+                      <td class="col-product-no-option">
+                        <a :href="'/estudio/studio-plan?id=' + item.orderId">
+                          <span class="ellipsis-1">
+                            {{item.cellTitle}}
+                          </span>
+                        </a>
+                      </td>
+                      <td class="col-type">{{explainCellPlanTypeV(item.planType)}}</td>
+                      <td class="col-fee">{{item.netIncome}}</td>
+                      <td class="col-fee">{{item.price}}</td>
+                      <td class="col-fee">{{item.promotionDeduction}}</td>
+                      <td class="col-fee">{{item.revenue}}</td>
+                      <td class="col-fee">{{item.commission}}</td>
+                      <td class="col-type">{{explainCellPlanOrderTagV(item.tag)}}</td>
+                      <td class="col-addTime">{{item.createAt}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(plan_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
+                          @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(plan_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
 
-            </div>
-            <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-              <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(plan_pagination)">
-                  <a class="page-link"  aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
-                      @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(plan_pagination)">
-                  <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+              </div>
+
+            
 
             </div>
             
@@ -384,7 +390,7 @@
 
       <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
           <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">

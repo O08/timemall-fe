@@ -93,7 +93,8 @@ function getBrandContact(appObj){
     saveWechatQrImg(brandId, file).then(function (response) {
         if(response.data.code == 200){
             const url = URL.createObjectURL(file);
-            $('#lastestWechatQr').attr('src',url);
+            appObj.contact.wechat= url;
+            // $('#lastestWechatQr').attr('src',url);
     
             $("#wechatQrModal").modal("hide");
             $('#wechatQrPreview').attr('src',"");

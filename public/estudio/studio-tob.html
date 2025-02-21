@@ -321,63 +321,69 @@
               </div>
               <div class="table-responsive">
 
-                <table class="table table-sm table-dark table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-product-no-option"></th>
-                      <th class="col-fee">采购金额</th>
-                      <th class="col-brand">采购商</th>
-                      <th class="col-piece">职能</th>
-                      <th class="col-type">标签</th>
-                      <th class="col-addTime">派单日期</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="trans in mps_list_pagination.records">
-                      <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-tob-action?paper_id='+trans.id">
-                          <span class="ellipsis-1">
-                            {{trans.title}}
-                          </span>
-                        </a>
-                      </td>
-                      <td class="col-fee">{{trans.bonus}}</td>
-                      <td class="col-brand">
-                        <span class="ellipsis-1">
-                          {{trans.purchaser}}
-                        </span>
-                      </td>
-                      <td class="col-piece">
-                        <span class="ellipsis-1">
-                          {{trans.piece}}
-                        </span>
-                      </td>
-                      <td class="col-type" >{{explainPaperTagV(trans.tag)}}</td>
-                      <td class="col-addTime">{{trans.createAt}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-show="isEmptyObjV(mps_list_pagination.records)" class="empty-content-block">
+                <div class="table-wrp">
 
-                  没有可用的内容！
-      
+                  <table class="table table-sm table-dark table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-product-no-option"></th>
+                        <th class="col-fee">采购金额</th>
+                        <th class="col-brand">采购商</th>
+                        <th class="col-piece">职能</th>
+                        <th class="col-type">标签</th>
+                        <th class="col-addTime">派单日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="trans in mps_list_pagination.records">
+                        <td class="col-product-no-option">
+                          <a :href="'/estudio/studio-tob-action?paper_id='+trans.id">
+                            <span class="ellipsis-1">
+                              {{trans.title}}
+                            </span>
+                          </a>
+                        </td>
+                        <td class="col-fee">{{trans.bonus}}</td>
+                        <td class="col-brand">
+                          <span class="ellipsis-1">
+                            {{trans.purchaser}}
+                          </span>
+                        </td>
+                        <td class="col-piece">
+                          <span class="ellipsis-1">
+                            {{trans.piece}}
+                          </span>
+                        </td>
+                        <td class="col-type" >{{explainPaperTagV(trans.tag)}}</td>
+                        <td class="col-addTime">{{trans.createAt}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(mps_list_pagination.records)" class="empty-content-block">
+  
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(mps_list_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in mps_list_pagination.paging.items" :class="{'current-page-active': mps_list_pagination.paging.current == page}" 
+                            @click="pageGo(mps_list_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(mps_list_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
                 </div>
-                <nav v-if="!!mps_list_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(mps_list_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in mps_list_pagination.paging.items" :class="{'current-page-active': mps_list_pagination.paging.current == page}" 
-                          @click="pageGo(mps_list_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(mps_list_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+
+                
 
               </div>
               
@@ -395,55 +401,61 @@
               </div>
               <div class="table-responsive">
 
-                <table class="table table-sm  table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-product-no-option-lg"></th>
-                      <th class="col-fee">采购金额</th>
-                      <th class="col-piece">职能</th>
-                      <th class="col-addTime">派单日期</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="trans in mps_order_receiving_pagination.records">
-                      <td class="col-product-no-option-lg">
-                        <a :href="'/estudio/studio-tob-detail?paper_id='+trans.id">
-                          <span class="ellipsis-1">
-                            {{trans.title}}
-                          </span>
-                        </a>
-                      </td>
-                      <td class="col-fee">{{trans.bonus}}</td>
-                      <td class="col-piece">
-                        <span class="ellipsis-1">
-                          {{trans.piece}}
-                        </span>
-                      </td>
-                      <td class="col-addTime">{{trans.createAt}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div v-show="isEmptyObjV(mps_order_receiving_pagination.records)" class="empty-content-block">
+                <div class="table-wrp">
 
-                  没有可用的内容！
-      
+                  <table class="table table-sm  table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-product-no-option-lg"></th>
+                        <th class="col-fee">采购金额</th>
+                        <th class="col-piece">职能</th>
+                        <th class="col-addTime">派单日期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="trans in mps_order_receiving_pagination.records">
+                        <td class="col-product-no-option-lg">
+                          <a :href="'/estudio/studio-tob-detail?paper_id='+trans.id">
+                            <span class="ellipsis-1">
+                              {{trans.title}}
+                            </span>
+                          </a>
+                        </td>
+                        <td class="col-fee">{{trans.bonus}}</td>
+                        <td class="col-piece">
+                          <span class="ellipsis-1">
+                            {{trans.piece}}
+                          </span>
+                        </td>
+                        <td class="col-addTime">{{trans.createAt}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="isEmptyObjV(mps_order_receiving_pagination.records)" class="empty-content-block">
+  
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!mps_order_receiving_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(mps_order_receiving_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in mps_order_receiving_pagination.paging.items" :class="{'current-page-active': mps_order_receiving_pagination.paging.current == page}" 
+                            @click="pageGo(mps_order_receiving_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(mps_order_receiving_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+
                 </div>
-                <nav v-if="!!mps_order_receiving_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(mps_order_receiving_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in mps_order_receiving_pagination.paging.items" :class="{'current-page-active': mps_order_receiving_pagination.paging.current == page}" 
-                          @click="pageGo(mps_order_receiving_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(mps_order_receiving_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+
+                
 
               </div>
               
@@ -465,7 +477,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

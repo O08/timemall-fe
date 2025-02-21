@@ -61,7 +61,7 @@ app.mixin(
 );
 const millstoneViewPage = app.mount('#app');
 window.pMillstoneView= millstoneViewPage;
-
+millstoneViewPage.joinRoomInitV(); // rtm.js
 async function getSingleWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
     

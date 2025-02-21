@@ -1,7 +1,6 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
-import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
@@ -24,6 +23,7 @@ import StemChatCompoent from "/micro/arch/javascripts/StemChatCompoent.js";
 const RootComponent = {
     data() {
       return {
+        initingChannelData: true,
         timer: null,
         defaultAvatarImage,
         currentFriendForOption: "",
@@ -115,7 +115,6 @@ const RootComponent = {
             $('[data-bs-toggle="popover"]').popover();
         });
 
-        // document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
         
     }
 }
@@ -124,7 +123,6 @@ const chatChannel=getQueryVariable("friend");
 
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
 app.mixin(RtmCompoent);
@@ -164,6 +162,9 @@ app.config.compilerOptions.isCustomElement = (tag) => {
 const privateChatApp = app.mount('#app');
 
 window.privateChatAppPage = privateChatApp;
+
+privateChatApp.initMessageRecordV(); // stemchatcomponent.js
+privateChatApp.joinRoomInitV(); // rtm.js
 
 
 function sseEventBusPrivateSeceneHandler(data){

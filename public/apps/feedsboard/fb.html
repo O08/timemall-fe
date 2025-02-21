@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>feed home page</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/feedsboard/stylesheets/feedsboard.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+
+    <div class="app-container"  :class="{'sandbox': sandbox=='1' }">
+          
+      <main>
+
+        <div id="nav-searchform" >
+          <div class="nav-search-btn">
+            <i class="bi bi-search"></i>
+          </div>
+          <div class="nav-search-content">
+            <input v-model="feedList_pagination.param.q" @keyup.enter.native="retrieveFeedListV"  class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+              x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="搜索帖子" >
+          </div>
+          <div class="btn-wrp">
+            <button v-preventreclick @click="showNewFeedModalV" class="btn-tm-primary">
+              <div class="btn-content">
+                <i class="bi bi-file-earmark-plus me-1"></i>
+                  新帖
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="tagsContainer">
+
+          <div class="dropdown">
+            <a class="btn-dropdown me-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-arrow-down-up me-1"></i>查看&过滤
+            </a>
+          
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item groupLabel">            
+                  排序
+                </a>
+              </li>
+
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="sortLastest">
+                      最近活跃
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.sort"  value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortLastest" >
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="sortCreateTime">
+                      发帖日期
+                    </label>
+                    <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"  value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                  </div>
+                </a>
+              </li>
+              <div class="separator"></div>
+              <li>
+                <a class="dropdown-item groupLabel">            
+                  预览
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="viewList">
+                      列表
+                    </label>
+                    <input   v-model="guide.layout"  value="1" class="form-check-input" name="viewRadios" type="radio"  id="viewList" >
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="viewGrid">
+                      图库
+                    </label>
+                    <input  v-model="guide.layout"  value="0" class="form-check-input" name="viewRadios" type="radio"  id="viewGrid" >
+                  </div>
+                </a>
+              </li>
+              <div class="separator"></div>
+              <li>
+                <a class="dropdown-item groupLabel">            
+                  过滤
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="adminRecommendfilterhighlight">
+                      精品帖子
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter"  value="1" class="form-check-input" name="filterFeed" type="radio"  id="adminRecommendfilterhighlight" >
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="adminRecommendfilterALL">
+                      全部帖子
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter"  value="0" class="form-check-input" name="filterFeed" type="radio"  id="adminRecommendfilterALL" >
+                  </div>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+        </div>
+
+
+         <!-- list view start -->
+         <ul v-if="guide.layout=='1'"  class="list-group list-group-flush">
+          <li v-for="feed in feedArr" class="list-group-item post-card-container">
+
+            <div v-if="feed.pin=='1' || feed.highlight=='1' || (!!feed.ctaPrimaryLabel && !!feed.ctaPrimaryUrl) || (!!feed.ctaSecondaryLabel && !!feed.ctaSecondaryUrl)" class="post-signals">
+              <div v-if="feed.pin=='1'" class="signals-icon">
+                <i class="bi bi-pin-angle-fill"></i>
+              </div>
+
+              <div v-if="feed.highlight=='1'" class="signals-icon">
+                <i class="bi bi-stars highlight"></i>
+              </div>
+
+              <div v-if="!!feed.ctaPrimaryLabel && !!feed.ctaPrimaryUrl">
+                <a :href="feed.ctaPrimaryUrl" target="_blank">
+                  <button class="btn-cta-primary">
+                    <div class="btn-content">
+                      <i class="bi bi-globe me-1"></i>
+                        {{feed.ctaPrimaryLabel}}
+                    </div>
+                  </button>
+                </a>
+
+              </div>
+
+              <div v-if="!!feed.ctaSecondaryLabel && !!feed.ctaSecondaryUrl">
+                <a :href="feed.ctaSecondaryUrl" target="_blank">
+                  <button class="btn-cta-secondary">
+                    <div class="btn-content">
+                      <i class="bi bi-box-arrow-up-right me-1"></i>
+                      {{feed.ctaSecondaryLabel}}
+                    </div>
+                  </button>
+                </a>
+              </div>
+
+            </div>
+
+
+            <div class="post-list-wrp" :class="{'has-poster': !!feed.coverUrl}">
+
+              <div class="key-info">
+                
+                <div class="post-header">
+                  <a :href="'/fb/'+currentOch + '/' + feed.id + '?sandbox=' + sandbox" target="_blank"><h3 class="post-heading">{{feed.title}}</h3></a> 
+                </div>
+                
+                <a v-if="!!feed.preface" :href="'/fb/'+currentOch + '/' + feed.id + '?sandbox=' + sandbox" target="_blank">
+
+                  <div class="post-heading-sample-wrp">
+                     
+                     <p class="post-heading-sample">
+                      {{feed.preface}}
+                     </p>
+                  </div>
+
+                </a>
+
+       
+            
+
+              </div>
+              <div v-if="!!feed.coverUrl" class="poster">
+                <a :href="'/fb/'+currentOch + '/' + feed.id + '?sandbox=' + sandbox" target="_blank">
+                  <div class="imageContainer">
+                    <img :src="feed.coverUrl">
+                  </div>
+                </a>
+         
+              </div>
+
+         
+
+            </div>
+            <div class="post-list-footer">
+
+              <div class="author-info">
+                <div class="author-info-wrp">
+                  <span class="author">{{feed.author}}</span>
+                  <div class="postCreationTimestamp">{{formatDateV(feed.createAt)}}</div>
+                </div>
+              </div>
+
+            </div>
+
+          </li>
+
+
+        </ul>
+          <!-- list view end -->
+
+         <!-- grid view start -->
+         <div v-if="guide.layout=='0'" class="row g-2 g-md-special row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3">
+
+            <div v-for="feed in feedArr" class="col">
+              <div class="post-card-container">
+                <div class="post-header">
+                  <div class="author-info">
+                    <div class="author-info-wrp">
+                      <span class="author">{{feed.author}}</span>
+                      <div class="postCreationTimestamp">{{formatDateV(feed.createAt)}}</div>
+                    </div>
+                  </div>
+                  <a :href="'/fb/'+currentOch + '/' + feed.id + '?sandbox=' + sandbox" target="_blank"><h3 class="post-heading">{{feed.title}}</h3></a> 
+                </div>
+
+                <div class="post-body">
+                  <a :href="'/fb/'+currentOch + '/' + feed.id + '?sandbox=' + sandbox" target="_blank">
+                    <div class="imageContainer">
+                      <img v-if="!!feed.coverUrl" :src="feed.coverUrl">
+                      <div v-if="!feed.coverUrl" class="preview-content">
+                        <span>{{ !feed.preface ? "创作者很神秘，没撰写导语！🛋️" :  feed.preface }}</span>
+                      </div>
+                    </div>
+                  </a>
+                  <div v-if="feed.pin=='1' || feed.highlight=='1' || (!!feed.ctaPrimaryLabel && !!feed.ctaPrimaryUrl) || (!!feed.ctaSecondaryLabel && !!feed.ctaSecondaryUrl)" class="post-footer">
+                    
+                    <div  class="post-signals">
+                      <div v-if="feed.pin=='1'" class="signals-icon">
+                        <i class="bi bi-pin-angle-fill"></i>
+                      </div>
+    
+                      <div v-if="feed.highlight=='1'" class="signals-icon">
+                        <i class="bi bi-stars highlight"></i>
+                      </div>
+    
+                      <div v-if="!!feed.ctaPrimaryLabel && !!feed.ctaPrimaryUrl">
+                        <a :href="feed.ctaPrimaryUrl" target="_blank">
+                          <button class="btn-cta-primary">
+                            <div class="btn-content">
+                              <i class="bi bi-globe me-1"></i>
+                                {{feed.ctaPrimaryLabel}}
+                            </div>
+                          </button>
+                        </a>
+    
+                      </div>
+    
+                      <div v-if="!!feed.ctaSecondaryLabel && !!feed.ctaSecondaryUrl">
+                        <a :href="feed.ctaSecondaryUrl" target="_blank">
+                          <button class="btn-cta-secondary">
+                            <div class="btn-content">
+                              <i class="bi bi-box-arrow-up-right me-1"></i>
+                              {{feed.ctaSecondaryLabel}}
+                            </div>
+                          </button>
+                        </a>
+                      </div>
+    
+                    </div>
+                    
+                    
+                  </div>
+                </div>
+
+                
+
+              </div>
+            </div>
+            
+         </div>
+         <!-- grid view end -->
+
+        
+      </main>
+
+
+
+    </div>
+    <section class="modals">
+
+      <!-- new feed Modal -->
+      <div class="modal-container">
+        <div class="modal fullscreen-modal fade" id="newFeedModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered ">
+            <div class="modal-content text-color-dark">
+              <div class="modal-body">
+                <form onsubmit="return false">
+
+                <input v-model="newFeedObj.title" maxlength="32" class="form-control form-control-lg only-show-bottom mb-3" type="text" placeholder="标题">
+ 
+                <input v-model="newFeedObj.preface" maxlength="38" class="form-control  only-show-bottom preface mb-3" type="text" placeholder="导语" >
+
+                <div class="row g-3 mb-3 ">
+                  <div class="col">
+
+                    <div class="cta-item mb-3">
+                      <div class="input-group pb-1">
+                        <label for="primary-cta-desc" class="form-label">优选CTA标签(选填):</label>
+                        <input v-model="newFeedObj.ctaPrimaryLabel" placeholder="eg. 下载 、订阅" maxlength="6" type="text" class="form-control  cta-input" id="primary-cta-desc" autocomplete="off">
+                      </div>
+                      <div class="input-group">
+                        <label for="primary-cta-link" class="form-label">优选CTA链接(选填):</label>
+                        <input v-model="newFeedObj.ctaPrimaryUrl"  placeholder="https://yourlink.com" maxlength="588" type="text" class="form-control  cta-input" id="primary-cta-link" autocomplete="off">
+                      </div>
+                    </div>
+                    <div class="cta-item">
+                      <div class="input-group pb-1">
+                        <label for="secondary-cta-desc" class="form-label">次选CTA标签(选填):</label>
+                        <input v-model="newFeedObj.ctaSecondaryLabel" placeholder="eg. 下载 、订阅" type="text" class="form-control  cta-input" id="secondary-cta-desc" autocomplete="off">
+                      </div>
+
+                      <div class="input-group">
+                        <label for="secondary-cta-link" class="form-label">次选CTA链接(选填):</label>
+                        <input v-model="newFeedObj.ctaSecondaryUrl"  placeholder="https://yourlink.com" maxlength="588" type="text" class="form-control  cta-input" id="secondary-cta-link" autocomplete="off">
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="col feed-cover-col">
+                    
+                    <div class="feed-cover-container">
+                      <div  v-show="!!newFeedObj.feedCoverFileUrl" class="action-bar-container">
+                        <div class="action-bar">
+                          <button v-preventreclick @click="reSelectFeedCoverFileV" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-toggle="popover" data-bs-content="修改">
+                            <i class="bi bi-pencil-fill"></i>
+                          </button>
+                          <button v-preventreclick @click="removeFeedCoverFileV" type="button" style="color: #fa541c;" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover focus" data-bs-toggle="popover" data-bs-content="移除">
+                            <i class="bi bi-trash-fill"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div v-show="!newFeedObj.feedCoverFileUrl" class="uploadInput">
+                        <input @change="previewFeedCoverV($event)" id="file_cover" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;">
+
+                        <svg class="uploadIcon" aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M2 5a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v8.67c0 .12-.34.17-.39.06A2.87 2.87 0 0 0 19 12a3 3 0 0 0-2.7 1.7c-.1.18-.36.22-.48.06l-.47-.63a2 2 0 0 0-3.2 0L9.93 16.1l-.5-.64a1.5 1.5 0 0 0-2.35 0l-1.86 2.32A.75.75 0 0 0 5.81 19h5.69c.28 0 .5.23.54.5.17.95.81 1.68 1.69 2.11.11.06.06.39-.06.39H5a3 3 0 0 1-3-3V5Zm8.2.98c.23-.91-.88-1.55-1.55-.9a.93.93 0 0 1-1.3 0c-.67-.65-1.78-.01-1.55.9a.93.93 0 0 1-.65 1.12c-.9.26-.9 1.54 0 1.8.48.14.77.63.65 1.12-.23.91.88 1.55 1.55.9a.93.93 0 0 1 1.3 0c.67.65 1.78.01 1.55-.9a.93.93 0 0 1 .65-1.12c.9-.26.9-1.54 0-1.8a.93.93 0 0 1-.65-1.12Z" clip-rule="evenodd" class=""></path><path fill="currentColor" d="M19 14a1 1 0 0 1 1 1v3h3a1 1 0 0 1 0 2h-3v3a1 1 0 0 1-2 0v-3h-3a1 1 0 1 1 0-2h3v-3a1 1 0 0 1 1-1Z" class=""></path></svg>
+                      </div>
+                      <img v-show="!!newFeedObj.feedCoverFileUrl" id="cover_file_preview" :src="newFeedObj.feedCoverFileUrl">
+                    </div>
+               
+
+                  </div>
+
+                </div>
+
+
+                <div id="editor">
+
+                </div>
+    
+
+               
+                </form>
+
+              </div>
+
+              <div class="modal-footer btn-light">
+                <button v-preventreclick @click="closeNewFeedModalV" type="button" class="btn-reset">
+                  <div class="contents">全部清除</div>
+                </button>
+
+                <button v-preventreclick @click="publishNewFeedV" type="button" class="btn-save bgPrimaryBlue">发布内容</button>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </micro-app>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/apps/feedsboard/javascripts/feedsboard.js"></script>
+
+
+
+</body>
+</html>

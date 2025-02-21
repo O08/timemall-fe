@@ -31,7 +31,6 @@ const OasisAnnounceComponent = {
         }
     },
     created(){
-        this.loadAnnounceV();
         this.oasisId =  getQueryVariable("oasis_id");
     }
 }

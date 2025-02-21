@@ -31,3 +31,5 @@ app.config.compilerOptions.isCustomElement = (tag) => {
 const teicallaan = app.mount('#app');
 
 window.teicallaan = teicallaan;
+
+teicallaan.loadSubNav() // sub nav component .js init 

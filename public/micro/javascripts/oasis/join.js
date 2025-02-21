@@ -73,6 +73,8 @@ const joinOasis = app.mount('#app');
 
 window.joinOasis = joinOasis;
 
+joinOasis.loadSubNav() // sub nav component .js init 
+
 async function acceptAndJoinAOasis(joinId){
     const url="/api/v1/team/acceptOasisInvitation?id="+joinId;
     return await axios.put(url);

@@ -110,7 +110,7 @@ window.teamFinanceFlow = teamFinanceFlow;
 // init
 teamFinanceFlow.retrieveAlipayAccountsV();
 teamFinanceFlow.retrieveFinInfoV();
-
+teamFinanceFlow.loadSubNav() // sub nav component .js init 
 async function addNewAlipayAccount(dto){
     const url="/api/v1/team/addAlipayAccount";
     return await axios.put(url,dto);

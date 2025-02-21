@@ -258,138 +258,142 @@
 
         <div class="mt-5 data-tb-container">
 
-          <div class="table-container">
+          <div class="table-responsive">
 
+            <div class="table-wrp">
 
-          <table class="table table-sm table-hover align-middle">
-            <thead>
-              <tr>
-                <th class="col-snippet">摘要</th>
-                <th class="col-details">明细</th>
-                <th class="col-time">采集时间</th>
-                <th class="col-type">
-                  <div class="dropdown">
-                    <button class="btn data-tb-filter dropdown-toggle" type="button"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                      数据来源
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('')">
-                          <div style="width: 24px; height: 24px; display: block;">
-                            <span v-if="!open_data_pagination.param.fromWhere">✔</span>
-                          </div>
-                          <div>所有数据源</div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('user_need_story')">
-                          <div style="width: 24px; height: 24px; display: block;">
-                            <span v-if="open_data_pagination.param.fromWhere=='user_need_story'">✔</span>
-                          </div>
-                          <div>用户需求</div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('plan_search')">
-                          <div  style="width: 24px; height: 24px; display: block;">
-                            <span v-if="open_data_pagination.param.fromWhere=='plan_search'">✔</span>
-                          </div>
-                          <div>单品搜索</div>
-                        </a>
-                      </li>
-                      <li><a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('cell_search')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.fromWhere=='cell_search'">✔</span></div>特约搜索</a>
-                      </li>
-                      <li><a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('oasis_search')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.fromWhere=='oasis_search'">✔</span></div>部落搜索</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('talent_search')">
-                          <div style="width: 24px; height: 24px; display: block;">
-                            <span v-if="open_data_pagination.param.fromWhere=='talent_search'">✔</span>
-                          </div>
-                          <div>商务拓展搜索</div>
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('business_paper_search')">
-                          <div style="width: 24px; height: 24px; display: block;">
-                            <span v-if="open_data_pagination.param.fromWhere=='business_paper_search'">✔</span>
-                          </div>
-                          <div>商单搜索</div>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </th>
+              <table class="table table-sm table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th class="col-snippet">摘要</th>
+                    <th class="col-details">明细</th>
+                    <th class="col-time">采集时间</th>
+                    <th class="col-type">
+                      <div class="dropdown">
+                        <button class="btn data-tb-filter dropdown-toggle" type="button"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          数据来源
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('')">
+                              <div style="width: 24px; height: 24px; display: block;">
+                                <span v-if="!open_data_pagination.param.fromWhere">✔</span>
+                              </div>
+                              <div>所有数据源</div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('user_need_story')">
+                              <div style="width: 24px; height: 24px; display: block;">
+                                <span v-if="open_data_pagination.param.fromWhere=='user_need_story'">✔</span>
+                              </div>
+                              <div>用户需求</div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('plan_search')">
+                              <div  style="width: 24px; height: 24px; display: block;">
+                                <span v-if="open_data_pagination.param.fromWhere=='plan_search'">✔</span>
+                              </div>
+                              <div>单品搜索</div>
+                            </a>
+                          </li>
+                          <li><a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('cell_search')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.fromWhere=='cell_search'">✔</span></div>特约搜索</a>
+                          </li>
+                          <li><a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('oasis_search')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.fromWhere=='oasis_search'">✔</span></div>部落搜索</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('talent_search')">
+                              <div style="width: 24px; height: 24px; display: block;">
+                                <span v-if="open_data_pagination.param.fromWhere=='talent_search'">✔</span>
+                              </div>
+                              <div>数字名片搜索</div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex" v-preventreclick @click="retrieveSemiBySoruceV('business_paper_search')">
+                              <div style="width: 24px; height: 24px; display: block;">
+                                <span v-if="open_data_pagination.param.fromWhere=='business_paper_search'">✔</span>
+                              </div>
+                              <div>商单搜索</div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </th>
+    
+                    <th class="col-option">
+                      <div class="dropdown">
+                        <button class="btn data-tb-filter dropdown-toggle" type="button"
+                          data-bs-toggle="dropdown" aria-expanded="false">
+                          排序
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item d-flex" v-preventreclick @click="sortSemiDataV('1')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.sort=='1'">✔</span></div>最新采集</a>
+                          </li>
+                          <li><a class="dropdown-item d-flex" v-preventreclick @click="sortSemiDataV('2')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.sort=='2'">✔</span></div>更早采集</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr v-for="item in open_data_pagination.records">
+                    <td class="col-snippet">
+                      <span class="ellipsis-1">
+                        {{item.snippet}}
+                      </span>
+                    </td>
+                    <td class="col-details">
+                      <span class="ellipsis-1">
+                        {{item.details}}
+                      </span>
+                    </td>
+                    <td class="col-time">
+                      {{item.createAt}}
+                    </td>
+                    <td class="col-type">
+                      {{explainOpenDataFromWhereV(item.fromWhere)}}
+                    </td>
+                    <td class="col-option">
+                      <span @click="showFullViewDataModalV(item)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="全景查看">
+                        <i class="bi bi-eye"></i>
+                      </span>
+                    </td>
+    
+    
+                  </tr>
+    
+                </tbody>
+              </table>
+              <div v-show="isEmptyObjV(open_data_pagination.records)" class="empty-content-block">
+    
+                没有可用的内容！
+    
+              </div>
+    
+              <nav v-if="!!open_data_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" @click="pagePre(open_data_pagination)">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item" v-for="page in open_data_pagination.paging.items"
+                    :class="{'current-page-active': open_data_pagination.paging.current == page}"
+                    @click="pageGo(open_data_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(open_data_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
 
-                <th class="col-option">
-                  <div class="dropdown">
-                    <button class="btn data-tb-filter dropdown-toggle" type="button"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                      排序
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item d-flex" v-preventreclick @click="sortSemiDataV('1')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.sort=='1'">✔</span></div>最新采集</a>
-                      </li>
-                      <li><a class="dropdown-item d-flex" v-preventreclick @click="sortSemiDataV('2')"><div  style="width: 24px; height: 24px; display: block;"><span v-if="open_data_pagination.param.sort=='2'">✔</span></div>更早采集</a>
-                      </li>
-                    </ul>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr v-for="item in open_data_pagination.records">
-                <td class="col-snippet">
-                  <span class="ellipsis-1">
-                    {{item.snippet}}
-                  </span>
-                </td>
-                <td class="col-details">
-                  <span class="ellipsis-1">
-                    {{item.details}}
-                  </span>
-                </td>
-                <td class="col-time">
-                  {{item.createAt}}
-                </td>
-                <td class="col-type">
-                  {{explainOpenDataFromWhereV(item.fromWhere)}}
-                </td>
-                <td class="col-option">
-                  <span @click="showFullViewDataModalV(item)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="全景查看">
-                    <i class="bi bi-eye"></i>
-                  </span>
-                </td>
-
-
-              </tr>
-
-            </tbody>
-          </table>
-          <div v-show="isEmptyObjV(open_data_pagination.records)" class="empty-content-block">
-
-            没有可用的内容！
-
-          </div>
-
-          <nav v-if="!!open_data_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-            <ul class="pagination pagination-lg pagination-dark  border-0">
-              <li class="page-item" @click="pagePre(open_data_pagination)">
-                <a class="page-link" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item" v-for="page in open_data_pagination.paging.items"
-                :class="{'current-page-active': open_data_pagination.paging.current == page}"
-                @click="pageGo(open_data_pagination,page)"><a class="page-link">{{page}}</a></li>
-              <li class="page-item" @click="pageNext(open_data_pagination)">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+            </div>
+          
 
           </div>
           
@@ -516,7 +520,7 @@
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right"
       aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas"
           aria-label="Close"></button>
       </div>

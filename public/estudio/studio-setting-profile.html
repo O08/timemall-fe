@@ -297,7 +297,7 @@
                     <label for="input-identity-brand" class="form-label">
                       品牌名称
                     </label>
-                    <input type="text" id="input-identity-brand" maxlength="80" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
+                    <input type="text" id="input-identity-brand" maxlength="16" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
                   </div>
                 </span>
                 <p class="brand-title mb-2 mt-1">
@@ -539,7 +539,7 @@
                 </label>
                 <div class="col-sm-8">
                   <div class="wechatQr-upload-container dropzone-wrapper">
-                    <img  id="lastestWechatQr"  :src="contact.wechat">
+                    <img v-show="!!contact.wechat"  id="lastestWechatQr"  :src="contact.wechat">
                     <div class="dropzone-desc">
                       <i class="bi bi-cloud-plus"></i>
                     </div>
@@ -1047,7 +1047,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

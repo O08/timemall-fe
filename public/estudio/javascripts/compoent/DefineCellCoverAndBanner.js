@@ -155,6 +155,7 @@ async function uploadCellCover(appObj){
                 var croppedAvatarImage = appObj.thumbnailCoverCropper.getCroppedCanvas().toDataURL("image/png");
 
                 document.querySelector('#lastestCover').src = croppedAvatarImage;
+                document.querySelector('#lastestCover').style.display="block";
     
                 $("#overviewCoverModal").modal("hide");
                 document.querySelector('#coverFile').value = null;
@@ -246,6 +247,7 @@ function uploadCellIntroBanner(appObj){
                 var croppedBannerImage = appObj.bannerCropper.getCroppedCanvas().toDataURL("image/png");
 
                 document.querySelector('#lastestBanner').src = croppedBannerImage;
+                document.querySelector('#lastestBanner').style.display="block";
                 document.querySelector('#intro-banner-file').value = null;
     
                 $("#introBannerModal").modal("hide");

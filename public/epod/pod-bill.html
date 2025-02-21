@@ -6,7 +6,7 @@
     <meta name=”robots” content=”noindex,nofollow”>
     <meta http-equiv ='content-language' content ='zh-cn'>
 
-<link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
     <title>账单管理 - E-Pod</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
@@ -234,71 +234,76 @@
           <div class="tab-pane fade show active" id="waiting-tab-pane" role="tabpanel" aria-labelledby="waiting-tab" tabindex="0">
             
             <div class="table-responsive">
-              <table class="table table-sm  table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="option-th"></th>
-                    <th class="col-bill-item">项目</th>
-                    <th class="col-product">服务</th>
-                    <th class="col-brand">服务商</th>
-                    <th scope="col">费用</th>
-                    <th scope="col">入库时间</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                  <tr v-for="bill in waittingpagination.records">
-                    <td>
-                      <div class="option-container">
-                        <span class="option-payway me-4">
-                          <button @click="showBillPayFocusModalV(bill)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="支付">           
-                          <i class="bi bi-credit-card"></i>
-                          </button>
-                        </span>
-                      </div>
-                      
-                    </td>
-                    <td class="col-bill-item">
-                      <div class="ellipsis-1">
-                        {{bill.stage}}
-                      </div>
-                    </td>
-                    <td class="col-product">
-                      <div class="ellipsis-1">
-                        {{bill.service}}
-                      </div>
-                    </td>
-                    <td class="col-brand"> 
-                      <div class="ellipsis-1">
-                        {{bill.brand}}
-                      </div>
-                    </td>
-                    <td class="col-fee">{{bill.amount.toFixed(2)}}</td>
-                    <td class="col-addTime">{{bill.added}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(waittingpagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
+              <div class="table-wrp">
+
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="option-th"></th>
+                      <th class="col-bill-item">项目</th>
+                      <th class="col-product">服务</th>
+                      <th class="col-brand">服务商</th>
+                      <th scope="col">费用</th>
+                      <th scope="col">入库时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    <tr v-for="bill in waittingpagination.records">
+                      <td>
+                        <div class="option-container">
+                          <span class="option-payway me-4">
+                            <button @click="showBillPayFocusModalV(bill)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="支付">           
+                            <i class="bi bi-credit-card"></i>
+                            </button>
+                          </span>
+                        </div>
+                        
+                      </td>
+                      <td class="col-bill-item">
+                        <div class="ellipsis-1">
+                          {{bill.stage}}
+                        </div>
+                      </td>
+                      <td class="col-product">
+                        <div class="ellipsis-1">
+                          {{bill.service}}
+                        </div>
+                      </td>
+                      <td class="col-brand"> 
+                        <div class="ellipsis-1">
+                          {{bill.brand}}
+                        </div>
+                      </td>
+                      <td class="col-fee">{{bill.amount.toFixed(2)}}</td>
+                      <td class="col-addTime">{{bill.added}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(waittingpagination.records)" class="empty-content-block">
     
+                  没有可用的内容！
+      
+                </div>
+                <nav v-if="!!waittingpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(waittingpagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in waittingpagination.paging.items" :class="{'current-page-active': waittingpagination.paging.current == page}" 
+                          @click="pageGo(waittingpagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(waittingpagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!waittingpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(waittingpagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in waittingpagination.paging.items" :class="{'current-page-active': waittingpagination.paging.current == page}" 
-                        @click="pageGo(waittingpagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(waittingpagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              
             </div>
 
             
@@ -306,64 +311,69 @@
           <div class="tab-pane fade" id="paid-tab-pane" role="tabpanel" aria-labelledby="paid-tab" tabindex="0">
             <div class="table-responsive">
 
-              <table class="table table-sm  table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th>项目</th>
-                    <th>服务</th>
-                    <th scope="col">服务商</th>
-                    <th scope="col">费用</th>
-                    <th scope="col">优惠减免</th>
-                    <th scope="col">实际付款</th>
-                    <th scope="col">入库时间</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="bill in paidpagination.records">
-                    <td class="col-bill-item">
-                      <div class="ellipsis-1">
-                        {{bill.stage}}
-                      </div>
-                    </td>
-                    <td class="col-product">
-                      <div class="ellipsis-1">
-                        {{bill.service}}
-                      </div>
-                    </td>
-                    <td class="col-brand"> 
-                      <div class="ellipsis-1">
-                        {{bill.brand}}
-                      </div>
-                    </td>
-                    <td class="col-fee">{{bill.amount.toFixed(2)}}</td>
-                    <td class="col-fee">{{bill.promotionDeduction}}</td>
-                    <td class="col-fee">{{(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)}}</td>
-                    <td class="col-addTime">{{bill.added}}</td>
-                  </tr>
-                 
-                </tbody>
-              </table>
-              <div v-show="isEmptyObjV(paidpagination.records)" class="empty-content-block">
-  
-                没有可用的内容！
+              <div class="table-wrp">
+
+                <table class="table table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th>项目</th>
+                      <th>服务</th>
+                      <th scope="col">服务商</th>
+                      <th scope="col">费用</th>
+                      <th scope="col">优惠减免</th>
+                      <th scope="col">实际付款</th>
+                      <th scope="col">入库时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="bill in paidpagination.records">
+                      <td class="col-bill-item">
+                        <div class="ellipsis-1">
+                          {{bill.stage}}
+                        </div>
+                      </td>
+                      <td class="col-product">
+                        <div class="ellipsis-1">
+                          {{bill.service}}
+                        </div>
+                      </td>
+                      <td class="col-brand"> 
+                        <div class="ellipsis-1">
+                          {{bill.brand}}
+                        </div>
+                      </td>
+                      <td class="col-fee">{{bill.amount.toFixed(2)}}</td>
+                      <td class="col-fee">{{bill.promotionDeduction}}</td>
+                      <td class="col-fee">{{(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)}}</td>
+                      <td class="col-addTime">{{bill.added}}</td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(paidpagination.records)" class="empty-content-block">
     
+                  没有可用的内容！
+      
+                </div>
+                <nav v-if="!!paidpagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(paidpagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in paidpagination.paging.items" :class="{'current-page-active': paidpagination.paging.current == page}" 
+                          @click="pageGo(paidpagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(paidpagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
               </div>
-              <nav v-if="!!paidpagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                <ul class="pagination pagination-lg pagination-dark  border-0">
-                  <li class="page-item" @click="pagePre(paidpagination)">
-                    <a class="page-link"  aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <li class="page-item"  v-for="page in paidpagination.paging.items" :class="{'current-page-active': paidpagination.paging.current == page}" 
-                        @click="pageGo(paidpagination,page)"><a class="page-link">{{page}}</a></li>
-                  <li class="page-item" @click="pageNext(paidpagination)">
-                    <a class="page-link" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              
 
             </div>
             
@@ -485,7 +495,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

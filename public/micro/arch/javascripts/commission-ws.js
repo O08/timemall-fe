@@ -135,6 +135,7 @@ app.config.compilerOptions.isCustomElement = (tag) => {
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;
+tobActionPage.joinRoomInitV(); // rtm.js
 
 async function fetchCommissionDetail(commissionId){
     const url="/api/v1/team/commission_ws/{id}/detail".replace("{id}",commissionId);

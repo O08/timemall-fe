@@ -176,7 +176,7 @@ window.pMillstoneEdit= millstoneEditPage;
 
 // init 
 millstoneEditPage.loadWorkflowInfoV();
-
+millstoneEditPage.joinRoomInitV(); // rtm.js
 async function saveWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
     return axios.put(url,{workflow: millstoneEditPage.workflow});

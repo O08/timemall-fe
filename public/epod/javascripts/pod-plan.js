@@ -76,7 +76,7 @@ app.mixin(
 );
 const podPlanPage = app.mount('#app');
 window.cPodPlanPage = podPlanPage;
-
+podPlanPage.joinRoomInitV(); // rtm.js
 async function fetchPlanDetail(planOrderId){
     const url="/api/v1/web_estudio/cell/plan_order/{id}".replace("{id}",planOrderId);
     return await axios.get(url);

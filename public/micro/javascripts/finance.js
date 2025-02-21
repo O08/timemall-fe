@@ -4,7 +4,7 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 const RootComponent = {
     data() {
       return {
@@ -31,15 +31,17 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
+app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('col-')
 }
+
 const teamFinance = app.mount('#app');
 
 window.teamFinance = teamFinance;
 // init 
 teamFinance.loadFinanceBoardV();
-
+teamFinance.loadSubNav() // sub nav component .js init 
 async function getFinanceBillBoard(){
     const url = "/api/v1/team/finance_board";
   return await axios.get(url);

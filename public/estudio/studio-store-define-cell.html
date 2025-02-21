@@ -305,7 +305,7 @@
                           </label>
                           <div class="col-sm-8">
                             <div class="cover-upload-container dropzone-wrapper">
-                              <img  id="lastestCover" :src="adaptiveImageUriV(overview.cover)" >
+                              <img v-show="!!overview.cover" id="lastestCover" :src="adaptiveImageUriV(overview.cover)" >
                               <div class="dropzone-desc">
                                 <i class="bi bi-cloud-plus"></i>
                               </div>
@@ -503,7 +503,7 @@
                             <i class="bi bi-camera"></i>
                           </div>
                           <div class="cell-intro-cover">
-                            <img  id="lastestBanner" :src="adaptiveImageUriV(introCover)">
+                            <img v-show="!!introCover"  id="lastestBanner" :src="adaptiveImageUriV(introCover)">
                           </div>
                         </div>
                         <input @change="previewCellIntroBannerV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" id="intro-banner-file" class="dropzone">
@@ -787,7 +787,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">

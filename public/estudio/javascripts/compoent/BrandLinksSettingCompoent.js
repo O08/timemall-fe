@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isValidHttpUrl } from "/common/javascripts/util.js";
 const BrandLinksSettingCompoent = {
     data(){
         return {
@@ -64,23 +65,5 @@ function settingLinks(links){
    return updateLinksForBrand(dto)
   }
 
-  const isValidUrl = urlString=> {
-		var url;
-		try { 
-	      	url =new URL(urlString); 
-	    }
-	    catch(e){ 
-	      return false; 
-	    }
-	    return url.protocol === "http:" || url.protocol === "https:";
-	}
-function isValidHttpUrl(urlString){
-  var valid= isValidUrl(urlString);
-
-  if(!valid && urlString.includes('.') && !urlString.endsWith('.')){
-    valid = true;
-  }
-  return valid;
-}
 
   export default BrandLinksSettingCompoent;

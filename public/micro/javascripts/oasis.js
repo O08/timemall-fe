@@ -1,6 +1,5 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
-import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/micro/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import OasisAnnounceComponent from "/micro/javascripts/compoent/OasisAnnounceComponent.js"
@@ -8,182 +7,28 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
-import { copyValueToClipboard } from "/common/javascripts/share-util.js";
-
-
-import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
-let customAlert = new CustomAlertModal();
+import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
 
 const currentOasisId = getQueryVariable("oasis_id");
 
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 const RootComponent = {
+    components: {
+        oasisoptions: OasisOptionCtlComponent
+    },
     data() {
-
-    
         return {
             channelSort, oaisiChannelList,getChannelDataV,
-            brandAccount:{
-                drawable: 0.00
-            },
-            oasisAccount:{
-                drawable: 0.00
-            },
-            amount: "",
-            collectAccountAmount: "",
-            point: "",
-            inputPrivateCode: "",
-            oasisAvailableFriendsForInvation: [],
-            oasisFriendsQueryParam:{
-                q: "",
-                oasisId: ""
-            },
-            oasisUrl: window.location.href
+            
         }
     },
     methods: {
-        getAvailableFriendsWhenInvationV(){
-
-            this.oasisFriendsQueryParam.oasisId=this.oasisId; //from oasisAnnounceComponent.js
-            OasisApi.fetchFriendListNotInOasis(this.oasisFriendsQueryParam.q,this.oasisFriendsQueryParam.oasisId).then(response=>{
-                if(response.data.code==200){
-                    this.oasisAvailableFriendsForInvation=response.data.friend.records;
-                }
-            });
-
+        handleJoinSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
         },
-        inviteBrandV(friend){
-            OasisApi.inviteBrand(friend.brandId,this.oasisId).then(response=>{
-                if(response.data.code==200){
-                    friend.invited="1";// 标记为已邀请
-                }
-            });
-        },
-        closeTopUpOasisModelV(){
-            closeTopUpOasisModel();
-        },
-        topUptoOasisV(){
-            topUptoOasis(this.amount,this.oasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.closeTopUpOasisModelV();
-                    this.retrieveOasisFinInfoV();
-                    this.retrieveBrandFinInfoV();
-                    this.amount="";
-                    customAlert.alert("充值成功");
-                }else{
-                    customAlert.alert(response.data.message);
-                }
-            });
-        },
-        collectAccountV(){
-            collectAccount(this.collectAccountAmount,this.oasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.retrieveOasisFinInfoV();
-                    this.retrieveBrandFinInfoV();
-                    this.retrieveBrandPointV();
-                    this.collectAccountAmount="";
-                    customAlert.alert("收账成功");
-                }else{
-                    customAlert.alert(response.data.message);
-                }
-            });
-        },
-        retrieveOasisFinInfoV(){
-            retrieveOasisFinInfo(this.oasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.oasisAccount.drawable = response.data.billboard.drawable;
-                }
-            });
-        },
-        retrieveBrandFinInfoV(){
-            retrieveBrandFinInfo().then(response=>{
-                if(response.data.code == 200){
-                    this.brandAccount.drawable = response.data.billboard.drawable;
-                }
-            });
-        },
-        retrieveBrandPointV(){
-            const brandId = this.getIdentity().brandId; // Auth.getIdentity();
-            retrieveBrandPoint(this.oasisId,brandId).then(response=>{
-                if(response.data.code == 200){
-                    this.point = response.data.point;
-                }
-            });
-        },
-        showInvitationModalV(){
-            this.oasisFriendsQueryParam.q="";
-            this.getAvailableFriendsWhenInvationV();
-            $("#invitationModal").modal("show");
-
-        },
-        followOasisV(){
-            if(this.announce.canAddMember == '0'){
-               return
-            }
-            if(this.announce.canAddMember == '1' && this.announce.forPrivate=='1'){
-                $("#inputPrivateCodeModal").modal("show");
-                return
-            }
-            const privateCode="";
-            OasisApi.followOasis(this.oasisId,privateCode).then(response=>{
-                if(response.data.code==200){
-                    this.loadJoinedOases();
-                }
-                if(response.data.code==40030){
-                   customAlert.alert("部落已停止招新，加入失败！"); 
-                }
-                if(response.data.code==40031){
-                   customAlert.alert("邀请码校验不通过，加入失败！"); 
-                }
-                if(response.data.code==40009){
-                   customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
-                }
-            });
-        },
-        followPrivateOasisV(){
-            OasisApi.followOasis(this.oasisId,this.inputPrivateCode).then(response=>{
-                if(response.data.code==200){
-                    this.fetchViewerProfileV();
-                    this.loadJoinedOases();
-                    this.initMessageRecordV();
-                }
-                if(response.data.code==40030){
-                    customAlert.alert("部落已停止招新，加入失败！"); 
-                  }
-                  if(response.data.code==40031){
-                    customAlert.alert("邀请码校验不通过，加入失败！"); 
-                  }
-                  if(response.data.code==40009){
-                    customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
-                  }
-            });
-        },
-        unfollowOasisV(){
-            const currentOasisId = getQueryVariable("oasis_id");
-            unfollowOasisB(currentOasisId).then(response=>{
-                if(response.data.code==200){
-                    this.loadJoinedOases();
-                }
-            });
-        },
-        transformInputNumberV(event){
-            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
-            var min = Number(event.target.min);
-            var max = Number(event.target.max);
-            event.target.value = transformInputNumber(val, min, max);
-            if(val !== Number(event.target.value)){
-              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
-            }
-        },
-        inOasisV(){
-            return inOasisB(this.joinedoases);
-        },
-        copyOasisInvitationLinkToClipboardV(){
-
-            const content =  this.oasisUrl;
-            copyValueToClipboard(content);
-
+        handleUnfollowSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
         }
 
     },
@@ -200,13 +45,13 @@ const RootComponent = {
     }
 }
 let app =  createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('col-')
+    return tag.startsWith('col-') || tag.startsWith('top-')
 }
 
 
@@ -215,76 +60,7 @@ const teamOasis = app.mount('#app');
 window.teamOasis = teamOasis;
 
 // init 
-teamOasis.retrieveOasisFinInfoV();
-teamOasis.retrieveBrandFinInfoV();
-teamOasis.retrieveBrandPointV();
+teamOasis.userAdapter(); // auth.js init
+teamOasis.loadAnnounceV(); // oasis announce component .js init
+teamOasis.loadSubNav() // sub nav component .js init 
 
-
-async function topUp2Oasis(dto){
-  const url="/api/v1/team/top_up_to_oasis";
-  return axios.post(url,dto);
-}
-async function oasisCollectAccount(dto){
-    const url="/api/v1/team/oasis/collect_account";
-    return await axios.put(url,dto);
-}
-async function getOasisFinInfo(oasisId){
-    const url="/api/v1/team/oasis_finance_board?oasisId=" + oasisId;
-    return await axios.get(url);
-}
-async function getBrandFinInfo(){
-    const url= "/api/v1/team/finance_board";
-    return await axios.get(url);
-}
-async function getBrandPintInOasis(oasisId,brandId){
-   const url="/api/v1/team/point_in_oasis?oasisId="+ oasisId + "&brandId="+brandId;
-   return await axios.get(url);
-}
-
-async function unfollowOasis(oasisId){
-    const url ="/api/v1/team/oasis/unfollow?oasisId="+oasisId;
-    return await axios.delete(url);
-}
-function inOasisB(joinedoases){
-    if($.isEmptyObject(joinedoases)){
-        return;
-    }
-    const currentOasisId = getQueryVariable("oasis_id");
-   return  !!joinedoases.records.filter(e=>e.id === currentOasisId)[0]
-}
-function unfollowOasisB(oasisId){
-
-    return unfollowOasis(oasisId);
-}
-
-function retrieveOasisFinInfo(oasisId){
-    return getOasisFinInfo(oasisId);
-}
-function retrieveBrandFinInfo(){
-    return getBrandFinInfo();
-}
-function retrieveBrandPoint(oasisId,brandId){
-   return getBrandPintInOasis(oasisId,brandId);
-}
-
-
-function topUptoOasis(amount,oasisId){
-   const dto={
-    amount: amount,
-    oasisId: oasisId
-   }
-   return topUp2Oasis(dto);
-}
-function collectAccount(amount,oasisId){
-    const dto={
-        amount: amount,
-        oasisId: oasisId
-       }
-    return oasisCollectAccount(dto);
-}
-function closeTopUpOasisModel(){
-    $("#topUpToOasisModal").modal("hide");
-}
-function transformInputNumber(val,min,max){
-    return val < min ? "" : val > max ? max : val;
-  }

@@ -159,7 +159,7 @@ app.mixin(
 );  
 const millstoneAuditPage = app.mount('#app');
 window.cMillstoneAudit= millstoneAuditPage;
-
+millstoneAuditPage.joinRoomInitV(); // rtm.js
 async function saveWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
     return axios.put(url,{workflow: millstoneAuditPage.workflow});

@@ -11,6 +11,7 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import {CommissionTag} from "/common/javascripts/tm-constant.js";
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -20,6 +21,9 @@ const currentOasisId = getQueryVariable("oasis_id");
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 const RootComponent = {
+    components: {
+        oasisoptions: OasisOptionCtlComponent
+    },
     data() {
 
         return {
@@ -79,6 +83,12 @@ const RootComponent = {
         }
     },
     methods: {
+        handleJoinSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
+        },
+        handleUnfollowSuccessEventV(){
+            this.loadJoinedOases(); // sub nav component.js
+        },
         abortTaskV(commissionId){
             examineTask(commissionId,CommissionTag.ABOLISH).then(response=>{
                 if(response.data.code == 200){
@@ -251,23 +261,24 @@ const RootComponent = {
 }
 let app =  createApp(RootComponent);
 app.mixin(Pagination);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(OasisAnnounceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(CodeExplainComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('col-')
+    return tag.startsWith('col-') || tag.startsWith('top-')
 }
-
 
 const teamCommission = app.mount('#app');
 
 window.teamCommission = teamCommission;
 // init 
 teamCommission.pageInit(teamCommission.commissionTb_pagination);
-
+teamCommission.userAdapter(); // auth.js init
+teamCommission.loadAnnounceV(); // oasis announce component .js init
+teamCommission.loadSubNav() // sub nav component .js init 
 async function newCommission(dto){
   const url ="/api/v1/team/commission";
   return axios.put(url,dto);

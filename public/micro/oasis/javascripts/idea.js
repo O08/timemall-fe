@@ -5,13 +5,6 @@ import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 
 
-
-
-
-
-
-
-
 const RootComponent = {
     data() {
     },

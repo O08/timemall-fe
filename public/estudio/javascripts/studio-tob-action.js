@@ -111,6 +111,7 @@ app.mixin(
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;
+tobActionPage.joinRoomInitV(); // rtm.js
 
 async function fetchPaperDetail(paperId){
     const url="/api/v1/web_estudio/commercial_paper/{id}/detail".replace("{id}",paperId);

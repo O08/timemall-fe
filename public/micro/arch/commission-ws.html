@@ -23,13 +23,7 @@
           <div class="d-flex justify-content-between align-items-center hdlayout">
 
             <div class="d-flex align-items-center">
-              <div class="toggle-nav">
-                <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
-                  </svg>
-                </button>
-              </div>
+              
               <a href="/micro/discovery-oasis">
                 <div class="d-flex align-items-center logo">
                   <img src="/common/icon/logo_blv-final-white.png" alt="logo">
@@ -247,11 +241,6 @@
                         <section v-for="record in item.cards" class="event-wrapper new-order">
                           <label>
                             <span class="event-icon new-order">
-                              <!-- <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
-                                <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
-                                <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>                           -->
                                 <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                             </span>
                             <p class="event-header-base border-0">
@@ -538,8 +527,6 @@
   
                 <!-- role is viewer end -->
                    
-                   
-  
                   <!-- role is admin start -->
   
                   <div v-if="mpdc__paperDeliver.role==='admin'" class="deliver-record-container">
@@ -768,7 +755,7 @@
 
       <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
           <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">

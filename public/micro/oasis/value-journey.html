@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/micro/arch/stylesheets/teixcalaanli-arch.scss">
     <link rel="stylesheet" href="/micro/stylesheets/transparent.scss">
     <link rel="stylesheet" href="/micro/stylesheets/value-journey.scss">
+    <link rel="stylesheet" href="/micro/stylesheets/oasis-action-compoent.scss">
 
 
 </head>
@@ -48,7 +49,7 @@
                    :class="{'active': oasis.id==oasisId}">
                 <div class="oasis-avatar-wrapper">
                   <img class="oasis-avatar-tiny" 
-                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">  
+                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
                 </div>
               </div>
             </a>
@@ -94,8 +95,8 @@
           </div>
     </col-nav-main>
     <col-nav-sub>
-      <div class="nav-title ms-3 mt-3">
-        <h3>{{announce.title}}</h3>
+      <div>
+        <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce"  :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
       </div>
       <div class="nav-sub-container mt-3">
         <div>
@@ -110,7 +111,7 @@
             <span class="link-title">日常</span>  
           </a>
           <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-            <i class="bi bi-filetype-html"></i>
+            <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
               
             <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
           </a>
@@ -135,7 +136,7 @@
            </div>
         </div>
       </div>
-      <div class="nav-oasis-container pb-3">
+      <div class="nav-oasis-container">
         <div class="d-flex justify-content-between">
           <ul class="nav border-0 h-75">
             <li class="nav-item" role="presentation">
@@ -145,7 +146,7 @@
               <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>
             </li>
             <li class="nav-item active" role="presentation">
-              <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/transparent?oasis_id='+oasisId">数据</a>
+              <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/value-journey?oasis_id='+oasisId">数据</a>
             </li>
           </ul>
           <div class="toggle-nav me-3 ">
@@ -158,48 +159,90 @@
             </div>
           </div>
         </div>
-        
-        <div class="transparent-category d-flex justify-content-center h-25 mt-2">
-          <ul>
-            <li>
-              <a :href="'/micro/oasis/transparent?oasis_id='+oasisId" class="text-decoration-none">
-                <div class="transparent-category-item help-text-color d-flex align-items-center justify-content-center">活跃成员</div>
-              </a>
-            </li>
-            <li>
-              <a :href="'/micro/oasis/value-journey?oasis_id='+oasisId" class="text-decoration-none text-white">
-                <div class="transparent-category-item ms-2  d-flex align-items-center justify-content-center">指标</div>
-              </a>
-            </li>
-          </ul>
-        </div>
+
         
       </div>
-    <div class="mt-5 mx-5">
-        <div class="box-header">
-          <h5>部落概况</h5>
-          <button type="button" @click="refreshOasisIndV" v-preventreclick  class="btn btn-refresh"  data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="刷新数据">
-            <i class="bi bi-arrow-repeat"></i>
-          </button>
-        </div>
-        <table class="table table-sm table-dark table-hover align-middle">
-            <tbody>
-              <tr v-for="record in oasisInd.records">
-                <td>
-                  {{record.item}}
-                </td>
-                <td>{{record.val}}</td>
-                <td class="text-center">
-                </td>
-              </tr>
-              <div v-show="oasisInd.records.length==0" class="empty-content-block w-100">
-  
-                没有可用的内容！
-      
-              </div>
-            </tbody>
-        </table>
+    <div class="insight-container ">
+      <div class="mt-2 mx-3 d-flex ">
 
+        <div class="insight-menu">
+                  
+          <div class="transparent-category">
+            <ul>
+              <li>
+                <a :href="'/micro/oasis/value-journey?oasis_id='+oasisId" class="text-decoration-none text-white">
+                  <div class="transparent-category-item active"><i class="bi bi-bar-chart me-1"></i> 部落概况</div>
+                </a>
+              </li>
+              <li>
+                <a :href="'/micro/oasis/transparent?oasis_id='+oasisId" class="text-decoration-none">
+                  <div class="transparent-category-item help-text-color "><i class="bi  bi-heart-pulse me-1"></i> 活跃成员</div>
+                </a>
+              </li>
+    
+            </ul>
+          </div>
+
+          
+
+        </div>
+        <div class="menu-content">
+
+          
+        
+          <div class="small-device-menu">
+            <button class="btn  dropdown-toggle small-device-menu-trigger me-1" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="contents"><i class="bi bi-bar-chart me-1"></i> 部落概况</div>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a :href="'/micro/oasis/value-journey?oasis_id='+oasisId" class="dropdown-item">
+                  <i class="bi bi-check-lg me-1"></i> <i class="bi bi-bar-chart"></i> 部落概况
+                </a>
+              </li>
+              <li>
+                <a :href="'/micro/oasis/transparent?oasis_id='+oasisId" class="dropdown-item">
+                  <i class="bi bi-heart-pulse ms-4"></i> 活跃成员
+                </a>
+              </li>
+            </ul>
+
+          </div>
+
+
+          <div class="box-header">
+            <h5>运营数据</h5>
+            <button type="button" @click="refreshOasisIndV" v-preventreclick  class="btn btn-refresh"  data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="刷新数据">
+              <i class="bi bi-arrow-repeat"></i>
+            </button>
+          </div>
+          <table class="table table-sm table-dark table-hover align-middle">
+              <tbody>
+                <tr v-for="record in oasisInd.records">
+                  <td>
+                    {{record.item}}
+                  </td>
+                  <td>{{record.val}}</td>
+                  <td class="text-center">
+                  </td>
+                </tr>
+                <div v-show="oasisInd.records.length==0" class="empty-content-block w-100">
+    
+                  没有可用的内容！
+        
+                </div>
+              </tbody>
+          </table>
+
+        </div>
+
+
+        
+
+
+      </div>
+
+      
     </div>
 
      
@@ -215,7 +258,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到Bluvarri</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
