@@ -64,7 +64,15 @@ body {
   --bs-popover-arrow-border: #212529;
 }
 
-
+.join-now{
+  background-color: #248045;
+  border: none;
+  outline: none;
+}
+.join-now:hover{
+  background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
+  
+}
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
 @media only screen and (min-width: 1400px) {
   .toggle-nav{
@@ -75,9 +83,7 @@ body {
       width: 15%;
       left: 20%;
   }
-  .join-now{
-    background-color: #5390EC;
-}
+
 } 
 .toggle-nav{
   width: 50px;
@@ -173,9 +179,6 @@ body {
 }
 
 
-.join-now:hover{
-    background-color: #0460ea;
-}
 @media (max-width: 1400px) {
 
  
