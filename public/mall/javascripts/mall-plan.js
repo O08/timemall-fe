@@ -25,7 +25,7 @@ const RootComponent = {
       paging: {}, // 分页导航
       plangrid_pagination:{
         url: "/api/v1/web_mall/plans",
-        size: 20,
+        size: 24,
         current: 1,
         total: 0,
         pages: 0,
@@ -35,7 +35,8 @@ const RootComponent = {
           sort: '',
           sbu: '',
           location: '',
-          online: false
+          online: false,
+          loading: false,
         },
         responesHandler: (response)=>{
             if(response.code == 200){
@@ -43,16 +44,22 @@ const RootComponent = {
                 this.plangrid_pagination.current = response.plans.current;
                 this.plangrid_pagination.total = response.plans.total;
                 this.plangrid_pagination.pages = response.plans.pages;
-                this.plangrid_pagination.records = response.plans.records;
-                this.paging = this.doPaging({current: response.plans.current, pages: response.plans.pages, max: 5});
+
+                this.plangrid_pagination.records.push(...response.plans.records);
+
                 this.currentLocalCity=this.plangrid_pagination.param.location;
 
             }
+
+            this.plangrid_pagination.param.loading = false;
         }
     }
     }
   },
   methods: {
+    showMoreCellPlanV(){
+      showMoreCellPlan();
+    },
     filterCellPlanGridV(){
       filterCellGrid();
       this.uploadScienceDataV();
@@ -112,18 +119,42 @@ if(!!q){
 homePlan.pageInit(homePlan.plangrid_pagination);
 
 
- 
+function showMoreCellPlan(){
+  if(homePlan.plangrid_pagination.param.loading){
+    return;
+  }
+  homePlan.plangrid_pagination.current = homePlan.plangrid_pagination.current +  1;
+  homePlan.plangrid_pagination.param.loading = true;
+
+  homePlan.reloadPage(homePlan.plangrid_pagination);
+
+}
+
  function filterCellGrid(){
+  if(homePlan.plangrid_pagination.param.loading){
+    return;
+  }
+
   homePlan.plangrid_pagination.param.current = 1;
+  homePlan.plangrid_pagination.records = [];
+  homePlan.plangrid_pagination.param.loading = true;
+
+
   homePlan.reloadPage(homePlan.plangrid_pagination);
  }   
  function retrieveCellPlanGrid(){
+  if(homePlan.plangrid_pagination.param.loading){
+    return;
+  }
+
    const tmpq = homePlan.plangrid_pagination.param.q;
    const tmplocation = homePlan.plangrid_pagination.param.location;
 
    initQueryParam();
    homePlan.plangrid_pagination.param.q = tmpq;
    homePlan.plangrid_pagination.param.location = tmplocation;
+   homePlan.plangrid_pagination.param.loading = true;
+
 
    homePlan.reloadPage(homePlan.plangrid_pagination);
 
@@ -136,10 +167,12 @@ homePlan.pageInit(homePlan.plangrid_pagination);
     // budgetMax: 50,
     sort: '',
     location: '',
-    online: false
+    online: false,
+    loading: false
   }
+  homePlan.plangrid_pagination.records = [];
   homePlan.plangrid_pagination.current = 1;
-  homePlan.plangrid_pagination.size = 12;
+  homePlan.plangrid_pagination.size = 24;
  }
 
 
@@ -168,3 +201,6 @@ window.addEventListener("scroll", e => {
   }
 });
 
+$(function(){
+	$(".tooltip-nav").tooltip();
+});

@@ -44,6 +44,7 @@ mall-app {
   .header-container{
     padding-left: 24px;
     padding-right: 24px;
+    border-bottom: 1px solid #fff3;
   }
   nav{
     display: flex;
@@ -276,11 +277,23 @@ mall-app {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.link-view-url a{
-    text-decoration: none;
-    color: #1276e5;
 
-}
+.link-view-url a:link {
+    color: hsl(199.524 calc(1*100%) 49.412% /1);;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+
+  
+  .link-view-url  a:hover {
+    text-decoration:underline;
+    text-decoration-style: dashed;
+    text-decoration-color:hsl(199.524 calc(1*100%) 49.412% /1);;
+  }
+  
+
+
 
 @media (max-width: 1399.98px) {
     .intro-content-container{
@@ -302,6 +315,7 @@ mall-app {
 .brand-container{
     padding-bottom: 32px;
     padding-top: 32px;
+    padding-left: 1.3rem;
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -328,9 +342,9 @@ mall-app {
 }
  .brand-avator, .brand-avator img
 {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
+    width: 96px;
+    height: 96px;
+    border-radius: 10px;
     background-color: #2B2B2B;
 } 
 
@@ -353,11 +367,15 @@ mall-app {
 .brand-identity .brand-title{
     line-height: 16px;
     font-size: 12px;
+    margin-left: 4px;
+    margin-bottom: 4px;
 }
 .ip-location{
     line-height: 16px;
     font-size: 12px;
     color: #aaa;
+    margin-left: 4px;
+    margin-bottom: 0px;
 }
 .exeperince-millstone,.me-links,.me-skills 
 {
@@ -424,6 +442,7 @@ mall-app {
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
+    margin-top: 10px;
 }
 .plan-panel-header{
     display: flex;
@@ -541,6 +560,7 @@ mall-app {
   #cell-detail-tab{
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 12px;
+    box-shadow: 0px 2px 2px rgba(165, 165, 165, 0.25);
   }
   .can_opt_wrapper,.plan-panel-header{
     padding-top: 32px;
@@ -702,6 +722,7 @@ mall-app {
 .brand-container{
     align-items: baseline;
     padding-bottom: unset;
+    padding-left: .25rem;
 }
 .brand-identity .brand-title{
     font-size: 12px;
@@ -847,3 +868,4 @@ border-bottom: none;
 .nav_link.active span{
     color: #6495ed;
   }
+

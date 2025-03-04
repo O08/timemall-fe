@@ -764,7 +764,7 @@ file upload
   };
 }
 .table-wrp{
-  width: fit-content;
+  width: 100%;
 }
 /* Modern browsers with `scrollbar-*` support */
 @supports (scrollbar-width: auto) {
@@ -803,6 +803,7 @@ file upload
    }
     pt-app content main{
         padding: 0 12px;
+        padding-bottom: 48px;
     }
     .toggle-nav{
       display: none;

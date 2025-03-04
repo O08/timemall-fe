@@ -26,7 +26,7 @@ const RootComponent = {
       paging: {}, // 分页导航
       cellgrid_pagination:{
         url: "/api/v1/web_mall/cells",
-        size: 20,
+        size: 24,
         current: 1,
         total: 0,
         pages: 0,
@@ -36,7 +36,8 @@ const RootComponent = {
           sort: '',
           sbu: '',
           location: '',
-          online: false
+          online: false,
+          loading: false,
         },
         paramHandler: (info)=>{
             info.param.sbu = !this.input_sbu ? "hour" : this.input_sbu;
@@ -47,8 +48,9 @@ const RootComponent = {
                 this.cellgrid_pagination.current = response.cells.current;
                 this.cellgrid_pagination.total = response.cells.total;
                 this.cellgrid_pagination.pages = response.cells.pages;
-                this.cellgrid_pagination.records = response.cells.records;
-                this.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+
+                this.cellgrid_pagination.records.push(...response.cells.records);
+
                 this.currentLocalCity=this.cellgrid_pagination.param.location;
                 // capture cell indices data layer
                 var idsArr=[];
@@ -57,11 +59,15 @@ const RootComponent = {
                 });
                 uploadCellDataLayerWhenImpression(idsArr);
             }
+            this.cellgrid_pagination.param.loading = false;
         }
     }
     }
   },
   methods: {
+    showMoreCellV(){
+      showMoreCell();
+    },
     filterCellGridV(){
       filterCellGrid();
       this.uploadScienceDataV();
@@ -120,13 +126,26 @@ if(!!q){
 }
 home.pageInit(home.cellgrid_pagination);
 
+function showMoreCell(){
+  if(home.cellgrid_pagination.param.loading){
+    return;
+  }
+  home.cellgrid_pagination.current = home.cellgrid_pagination.current +  1;
+  home.cellgrid_pagination.param.loading = true;
 
+  home.reloadPage(home.cellgrid_pagination);
+
+}
  
  function filterCellGrid(){
-    home.cellgrid_pagination.param.current = 1;
+    home.cellgrid_pagination.current = 1;
+    home.cellgrid_pagination.records = [];
     home.reloadPage(home.cellgrid_pagination);
  }   
  function retrieveCellGrid(){
+  if(home.cellgrid_pagination.param.loading){
+    return;
+  }
    const tmpq = home.cellgrid_pagination.param.q;
    const tmplocation = home.cellgrid_pagination.param.location;
 
@@ -134,7 +153,7 @@ home.pageInit(home.cellgrid_pagination);
    home.cellgrid_pagination.param.q = tmpq;
    home.cellgrid_pagination.param.location = tmplocation;
 
-
+   home.cellgrid_pagination.param.loading = true;
    home.reloadPage(home.cellgrid_pagination);
 
  }
@@ -148,10 +167,12 @@ home.pageInit(home.cellgrid_pagination);
     sort: '',
     sbu: 'hour',
     location: '',
-    online: false
+    online: false,
+    loading: false,
   }
+  home.cellgrid_pagination.records = [];
   home.cellgrid_pagination.current = 1;
-  home.cellgrid_pagination.size = 12;
+  home.cellgrid_pagination.size = 24;
  }
 
  function transformSbu(sbu){
@@ -180,5 +201,9 @@ window.addEventListener("scroll", e => {
   } else {
     navbar.classList.remove('sticky');
   }
+});
+
+$(function(){
+	$(".tooltip-nav").tooltip();
 });
 

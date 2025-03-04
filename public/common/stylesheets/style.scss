@@ -1409,3 +1409,46 @@ table th{
   margin: 0;
   height: 100%;
 }
+
+// nav
+.nav-icon,.entry-nav svg{
+  height: 24px !important;
+  width: 24px !important;
+}
+.entry-nav{
+  background-color: unset ;
+  border: none;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+  border-radius: 20px !important;
+}
+.entry-nav:hover{
+  background-color: #2d2c2ce6;
+}
+.entry-nav svg{
+  fill: white;
+}
+.forward-icon {
+  width: 16px;
+  height: 16px;
+}
+.affiliate-icon {
+  color: #ff6464;
+}
+.logo_link {
+  text-decoration: none;
+}
+.logo_link span{
+  font-size: calc(1rem + .9vw);
+  font-weight: 500;
+  line-height: 1.2;
+  color: #fff;
+  
+}
+.custom-tooltip{
+  --bs-tooltip-bg: #fff;
+  --bs-tooltip-color: #000;
+  --bs-tooltip-padding-x: 12px;
+  --bs-tooltip-font-size: 12px;
+}

@@ -14,7 +14,6 @@ html,body,mall-app {
       display: flex;
       flex-direction: column;
       height: auto;
-      padding-bottom: 100px;
     }
 
   footer{
@@ -40,6 +39,7 @@ html,body,mall-app {
 .header-container{
   padding-left: 24px;
   padding-right: 24px;
+  border-bottom: 1px solid #fff3;
 }
 nav{
   display: flex;
@@ -307,6 +307,8 @@ nav{
     flex-direction: column;
     padding-bottom: 100px;
     padding-top: 25px;
+    background-color: #141414;
+    border-radius: 10px;
   }
   .service_not_found_description .sorry{
     font-size: large;
@@ -520,4 +522,41 @@ nav{
   }
   .nav_link.active span{
     color: #6495ed;
+  }
+
+  .show-more-row{
+    background-color: unset;
+    border: 0;
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .btn-show-more{
+    background-color: #248045;
+    border-radius: 16px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    width: 128px;
+    height: 32px;
+    display: flex;
+    color: #fff;
+    font-size: 14px;
+  }
+  .btn-show-more:hover{
+    background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
+  }
+  .section-service-grid{
+    padding-bottom: 48px;
+  }
+  .header-container nav{
+    height: 56px;
+  }
+  .header-container .dropdown-menu {
+    z-index: 2001;
   }

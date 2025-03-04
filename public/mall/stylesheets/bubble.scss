@@ -50,6 +50,7 @@
 .header-container{
   padding-left: 24px;
   padding-right: 24px;
+  border-bottom: 1px solid #fff3;
 }
 nav{
   display: flex;
@@ -132,7 +133,7 @@ nav{
 }
 
  .section-bubble-brand-info {
-    margin-top: 150px;
+    padding-top: 150px;
 } 
 .section-bubble-brand-info .nav-link
 {
@@ -196,7 +197,7 @@ nav{
   border-top-right-radius: unset;
 }
 .header-container{
-  height: 150px;
+  height: 56px;
   background-color: #000;
 }
 .header-container{
@@ -210,7 +211,7 @@ nav{
   background-color: #121212;
   /* Pay special attention here! */
   position: sticky;
-  top: 150px;
+  top: 56px;
   z-index: 1044;
 }
 .offcanvas-xxl{
@@ -315,7 +316,9 @@ nav{
   overflow: hidden;
 }
 @media (max-width: 576px) {
-
+.portrait{
+  margin-left: 16px;
+}
   .join-now,.button_login{
     width: 50px;
     padding: .125rem .2rem;
@@ -358,6 +361,7 @@ header,.header-container {
   margin-left: 0;
   padding-left: 0;
   margin-top: 32px;
+  padding-top: 0px;
 }
 
   #bubble-tab-content,.section-tabs{
@@ -386,4 +390,42 @@ header,.header-container {
 
   .nav_link.active span{
     color: #6495ed;
+  }
+
+  .show-more-row{
+    background-color: unset;
+    border: 0;
+    box-sizing: border-box;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .btn-show-more{
+    background-color: #248045;
+    border-radius: 16px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    width: 128px;
+    height: 32px;
+    display: flex;
+    color: #fff;
+    font-size: 14px;
+  }
+  .btn-show-more:hover{
+    background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
+  }
+  .header-container .dropdown-menu {
+    z-index: 2001;
+  }
+  .header-container nav{
+    height: 56px;
+  }
+  .fixed{
+    position: fixed;
+    width: 100%;
   }

@@ -128,7 +128,7 @@ body {
     background-color: #373b3e52;
 }
 .table-wrp{
-  width: fit-content;
+  width: 100%;
 }
 .button_user, .button_user_vue {
     color: #4cffa9;
@@ -799,6 +799,7 @@ file upload
   }
     pt-app content main{
         padding: 0 12px;
+        padding-bottom: 48px;
     }
     .toggle-nav{
       display: none;

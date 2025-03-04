@@ -551,3 +551,7 @@ function transformInputNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
   }
 
+  $(function(){
+	$(".tooltip-nav").tooltip();
+});
+

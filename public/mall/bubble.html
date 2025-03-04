@@ -27,40 +27,74 @@
           <div class="header-primary-container">
 
             <div class="logo-contaienr">
-              <a class="logo_link" aria-current="page" href="/">
-                <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+              <a href="/home" class="logo_link" >
+                <div class="d-flex align-items-center logo">
+                  <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                  <span class="mb-0 ms-2">心选商店</span>
+                </div>
               </a>
             </div>
 
-            <ul class="nav_links">
-              <li class="nav_link active">
-                <a  href="/home">
-                  <span>
-                    心选商店
-                  </span> 
-                </a>
-              </li>
-              <li class="nav_link">
-                <a  href="/estudio/studio-store"  data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="服务商业务区，快快乐乐工作，领取美美的薪水，薪动即行动，来上线你的第一个服务吧~"> 
-                  <span>
-                    薪动工作室
-                  </span>
-                </a>
-              </li>
-              <li class="nav_link">
-                <a  href="/epod/pod-millstone"  data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="消费者服务区，你购买到的服务甚至账单，都在这里面喔~"> 
-                  <span>
-                    我的定制
-                  </span>
-                </a>
-              </li>
-            
-            </ul>
 
 
           </div>
           
           <div class="appButton">
+
+            <div class="btn-group" style="margin-right: 8px;" >
+          
+              <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                    </svg>                  
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="/">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/micro/teixcalaanli">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹职场
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/home">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 心选商店
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/estudio/studio-store">
+                    <button class="dropdown-item" type="button"><i class="bi bi-laptop me-2"></i> 薪动工作室 </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/micro/affiliate/dashboard">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                     </button>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="/epod/pod-millstone">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-tags me-2"></i> 我的定制
+                     </button>
+                  </a>
+                </li>
+              </ul>
+  
+            </div>
 
             <a v-if="!user_already_login" class="btn btn-outline-dark button_login text-white" href="/login">
               登录
@@ -105,34 +139,7 @@
     </div>
      <!-- header section end -->
 
-     <!-- mobile  nav start -->
-     <div class="mobile-nav-container">
-      <ul class="nav_links">
-        <li class="nav_link active">
-          <a  href="/home">
-            <span>心选商店</span> 
-          </a>
-        </li>
-        <li class="nav_link">
-          <a  href="/estudio/studio-store" > 
-            <span>
-              薪动工作室
-            </span>
-          </a>
-        </li>
-        <li class="nav_link">
-          <a  href="/epod/pod-millstone"  > 
-            <span>
-              我的定制
-            </span>
-          </a>
-        </li>
-      
-      </ul>
-
-     </div>
-
-     <!-- mobile nav end -->
+     
     <content>
       <main>
         <!-- section bubble-->
@@ -151,7 +158,7 @@
           </div>
           
         </section>
-        <section class="section-tabs">
+        <section id="section-tabs" class="section-tabs">
           <!-- bubble tablist -->
           <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -243,6 +250,11 @@
                       
                     </div>
                   </div>
+                  <div v-if="queryParam.pages > queryParam.current" class="show-more-row">
+                    <button v-preventreclick @click="infiniteHandler" type="button"  class="btn btn-show-more" >
+                      显示更多
+                    </button>
+                  </div>
                 </section>
               </div>
               <div class="tab-pane fade" id="cooperation-tab-pane" role="tabpanel" aria-labelledby="cooperation-tab" tabindex="0">
@@ -319,7 +331,7 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小咘</h5>
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
         <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
