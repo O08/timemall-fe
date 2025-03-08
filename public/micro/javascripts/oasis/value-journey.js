@@ -10,6 +10,7 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+import {OasisFastLinkComponent} from '/micro/oasis/javascripts/oasis-fast-link-component.js'; 
 
 const currentOasisId = getQueryVariable("oasis_id");
 
@@ -17,7 +18,7 @@ const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelL
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
     },
     data() {
 
@@ -75,6 +76,7 @@ oasisValPage.retrieveOasisIndexV();
 oasisValPage.userAdapter(); // auth.js init
 oasisValPage.loadAnnounceV(); // oasis announce component .js init
 oasisValPage.loadSubNav() // sub nav component .js init 
+oasisValPage.loadFastLink() // announce  component .js init 
 
 async function getOasisIndex(oasisId){
     const url ="/api/v1/team/oasis_value_index?oasisId=" + oasisId;

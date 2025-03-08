@@ -50,7 +50,7 @@ const RootComponent = {
             OasisApi.loadAnnounce(oasisId).then(response=>{
                 if(response.data.code == 200){
                     this.announce = response.data.announce;
-                    if(!this.announce){
+                    if(!this.announce || this.announce.initiator!=this.getIdentity().brandId){
                         window.location.href="/micro/teixcalaanli";
                     }
                     this.putAnnounce=JSON.parse(JSON.stringify(this.announce));

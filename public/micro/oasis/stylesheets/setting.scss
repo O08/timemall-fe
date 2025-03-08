@@ -117,7 +117,6 @@ col-nav-main .oasis-avatar{
     line-height: 16px;
     padding: 2px 16px;
     color: #fff;
-    margin-top: 16px;
     min-height: 38px;
 }
 .btn-file-upload:hover{
@@ -330,6 +329,171 @@ col-content{
     color: #92b0b3;
     border: 2px dashed #91b0b3;
 }
+
+.feature-notice-detail{
+    box-sizing: border-box;
+    cursor: default;
+    font-size: 14px;
+    line-height: 18px;
+    color: hsl(210 calc(1*9.091%) 87.059% /1);
+    margin: 0 8px;
+}
+.authed-link{
+    border-radius: 5px;
+    border: 1px solid transparent;
+    border-color: #232428;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    padding: 20px;
+    background-color: #2e2e2e9d;
+}
+.authed-link-header{
+
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+img[alt] {
+    text-indent: -9999px;
+}
+.authed-link-header img{
+    box-sizing: border-box;
+    border-radius: 5px;
+    -webkit-user-drag: none;
+    width: 38px;
+    height: 38px;
+}
+.link-info{
+    overflow: hidden;
+    margin: 0 8px;
+    box-sizing: border-box;
+}
+.link-info h4{
+    font-size: 14px;
+    line-height: 1.2857142857142858;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    color: hsl(210 calc(1*9.091%) 87.059% /1);
+}
+.link-info-time{
+    font-size: 12px;
+    line-height: 1.3333333333333333;
+    font-weight: 400;
+    box-sizing: border-box;
+    color: hsl(210 calc(1*9.091%) 87.059% /1);
+}
+.btn-del-link{
+    user-select: none;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 2px 16px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    height: 32px;
+    min-width: 60px;
+    min-height: 32px;
+    width: auto;
+    cursor: pointer;
+    box-sizing: border-box;
+    color: #fff;
+    border-color: hsl(358.659 calc(1*87.317%) 59.804% /1);
+}
+.btn-del-link:hover{
+    background-color:  hsl(358.659 calc(1*87.317%) 59.804% /1);
+}
+.btn-contents{
+    margin: 0 auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.authed-link-body h5{
+    font-size: 12px;
+    line-height: 1.3333333333333333;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin-bottom: 8px;
+    opacity: .8;
+    box-sizing: border-box;
+    color: hsl(210 calc(1*9.259%) 78.824% /1);
+}
+.authed-link-desc{
+    box-sizing: border-box;
+    cursor: default;
+    font-size: 14px;
+    line-height: 18px;
+    color: hsl(210 calc(1*9.091%) 87.059% /1);
+}
+
+#addFastLinkModal .modal-content {
+    color: #61666d;
+    word-spacing: .5px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #6d757a;
+}
+#addFastLinkModal  .btn-close {
+    color: #fff;
+    box-shadow: none;
+    --bs-btn-close-bg: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23fff%22%20class%3D%22bi%20bi-x-circle%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2015A7%207%200%201%201%208%201a7%207%200%200%201%200%2014m0%201A8%208%200%201%200%208%200a8%208%200%200%200%200%2016%22%2F%3E%3Cpath%20d%3D%22M4.646%204.646a.5.5%200%200%201%20.708%200L8%207.293l2.646-2.647a.5.5%200%200%201%20.708.708L8.707%208l2.647%202.646a.5.5%200%200%201-.708.708L8%208.707l-2.646%202.647a.5.5%200%200%201-.708-.708L7.293%208%204.646%205.354a.5.5%200%200%201%200-.708%22%2F%3E%3C%2Fsvg%3E);
+    background-color: #343434;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+}
+#addFastLinkModal .modal-header {
+    border-color: #2f2f2f;
+}
+#addFastLinkModal .modal-footer {
+    background-color: #4e50584d;
+    border: none;
+}
+#focusModal .modal-dialog-scrollable .modal-content {
+    background-clip: unset;
+}
+#addFastLinkModal .link-logo-container{
+    background-color: #1e1f22;
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin-right: 10px;
+}
+.not-found-resource {
+    background-color: #141414;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    padding: 16px;
+    display: flex
+;
+}
+.not-found-resource img {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 145px;
+}
 @media only screen and (min-width: 1400px) {
     header{
         display: none;
@@ -390,5 +554,10 @@ col-content{
     }
     .cardPrimary{
        padding: 6px 12px;
+    }
+    #addFastLinkModal .link-logo-container,.link-logo-container img{
+        width: 72px;
+        height: 72px;
+        min-width: 72px;
     }
 }

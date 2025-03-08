@@ -62,7 +62,7 @@
               <li>
                 <a href="/micro/teixcalaanli">
                   <button class="dropdown-item" type="button">
-                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹职场
+                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
                    </button>
                 </a>
               </li>
@@ -306,6 +306,11 @@
                             <span v-preventreclick  @click="offlineCell(item.id)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="下线服务">
                               <i class="bi bi-caret-down-fill"></i>
                             </span>
+                            <span class="option-edit ms-3">
+                              <a :href="'/mall/cell-detail?cell_id=' + item.id + '&brand_id='+ getIdentity().brandId" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="预览服务">           
+                                <i class="bi bi-tag"></i>                  
+                              </a>
+                            </span>
                         </td>
                         <td class="col-product">
                           <span class="ellipsis-1">
@@ -378,6 +383,11 @@
                             
                             <span v-preventreclick  @click="onlineCell(item.id)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上线服务">
                               <i class="bi bi-caret-up-fill"></i>
+                            </span>
+                            <span class="option-edit ms-3">
+                              <a :href="'/estudio/studio-store-define-cell?option=edit&tab=general&cell_id=' + item.id" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务">           
+                                <i class="bi bi-pencil-square"></i>                    
+                              </a>
                             </span>
                         </td>
                         <td class="col-product">

@@ -14,7 +14,8 @@ const OasisApi = {
     inviteBrand,
     fetchFriendListNotInOasis,
     topUptoOasis,
-    retrieveOasisFinInfo
+    retrieveOasisFinInfo,
+    fetchFastLinks
 }
 async function putAnnounce(oasisId,files){
     var fd = new FormData();
@@ -120,5 +121,11 @@ function followOasis(oasisId,privateCode){
     }
     return joinOasis(dto);
 
+}
+
+function fetchFastLinks(id){
+
+    const url = "/api/v1/oasis/{id}/fast_link".replace("{id}",id);
+    return axios.get(url);
 }
 export default OasisApi;

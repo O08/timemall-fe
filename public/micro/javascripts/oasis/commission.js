@@ -12,6 +12,7 @@ import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-co
 import {CommissionTag} from "/common/javascripts/tm-constant.js";
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
+import {OasisFastLinkComponent} from '/micro/oasis/javascripts/oasis-fast-link-component.js'; 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -22,7 +23,7 @@ const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelL
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
     },
     data() {
 
@@ -279,6 +280,7 @@ teamCommission.pageInit(teamCommission.commissionTb_pagination);
 teamCommission.userAdapter(); // auth.js init
 teamCommission.loadAnnounceV(); // oasis announce component .js init
 teamCommission.loadSubNav() // sub nav component .js init 
+teamCommission.loadFastLink() // announce  component .js init 
 async function newCommission(dto){
   const url ="/api/v1/team/commission";
   return axios.put(url,dto);

@@ -1,0 +1,118 @@
+.fast-link-container{
+    height: 170px;
+    padding-left: 12px;
+    padding-right: 12px;
+
+}
+.fast-link-container-wrp{
+    border: 1px dashed #fff3;
+    padding: 8px;
+    border-radius: 2px;
+    min-height: 158px;
+}
+.nav-title{
+    border-bottom: 1px solid #000;
+    padding-bottom: 12px;
+    height: 50px;
+}
+.fast-links{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-sizing: border-box;
+    display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.fast-links-item{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.fast-links-item-wrp{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: stretch;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    grid-row-gap: 8px;
+
+}
+.fast-link-logo{
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+.fast-link-logo-link{
+    box-shadow: inset 0 0 0 1px rgba(53, 71, 90, .2);
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 100%;
+    padding: 0;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+.fast-link-logo-wrp{
+    display: flex;
+    height: 100%;
+    border-radius: 4px;
+    font-size: 0;
+    margin: 0;
+    position: relative;
+}
+.fast-link-logo-wrp::before{
+    content: "";
+    display: inline-block;
+    padding: 50% 0;
+    pointer-events: none;
+    width: 0;
+}
+.fast-link-logo-wrp::after{
+    border-radius: 4px;
+    bottom: 1px;
+    content: "";
+    left: 1px;
+    pointer-events: none;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    transition: box-shadow .2sease-in-out;
+}
+.fast-link-logo-wrp img{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    object-fit: cover;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.fast-link-name-content{
+    display: contents;
+}
+.fast-link-name-content-wrp{
+    max-width: 40px;
+}
+.fast-link-name-content-wrp p{
+    -webkit-line-clamp: 1;
+    line-height: 18px;
+    text-align: center;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-size-adjust: none;
+    font-weight: 400;
+    margin: 0;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+    font-size: 8px;
+    color: #c3bfbf;
+}

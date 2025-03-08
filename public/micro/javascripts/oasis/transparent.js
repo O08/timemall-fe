@@ -10,13 +10,15 @@ import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {OasisFastLinkComponent} from '/micro/oasis/javascripts/oasis-fast-link-component.js';
+
 const currentOasisId = getQueryVariable("oasis_id");
 
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
     },
     data() {
 
@@ -70,6 +72,7 @@ teamOasisMemberPage.loadMemberV();
 teamOasisMemberPage.userAdapter(); // auth.js init
 teamOasisMemberPage.loadAnnounceV(); // oasis announce component .js init
 teamOasisMemberPage.loadSubNav() // sub nav component .js init 
+teamOasisMemberPage.loadFastLink() // announce  component .js init 
 
 async function getMember(oasisId){
     const url="/api/v1/team/member?oasisId=" + oasisId;

@@ -17,6 +17,7 @@ import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 
 import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
+import {OasisFastLinkComponent} from '/micro/oasis/javascripts/oasis-fast-link-component.js'; 
 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -34,7 +35,7 @@ const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelL
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
     },
     data() {
       return {
@@ -161,6 +162,10 @@ oasisGroupMsg.loadAnnounceV(); // oasis announce component .js init
 oasisGroupMsg.loadSubNav() // sub nav component .js init 
 // oasisGroupMsg.sseInitV();// Ssecompoent.js
 oasisGroupMsg.initMessageRecordV(); // stemchatcomponent.js
+
+oasisGroupMsg.loadFastLink() // announce  component .js init 
+
+
 // member option menu
 
 //refer menu div

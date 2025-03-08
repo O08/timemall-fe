@@ -11,7 +11,7 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 
 import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/micro/oasis/javascripts/oasis-option-ctl-component.js'; 
-
+import {OasisFastLinkComponent} from '/micro/oasis/javascripts/oasis-fast-link-component.js'; 
 
 const currentOasisId = getQueryVariable("oasis_id");
 const currentOch=getQueryVariable('och');
@@ -22,7 +22,7 @@ const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelL
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
     },
     data() {
 
@@ -74,6 +74,7 @@ window.oasisGroupMsgPage = mini;
 mini.userAdapter(); // auth.js init
 mini.loadAnnounceV(); // oasis announce component .js init
 mini.loadSubNav() // sub nav component .js init 
+mini.loadFastLink() // announce  component .js init 
 
 watch(oaisiChannelList, async (newQuestion, oldQuestion) => {
     if (!!oaisiChannelList) {
