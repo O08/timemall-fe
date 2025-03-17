@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>admin| gallery</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/gallery/stylesheets/admin.scss">
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+
+    
+    <div class="app-container">
+      <div class="channel-head">
+        <img class="channel-avatar" src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/app/card-app-logo.svg">
+        <div class="channel-title">简单卡片频道设置</div>
+      </div>
+      <div class="channel-setting">
+
+        <div class="channel-title pb-3">
+          <div class="field-wrp">
+            <div class="label-color field-label">频道名称</div>
+            <div class="inputWrapper">
+              <input v-model="general.channelName" @change="generalHadChange=true" type="text" class="inputDefault" maxlength="10">
+            </div>
+          </div>
+        </div>
+
+        <div class="channel-desc pb-4">
+          <div class="field-wrp">
+            <div class="label-color field-label">简介</div>
+            <div class="inputWrapper">
+              <input  v-model="general.channelDesc" @change="generalHadChange=true" type="text" class="inputDefault" maxlength="80">
+            </div>
+          </div>
+        </div>
+
+        <div class="channel-desc pb-3">
+            <div class="field-wrp">
+              <div class="label-color field-label">默认主题</div>
+              <div class="layout-item-box">
+
+                <div class="form-check form-check-inline">
+                    <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedLayout" id="feedLayout_art" value="art"  v-model="guide.layout">
+                    <label class="form-check-label" for="feedLayout_art">星空艺术</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                  <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedLayout" id="feedLayout_book" value="book" v-model="guide.layout">
+                  <label class="form-check-label" for="feedLayout_book">优雅书库</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedLayout" id="feedLayout_music" value="music"  v-model="guide.layout">
+                  <label class="form-check-label" for="feedLayout_music">音乐专辑</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedLayout" id="feedLayout_video" value="video"  v-model="guide.layout">
+                    <label class="form-check-label" for="feedLayout_video">经典视频</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedLayout" id="feedLayout_film" value="film"  v-model="guide.layout">
+                    <label class="form-check-label" for="feedLayout_film">电影风格</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedLayout" id="feedLayout_design" value="design"  v-model="guide.layout">
+                    <label class="form-check-label" for="feedLayout_design">前卫设计</label>
+                </div>
+ 
+
+              </div>
+              
+  
+            </div>
+          </div>
+
+        <div class="channel-desc mb-3">
+            <div class="field-wrp">
+              <div class="label-color field-label">内容策略</div>
+              <div class="form-check form-check-inline">
+                <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedPostStrategy" id="postStrategy_All" value="1" v-model="guide.postStrategy">
+                <label class="form-check-label" for="postStrategy_All">允许成员创建内容</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input v-preventreclick  @change="modifyChannelGuideInfoV" class="form-check-input" type="radio" name="feedPostStrategy" id="postStrategy_Admin" value="2" v-model="guide.postStrategy">
+                <label class="form-check-label" for="postStrategy_Admin">仅允许管理员创建内容</label>
+              </div>
+            </div>
+        </div>
+
+        
+
+        <button @click="modifyChannelGeneralInfoV" :class="{'disabled': !general.channelName || !general.channelDesc || !generalHadChange, 
+        'btn-save': !!general.channelName && !!general.channelDesc && generalHadChange ,
+        'btn-secondary': !general.channelName || !general.channelDesc || !generalHadChange }" v-preventreclick  type="button" class="btn"><div class="btn-file-upload-wrp">保存更改</div></button>
+
+      </div>
+
+    </div>
+    
+  </micro-app>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/apps/gallery/javascripts/admin.js"></script>
+
+
+
+</body>
+</html>

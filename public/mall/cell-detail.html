@@ -197,15 +197,15 @@
                     </div>
 
 
-                    <div class="opt_item_container d-flex flex-column justify-content-center">
+                    <div v-if="!!brandProfile.pdOasisId" class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
-                        <a :href="'/micro/arch/channel-0002?friend='+ hostingPartner" target="_blank">
+                        <a :href="'/micro/oasis/index?oasis_id='+brandProfile.pdOasisId" target="_blank">
                           <button  class="btn btn-dark  copy-link d-flex justify-content-center">
-                            <i class="bi bi-slash-circle"></i>
+                            <i class="bi bi-people"></i>
                           </button>
                         </a>
                       </div>
-                      <span class="opt_item_desc">接线员</span>
+                      <span class="opt_item_desc">社区</span>
                     </div>
 
                     

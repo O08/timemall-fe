@@ -48,6 +48,15 @@ app.get('/fb/:och/:feedId', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/feedsboard/feed.html")        //设置/ 下访问文件位置
 })
 
+app.get('/apps/gallery/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/gallery/gem.html")        //设置/ 下访问文件位置
+})
+
+app.get('/apps/gallery/admin', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/gallery/admin.html")        //设置/ 下访问文件位置
+})
+
+
 // match @abc @bcdddd,for brand handle mapping
 app.get( /^\/@/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置

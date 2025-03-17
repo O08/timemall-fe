@@ -95,23 +95,23 @@ export function Ftime (timespan) {
     }
     //大于一分钟小于一小时
     else if (60 < milliseconds && milliseconds <= 60 * 60) {
-        timeSpanStr = Math.ceil((milliseconds / (60))) + '分钟前';
+        timeSpanStr = Math.ceil((milliseconds / (60))) + ' 分钟前';
     }
     //大于一小时小于等于一天
     else if (60 * 60 < milliseconds && milliseconds <= 60 * 60 * 24) {
-        timeSpanStr = Math.ceil(milliseconds / (60 * 60)) + '小时前';
+        timeSpanStr = Math.ceil(milliseconds / (60 * 60)) + ' 小时前';
     }
     //大于一天小于等于15天
     else if (60 * 60 * 24 < milliseconds && milliseconds <= 60 * 60 * 24 * 30) {
-        timeSpanStr = Math.ceil(milliseconds / (60 * 60 * 24)) + '天前';
+        timeSpanStr = Math.ceil(milliseconds / (60 * 60 * 24)) + ' 天前';
     }
     //大于一个月小于一年
     else if (60 * 60 * 24 * 30 < milliseconds && milliseconds <= 60 * 60 * 24 * 30 * 12){
-        timeSpanStr = Math.ceil(milliseconds / (60 * 60 * 24 * 30)) + '个月前';
+        timeSpanStr = Math.ceil(milliseconds / (60 * 60 * 24 * 30)) + ' 个月前';
     }
     //超过一年显示
     else {
-        timeSpanStr = year + '年' + month + '月' + day + '日 ' + hour + ':' + minute;   
+        timeSpanStr = Math.ceil(milliseconds / (60 * 60 * 24 * 30 * 12)) + ' 年前';
     }
     return timeSpanStr;
 }

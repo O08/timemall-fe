@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>简单卡片</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/gallery/stylesheets/gem.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container"  :class="{'sandbox': sandbox=='1' }">
+      <main>
+
+        <div id="nav-searchform" >
+          <div class="nav-search-btn">
+            <i class="bi bi-search"></i>
+          </div>
+          <div class="nav-search-content">
+            <input  v-model="feedList_pagination.param.q" @keyup.enter.native="retrieveFeedListV" class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+              x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="搜索内容" >
+          </div>
+          <div class="btn-wrp">
+            <button  :class="{'btn btn-secondary disabled': guide.postStrategy=='2' && !isChannelAdminRoleV()}" v-preventreclick @click="showNewCardModalV" class="btn-tm-primary">
+              <div class="btn-content">
+                <i class="bi bi-file-earmark-plus me-1"></i>
+                  新帖
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div class="tagsContainer">
+
+          <div class="dropdown">
+            <a class="btn-dropdown me-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-arrow-down-up me-1"></i>查看&过滤
+            </a>
+          
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item groupLabel">            
+                  排序
+                </a>
+              </li>
+
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="sortHot">
+                      内容热度
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.sort"  value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="sortCreateTime">
+                      发帖日期
+                    </label>
+                    <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"  value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                  </div>
+                </a>
+              </li>
+              
+              <div class="separator"></div>
+              <li>
+                <a class="dropdown-item groupLabel">            
+                  过滤
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="feedLinkAvailable">
+                      正常访问内容
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter"  value="1" class="form-check-input" name="filterFeed" type="radio"  id="feedLinkAvailable" >
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="feedLinkUnavailable">
+                      已失效内容
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter"  value="0" class="form-check-input" name="filterFeed" type="radio"  id="feedLinkUnavailable" >
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item">
+                  <div class="form-check form-check-reverse">
+                    <label class="form-check-label" for="feedLinkAll">
+                      全部内容
+                    </label>
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter"  value="" class="form-check-input" name="filterFeed" type="radio"  id="feedLinkAll" >
+                  </div>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+
+        </div>
+
+  
+        <div class="content-container">
+          <!-- mode-book start -->
+          <div v-if="guide.layout=='book'" class="row mode-book g-2 row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-8">
+            <div v-for="card in feedArr"  class="col">
+              <div class="cover-container" :class="{'resource-missing-border': card.available == '0'}">
+                <div class="box-header">
+                  <div class="box-action">
+                    <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="复制链接">
+                      <i class="bi bi-copy"></i>
+                    </button>
+                    <button v-show="card.available=='1'" v-preventreclick  @click="markResouceV(card,'0')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="标记内容已失效">
+                      <i class="bi bi-sign-no-right-turn"></i>
+                    </button>
+                    <button v-show="card.available=='0'" v-preventreclick  @click="markResouceV(card,'1')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="恢复访问">
+                      <i class="bi bi-sign-intersection-y"></i>
+                    </button>
+                    <button v-show="isChannelAdminRoleV() || isFeedAuthorRoleV(card.authorBrandId)" v-preventreclick  @click="showDeleteFocusModalV(card.id)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="移除内容">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="volume"></div>
+                <a @click="captueFeedDataV(card.id)" :href="card.linkUrl" target="_blank">
+                  <img  :src="adaptiveImageUriV(card.coverUrl)">
+                </a>
+              </div>
+
+            </div>
+
+           
+
+            
+
+          </div>
+          <!-- mode-book end -->
+
+          <!-- mode-music start -->
+          <div v-if="guide.layout=='music'" class="row mode-music g-1 row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-12">
+            
+            <div v-for="card in feedArr"  class="col">
+             
+              <div class="music-box">
+                <div class="music-cover-container">
+                  <div class="box-header">
+                    <div class="box-action">
+                      <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="复制链接">
+                        <i class="bi bi-copy"></i>
+                      </button>
+                      <button v-show="card.available=='1'" v-preventreclick  @click="markResouceV(card,'0')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="标记内容已失效">
+                        <i class="bi bi-sign-no-right-turn"></i>
+                      </button>
+                      <button v-show="card.available=='0'" v-preventreclick  @click="markResouceV(card,'1')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="恢复访问">
+                        <i class="bi bi-sign-intersection-y"></i>
+                      </button>
+                      <button v-show="isChannelAdminRoleV() || isFeedAuthorRoleV(card.authorBrandId)" v-preventreclick  @click="showDeleteFocusModalV(card.id)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="移除内容">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="music-cover-box">
+                     <div>
+                      <a @click="captueFeedDataV(card.id)" :href="card.linkUrl" target="_blank">
+                        <img  :src="adaptiveImageUriV(card.coverUrl)">
+                      </a>
+                     </div>
+                  </div>
+                </div>
+                <div class="music-footer">
+                  <div class="music-info">
+                    <p>
+                      <span class="music-title">
+                        <span  :class="{'resource-missing': card.available == '0'}">{{card.title}}</span>
+                      </span>
+                    </p>
+                  </div>
+                  <div></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            
+
+
+          </div>
+
+
+          <!-- mode-music end -->
+
+          <!-- mode-video start -->
+
+          <div v-if="guide.layout=='video'" class="row mode-video gx-3 gy-4 row-cols-2 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
+            <div v-for="card in feedArr"  class="col">
+              <div class="video-media">
+                <div class="vidoe-thumbnail">
+                  <a @click="captueFeedDataV(card.id)" :href="card.linkUrl" target="_blank">
+                    <img  :src="adaptiveImageUriV(card.coverUrl)">
+                  </a>
+                </div>
+                <div class="video-footer">
+                  <div class="video-detail">
+                    <h3 class="viedo-title" :class="{'resource-missing': card.available == '0'}">{{card.title}}</h3>
+                    <div class="video-meta">
+                      <span>{{card.views == "0" ? "" : formatCmpctNumberV(card.views) + " 浏览 • " }} {{getPublishTimeV(card.createAt)}}</span>
+                    </div>
+                  </div>
+                  <div   class="dropdown-center">
+                    <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+          
+                      <div class="feed-actions">
+
+
+                        <div class="commmon-user w-100">
+                          <div class="del_post">
+                            <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" class="btn-del_post"><i class="bi bi-copy me-1"></i> 复制链接</button>
+                          </div>
+                          <div v-show="card.available=='1'" class="del_post">
+                            <button v-preventreclick  @click="markResouceV(card,'0')"   class="btn-del_post"><i class="bi bi-sign-no-right-turn me-1"></i> 标记内容已失效</button>
+                          </div>
+                          <div v-show="card.available=='0'" class="del_post">
+                            <button v-preventreclick  @click="markResouceV(card,'1')"   class="btn-del_post"><i class="bi bi-sign-intersection-y me-1"></i> 恢复访问</button>
+                          </div>
+                        </div>
+                
+                        <div v-if="isChannelAdminRoleV()" class="admin-menu-only">
+                          <div class="del_post">
+                            <button v-show="isChannelAdminRoleV() || isFeedAuthorRoleV(card.authorBrandId)" v-preventreclick  @click="showDeleteFocusModalV(card.id)" class="btn-del_post"><i class="bi bi-trash me-1"></i> 移除内容</button>
+                          </div>
+                        </div>
+          
+                
+                      </div>
+                      
+                    </ul>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+           
+
+          </div>
+
+          <!-- mode-video end -->
+
+          <!-- mode-film start -->
+          <div v-if="guide.layout=='film'" class="row mode-film gx-3 gy-5 row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-8">
+            <div  v-for="card in feedArr"  class="col">
+             
+              <div class="film-box">
+                <div class="film-thumbnail">
+                  <div class="box-header">
+                    <div class="box-action">
+                      <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="复制链接">
+                        <i class="bi bi-copy"></i>
+                      </button>
+                      <button v-show="card.available=='1'" v-preventreclick  @click="markResouceV(card,'0')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="标记内容已失效">
+                        <i class="bi bi-sign-no-right-turn"></i>
+                      </button>
+                      <button v-show="card.available=='0'" v-preventreclick  @click="markResouceV(card,'1')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="恢复访问">
+                        <i class="bi bi-sign-intersection-y"></i>
+                      </button>
+                      <button v-show="isChannelAdminRoleV() || isFeedAuthorRoleV(card.authorBrandId)" v-preventreclick  @click="showDeleteFocusModalV(card.id)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="移除内容">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <a @click="captueFeedDataV(card.id)" :href="card.linkUrl" target="_blank">
+                    <img  :src="adaptiveImageUriV(card.coverUrl)">
+                  </a>
+                </div>
+                <div class="film-meta">
+                  <div class="film-title" :class="{'resource-missing': card.available == '0'}">
+                    {{card.title}}
+                  </div>
+                  <div class="film-desc">
+                    {{card.subtitle}}
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- mode-film end -->
+
+          <!-- mode-art start -->
+          <div v-if="guide.layout=='art'" class="row mode-art g-2 row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 row-cols-xxl-12">
+            <div v-for="card in feedArr" class="col">
+            
+              <div class="art-box">
+                <div class="box-header">
+                  <div class="box-action">
+                    <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="复制链接">
+                      <i class="bi bi-copy"></i>
+                    </button>
+                    <button v-show="card.available=='1'" v-preventreclick  @click="markResouceV(card,'0')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="标记内容已失效">
+                      <i class="bi bi-sign-no-right-turn"></i>
+                    </button>
+                    <button v-show="card.available=='0'" v-preventreclick  @click="markResouceV(card,'1')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="恢复访问">
+                      <i class="bi bi-sign-intersection-y"></i>
+                    </button>
+                    <button v-show="isChannelAdminRoleV() || isFeedAuthorRoleV(card.authorBrandId)" v-preventreclick  @click="showDeleteFocusModalV(card.id)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="移除内容">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <a @click="captueFeedDataV(card.id)" :href="card.linkUrl" target="_blank">
+                  <img  :src="adaptiveImageUriV(card.coverUrl)">
+                </a>
+                <span class="art-title">
+                  <span :class="{'resource-missing': card.available == '0'}">{{card.title}}</span>
+                </span>
+              </div>
+            </div>
+
+            
+  
+          </div>
+          <!-- mode-art end -->
+
+           <!-- mode-design start -->
+           <div v-if="guide.layout=='design'" class="row mode-design gx-3 gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4">
+
+
+              <div v-for="card in feedArr" class="col">
+                <div class="design-box">
+                  <div class="design-cover-container">
+                    <div class="box-header">
+                      <div class="box-action">
+                        <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="复制链接">
+                          <i class="bi bi-copy"></i>
+                        </button>
+                        <button v-show="card.available=='1'" v-preventreclick  @click="markResouceV(card,'0')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="标记内容已失效">
+                          <i class="bi bi-sign-no-right-turn"></i>
+                        </button>
+                        <button v-show="card.available=='0'" v-preventreclick  @click="markResouceV(card,'1')" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="恢复访问">
+                          <i class="bi bi-sign-intersection-y"></i>
+                        </button>
+                        <button v-show="isChannelAdminRoleV() || isFeedAuthorRoleV(card.authorBrandId)" v-preventreclick  @click="showDeleteFocusModalV(card.id)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="移除内容">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <a @click="captueFeedDataV(card.id)" :href="card.linkUrl" target="_blank">
+                      <img  :class="{'resource-missing-border': card.available == '0'}" :src="adaptiveImageUriV(card.coverUrl)">
+                    </a>
+                  </div>
+                  <div class="design-meta">
+                    <span class="auhtor-container">
+                      <span class="auhtor-avatar">
+                        <img :src="adaptiveImageUriV(card.authorAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                      </span>
+                      <a  class="auhtor-name">{{card.authorName}}</a>
+                    </span>
+                    <div v-if="card.views>0"><i class="bi bi-eye-fill me-1"></i>{{formatCmpctNumberV(card.views)}}</div>
+                  </div>
+
+                </div>
+              </div>
+            
+              
+
+           </div>
+           <!-- mode-design end -->
+
+
+           <div  v-show="feedList_pagination.pages > feedList_pagination.current"  class="show-more-row">
+            <button v-preventreclick @click="showMoreV" type="button" class="btn btn-show-more"> 显示更多 </button>
+          </div>
+
+          <div v-show="feedArr.length == 0" class="not-found-resource">
+            <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+            <h4>未找到结果</h4><p>试试搜索别的吧。</p>
+          </div>
+
+
+
+        </div>
+
+      </main>
+    </div>
+    <section class="modals">
+      <!-- focus modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                <h1 class="modal-title fs-5">操作提示</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                <div class="product-feature">
+                  <p class="card-text">{{focusModal.message}}</p>
+                </div>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">继续</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- new card Modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="newCardModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered ">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form onsubmit="return false">
+                  <input v-model="newCard.title" maxlength="32" class="form-control form-control-lg only-show-bottom mb-3" type="text" placeholder="标题">
+ 
+                  <input v-model="newCard.subtitle" maxlength="38" class="form-control  only-show-bottom  mb-3" type="text" placeholder="描述" >
+                  <input v-model="newCard.linkUrl" maxlength="499" class="form-control  only-show-bottom  mb-3" type="text" placeholder="链接(https://yourlink.com)" >
+                  <div class="oasis-avatar-container">
+                    <div id="link-cover-preview-box" class="link-cover-box">
+                      <img v-show="!!newCard.linkCoverFileUrl" :src="newCard.linkCoverFileUrl">
+                    </div>
+                    <div class="title-col">
+                      <div class="help-text label-color">封面建议使用至少 99x99 大小的图片。</div>
+                      <button type="button" class="btn-file-upload">
+                        <div class="btn-file-upload-wrp">上传图片<input id="file_thumbnail" @change="previewFeedThumbnailV" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+                      </button>
+                    </div>
+                  </div>
+
+
+    
+
+               
+                </form>
+
+              </div>
+
+              <div class="modal-footer">
+
+                <button v-preventreclick @click="closeNewCardModalV" type="button" class="btn-reset">
+                  <div class="contents">全部清除</div>
+                </button>
+
+                <button  :class="{'btn btn-secondary disabled': !validatedPostFormV()}" v-preventreclick @click="newCardV" type="button" class="btn-save bgPrimaryBlue">发表</button>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </section>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/gallery/javascripts/gem.js"></script>
+
+
+
+</body>
+</html>
