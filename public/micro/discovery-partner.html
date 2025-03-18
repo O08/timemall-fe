@@ -187,6 +187,15 @@
 
             <div class="mb-3">
               <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.nearby" type="checkbox" class="form-check-input" id="inputNearby">
+                <label class="form-check-label" for="inputNearby">
+                  附近的人
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="form-check">
                 <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.hiring" type="checkbox" class="form-check-input" id="inputHiring">
                 <label class="form-check-label" for="inputHiring">
                   正在招聘

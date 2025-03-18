@@ -47,7 +47,8 @@ const RootComponent = {
                   hiring: '',
                   availableForWork: '',
                   supportFreeCooperation: '',
-                  loginInWeek: ''
+                  loginInWeek: '',
+                  nearby: ''
                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -146,7 +147,8 @@ function retrieveTalentGrid(){
         hiring: '',
         availableForWork: '',
         supportFreeCooperation: '',
-        loginInWeek: ''
+        loginInWeek: '',
+        nearby: ''
       };
 
     disTalent.reloadPage(disTalent.talentgrid_pagination);
