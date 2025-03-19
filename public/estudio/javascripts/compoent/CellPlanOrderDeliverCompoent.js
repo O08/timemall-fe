@@ -2,6 +2,8 @@ import axios from "axios";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {CommercialPaperDeliverTag} from "/common/javascripts/tm-constant.js";
 import {RefundSceneEnum} from "/common/javascripts/tm-constant.js";
+import { uploadCellDataLayerWhenBuyPlan } from "/common/javascripts/science.js";
+
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -9,8 +11,15 @@ let customAlert = new CustomAlertModal();
 const CellPlanOrderDeliverCompoent = {
     data() {
         return {
+            error:{},
             mpdc__paperDeliver:{},
             focusModal:{
+                feed: "",
+                confirmHandler:()=>{
+
+                }
+            },
+            repayFocusModal:{
                 feed: "",
                 confirmHandler:()=>{
 
@@ -19,7 +28,18 @@ const CellPlanOrderDeliverCompoent = {
         }
     },
     methods: {
-        
+        closRePayFocusModalV(){
+            $("#repayFocusModal").modal("hide"); // show modal
+        },
+        showRePayFocusModalV(){
+            this.repayFocusModal.feed="支付成功后，您的资金将转存到bluvarri.com, 待您接受交付后才会结算到商家；支持无条件退款"
+            this.repayFocusModal.confirmHandler=()=>{
+                this.repayV();
+                $("#repayFocusModal").modal("hide"); // show modal
+
+            };
+            $("#repayFocusModal").modal("show"); // show modal
+        },
         showAcceptDeliverFocusModalV(deliver){
             this.focusModal.feed="接受交付后，将解锁服务商的交付资料，同时您的服务款项将打入服务商账户，您可点击 确定 接受交付"
             this.focusModal.confirmHandler=()=>{
@@ -36,6 +56,30 @@ const CellPlanOrderDeliverCompoent = {
                 $("#focusModal").modal("hide"); // show modal
             }
             $("#focusModal").modal("show"); // show modal
+        },
+        repayV(){
+            repay().then(response=>{
+                if(response.data.code==200){
+                    this.findPlanDetailV();// from studio-plan.js
+                    this.doFetchPaperDeliverDetailV();
+                             // scinece data
+                 uploadCellDataLayerWhenBuyPlan(this.orderDetail.planType,this.orderDetail.cellId);
+
+                    customAlert.alert("付款成功！");
+                }
+                if(response.data.code==40007){
+                    $("#errorModal").modal("show"); 
+                    this.error=response.data.message + ",可前往商城充值。";
+                    return ;
+                }
+                if(response.data.code!=200){
+                    $("#errorModal").modal("show"); 
+                    this.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                }
+
+            }).catch(error=>{
+                this.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error;
+            });
         },
         refundV(){
             refund().then(response=>{
@@ -178,7 +222,17 @@ async function doRefund(dto){
     const url="/api/v1/web_epod/refund";
     return await axios.post(url,dto);
 }
-
+async function doRepay(orderId){
+   const url = "/api/v1/mall/plan/order/{id}/repay".replace("{id}",orderId);
+   return await axios.post(url,{});
+}
+function repay(){
+    const orderId=getQueryVariable("id");
+    if(!orderId){
+        return;
+    }
+    return doRepay(orderId);
+}
 function refund(){
     const orderId=getQueryVariable("id");
     if(!orderId){

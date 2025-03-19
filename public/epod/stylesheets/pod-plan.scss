@@ -265,6 +265,44 @@ pt-app content main {
   }
 
 }
+#repayFocusModal .modal-content{
+  background-color: #fff;
+  color: black;
+}
+#repayFocusModal .bi-exclamation-circle{
+  font-size: 72px;
+  padding-top: 32px;
+}
+.separator.separator-dashed {
+  border-bottom-style: dashed;
+  border-bottom-color: var(--bs-border-dashed-color);
+}
+.border-dark {
+  --bs-border-opacity: 1;
+  border-color: rgba(var(--bs-dark-rgb), var(--bs-border-opacity)) !important;
+}
+.opacity-25 {
+  opacity: .25 !important;
+}
+.font12{
+  font-size: 12px;
+}
+
+#errorModal .modal-content{
+  background-color: #fff;
+  color: #121212;
+}
+.border-danger {
+  --bs-border-opacity: 1;
+  border-color: rgba(var(--bs-danger-rgb), var(--bs-border-opacity)) !important;
+}
+#errorModal .bi-exclamation-circle{
+  font-size: 72px;
+  padding-top: 16px;
+}
+#errorModal .modal-header{
+border-bottom: none;
+}
 
   
   
