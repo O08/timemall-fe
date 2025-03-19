@@ -11,7 +11,7 @@ import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {SseEventBusScene} from "/common/javascripts/tm-constant.js";
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import StemChatCompoent from "/micro/arch/javascripts/StemChatCompoent.js";
-
+import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 
 
 
@@ -154,7 +154,7 @@ app.mixin(
         }
     })
 );
-
+app.mixin(BubbleInviteComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
   return tag.startsWith('col-')
 }

@@ -11,6 +11,9 @@ import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-ico
 import {Api} from "/common/javascripts/common-api.js";
 import { parseIpLocationCityInfo } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+
+import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
@@ -128,6 +131,7 @@ app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
+app.mixin(BubbleInviteComponent);
 
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('col-') || tag.startsWith('top-search') 

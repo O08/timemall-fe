@@ -36,6 +36,9 @@ const RootComponent = {
             if(response.data.code==40032){
               customAlert.alert("已转为私密部落，加入失败！"); 
             }
+            if(response.data.code==40033){
+              customAlert.alert("已加入部落，请不要重复操作！"); 
+           }
             if(response.data.code==40009){
               customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
             }
