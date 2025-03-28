@@ -59,28 +59,77 @@
         border-radius: 5px;
         --bs-card-bg: none;
       }
-      .register-method{
-        display: flex;
-        text-align: center;
-        align-items: center;
-      }
-      .register-method-item-list {
-        margin-left: 12px;
-        display: flex;
-        -webkit-box-pack: center;
-        justify-content: center;
-      }
-
-      .register-method-item-list .register-method-item:not(:last-child) {
-         margin-right: 16px;
-      }
-      .register-method-item-list .register-method-item .common-icon {
-        height: 20px;
-        width: 20px;
-        display: inline-block;
-        vertical-align: middle;
+      .header-option{
+        text-decoration: none;
+        background-image: url("/common/images/ctl-corner-bg.svg");
+        background-size: cover;
+        box-sizing: border-box;
+        color: #7ABAD2;
         cursor: pointer;
+        font-size: 14px;
+        line-height: 33px;
+        padding: 0 16px 0 36px;
+        position: absolute;
+        right: 1rem;
+        top: .75rem;
+        width: 80px;
+        background-color: transparent;
+      }
+      .header-option:hover{
+        color: #fff;
+      }
+       .btn-fast-auth{
+          justify-content: center;
+          outline: none;
+          padding: 0 15px;
+          align-items: center;
+          border-radius: 8px;
+          box-sizing: border-box;
+          cursor: pointer;
+          display: inline-flex;
+          vertical-align: middle;
+          width: 100%;
+          height: 55px;
+          border: 1px solid #616161;
+          background-color: transparent;
+          color: #fff;
+
        }
+       .btn-fast-auth:hover{
+        border-color: #fff;
+       }
+       .fast-auth-icon-box{
+        align-items: center;
+        display: flex;
+        flex-shrink: 0;
+        justify-content: center;
+        margin: 0 8px 0 7px;
+       }
+       .fast-auth-title{
+          flex: 1 !important;
+          margin-right: 24px !important;
+          width: 100%;
+          margin: auto;
+          margin-left: 0;
+          display: inline-block;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-weight: 600;
+       }
+       .fast-auth-container{
+         padding-bottom: 32px;
+         margin-bottom: 32px;
+         border-bottom: 1px solid #fff3;
+       }
+       .help-box{
+        font-size: 12px;
+        color: #616161;
+       }
+       .url-link{
+          color: #616161;
+        }
       @media (max-width: 576px) {
   .section-sign-in{
     display: block;
@@ -119,43 +168,55 @@
         <section class="section-sign-in">
           <div class="card text-dark">
             <div class="card-header">
-              <h1>登录到小蔚世界</h1> 
+              <h1>登录到班蔚</h1> 
+              <a href="/signup" class="header-option">注册</a>
+
             </div>
             <div class="card-body">
-              <form id="login-form" class="form-signin needs-validation" novalidate>
-              
+              <form id="login-form" class="form-signin needs-validation" autocomplete="on" novalidate>
+
+                <div class="fast-auth-container">
+                  <button type="button" class="btn-fast-auth wechat-login">
+                    <span class="fast-auth-icon-box">
+                      <span>
+                        <img class="common-icon" src="/common/icon/wechat.svg" alt="wechat icon">
+                      </span>
+                    </span>
+                    <span class="fast-auth-title">微信授权登录</span>
+                  </button>
+                </div>
+               
                 <div class="mb-4">
-                  <label for="email" class="form-label">邮箱</label>
-                  <input type="email" class="form-control" id="email" placeholder="name@example.com" autocomplete="email" required>
+                  <input type="text" class="form-control" id="identifierId" placeholder="邮箱/手机号" autocomplete="username webauthn" required>
                   <div class="invalid-feedback">
-                    请提供一个有效邮箱.
+                    请提供一个有效邮箱或手机号.
                   </div>
                   <span id="email-error-tip" class="error-tip"></span>
                 </div>
                 <div class="mb-4">
-                  <label for="password" class="form-label d-flex justify-content-between">
-                    <span>密码</span> 
-                    <a class="forget-password-link" href="password-reset">忘记密码？</a>
-                  </label>
-                  <input type="password" class="form-control" id="password" autocomplete="current-password" required>
+                  <input type="password" class="form-control" id="identifierPassword" placeholder="密码" autocomplete="current-password" required>
                   <div class="invalid-feedback">
                     请提供一个有效密码.
                   </div>
                   <span id="password-error-tip" class="error-tip"></span>
                 </div>
-                <div class="my-4">
-                  新用户?<a class="sign-up-link" href="signup">点击注册</a>
-                </div>
                 <div class="mb-4 ">
                   <button type="submit" name="submitBtn" class="btn btn-primary w-100 fs-4 form-send">登录</button>
                 </div>
-                <div class="my-4 register-method">
-                  <span>其他方式</span>
-                  <div class="register-method-item-list">
-                    <div class="register-method-item">
-                      <img class="common-icon wechat-login" src="/common/icon/wechat.svg" alt="wechat icon">
-                    </div>
-                  </div>
+                <div class="my-4 d-flex justify-content-between help-box">
+                  <a href="/password-reset" class="url-link">
+                    <span>忘记密码</span>
+                  </a>
+                  <span>
+                    <a target="_blank" href="/mall/legal" class="url-link">
+                      <span>法律声明</span>
+                    </a>
+                    <span class="px-2">|</span>
+                    <a target="_blank" href="/mall/privacy-policy" class="url-link">
+                      <span>隐私政策</span>
+                    </a>
+                  </span>
+       
                 </div>
               </form>
             </div>

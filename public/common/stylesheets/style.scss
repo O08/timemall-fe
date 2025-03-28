@@ -637,18 +637,17 @@ json-node {
 {
   height: 55px;
 }
-.section-sign-up .form-control ,.section-sign-in .form-control {
-  height: 45px;
-}
+
 .sign-in-link,.sign-up-link,.forget-password-link
 {
-  color: #3887FE;
+  color: #0091ea;
   text-decoration: none;
   background-color: transparent;
 }
 .qrcode-input
 {
   width: 50%;
+  min-width: 110px;
 }
 
 .url-link{

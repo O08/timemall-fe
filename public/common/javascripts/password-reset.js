@@ -1,7 +1,6 @@
 import "./import-jquery";
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import {goLoginPage,goHome} from "./pagenav.js";
-import {EnvWebsite} from "/common/javascripts/tm-constant.js";
+import {goLoginPage} from "./pagenav.js";
 import { validateEmailOrPhoneInput } from "/common/javascripts/util.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -30,7 +29,6 @@ let customAlert = new CustomAlertModal();
 
 
 
-
 /**
  * 
  * 0.3 send email verification code
@@ -44,7 +42,6 @@ function showCount() {
       resetCount();
     }
 }
-
 function resetCount(){
   clearInterval(inter);
   $(".qrcode").text("获取验证码");
@@ -53,8 +50,9 @@ function resetCount(){
 }
 
  function sendVerificationCode  () {
-  //校验 username must be : email or phone
-  const flag = validatedUserName();
+    //校验 username must be : email or phone
+    const flag = validatedUserName();
+
   // 发送验证码
   if (flag) {
       //触发重复行为：每隔一秒显示一次数字
@@ -62,30 +60,14 @@ function resetCount(){
       $(".qrcode").attr("disabled", true);
 
       // 请求服务器发送验证码
-      $.post('/api/v1/web_mall/signup/qrcode',{ emailOrPhone: $("#identifierId").val()}, function(data) {
+      $.post('/api/v1/web_mall/password_reset/qrcode',{emailOrPhone: $("#identifierId").val()}, function(data) {
 
         if(data.code!=200){
           resetCount();
         }
          
-         // 账号已经存在 2008
-         if(data.code == 2008){
-          $("#email-error-tip").text(data.message);
-          $("#signup-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-          return;
-        }
-        //  邮箱限制
-        if(data.code == 40003){
-          $("#email-error-tip").text(data.message);
-          $("#password-reset-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-          return;
-        }
-          //  短信限制
-          if(data.code == 40036){
+         // 账号不存在 2007
+         if(data.code == 2007){
           $("#email-error-tip").text(data.message);
           $("#password-reset-form").removeClass('was-validated');
           $("#identifierId").removeClass("is-valid");
@@ -93,10 +75,29 @@ function resetCount(){
           return;
         }
 
-        if(data.code!==200){
-          const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+ data.message;
-          customAlert.alert(error); 
+         //  邮箱限制
+         if(data.code == 40003){
+          $("#email-error-tip").text(data.message);
+          $("#password-reset-form").removeClass('was-validated');
+          $("#identifierId").removeClass("is-valid");
+          $("#identifierId").addClass("invalid-input");
+          return;
         }
+           //  短信限制
+           if(data.code == 40036){
+            $("#email-error-tip").text(data.message);
+            $("#password-reset-form").removeClass('was-validated');
+            $("#identifierId").removeClass("is-valid");
+            $("#identifierId").addClass("invalid-input");
+            return;
+          }
+
+          if(data.code!=200){
+
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+ data.message;
+            customAlert.alert(error); 
+
+          }
 
 
 
@@ -109,6 +110,7 @@ function resetCount(){
 
 
 // 1. Sign up
+
 
 var sendCodeEl = document.getElementById("send-verification-code");
 
@@ -127,6 +129,7 @@ sendCodeEl.addEventListener('click', () => {
   sendVerificationCode();
 
 })
+
 
 $("#identifierId").on("blur", function (e) {
   validatedUserName();
@@ -159,13 +162,6 @@ function validatedQrcode(){
   }
   return flag;
 }
-function validatedUserRead(){
-  var checkbox = document.getElementById('agree_term');
-  if(!checkbox.checked){
-     customAlert.alert("继续注册需要您同意《法律声明》、《隐私政策》")
-  }
-  return checkbox.checked;
-}
 function validatedPassword(){
   var flag = document.getElementById("identifierPassword").checkValidity();
   var password = $("#identifierPassword").val();
@@ -191,37 +187,36 @@ function validatedConfirmPassword(){
   return flag;
 }
 
+
+  var el = document.getElementsByName("submitBtn")[0];
+
+  el.addEventListener('click', () => {
+    if (!el.disabled) {
+        el.disabled = true;
+        el.style.pointerEvents = "none";
+        el.style.cursor = "none";
+        setTimeout(() => {
+            el.disabled = false;
+            el.style.pointerEvents = "";
+            el.style.cursor = "";
+        }, 1000)
+    }
+  
+    const is_valid = checkPasswordResetFormValidity();
+    if(is_valid){
+      doPasswrodReset();
+    }
+  
+  })
+
  
-  function checkSignupFormValidity(){
-    const flag = validatedUserName() && validatedQrcode() && validatedPassword() && validatedConfirmPassword() && validatedUserRead();
+  function checkPasswordResetFormValidity(){
+    const flag = validatedUserName() && validatedQrcode() && validatedPassword() && validatedConfirmPassword();
 
     return flag ;
   }
 
-  var el = document.getElementsByName("submitBtn")[0];
-
-el.addEventListener('click', () => {
-  if (!el.disabled) {
-      el.disabled = true;
-      el.style.pointerEvents = "none";
-      el.style.cursor = "none";
-      setTimeout(() => {
-          el.disabled = false;
-          el.style.pointerEvents = "";
-          el.style.cursor = "";
-      }, 1000)
-  }
-
-  const is_valid = checkSignupFormValidity();
-  if(is_valid){
-    doSignUp();
-  }
-
-})
-
-
-
-function doSignUp(){
+function doPasswrodReset(){
 
  
 
@@ -235,27 +230,26 @@ function doSignUp(){
     qrcode:qrcode
   }
 
-  $.post('/api/v1/web_mall/email_or_phone_join',formData, function(data) {
+  $.post('/api/v1/web_mall/do_password_reset',formData, function(data) {
          
         if(data.code === 200){
           // to login page
           goLoginPage();
+          return;
         }
         // 无效验证码
         if(data.code == 40004){
           // alert fail
-          $("#signup-form").removeClass('was-validated');
+          $("#password-reset-form").removeClass('was-validated');
           $("#qrcode-error-tip").text(data.message);
           $("#qrcode").removeClass("is-valid");
           $("#qrcode").addClass("invalid-input");
+          return;
         }
-        // 账号已经存在 2008
-        if(data.code == 2008){
-          $("#email-error-tip").text(data.message);
-          $("#signup-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-        }
+
+        const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+ data.message;
+        customAlert.alert(error); 
+
 
       })
         .fail(function(data) {
@@ -282,26 +276,5 @@ $("#identifierId").on("focus", function (e) {
      validatedConfirmPassword();
   });
 
-  async function fetchUserInfo(){
-    const url="/api/v1/web_mall/me";
-    return await fetch(url);
-  }
-  async function userHandler(){
-    const response= await fetchUserInfo();
-    var data = await response.json();
-    if(data.code==200){
-      goHome();
-    }
-  }
-  userHandler();
 
-  $(".wechat-login").on("click", function (e) {
 
-    // get redirect url when login success
-    const blv_uri_for_success=encodeURIComponent(document.referrer);
-    var wechatLoginPageRedirectUrl=  encodeURIComponent(EnvWebsite.PROD_WWW+"/mall/wechat-login-redirect?to_page="+blv_uri_for_success);
-    var wechatLoginPageUri = EnvWebsite.PROD_WX_QRCONNECT_URI+"?appid=" + EnvWebsite.PROD_WX_APPID + "&redirect_uri=" + wechatLoginPageRedirectUrl + "&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect";
-  
-    window.open(wechatLoginPageUri, '_blank');
-  
-  });

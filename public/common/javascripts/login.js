@@ -1,65 +1,91 @@
 import "./import-jquery";
 import {nextPageWhenLoginSuccess,goHome} from "./pagenav.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
+import { validateEmailOrPhoneInput } from "/common/javascripts/util.js";
+
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
-$("#email").on("blur", function (e) {
-    const flag = document.getElementById("email").checkValidity();
-    if(!flag)
-    {
-      $('#email').addClass('is-invalid');
-    }
-    if(flag){
-      $('#email').removeClass('is-invalid');
-    }
+
+function validatedUserName(){
+  const emailOrPhone = document.getElementById("identifierId").value;
+  const flag = validateEmailOrPhoneInput(emailOrPhone);
+  if(!flag)
+  {
+    $('#identifierId').addClass('is-invalid');
+    document.getElementById("identifierId").setCustomValidity(false);
+
+  }
+  if(flag){
+    $('#identifierId').removeClass('is-invalid');
+    document.getElementById("identifierId").setCustomValidity('');
+
+  }
+  return flag;
+}
+function validatedPassword(){
+  var flag = document.getElementById("identifierPassword").checkValidity();
+  if (!flag) {
+    $('#identifierPassword').addClass('is-invalid');
+  }
+  if (flag) {
+    $('#identifierPassword').removeClass('is-invalid');
+  }
+
+  return flag;
+}
+$("#identifierId").on("blur", function (e) {
+    const flag = validatedUserName();
   });
 
-$("#email").on("focus", function (e) {
+$("#identifierId").on("focus", function (e) {
     $("#email-error-tip").text("");
-    $("#email").removeClass("invalid-input");
+    $("#identifierId").removeClass("invalid-input");
   });
-  $("#password").on("focus", function (e) {
+  $("#identifierPassword").on("focus", function (e) {
     $("#password-error-tip").text("");
-    $("#password").removeClass("invalid-input");
+    $("#identifierPassword").removeClass("invalid-input");
   });
-  $("#password").on("blur", function (e) {
-    var flag = document.getElementById("password").checkValidity();
-    if (!flag) {
-      $('#password').addClass('is-invalid');
-    }
-    if (flag) {
-      $('#password').removeClass('is-invalid');
-    }
+  $("#identifierPassword").on("blur", function (e) {
+    validatedPassword();
   });
 
 
 // 2. login in
-$("#login-form").on("submit", function (e) {
 
-    // prevent default submit
-    e.preventDefault();
-    document.getElementsByName("submitBtn")[0].disabled=true;// prevent repeat submit
-    if(e.target.checkValidity()){
-        doLogin();
-    }
-    document.getElementsByName("submitBtn")[0].disabled=false;
+var el = document.getElementsByName("submitBtn")[0];
 
+el.addEventListener('click', () => {
+  if (!el.disabled) {
+      el.disabled = true;
+      el.style.pointerEvents = "none";
+      el.style.cursor = "none";
+      setTimeout(() => {
+          el.disabled = false;
+          el.style.pointerEvents = "";
+          el.style.cursor = "";
+      }, 1000)
+  }
 
-});
+  if(validatedUserName() && validatedPassword()){
+    doLogin();
+  }
+
+})
+
 
 
 function doLogin(){
 
-  var email = $('#email').val();
-  var password = $('#password').val();
+  var emailOrPhone = $('#identifierId').val();
+  var password = $('#identifierPassword').val();
 
   var formData = {
-    username: email,
+    username: emailOrPhone,
     password: password
   }
 
-  $.post('/api/v1/web_mall/email_sign_in',formData, function(data) {
+  $.post('/api/v1/web_mall/email_or_phone_sign_in',formData, function(data) {
 
     // SUCCESS(200, "Success"),
     // FAILED(503, "处理失败！"),
@@ -97,15 +123,15 @@ function doLogin(){
           // alert fail
           $("#email-error-tip").text(data.message);
           $("#login-form").removeClass('was-validated');
-          $("#email").removeClass("is-valid");
-          $("#email").addClass("invalid-input");
+          $("#identifierId").removeClass("is-valid");
+          $("#identifierId").addClass("invalid-input");
         }
         if(data.code == 2003 || data.code == 2004 ){
           // alert fail
           $("#password-error-tip").text(data.message);
           $("#login-form").removeClass('was-validated');
-          $("#password").removeClass("is-valid");
-          $("#password").addClass("invalid-input");
+          $("#identifierPassword").removeClass("is-valid");
+          $("#identifierPassword").addClass("invalid-input");
         }
       })
         .fail(function(data) {
@@ -136,3 +162,4 @@ $(".wechat-login").on("click", function (e) {
   window.open(wechatLoginPageUri, '_blank');
 
 });
+

@@ -33,7 +33,7 @@ export function goBackAndReload(){
     window.location.href = document.referrer;
 }
 export function nextPageWhenLoginSuccess(){
-    const isAuthPage = document.referrer.search("login") > 0 || document.referrer.search("signup")>0 || document.referrer.search("login.html") > 0 || document.referrer.search("signup.html")>0;
+    const isAuthPage = document.referrer.search("password-reset") > 0 || document.referrer.search("login") > 0 || document.referrer.search("signup")>0 || document.referrer.search("login.html") > 0 || document.referrer.search("signup.html")>0;
     if(isAuthPage){
         goHome();
     }else{

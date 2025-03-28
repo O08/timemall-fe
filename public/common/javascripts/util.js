@@ -143,3 +143,8 @@ export  function isValidHttpUrlNeedScheme(urlString){
   return false;
   
 }
+
+export function validateEmailOrPhoneInput(input) {
+  var combinedRegex = /^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}|1[3-9]\d{9})$/;
+  return combinedRegex.test(input);
+}
