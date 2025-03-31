@@ -108,3 +108,66 @@ col-content::-webkit-scrollbar {
     justify-content: flex-end !important;
   }
 }
+.tei-card-container{
+  padding: 16px 24px 24px;
+  background-color: #2e2e2e9d;
+  border-radius: 10px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-basis: calc(33% - 40px);
+  flex-flow: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+.tei-card-container:hover{
+  background-color: #2E2E2E;
+}
+.tei-card-container i{
+  font-size: 56px;
+}
+.tei-title{
+  margin: 8px 0px 4px;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.tei-desc{
+  line-height: 24px;
+  text-align: center;
+  margin: 0px;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  color: #aaa;
+  min-height: 48px;
+}
+.tei-box{
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 40px;
+}
+.welcome-box{
+  margin: 0px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 32px;
+  text-transform: none;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.welcome-subtitle{
+  margin: 0px;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 24px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.tei-box-wrp a{
+  text-decoration: none;
+  color: #fff;
+}
