@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>后台|链接商店</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/link-shopping/stylesheets/admin.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="content-container">
+        <div class="head-pannel justify-content-between" style="padding-left: 1.25rem; padding-right: 1.25rem;">
+          <div class="d-flex align-items-center">
+
+            <div>
+              <button @click="showSettingAppInfoModalV" type="button" class="head-btn" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="设置">
+                <i class="bi bi-sliders"></i>
+              </button>
+            </div>
+
+            <div style="padding-left: 12px;" class="code-option">
+                
+                <div>
+                  <button @click="shareStoreV" type="button" class="head-btn" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="分享店铺">               
+                          <i class="bi bi-share"></i>
+                  </button>
+                </div>
+            </div>
+
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+            </button>
+          </div>
+        </div>
+        <main>
+            <div class="alert-list">
+                <div class="alert alert-dark" role="alert">
+                  <div class="alert-text">
+                    <div>店铺销售的商品需符合相关法律法规要求，具体规则请参考：<a href="/mall/legal" target="_blank">法律声明</a></div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="d-flex pt-5">
+              <div class="w-100">
+                <div class="d-flex justify-content-between align-items-center spacer-section">
+                  <div class="flex-fill mb-6 mb-md-0">
+                    <h1 class="pr-md-6 ">货架</h1>
+                  </div>
+
+                  <div class="btn-wrp">
+                    <button v-preventreclick  @click="showNewProductModalV" class="btn-tm-primary">
+                      <div class="btn-content"><i class="bi bi-plus me-1"></i> 上架商品 </div>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="products-box">
+
+              <div class="product-wrapper">
+                <div class="product-header">
+                  <div class="filter-bar">
+                    <div class="filter-item filter-item__search">
+
+                      <div id="nav-searchform">
+                        <div class="nav-search-btn"><i class="bi bi-search"></i></div>
+                        <div class="nav-search-content">
+                          <input v-model="feedList_pagination.param.q" @keyup.enter.native="filterFeedListV" class="nav-search-input" type="text" autocomplete="off" maxlength="100" x-webkit-speech="" x-webkit-grammar="builtin:translate" placeholder="搜索商品">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="filter-item tagsContainer">
+
+                      <div class="dropdown">
+                        <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bi bi-arrow-down-up me-1"></i>查看
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item groupLabel">            
+                              排序
+                            </a>
+                          </li>
+            
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="sortHot">
+                                  商品热度
+                                </label>
+                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"  value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="sortCreateTime">
+                                  上架日期
+                                </label>
+                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="sortModifyTime">
+                                  编辑时间
+                                </label>
+                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="4" class="form-check-input" name="sortRadios" type="radio"  id="sortModifyTime" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="sortPirce">
+                                  商品价格
+                                </label>
+                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="3" class="form-check-input" name="sortRadios" type="radio"  id="sortPirce" >
+                              </div>
+                            </a>
+                          </li>
+                          
+            
+                        </ul>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="product-body">
+                  <div class="table-responsive">
+                    <div class="table-wrp">
+
+                      <table class="table table-spacing-lg table-hover align-middle">
+                        <thead>
+                          <tr>
+                            <th class="col-product-name">{{feedList_pagination.total}} 个商品</th>
+                            <th class="col-product-price">价格</th>
+                            <th class="col-product-clicks">点击量</th>
+                            <th class="col-product-time">上架日期</th>
+                            <th class="col-product-option"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="product in feedList_pagination.records">
+                            <th>
+                              <div class="d-flex align-items-center">
+                                <a  target="_blank" :href="product.linkUrl">
+                                  <div class="product-thumnail">
+                                    <div style="height: 100%;">
+                                      <img :src="adaptiveImageUriV(product.coverUrl)"> 
+                                    </div>
+                                  </div>
+                                 </a>
+                                 <div class="ms-3 d-block text-truncate product-name">
+                                  <a target="_blank" :href="product.linkUrl"> {{product.title}} </a>
+                                 </div>
+                              </div>
+                            </th>
+                            <td><span  class="product-price">￥{{product.price}}</span></td>
+                            <td>{{product.views}}</td>
+                            <td>{{product.createAt}}</td>
+                            <td>
+                              <button v-preventreclick  @click="showEditProductModalV(product)" class="btn btn-outline-primary" type="button"> 编辑 </button>
+                              <button v-preventreclick  @click="showDeleteFocusModalV(product.id)"  class="btn btn-outline-danger ms-2" type="button">移出 </button>
+                            </td>
+                          </tr>
+  
+                        </tbody>
+  
+                      </table>
+
+                      <div v-show="feedList_pagination.records.length == 0" class="not-found-resource">
+                        <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                        <h4>未找到结果</h4>
+                      </div>
+  
+                      <nav v-if="!!feedList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                        <ul class="pagination pagination-lg pagination-dark  border-0 mb-0">
+                          <li class="page-item" @click="pagePre(feedList_pagination)">
+                            <a class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li class="page-item" v-for="page in feedList_pagination.paging.items"
+                            :class="{'current-page-active': feedList_pagination.paging.current == page}"
+                            @click="pageGo(feedList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                          <li class="page-item" @click="pageNext(feedList_pagination)">
+                            <a class="page-link" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+        </main>
+    </div>
+    <section class="modals">
+
+       <!-- focus modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                <h1 class="modal-title fs-5">操作提示</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                <div class="product-feature">
+                  <p class="card-text">{{focusModal.message}}</p>
+                </div>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">继续</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- setting modal start -->
+      <div class="modal-container">
+        
+          <div class="modal fade" id="settingAppInfoModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">通用设置</h1>
+                  <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="row mb-3 mt-3">
+                      <div class="col-sm-3 col-form-label">
+                        <label for="input[channelName]" class="form-label">频道名称</label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input id="input[channelName]" @change="generalHadChange=true" v-model="general.channelName" type="text" maxlength="30" class="form-control">
+                      </div>
+                    </div> 
+                    <div class="row mb-3">
+                      <div class="col-sm-3 col-form-label">
+                        <label for="input[channelDesc]" class="form-label">频道简介</label>
+                      </div>
+                      <div class="col-sm-9">
+                        <input id="input[channelDesc]" @change="generalHadChange=true"  v-model="general.channelDesc" type="text" maxlength="80" class="form-control" >
+                      </div>
+                    </div> 
+                  </form>
+                  
+                </div>
+                <div class="modal-footer btn-light">
+                  <button @click="modifyChannelGeneralInfoV" :class="{'disabled': !general.channelName || !general.channelDesc || !generalHadChange, 
+                  'btn-primary': !!general.channelName && !!general.channelDesc && generalHadChange ,
+                  'btn-secondary': !general.channelName || !general.channelDesc || !generalHadChange }" v-preventreclick  type="button"  class="btn">更新</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- setting modal end -->
+
+            <!-- new product Modal start -->
+        <div class="modal-container">
+          <div class="modal fade" id="newProductModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered ">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <form onsubmit="return false">
+                    <input v-model="newProduct.title" maxlength="32" class="form-control  only-show-bottom mb-3" type="text" placeholder="商品名称">
+                    <input  v-model="newProduct.price" @input="transformInputNumberV($event)"  max="500000000" step=".1" type="text" placeholder="价格" class="form-control  only-show-bottom  mb-3">
+
+                    <input v-model="newProduct.linkUrl" maxlength="499" class="form-control  only-show-bottom  mb-3" type="text" placeholder="商品链接(https://yourlink.com)" >
+                    <div class="oasis-avatar-container">
+                      <div id="link-cover-preview-box" class="link-cover-box">
+                        <img v-show="!!newProduct.linkCoverFileUrl" :src="newProduct.linkCoverFileUrl">
+                      </div>
+                      <div class="title-col">
+                        <div class="help-text label-color">封面建议使用至少 99x99 大小的图片。</div>
+                        <button type="button" class="btn-file-upload">
+                          <div class="btn-file-upload-wrp">上传图片<input id="file_thumbnail"  @change="previewFeedThumbnailV" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+                        </button>
+                      </div>
+                    </div>
+                
+                  </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                  <button v-preventreclick @click="closeNewProductModalV" type="button" class="btn-reset">
+                    <div class="contents">全部清除</div>
+                  </button>
+
+                  <button  :class="{'btn btn-secondary disabled': !validatedPostFormV()}" v-preventreclick @click="newProductV" type="button" class="btn-save bgPrimaryBlue">发表</button>
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- new product Modal end -->
+
+        <!-- edit product Modal start -->
+        <div class="modal-container">
+          <div class="modal fade" id="editProductModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered ">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <form onsubmit="return false">
+                    <input @change="editProductModalHadChange=true;" v-model="editProduct.title" maxlength="32" class="form-control only-show-bottom mb-3" type="text" placeholder="商品名称">
+                    <input @change="editProductModalHadChange=true;"  v-model="editProduct.price" @input="transformInputNumberV($event)"  max="500000000" step=".1" type="text" placeholder="价格" class="form-control  only-show-bottom  mb-3">
+                  </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                  <button v-preventreclick @click="closeEditProductModalV" type="button" class="btn-reset">
+                    <div class="contents">全部清除</div>
+                  </button>
+
+                  <button  :class="{'btn btn-secondary disabled': !validatedEditPostFormV()}" v-preventreclick @click="editProductV" type="button" class="btn-save bgPrimaryBlue">更新</button>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- edit product Modal end -->
+
+    </section>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/link-shopping/javascripts/admin.js"></script>
+
+
+
+</body>
+</html>

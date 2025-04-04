@@ -98,8 +98,8 @@ function previewCellCover(e,appObj){
     const coverImgFile = new Image();
     coverImgFile.onload = ()=> {
          // validate image pixel
-         if(!(coverImgFile.width>=640 && coverImgFile.height>=320 && coverImgFile.width<4096 && coverImgFile.height<4096)){
-            customAlert.alert("图片必须至少为 640 x 320 像素且单边长度不能超过4096像素!");
+         if(!(coverImgFile.width>=640 && coverImgFile.height>=320 && coverImgFile.width<4096 && coverImgFile.height<4096 && coverImgFile.width*coverImgFile.height<9437184)){
+            customAlert.alert("图片必须至少为 640 x 320 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -194,9 +194,9 @@ function previewCellIntroBanner(e,appObj){
     bannerImgFile.onload = ()=> {
 
         // validate image pixel
-        if(!(bannerImgFile.width>=1024 && bannerImgFile.height>=576 && bannerImgFile.width<4096 && bannerImgFile.height<4096)){
+        if(!(bannerImgFile.width>=1024 && bannerImgFile.height>=576 && bannerImgFile.width<4096 && bannerImgFile.height<4096 && bannerImgFile.width*bannerImgFile.height<9437184)){
             console.log("current image: width=" + bannerImgFile.width + "  height="+bannerImgFile.height);
-            customAlert.alert("图片必须至少为 1024 x 576 像素且单边长度不能超过4096像素!");
+            customAlert.alert("图片必须至少为 1024 x 576 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;

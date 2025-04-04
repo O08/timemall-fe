@@ -44,6 +44,7 @@ const RootComponent = {
         viewerProfile: {},
         defaultAvatarImage,
         currentOptionMember: "",
+        currentOch: "oasis-chat",
         currentOptionMemberProfile: {}
       }
     },

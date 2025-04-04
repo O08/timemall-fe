@@ -25,6 +25,7 @@ const RootComponent = {
         return {
             channelSort, oaisiChannelList,getChannelDataV,
             defaultAvatarImage,
+            currentOch: "oasis-home",
             member: {}
         }
     },

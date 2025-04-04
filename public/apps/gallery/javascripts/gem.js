@@ -342,9 +342,9 @@ function previewFeedThumbnail(e,appObj){
       feedThumbnailImgFile.onload = ()=> {
   
           // validate image pixel
-          if(!(feedThumbnailImgFile.width>=99 && feedThumbnailImgFile.height>=99 && feedThumbnailImgFile.width<4096 && feedThumbnailImgFile.height<4096)){
+          if(!(feedThumbnailImgFile.width>=99 && feedThumbnailImgFile.height>=99 && feedThumbnailImgFile.width<4096 && feedThumbnailImgFile.height<4096 && feedThumbnailImgFile.width*feedThumbnailImgFile.height<9437184)){
               console.log("current image: width=" + feedThumbnailImgFile.width + "  height="+feedThumbnailImgFile.height);
-              customAlert.alert("图片必须至少为 99 x 99 像素且单边长度不能超过4096像素!");
+              customAlert.alert("图片必须至少为 99 x 99 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
               return false;
           }
    

@@ -56,6 +56,14 @@ app.get('/apps/gallery/admin', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/gallery/admin.html")        //设置/ 下访问文件位置
 })
 
+app.get('/apps/link-shopping/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/link-shopping/mall.html")        //设置/ 下访问文件位置
+})
+
+app.get('/apps/link-shopping/admin', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/link-shopping/admin.html")        //设置/ 下访问文件位置
+})
+
 
 // match @abc @bcdddd,for brand handle mapping
 app.get( /^\/@/, (req, res) => {

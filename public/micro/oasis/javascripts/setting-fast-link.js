@@ -251,9 +251,9 @@ function previewLinkLogo(e,appObj){
       linkLogoImgFile.onload = ()=> {
   
           // validate image pixel
-          if(!(linkLogoImgFile.width>=99 && linkLogoImgFile.height>=99 && linkLogoImgFile.width<4096 && linkLogoImgFile.height<4096)){
+          if(!(linkLogoImgFile.width>=99 && linkLogoImgFile.height>=99 && linkLogoImgFile.width<4096 && linkLogoImgFile.height<4096 && linkLogoImgFile.width*linkLogoImgFile.height<9437184)){
               console.log("current image: width=" + linkLogoImgFile.width + "  height="+linkLogoImgFile.height);
-              customAlert.alert("图片必须至少为 99 x 99 像素且单边长度不能超过4096像素!");
+              customAlert.alert("图片必须至少为 99 x 99 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
               return false;
           }
    

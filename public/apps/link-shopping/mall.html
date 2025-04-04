@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>链接商店</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/link-shopping/stylesheets/mall.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container"  :class="{'sandbox': sandbox=='1' }">
+        <main>
+
+          <div id="nav-searchform" >
+              <div class="nav-search-btn">
+                <i class="bi bi-search"></i>
+              </div>
+              <div class="nav-search-content">
+                <input  v-model="feedList_pagination.param.q" @keyup.enter.native="retrieveFeedListV" class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+                  x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="搜索商品" >
+              </div>
+              <div class="btn-wrp">
+                <button  v-preventreclick @click="retrieveFeedListV" class="btn-tm-primary">
+                  <div class="btn-content">
+                      搜索
+                  </div>
+                </button>
+              </div>
+          </div>
+
+          <div class="tagsContainer">
+
+            <div class="dropdown">
+              <a class="btn-dropdown me-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-arrow-down-up me-1"></i>查看
+              </a>
+            
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item groupLabel">            
+                    排序
+                  </a>
+                </li>
+  
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortHot">
+                        商品热度
+                      </label>
+                      <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"  value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortCreateTime">
+                        上架日期
+                      </label>
+                      <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortPirce">
+                        商品价格
+                      </label>
+                      <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="3" class="form-check-input" name="sortRadios" type="radio"  id="sortPirce" >
+                    </div>
+                  </a>
+                </li>
+                
+  
+              </ul>
+            </div>
+  
+          </div>
+
+          <div class="content-container" style="padding-bottom: 160px;">
+
+            <!-- grid start -->
+           <div  class="row  gx-3 gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4" >
+
+
+            <div v-for="card in feedArr" class="col">
+              <div class="item-box">
+                <div class="item-cover-container">
+
+                  <a @click="captueItemDataV(card.id)" :href="card.linkUrl" target="_blank">
+                    <img :src="adaptiveImageUriV(card.coverUrl)">
+                  </a>
+                </div>
+                <div class="item-meta">
+
+                  <div class="item-title product-name"><a @click="captueItemDataV(card.id)" :href="card.linkUrl" target="_blank">{{card.title}}</a></div>
+                  <div class="price-wrapper">
+                    <span class="price-unit">¥</span>
+                    <span class="price-value">{{card.price}}</span>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          
+            
+
+         </div>
+         <!-- grid end -->
+
+            <div  v-show="feedList_pagination.pages > feedList_pagination.current"  class="show-more-row">
+              <button v-preventreclick @click="showMoreV" type="button" class="btn btn-show-more"> 显示更多 </button>
+            </div>
+
+            <div v-show="feedArr.length == 0" class="not-found-resource">
+              <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+              <h4>未找到结果</h4><p>试试搜索别的吧。</p>
+            </div>
+
+
+          </div>
+
+
+        </main>
+    </div>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/link-shopping/javascripts/mall.js"></script>
+
+
+
+</body>
+</html>

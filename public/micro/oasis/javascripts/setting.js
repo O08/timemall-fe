@@ -238,9 +238,9 @@ function previewOasisCover(e){
      }
      const imgFile = new Image();
      imgFile.onload = ()=> {
-        if(!(imgFile.width>=99 && imgFile.height>=99  && imgFile.width<4096 && imgFile.height<4096 )){
+        if(!(imgFile.width>=99 && imgFile.height>=99  && imgFile.width<4096 && imgFile.height<4096 && imgFile.width*imgFile.height<9437184 )){
             console.log("current image: width=" + imgFile.width + "  height="+imgFile.height);
-            customAlert.alert("图片必须至少为 99 x 99 像素且单边长度不能超过4096像素!");
+            customAlert.alert("图片必须至少为 99 x 99 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
             return false;
         }
         $("#oasisCoverModal").modal("show");
@@ -272,9 +272,9 @@ function previewAnnounceFile(e){
       }
       const imgFile = new Image();
       imgFile.onload = ()=> {
-         if(!(imgFile.width>=576 && imgFile.height>=576  && imgFile.width<4096 && imgFile.height<4096)){
+         if(!(imgFile.width>=576 && imgFile.height>=576  && imgFile.width<4096 && imgFile.height<4096 && imgFile.width*imgFile.height<9437184)){
              console.log("current image: width=" + imgFile.width + "  height="+imgFile.height);
-             customAlert.alert("图片必须至少为 576 x 576 像素且单边长度不能超过4096像素!");
+             customAlert.alert("图片必须至少为 576 x 576 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
              return false;
          }
          $("#announceFileModal").modal("show");

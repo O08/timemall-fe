@@ -453,7 +453,7 @@ body {
 }
 
 .current-page-active{
-  background-color: #373b3e52;
+  background-color: #2d2c2ce6;
 }
 .page-link {
   padding: 2px 12px;
@@ -1451,3 +1451,24 @@ table th{
   --bs-tooltip-padding-x: 12px;
   --bs-tooltip-font-size: 12px;
 }
+
+// btn
+
+.btn-tm-primary {
+  box-sizing: border-box;
+  color: #fff;
+  background: #248045;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  position: relative;
+  min-height: 28px;
+  padding: 2px 12px;
+  min-width: 72px;
+}
+

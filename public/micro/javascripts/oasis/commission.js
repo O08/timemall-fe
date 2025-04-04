@@ -28,6 +28,7 @@ const RootComponent = {
     data() {
 
         return {
+            currentOch: "oasis-home",
             channelSort, oaisiChannelList,getChannelDataV,
             commissionForm: {
               title: "",

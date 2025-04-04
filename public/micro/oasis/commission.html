@@ -116,11 +116,27 @@
             <i class="bi bi-fan"></i>
             <span class="link-title">日常</span>  
           </a>
-          <a  v-for="channel in channelSort"   class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-            <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
-              
-            <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
-          </a>
+          <div v-for="channel in channelSort" 
+             :class="{'channel-active': currentOch==channel}"
+             class="w-100 position-relative sub-channel-box">
+            <a  
+            :class="{
+              'nva-link-default': currentOch!=channel,
+              'nav-sub-link-active ':  currentOch==channel}"
+                class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/micro/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
+           
+              <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
+              <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
+
+            </a>
+            <div :class="{'isAdmin': initiatorRoleV()}" class="channel-options">
+              <div class="channel-options-ctl">
+                  <a  :href="getChannelDataV(channel,oaisiChannelList).appAdminUrl + '?och=' + channel" class="option-channel-setting">
+                      <button type="button" class="btn  btn-secondary"><i class="bi bi-gear"></i></button>
+                  </a>
+              </div>
+            </div>
+          </div>
 
         
         </div>

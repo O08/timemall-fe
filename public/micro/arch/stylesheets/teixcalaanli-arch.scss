@@ -24,3 +24,45 @@
    display: flex;
    align-items: center;
 }
+.channel-options{
+    display: none;
+    position: absolute;
+    right: 16px;
+    top: 0;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.sub-channel-box:hover .channel-options{
+    display: flex;
+}
+.channel-options-ctl .btn {
+    background-color: unset;
+    color: #87888c;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    font-size: 14px;
+    border: none;
+}
+.channel-options-ctl .btn:hover{
+    color: #ffffffb3;
+}
+.option-channel-setting{
+    display: none;
+}
+.isAdmin .option-channel-setting{
+    display: block;
+}
+
+.sub-channel-box:hover .nav-link {
+    background-color: #2d2c2ce6;
+    border-radius: 5px;
+    color: #ffffffb3;
+}
+.channel-active .channel-options{
+    display: flex;
+}
+.sub-channel-box .nav-link span{
+    padding-right: 16px;
+}

@@ -489,9 +489,9 @@ function previewFeedCover(e,appObj){
     feedCoverImgFile.onload = ()=> {
 
         // validate image pixel
-        if(!(feedCoverImgFile.width>=99 && feedCoverImgFile.height>=99 && feedCoverImgFile.width<4096 && feedCoverImgFile.height<4096)){
+        if(!(feedCoverImgFile.width>=99 && feedCoverImgFile.height>=99 && feedCoverImgFile.width<4096 && feedCoverImgFile.height<4096 && feedCoverImgFile.width*feedCoverImgFile.height<9437184)){
             console.log("current image: width=" + feedCoverImgFile.width + "  height="+feedCoverImgFile.height);
-            customAlert.alert("图片必须至少为 99 x 99 像素且单边长度不能超过4096像素!");
+            customAlert.alert("图片必须至少为 99 x 99 像素,单边长度不能超过4096像素,且总像素不能超过9437184!");
             return false;
         }
  

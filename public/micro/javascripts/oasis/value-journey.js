@@ -24,6 +24,7 @@ const RootComponent = {
 
         return {
             channelSort, oaisiChannelList,getChannelDataV,
+            currentOch: "oasis-home",
             oasisInd: {records: []},
         }
     },
