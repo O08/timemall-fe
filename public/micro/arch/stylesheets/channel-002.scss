@@ -44,25 +44,7 @@ col-content{
     font-size: 12px;
     color: #61666D;
 }
-.msg_option_container{
-    background-color: #060415;
-    box-shadow: 0 0 20px rgba(37, 40, 42, 0.22);
-    // color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
-    width: 10em;
-    padding: 0.8em 0.6em;
-    font-size: 1.3rem;
-    min-height: 240px;
-    width: 188px;
-    font-family: "Microsoft YaHei New",微软雅黑,"Microsoft Yahei","Microsoft JhengHei",宋体,"Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-.msg_option-trigger{
-    background-color: #1a1a1a;
-    border: none;
-    box-shadow: none;
-}
-.msg_option .dropstart .dropdown-toggle:before{
-    content: none;
-}
+
 #nav-searchform {
     display: flex;
     align-items: center;

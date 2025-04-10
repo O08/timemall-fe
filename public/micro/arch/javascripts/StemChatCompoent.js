@@ -26,7 +26,7 @@ export default function StemChatCompoent(config) {
          },
          // image file 
          errors: [],
-         maxSize: 1, // 1 M
+         maxSize: 6, // 1 M
          maxAttachmentSize: 20,
          file:{
           name: "",
@@ -42,10 +42,32 @@ export default function StemChatCompoent(config) {
         bigfile: {fileName: ""},
         rawBigfile: {},
         accept: "png,gif,jpg,jpeg",
-        rtcSetting:  this.rtcSettingConfig()
+        rtcSetting:  this.rtcSettingConfig(),
+        quoteMsg: {
+          id: "",
+          author: "",
+          msgType: "",
+          msg: "{}"
+        }
       }
     },
     methods: {
+      quoteOneMessageV(msg){
+        this.quoteMsg= JSON.parse(JSON.stringify(msg));
+      },
+      removeQuoteMessageV(){
+          this.quoteMsg = {
+              id: "",
+              author: "",
+              msgType: "",
+              msg: "{}"
+          }
+      },
+      formatMessageV(msg) {
+
+          return !msg ? "" : msg.replace(new RegExp("<br>", "g"), '');
+
+      },
       removeOneMessageFromLocalV(messageId){
         this.eventObj.records=this.eventObj.records.filter(e=>e.id!=messageId);
         
@@ -128,6 +150,36 @@ export default function StemChatCompoent(config) {
           customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
       },
+      sendMarkUpTextMessageV(){
+        const msg = document.querySelector(".chat-input").innerHTML;
+        const msgText = document.querySelector(".chat-input").textContent;
+        if(!chatSetting.rtcChannel || !msgText || !msgText.trim()){
+          return ;
+        }
+        sendMarkUpTextMessage(chatSetting).then(response=>{
+          if(response.data.code==200){
+            document.querySelector(".chat-input").innerHTML='';
+            document.querySelector(".chat-input").style.height=32 + "px";
+
+            this.removeQuoteMessageV(); 
+
+            this.sendRtmChannelMessageHandler(); // notice event
+            this.displayIncrementMessageV(); // fetch message
+            if(!!chatSetting.sendMessageOkHandler){
+              chatSetting.sendMessageOkHandler();
+            }
+            
+          }
+          if(response.data.code==40016){
+            customAlert.alert(response.data.message);
+          }
+          if(response.data.code==40038){
+            customAlert.alert(response.data.message);
+          }
+        }).catch(err=>{
+          customAlert.alert("系统异常，请检查网络或者重新发送！")
+        });
+      },
       // retrieveMessageV(){
       //   if(!chatSetting.rtcChannel){
       //     return ;
@@ -158,6 +210,9 @@ export default function StemChatCompoent(config) {
           if(response.data.code==40016){
             customAlert.alert(response.data.message);
           }
+          if(response.data.code==40038){
+            customAlert.alert(response.data.message);
+          }
         }).catch(err=>{
           customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
@@ -178,6 +233,9 @@ export default function StemChatCompoent(config) {
             }
           }
           if(response.data.code==40016){
+            customAlert.alert(response.data.message);
+          }
+          if(response.data.code==40038){
             customAlert.alert(response.data.message);
           }
         }).catch(err=>{
@@ -239,6 +297,20 @@ export default function StemChatCompoent(config) {
         }
   
       },
+      validatedImageWidthAndHeight(file){
+        const feedImgFile = new Image();
+          feedImgFile.onload = ()=> {
+
+              // validate image pixel
+              if(!(feedImgFile.width>=1 && feedImgFile.height>=1 && feedImgFile.width<4096 && feedImgFile.height<4096 && feedImgFile.width*feedImgFile.height<9437184)){
+                  this.errors.push("图片必须至少为 1 x 1 像素,单边长度不能超过4096像素,且总像素不能超过9437184.");
+                  return false;
+              }
+      
+          };
+
+        feedImgFile.src = URL.createObjectURL(file);
+      },
       resetFileInput(){
         this.uploadReady = false;
         this.$nextTick(()=>{
@@ -279,6 +351,8 @@ export default function StemChatCompoent(config) {
       isFileValid(file){
         this.isFileSizeValid((Math.round((file.size / 1024/ 1024)*100) /100),this.maxSize);
         this.isFileTypeValid(file.name.split(".").pop());
+        this.validatedImageWidthAndHeight(file);
+
         if(this.errors.length ===0){
           return true;
         }else{
@@ -346,6 +420,9 @@ export default function StemChatCompoent(config) {
         // emoji.innerHTML = selection.emoji;
         // name.textContent = selection.label;
         inputBox.value = inputBox.value + selection.emoji;
+        if(inputBox.tagName == 'P'){
+          inputBox.innerHTML += selection.emoji;
+        }
         // emoji.classList.remove("empty");
         // name.classList.remove("empty");
       });
@@ -378,16 +455,31 @@ function sendTextMessage(chatSetting){
   }
   return storeMessageEvent(chatSetting.sendTextMessageUrl,dto);
 }
+function sendMarkUpTextMessage(chatSetting){
+  const dto={
+    msg: document.querySelector(".chat-input").innerHTML,
+    msgType: 'text',
+    channel: chatSetting.rtcChannel,
+    quoteMsgId: document.getElementById('quote-message-box').title
+  }
+  return storeMessageEvent(chatSetting.sendTextMessageUrl,dto);
+}
 function sendImageMessage(chatSetting,file){
   var form = new FormData();
   form.append("file",file);
   form.append("msgType","image");
+  if(!!chatSetting.rtcChannel){
+    form.append("channel",chatSetting.rtcChannel);
+  }
   return sendMillstoneImage(chatSetting.sendImageMessageUrl,form);
 }
 function sendBigFileMessage(chatSetting,file){
   var form = new FormData();
   form.append("file",file);
   form.append("msgType","attachment");
+  if(!!chatSetting.rtcChannel){
+    form.append("channel",chatSetting.rtcChannel);
+  }
   return storeMillstoneAttachment(chatSetting.sendAttachmentUrl,form);
 }
 function fetchIncrementMessage(chatSetting){

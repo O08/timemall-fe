@@ -247,14 +247,14 @@
                     @error.once="e => { e.target.src = defaultAvatarImage }">
                 </span>
                 <div class="event-header-base border-0">
-                  <div class="w-100 d-flex justify-content-between align-items-center">
+                  <div class="w-100 d-flex justify-content-between align-items-center position-relative">
                     <span>
                       <span class="event-title">{{record.author}}</span>
-                      <i class="simple-time ms-2"> {{record.createAt}}</i>
+                      <i class="simple-time ms-2">{{record.createAt.replace(new RegExp('-', 'g'), '/')}}</i>
                     </span>
-                    <div class="msg_option me-5">
+                    <div class="msg_option">
 
-                      <div v-show="canRecallMessageV(record.createAt)" class="btn-group dropstart">
+                      <div v-show="canRecallMessageV(record)" class="btn-group dropstart">
                         <a data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover"
                           data-bs-toggle="popover" data-bs-content="更多">
                           <button type="button" class="btn  dropdown-toggle msg_option-trigger"
@@ -320,7 +320,7 @@
         <div v-show="!!currentChatFriendId" class="chat-input-wrapper">
           <div class="input-wrapper">
             <textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input"
-              placeholder="Enter your message here"></textarea>
+              placeholder="在这输入消息..."></textarea>
           </div>
           <div class="chat-action-wrapper">
             <div class="chat-action-option">
@@ -350,7 +350,7 @@
                 <div class="ms-2 chat-btn-container">
                   <div class="img-btn">
                     <i class="bi bi-image chat-image-btn"></i>
-                    <input @change="handleFileChange($event)" type="file" id="selection_image" class="input-file">
+                    <input @change="handleFileChange($event)"  tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif"  type="file" id="selection_image" class="input-file">
                   </div>
                 </div>
               </span>

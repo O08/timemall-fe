@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>文聊频道</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
+    <link rel="stylesheet" href="/apps/group-chat/stylesheets/chat.scss">
+
+</head>
+<body>
+
+  <micro-app id="app" v-cloak>
+
+    <div class="content-wrapper w-100">
+
+
+
+      <!--  message content start-->
+      <div @scroll="scrollToTopThenLoadV($event)" class="room-msg-container">
+
+
+      <div v-show="eventObj.records.length == 0" class="not-found-resource">
+        <i class="bi bi-envelope-exclamation"></i>
+      </div>
+
+        <div v-for="record in eventObj.records" class="event-date">
+          <section  class="event-wrapper new-order">
+            <div v-if="!!record.quoteMsgId">
+              <div class="chat-quote-message">
+                <div class="chat-quote-mark"></div>
+                <div  v-if="!record.quoteAuthor" >
+                  <span>原始消息已被删除</span>
+                </div>
+                <div v-if="!!record.quoteAuthor" class="quote-msg-author">
+                  <div>
+                    <span contenteditable="false" class="mention-role-secondary me-1"><a href="http://zurb.com" target="_blank" title="getstarted+joachim@zurb.com">@{{record.quoteAuthor}}</a></span>
+                  </div>
+                </div>
+                <div v-if="record.quoteMsgType === 'text'" class="quote-text-msg-wrp">
+                  <div class="quote-text-msg">
+                    <span   v-html="formatMessageV(JSON.parse(record.quoteMsg).content)"></span>
+                  </div>
+                </div>
+                <div  v-if="record.quoteMsgType === 'image'" class="quote-image" >
+                  <a target="_blank" :href="'/mall/preview?uri='+JSON.parse(record.quoteMsg).uri" rel="noopener noreferrer">
+                    <img  :src="JSON.parse(record.quoteMsg).uri">
+                  </a>
+                </div>
+                <div v-if="record.quoteMsgType === 'attachment'" class="quote-attachment-msg">
+                  <div class="quote-attachment-file">
+                    <span>{{JSON.parse(record.quoteMsg).fileName}}</span> 
+                  </div>
+                  <i class="bi bi-file-earmark ms-1"></i>
+                </div>
+              </div>
+            </div>
+            <label>
+              <span 
+                class="event-icon new-order">
+                  <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              </span>
+              <div class="event-header-base border-0">
+                <div class="w-100 d-flex position-relative justify-content-between align-items-center">
+                  <div>
+                    <span class="event-title">{{record.author}}</span>
+                    <span class="simple-time ms-2">{{record.createAt.replace(new RegExp('-', 'g'), '/')}}</span>
+                  </div>
+                  
+                  <div class="msg_option">
+
+                    <div class="tagsContainer">
+                      <div class="dropdown">
+                        <a class="btn-dropdown  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bi bi-three-dots"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+
+                          <li>
+                            <a class="dropdown-item">
+                              <button  v-preventreclick  @click="quoteOneMessageV(record)" class="btn btn-message-action  w-100" >
+                                <i class="bi bi-reply"></i>
+                                <span class="ms-2">回复消息</span>
+                              </button>
+                            </a>
+                          </li>
+                          
+                          <li>
+                            <a class="dropdown-item">
+                              <button v-preventreclick @click="mentioMemberV(record)" class="btn btn-message-action  w-100" >
+                                <i class="bi bi-at"></i>
+                                <span class="ms-2">艾特一下</span>
+                              </button>
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" target="_blank" :href="'/micro/arch/channel-0002?friend='+record.authorUserId">
+                              <button v-preventreclick class="btn btn-message-action  w-100" >
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.49994 9.99992H12.4999" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path><path d="M12.5 5H13.3333C16.0948 5 18.3333 7.23857 18.3333 10C18.3333 12.7614 16.0948 15 13.3333 15H12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg>
+                                <span class="ms-2">发送私信</span>
+                              </button>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <button v-preventreclick class="btn btn-danger  w-100" @click="removeMessageV(record.id)">
+                                <i class="bi bi-trash3"></i>
+                                <span class="ms-2">删除消息</span>
+                              </button>
+                            </a>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </label>
+            <div class="event-msg-content">
+              <p  v-if="record.msgType === 'text'" class="text-preline text-message" v-html="JSON.parse(record.msg).content"></p>
+              <div  v-if="record.msgType === 'image'">
+                <a target="_blank" :href="'/mall/preview?uri='+JSON.parse(record.msg).uri" rel="noopener noreferrer">
+                  <img  :src="adaptiveImageUriV(JSON.parse(record.msg).uri)" class="img-message">
+                </a>
+                <p>
+                  <a target="_blank" class="download" download="" :href="JSON.parse(record.msg).uri"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                </p>
+              </div>
+              <div v-if="record.msgType === 'attachment'">
+                <div class="attachment-message">
+                  <span> {{JSON.parse(record.msg).fileName}}</span>
+                  <i class="bi bi-file-earmark"></i>
+                </div>
+                <p><a target="_blank" class="download" :download="JSON.parse(record.msg).fileName" :href="JSON.parse(record.msg).uri"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a></p>
+              </div>
+             
+            </div>
+          </section>
+          
+        </div>
+
+      </div>
+       <!-- input message start-->
+      <div  class="chat-input-wrapper">
+				<div class="input-wrapper">
+					<p @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="在这输入消息..."></p>
+          <div id="quote-message-box" v-show="!!quoteMsg.id" :title="quoteMsg.id" class="quote-message-box">
+            <div class="quote-content">
+              <span contenteditable="false" class="mention-role-secondary me-1"><a href="http://zurb.com" target="_blank" title="getstarted+joachim@zurb.com">@{{quoteMsg.author}} </a></span>
+              <span  v-if="quoteMsg.msgType === 'text'" v-html="formatMessageV(JSON.parse(quoteMsg.msg).content)"></span>
+              <span  v-if="quoteMsg.msgType === 'image'" class="quote-image" >
+                <a target="_blank" :href="'/mall/preview?uri='+JSON.parse(quoteMsg.msg).uri" rel="noopener noreferrer">
+                  <img  :src="adaptiveImageUriV(JSON.parse(quoteMsg.msg).uri)">
+                </a>
+              </span>
+              <span v-if="quoteMsg.msgType === 'attachment'" class="quote-attachment">
+                <span>{{JSON.parse(quoteMsg.msg).fileName}}</span> 
+                <i class="bi bi-file-earmark"></i>
+              </span>
+            </div>
+            <div class="quote-action">
+              <button @click="removeQuoteMessageV" type="button" class="btn-close"></button>
+            </div>
+
+          </div>
+				</div>
+				<div class="chat-action-wrapper">
+					<div class="chat-action-option">
+						<span>
+							<div class="chat-attachment-btn chat-btn-container">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-paperclip" viewBox="0 0 24 24">
+									<defs></defs>
+									<path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"></path>
+								</svg>
+								<input @change="handleBigFileChange($event)" id="selection_attachment" type="file" class="input-file">
+							</div>
+						</span>
+						<span>
+							<div id="selection-outer" class="selection-outer ms-2 chat-btn-container">
+								<div id="selection">
+									<button id="selection-emoji" class="empty emoji-btn">
+										<i class="bi bi-emoji-smile"></i>
+									</button>
+								</div>
+							</div>
+						</span>
+						<span>
+							<div class="ms-2 chat-btn-container">
+								<div class="img-btn" >
+									<i class="bi bi-image chat-image-btn"></i>
+									<input @change="handleFileChange($event)" type="file"   tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif"  id="selection_image" class="input-file">
+								</div>
+							</div>
+						</span>
+					</div>
+					<button v-preventreclick @click="sendMarkUpTextMessageV" class="chat-send-btn">发送</button>
+				</div>
+			</div>
+
+    </div>
+
+    <section class="modals">
+
+      <div class="modal-container">
+        <!-- Modal -->
+        <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">预览</h1>
+                <button @click="resetFileInput" type="button" id="closeImagePreviewModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <div v-if="errors.length == 0" class="image-upload-container">
+                  <img id="imagePreview" :src="file.url" >
+                </div>
+                <div v-if="errors.length > 0">
+                  <div>文件不符合要求，提示信息：</div>
+                  <div v-for="error in errors">
+                    <span>{{error}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer btn-light">
+                <button @click="sendImageMessageV"
+                :class="{'disabled': errors.length > 0, 
+                      'btn-primary': errors.length == 0,
+                      'btn-secondary': errors.length > 0}"
+                 v-preventreclick type="button" class="btn btn-primary">选中</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-container">
+        <!-- Modal -->
+        <div class="modal fade" id="sendBigFileModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">文件信息</h1>
+                <button @click="resetBigFileInput" type="button" id="closeSendFileModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <div v-if="errors.length == 0" class="file-info-container">
+                  选中文件: {{bigfile.fileName}}
+                </div>
+                <div v-if="errors.length > 0">
+                  <div>文件不符合要求，提示信息：</div>
+                  <div v-for="error in errors">
+                    <span>{{error}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer btn-light">
+                <button @click="sendAttachmentV"
+                :class="{'disabled': errors.length > 0, 
+                      'btn-primary': errors.length == 0,
+                      'btn-secondary': errors.length > 0}"
+                 v-preventreclick type="button" class="btn btn-primary">发送</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+    </section>
+
+
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/group-chat/javascripts/chat.js"></script>
+
+
+
+</body>
+</html>

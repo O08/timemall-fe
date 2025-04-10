@@ -214,9 +214,7 @@ body::-webkit-scrollbar {
   margin: 0 4px 0 0;
   overflow-y: auto;
 }
-.chat-input-wrapper{
-  position: relative;
-}
+
 pt-app content main {
   overflow-x: auto;
   scrollbar-width: none;
@@ -233,7 +231,6 @@ pt-app content main {
 }
 .msg-room-panel{
   width: 144px;
-  height: 100%;
 }
 .channel_active{
   border-radius: 5px !important;

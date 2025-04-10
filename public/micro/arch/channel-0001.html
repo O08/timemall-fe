@@ -190,13 +190,13 @@
                   <img :src="adaptiveImageUriV(record.authorIcon)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
               </span>
               <div class="event-header-base border-0">
-                <div class="w-100 d-flex justify-content-between">
+                <div class="w-100 d-flex justify-content-between align-items-center position-relative">
                   <span>
                     <span class="event-title">{{record.author}}</span>
-                    <i class="simple-time ms-2"> {{record.createAt}}</i>
+                    <i class="simple-time ms-2"> {{record.createAt.replace(new RegExp('-', 'g'), '/')}}</i>
                   </span>
                   
-                 <div class="msg_option me-5">
+                 <div class="msg_option">
                   
                   <div v-if="initiatorRoleV()" class="btn-group dropstart">
                     <a data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="更多">
@@ -245,7 +245,7 @@
 			</div>
 			<div v-show="!!viewerProfile && viewerProfile.policyRel=='read_write'" class="chat-input-wrapper">
 				<div class="input-wrapper">
-					<textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="Enter your message here"></textarea>
+					<textarea @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="在这输入消息..."></textarea>
 				</div>
 				<div class="chat-action-wrapper">
 					<div class="chat-action-option">
@@ -271,7 +271,7 @@
 							<div class="ms-2 chat-btn-container">
 								<div class="img-btn" >
 									<i class="bi bi-image chat-image-btn"></i>
-									<input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+									<input @change="handleFileChange($event)" type="file"  tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif"   id="selection_image" class="input-file">
 								</div>
 							</div>
 						</span>

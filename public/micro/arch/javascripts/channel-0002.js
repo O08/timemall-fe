@@ -92,9 +92,11 @@ const RootComponent = {
             this.currentFriendForOption=friend;
             showFriendOtpion(e);
         },
-        canRecallMessageV(msgSendTime){
-          var seconds=  getSecondsBetween(new Date(),new Date(msgSendTime));
-          return seconds < 60;
+        canRecallMessageV(msg){
+          var seconds =  getSecondsBetween(new Date(),new Date(msg.createAt));
+
+          var isMsgSender = msg.authorId==this.getIdentity().userId;
+          return isMsgSender && seconds < 60;
         }
          
     },
