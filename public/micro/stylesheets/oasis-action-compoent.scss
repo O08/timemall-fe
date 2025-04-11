@@ -1,7 +1,7 @@
 .modal-backdrop.show{
     display: none;
 }
-#invitationModal .modal-content,#topUpToOasisModal .modal-content,#inputPrivateCodeModal .modal-content,#collectAccountModal .modal-content{
+#adminWidthdrawModal .modal-content ,#invitationModal .modal-content,#topUpToOasisModal .modal-content,#inputPrivateCodeModal .modal-content,#collectAccountModal .modal-content{
     color: rgb(97, 102, 109);
     word-spacing: .5px;
     background-color: #1a1a1a;
@@ -9,7 +9,7 @@
     box-shadow: rgb(109, 117, 122) 0px 0px 10px;
 
 }
-#invitationModal .btn-close,#topUpToOasisModal .btn-close,#inputPrivateCodeModal .btn-close,#collectAccountModal .btn-close{
+#adminWidthdrawModal .btn-close,#invitationModal .btn-close,#topUpToOasisModal .btn-close,#inputPrivateCodeModal .btn-close,#collectAccountModal .btn-close{
     color: #fff;
     background-color: #343434;
     border: none;
@@ -21,21 +21,21 @@
     box-shadow: none;
     --bs-btn-close-bg: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23fff%22%20class%3D%22bi%20bi-x-circle%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2015A7%207%200%201%201%208%201a7%207%200%200%201%200%2014m0%201A8%208%200%201%200%208%200a8%208%200%200%200%200%2016%22%2F%3E%3Cpath%20d%3D%22M4.646%204.646a.5.5%200%200%201%20.708%200L8%207.293l2.646-2.647a.5.5%200%200%201%20.708.708L8.707%208l2.647%202.646a.5.5%200%200%201-.708.708L8%208.707l-2.646%202.647a.5.5%200%200%201-.708-.708L7.293%208%204.646%205.354a.5.5%200%200%201%200-.708%22%2F%3E%3C%2Fsvg%3E");
 }
-#invitationModal .modal-header,#topUpToOasisModal .modal-header,#inputPrivateCodeModal .modal-header,#collectAccountModal .modal-header
+#adminWidthdrawModal .modal-header,#invitationModal .modal-header,#topUpToOasisModal .modal-header,#inputPrivateCodeModal .modal-header,#collectAccountModal .modal-header
 {
     border-color: #2f2f2f;
 }
-#invitationModal .modal-footer,#topUpToOasisModal .modal-footer,#inputPrivateCodeModal .modal-footer,#collectAccountModal .modal-footer
+#adminWidthdrawModal .modal-footer,#invitationModal .modal-footer,#topUpToOasisModal .modal-footer,#inputPrivateCodeModal .modal-footer,#collectAccountModal .modal-footer
 {
     border: none;
     background-color: #4e50584d;
 }
-#topUpToOasisModal  .form-control:disabled,#collectAccountModal .form-control:disabled{
+#adminWidthdrawModal  .form-control:disabled, #topUpToOasisModal  .form-control:disabled,#collectAccountModal .form-control:disabled{
     background-color: #4e50584d;
     border: none;
     color: #dbdee1;
 }
-#topUpToOasisModal input[type="number"],#collectAccountModal input[type="number"]{
+#adminWidthdrawModal input[type="number"], #topUpToOasisModal input[type="number"],#collectAccountModal input[type="number"]{
     background-color: rgba(147, 115, 238, 0.04);
     color: #3498db;
     font-weight: bold;
@@ -43,6 +43,11 @@
     outline: none;
     box-shadow: none;
 }
+#adminWidthdrawModal input[type="number"]:-moz-placeholder, /* Firefox 18- */
+#adminWidthdrawModal input[type="number"]::-moz-placeholder, /* Firefox 19+ */
+#adminWidthdrawModal input[type="number"]:-ms-input-placeholder, /* IE 10+ */
+#adminWidthdrawModal input[type="number"]::-webkit-input-placeholder, /* Webkit based */
+#adminWidthdrawModal input[type="number"]::placeholder,
 
 #topUpToOasisModal input[type="number"]:-moz-placeholder, /* Firefox 18- */
 #topUpToOasisModal input[type="number"]::-moz-placeholder, /* Firefox 19+ */
@@ -297,6 +302,8 @@
   }
 
   /* Chrome, Safari, Edge, Opera */
+#adminWidthdrawModal input::-webkit-outer-spin-button,
+#adminWidthdrawModal input::-webkit-inner-spin-button,
 #topUpToOasisModal input::-webkit-outer-spin-button,
 #topUpToOasisModal input::-webkit-inner-spin-button,
 #collectAccountModal input::-webkit-outer-spin-button,
@@ -306,6 +313,6 @@
 }
 
 /* Firefox */
-#topUpToOasisModal input[type=number] ,#collectAccountModal input[type=number] {
+#adminWidthdrawModal input[type=number] ,#topUpToOasisModal input[type=number] ,#collectAccountModal input[type=number] {
   -moz-appearance: textfield;
 }

@@ -26,6 +26,9 @@ const OasisOptionCtlComponent = {
         this.$refs.oasisOptionModals.doShowSponsorModalV();
 
       },
+      showAdminWithdrawModalV(){
+        this.$refs.oasisOptionModals.doShowAdminWithdrawModalV();
+      },
       showCollectAccountModalV(){
  
         this.$refs.oasisOptionModals.doShowCollectAccountModalV();
@@ -99,6 +102,13 @@ const OasisOptionCtlComponent = {
         </button>
       </a>
     </li>
+    <li v-if="initiatorRoleV()">
+      <a  class="dropdown-item">
+        <button @click="showAdminWithdrawModalV" type="button" class="btn oasis-option">
+          <i class="bi bi-piggy-bank me-1"></i> 取出资金
+        </button>
+      </a>
+    </li>
     <li  v-if="oasis_announce.canAddMember == '1' && (initiatorRoleV() || (!initiatorRoleV() && oasis_announce.forPrivate == '0') )">
       <a  class="dropdown-item">
         <button @click="showInvitationModalV" v-preventreclick  type="button" class="btn oasis-option">
@@ -106,6 +116,7 @@ const OasisOptionCtlComponent = {
         </button>
       </a>
     </li>
+    
       </ul>
     </div>
   </div>
