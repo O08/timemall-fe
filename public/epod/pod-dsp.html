@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,7 +107,7 @@
               <div class="friend-list">
 
                 <li class="friend-item"   v-for="friend in friends.records">
-                  <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                  <a target="_blank" :href="'/messages/'+ friend.id">
                     <div class="friend-container">
                       <div class="frend-avatar-container">
                         <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
@@ -217,10 +217,219 @@
         </div>
       </aside>
       <main>
+
+        <div class="main-content-container">
+
+          <div class="page-title mb-5">
+            <h1>争端解决</h1>
+          </div>  
+  
+          <!-- top search -->
+          <div class="filter-bar">
+  
+            <top-search class="section-top-serach">
+              <div class="input-group input-normal-search">
+                <input @keyup.enter.native="retrieveCaseDataV" v-model="caseList_pagination.param.q"   class="form-control top-search-input" type="text"
+                  placeholder="搜索..." aria-label="Search">
+                <button v-preventreclick @click="retrieveCaseDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </top-search>
+  
+            <div class="filter-item tagsContainer">
+  
+              <div class="dropdown">
+                <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  状态
+                </a>
+              
+                <ul class="dropdown-menu">
+  
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterCaseStatus_PENDING">
+                          {{explainDspCaseStatusV("PENDING")}}
+                        </label>
+                        <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="PENDING" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_PENDING" >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterCaseStatus_PROCESSING">
+                          {{explainDspCaseStatusV("PROCESSING")}}
+                        </label>
+                        <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="PROCESSING" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_PROCESSING" >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterCaseStatus_COMPLAINT">
+                          {{explainDspCaseStatusV("COMPLAINT")}}
+                        </label>
+                        <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="COMPLAINT" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_COMPLAINT" >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterCaseStatus_RESOLVED">
+                          {{explainDspCaseStatusV("RESOLVED")}}
+                        </label>
+                        <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="RESOLVED" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_RESOLVED" >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterCaseStatus_RESOLVED">
+                          全部
+                        </label>
+                        <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_ALL" >
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+  
+            </div>
+  
+          </div>
+  
+          <div class="data-tb-container pt-2">
+            <div class="table-responsive">
+              <div class="table-wrp">
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <th class="col-snippet"></th>
+                    <th class="col-snippet">编号</th>
+                    <th class="col-type">举报类型</th>
+                    <th class="col-case-desc">案件描述</th>
+                    <th class="col-scene">你举报的物料</th>
+                    <th class="col-status">状态</th>
+                    <th class="col-soulution">处理结论</th>
+                    <th class="col-people text-center">调解员</th>
+                    <th class="col-time">建档日期</th>
+                  </thead>
+                  <tbody>
+                    <tr v-for="report in caseList_pagination.records">
+                      <td>
+                        <span  v-preventreclick @click="showAddNewMaterialModalV(report.caseNo)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上传举报材料">
+                          <i class="bi bi-cloud-arrow-up"></i>
+                        </span>
+                        <span  v-preventreclick @click="showViewMaterialModalV(report.caseNo)" class="option-edit ms-3">
+                          <a tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看举报材料">           
+                            <i class="bi bi-file-earmark"></i>             
+                          </a>
+                        </span>
+                      </td>
+                      <td :title="report.caseNo">{{report.caseNo}}</td>
+                      <td :title="report.fraudTypeDesc"><span class="ellipsis-1">{{report.fraudTypeDesc}}</span></td>
+                      <td :title="report.caseDesc"><span class="ellipsis-1">{{report.caseDesc}}</span></td>
+                      <td :title="report.sceneUrl"><a class="tb-url-link" target="_blank" :href="report.sceneUrl">{{report.scene}}</a></td>
+                      <td :title="explainDspCaseStatusV(report.caseStatus)">{{explainDspCaseStatusV(report.caseStatus)}}</td>
+                      <td :title="report.solution"><span class="ellipsis-1">{{report.solution}}</span></td>
+                      <td :title="report.peacemakerBrandName" class="text-center"><a  :href="'/messages/' + report.peacemakerUserId"><img :src="adaptiveImageUriV(report.peacemakerAvatar) || defaultAvatarImage" class="peacemaker-avatar"></a></td>
+                      <td :title="report.createAt">{{report.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
+                    </tr>
+                  </tbody>
+                  
+                </table>
+  
+                <div v-show="caseList_pagination.records.length==0" class="empty-content-block">
+    
+                  没有可用的内容！
+      
+                </div>
+                <nav v-if="!!caseList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(caseList_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in caseList_pagination.paging.items" :class="{'current-page-active': caseList_pagination.paging.current == page}" 
+                          @click="pageGo(caseList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(caseList_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+  
+  
+              </div>
+            </div>
+          </div>
+
+        </div>
         
       </main>
     </content>
-    <footer></footer>
+
+    <section class="modals">
+
+      <!-- case material modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="caseMaterialModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header display-dialog-header-bg">
+                <h1 class="modal-title fs-5">举报资料上传</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                <form class="w-100" onsubmit="return false">
+                  <input id="caseMaterialFile" class="form-control" type="file" placeholder="case material">
+                </form>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="uploadCaseMaterialV" type="button"  class="btn btn-primary">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- case material view modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="caseMaterialViewModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header  display-dialog-header-bg">
+                <h1 class="modal-title fs-5">查看举报资料</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                <form class="w-100" onsubmit="return false">
+
+                  <div v-for="item in materialList" class="material-item">
+                    <span :title="item.materialName" style="display: contents;">
+                      <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">{{item.materialName}}</span>
+                    </span>
+                    <a target="_blank" class="download" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                  </div>
+                  <div v-if="materialList.length==0" class="d-flex align-items-center justify-content-center p-2">
+                     未找到相关数据
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+   
   </pt-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 

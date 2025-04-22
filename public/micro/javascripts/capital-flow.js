@@ -45,10 +45,20 @@ const RootComponent = {
                     this.retrieveFinInfoV();
                     this.trans.amount=""; // 复位
                     customAlert.alert("处理成功！");
+                    return;
                 }
                 if(response.data.code==503){
                     customAlert.alert("处理失败，请检查账号信息或到联系我们页面寻求支持！");
+                    return;
                 }
+                if(response.data.code==40034){
+                    customAlert.alert("您已被限额，当日累积转出金额限制为500元！");
+                    return;
+                }
+                if(response.data.code!=200){
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                }
+
             });
         },
         retrieveFinInfoV(){

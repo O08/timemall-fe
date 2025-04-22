@@ -16,6 +16,11 @@ const OasisOptionCtlComponent = {
       inOasisV(){
         return inOasisB(this.joinedoasis,this.oasisId);
       },
+      showReportModalV(){
+ 
+        this.$refs.oasisOptionModals.doShowReportModalV();
+
+      },
       showInvitationModalV(){
  
         this.$refs.oasisOptionModals.doShowInvitationModalV();
@@ -113,6 +118,13 @@ const OasisOptionCtlComponent = {
       <a  class="dropdown-item">
         <button @click="showInvitationModalV" v-preventreclick  type="button" class="btn oasis-option">
           <i class="bi bi-person-plus me-1"></i> 邀请&招新
+        </button>
+      </a>
+    </li>
+    <li>
+      <a  class="dropdown-item">
+        <button @click="showReportModalV" v-preventreclick  type="button" class="btn oasis-option">
+          <i class="bi bi-flag me-1"></i> 举报部落
         </button>
       </a>
     </li>

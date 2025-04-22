@@ -14,7 +14,7 @@ const  OasisInvitationComponent = {
             q: "",
             oasisId: this.oasis_id
         },
-        oasisUrl: EnvWebsite.PROD+"/micro/oasis/index?oasis_id=" + this.oasis_id
+        oasisUrl: EnvWebsite.PROD+"/micro/oasis/home?oasis_id=" + this.oasis_id
       }
   },
   methods: {

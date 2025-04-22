@@ -110,7 +110,7 @@
                   <div class="friend-list">
 
                     <li class="friend-item"   v-for="friend in friends.records">
-                      <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                      <a target="_blank" :href="'/messages/'+ friend.id">
                         <div class="friend-container">
                           <div class="frend-avatar-container">
                             <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
@@ -188,7 +188,7 @@
                   </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <a class="text-decoration-none" :href="'/micro/oasis/index?oasis_id=' + commissionDetail.oasisId">
+                  <a class="text-decoration-none" :href="'/micro/oasis/home?oasis_id=' + commissionDetail.oasisId">
                     <button class="nav-link">部落主页</button>
                   </a>
                 </li>

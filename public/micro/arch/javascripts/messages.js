@@ -4,7 +4,7 @@ import Auth from "/estudio/javascripts/auth.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable,getSecondsBetween } from "/common/javascripts/util.js";
+import { getSecondsBetween } from "/common/javascripts/util.js";
 import  PrivateApi from "/micro/arch/javascripts/PrivateApi.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
@@ -14,11 +14,7 @@ import StemChatCompoent from "/micro/arch/javascripts/StemChatCompoent.js";
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 
 
-
-
-
-
-
+const currentFreiend = window.location.pathname.split('/').pop();
 
 const RootComponent = {
     data() {
@@ -41,7 +37,7 @@ const RootComponent = {
           return !!_that.friendProfile && !!_that.friendProfile.id && !!_that.friends.records && _that.friends.records.filter(e=>e.id===_that.friendProfile.id).length==0;
         },
         fetchFriendProfileV(){
-          const friend = getQueryVariable("friend");
+          const friend = currentFreiend;
           if(!friend){
             return;
           }
@@ -61,8 +57,7 @@ const RootComponent = {
 
         },
         privateMarkAllMsgAsReadV(){
-            const friend = getQueryVariable("friend");
-            PrivateApi.markAllMsgAsRead(friend);
+            PrivateApi.markAllMsgAsRead(currentFreiend);
         },
         fetchPrivateFriendAndMarkAsReadV(){
             this.fetchPrivateFriendV();
@@ -101,7 +96,7 @@ const RootComponent = {
          
     },
     created(){
-        this.currentChatFriendId=getQueryVariable("friend");
+        this.currentChatFriendId=currentFreiend;
         if(!!this.currentChatFriendId && this.currentChatFriendId==this.getIdentity().userId){
           goPrivatePageWithoutFriendQueryVariable();
           return ;
@@ -121,7 +116,7 @@ const RootComponent = {
     }
 }
 
-const chatChannel=getQueryVariable("friend");
+const chatChannel=currentFreiend;
 
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
@@ -231,5 +226,5 @@ document.addEventListener("click", function (e) {
     });
 
 function goPrivatePageWithoutFriendQueryVariable(){
-  window.location.href="/micro/arch/channel-0002";
+  window.location.href="/messages";
 }

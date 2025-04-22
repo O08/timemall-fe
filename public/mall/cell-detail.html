@@ -179,8 +179,8 @@
                     
                     <div class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
-                        <a :href="'/micro/arch/channel-0002?friend='+ brandProfile.brandUserId" target="_blank">
-                          <button  class="btn btn-outline-primary private-msg-link">
+                        <a :href="'/messages/'+ brandProfile.brandUserId" target="_blank">
+                          <button  class="btn btn-dark  copy-link private-msg-link">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M8.99991 11.9999H14.9999" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
                               <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
@@ -199,13 +199,24 @@
 
                     <div v-if="!!brandProfile.pdOasisId" class="opt_item_container d-flex flex-column justify-content-center">
                       <div class="opt_item_head">
-                        <a :href="'/micro/oasis/index?oasis_id='+brandProfile.pdOasisId" target="_blank">
+                        <a :href="'/micro/oasis/home?oasis_id='+brandProfile.pdOasisId" target="_blank">
                           <button  class="btn btn-dark  copy-link d-flex justify-content-center">
                             <i class="bi bi-people"></i>
                           </button>
                         </a>
                       </div>
                       <span class="opt_item_desc">社区</span>
+                    </div>
+
+                    <div v-if="user_already_login"  class="opt_item_container d-flex flex-column justify-content-center">
+                      <div class="opt_item_head">
+                        <a>
+                          <button v-preventreclick  @click="showOasisReportModalV" class="btn btn-dark  copy-link d-flex justify-content-center">
+                            <i class="bi bi-flag"></i>
+                          </button>
+                        </a>
+                      </div>
+                      <span class="opt_item_desc">举报</span>
                     </div>
 
                     
@@ -265,7 +276,7 @@
                               </p>
                             </div>
                           </div>
-                          <div class="input-group w-75 mb-3">
+                          <div class="input-group w-100 mb-3">
                             <input type="text" class="form-control border-0 option-sbu-input" min="1" max="50000" step="1" v-model="quantity" @change="computeFeeV" @input="transformInputNumberV($event)" aria-label="Text input with dropdown button">
                             <select class="form-select option-sbu" v-model="selectedSbu" @change="computeFeeV" aria-label="Default select example">
                               <option value="">计量</option>
@@ -519,6 +530,60 @@
     </content>
     <footer></footer>
     <section class="modals">
+
+      <div class="modal-container">
+              
+        <!-- Modal -->
+        <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">举报商品</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <form class="w-100">
+                  <div class="pt-3">
+                    <ul class="list-group">
+                      <li v-for="report in reportOptions" class="list-group-item">
+                          <div class="form-check">
+                          <input class="form-check-input" v-bind:value="report.itemCode"  v-model="reportForm.fraudType" type="radio" name="reportList">
+                          <label class="form-check-label" for="reportList">
+                              {{report.item}}
+                          </label>
+                          </div>
+                      </li>
+                    </ul>
+                 </div>
+    
+                 <div class="py-3">
+                  <div class="label-color field-label">详细描述（必填）</div>
+                  <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                          <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                          <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 : 200-reportForm.caseDesc.length}}</div>
+                      </div>
+                  </div>
+                  <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
+    
+                  <input style="font-size: 12px;" id="caseMaterialFile" class="form-control  only-show-bottom mb-3" type="file" placeholder="选择举报材料">
+    
+                 </div>
+    
+                </form>
+                
+              </div>
+              <div class="modal-footer btn-light">
+                <button 
+                :class="{'disabled': !validateReportFormV(), 
+                  'btn-primary': validateReportFormV() ,
+                  'btn-secondary': !validateReportFormV()  }"
+                 v-preventreclick @click="newReportCaseV" type="button"  class="btn">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="modal-container">
               

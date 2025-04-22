@@ -49,7 +49,7 @@ const BubbleInviteComponent = {
             });
         },
         inviteBrandForPrivateFriendPageV(){
-            const brandId = this.friendProfile.brandId;// from channel-0002 .js
+            const brandId = this.friendProfile.brandId;// from messages .js
             OasisApi.inviteBrand(brandId,this.checkedOasisId).then(response=>{
                 if(response.data.code==200){
                     this.checkedOasisId=""; // 复位

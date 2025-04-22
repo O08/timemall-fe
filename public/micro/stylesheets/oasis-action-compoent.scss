@@ -1,7 +1,7 @@
 .modal-backdrop.show{
     display: none;
 }
-#adminWidthdrawModal .modal-content ,#invitationModal .modal-content,#topUpToOasisModal .modal-content,#inputPrivateCodeModal .modal-content,#collectAccountModal .modal-content{
+#reportOasisModal .modal-content ,#adminWidthdrawModal .modal-content ,#invitationModal .modal-content,#topUpToOasisModal .modal-content,#inputPrivateCodeModal .modal-content,#collectAccountModal .modal-content{
     color: rgb(97, 102, 109);
     word-spacing: .5px;
     background-color: #1a1a1a;
@@ -9,7 +9,7 @@
     box-shadow: rgb(109, 117, 122) 0px 0px 10px;
 
 }
-#adminWidthdrawModal .btn-close,#invitationModal .btn-close,#topUpToOasisModal .btn-close,#inputPrivateCodeModal .btn-close,#collectAccountModal .btn-close{
+#reportOasisModal .btn-close, #adminWidthdrawModal .btn-close,#invitationModal .btn-close,#topUpToOasisModal .btn-close,#inputPrivateCodeModal .btn-close,#collectAccountModal .btn-close{
     color: #fff;
     background-color: #343434;
     border: none;
@@ -21,11 +21,11 @@
     box-shadow: none;
     --bs-btn-close-bg: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23fff%22%20class%3D%22bi%20bi-x-circle%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2015A7%207%200%201%201%208%201a7%207%200%200%201%200%2014m0%201A8%208%200%201%200%208%200a8%208%200%200%200%200%2016%22%2F%3E%3Cpath%20d%3D%22M4.646%204.646a.5.5%200%200%201%20.708%200L8%207.293l2.646-2.647a.5.5%200%200%201%20.708.708L8.707%208l2.647%202.646a.5.5%200%200%201-.708.708L8%208.707l-2.646%202.647a.5.5%200%200%201-.708-.708L7.293%208%204.646%205.354a.5.5%200%200%201%200-.708%22%2F%3E%3C%2Fsvg%3E");
 }
-#adminWidthdrawModal .modal-header,#invitationModal .modal-header,#topUpToOasisModal .modal-header,#inputPrivateCodeModal .modal-header,#collectAccountModal .modal-header
+#reportOasisModal .modal-header,#adminWidthdrawModal .modal-header,#invitationModal .modal-header,#topUpToOasisModal .modal-header,#inputPrivateCodeModal .modal-header,#collectAccountModal .modal-header
 {
     border-color: #2f2f2f;
 }
-#adminWidthdrawModal .modal-footer,#invitationModal .modal-footer,#topUpToOasisModal .modal-footer,#inputPrivateCodeModal .modal-footer,#collectAccountModal .modal-footer
+#reportOasisModal .modal-footer, #adminWidthdrawModal .modal-footer,#invitationModal .modal-footer,#topUpToOasisModal .modal-footer,#inputPrivateCodeModal .modal-footer,#collectAccountModal .modal-footer
 {
     border: none;
     background-color: #4e50584d;
@@ -315,4 +315,73 @@
 /* Firefox */
 #adminWidthdrawModal input[type=number] ,#topUpToOasisModal input[type=number] ,#collectAccountModal input[type=number] {
   -moz-appearance: textfield;
+}
+
+#reportOasisModal .list-group {
+  --bs-list-group-bg: transparent;
+  --bs-list-group-color: #b5bac1;
+  --bs-list-group-border-color: transparent;
+}
+#reportOasisModal .list-group .list-group-item {
+  background-color: #2e2e2e9d;
+  border-radius: 5px;
+  margin-bottom: 4px;
+}
+#reportOasisModal .form-check-input {
+  outline: unset;
+  box-shadow: none;
+  background-color: #0000;
+  border-width: 3px;
+}
+
+#reportOasisModal .list-group .list-group-item:hover {
+  background-color: #343434;
+}
+#reportOasisModal .form-check-input:focus {
+  border-color: #86b7fe;
+  outline: 0;
+}
+#reportOasisModal .form-check-input:checked {
+  background-color: #248045;
+  border-color: #248045;
+}
+#reportOasisModal .field-label {
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.33333;
+}
+#reportOasisModal .label-color {
+  color: #c4c9ce;
+}
+#reportOasisModal .inputWrapper {
+  flex-direction: column;
+  display: flex
+;
+}
+#reportOasisModal .inputMaxLength {
+  position: relative;
+}
+#reportOasisModal .textAreaDefault {
+  box-sizing: border-box;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+}
+#reportOasisModal .maxLength {
+  pointer-events: none;
+  color: #949ba4;
+  font-size: 12px;
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+}
+#reportOasisModal  .modal-content{
+  max-height: 500px;
 }

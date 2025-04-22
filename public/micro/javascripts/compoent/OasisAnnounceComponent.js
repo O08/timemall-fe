@@ -49,7 +49,12 @@ const OasisAnnounceComponent = {
                     this.announce = response.data.announce;
                     if(!this.announce){
                         window.location.href="/micro/teixcalaanli";
+                        return
                     }
+                    if(this.announce.mark=='4' && window.location.pathname!=='/micro/oasis/home'){
+                        window.location.href="/micro/oasis/home?oasis_id=" + oasisId;
+                    }
+
                 }
             })
         },

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>举报案件详情</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/mall/stylesheets/dsp-case.scss">
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container">
+        <div class="case-box">
+
+            <!-- start -->
+            <div class="case-archive-content">
+                <div class="archive-detail-container">
+                  <div class="archiveDetail-avatar">
+                    <i  style="font-size: 48px;" class="bi bi-briefcase"></i>
+                  </div>
+                  <div class="archiveDetail-header">
+                    <h1>{{caseProfile.general.caseNo}}</h1>
+                    <div class="archiveDetail-action">
+
+                      <div class="can_opt_wrapper d-flex">
+      
+
+                        
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <a>
+                              <button v-preventreclick  @click="showAddNewMaterialModalV" class="btn btn-dark private-msg-link">
+                                <i class="bi bi-file-earmark-plus"></i>
+                              </button>
+                            </a> 
+                          </div>
+                          <span class="opt_item_desc">上传材料</span>
+                        </div>
+
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <a>
+                              <button v-preventreclick  @click="showCaseManagementModalV"  data-bs-toggle="modal" data-bs-target="#inviteModal" class="btn btn-dark  copy-link">
+                                <i class="bi bi-feather"></i>
+                              </button>
+                            </a>
+                        
+                          </div>
+                          <span class="opt_item_desc">处理案子</span>
+                        </div>
+
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <a>
+                              <div   class="dropdown-center">
+                                <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                      
+                                  <div class="case-actions">
+                      
+                                    <div class="w-100">
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="executeWithdrawLimitV" class="btn-del_post">执行限额</button>
+                                      </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="recallWithdrawLimitV" class="btn-del_post">解除限额</button>
+                                      </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showOfflineCellModalV"  class="btn-del_post">下线特约</button>
+                                      </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showBlockOasisModalV"  class="btn-del_post">封禁部落</button>
+                                      </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showFreezeUserModalV" class="btn-del_post">冻结账号</button>
+                                      </div>
+                                    </div>
+                            
+                            
+                                  </div>
+                                  
+                                </ul>
+                              </div>
+                            </a>
+                        
+                          </div>
+                          <span class="opt_item_desc">更多</span>
+                        </div>
+
+
+                        
+                
+    
+                        
+              
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="archiveDetail-core">
+                    <div class="archiveDetail-core-cooperationScope">
+                      <div>
+                        <p>
+                          {{!caseProfile.general.caseDesc ? '未录入案件信息' : caseProfile.general.caseDesc}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="archiveDetail-core-keyinfo-wrapper">
+
+                      <div class="archiveDetail-core-keyinfo">
+                        <div>
+                          <h2 class="keyInfo-heading">基础信息</h2>
+                        </div>
+                        <div class="archiveDetailCore-keyinfo-item">
+                          <h3>类型</h3>
+                          <h4>{{caseProfile.general.fraudTypeDesc}}</h4>
+                        </div>
+                        <div class="archiveDetailCore-keyinfo-item">
+                          <h3>优先级</h3>
+                          <h4>{{caseProfile.general.casePriority}}</h4>
+                        </div>
+                        <div class="archiveDetailCore-keyinfo-item">
+                          <h3>举报人</h3>
+                          <h4><a target="_blank" :href="'/messages/' + caseProfile.general.informerUserId" class="url-link">{{caseProfile.general.informerBrandName}}</a> </h4>
+                        </div>
+                        <div class="archiveDetailCore-keyinfo-item">
+                          <h3>被举报人</h3>
+                          <h4><a target="_blank" :href="'/messages/' + caseProfile.general.defendantUserId" class="url-link">{{caseProfile.general.defendantBrandName}}</a></h4>
+                        </div>
+
+                        <div class="archiveDetailCore-keyinfo-item">
+                          <h3>被举报物料</h3>
+                          <h4><a target="_blank" :href="caseProfile.general.sceneUrl" class="url-link">{{caseProfile.general.scene}}</a></h4>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    
+                  </div>
+                  <div class="archiveDetail-skills">
+                    <h2>处理方案</h2>
+                    <div class="archiveDetail-skills-item ms-2 ps-2 py-2">
+                      {{caseProfile.general.solution}}
+                    </div>
+                  </div>
+
+                  <div class="archiveDetail-skills">
+                    <h2>举报资料</h2>
+                    <div class="business-scope  ps-2 py-2">
+                      <div v-for="item in caseProfile.material.informerMaterial" class="material-item">
+                        <span class="ellipsis-1">
+                          <i style="color: aliceblue;" class="bi bi-file-earmark-fill"></i> <span class="ms-1">{{item.materialName}}</span>
+                        </span>
+                        <div class="material-item-optional">
+                          <a target="_blank" class="download"  :href="'/mall/preview?uri=' + webAppDomain + item.materialUrl"><i class="bi bi-file-earmark-play"></i></a>
+                          <a target="_blank" class="download ms-2" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="archiveDetail-skills">
+                    <h2>申诉资料</h2>
+                    <div class="business-scope  ps-2 py-2">
+                      <div v-for="item in caseProfile.material.defendantMaterial" class="material-item">
+                        <span class="ellipsis-1">
+                          <i style="color: aliceblue;" class="bi bi-file-earmark-fill"></i> <span class="ms-1">{{item.materialName}}</span>
+                        </span>
+                        <div class="material-item-optional">
+                          <a target="_blank" class="download"  :href="'/mall/preview?uri='+ webAppDomain+ item.materialUrl"><i class="bi bi-file-earmark-play"></i></a>
+                          <a target="_blank" class="download ms-2" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="archiveDetail-skills">
+                    <h2>补充资料</h2>
+                    <div class="business-scope ps-2 py-2">
+                      <div v-for="item in caseProfile.material.peacemakerMaterial" class="material-item">
+                        <span class="ellipsis-1">
+                          <i style="color: aliceblue;" class="bi bi-file-earmark-fill"></i> <span class="ms-1">{{item.materialName}}</span>
+                        </span>
+                        <div class="material-item-optional">
+                          <a target="_blank" class="download"  :href="'/mall/preview?uri='+ webAppDomain+ item.materialUrl"><i class="bi bi-file-earmark-play"></i></a>
+                          <a target="_blank" class="download ms-2" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+         
+
+                </div>
+
+              </div>
+               
+            </div>
+
+            <!-- end -->
+
+        </div>
+    </div>
+    <section class="modals">
+
+
+        <!-- case stutus modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="caseManagementModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">案件处理</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+
+                  <form class="w-100" onsubmit="return false">
+                    <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                        <textarea v-model="editCaseGeneralObj.solution" type="text" placeholder="处理方案" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                        <div class="maxLength">{{ (!editCaseGeneralObj || !editCaseGeneralObj.solution) ? 200 : 200-editCaseGeneralObj.solution.length}}</div>
+                      </div>
+                    </div>
+
+                    <select v-model="editCaseGeneralObj.caseStatus"  class="form-select dark-input-default mb-3">
+                      <option value="PENDING">等待处理</option>
+                      <option value="PROCESSING">处理中</option>
+                      <option value="COMPLAINT">申诉中</option>
+                      <option value="RESOLVED">完成处理</option>
+                    </select>  
+
+                    <select v-model="editCaseGeneralObj.casePriority"  class="form-select dark-input-default mb-3">
+                      <option value="S">S</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                    </select>  
+
+
+                    <input v-model="editCaseGeneralObj.caseAmount"  max="100000000" min="0.1" @input="transformInputNumberAsPositiveDecimalV($event)" class="form-control  only-show-bottom dark-input-default mb-3" type="text" placeholder="涉案金额">
+                    <input v-model="editCaseGeneralObj.claimAmount"  max="100000000" min="0.1" @input="transformInputNumberAsPositiveDecimalV($event)"  class="form-control  only-show-bottom dark-input-default mb-3" type="text" placeholder="理赔金额">
+
+                     
+                  </form>
+                  
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button 
+                  :class="{'disabled': !validateCaseManagementForm(), 
+                  'btn-primary': validateCaseManagementForm() ,
+                  'btn-secondary': !validateCaseManagementForm()  }"
+                  v-preventreclick @click="modifyCaseInfoV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- case material modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="caseMaterialModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">案件资料上传</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form class="w-100" onsubmit="return false">
+                    <input style="font-size: 12px;" id="caseMaterialFile" class="form-control  only-show-bottom" type="file" placeholder="case material">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button v-preventreclick @click="uploadCaseMaterialV" type="button"  class="btn btn-primary">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!-- offline cell modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="offlineCellModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">下架特约商品</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form  class="w-100" onsubmit="return false">
+                    <input v-model="offlineCellId"  class="form-control  only-show-bottom dark-input-default" type="text" placeholder="商品Id">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button 
+                  :class="{'disabled': !offlineCellId, 
+                  'btn-primary': !!offlineCellId ,
+                  'btn-secondary': !offlineCellId }"
+                  v-preventreclick @click="offlineCellV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!-- block oasis modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="blockOasisModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">封禁部落</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form class="w-100" onsubmit="return false">
+                    <input  v-model="blockOasisId" class="form-control  only-show-bottom dark-input-default" type="text" placeholder="部落Id">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button 
+                  :class="{'disabled': !blockOasisId, 
+                  'btn-primary': !!blockOasisId ,
+                  'btn-secondary': !blockOasisId }"
+                  v-preventreclick @click="blockOasisV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- freeze user modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="freezeUserModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">冻结账号</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form class="w-100" onsubmit="return false">
+                    <input v-model="freezeUserId" class="form-control  only-show-bottom dark-input-default" type="text" placeholder="用户userId">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button
+                  :class="{'disabled': !freezeUserId, 
+                  'btn-primary': !!freezeUserId ,
+                  'btn-secondary': !freezeUserId }"
+                   v-preventreclick @click="freezeUserV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    </section>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/mall/javascripts/dsp-case.js"></script>
+
+
+
+</body>
+</html>

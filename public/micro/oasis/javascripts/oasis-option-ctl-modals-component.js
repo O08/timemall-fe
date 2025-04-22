@@ -3,6 +3,7 @@ import {OasisOptionSponsorComponent} from '/micro/oasis/javascripts/oasis-option
 import {OasisCollectAccountComponent} from '/micro/oasis/javascripts/oasis-option-collect_account-component.js'; 
 import {OasisOptionJoinComponent} from '/micro/oasis/javascripts/oasis-option-join-component.js'; 
 import {OasisAdminWithdrawComponent} from '/micro/oasis/javascripts/oasis-option-admin-withdraw-component.js'; 
+import {OasisOptionReportComponent} from '/micro/oasis/javascripts/oasis-option-report-component.js'; 
 
 
 const OasisOptionModalsComponent = {
@@ -11,7 +12,8 @@ const OasisOptionModalsComponent = {
         OasisSponsor: OasisOptionSponsorComponent,
         OasisCollectAccount: OasisCollectAccountComponent,
         OasisJoin: OasisOptionJoinComponent,
-        OasisAdminWithdraw: OasisAdminWithdrawComponent
+        OasisAdminWithdraw: OasisAdminWithdrawComponent,
+        OasisReport: OasisOptionReportComponent
     },
     props: ['oasis_id','brand_id','oasis_announce',],
     emits: ['follow-success','unfollow-success'],
@@ -21,6 +23,9 @@ const OasisOptionModalsComponent = {
         }
     },
     methods: {
+        doShowReportModalV(){
+            this.$refs.oasisReportModal.showOasisReportModalV();
+        },
         doShowInvitationModalV(){
             this.$refs.oasisinvitationModal.showOasisInvitationModalV();
         },
@@ -52,6 +57,7 @@ const OasisOptionModalsComponent = {
     <oasis-collect-account  ref="oasisCollectAccountModal" :oasis_id="oasisId" :current_user_brand_id="brand_id" />
     <oasis-join @unfollow-success="$emit('unfollow-success')"  @follow-success="$emit('follow-success')" ref="oasisJoinModal" :oasis_announce="oasis_announce" :oasis_id="oasisId" :current_user_brand_id="brand_id" />
     <oasis-admin-withdraw ref="oasisAdminWithdrawModal" :oasis_id="oasisId"/>
+    <oasis-report ref="oasisReportModal" :oasis_id="oasisId"/>
 
     `,
 

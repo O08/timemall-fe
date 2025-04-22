@@ -223,7 +223,6 @@ body {
 }
 
 .modal-content{
-    padding: 12 24px;
     border-radius: 10px;
     background-color: #f1f1f1;
     color: #2F2F2F;
@@ -342,7 +341,7 @@ pt-app footer {
 .table ,.table td{
     font-size: 12px;
 }
-.table{
+.table,.empty-content-block{
   min-width: 1200px;
 }
 .table td{
@@ -837,6 +836,10 @@ file upload
 
   
   @media (max-width: 576px) {
+
+    .logo h2{
+      font-size: 18px;
+    }
 
     pt-app header{
         padding-left: 12px;

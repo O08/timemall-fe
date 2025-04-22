@@ -60,6 +60,23 @@ function transformInputAsNumber(val,min,max){
     return val < min ? "" : val > max ? max : val;
 }
 
+export function transformInputNumberAsPositiveDecimal(e){
+    var val = e.target.value.match(/\d+(\.\d{0,2})?/) ? e.target.value.match(/\d+(\.\d{0,2})?/)[0] : '';// type positve number
+    var max = e.target.max;
+    e.target.value = transformInputNumberDecimal(val, max);
+    const firstCodeIsZero= e.data=='0' && !e.target.value;
+    const supportCodes = ["0", "1", "2","3","4","5","6","7","8","9","."];
+    const needUpdate = firstCodeIsZero || (val !== Number(e.target.value)) || (!!e.data && !supportCodes.includes(e.data));
+
+    if(needUpdate){
+      e.currentTarget.dispatchEvent(new Event('input')); // update v-model
+    }
+}
+
+function transformInputNumberDecimal(val,max){
+    return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val === '0.0' ? val : Number(val);
+}
+
 
 export function formatCmpctNumber(number) {
     var options = {

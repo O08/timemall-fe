@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>争端解决中心</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/mall/stylesheets/dsp-center.scss">
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="content-container">
+        <div class="head-pannel justify-content-between" style="padding-left: 1.25rem; padding-right: 1.25rem;">
+          <div class="d-flex align-items-center">
+
+
+
+            <div class="code-option">
+                
+                <div>
+                    <div class="d-flex align-items-center logo_link">
+                        <a href="/">
+                            <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                        </a>
+                      </div>
+                </div>
+            </div>
+
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+            </button>
+          </div>
+        </div>
+        <main>
+
+
+
+            <div class="products-box">
+
+              <div class="report-case-wrapper">
+                <div class="report-case-header">
+                  <div class="filter-bar">
+                    <div class="filter-item filter-item__search">
+
+                      <div id="nav-searchform">
+                        <div class="nav-search-btn"><i class="bi bi-search"></i></div>
+                        <div class="nav-search-content">
+                          <input v-model="caseList_pagination.param.q" @keyup.enter.native="filterCaseListV" class="nav-search-input" type="text" autocomplete="off" maxlength="100" x-webkit-speech="" x-webkit-grammar="builtin:translate" placeholder="搜索案件">
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="filter-item tagsContainer">
+
+                      <div class="dropdown">
+                        <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          状态
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+          
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filterCaseStatus_PENDING">
+                                  {{explainDspCaseStatusV("PENDING")}}
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"   value="PENDING" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_PENDING" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filterCaseStatus_PROCESSING">
+                                  {{explainDspCaseStatusV("PROCESSING")}}
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"   value="PROCESSING" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_PROCESSING" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filterCaseStatus_COMPLAINT">
+                                  {{explainDspCaseStatusV("COMPLAINT")}}
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"   value="COMPLAINT" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_COMPLAINT" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filterCaseStatus_RESOLVED">
+                                  {{explainDspCaseStatusV("RESOLVED")}}
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"   value="RESOLVED" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_RESOLVED" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filterCaseStatus_RESOLVED">
+                                  全部
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"   value="" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_ALL" >
+                              </div>
+                            </a>
+                          </li>
+                         
+                          
+            
+                        </ul>
+                      </div>
+
+                    </div>
+
+                    <div class="filter-item tagsContainer">
+
+                      <div class="dropdown">
+                        <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          优先级
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+            
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_S">
+                                  S
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="S" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_S" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_A">
+                                  A
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="A" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_A" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_B">
+                                  B
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="B" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_B" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_C">
+                                  C
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="C" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_C" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_D">
+                                  D
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="D" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_D" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_E">
+                                  E
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="E" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_E" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_F">
+                                  F
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="F" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_F" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="filter[casePriority]_All">
+                                  ALL
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_All" >
+                              </div>
+                            </a>
+                          </li>
+                          
+            
+                        </ul>
+                      </div>
+
+                    </div>
+                    
+                    <div class="filter-item tagsContainer">
+
+                      <div class="dropdown">
+                        <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bi bi-arrow-down-up me-1"></i>排序
+                        </a>
+                      
+                        <ul class="dropdown-menu">
+            
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="sortModifyTime">
+                                  建档日期
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.sort"   value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortModifyTime" >
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item">
+                              <div class="form-check form-check-reverse">
+                                <label class="form-check-label" for="sortCost">
+                                  案件损失
+                                </label>
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.sort"   value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCost" >
+                              </div>
+                            </a>
+                          </li>
+                          
+            
+                        </ul>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="report-case-body">
+                  <div class="table-responsive">
+                    <div class="table-wrp">
+
+                      <table class="table table-spacing-lg table-hover align-middle">
+                        <thead>
+                          <tr>
+                            <th class="col-report-case-name">{{caseList_pagination.total}} 个案件</th>
+                            <th class="col-report-case-type">举报类型</th>
+                            <th class="col-snippet">优先级</th>
+                            <th class="col-snippet">状态</th>
+                            <th class="col-snippet">举报人</th>
+                            <th class="col-snippet">被举报人</th>
+                            <th class="col-report-case-solution">案件处理</th>
+                            <th class="col-report-case-amount">涉案金额</th>
+                            <th class="col-report-case-amount">理赔金额</th>
+                            <th class="col-report-case-time">建档日期</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="report in caseList_pagination.records">
+                            <td :title="report.caseDesc">
+                              <div class="w-100">
+                
+                                 <div class="report-case-name w-100">
+                                  <a target="_blank" :href="'/mall/dsp-case/'+report.caseNo"><span class="w-100 ellipsis-1">{{report.caseDesc}}</span>  </a>
+                                 </div>
+                                 <div style="font-size: 8px; padding-top: 4px;">
+                                    <span>NO: {{report.caseNo}}</span>
+                                 </div>
+
+                              </div>
+                            </td>
+                            <td :title="report.fraudTypeDesc"><span  class="ellipsis-1">{{report.fraudTypeDesc}}</span></td>
+                            <td :title="report.casePriority">{{report.casePriority}}</td>
+                            <td :title="explainDspCaseStatusV(report.caseStatus)">{{explainDspCaseStatusV(report.caseStatus)}}</td>
+                            <td :title="report.informerBrandName"><span class="ellipsis-1">{{report.informerBrandName}}</span></td>
+                            <td :title="report.defendantBrandName"><span class="ellipsis-1">{{report.defendantBrandName}}</span></td>
+                            <td :title="report.solution"><span class="ellipsis-1">{{report.solution}}</span></td>
+                            <td :title="report.caseAmount"><span v-if="!!report.caseAmount" class="report-case-amount">￥{{report.caseAmount}}</span></td>
+                            <td :title="report.claimAmount"><span  v-if="!!report.claimAmount" class="report-case-amount">￥{{report.claimAmount}}</span></td>
+                            <td :title="report.createAt">{{report.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
+
+                          </tr>
+  
+                        </tbody>
+  
+                      </table>
+
+                      <div v-show="caseList_pagination.records.length == 0" class="not-found-resource">
+                        <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                        <h4>未找到结果</h4>
+                      </div>
+  
+                      <nav v-if="!!caseList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                        <ul class="pagination pagination-lg pagination-dark  border-0 mb-0">
+                          <li class="page-item" @click="pagePre(caseList_pagination)">
+                            <a class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li class="page-item" v-for="page in caseList_pagination.paging.items"
+                            :class="{'current-page-active': caseList_pagination.paging.current == page}"
+                            @click="pageGo(caseList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                          <li class="page-item" @click="pageNext(caseList_pagination)">
+                            <a class="page-link" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+        </main>
+    </div>
+    
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/mall/javascripts/dsp-center.js"></script>
+
+
+
+</body>
+</html>

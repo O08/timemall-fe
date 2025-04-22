@@ -72,6 +72,23 @@ app.get('/apps/group-chat/admin', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/group-chat/admin.html")        //设置/ 下访问文件位置
 })
 
+app.get('/mall/dsp-case/:case_no', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/mall/dsp-case.html")        //设置/ 下访问文件位置
+})
+
+app.get('/messages', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/micro/arch/messages.html")        //设置/ 下访问文件位置
+})
+
+app.get('/messages/:friend', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/micro/arch/messages.html")        //设置/ 下访问文件位置
+})
+
+app.get('/micro/oasis', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/micro/oasis/home.html")        //设置/ 下访问文件位置
+})
+
+
 
 // match @abc @bcdddd,for brand handle mapping
 app.get( /^\/@/, (req, res) => {

@@ -14,7 +14,7 @@ import defaultBrandBannerImage from '/common/images/default-brand-banner-4x3.svg
 import defaultExperienceImage from '/common/images/default-experience-1x1.svg';
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-import {EmailNoticeEnum,CellPlanType} from "/common/javascripts/tm-constant.js";
+import {EmailNoticeEnum,CellPlanType,CodeMappingTypeEnum,EnvWebsite} from "/common/javascripts/tm-constant.js";
 import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-icon-parse.js";
 import {Api} from "/common/javascripts/common-api.js";
 import  PromotionComponent  from "/mall/javascripts/component/PromotionComponent.js";
@@ -22,11 +22,19 @@ import  PromotionComponent  from "/mall/javascripts/component/PromotionComponent
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
+const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
+const currentCellId= getQueryVariable("cell_id");
+const currentBrandId= getQueryVariable("brand_id");
+
+
 const defaultCellIntroCoverImage ="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/default-cell-intro-cover.svg";
 
 const RootComponent = {
     data() {
         return {
+            reportOptions: [],
+            reportForm: this.initReportForm(),
+
             planExpense: {
                 promotionCreditPointDeductionDifference: 0,
                 earlyBirdDiscountDifference: 0,
@@ -69,6 +77,49 @@ const RootComponent = {
         }
     },
     methods: {
+        newReportCaseV(){
+        newReportCase(this.reportForm).then(response=>{
+            if(response.data.code==200){
+
+            document.querySelector('#caseMaterialFile').value = null;
+
+            $("#reportOasisModal").modal("hide"); // show success modal
+
+            }
+            if(response.data.code!=200){
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+            }
+        })
+        },
+        showOasisReportModalV(){
+
+            this.reportForm=this.initReportForm();
+            
+
+            showOasisReportModal(         
+                this.loadReportIssueListV
+            );
+        },
+        loadReportIssueListV(){
+            loadReportIssueList(this);
+        },
+        initReportForm(){
+
+            if(!!document.querySelector('#caseMaterialFile') && !!document.querySelector('#caseMaterialFile').value ){
+               document.querySelector('#caseMaterialFile').value = null;
+            }
+
+            return {
+                fraudType: "",
+                scene: "线上商品",
+                sceneUrl: currentDomain+"/mall/cell-detail?cell_id=" + currentCellId + "&brand_id="+ currentBrandId,
+                caseDesc: "",
+                material: ""
+            }
+        },
+        validateReportFormV(){
+            return !!this.reportForm.caseDesc && !!this.reportForm.fraudType;
+        },
         parseLinkUriV(uri){
           return parseLinkUri(uri);
         },
@@ -554,4 +605,47 @@ function transformInputNumber(val,min,max){
   $(function(){
 	$(".tooltip-nav").tooltip();
 });
+
+// report feature
+
+async function fetchCodeList(codeType,itemCode){
+    const url="/api/v1/base/code_mapping?codeType="+codeType+"&itemCode="+itemCode;
+    return await fetch(url);
+  }
+  
+  async function addNewReportCase(form){
+  
+    const url ="/api/v1/team/dsp_case/new";
+    return await axios.post(url,form);
+    
+  }
+  async function newReportCase(reportForm){
+  
+    const materialFile =  $('#caseMaterialFile')[0].files[0];
+  
+    var form = new FormData();
+    if(!!materialFile){
+      form.append("material",materialFile);
+    }
+    form.append("fraudType",reportForm.fraudType);
+    form.append("scene",reportForm.scene);
+    form.append("sceneUrl",reportForm.sceneUrl);
+    form.append("caseDesc",reportForm.caseDesc);
+    return await addNewReportCase(form);
+  
+  }
+  async function loadReportIssueList(appObj){
+    const response = await fetchCodeList(CodeMappingTypeEnum.REPORTISSUE,"");
+    var data = await response.json();
+    if(data.code==200){
+       
+       appObj.reportOptions=data.codes.records;
+  
+    }
+  }
+  
+  async function showOasisReportModal(loadReportIssueListV){
+      await loadReportIssueListV();
+      $("#reportOasisModal").modal("show");
+  }
 

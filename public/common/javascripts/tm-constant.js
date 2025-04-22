@@ -132,14 +132,16 @@ var DataLayerCellEvent=Object.freeze({
 }); 
 var CodeMappingTypeEnum=Object.freeze({
     "OCCUPATION": "occupation",
-    "INDUSTRY": "industry"
+    "INDUSTRY": "industry",
+    "REPORTISSUE": "fraud_type"
 }); 
 
 var EnvWebsite=Object.freeze({
     "PROD": "https://bluvarri.com",
     "PROD_WWW": "https://www.bluvarri.com",
     "PROD_WX_APPID": "wx6b5d8cfe8cfbece5",
-    "PROD_WX_QRCONNECT_URI": "https://open.weixin.qq.com/connect/qrconnect"
+    "PROD_WX_QRCONNECT_URI": "https://open.weixin.qq.com/connect/qrconnect",
+    "LOCAL": "http://localhost"
 }); 
 
 var BrandAccessWay=Object.freeze({
@@ -153,8 +155,16 @@ var MillstoneAc = Object.freeze({
     "CLOSED": "0" // 发布
 });
 
+var DspCaseStatus = Object.freeze({
+    "PENDING": "PENDING", // 等待处理
+    "PROCESSING": "PROCESSING", // 处理中 
+    "COMPLAINT": "COMPLAINT" , // 申诉
+    "RESOLVED": "RESOLVED"  // 已解决
+
+});
+
 export {
-    MillstoneAc,
+    MillstoneAc,DspCaseStatus,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,

@@ -1,8 +1,11 @@
-import {CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere} from "/common/javascripts/tm-constant.js";
+import {CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
    methods: {
+    explainDspCaseStatusV(status){
+        return explainDspCaseStatus(status);
+    },
     explainCellPlanOrderTagV(tag){
         return explainCellPlanOrderTag(tag);
     },
@@ -17,7 +20,24 @@ const CodeExplainComponent = {
     }
    }
 }
-
+function explainDspCaseStatus(status){
+    var statusDesc = "";
+    switch(status){
+        case DspCaseStatus.PENDING:
+            statusDesc="等待处理";
+            break; 
+        case DspCaseStatus.PROCESSING:
+            statusDesc="处理中";
+            break; 
+        case DspCaseStatus.COMPLAINT:
+            statusDesc="申诉中";
+            break; 
+        case DspCaseStatus.RESOLVED:
+            statusDesc="已解决";
+            break;    
+    }
+    return statusDesc;
+}
 function explainCellPlanType(planType){
     var planTypeDesc="";
     switch(planType){

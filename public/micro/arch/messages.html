@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
   <link rel="stylesheet" href="/micro/stylesheets/teixcalaanli.scss">
   <link rel="stylesheet" href="/micro/arch/stylesheets/teixcalaanli-arch.scss">
-  <link rel="stylesheet" href="/micro/arch/stylesheets/channel-002.scss">
+  <link rel="stylesheet" href="/micro/arch/stylesheets/messages.scss">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
                 </svg>
               </div>
             </a>
-            <a href="/micro/arch/channel-0002" data-bs-custom-class="custom-popover" data-bs-placement="right"
+            <a href="/messages" data-bs-custom-class="custom-popover" data-bs-placement="right"
               data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
               <div
                 class="nav-private-active nav-item-default nav-item-active   d-flex align-items-center justify-content-center mt-5 ms-3">
@@ -167,7 +167,7 @@
               </a>
 
               <a @contextmenu.prevent="showFriendOptionV($event,friend.id)"
-                :href="'/micro/arch/channel-0002?friend='+ friend.id" v-for="friend in friends.records"
+                :href="'/messages/'+ friend.id" v-for="friend in friends.records"
                 class="nav-link p-2 ms-3  d-flex flex-row align-items-center " :class="{'nav-sub-link-active': friend.id == currentChatFriendId, 
                     'nva-link-default': friend.id != currentChatFriendId}">
 
@@ -524,7 +524,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/micro/arch/javascripts/channel-0002.js"></script>
+  <script type="module" src="/micro/arch/javascripts/messages.js"></script>
 
 
 </body>

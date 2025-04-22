@@ -76,7 +76,7 @@ const RootComponent = {
             const oasisId = getQueryVariable("oasis_id");
             const option= getQueryVariable("option");
             if(option==="edit"){
-                window.location.href="/micro/oasis?oasis_id="+oasisId;
+                window.location.href="/micro/oasis/home?oasis_id="+oasisId;
                 return
             }
             markOasisB(oasisId,OasisMark.PUBLISH).then(response=>{

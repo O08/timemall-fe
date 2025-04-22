@@ -228,7 +228,9 @@ width: 360px;;
   .msg-room-panel,.deliver-panel-header{
     background-color: #1a1a1a;
   }
-
+.deliver-panel-header{
+  padding-top: 8px;
+}
   .btn-new-deliver{
     border-radius: 5px 0 0 5px;
     border: none;
@@ -397,6 +399,10 @@ width: 360px;;
 
 @media (max-width: 576px) {
 
+  .logo h2{
+    font-size: 18px;
+  }
+
   .app-container header{
     padding-left: 12px;
     padding-right: 12px;
@@ -412,7 +418,10 @@ width: 360px;;
   height: 100%;
 }
 #tob-tablist .nav-link{
-  font-size: 16px;
+  font-size: 14px;
+}
+.nav-tabs .nav-item {
+  margin-left: 4px;
 }
 .room-msg-container {
   height: calc(100% - 206px);
@@ -440,5 +449,13 @@ width: 360px;;
 }
 
 .commission-info-container ,.deliver-panel-container{
-  overflow-x: hidden;
+  overflow-x: scroll;
+}
+.commission-info-container ,.deliver-panel-container{
+
+  scrollbar-width: none;
+
+}
+.commission-info-container::-webkit-scrollbar,.deliver-panel-container::-webkit-scrollbar { 
+  display: none; 
 }

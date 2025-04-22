@@ -2,6 +2,9 @@
   .msg-room-panel,.deliver-panel-header{
     background-color: #1a1a1a;
   }
+  .deliver-panel-header{
+    padding-top: 8px;
+  }
   .record-container:hover{
     background-color: lighten($color: #1a1a1a, $amount: 10);
   }
@@ -197,13 +200,20 @@ pt-app content main {
   padding: 32px;
 }
 
-.main-content-container{
-  min-width: 360px;
-}
+
 .plan-info-container,.deliver-panel-container{
   height: calc(100vh - 142px);
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
+}
+
+.plan-info-container ,.deliver-panel-container{
+
+  scrollbar-width: none;
+
+}
+.plan-info-container::-webkit-scrollbar,.deliver-panel-container::-webkit-scrollbar { 
+  display: none; 
 }
 pt-app content main {
   padding-bottom: 0;
@@ -252,6 +262,9 @@ pt-app content main {
 }
 
 @media (width <= 576px) {
+  .nav-tabs .nav-item {
+    margin-left: 4px;
+  }
   .room-msg-panel {
     height: calc(100vh - 174px);
   }
@@ -260,6 +273,9 @@ pt-app content main {
   }
   pt-app content main {
     padding: 32px 0;
+  }
+  #tob-tablist .nav-link {
+    font-size: 14px;
   }
 
 }

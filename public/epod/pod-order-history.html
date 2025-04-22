@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -106,7 +106,7 @@
               <div class="friend-list">
 
                 <li class="friend-item"   v-for="friend in friends.records">
-                  <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                  <a target="_blank" :href="'/messages/'+ friend.id">
                     <div class="friend-container">
                       <div class="frend-avatar-container">
                         <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
@@ -241,7 +241,7 @@
                         <i class="bi bi-person-rolodex"></i>
                        </span>
                        <span  class="btn-option-secondary option-view-contact ms-4" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
-                        <a target="_blank" :href="'/micro/arch/channel-0002?friend='+trans.supplierUserId">
+                        <a target="_blank" :href="'/messages/'+trans.supplierUserId">
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7.49994 9.99992H12.4999" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
                             <path d="M7.50001 15H6.66667C3.90525 15 1.66667 12.7614 1.66667 10C1.66667 7.23857 3.90525 5 6.66667 5H7.50001" stroke="white" stroke-width="1.5" stroke-linecap="round"/>

@@ -109,7 +109,7 @@
                 <div class="friend-list">
   
                   <li class="friend-item"   v-for="friend in friends.records">
-                    <a target="_blank" :href="'/micro/arch/channel-0002?friend='+ friend.id">
+                    <a target="_blank" :href="'/messages/'+ friend.id">
                       <div class="friend-container">
                         <div class="frend-avatar-container">
                           <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
@@ -604,19 +604,19 @@
                   </div>
                   <div class="modal-body">
                     <form>
-                      <div class="row">
+                      <div>
                         <label for="t1" class="form-label">可调用资金</label>
                         <input  type="text" :value="mpsFund.drawable" maxlength="255" class="form-control" disabled id="t1">
                       </div> 
                          
-                    <div class="row mt-3">
+                    <div class="mt-3">
                       <label>需要补充资金?<a class="url-link-sm-1 ms-2" href="/estudio/studio-shop">前往商城充值</a></label>
                     </div>
-                    <div class="row mt-3">
+                    <div class="mt-3">
                       <label for="t3" class="form-label">转入金额</label>
                       <input id="t3"  @input="transformInputNumberV($event)" v-model="mpsTopUpAmount" min="1" max="50000" step="1"  type="number" class="form-control">
                     </div> 
-                    <div v-if="error.length>0" class="row mt-3">
+                    <div v-if="error.length>0" class="mt-3">
                       <span class="error-notice">异常信息：{{error}}</span>
                     </div> 
 
