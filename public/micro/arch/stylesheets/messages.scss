@@ -211,3 +211,21 @@ col-content{
   background-color: #0000;
   border-width: 3px;
   }
+
+  .friend-avatar-tiny-container{
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.friend-avatar-wrapper, .friend-avatar-tiny {
+    border-radius: 18px;
+    width: 32px;
+    height: 32px;
+    position: relative;
+}
+.friend-avatar-tiny {
+    object-fit: cover;
+}

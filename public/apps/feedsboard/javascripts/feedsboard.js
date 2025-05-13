@@ -196,7 +196,7 @@ const toolbarOptions = [
   [{ 'align': [] }],
   ['blockquote', 'code-block'],
   ['link'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   ['clean']                                         // remove formatting button
 ];

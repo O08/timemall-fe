@@ -23,6 +23,10 @@ mall-app {
     flex: 1;
   }
 
+
+.header-container nav {
+    height: 56px;
+}
 .section-cell-detail-tab  {
     overflow: auto;
     height: 100%;
@@ -197,6 +201,7 @@ mall-app {
 .fee-calculator-bg
 {
     background: #121212;
+    box-shadow: 0 0 10px #6d757a;
 }
 .card-footer-highlight{
     border-top: 2px solid #383838;
@@ -523,6 +528,8 @@ mall-app {
     font-size: smaller;
     color: #aaa;
     margin-bottom: 8px;
+    word-break: break-all;
+    white-space: pre-line;
 }
 .opt_item_head .btn{
     border-radius: 50%;

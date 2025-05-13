@@ -199,7 +199,9 @@ pt-app content main {
   overflow-x: auto;
   padding: 32px;
 }
-
+.alert-info {
+  padding: 0 3rem;
+}
 
 .plan-info-container,.deliver-panel-container{
   height: calc(100vh - 142px);
@@ -276,6 +278,9 @@ pt-app content main {
   }
   #tob-tablist .nav-link {
     font-size: 14px;
+  }
+  .alert-info{
+    padding: 0 .5rem;
   }
 
 }

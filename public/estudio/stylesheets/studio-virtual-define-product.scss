@@ -1,0 +1,468 @@
+// @import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+
+
+$midnight: #2c3e50;
+$clouds: #ecf0f1;
+$accordion-icon-color: #ecf0f1;
+$accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+
+
+
+#productThumbnailAddModal .modal-dialog ,#showcaseAddModal .modal-dialog,#showcaseChangeModal .modal-dialog{
+    max-width: 1200px;
+}
+.modal-content{
+    background-color: #fff;
+  }
+
+  // banner and thumbnail upload 
+
+.banner-upload-container,.thumbnail-cover-upload-container{
+    display: flex;
+}
+.cropped-banner-container,.cropped-cover-container{
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 580px);
+}
+.cropped-cover-container,.cropped-image-cover-container img{
+    aspect-ratio: 4 / 3;
+}
+.cropped-image-container,.cropped-image-container img{
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+.cropped-image-container{
+    margin-top: 12px;
+}
+.img-container{
+    padding-bottom: 12px;
+}
+.cropped-image-container ,.cropped-image-cover-container{
+    width: 100%;
+    background-color: ghostwhite;
+    position: relative;
+}
+
+
+.cropped-image-cover-container img{
+    object-fit: cover;
+    width: 100%;
+}
+
+.cropped-image-container img::after,.cropped-image-cover-container img::after{
+    background-color: ghostwhite;
+}
+.cropped-output{
+    width: 100%;
+}
+.btn-crop {
+    appearance: none;
+    background-color: #000000;
+    border: 2px solid #1A1A1A;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+    outline: none;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100px;
+    will-change: transform;
+}
+.btn-crop:disabled {
+    pointer-events: none;
+}
+
+.btn-crop:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
+}
+.btn-crop:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+
+.tip-content{
+    margin: 3rem;
+    word-break: break-all;
+}
+.tip-icon{
+    margin-top: 1.5rem;
+    margin-right: 3rem ;
+    z-index: 2;
+}
+.eye-direction-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.eye-direction {
+    text-align: center;
+    width: 80px;
+    font-size: 32px;
+}
+// tags
+
+.tags-wrapper{
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.06);
+  }
+  .tags-wrapper :where(li, li i, .tag-details){
+    display: flex;
+    align-items: center;
+  }
+  .tags-wrapper .tag-content{
+    margin: 10px 0;
+  }
+
+  .tag-content ul{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 7px;
+    margin: 12px 0;
+    border-radius: 5px;
+    border: 1px solid #a6a6a6;
+  }
+  .tag-content ul  li{
+    color: #333;
+    margin: 4px 3px;
+    list-style: none;
+    border-radius: 5px;
+    background: #F2F2F2;
+    padding: 5px 8px 5px 10px;
+    border: 1px solid #e3e1e1;
+  }
+  .tag-content ul li i{
+    height: 20px;
+    width: 20px;
+    color: #808080;
+    margin-left: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #dfdfdf;
+    justify-content: center;
+  }
+  .tag-content ul input{
+    flex: 1;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+  }
+  .tags-wrapper .tag-details{
+    justify-content: space-between;
+  }
+  
+  img:after{
+    background-color: #2F2F2F;
+  }
+  .modal-content{
+    padding: unset;
+  }
+
+  #planConfigModal .modal-dialog{
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+}
+#planConfigModal .modal-content {
+    border: none;
+    height: 100%;
+    border-radius: 0 !important;
+    color: #2f2f2f;
+    word-spacing: .5px;
+    padding: 12px 24px;
+}
+
+
+@media (max-width: 767px) {
+    .tip-font-sm{
+        font-size: 8px;
+        margin-top: 20px;
+        margin-right: 32px;
+    }
+    .tip-icon{
+        margin-top: 12px;
+        margin-right: 12px;
+    }
+    .alert-dismissible .btn-close{
+        padding: 0.5rem;
+    }
+    .tip-content{
+        margin-top: .8rem;
+        margin-right: 2rem;
+        margin-left: .5rem;
+    }
+    .cropped-cover-container{
+        padding-right: 12px;
+        width: 300px;
+    }
+    .cropped-banner-container{
+        padding-right: 12px;
+        width: 300px;
+    }
+    .cropped-image-container{
+        width: calc(300px - 12px);
+    }
+    .cropped-image-cover-container{
+        width: calc(300px - 12px);
+    }
+    #cell-define-container .accordion-button{
+        font-size: 24px;
+    }
+
+}
+
+.product-show-box{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-gap: 8px;
+  }
+  .product-show__thumnail{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .product-show__extra,.product-show__thumnail{
+    position: relative;
+  }
+  .product-show__extra img,.product-show__thumnail img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+
+.material-item{
+  padding: .25rem;
+  padding-right: 2rem;
+  position: relative;
+  display: flex;
+}
+.material-option{
+  position: absolute;
+  right: 8px;
+  text-decoration: none;
+}
+
+.material-option__btn{
+  cursor: pointer;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+  color: #dbdee1;
+  background: #2F2F2F;
+  border: 1px solid #2f2f2f;
+  border-radius: 4px;
+  outline: 0;
+  flex-shrink: 0;
+  margin-bottom: 8px;
+  margin-left: 12px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color .1s, border-color .1s;
+}
+.material-option__btn:hover{
+  background-color: #5865f2;
+}
+
+// quill editor
+.ql-snow{
+  .ql-picker{
+      &.ql-size{
+          .ql-picker-label,
+          .ql-picker-item{
+              &::before{
+                  content: attr(data-value) !important;
+              }
+          }
+      }
+  }
+}
+.ql-snow .ql-picker.ql-size {
+  width: 72px;
+}
+.ql-editor{
+  min-height: 260px;
+  color: #dbdee1;
+}
+.ql-snow .ql-tooltip{
+  left: -10px !important;
+}
+.ql-snow .ql-tooltip[data-mode="video"]:before {
+  content: "视频链接:";
+}
+.ql-snow .ql-tooltip.ql-editing a.ql-action:after {
+  content: "插入";
+}
+.ql-snow .ql-tooltip[data-mode="link"]::before {
+  content: "超链接:";
+}
+.ql-snow .ql-tooltip::before{
+  content: "超链接:";
+}
+.ql-snow .ql-tooltip a.ql-action:after {
+  content: "编辑";
+}
+.ql-snow .ql-tooltip a.ql-remove:before{
+  content: "移除";
+}
+.ql-toolbar.ql-snow,.ql-container.ql-snow{
+  border-color: #61666D; 
+}
+.ql-editor.ql-blank:before{
+  color: #61666D;
+}
+
+[contenteditable="true"] {
+
+  caret-color: #fff;
+}
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options{
+  background-color: #1e1f22;
+  border: #61666D;
+}
+.ql-snow .ql-editor .ql-code-block-container {
+  background-color: hsl(220 calc(1*6.522%) 18.039% /1);
+}
+
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+  color: #fff;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button:focus .ql-fill, .ql-snow .ql-toolbar button:focus .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+  fill: #fff;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button:focus .ql-stroke, .ql-snow .ql-toolbar button:focus .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button:hover .ql-stroke-miter, .ql-snow .ql-toolbar button:hover .ql-stroke-miter, .ql-snow.ql-toolbar button:focus .ql-stroke-miter, .ql-snow .ql-toolbar button:focus .ql-stroke-miter, .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter {
+  stroke: #fff;
+}
+
+
+// new ui
+
+.dropzone-wrapper{
+  height: 100%;
+}
+.btn-thumbnail-modify{
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  display: none;
+}
+.thumbnail-box:hover .btn-thumbnail-modify,.product-show-case:hover .btn-thumbnail-modify{
+  display: block;
+}
+.cover-upload-container{
+  position: relative;
+}
+
+.product-show__extra .plus-img i{
+  font-size: 48px;
+}
+.product-show-case{
+  height: 48%;
+}
+
+
+#cell-define-container .accordion
+{
+    --bs-accordion-bg: #2e2e2e9d;
+    --bs-accordion-color: $clouds;
+    --bs-accordion-border-color: none;
+    --bs-accordion-border-width: none;
+    --bs-accordion-btn-color: $clouds;
+    --bs-accordion-btn-focus-box-shadow: none;
+    --bs-accordion-active-color: $clouds;
+    --bs-accordion-active-bg: #000;
+    --bs-accordion-btn-icon: #{escape-svg($accordion-button-icon)};
+    --bs-accordion-btn-active-icon: #{escape-svg($accordion-button-icon)};
+}
+#cell-define-container  .accordion-button:hover
+{
+    background-color: #313338;
+}
+#cell-define-container  .accordion-body
+{
+    background-color: #000;
+}
+#cell-define-container  .accordion-button
+{
+  font-size: 32px;
+  font-weight: bold;
+}
+.thumbnail-box {
+  height: 100%;
+}
+
+@media (width <= 576px) {
+  pt-app content main {
+      padding: 0 12px;
+  }
+  #cell-define-container .accordion-body {
+    padding-left: 0;
+    padding-right: 0;
+ }
+ #cell-define-container .accordion-button {
+    padding: 4px;
+    font-size: 18px;
+ }
+ .product-show-box{
+   display: flex;
+   flex-direction: column;
+ }
+ .product-show__thumnail{
+  display: none;
+ }
+ .product-show-case{
+  aspect-ratio: 4/3;
+ }
+}
+
+
+.product-thumbnail-upload-container {
+  height: 200px;
+  aspect-ratio: 4 / 3;
+  position: relative;
+}
+.product-thumbnail-upload-container  img{
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+
+}
+
+.product-show-box .dropzone-wrapper {
+  justify-content: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.product-show-box .dropzone-desc {
+  margin: auto;
+  position: relative;
+  top: unset;
+  left: unset;
+}

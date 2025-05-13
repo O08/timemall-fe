@@ -16,10 +16,20 @@ a {
   text-decoration: none;
   color: white;
   opacity: .8;
+  -khtml-opacity: .8;
+  -moz-opacity: .8; 
+  -webkit-opacity:  .8; /* WebKit browser e.g. Safari */
+  filter:alpha(opacity=80);
+
 }
 .url-link:hover{
   color: white;
   opacity: 1;
+  zoom: 1;
+  -khtml-opacity:1;
+  -moz-opacity:1; 
+  filter:alpha(opacity=100);
+  -webkit-opacity: 1; /* WebKit browser e.g. Safari */
 }
 .logo h2 {
     text-decoration: none;
@@ -903,6 +913,13 @@ file upload
 
 *{
   @extend .scroller;
+}
+
+// bastrap issue fix
+.table-responsive .dropdown,
+.table-responsive .btn-group,
+.table-responsive .btn-group-vertical {
+    position: static;
 }
 
 

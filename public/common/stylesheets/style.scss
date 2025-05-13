@@ -251,7 +251,7 @@ body {
     }
 .cell-thumb{ 
     width: 100%;
-    height: 130px;
+    aspect-ratio: 4/3;
 }
 .service-brand
 {
@@ -653,21 +653,21 @@ json-node {
 .url-link{
   text-decoration: none;
   color: white;
+  opacity: .8;
+  -khtml-opacity: .8;
+  -moz-opacity: .8; 
+  -webkit-opacity:  .8; /* WebKit browser e.g. Safari */
+  filter:alpha(opacity=80);
+
+}
+.url-link:hover{
+  color: white;
   opacity: 1;
   zoom: 1;
   -khtml-opacity:1;
   -moz-opacity:1; 
   filter:alpha(opacity=100);
   -webkit-opacity: 1; /* WebKit browser e.g. Safari */
-}
-.url-link:hover{
-  color: white;
-  opacity: .8;
-  -khtml-opacity: .8;
-  -moz-opacity: .8; 
-  -webkit-opacity:  .8; /* WebKit browser e.g. Safari */
-
-  filter:alpha(opacity=80);
 }
 
   /*----------------------------------------------------
@@ -1481,3 +1481,10 @@ table th{
   display: -webkit-box;
   overflow: hidden;
 }
+
+  // bastrap issue fix
+  .table-responsive .dropdown,
+  .table-responsive .btn-group,
+  .table-responsive .btn-group-vertical {
+      position: static;
+  }

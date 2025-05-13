@@ -162,10 +162,10 @@
           <!-- bubble tablist -->
           <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">主页</button>
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">虚拟商品</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">全部服务</button>
+              <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">特约服务</button>
             </li>
             <li v-if="user_already_login" class="nav-item" role="presentation">
               <button class="nav-link" id="cooperation-tab" data-bs-toggle="tab" data-bs-target="#cooperation-tab-pane" type="button" role="tab" aria-controls="cooperation-tab-pane" aria-selected="false">互动</button>
@@ -182,31 +182,30 @@
               <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 
                 <section class="section-list-render">
-                  <div class="subheader">最新服务</div>
-                  <div class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
-                    <div v-for="cell in homeInfo.cells" class="col">
+                  <div v-if="homeInfo.vr.length==0" class="not-found-resource">
+                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                    <h4>未找到结果</h4>
+                  </div>
+
+                  <div class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
+                    <div v-for="cell in homeInfo.vr" class="col">
                       <div class="cell-item">
-                        <div class="card border-0 cell-card-body-bg px-3 pb-1">
-                          <img :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
-                          <div class="card-body">
+                        <div class="card border-0 cell-card-body-bg  pb-1">
+                          <img :src="adaptiveImageUriV(cell.thumbnailUrl) || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                          <div class="card-body px-2">
                             <p class="card-text mt-2">
-                              <a :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                                {{cell.title}}
+                              <a :href="'/mall/virtual/'+cell.productId + '?brand_id=' + cell.sellerBrandId "  class="url-link">
+                                {{cell.productName}}
                               </a>
                             </p>
                           </div>
-                          <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                          <div class="card-footer px-2 d-flex align-items-center justify-content-between card-footer-highlight">
                             <span class="vip-award">
                               <i class="bi bi-award-fill"></i>
                             </span>
                             <div class="price">
                               <i>￥</i>
-                              <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
-                              <div class="line">
-                              </div>
-                              <span class="price-sbu">
-                                {{ transformSbuV(cell.sbu) }}
-                              </span>
+                              <ins class="text-decoration-none price-txt">{{cell.productPrice}}</ins>
                             </div>
                           </div>
                         </div>
@@ -219,19 +218,23 @@
 
               <div class="tab-pane fade" id="service-tab-pane" role="tabpanel" aria-labelledby="service-tab" tabindex="0">
                 <section class="section-list-render" id="service_library">
-                  <div class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
+                  <div v-if="!cells || cells.length==0" class="not-found-resource">
+                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                    <h4>未找到结果</h4>
+                  </div>
+                  <div class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
                     <div v-for="cell in cells" class="col">
                       <div class="cell-item">
-                        <div class="card border-0 cell-card-body-bg px-3 pb-1">
+                        <div class="card border-0 cell-card-body-bg pb-1">
                           <img :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumb" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
-                          <div class="card-body">
+                          <div class="card-body px-2">
                             <p class="card-text">
                               <a :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
                                 {{cell.title}}
                               </a>
                             </p>
                           </div>
-                          <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                          <div class="card-footer px-2 d-flex align-items-center justify-content-between card-footer-highlight">
                             <span class="vip-award">
                               <i class="bi bi-award-fill"></i>
                             </span>

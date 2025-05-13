@@ -26,6 +26,9 @@ export  function goWelcome(){
 export function goStudioStore(){
     go("/estudio/studio-store")
 }
+export function goStudioVirtualProductStore(){
+    go("/estudio/studio-virtual-store")
+}
 export function refresh(){
     window.location.reload();
 }

@@ -190,11 +190,11 @@
                   </div>
                   <span>我的工作</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-order-history">
+                <a class="nav-link" href="/estudio/studio-virtual-store">
                   <div class="nav-icon">
-                    <i class="bi bi-calendar2-check"></i>
+                    <i class="bi bi-badge-vr"></i>
                   </div>
-                  <span>预约订单</span>  
+                  <span>虚拟商店</span>  
                 </a>
                 <a class="nav-link" href="/estudio/studio-millstone">
                   <div class="nav-icon">
@@ -572,19 +572,19 @@
             <div class="experience-edit-pannel">
               <div v-for="(millstone,index) in brandProfile.experience" class="exeperince-millstone mt-2">
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="millstone-header d-flex  ms-3 mt-2">
+                  <div class="millstone-header d-flex  ms-2 mt-2">
                     <div class="img-shadow pt-2">
                       <img :src="defaultExperienceImage">
                     </div>
-                    <div class="inner-header d-flex flex-column ms-3">
+                    <div class="inner-header d-flex flex-column ms-2">
                       <span class="fw-semibold lh-lg mb-1">{{millstone.title}}</span>
-                      <span class="fw-normal mb-0">{{millstone.subTitle}}</span>
+                      <span style="font-size: 14px;" class="fw-normal mb-0">{{millstone.subTitle}}</span>
                       <span class="help-text mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{!millstone.end ? '现在' : millstone.end }}</span>
                     </div>
                   </div>
                  
                   <div class="dropstart me-5">
-                    <button class="btn btn-secondary toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-success btn-add-new-experience toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-three-dots-vertical"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end item-setting">
@@ -605,19 +605,24 @@
                 </div>
                 <div v-if="millstone.entries" class="card-body">
                   <ul class="timeline">
-                    <li v-for="(entry,descIndex) in millstone.entries" class="timeline-item  d-flex justify-content-between align-items-center">
-                      <div class="story-wrapper">
-                        <h5 class="fw-bold">{{entry.title}}</h5>
-                        <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : '现在' }}</p>
-                        <p class="opt_item_desc">
-                          {{entry.story}}
-                        </p>
-                      </div>
-                      <span class="option-edit-wrapper me-5" :class="{'display-el': descIndex == 0}">
-                        <div @click="editExperienceDescV(index,descIndex)" class="d-flex justify-content-center align-items-center option-container circle ">
-                          <i class="bi bi-pen"></i>
+                    <li v-for="(entry,descIndex) in millstone.entries" class="timeline-item">
+                      <div class="timeline-item-wrp  d-flex justify-content-between align-items-center">
+
+                        <div class="story-wrapper">
+                          <h5 class="mb-0">{{entry.title}}</h5>
+                          <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : '现在' }}</p>
+                          <p class="opt_item_desc mb-0">
+                            {{entry.story}}
+                          </p>
                         </div>
-                      </span>
+                        <span class="option-edit-wrapper me-5" :class="{'display-el': descIndex == 0}">
+                          <div @click="editExperienceDescV(index,descIndex)" class="d-flex justify-content-center align-items-center option-container circle ">
+                            <i class="bi bi-pen"></i>
+                          </div>
+                        </span>
+
+                      </div>
+
                     </li>
                   </ul>
                 </div>

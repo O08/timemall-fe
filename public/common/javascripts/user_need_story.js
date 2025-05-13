@@ -29,7 +29,7 @@ async function uploadUserNeedStory(){
     var data = await response.json();
     if(data.code==200){
        // close feedback offcanvas
-       alert("您的反馈已提交成功，感谢反馈，我们承诺会快速处理您的反馈。祝愉快！");
+       alert("您的反馈已提交成功，感谢反馈，我们承诺会快速评估，推出合适的商品与服务。祝愉快！");
        document.getElementById("input_need_description").value="";
        document.getElementById("input_need_budget").value="";
        document.getElementById("input_need_contact").value="";

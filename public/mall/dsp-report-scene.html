@@ -1,0 +1,67 @@
+<html lang="zh">
+<head>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+    <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>被举报物料信息</title>
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <style>
+      .report-detail-box{
+        width: 50%;
+      }
+      .report-detail-box{
+        color: #61666d;
+        word-spacing: .5px;
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #6d757a;
+      }
+      .card-header{
+        border-bottom: 1px solid #2f2f2f;
+      }
+      .form-control:disabled {
+        color: #dbdee1;
+        background-color: #4e50584d;
+        border: none;
+     }
+      @media (max-width: 576px) {
+        .report-detail-box{
+        width: 100%;
+      }
+      }
+    </style>
+</head>
+<body>
+
+    <micro-app id="app" v-cloak>
+        <div class="d-flex align-items-center justify-content-center w-100 h-100">
+
+          <div class="card report-detail-box">
+            <div class="card-header">
+              被举报物料信息
+            </div>
+            <div class="card-body">
+                <form>
+                  <fieldset disabled>
+                    <div class="mb-3">
+                      <label for="dspScene" class="form-label">内容归类</label>
+                      <input :value="virtualOrder.scene" type="text" id="dspScene" class="form-control" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="dspClue" class="form-label">被举报订单号</label>
+                      <input :value="virtualOrder.orderId" type="text" id="dspClue" class="form-control">
+                    </div>
+                  </fieldset>
+                  </form>
+            </div>
+          </div>
+
+        </div>
+
+      
+    </micro-app>
+
+</body>
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/mall/javascripts/dsp-report-scene.js"></script>
+</html>

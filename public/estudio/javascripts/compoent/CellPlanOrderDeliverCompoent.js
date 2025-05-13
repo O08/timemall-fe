@@ -4,6 +4,8 @@ import {CommercialPaperDeliverTag} from "/common/javascripts/tm-constant.js";
 import {RefundSceneEnum} from "/common/javascripts/tm-constant.js";
 import { uploadCellDataLayerWhenBuyPlan } from "/common/javascripts/science.js";
 
+import {Api} from "/common/javascripts/common-api.js";
+import {EmailNoticeEnum} from "/common/javascripts/tm-constant.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -62,8 +64,10 @@ const CellPlanOrderDeliverCompoent = {
                 if(response.data.code==200){
                     this.findPlanDetailV();// from studio-plan.js
                     this.doFetchPaperDeliverDetailV();
-                             // scinece data
-                 uploadCellDataLayerWhenBuyPlan(this.orderDetail.planType,this.orderDetail.cellId);
+
+                    Api.sendOrderReceivingEmail(EmailNoticeEnum.CELL_PLAN_ORDER_RECEIVING,response.data.planOrderId);
+                    // scinece data
+                    uploadCellDataLayerWhenBuyPlan(this.orderDetail.planType,this.orderDetail.cellId);
 
                     customAlert.alert("付款成功！");
                 }

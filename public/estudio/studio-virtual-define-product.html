@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>定义虚拟商品 - E-Studio</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-store.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-virtual-define-product.scss">
+
+    
+</head>
+<body>
+  <pt-app id="app" v-cloak>
+    <!-- header nav -->
+    <header class="text-white">
+      <div class="d-flex justify-content-between align-items-center hdlayout">
+
+        <div class="d-flex">
+          <div class="toggle-nav">
+            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+              </svg>
+            </button>
+          </div>
+          <a href="/estudio/studio-store">
+            <div class="d-flex align-items-center logo">
+              <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+              <h2 class="mb-0 ms-2">E-Studio</h2>
+            </div>
+          </a>
+
+        </div>
+        
+        <div>
+          
+          <div class="btn-group" style="margin-right: 8px;" >
+          
+            <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+              <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                  </svg>                  
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a href="/">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                   </button>
+                </a>
+              </li>
+              <li>
+                <a href="/micro/teixcalaanli">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
+                   </button>
+                </a>
+              </li>
+              <li>
+                <a href="/home">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 心选商店
+                   </button>
+                </a>
+              </li>
+              <li>
+                <a href="/micro/affiliate/dashboard">
+                  <button class="dropdown-item" type="button" >
+                    <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                   </button>
+                </a>
+              </li>
+              
+              <li>
+                <a href="/epod/pod-millstone">
+                  <button class="dropdown-item" type="button" >
+                    <i class="bi bi-tags me-2"></i> 我的定制
+                   </button>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+
+         
+
+          <div class="btn-group private-msg-atom" style="margin-right: 8px;">
+            <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="tooltip-nav" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="消息">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M2.80403 8.3533C2.52389 10.9562 2.53637 13.9582 2.9262 16.5505C3.1419 17.9849 4.31257 19.0845 5.75763 19.2102L7.26787 19.3414C10.4169 19.6152 13.5838 19.6152 16.7328 19.3414L18.2431 19.2102C19.6881 19.0845 20.8588 17.9849 21.0745 16.5505C21.4643 13.9582 21.4768 10.9564 21.1967 8.35345C21.1605 8.05169 21.1197 7.75034 21.0745 7.44949C20.8588 6.0151 19.6881 4.91545 18.2431 4.78983L16.7328 4.65855C13.5838 4.38481 10.4169 4.38481 7.26787 4.65855L5.75763 4.78983C4.31257 4.91545 3.1419 6.0151 2.9262 7.44949C2.88096 7.75028 2.84024 8.05159 2.80403 8.3533ZM7.39777 6.15292C10.4604 5.88669 13.5403 5.88669 16.6029 6.15292L18.1131 6.2842C18.8675 6.34977 19.4786 6.92379 19.5912 7.67254C19.6029 7.7503 19.6142 7.82809 19.6253 7.90592L14.0643 10.9954C12.7807 11.7085 11.2199 11.7085 9.93632 10.9954L4.37539 7.90596C4.38645 7.82812 4.39783 7.75031 4.40952 7.67254C4.52211 6.92379 5.13321 6.34977 5.88754 6.2842L7.39777 6.15292ZM19.8088 9.51989C20.0028 11.7876 19.9303 14.0725 19.5912 16.3274C19.4786 17.0762 18.8675 17.6502 18.1132 17.7158L16.6029 17.8471C13.5403 18.1133 10.4604 18.1133 7.39777 17.8471L5.88754 17.7158C5.13321 17.6502 4.52211 17.0762 4.40952 16.3274C4.07043 14.0725 3.99787 11.7877 4.19184 9.51992L9.20786 12.3066C10.9445 13.2714 13.0561 13.2714 14.7928 12.3066L19.8088 9.51989Z" fill="white"/>
+                  </svg>  
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <div class="friend-header">
+                私信（{{friends.totalUnRead}}）
+              </div>
+              <div class="friend-list">
+
+                <li class="friend-item"   v-for="friend in friends.records">
+                  <a target="_blank" :href="'/messages/'+ friend.id">
+                    <div class="friend-container">
+                      <div class="frend-avatar-container">
+                        <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                        <div v-if="friend.brandMark=='3'" class="online-indicator">
+                          <div class="online-indicator-content">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="friend-info">
+                        <div class="friend-name"><span class="ellipsis-1">{{friend.title}}</span> </div>
+                        <div class="friend-msg"> <span class="ellipsis-1">{{friend.latestContent}}</span> </div>
+                        <div class="msg-time">{{getPublishTimeV(friend.modifiedAt)}}</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+
+               
+
+              </div>
+              
+
+
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a href="/estudio/studio-setting-profile">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-person-vcard me-2"></i> 品牌形象
+                   </button>
+                </a>
+              </li>
+              <li>
+                  <button @click="logout()" class="dropdown-item" type="button">   
+                    <i class="bi bi-box-arrow-right me-2"></i> 退出登录 
+                  </button>
+              </li>
+              <li>
+                <a href="/mall/delete-account">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-trash3 me-2"></i> 删除账号
+                   </button>
+                </a>
+              </li>
+              
+              <li>
+                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                  <i class="bi bi-flag me-2"></i> 反馈
+                </button>
+              </li>
+            </ul>
+          </div>
+  
+          
+        </div>
+
+
+      </div>
+    </header>
+    <content class="bd-layout">
+      <aside>
+        <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+          <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
+          </div> 
+          <!-- menu -->
+          <div class="sidebar-wrapper">
+            <nav class="sidebar nav">
+              <a class="nav-link"  href="/estudio/studio-store">
+                <div class="nav-icon">
+                  <i class="bi bi-shop-window"></i>
+                </div>
+                <span>我的工作</span>
+              </a>
+              <a class="nav-link active" href="/estudio/studio-virtual-store">
+                <div class="nav-icon">
+                  <i class="bi bi-badge-vr"></i>
+                </div>
+                <span>虚拟商品</span>  
+              </a>
+              <a class="nav-link" href="/estudio/studio-millstone">
+                <div class="nav-icon">
+                  <i class="bi bi-truck"></i>
+                </div>
+                <span>履约中心</span>        
+              </a>
+              <a class="nav-link" href="/estudio/studio-bill">
+                <div class="nav-icon">
+                  <i class="bi bi-receipt"></i>
+                </div>
+                <span>账单管理</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-mps">
+                <div class="nav-icon">
+                  <i class="bi bi-columns"></i>
+                </div>
+                <span>合约助手</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-promotion">
+                <div class="nav-icon">
+                  <i class="bi bi-gift"></i>
+                </div>
+                <span>营销活动</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-msg">
+                <div class="nav-icon">
+                  <i class="bi bi-bell"></i>
+                </div>
+                <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-dsp">
+                <div class="nav-icon">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <span>争端解决</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-shop">
+                <div class="nav-icon">
+                  <i class="bi bi-bag"></i>
+                </div>
+                <span>补给商城</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </aside>
+      <main>
+        <!-- 容器元素 -->
+        <div class="page-title-container">
+          <!-- 文章:粘性约束元素 -->
+          <div class="page-title">
+            <h1>定义虚拟商品</h1>
+          </div>
+          <div class="data-tag">快速访问</div>
+          <!-- tablist -->
+          <div class="nav-tabs-container row">
+            <div class="col">
+              <ul class="nav nav-tabs border-0 store-tab" id="store-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a href="/estudio/studio-virtual-store?tab=active" class="text-decoration-none">
+                        <button class="nav-link" id="activeCell-tab" data-bs-toggle="tab" data-bs-target="#activeCell-tab-pane" type="button" role="tab" aria-controls="activeCell-tab-pane" aria-selected="true">在售商品</button>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a href="/estudio/studio-virtual-store?tab=paused" class="text-decoration-none">
+                        <button class="nav-link" id="pausedCell-tab" data-bs-toggle="tab" data-bs-target="#pausedCell-tab-pane" type="button" role="tab" aria-controls="pausedCell-tab-pane" aria-selected="true">已下线商品</button>
+                    </a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a href="/estudio/studio-virtual-store?tab=draft" class="text-decoration-none">
+                        <button class="nav-link" id="draftCell-tab" data-bs-toggle="tab" data-bs-target="#draftCell-tab-pane" type="button" role="tab" aria-controls="draftCell-tab-pane" aria-selected="true">草稿箱</button>
+                    </a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <div id="cell-define-container" class="cell-define-container">
+            <div class="accordion my-3" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                  <div class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                      通用
+                    </button>
+                  </div>
+                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                      <form onsubmit="return false">
+                        <div class="row mb-3">
+                          <label for="inputTitle" class="col-sm-4 col-form-label">
+                            商品名称
+                            <div class="help-text">
+                              商品名称，买家可能会用与你的商品的相关的关键词来搜索类似产品。(最大38字符)    
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <textarea v-model="product.productName" @change="btn_ctl.activate_general_save_btn = true" 
+                            class="form-control" maxlength="38" aria-label="With textarea"></textarea>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-form-label col-sm-4 pt-0">
+                            封面
+                            <div class="help-text">
+                             商品主图，将视觉美感与商品内涵融合在一起，传达出商品内容，从而使产品脱颖而出(格式要求：png,jpg,jpeg;文件大小：最大为6M，图片必须至少为 640 x 320 像素且单边长度不能超过4096像素)。
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <div class="product-thumbnail-upload-container">
+                              <div v-if="!!product.thumbnailUrl"  class="thumbnail-box position-relative">
+                                <img id="lastestCover" :src="adaptiveImageUriV(product.thumbnailUrl)" >
+                                <div class="btn-thumbnail-modify">
+                                  <a v-preventreclick  @click="triggerUploadThumbnailFileV"  class="btn btn-primary"  id="thumbnailModifyFile">
+                                    <div class="btn-content">
+                                      更改
+                                    </div>
+                                  </a>
+                                </div>
+                
+
+                              </div>
+                              <div v-show="!product.thumbnailUrl"  class="w-100 h-100 position-absolute">
+                                <div   class="dropzone-wrapper">
+                                  <div class="dropzone-desc">
+                                    <i class="bi bi-cloud-plus"></i>
+                                  </div>
+                                  <input  @change="previewAddProductThumbnailV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" id="coverFile" class="dropzone">
+                                </div>
+                              </div>
+                           
+                            </div>
+                            
+                            
+                          </div>
+                        </div> 
+                        <div class="row mb-3">
+                          <label class="col-form-label col-sm-4 pt-0">
+                            售价
+                            <div class="help-text">
+                             商品售价，可先计算出将商品推向市场的总成本，然后在这些成本之上设定利润率，从而得到初始定价(单位：元)。
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <input @change="btn_ctl.activate_general_save_btn = true"  @input="transformInputNumberAsPositiveDecimalV($event)"  max="500000" min="0.1" v-model="product.productPrice" class="form-control" type="text" spellcheck="false">
+                          </div>
+                        </div> 
+                        <div class="row mb-3">
+                          <label  class="col-sm-4 col-form-label">
+                            库存
+                            <div class="help-text">
+                              可供销售商品的存货数量。    
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <input @change="btn_ctl.activate_general_save_btn = true"  v-model="product.inventory" @input="transformInputNumberV($event)"  max="500000" min="1"  class="form-control" type="text" spellcheck="false">
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label  class="col-sm-4 col-form-label">
+                            发票
+                            <div class="help-text">
+                              在发生经营业务确认营业收入时由收款方向付款方开具发票，选中表示可以向客户提供发票，未选中则表示当客户索要发票时不能提供。    
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <input class="form-check-input" v-model="product.provideInvoice" true-value="1" false-value="0"  type="checkbox" value="" @change="btn_ctl.activate_general_save_btn = true" >
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+
+                          <label  class="col-sm-4 col-form-label">
+                            标签
+                            <div class="help-text">
+                              按回车键Enter创建标签，标签帮助系统更好的将你的商品递送给目标客户   
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <div class="tags-wrapper">
+                              <div class="tag-content">
+                                <ul>
+                                  <li v-for="(tag, index) in product.tags" :key="index" >
+                                    {{ tag }}
+                                    <i class="bi bi-x" @click="removeTagV(index)"></i>
+                                  </li>
+                                  <input class="form-control" @keyup="deleteContentOrTagV"
+                                      @keyup.enter.prevent="addTagV"
+                                      type="text" spellcheck="false">
+                                </ul>
+                              </div>
+                              <div class="tag-details">
+                                <p class="help-text">还可添加<span>{{5 - product.tags.length}}</span>标签</p>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                          <div class="d-flex align-items-center  help-text"><i class="bi bi-book"></i><span class="ms-1"><a href="/blog/article/no-0012" class="text-decoration-none">班蔚服务开发者必看资源索引</a></span></div>
+                        </div>                 
+                        <button type="button" v-preventreclick @click="defineProductGenernalV" 
+                        :class="{'disabled': !validateGeneralFormV(), 
+                        'btn-primary': validateGeneralFormV(),
+                        'btn-secondary': !validateGeneralFormV()}"
+                        class="btn">保存并继续</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button :class="{'disable-text': currentTabIntV(2)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo" v-bind:disabled="currentTabIntV(2)">
+                      关于商品
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                      <div id="editor">
+
+                      </div>
+                      <div class="text-start my-3">
+                        <button type="submit" 
+                        :class="{'disabled': !btn_ctl.activate_product_desc_save_btn, 
+                        'btn-primary': btn_ctl.activate_product_desc_save_btn,
+                        'btn-secondary': !btn_ctl.activate_product_desc_save_btn}"
+                        @click="changeProductDescInfoV" v-preventreclick class="btn">保存</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button :class="{'disable-text': currentTabIntV(3)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree" v-bind:disabled="currentTabIntV(3)">
+                      商品展示
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                    <div class="accordion-body">
+                      <section class="section-seller-banner">   
+                         <div class="d-none">
+                          <input  @change="previewChangeShowcaseImageModalV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" class="dropzone" id="changeShowCaseFile">
+                         </div>             
+                        <div class="product-show-box">
+                          <div class="product-show__thumnail">
+                            <img  :src="adaptiveImageUriV(product.thumbnailUrl)">
+                          </div>
+                          <div class="row g-2 row-cols-2  product-show__extra">
+
+                            <div v-for="item in product.showcase" class="product-show-case">
+                              <div   class="dropzone-wrapper">
+                                <img :src="adaptiveImageUriV(item.showcaseUrl)">
+                                <div class="btn-thumbnail-modify">
+                                  <a v-preventreclick  @click="triggerChangeShowcaseFileV(item)"  class="btn btn-primary" >
+                                    <div class="btn-content">
+                                      更改
+                                    </div>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div v-if="4>product.showcase.length"  class="product-show-case">
+                              <div   class="dropzone-wrapper">
+                                <div class="dropzone-desc plus-img">
+                                  <i style="font-size: 48px;" class="bi bi-plus-circle"></i>
+                                </div>
+                                <input  @change="previewAddShowcaseImageModalV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" class="dropzone" id="addShowCaseFile">
+                              </div>
+                            </div>
+                           
+                     
+                            <div v-if="3>product.showcase.length" v-for="i in (3-product.showcase.length)" class="product-show-case">
+                              <div   class="dropzone-wrapper">
+                                <div class="dropzone-desc">
+                                  <i class="bi bi-image"></i>
+                                </div>
+                              </div>
+                            </div>
+
+
+                        
+                      
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                    <button :class="{'disable-text': currentTabIntV(4)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour" v-bind:disabled="currentTabIntV(4)">
+                      商品交付
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                    <div class="accordion-body">
+                      <form onsubmit="return false">
+                        <div class="row mb-3">
+                          <label  class="col-sm-4 col-form-label">
+                            交付说明书
+                            <div class="help-text">
+                              描述商品的用法、发货、售后等指导内容（说明书仅对已购买用户开放访问）。    
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <textarea rows="8" @change="btn_ctl.activate_deliver_save__btn=true" v-model="product.deliverNote" class="form-control" maxlength="880" aria-label="With textarea"></textarea>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label  class="col-sm-4 col-form-label">
+                            附件（选填）
+                            <div class="help-text">
+                              可以是客户想要购买的目标内容文件（比如课程视频、数字藏品、授权/许可文件；附件仅对已购买用户开放访问）。    
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+
+                            <div  v-if="!!product.deliverAttachment" class="material-item">
+                              <span style="display: contents;">
+                                <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">交付资料</span>
+                              </span>
+                              <div class="material-option">
+                                <span v-preventreclick @click="changeDeliverAttachmenttriggerV" class="material-option__btn me-2">变更附件</span>
+                                <a target="_blank" class="material-option__btn" :download="product.productName+'-交付资料'" :href="product.deliverAttachment">下载</a>
+                              </div>
+                            </div>
+
+                            <div :class="{'d-none': !!product.deliverAttachment}" class="w-100">
+                              <input @change="btn_ctl.activate_deliver_save__btn=true" type="file" class="form-control" id="deliverAttachment">
+                            </div>
+                          </div>
+                        </div>
+                 
+
+                        <div class="text-start my-3">
+                          <button :class="{'disabled': !btn_ctl.activate_deliver_save__btn || !product.deliverNote, 
+                          'btn-primary': btn_ctl.activate_deliver_save__btn && !!product.deliverNote,
+                          'btn-secondary': !btn_ctl.activate_deliver_save__btn || !product.deliverNote}" type="submit" v-preventreclick @click="changeDeliverMaterialV" class="btn">保存</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingFiver">
+                    <button :class="{'disable-text': currentTabIntV(5)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive" v-bind:disabled="currentTabIntV(5)">
+                      商品上线
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFiver">
+                    <div class="accordion-body">
+                      <div class="publish-agreement mb-3">
+                        <div class="text-center mb-3">
+                          <h3>上线协议</h3>
+                        </div>
+                        <ol>
+                          <li>您同意，与您访问或者使用本网站相关的所有事项，应根据中华人民共和国法律解释、理解和管辖。</li>
+                          <li>您同意在使用本网站及其内容时，遵守国家法律法规、社会公共道德。您不得利用本网站及其内容从事制作、查阅、复制和传播任何违法、侵犯他人权益等扰乱社会秩序、破坏社会稳定的行为。</li>
+                          <li>网站运营商(上海群巅科技有限公司)不应对间接、附带、特殊或任何形式的惩罚性赔偿承担任何责任，也不应对任何利润、收入、数据、数据使用的损失承担任何责任。</li>
+                        </ol>
+                        <div class="form-check ms-3">
+                          <input class="form-check-input" v-model="agree_check" type="checkbox" value="" id="agree_check">
+                          <label class="form-check-label" for="agree_check">
+                            同意条款
+                          </label>
+                        </div>
+                      </div>
+                      <div class="text-start my-3">
+                        <button v-preventreclick
+                        :class="{'disabled': !agree_check, 
+                        'btn-primary': agree_check,
+                        'btn-secondary': !agree_check}"
+                        type="submit" @click="onlineProductV" class="btn">发布</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              
+          </div>
+          
+          
+          
+        </div>
+      </main>
+      <section class="modals">
+        
+
+        <div class="modal-container">
+          
+          <!-- Modal -->
+          <div class="modal fade" id="productThumbnailAddModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">设置虚拟商品主图</h1>
+                  <button v-preventreclick  @click="closeProductThumbnailAddModalV" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+           
+
+                  <div class="thumbnail-cover-upload-container">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+
+                  
+                      <div class="d-flex">
+                        <div class="img-container">
+                          <img id="thumbnailAddPreview">
+                        </div>
+                        <div class="eye-direction-container">
+                          <div class="eye-direction">
+                            <i class="bi bi-arrow-right-circle"></i>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button @click="clickCropThumbnailBtnV" v-preventreclick  id="btn-crop-cover" class="btn-crop">
+                        <i class="bi bi-scissors"></i>裁剪
+                      </button>
+                    </div>
+
+                    <div class="cropped-cover-container" >
+                      <div class="d-flex justify-content-center align-items-center">
+                          裁剪预览
+                      </div>
+                      <div class="cropped-image-cover-container">
+                        <img  id="cropped-output-cover" class="cropped-output">
+                      </div>
+                    </div>
+                
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button 
+                  v-preventreclick :class="{'disabled': !btn_ctl.activate_upload_thumbnailCover_btn, 
+                    'btn-primary': btn_ctl.activate_upload_thumbnailCover_btn,
+                    'btn-secondary': !btn_ctl.activate_upload_thumbnailCover_btn}"
+                  @click="setThumbnailV" type="button " id="btn-save-cover" class="btn btn-primary">设置为主图</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="showcaseAddModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">添加商品展示图片</h1>
+                  <button v-preventreclick  @click="closeShowcaseAddModalV" type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="banner-upload-container">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+
+                      <div class="d-flex">
+                        <div class="img-container">
+                          <img id="showcaseAddPreview" >
+                        </div>
+                        <div class="eye-direction-container">
+                          <div class="eye-direction">
+                            <i class="bi bi-arrow-right-circle"></i>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <button v-preventreclick @click="clickCropAddShowcaseBtnV" id="btn-crop-add__showcase" class="btn-crop">
+                        <i class="bi bi-scissors"></i>裁剪
+                      </button>
+                    </div>
+                    <div class="cropped-cover-container" >
+                      <div class="d-flex justify-content-center align-items-center">
+                          裁剪预览
+                      </div>
+                      <div class="cropped-image-container">
+                        <img  id="cropped-output-showcase__add" class="cropped-output">
+                      </div>
+                    </div>
+                
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button 
+                  :class="{'disabled': !btn_ctl.activate_add_show__btn, 
+                    'btn-primary': btn_ctl.activate_add_show__btn,
+                    'btn-secondary': !btn_ctl.activate_add_show__btn}"
+                  @click="addOneShowcaseImageV" v-preventreclick type="button" id="btn-save-banner" class="btn btn-primary">上传</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- Modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="showcaseChangeModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable" >
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">更新商品展示图片</h1>
+                  <button type="button" v-preventreclick  @click="closeShowcaseChangeModalV"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="banner-upload-container">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+
+                      <div class="d-flex">
+                        <div class="img-container">
+                          <img id="showcaseChangePreview" >
+                        </div>
+                        <div class="eye-direction-container">
+                          <div class="eye-direction">
+                            <i class="bi bi-arrow-right-circle"></i>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <button v-preventreclick @click="clickCropChangeShowcaseBtnV" id="btn-crop-add__showcase" class="btn-crop">
+                        <i class="bi bi-scissors"></i>裁剪
+                      </button>
+                    </div>
+                    <div class="cropped-cover-container" >
+                      <div class="d-flex justify-content-center align-items-center">
+                          裁剪预览
+                      </div>
+                      <div class="cropped-image-container">
+                        <img  id="cropped-output-showcase__change" class="cropped-output">
+                      </div>
+                    </div>
+                
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button 
+                  :class="{'disabled': !btn_ctl.activate_change_show__btn, 
+                    'btn-primary': btn_ctl.activate_change_show__btn,
+                    'btn-secondary': !btn_ctl.activate_change_show__btn}"
+                  @click="changeOneShowcaseImageV" v-preventreclick type="button" id="btn-save-banner" class="btn btn-primary">更新</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+      </section>
+    </content>
+    <footer></footer>
+  </pt-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-virtual-define-product.js"></script>
+
+</body>
+</html>

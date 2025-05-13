@@ -158,12 +158,12 @@
 
               <a v-if="beNewFriendV()" class="nav-link p-2 ms-3 d-flex flex-row align-items-center nav-sub-link-active">
                 <div class="position-relative friend-avatar-tiny-container">
-                  <div class="oasis-avatar-wrapper">
-                    <img class="oasis-avatar-tiny" :src="adaptiveImageUriV(friendProfile.avatar) || defaultAvatarImage"
+                  <div class="friend-avatar-wrapper">
+                    <img class="friend-avatar-tiny" :src="adaptiveImageUriV(friendProfile.avatar) || defaultAvatarImage"
                       @error.once="e => { e.target.src = defaultAvatarImage }">
                   </div>
                 </div>
-                <div class="link-title ms-2">{{friendProfile.username}}</div>
+                <div class="link-title ms-2">{{ friendProfile.mark =='2' ? "账号已删除" : friendProfile.username}}</div>
               </a>
 
               <a @contextmenu.prevent="showFriendOptionV($event,friend.id)"
@@ -172,8 +172,8 @@
                     'nva-link-default': friend.id != currentChatFriendId}">
 
                 <div class="position-relative friend-avatar-tiny-container">
-                  <div class="oasis-avatar-wrapper">
-                    <img class="oasis-avatar-tiny" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage"
+                  <div class="friend-avatar-wrapper">
+                    <img class="friend-avatar-tiny" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage"
                       @error.once="e => { e.target.src = defaultAvatarImage }">
                   </div>
 
@@ -183,7 +183,7 @@
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </div>
-                <div class="link-title ms-2">{{friend.title}}</div>
+                <div class="link-title ms-2">{{ friend.brandMark=='2' ? "账号已删除"  :  friend.title}}</div>
               </a>
 
 

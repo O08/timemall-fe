@@ -23,6 +23,13 @@ async function doUploadCellDataLayer(model){
   'Content-Type':'application/json'
   }});
 }
+async function doUploadVirtualProductDataLayer(model){
+  const url="/api/v1/web_mall/data_layer/virtual_product/indices";
+
+  return await fetch(url,{method: "PUT",body: JSON.stringify(model),headers:{
+  'Content-Type':'application/json'
+  }});
+}
 
 export async function uploadCellDataLayer(event,indicesObj){
   console.log("capture data:"+indicesObj);
@@ -149,4 +156,80 @@ export async function uploadScienceData(snippet,details,fromWhere){
   }
 }
 
+// virtual product stats
+export async function uploadVirtualProductDataLayer(event,indicesObj){
+  console.log("capture data:"+indicesObj);
+  if(!event){
+    return;
+  }
+  var model={
+    event: event,
+    virtual: {},
+  }
+  if(DataLayerCellEvent.IMPRESSIONS==event){
+    model.virtual.impressions=indicesObj;
+  }
+  if(DataLayerCellEvent.CLICKS==event){
+    model.virtual.clicks=indicesObj;
+  }
+  if(DataLayerCellEvent.PURCHASES==event){
+    model.virtual.purchases=indicesObj;
+  }
+
+  const response= await doUploadVirtualProductDataLayer(model);
+  await handleErrors(response);
+  var data = await response.json();
+  if(data.code==200){
+    console.log("virtual product data layer capture success!!!");
+  }
+  if(data.code!==200){
+    console.log("virtual product data layer capture fail!!!");
+  }
+}
+
+
+// event is impression 
+export async function uploadVirtualProductDataLayerWhenImpression(idsArr){
+  var impressions=[];
+  idsArr.forEach(element => {
+    var impression ={ 
+      productId: element
+    }
+    impressions.push(impression);
+  });
+  if(impressions.length>0){
+    uploadVirtualProductDataLayer(DataLayerCellEvent.IMPRESSIONS ,impressions);
+  }
+}
+
+
+// event is clicks
+export async function uploadVirtualProductDataLayerWhenClick(idsArr){
+ var clicks=[];
+ idsArr.forEach(element => {
+   var click ={ 
+      productId: element
+    }
+    clicks.push(click);
+ });
+ if(clicks.length>0){
+  uploadVirtualProductDataLayer(DataLayerCellEvent.CLICKS ,clicks);
+ }
+}
+
+
+
+// event is purchase virtual product
+export async function uploadVirtualProductDataLayerWhenBuy(productId){
+ if(!productId){
+   return;
+ }
+ var purchases={
+  productId: productId
+ };
+
+ uploadVirtualProductDataLayer(DataLayerCellEvent.PURCHASES ,purchases);
+
+
+}
 

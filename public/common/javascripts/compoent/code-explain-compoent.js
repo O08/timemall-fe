@@ -1,4 +1,4 @@
-import {CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus} from "/common/javascripts/tm-constant.js";
+import {CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -17,6 +17,9 @@ const CodeExplainComponent = {
     },
     explainOpenDataFromWhereV(dataSource){
         return explainOpenDataFromWhere(dataSource);
+    },
+    explainVirtualProductTagV(tag){
+        return explainVirtualProductTag(tag);
     }
    }
 }
@@ -136,9 +139,55 @@ function explainOpenDataFromWhere(dataSourceCode){
         case FromWhere.BUSINESS_PAPER_SEARCH:
             desc="商单搜索"
             break;
+        case FromWhere.VIRTUAL_PRODUCT_SEARCH:
+            desc="虚拟商品搜索"
+        break;
         default:
             desc = '其他';
             break;
+    }
+    return desc;
+}
+
+function explainVirtualProductTag(tag){
+    var desc="";
+    switch(tag){
+        case VirtualOrderTag.CREATING:
+            desc="订单创建中"
+            break;
+        case VirtualOrderTag.CREATED:
+            desc="已创建订单"
+            break;
+        case VirtualOrderTag.WAITING_PAY:
+            desc="等待支付"
+            break;
+        case VirtualOrderTag.PAID:
+            desc="已支付"
+            break;
+        case VirtualOrderTag.DELIVERING:
+            desc="交付中"
+            break;
+        case VirtualOrderTag.COMPLETED:
+            desc="履约完成"
+            break;
+        case VirtualOrderTag.CANCELLED:
+            desc="已取消订单"
+            break;
+        case VirtualOrderTag.REFUNDED:
+            desc="已退款"
+            break;
+        case VirtualOrderTag.REMITTANCE:
+            desc="已打款关单"
+            break;
+        case VirtualOrderTag.APPLY_REFUND:
+            desc="申请退款"
+            break;
+        case VirtualOrderTag.FAIL:
+            desc="处理失败"
+            break;
+        case VirtualOrderTag.INVALID:
+            desc="已失效"
+            break;    
     }
     return desc;
 }

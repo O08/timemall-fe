@@ -88,6 +88,9 @@ app.get('/micro/oasis', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/micro/oasis/home.html")        //设置/ 下访问文件位置
 })
 
+app.get('/mall/virtual/:item', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/mall/virtual-item.html")        //设置/ 下访问文件位置
+})
 
 
 // match @abc @bcdddd,for brand handle mapping

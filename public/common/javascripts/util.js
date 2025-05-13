@@ -66,7 +66,8 @@ export function transformInputNumberAsPositiveDecimal(e){
     e.target.value = transformInputNumberDecimal(val, max);
     const firstCodeIsZero= e.data=='0' && !e.target.value;
     const supportCodes = ["0", "1", "2","3","4","5","6","7","8","9","."];
-    const needUpdate = firstCodeIsZero || (val !== Number(e.target.value)) || (!!e.data && !supportCodes.includes(e.data));
+    const inputCodeValid = !!e.data && !supportCodes.includes(e.data);
+    const needUpdate = firstCodeIsZero || (Number(val) != Number(e.target.value)) || inputCodeValid;
 
     if(needUpdate){
       e.currentTarget.dispatchEvent(new Event('input')); // update v-model

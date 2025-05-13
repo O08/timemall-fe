@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”index,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <meta name="keywords" content="虚拟商品详情页">
+    <meta name="description" content="商品相关信息展示">
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>商品详情 - 虚拟商品</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/mall/stylesheets/virtual-item.scss">
+</head>
+<body>
+  <mall-app id="app" v-cloak>
+
+    <!-- header section start -->
+    <div class="header-container">
+      <header>
+        <nav>
+          <div class="header-primary-container">
+
+            <div class="logo-contaienr">
+              <a href="/home" class="logo_link" >
+                <div class="d-flex align-items-center logo">
+                  <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                  <span class="mb-0 ms-2">心选商店</span>
+                </div>
+              </a>
+            </div>
+
+
+
+          </div>
+          
+          <div class="appButton">
+
+            <div class="btn-group" style="margin-right: 8px;" >
+          
+              <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                    </svg>                  
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="/">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/micro/teixcalaanli">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/home">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 心选商店
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/estudio/studio-store">
+                    <button class="dropdown-item" type="button"><i class="bi bi-laptop me-2"></i> 薪动办公 </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/micro/affiliate/dashboard">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                     </button>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="/epod/pod-millstone">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-tags me-2"></i> 我的定制
+                     </button>
+                  </a>
+                </li>
+              </ul>
+  
+            </div>
+
+            <a v-if="!user_already_login" class="btn btn-outline-dark button_login text-white" href="/login">
+              登录
+            </a>
+            <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>
+
+            <div v-if="user_already_login" class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="/estudio/studio-setting-profile">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                     </button>
+                  </a>
+                </li>
+                <li>
+                    <button id="logout-btn" @click="logout()" class="dropdown-item" type="button">   
+                      <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+                    </button>
+                </li>
+                <li>
+                  <a href="/mall/delete-account">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-trash3 me-1"></i> 删除账号
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                    <i class="bi bi-flag me-1"></i> 反馈
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+      </header>
+    </div>
+     <!-- header section end -->
+
+    <content class="content-container">
+      <main>
+
+        <div class="product-header">
+          <h1><span class="ellipsis-1">{{profile.productName}}</span></h1>
+
+          <div>
+            <div class="d-flex">
+            
+              <button v-preventreclick  @click="copyWindowUrlToClipboardV"   class="btn btn-dark  copy-link d-flex justify-content-center">
+                <i class="bi bi-share"></i>
+                分享
+              </button>
+              <button v-if="user_already_login"  v-preventreclick  @click="showOasisReportModalV" class="btn btn-dark  copy-link d-flex justify-content-center ms-2">
+                <i class="bi bi-flag"></i>
+                举报
+              </button>
+            </div>
+
+          </div>
+
+
+        </div>
+
+        <div class="product-slide-show">
+          <div id="product-show__carousel" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img :src="adaptiveImageUriV(profile.thumbnailUrl)" class="d-block w-100" alt="carousel image">
+              </div>
+              <div  v-for="item in profile.showcase" class="carousel-item">
+                <img :src="adaptiveImageUriV(item)" class="d-block w-100" alt="showcase image"> 
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#product-show__carousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">前一页</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#product-show__carousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">后一页</span>
+            </button>
+          </div>
+        </div>
+        <div class="product-mobile-header">
+          <div class="product-mobile-header__name">{{profile.productName}}</div>
+          <div class="d-flex">
+            <button v-preventreclick  @click="copyWindowUrlToClipboardV"   class="btn btn-dark  copy-link d-flex justify-content-center">
+              <i class="bi bi-share"></i>
+              分享
+            </button>
+            <button v-if="user_already_login"  v-preventreclick  @click="showOasisReportModalV" class="btn btn-dark  copy-link d-flex justify-content-center ms-2">
+              <i class="bi bi-flag"></i>
+              举报
+            </button>
+          </div>
+        </div>
+
+        <div class="product-show-box">
+          <div class="product-show__thumnail">
+            <img  :src="adaptiveImageUriV(profile.thumbnailUrl)" alt="thumbnail image">
+          </div>
+          <div class="row g-2 row-cols-2  product-show__extra">
+
+            <div v-for="item in profile.showcase" class="product-show-case">
+              <div   class="dropzone-wrapper">
+                <img :src="adaptiveImageUriV(item)" alt="showcase iamge ">
+              </div>
+            </div>
+
+            <div v-if="4>profile.showcase.length" v-for="i in (4-profile.showcase.length)" class="product-show-case">
+              <div   class="dropzone-wrapper">
+                <div class="dropzone-desc">
+                  <i class="bi bi-image"></i>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="product-info">
+
+          <div class="product-info__story ql-editor" v-html="profile.productDesc">
+            
+          </div>
+
+          <div class="product-info__widget">
+             <!-- right panel : pricing start -->
+            <div class="fee-calculator-pannel">
+              <div class="card fee-calculator-bg fee-calculator">
+                <div class="card-header ps-3 font-w-500">
+                  费用计算
+                </div>
+                <div class="card-body">
+                  <form onsubmit="return false">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">购买数量</span>
+                      <input @input="transformInputNumberAsPositiveV($event)" v-model="bill.quantity" id="purchase-quantity" type="text" class="form-control" min="1" max="50000" step="1">
+                    </div>
+
+                    <div class="help-text mb-2">
+                      <span v-if="profile.provideInvoice==='1'"> 服务可申请开具发票</span>
+                      <span v-else>服务不提供发票</span>
+                    </div>
+                    <div v-if="profile.productStatus!='2'" class="help-text mb-2">
+                      <span>商品暂时不可购买</span>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                  <div class="price">
+                    <i>￥</i>
+                    <ins class="text-decoration-none">{{ !bill.quantity ? bill.price : (bill.quantity * bill.price).toFixed(2)}}</ins>
+                  </div>
+                  <button type="button" v-preventreclick @click="showOrderVirtualProductFocusModalV" class="btn btn-primary">购买商品</button>
+                </div>
+
+
+              </div>
+            </div>
+            <!-- right panel : pricing end -->
+          </div>
+        </div>
+        <!-- product info end -->
+        <div v-if="!!brandProfile && sellerProducts.length>0" class="more-from-channel">
+          <div class="more-product-head d-flex justify-content-between">
+            <span>品牌在售商品</span><span><a :href="'/'+brandProfile.handle" class="shopping-store-link"><i class="bi bi-bag me-1"></i>访问店铺</a></span>
+          </div>
+          <div class="row mode-video gx-3 gy-4 row-cols-2 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4">
+
+            <div v-for="product in sellerProducts"  class="virtual-product">
+              <div class="virtual-product-thumbnail">
+                <a target="_blank" :href="'/mall/virtual/'+product.productId + '?brand_id=' + product.sellerBrandId ">
+                  <img :src="adaptiveImageUriV(product.thumbnailUrl) || defaultCellPreviewImage" alt="virtual product">
+                </a>
+              </div>
+              <div class="virtual-product-footer">
+                <div class="virtual-product-detail">
+                  <span class="virtual-product-title">{{product.productName}}</span>
+                  <div class="virtual-product-meta">
+                    <span><span v-if="!!product.views">{{formatCmpctNumberV(product.views)}} 浏览</span><span v-if="!!product.views && !!product.salesVolume"> • </span><span v-if="!!product.salesVolume">{{formatCmpctNumberV(product.salesVolume)}} 销量</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+           
+
+          </div>
+        </div>
+        <!-- more  from chanenl end -->
+        <div v-if="!!brandProfile"  class="about-seller">
+          <div class="more-product-head">
+            品牌信息
+          </div>
+          <div class="brand-container">
+            <div class="brand-avator">
+              <a :href="'/'+brandProfile.handle" class="url-link">
+                <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="brand avatar">
+              </a>
+            </div>
+            <div class="brand-identity">
+              <a :href="'/'+brandProfile.handle" class="url-link">
+                <div class="brand-name text-decoration-none">{{brandProfile.brand}}</div>
+              </a>
+              <p v-if="!!brandProfile.title" class="brand-title opt_item_desc">    
+                {{brandProfile.title}}     
+              </p>
+              <p class="ip-location ">IP属地：{{ !brandProfile.location ?  "未知" :brandProfile.location }}</p>
+            </div>
+          </div>
+           
+          <a :href="'/messages/'+ brandProfile.brandUserId" target="_blank" style="text-decoration: none;">
+            <button type="button" v-preventreclick class="btn btn-outline-green-primary">问一问商家</button>
+          </a>
+
+          <div class="seller-info">
+       
+            <div class="seller-general">
+              <ul>
+                <li>账号类型<strong>{{brandProfile.brandTypeCode=='1' ? '机构' : '个人' }}</strong></li>
+                <li>注册于<strong>{{new Date(brandProfile.createAt).getFullYear()}}年{{new Date(brandProfile.createAt).getMonth()+1}}月</strong></li>
+                <li>无偿夜间咨询<strong>{{brandProfile.freeNightCounsellor=='1'? '提供' : '不提供'}}</strong></li>
+                <li>自由合作<strong>{{brandProfile.supportFreeCooperation=='1'? '有意向' : '无意向'}}</strong></li>
+              </ul>
+            </div>
+            <div class="seller-skill">
+              <div class="seller-skill-header">经营范围</div>
+              <div v-if="!brandProfile.businessScope" class="empty-content-block">未找到相关数据</div>
+              <p>{{brandProfile.businessScope}}</p>
+            </div>
+            <div class="seller-skill">
+              <div class="seller-skill-header">品牌词条</div>
+              <div v-if="!brandProfile.skills || brandProfile.skills.length==0" class="empty-content-block">未找到相关数据</div>
+              <p v-for="skill in brandProfile.skills"><span><i class="bi bi-stars me-2"></i></span><span class="ellipsis-1">{{skill.entry}}</span> </p>
+            </div>
+            <div class="seller-links">
+              <div class="seller-skill-header">品牌链接</div>
+              <div v-if="!brandProfile.links || brandProfile.links.length==0" class="empty-content-block">未找到相关数据</div>
+              <div v-for="link in brandProfile.links"  class="me-link py-2">
+                <img class="link__favicon" width="24" height="24" :src="getLinkIconUrlV(link.uri)" alt="link icon">
+                <div class="link-view-wrapper">
+                   <span class="link-view-title">{{link.linkTitle}}</span>
+                   <span class="link-view-url">
+                    <a :href="parseLinkUriV(link.uri)" rel="nofollow" target="_blank" dir="auto" tabindex="0">
+                        {{link.uri}}
+                    </a>
+                   </span>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+        <!-- about seller end -->
+
+        <div class="empty-spacer"></div>
+
+
+        
+      </main>
+    </content>
+    <footer></footer>
+    <section class="modals">
+
+      <div class="modal-container">
+              
+        <!-- Modal -->
+        <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">举报商品</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <form class="w-100">
+                  <div class="pt-3">
+                    <ul class="list-group">
+                      <li v-for="report in reportOptions" class="list-group-item">
+                          <div class="form-check">
+                          <input class="form-check-input" v-bind:value="report.itemCode"  v-model="reportForm.fraudType" type="radio" name="reportList">
+                          <label class="form-check-label" for="reportList">
+                              {{report.item}}
+                          </label>
+                          </div>
+                      </li>
+                    </ul>
+                 </div>
+    
+                 <div class="py-3">
+                  <div class="label-color field-label">详细描述（必填）</div>
+                  <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                          <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                          <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 : 200-reportForm.caseDesc.length}}</div>
+                      </div>
+                  </div>
+                  <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
+    
+                  <input style="font-size: 12px;" id="caseMaterialFile" class="form-control  only-show-bottom mb-3" type="file" placeholder="选择举报材料">
+    
+                 </div>
+    
+                </form>
+                
+              </div>
+              <div class="modal-footer btn-light">
+                <button 
+                :class="{'disabled': !validateReportFormV(), 
+                  'btn-primary': validateReportFormV() ,
+                  'btn-secondary': !validateReportFormV()  }"
+                 v-preventreclick @click="newReportCaseV" type="button"  class="btn">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-container">
+              
+        <!--Error  Modal -->
+        <div  class="modal fade" id="errorModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-header justify-content-center">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                
+                <!--begin::Alert-->
+              <div class="d-flex text-center flex-column alert-info mb-5">
+
+
+                <!--begin::Icon-->
+                <i class="bi bi-exclamation-circle text-danger mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="text-center">
+                    <!--begin::Title-->
+                    <span class="fw-bold mb-2 modal-head">识别到异常</span>
+                    <!--end::Title-->
+
+                    <!--begin::Separator-->
+                    <div class="separator separator-dashed border-danger opacity-25 mb-2"></div>
+                    <!--end::Separator-->
+
+                    <!--begin::Content-->
+                    <div class="font12">
+                        {{error}}
+                    </div>
+                    <!--end::Content-->
+
+                    <!--begin::Buttons-->
+                    <div class="d-flex justify-content-center flex-wrap pt-5">
+
+                      <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">商城充值</a>
+                      <a href="/mall/contact-us"  target="_blank" class="btn btn-dark m-3">寻求支持</a>
+
+                    </div>
+                    <!--end::Buttons-->
+                </div>
+                <!--end::Wrapper-->
+              </div>
+              <!--end::Alert-->
+
+              </div>
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal-container">
+              
+        <!--TopUp Fund  Modal -->
+        <div  class="modal fade" id="goTopUpModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+
+              <div class="modal-header justify-content-center">
+                <i class="bi bi-check-circle"></i>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <div class="modal-head my-3">下单成功!</div>	
+                <p>哇喔，成功下单，继续享受愉快的旅程，追寻更多发现吧！</p>
+                <div class="d-flex justify-content-center flex-wrap pt-2">
+
+                  <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">前往商城充值</a>
+                  <a href="/epod/pod-virtual"  class="btn btn-dark m-3">查看订单</a>
+                </div>
+              </div>
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+         <!-- focus modal -->
+         <div class="modal-container">
+          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <!--begin::Alert-->
+              <div class="d-flex text-center flex-column alert-info mb-5">
+
+
+                <!--begin::Icon-->
+                <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="text-center">
+                    <!--begin::Title-->
+                    <span class="fw-bold mb-2 modal-head">操作提示</span>
+                    <!--end::Title-->
+
+                    <!--begin::Separator-->
+                    <div class="separator separator-dashed border-dark opacity-25 mb-2"></div>
+                    <!--end::Separator-->
+
+                    <!--begin::Content-->
+                    <div class="font12">
+                        {{focusModal.feed}}
+                    </div>
+                    <!--end::Content-->
+
+                    <!--begin::Buttons-->
+                    <div class="d-flex justify-content-center flex-wrap pt-5">
+
+                        <a href="#" @click="closeOrderVirtualProductFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">取消操作</a>
+                        <a href="#"  v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">继续支付</a>
+                    </div>
+                    <!--end::Buttons-->
+                </div>
+                <!--end::Wrapper-->
+              </div>
+              <!--end::Alert-->
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+   
+  </mall-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <!-- 框架 -->
+  <script  type="module" src="/common/javascripts/tm.js"></script>
+  <script  type="module" src="/mall/javascripts/virtual-item.js"></script>
+
+</body>
+</html>

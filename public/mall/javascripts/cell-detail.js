@@ -17,6 +17,8 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {EmailNoticeEnum,CellPlanType,CodeMappingTypeEnum,EnvWebsite} from "/common/javascripts/tm-constant.js";
 import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-icon-parse.js";
 import {Api} from "/common/javascripts/common-api.js";
+import {DspReportApi} from "/common/javascripts/dsp-report-api.js";
+
 import  PromotionComponent  from "/mall/javascripts/component/PromotionComponent.js";
 
 
@@ -309,10 +311,7 @@ async function order(cellId){
     const url = "/api/v1/mall/services/{cell_id}/order".replace("{cell_id}",cellId);
     return await axios.post(url,dto); 
 }
-async function doSendOrderReceivingEmail(dto){
-    const url="/api/v1/web_mall/email_notice";
-    return await axios.post(url,dto);
-}
+
 async function doFetchCellPlan(cellId){
     const url="/api/v1/web_mall/services/{cell_id}/plan".replace("{cell_id}",cellId);
     return await axios.get(url);
@@ -352,7 +351,7 @@ function orderCellPlan(planId){
     cellDetailPage.error={};
     doOrderCellPlan(planId).then(response=>{
         if(response.data.code==200){
-            sendOrderReceivingEmail(EmailNoticeEnum.CELL_PLAN_ORDER_RECEIVING,response.data.planOrderId);
+            Api.sendOrderReceivingEmail(EmailNoticeEnum.CELL_PLAN_ORDER_RECEIVING,response.data.planOrderId);
             // scinece data
             const cellId = getQueryVariable("cell_id");
             uploadCellDataLayerWhenBuyPlan(cellDetailPage.displayPlan.planType,cellId);
@@ -408,7 +407,7 @@ function orderNow(){
     order(cellId).then(response=>{
         if(response.data.code == 200){
             // notice supplier
-            sendOrderReceivingEmail(EmailNoticeEnum.CELL_ORDER_RECEIVING,response.data.orderId);
+            Api.sendOrderReceivingEmail(EmailNoticeEnum.CELL_ORDER_RECEIVING,response.data.orderId);
             // reset 
             cellDetailPage.quantity ="";
             initCellExpense();
@@ -431,13 +430,7 @@ function orderNow(){
         }
     })
 }
-function sendOrderReceivingEmail(noticeType,orderId){
-    const dto={
-        noticeType: noticeType,
-        ref: JSON.stringify({orderId: orderId})
-    }
-    doSendOrderReceivingEmail(dto);
-}
+
 function setDisplayPlan(){
     var planType="albatross";
     if(cellDetailPage.hasCellPlanV(planType)){
@@ -608,17 +601,7 @@ function transformInputNumber(val,min,max){
 
 // report feature
 
-async function fetchCodeList(codeType,itemCode){
-    const url="/api/v1/base/code_mapping?codeType="+codeType+"&itemCode="+itemCode;
-    return await fetch(url);
-  }
-  
-  async function addNewReportCase(form){
-  
-    const url ="/api/v1/team/dsp_case/new";
-    return await axios.post(url,form);
-    
-  }
+
   async function newReportCase(reportForm){
   
     const materialFile =  $('#caseMaterialFile')[0].files[0];
@@ -631,11 +614,11 @@ async function fetchCodeList(codeType,itemCode){
     form.append("scene",reportForm.scene);
     form.append("sceneUrl",reportForm.sceneUrl);
     form.append("caseDesc",reportForm.caseDesc);
-    return await addNewReportCase(form);
+    return await DspReportApi.addNewReportCase(form);
   
   }
   async function loadReportIssueList(appObj){
-    const response = await fetchCodeList(CodeMappingTypeEnum.REPORTISSUE,"");
+    const response = await DspReportApi.fetchCodeList(CodeMappingTypeEnum.REPORTISSUE,"");
     var data = await response.json();
     if(data.code==200){
        

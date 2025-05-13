@@ -25,7 +25,9 @@ const RootComponent = {
             defaultCellPreviewImage,
             defaultAvatarImage,
             defaultBannerImage,
-            homeInfo: {},
+            homeInfo: {
+                vr: []
+            },
             cells: {},
             count: 10,
             queryParam: initQueryParam()

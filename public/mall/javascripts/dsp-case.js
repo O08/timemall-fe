@@ -7,6 +7,7 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.js";
+import {Api} from "/common/javascripts/common-api.js";
 
 
 let customAlert = new CustomAlertModal();
@@ -17,6 +18,11 @@ const RootComponent = {
     data() {
         return {
             webAppDomain: currentDomain,
+            virtualProductOrderRefundObj: {
+                orderId: "",
+                term: ""
+            },
+            offlineVirtualProductId: "",
             freezeUserId: "",
             blockOasisId: "",
             offlineCellId: "",
@@ -47,6 +53,40 @@ const RootComponent = {
         showFreezeUserModalV(){
             this.freezeUserId = "";
             $("#freezeUserModal").modal("show"); // show modal
+        },
+        showOfflineVirtualProductModalV(){
+            this.offlineVirtualProductId = "";
+            $("#offlineVirtualProductModal").modal("show"); // show modal
+        },
+        offlineVirtualProductV(){
+            offlineVirtualProduct(this.offlineVirtualProductId).then(response=>{
+                if(response.data.code==200){
+                    customAlert.alert("下架成功");
+                    $("#offlineVirtualProductModal").modal("hide"); // hide modal
+                }
+                if(response.data.code!=200){
+                    customAlert.alert(response.data.message)
+                }
+            })
+        },
+        showVirtualProductRefundModalV(){
+            this.virtualProductOrderRefundObj={};
+            $("#virtualProductOrderRefundModal").modal("show"); // show modal
+        },
+        virtualProductRefundV(){
+
+            Api.virtualProductOrderRefund(this.virtualProductOrderRefundObj.orderId,this.virtualProductOrderRefundObj.term).then(response=>{
+                if(response.data.code==200){
+                    customAlert.alert("订单已退款！");
+                }
+                if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    customAlert.alert(error);
+                }
+
+            }).catch(error=>{
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
         },
         freezeUserV(){
             freezeUser(this.freezeUserId).then(response=>{
@@ -214,6 +254,14 @@ async function doBlockOasis(oasisId){
 async function doFreezeUser(userId){
     const url = "/api/v1/team/dsp_case/action/account/{user_id}/freeze".replace("{user_id}",userId);
     return await axios.put(url,{});
+}
+async function doOfflineVirtualProduct(productId){
+    const url = "/api/v1/team/dsp_case/action/virtual/{product_id}/offline".replace("{product_id}",productId);
+    return await axios.put(url,{});
+}
+
+async function offlineVirtualProduct(productId){
+    return doOfflineVirtualProduct(productId);
 }
 async function freezeUser(userId){
     return await doFreezeUser(userId);

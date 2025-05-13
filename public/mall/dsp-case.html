@@ -84,6 +84,12 @@
                                       <div class="del_post">
                                         <button v-preventreclick @click="showFreezeUserModalV" class="btn-del_post">冻结账号</button>
                                       </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showOfflineVirtualProductModalV" class="btn-del_post">下架虚拟商品</button>
+                                      </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showVirtualProductRefundModalV" class="btn-del_post">虚拟商品退款</button>
+                                      </div>
                                     </div>
                             
                             
@@ -371,6 +377,68 @@
             </div>
           </div>
         </div>
+
+         <!-- offline virtual product modal -->
+         <div class="modal-container">
+          <div class="modal fade" id="offlineVirtualProductModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">下架虚拟商品</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form  class="w-100" onsubmit="return false">
+                    <input v-model="offlineVirtualProductId"  class="form-control  only-show-bottom dark-input-default" type="text" placeholder="商品Id">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button 
+                  :class="{'disabled': !offlineVirtualProductId, 
+                  'btn-primary': !!offlineVirtualProductId ,
+                  'btn-secondary': !offlineVirtualProductId }"
+                  v-preventreclick @click="offlineVirtualProductV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  vr order refund  modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="virtualProductOrderRefundModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header  display-dialog-header-bg">
+                <h1 class="modal-title fs-5">虚拟商品订单退款</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                <form class="w-100" onsubmit="return false">
+
+                  <div class="mt-3">
+                    <label for="input_refund_term" class="form-label">填写“我支持退款”进行退款授权</label>
+                    <input id="input_refund_term" v-model="virtualProductOrderRefundObj.term"  min="1" max="4" step="1" type="text" class="form-control" placeholder="我支持退款">
+                  </div> 
+                  <div class="mt-3">
+                    <label for="input_refund_orderId" class="form-label">填写订单Id</label>
+                    <input id="input_refund_orderId" v-model="virtualProductOrderRefundObj.orderId"  min="1" max="4" step="1" type="text" class="form-control" placeholder="订单Id">
+                  </div> 
+
+                </form>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button 
+                :class="{'disabled': !virtualProductOrderRefundObj.term || !virtualProductOrderRefundObj.orderId, 
+                'btn-primary': !!virtualProductOrderRefundObj.term && !!virtualProductOrderRefundObj.orderId,
+                'btn-secondary': !virtualProductOrderRefundObj.term || !virtualProductOrderRefundObj.orderId}"
+                type="submit" v-preventreclick @click="virtualProductRefundV"  class="btn">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     </section>

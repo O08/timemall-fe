@@ -14,6 +14,12 @@ var CellStatus = Object.freeze({
     "Offline":3
 });
 
+var ProductStatus = Object.freeze({
+    "Draft":1,
+    "Online":2,
+    "Offline":3
+});
+
 var WorkflowStatus = Object.freeze({
     "InQueue": 1, // 队列中
     "Auditing": 2, // 审计中
@@ -89,7 +95,8 @@ var EmailNoticeEnum= Object.freeze({
     "CELL_PLAN_ORDER_RECEIVING": "cell_plan_order_receiving"  
 }); 
 var RefundSceneEnum=Object.freeze({
-    "CELL_PLAN_ORDER": "CELL_PLAN_ORDER"  // cell plan order 
+    "CELL_PLAN_ORDER": "CELL_PLAN_ORDER",  // cell plan order 
+    "VIRTUAL_ORDER": "VIRTUAL_ORDER"
 }); 
 var CellPlanOrderTag=Object.freeze({
     "CREATING": "0",  // 订单创建中
@@ -122,7 +129,8 @@ var FromWhere=Object.freeze({
     "CELL_SEARCH": "cell_search",
     "OASIS_SEARCH": "oasis_search",
     "TALENT_SEARCH": "talent_search",
-    "BUSINESS_PAPER_SEARCH": "business_paper_search"
+    "BUSINESS_PAPER_SEARCH": "business_paper_search",
+    "VIRTUAL_PRODUCT_SEARCH": "virtual_product_search"
 }); 
 var DataLayerCellEvent=Object.freeze({
     "IMPRESSIONS": "impressions",
@@ -163,8 +171,24 @@ var DspCaseStatus = Object.freeze({
 
 });
 
+var VirtualOrderTag = Object.freeze({
+    "CREATING": "0", // 订单创建中
+    "CREATED": "1", // 已创建订单
+    "WAITING_PAY": "2", // 等待支付
+    "PAID": "3", // 已支付
+    "DELIVERING": "4", // 交付中
+    "COMPLETED":"5", // 订单履约完成
+    "CANCELLED":"6", // 取消订单
+    "REFUNDED":"7", // 已退款
+    "REMITTANCE":"8", // 已打款关单
+    "APPLY_REFUND":"9", // 申请退款
+    "FAIL":"10", // 失败
+    "INVALID":"11" // 失效
+
+});
+
 export {
-    MillstoneAc,DspCaseStatus,
+    MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,

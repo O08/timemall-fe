@@ -62,6 +62,12 @@ a{
 .rich_media_content  .ql-align-justify {
     text-align: justify;
 }
+.rich_media_content  blockquote {
+    border-left: 4px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 16px;
+}
 .autocut {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -661,7 +667,6 @@ div,button{
     overflow: scroll;
     margin-top: 5px;
     margin-bottom: 5px;
-    padding: 5px 10px;
     border-radius: 3px;
     font-family: monospace;
 }
@@ -669,7 +674,7 @@ div,button{
 .rich_media_content pre{
     height: calc(100% - 100px);
     overflow-y: scroll;
-    padding-top: 2.5rem;
+    padding: .5rem;
     scrollbar-width: none;
   }
   .rich_media_content pre::-webkit-scrollbar { 
