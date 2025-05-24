@@ -30,7 +30,7 @@
             <input v-model="feedList_pagination.param.q" @keyup.enter.native="retrieveFeedListV"  class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
               x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="搜索帖子" >
           </div>
-          <div class="btn-wrp">
+          <div v-if="user_already_login" class="btn-wrp">
             <button v-preventreclick @click="showNewFeedModalV" class="btn-tm-primary">
               <div class="btn-content">
                 <i class="bi bi-file-earmark-plus me-1"></i>

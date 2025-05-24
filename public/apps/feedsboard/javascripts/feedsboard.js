@@ -173,7 +173,7 @@ const RootComponent = {
     }
 }
 let app =  createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : false}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
 app.mixin(Pagination);
