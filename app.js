@@ -68,6 +68,10 @@ app.get('/apps/group-chat/:och', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/group-chat/chat.html")        //设置/ 下访问文件位置
 })
 
+app.get('/apps/desk/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/desk/your-apps.html")        //设置/ 下访问文件位置
+})
+
 app.get('/apps/group-chat/admin', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/group-chat/admin.html")        //设置/ 下访问文件位置
 })

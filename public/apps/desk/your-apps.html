@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>收纳盒</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/desk/stylesheets/your-apps.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container">
+      <div class="obj-banner-container d-flex align-items-center justify-content-center flex-column">
+        <h3>盒纳百川</h3>
+        <top-search class="section-top-serach">
+          <div class="search">
+            <input @keyup.enter.native="searchAppsV"  v-model="q" type="text" class="form-control Search-Button-Placeholder" placeholder="输入关键词搜索">
+            <div class="Search-Icon-Container d-flex align-items-center ms-n5">
+              <svg width="20" height="20" class="Search-Icon" viewBox="0 0 20 20">
+                <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="#616161" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>  
+            </div>
+          </div>
+        </top-search>
+      </div>
+      <div class="app-gallery">
+
+        <div v-if="apps.length==0" class="not-found-resource">
+          <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+          <h4>未找到结果</h4>
+          <p>试试搜索别的吧。</p>
+        </div>
+
+        <div class="gallery-layout">
+
+          <div v-for="topic in apps" class="app-pannel">
+            <div class="app-pannel-head">
+              <h3>{{topic.topicTitle}}</h3>
+              <p>{{topic.topicPreface}}</p>
+            </div>
+            <div class="app-grid">
+
+              <div v-for="element in topic.elements" class="app-box-wrp">
+                <a  :href="element.linkUrl" target="_blank" >
+
+                  <div v-preventreclick  @click="captueElementDataV(element.id)"  class="app-box">
+                    <div class="app-icon-box-wrp">
+                      <div class="app-icon-box">
+                        <img :src="adaptiveImageUriV(element.iconUrl)">
+                      </div>
+                    </div>
+                    <div class="app-spacer"></div>
+                    <div class="app-info">
+                      <div class="app-name">
+                        <p>{{element.title}}</p>
+                      </div>
+                      <div class="app-description">
+                        <p>{{element.preface}}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/desk/javascripts/your-apps.js"></script>
+</body>
+</html>
