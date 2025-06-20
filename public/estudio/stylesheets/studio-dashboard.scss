@@ -1,0 +1,284 @@
+.overview-earnings{
+  box-sizing: border-box;
+  grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
+  gap: 24px;
+  display: grid
+;
+}
+
+.earnings-inline-block {
+  display: inline-block;
+}
+.m-b-8 {
+  margin-bottom: 8px;
+}
+.earnings-inline-block h6{
+  height: 20px;
+}
+.data-item-box{
+  padding-left: 32px;
+  padding-right: 32px;
+  border-radius: 4px;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: calc(100% - 20px);
+  background-color: #373b3e52;
+
+}
+.data-item-wrp{
+  padding-bottom: 24px;
+  padding-top: 24px;
+  border: none !important;
+}
+.data-label{
+  font-weight: 600;
+  color: #b5b6ba;
+}
+.sm-earnings-h-252 {
+  height: 252px;
+}
+.data-content{
+  font-weight: 700;
+  margin-top: 24px;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.m-l-16 {
+  margin-left: 16px;
+}
+.p-b-24 {
+  padding-bottom: 24px;
+}
+.p-t-24 {
+  padding-top: 24px;
+}
+.b-0 {
+  border: none !important;
+}
+.earnings-h-29 {
+  height: 29px;
+}
+.n5N9tUo {
+  border-top: 1px solid #4d5154;
+}
+.repeat-buy-box{
+  display: flex;
+  -webkit-box-pack: flex-start;
+  -ms-flex-pack: flex-start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.data-heading{
+  font-weight: 700;
+}
+.repeat-buy-body{
+  width: 100%;
+  height: 100%;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  padding: 24px;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
+  -webkit-justify-content: space-evenly;
+  justify-content: space-evenly;
+  gap: 12px;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-image: linear-gradient(147deg, #000000 0%, #434343 74%);
+}
+.repeat-buy-item-box{
+  height: 100%;
+  text-align: center;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: 8px;
+  margin-right: 8px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.repeat-buy-item-splite{
+  width: 0;
+  height: auto;
+  border-left: 1px solid #4d5154;
+  border-top-width: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+
+}
+.repeat-buy-item__label{
+  font-weight: 700;
+  line-height: 22px;
+  font-size: 14px;
+}
+.repeat-buy-item__content{
+  font-weight: 700;
+  line-height: 32px;
+  font-size: 24px;
+}
+
+.earnings-vision-box{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.earnings-vision-tb{
+  padding: 24px;
+  border-radius: 4px;
+  background-color: #373b3e52;
+}
+.table{
+  min-width: unset;
+  --bs-table-bg: unset !important;
+}
+tr td:first-child, tr th:first-child {
+  padding-left: unset;
+}
+.data_time_stamp {
+  text-align: right;
+  font-size: small;
+  color: var(--bs-gray-600);
+
+}
+.tb-box{
+  height: calc(100% - 60px);
+  padding-bottom: 1rem;
+}
+.earnings-payments-section,.earnings-available-funds-section,.earnings-earnings-expenses-section{
+  height: 100%;
+}
+.btn-refresh {
+  color: #fff;
+  background-color: unset;
+  border: none;
+  padding: 7px 10px;
+  font-size: small;
+  line-height: 1.675;
+}
+.btn-refresh:hover {
+  color: var(--bs-gray-600);
+}
+.land_link {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+.land_link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+  .overview-earnings{
+    gap: 2px;
+  }
+  .data-content,.repeat-buy-item__content{
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .data-item-box{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .data-heading,.repeat-buy-item__label{
+    margin-bottom: 0;
+  }
+  .data-content{
+    margin-top: 8px;
+  }
+  .earnings-h-29{
+    height: 2px;
+  }
+}
+
+// moblile
+@media (max-width: 767px) {
+  .overview-earnings{
+    display: block;
+  }
+  .earnings-inline-block{
+    display: block;
+  }
+  .earnings-inline-block.m-l-16{
+    margin-left: 0;
+    margin-top: 24px;
+  }
+  .repeat-buy-body{
+    flex-direction: column;
+  }
+  .repeat-buy-body{
+    background-color: #373b3e52;
+    background-image: unset;
+  }
+  .repeat-buy-item-splite{
+    box-sizing: border-box;
+    border-left-width: 0;
+    border-top: 1px solid #4d5154;
+    width: auto;
+    height: 0;
+  }
+  .earnings-vision-box{
+    grid-template-columns: unset;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .tb-box{
+    height: auto;
+  }
+  .data-item-box{
+    height: auto;
+    min-height: unset;
+  }
+  .data-heading,.repeat-buy-item__label{
+    margin-bottom: 0;
+  }
+  .data-content{
+    margin-top: 8px;
+  }
+  .earnings-h-29{
+    height: 2px;
+  }
+  .data-content,.repeat-buy-item__content{
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .data-item-box{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}

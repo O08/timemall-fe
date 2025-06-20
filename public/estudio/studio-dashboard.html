@@ -7,12 +7,13 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>虚拟商店 - E-Studio</title>
+    <title>运营数据 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-virtual-store.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-dashboard.scss">
+
 
 
     
@@ -184,7 +185,7 @@
           <!-- menu -->
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
-              <a class="nav-link" href="/estudio/studio-dashboard">
+              <a class="nav-link active">
                 <div class="nav-icon">
                   <i class="bi bi-rocket-takeoff"></i>
                 </div>
@@ -196,7 +197,7 @@
                 </div>
                 <span>我的工作</span>
               </a>
-              <a class="nav-link active" href="/estudio/studio-virtual-store">
+              <a class="nav-link" href="/estudio/studio-virtual-store">
                 <div class="nav-icon">
                   <i class="bi bi-badge-vr"></i>
                 </div>
@@ -253,277 +254,161 @@
         <div class="page-title-container">
           <!-- 文章:粘性约束元素 -->
           <div class="page-title">
-            <h1>虚拟商店</h1>
+            <h1>运营数据</h1>
           </div>
-          <div class="data-tag">商品状态</div>
-          <!-- tablist -->
-          <div class="nav-tabs-container row">
-            <div class="col">
-              <ul class="nav nav-tabs border-0 store-tab" id="store-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="activeCell-tab" data-bs-toggle="tab" data-bs-target="#activeCell-tab-pane" type="button" role="tab" aria-controls="activeCell-tab-pane" aria-selected="true">在线</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pausedCell-tab" data-bs-toggle="tab" data-bs-target="#pausedCell-tab-pane" type="button" role="tab" aria-controls="pausedCell-tab-pane" aria-selected="true">已下线</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="draftCell-tab" data-bs-toggle="tab" data-bs-target="#draftCell-tab-pane" type="button" role="tab" aria-controls="draftCell-tab-pane" aria-selected="true">草稿</button>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="col d-flex align-items-center mt-4 mb-3">
-            <a href="/estudio/studio-virtual-define-product?tab=general&option=new" class="text-decoration-none">
-              <button class="btn btn-outline-dark tool-btn new-cell"><i class="bi bi-plus"></i>商品上新</button>
-            </a>
-            <a href="/estudio/studio-open-data" class="text-decoration-none ms-3">
-              <button class="btn btn-outline-dark tool-btn"><i class="bi bi-pie-chart"></i> 数据分析</button>
-            </a>
-            <a href="https://etax.shanghai.chinatax.gov.cn" target="_blank" class="text-decoration-none ms-3">
-              <button class="btn btn-outline-dark tool-btn"><i class="bi bi-receipt-cutoff"></i> 全电发票</button>
-            </a>
-          </div>
-          
-          <!--  tablist content-->
-          <div class="tab-content" id="store-tab-content">
-            <!--  active cell tab-->
-            <div class="tab-pane fade show active" id="activeCell-tab-pane" role="tabpanel" aria-labelledby="activeCell-tab" tabindex="0">
+          <div class="dashboard-box">
+            <div class="overview-box">
 
-              <div class="table-responsive">
-
-                <div class="table-wrp">
-
-                  <table class="table table-sm table-hover align-middle">
-                    <thead>
-                      <tr>
-                        <th class="col-option"></th>
-                        <th class="col-product">商品</th>
-                        <th class="col-index">库存</th>
-                        <th class="col-index">单价</th>
-                        <th class="col-index">销量</th>
-                        <th class="col-index">点击量</th>
-                        <th class="col-index">曝光量</th>
-                        <th class="col-index">创建日期</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="item in online_pagination.records">
-                        <td class="col-option">
-                            <span v-preventreclick  @click="offlineProductV(item.productId)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="下线商品">
-                              <i class="bi bi-caret-down-fill"></i>
-                            </span>
-                            <span class="option-edit ms-3">
-                              <a :href="'/mall/virtual/' + item.productId + '?brand_id='+ getIdentity().brandId" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="预览商品">           
-                                <i class="bi bi-tag"></i>                  
-                              </a>
-                            </span>
-                        </td>
-                        <td class="col-product">
-                          <span class="ellipsis-1">
-                            {{item.productName}}
-                          </span>
-                        </td>
-                        <td>{{item.inventory}}</td>
-                        <td>{{item.productPrice}}</td>
-                        <td>{{item.salesVolume}}</td>
-                        <td>{{item.clicks}}</td>
-                        <td>{{item.views}}</td>
-                        <td>{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div v-show="isEmptyObjV(online_pagination.records)" class="empty-content-block">
-    
-                    未找到结果，试试通过【商品上新】售卖您的虚拟商品.
-        
-                  </div>
-                  <nav v-if="!!online_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                    <ul class="pagination pagination-lg pagination-dark  border-0">
-                      <li class="page-item" @click="pagePre(online_pagination)">
-                        <a class="page-link"  aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      <li class="page-item"  v-for="page in online_pagination.paging.items" :class="{'current-page-active': online_pagination.paging.current == page}" 
-                            @click="pageGo(online_pagination,page)"><a class="page-link">{{page}}</a></li>
-                      <li class="page-item" @click="pageNext(online_pagination)">
-                        <a class="page-link" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-
-                </div>
-
-                
-
-              </div>
-              
+              <div class="overview-earnings">
+                <div class="earnings-inline-block">
+                  <div class="earnings-available-funds-section">
+                    <h6 class="m-b-8">可用资金</h6>
+                    <div class="data-item-box">
       
+                      <div class="p-t-24 p-b-24 b-0">
+                        <div class="data-label">账户余额</div>
+                        <div class="d-flex  flex-column justify-content-between">
+                          <div class="data-content">¥{{displayDataItemV(dashboard.balance)}}</div>
+                          <div class="earnings-h-29"></div>
+                        </div>
+  
+                      </div>
+
+            
+  
+  
+                    </div>
+                  </div>
+  
+                </div>
+                <div class="earnings-inline-block m-l-16">
+                  <div class="earnings-payments-section">
+                    <h6 class="m-b-8">近期表现</h6>
+                    <div class="data-item-box">
+                      <div class="p-t-24 p-b-24 b-0">
+                        <div class="data-label">本月已赚</div>
+                        <div class="d-flex  flex-column justify-content-between">
+                          <div class="data-content">¥{{displayDataItemV(dashboard.earnedMonth)}}</div>
+                          <div class="earnings-h-29"></div>
+                        </div>
+  
+                      </div>
+                      <div class="p-t-24 p-b-24 n5N9tUo">
+                        <div class="data-label">待结算资金</div>
+                        <div class="d-flex  flex-column justify-content-between">
+                          <div class="data-content">¥{{(Number(displayDataItemV(dashboard.pendingVirtualPayment)) + Number(displayDataItemV(dashboard.pendingPlanPayment))).toFixed(2)}}</div>
+                          <div class="earnings-h-29"></div>
+                        </div>
+                      </div>
+  
+                    </div>
+                  </div>
+                </div>
+                <div class="earnings-inline-block m-l-16">
+                  <div class="earnings-earnings-expenses-section">
+                    <h6 class="m-b-8">收入与支出</h6>
+                    <div class="data-item-box">
+                      <div class="p-t-24 p-b-24 b-0">
+                        <div class="data-label">累积收入</div>
+                        <div class="d-flex  flex-column justify-content-between">
+                          <div class="data-content">¥{{displayDataItemV(dashboard.earningsToDate)}}</div>
+                          <div class="earnings-h-29"></div>
+                        </div>
+  
+                      </div>
+                      <div class="p-t-24 p-b-24 n5N9tUo">
+                        <div class="data-label">累积支出</div>
+                        <div class="d-flex  flex-column justify-content-between">
+                          <div class="data-content">¥{{displayDataItemV(dashboard.expensesToDate)}}</div>
+                          <div class="earnings-h-29"></div>
+                        </div>
+                      </div>
+  
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+
+            </div>
+            
+
+            <div class="repeat-buy-box">
+              <p class="data-heading">复购情况</p>
+              <div class="repeat-buy-body">
+                <div class="repeat-buy-item-box">
+                  <p class="repeat-buy-item__label">回头客</p>
+                  <h4 class="repeat-buy-item__content">{{displayRepeatData(Number(dashboard.planRepeatBuyers) + Number(dashboard.virtualRepeatBuyers) + Number(dashboard.cellRepeatBuyers))}}</h4>
+                </div>
+                <div class="repeat-buy-item-splite"></div>
+
+                <div class="repeat-buy-item-box">
+                  <p class="repeat-buy-item__label">回头客比例 (%)</p>
+                  <h4 class="repeat-buy-item__content">{{displayRepeatBuyersRateV()}}</h4>
+                </div>
+                <div class="repeat-buy-item-splite"></div>
+
+
+                <div class="repeat-buy-item-box">
+                  <p class="repeat-buy-item__label">复购收入</p>
+                  <h4 class="repeat-buy-item__content">{{displayRepeatData( Number(dashboard.planEarningsFromRepeatBuyers) + Number(dashboard.virtualEarningsFromRepeatBuyers)  + Number(dashboard.cellEarningsFromRepeatBuyers) )}}</h4>
+                </div>
+                <div class="repeat-buy-item-splite"></div>
+
+
+                <div class="repeat-buy-item-box">
+                  <p class="repeat-buy-item__label">复购收入占比 (%)</p>
+                  <h4 class="repeat-buy-item__content">{{displayRepeatEarningsRateV()}}</h4>
+                </div>
+              </div>
+
             </div>
 
-            <!--  paused cell tab-->
-            <div class="tab-pane fade" id="pausedCell-tab-pane" role="tabpanel" aria-labelledby="pausedCell-tab" tabindex="0">
-
-              <div class="table-responsive">
-
-                <div class="table-wrp">
-
-                  <table class="table table-sm table-hover align-middle">
-                    <thead>
-                      <tr>
-                        <th class="col-option"></th>
-                        <th class="col-product">商品</th>
-                        <th class="col-index">库存</th>
-                        <th class="col-index">单价</th>
-                        <th class="col-index">销量</th>
-                        <th class="col-index">点击量</th>
-                        <th class="col-index">曝光量</th>
-                        <th class="col-index">创建日期</th>
-                      </tr>
-                    </thead>
+            <div class="earnings-vision-box">
+              <div class="earnings-vision-tb">
+                <div class="d-flex justify-content-between ">
+                  <p class="data-heading">专属权益</p>
+                  <button v-preventreclick @click="refreshInterestsDataListV"   class="btn btn-refresh" type="button">
+                    <i class="bi bi-arrow-repeat"></i> <span>刷新</span>
+                  </button>
+                </div>
+                <div class="tb-box">
+                  <table class="table table-dark  align-middle">
                     <tbody>
-                      <tr v-for="item in offline_pagination.records">
-                        <td>
-                            <span v-preventreclick  @click="onlineProductV(item.productId)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上线商品">
-                              <i class="bi bi-caret-up-fill"></i>
-                            </span>
-                            <span class="option-edit ms-3">
-                              <a :href="'/estudio/studio-virtual-define-product?option=edit&tab=general&product_id=' + item.productId" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑商品">           
-                                <i class="bi bi-pencil-square"></i>                    
-                              </a>
-                            </span>
-                        </td>
-                        <td>
-                          <span class="ellipsis-1">
-                            {{item.productName}}
-                          </span>
-                        </td>
-                        <td>{{item.inventory}}</td>
-                        <td>{{item.productPrice}}</td>
-                        <td>{{item.salesVolume}}</td>
-                        <td>{{item.clicks}}</td>
-                        <td>{{item.views}}</td>
-                        <td>{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
-                      </tr>
+                      <tr v-for="item in interests"><td><a :href="item.landUrl" class="land_link">{{item.item}}</a></td><td class="text-end">{{item.val}}</td></tr>
                     </tbody>
                   </table>
-                  <div v-show="isEmptyObjV(offline_pagination.records)" class="empty-content-block">
-    
-                    未找到结果，试试通过【商品上新】寻求机会吧.
-        
-                  </div>
-                  <nav v-if="!!offline_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                    <ul class="pagination pagination-lg pagination-dark  border-0">
-                      <li class="page-item" @click="pagePre(offline_pagination)">
-                        <a class="page-link"  aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      <li class="page-item"  v-for="page in offline_pagination.paging.items" :class="{'current-page-active': offline_pagination.paging.current == page}" 
-                            @click="pageGo(offline_pagination,page)"><a class="page-link">{{page}}</a></li>
-                      <li class="page-item" @click="pageNext(offline_pagination)">
-                        <a class="page-link" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-
                 </div>
-
-                
-
+                <div class="data_time_stamp">{{ interestsRefreshTime }} 更新</div>
               </div>
-              
-      
-            </div>
-          <!--  draft cell tab-->
-            <div class="tab-pane fade" id="draftCell-tab-pane" role="tabpanel" aria-labelledby="draftCell-tab" tabindex="0">
 
-              <div class="table-responsive">
-
-                <div class="table-wrp">
-
-                  <table class="table table-sm table-hover align-middle">
-                    <thead>
-                      <tr>
-                        <th class="col-option"></th>
-                        <th class="col-product">商品</th>
-                        <th class="col-index">库存</th>
-                        <th class="col-index">单价</th>
-                        <th class="col-index">销量</th>
-                        <th class="col-index">点击量</th>
-                        <th class="col-index">曝光量</th>
-                        <th class="col-index">创建日期</th>
-                      </tr>
-                    </thead>
+              <div class="earnings-vision-tb">
+                <div class="d-flex justify-content-between ">
+                  <p class="data-heading">待办事项</p>
+                  <button v-preventreclick @click="refreshTodoListV"  class="btn btn-refresh" type="button">
+                    <i class="bi bi-arrow-repeat"></i> <span>刷新</span>
+                  </button>
+                </div>
+                <div class="tb-box">
+                  <table class="table table-dark align-middle">
                     <tbody>
-                      <tr v-for="item in draft_pagination.records">
-                        <td class="col-option">
-                          <div class="option-container">
-                            <span class="option-edit me-3">
-                              <a :href="'/estudio/studio-virtual-define-product?option=edit&tab=general&product_id=' + item.productId" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑商品">           
-                                <i class="bi bi-pencil-square"></i>                    
-                              </a>
-                            </span>
-                            <span class="option-mark-cell">
-                              <a v-preventreclick  @click="removeOneProductV(item.productId)" tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除商品">           
-                                <i class="bi bi-trash"></i>
-                              </a>
-                            </span>
-                          </div>
-                        </td>
-                        <td class="col-product">
-                          <span class="ellipsis-1">
-                            {{item.productName}}
-                          </span>
-                        </td>
-                        <td>{{item.inventory}}</td>
-                        <td>{{item.productPrice}}</td>
-                        <td>{{item.salesVolume}}</td>
-                        <td>{{item.clicks}}</td>
-                        <td>{{item.views}}</td>
-                        <td>{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
-                      </tr>
+                      <tr v-for="item in todoList"><td><a :href="item.landUrl" class="land_link">{{item.item}}</a></td><td class="text-end">{{item.currentVal}}</td></tr>
                     </tbody>
                   </table>
-                  <div v-show="isEmptyObjV(draft_pagination.records)" class="empty-content-block">
-    
-                    未找到结果，试试通过【商品上新】寻求机会吧.
-        
-                  </div>
-                  <nav v-if="!!draft_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                    <ul class="pagination pagination-lg pagination-dark  border-0">
-                      <li class="page-item" @click="pagePre(draft_pagination)">
-                        <a class="page-link"  aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
-                      <li class="page-item"  v-for="page in draft_pagination.paging.items" :class="{'current-page-active': draft_pagination.paging.current == page}" 
-                            @click="pageGo(draft_pagination,page)"><a class="page-link">{{page}}</a></li>
-                      <li class="page-item" @click="pageNext(draft_pagination)">
-                        <a class="page-link" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-
                 </div>
-
-                
-
+                <div class="data_time_stamp">{{todoListRefreshTime}} 更新</div>
               </div>
-              
+
+
             </div>
+
+
           </div>
         </div>
       </main>
       
     </content>
-    <footer></footer>
+    
   </pt-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 
@@ -559,8 +444,10 @@
 
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
+
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-virtual-store.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-dashboard.js"></script>
+
 
 </body>
 </html>
