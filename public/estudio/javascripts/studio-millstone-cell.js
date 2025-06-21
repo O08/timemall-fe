@@ -26,6 +26,8 @@ var WorkflowStatus = Object.freeze({
 const RootComponent = {
     data() {
         return {
+            current_tb: "newOrder",
+            searchQ: "",
             newOrderPagination:{
                 url: "/api/v1/web_estudio/brand/millstone/workflow",
                 size: 10,
@@ -34,6 +36,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.InQueue
                 },
                 paging: {},
@@ -56,6 +59,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.Finish
                 },
                 paging: {},
@@ -78,6 +82,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.Audited
                 },
                 paging: {},
@@ -100,6 +105,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.Starred
                 },
                 paging: {},
@@ -122,6 +128,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.Auditing
                 },
                 paging: {},
@@ -144,6 +151,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.Paused
                 },
                 paging: {},
@@ -166,6 +174,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: WorkflowStatus.Suspend
                 },
                 paging: {},
@@ -184,39 +193,97 @@ const RootComponent = {
 
     },
     methods: {
+        searchOrderV(){
+            if(this.current_tb=="newOrder"){
+              this.newOrderPagination.current = 1;
+              this.newOrderPagination.param.q=this.searchQ;
+              this.reloadPage(this.newOrderPagination);
+            }
+            if(this.current_tb=="task"){
+              this.taskpagination.current = 1;
+              this.taskpagination.param.q=this.searchQ;
+              this.reloadPage(this.taskpagination);
+            }
+            if(this.current_tb=="confirm"){
+              this.confirm_pagination.current = 1;
+              this.confirm_pagination.param.q=this.searchQ;
+              this.reloadPage(this.confirm_pagination);
+            }
+            if(this.current_tb=="suspend"){
+              this.suspend_pagination.current = 1;
+              this.suspend_pagination.param.q=this.searchQ;
+              this.reloadPage(this.suspend_pagination);
+            }
+            if(this.current_tb=="paused"){
+              this.paused_pagination.current = 1;
+              this.paused_pagination.param.q=this.searchQ;
+              this.reloadPage(this.paused_pagination);
+            }
+            if(this.current_tb=="finish"){
+              this.finishpagination.current = 1;
+              this.finishpagination.param.q=this.searchQ;
+              this.reloadPage(this.finishpagination);
+            }
+            if(this.current_tb=="audit"){
+              this.auditpagination.current = 1;
+              this.auditpagination.param.q=this.searchQ;
+              this.reloadPage(this.auditpagination);
+            }
+         },
         refreshTranspaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "40px";
+            this.current_tb="newOrder";
+            this.searchQ="";
+            this.newOrderPagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "30px";
             this.newOrderPagination.current = 1;
             this.reloadPage(this.newOrderPagination);
         },
         refreshStarredTranspaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "300px";
+            this.current_tb="task";
+            this.searchQ="";
+            this.taskpagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "280px";
             this.taskpagination.current = 1;
             this.reloadPage(this.taskpagination);
         },
         refreshConfirmPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "200px";
+            this.current_tb="confirm";
+            this.searchQ="";
+            this.confirm_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "190px";
             this.confirm_pagination.current = 1;
             this.reloadPage(this.confirm_pagination);
         },
         refreshSuspendPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "480px";
+            this.current_tb="suspend";
+            this.searchQ="";
+            this.suspend_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "450px";
             this.suspend_pagination.current = 1;
             this.reloadPage(this.suspend_pagination);
         },
         refreshPausedPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "390px";
+            this.current_tb="paused";
+            this.searchQ="";
+            this.paused_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "364px";
             this.paused_pagination.current = 1;
             this.reloadPage(this.paused_pagination);
 
         },
         refreshfinishPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "580px";
+            this.current_tb="finish";
+            this.searchQ="";
+            this.finishpagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "530px";
             this.finishpagination.current = 1;
             this.reloadPage(this.finishpagination);
 
         },
         refreshAuditingPaginationV(){
+            this.current_tb="audit";
+            this.searchQ="";
+            this.auditpagination.param.q="";
             document.querySelector("#bubble-tab li.pointer").style.left = "108px";
             this.auditpagination.current = 1;
             this.reloadPage(this.auditpagination);

@@ -14,6 +14,8 @@ import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 const RootComponent = {
     data() {
         return {
+            current_tb: "wait",
+            searchQ: "",
             payway: {
                 bank: {
                     cardholder: "",
@@ -29,6 +31,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: BillStatus.Created
                 },
                 paging: {},
@@ -52,6 +55,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: BillStatus.Pending
                 },
                 paging: {},
@@ -75,6 +79,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     code: BillStatus.Paid
                 },
                 paging: {},
@@ -94,14 +99,50 @@ const RootComponent = {
         }
     },
     methods: {
+        searchBillV(){
+            if(this.current_tb=="wait"){
+             this.waitpagination.current = 1;
+             this.waitpagination.param.q=this.searchQ;
+             this.reloadPage(this.waitpagination);
+            }
+            if(this.current_tb=="pending"){
+             this.pending_pagination.current = 1;
+             this.pending_pagination.param.q=this.searchQ;
+             this.reloadPage(this.pending_pagination);
+            }
+            if(this.current_tb=="paid"){
+             this.paidpagination.current = 1;
+             this.paidpagination.param.q=this.searchQ;
+             this.reloadPage(this.paidpagination);
+            }
+         },
+         refreshWaitPaginationV(){
+             this.current_tb="wait";
+             this.searchQ="";
+             this.waitpagination.current = 1;
+             this.waitpagination.param.q="";
+             this.reloadPage(this.waitpagination);
+         },
+         refreshPendingPaginationV(){
+             this.current_tb="pending";
+             this.searchQ="";
+             this.pending_pagination.current = 1;
+             this.pending_pagination.param.q="";
+             this.reloadPage(this.pending_pagination);
+         },
+         refreshPaidPaginationV(){
+             this.current_tb="paid";
+             this.searchQ="";
+             this.paidpagination.current = 1;
+             this.paidpagination.param.q="";
+             this.reloadPage(this.paidpagination);
+         },
         launchPayV(billId){
             launchPay(billId);
         }
     },
     created() {
          this.pageInit(this.waitpagination);
-         this.pageInit(this.paidpagination);
-         this.pageInit(this.pending_pagination);
     }
 }
 const app = createApp(RootComponent);

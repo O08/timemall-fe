@@ -136,8 +136,8 @@ body::-webkit-scrollbar {
 }
 
 .col-product-no-option{
-  width: 37%;
-  min-width: 370px;
+  width: 27%;
+  min-width: 270px;
 }
 .col-type{
     width: 10%;
@@ -154,4 +154,10 @@ body::-webkit-scrollbar {
 
 .main-content-container{
   min-width: 1000px;
+}
+
+.peacemaker-avatar {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
 }

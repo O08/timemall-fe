@@ -328,9 +328,8 @@
                       <th scope="col">促销优惠</th>
                       <th scope="col">客户支付</th>
                       <th scope="col">佣金</th>
-                      <th scope="col">
-                        标签
-                      </th>
+                      <th scope="col">标签</th>
+                      <th class="col-client">客户</th>
                       <th scope="col">入库时间</th>
                     </tr>
                   </thead>
@@ -350,6 +349,15 @@
                       <td class="col-fee">{{item.revenue}}</td>
                       <td class="col-fee">{{item.commission}}</td>
                       <td class="col-type">{{explainCellPlanOrderTagV(item.tag)}}</td>
+                      <td class="col-fee" :title="item.buyerName">
+                       
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.buyerUserId">
+                            <img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.buyerName}}
+                        </span>
+                      </td>
                       <td class="col-addTime">{{item.createAt}}</td>
                     </tr>
                     

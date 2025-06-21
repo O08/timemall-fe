@@ -365,7 +365,12 @@
                       <td :title="explainVirtualProductTagV(item.tag)">{{explainVirtualProductTagV(item.tag)}}</td>
                       <td :title="getMoneyStatusV(item)">{{getMoneyStatusV(item)}}</td>
                       <td :title="item.refundReason" class="col-reason"><span class="ellipsis-1">{{item.refundReason}}</span></td>
-                      <td :title="item.buyerBrandName"><img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar"></td>
+                      <td :title="item.buyerBrandName">
+                        <span class="ellipsis-1">
+                          <img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          {{item.buyerBrandName}}
+                        </span>
+                      </td>
                       <td :title="item.createAt">{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
                     </tr>
                     

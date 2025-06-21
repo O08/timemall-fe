@@ -15,6 +15,8 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 const RootComponent = {
     data() {
         return {
+            current_tb: "online",
+            searchQ: "",
             online_pagination:{
                 url: "/api/v1/web_mall/brand/virtual/product",
                 size: 10,
@@ -23,6 +25,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q: "",
                     brandId: this.getIdentity().brandId,
                     status: ProductStatus.Online
                 },
@@ -47,6 +50,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                  q: "",
                   brandId: this.getIdentity().brandId,
                   status: ProductStatus.Offline
                 },
@@ -69,7 +73,8 @@ const RootComponent = {
                 total: 0,
                 pages: 0,
                 records: [],
-                param: {
+                param: {  
+                  q: "",
                   brandId: this.getIdentity().brandId,
                   status: ProductStatus.Draft
                 },
@@ -88,11 +93,50 @@ const RootComponent = {
         }
     },
     methods: {
+      searchCellV(){
+        if(this.current_tb=="online"){
+         this.online_pagination.current = 1;
+         this.online_pagination.param.q=this.searchQ;
+         this.reloadPage(this.online_pagination);
+        }
+        if(this.current_tb=="offline"){
+         this.offline_pagination.current = 1;
+         this.offline_pagination.param.q=this.searchQ;
+         this.reloadPage(this.offline_pagination);
+        }
+        if(this.current_tb=="draft"){
+         this.draft_pagination.current = 1;
+         this.draft_pagination.param.q=this.searchQ;
+         this.reloadPage(this.draft_pagination);
+        }
+     },
+     refreshActivePaginationV(){
+         this.current_tb="online";
+         this.searchQ="";
+         this.online_pagination.current = 1;
+         this.online_pagination.param.q="";
+         this.reloadPage(this.online_pagination);
+     },
+     refreshPausedPaginationV(){
+         this.current_tb="offline";
+         this.searchQ="";
+         this.offline_pagination.current = 1;
+         this.offline_pagination.param.q="";
+         this.reloadPage(this.offline_pagination);
+     },
+     refreshDraftPaginationV(){
+         this.current_tb="draft";
+         this.searchQ="";
+         this.draft_pagination.current = 1;
+         this.draft_pagination.param.q="";
+         this.reloadPage(this.draft_pagination);
+     },
         onlineProductV(productId){
             // code 1--draft ; 2--onsale; 3--offsale;
             onOrOffSaleForProduct(productId,ProductStatus.Online).then((response)=>{
                 if(response.data.code == 200){
-                   this.reloadCellTable();
+                    this.reloadPage(this.offline_pagination);
+
                 }
             });
         },
@@ -100,13 +144,10 @@ const RootComponent = {
             // code 1--draft ; 2--onsale; 3--offsale;
             onOrOffSaleForProduct(productId,ProductStatus.Offline).then((response)=>{
                 if(response.data.code == 200){
-                   this.reloadCellTable();
+                    this.reloadPage(this.online_pagination);
+
                 }
             });
-        },
-        reloadCellTable(){
-            this.reloadPage(this.online_pagination);
-            this.reloadPage(this.offline_pagination);
         },
         removeOneProductV(productId){
           trashProduct(productId).then((response)=>{
@@ -158,8 +199,7 @@ const studioStorePage = app.mount('#app');
 window.cStore = studioStorePage;
 // init
 studioStorePage.pageInit(studioStorePage.online_pagination);
-studioStorePage.pageInit(studioStorePage.offline_pagination);
-studioStorePage.pageInit(studioStorePage.draft_pagination);
+
 
 
 /**

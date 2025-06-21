@@ -277,6 +277,9 @@
           </ul>
         </div>
 
+   
+
+
         
           <!--  sp content start -->
           <div class="tab-pane fade show active" id="sp-order-tab-pane" role="tabpanel" aria-labelledby="sp-order-tab" tabindex="0">
@@ -308,6 +311,15 @@
             <li class="pointer"></li>
           </ul>
         </div>
+
+        <div class="col st-tool-bar d-flex align-items-center mt-2 mb-3">
+          <div class="plan-order-search d-flex">
+            <form class="nosubmit" onsubmit="return false">
+              <input @keyup.enter.native="searchOrderV" v-model="searchQ"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
+            </form>
+          </div>  
+        </div>
+
         <!--  tablist content-->
         <div class="tab-content" id="millstone-tab-content">
                   <!--  新单-->
@@ -338,7 +350,14 @@
   
                           </a>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>
@@ -412,7 +431,14 @@
                         </div>
                         <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>
@@ -475,7 +501,14 @@
                           <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>
@@ -538,7 +571,14 @@
                           <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>
@@ -602,7 +642,14 @@
                           <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>
@@ -666,7 +713,14 @@
                           <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>
@@ -729,7 +783,14 @@
                           <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                         </a>
                       </td>
-                      <td class="col-brand"><span class="ellipsis-1">{{item.customer}}</span> </td>
+                      <td :title="item.customer" class="col-brand">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.customerUserId">
+                            <img :src="adaptiveImageUriV(item.customerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          {{item.customer}}
+                        </span>
+                      </td>
                       <td class="col-fee">{{item.fee}}</td>
                       <td class="col-addTime">{{item.added}}</td>
                     </tr>

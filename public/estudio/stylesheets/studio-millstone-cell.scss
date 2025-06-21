@@ -1,4 +1,4 @@
-.tab-content form {
+.st-tool-bar form {
     color: whitesmoke;
     display: flex;
     padding: 2px;
@@ -6,7 +6,7 @@
     border-radius: 5px;
   }
   
-  .tab-content input[type="search"] {
+  .st-tool-bar input[type="search"] {
     border: none;
     background: transparent;
     margin: 0;
@@ -16,11 +16,11 @@
     border: 1px solid transparent;
   }
   
-  .tab-content  input[type="search"]::placeholder {
+  .st-tool-bar input[type="search"]::placeholder {
     color: #bbb;
   }
   
-  .tab-content button[type="submit"] {
+  .st-tool-bar button[type="submit"] {
     text-indent: -999px;
     overflow: hidden;
     width: 40px;
@@ -33,18 +33,18 @@
     opacity: 0.7;
   }
   
-  .tab-content button[type="submit"]:hover {
+  .st-tool-bar button[type="submit"]:hover {
     opacity: 1;
   }
   
-  .tab-content button[type="submit"]:focus,
-  .tab-content input[type="search"]:focus {
+  .st-tool-bar button[type="submit"]:focus,
+  .st-tool-bar input[type="search"]:focus {
     box-shadow: 0 0 3px 0 #1183d6;
     border-color: #1183d6;
     outline: none;
   }
   
-  .tab-content  form.nosubmit {
+  .st-tool-bar form.nosubmit {
    border: none;
    padding: 0;
    background-color: #212529;
@@ -52,7 +52,7 @@
    width: 100%;
   }
   
-  .tab-content  input.nosubmit {
+  .st-tool-bar  input.nosubmit {
     border: 1px solid #555;
     width: 100%;
     padding: 9px 4px 9px 40px;
@@ -90,7 +90,7 @@
   }
 .sub-tabs-header .nav-link{
     color: #c3bfbf;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
 }
 .sub-tabs-header .nav-link.active {
@@ -102,6 +102,7 @@
 #bubble-tab{
   border-bottom: 1px #dddddd solid;
   position: relative;
+  background-image: linear-gradient(147deg, #000 0%, #434343 74%);
 }
 #bubble-tab li.pointer {
   position: absolute;
@@ -167,4 +168,13 @@ body::-webkit-scrollbar {
   font-weight: 500;
   font-size: 10px;
   padding-top: .25rem;
+}
+
+.peacemaker-avatar {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+.sub-tabs-header .nav-tabs{
+  padding-bottom: 12px;
 }

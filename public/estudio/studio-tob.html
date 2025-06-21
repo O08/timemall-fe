@@ -356,8 +356,11 @@
                           </a>
                         </td>
                         <td class="col-fee">{{trans.bonus}}</td>
-                        <td class="col-brand">
+                        <td class="col-brand"  :title="trans.purchaser">
                           <span class="ellipsis-1">
+                            <a target="_blank" :href="'/messages/' + trans.purchaserUserId">
+                              <img :src="adaptiveImageUriV(trans.purchaserAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                            </a>
                             {{trans.purchaser}}
                           </span>
                         </td>
