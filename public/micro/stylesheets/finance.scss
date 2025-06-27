@@ -5,9 +5,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     color: #fff;
 }
 .kanban-link-item:hover {
-    opacity: 0.8;
-    color: #fff;
+    color: #00aafc;
+}
+
+.kanban-link h6{
+    margin-bottom: 0;
+}
+.capital-category{
+    text-align: center;
 }

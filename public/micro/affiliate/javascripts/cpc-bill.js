@@ -30,7 +30,7 @@ const RootComponent = {
                     this.link_pagination.total = response.bill.total;
                     this.link_pagination.pages = response.bill.pages;
                     this.link_pagination.records = response.bill.records;
-                    this.link_pagination.paging = this.doPaging({current: response.bill.current, pages: response.bill.pages, max: 5});
+                    this.link_pagination.paging = this.doPaging({current: response.bill.current, pages: response.bill.pages, size: 5});
 
                 }
             }

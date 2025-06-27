@@ -58,7 +58,7 @@ const RootComponent = {
                 this.virtualOrder_pagination.total = response.order.total;
                 this.virtualOrder_pagination.pages = response.order.pages;
                 this.virtualOrder_pagination.records = response.order.records;
-                this.virtualOrder_pagination.paging = this.doPaging({current: response.order.current, pages: response.order.pages, max: 5});
+                this.virtualOrder_pagination.paging = this.doPaging({current: response.order.current, pages: response.order.pages, size: 5});
 
             }
         }

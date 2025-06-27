@@ -78,7 +78,7 @@ const RootComponent = {
                         this.commissionTb_pagination.total = response.commission.total;
                         this.commissionTb_pagination.pages = response.commission.pages;
                         this.commissionTb_pagination.records = response.commission.records;
-                        this.commissionTb_pagination.paging = this.doPaging({current: response.commission.current, pages: response.commission.pages, max: 5});
+                        this.commissionTb_pagination.paging = this.doPaging({current: response.commission.current, pages: response.commission.pages, size: 5});
                     }
                 }
             }

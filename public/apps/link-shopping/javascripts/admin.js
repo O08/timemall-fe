@@ -64,7 +64,7 @@ const RootComponent = {
                         this.feedList_pagination.total = response.feed.total;
                         this.feedList_pagination.pages = response.feed.pages;
                         this.feedList_pagination.records = response.feed.records;
-                        this.feedList_pagination.paging = this.doPaging({current: response.feed.current, pages: response.feed.pages, max: 5});
+                        this.feedList_pagination.paging = this.doPaging({current: response.feed.current, pages: response.feed.pages, size: 5});
 
                     }
                 }

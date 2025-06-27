@@ -38,7 +38,7 @@ const RootComponent = {
                     this.visit_pagination.total = response.visit.total;
                     this.visit_pagination.pages = response.visit.pages;
                     this.visit_pagination.records = response.visit.records;
-                    this.visit_pagination.paging = this.doPaging({current: response.visit.current, pages: response.visit.pages, max: 5});
+                    this.visit_pagination.paging = this.doPaging({current: response.visit.current, pages: response.visit.pages, size: 5});
 
                 }
             }

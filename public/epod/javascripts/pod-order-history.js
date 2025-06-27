@@ -30,7 +30,7 @@ const RootComponent = {
                         this.transpagination.total = response.transactions.total;
                         this.transpagination.pages = response.transactions.pages;
                         this.transpagination.records = response.transactions.records;
-                        this.transpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.transpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
 
                     }
                 }

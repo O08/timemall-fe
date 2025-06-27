@@ -34,7 +34,7 @@ const RootComponent = {
                         this.plan_pagination.total = response.planOrder.total;
                         this.plan_pagination.pages = response.planOrder.pages;
                         this.plan_pagination.records = response.planOrder.records;
-                        this.plan_pagination.paging = this.doPaging({current: response.planOrder.current, pages: response.planOrder.pages, max: 5});
+                        this.plan_pagination.paging = this.doPaging({current: response.planOrder.current, pages: response.planOrder.pages, size: 5});
                     }
                 }
             }

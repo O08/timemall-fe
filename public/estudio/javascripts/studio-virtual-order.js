@@ -49,7 +49,7 @@ const RootComponent = {
                         this.virtual_pagination.total = response.order.total;
                         this.virtual_pagination.pages = response.order.pages;
                         this.virtual_pagination.records = response.order.records;
-                        this.virtual_pagination.paging = this.doPaging({current: response.order.current, pages: response.order.pages, max: 5});
+                        this.virtual_pagination.paging = this.doPaging({current: response.order.current, pages: response.order.pages, size: 5});
                     }
                 }
             }

@@ -46,7 +46,7 @@ const RootComponent = {
                     this.choice_pagination.total = response.product.total;
                     this.choice_pagination.pages = response.product.pages;
                     this.choice_pagination.records = response.product.records;
-                    this.choice_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, max: 5});
+                    this.choice_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, size: 5});
 
                 }
             }

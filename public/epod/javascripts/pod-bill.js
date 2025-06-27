@@ -52,7 +52,7 @@ const RootComponent = {
                         this.waittingpagination.total = response.bills.total;
                         this.waittingpagination.pages = response.bills.pages;
                         this.waittingpagination.records = response.bills.records;
-                        this.waittingpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+                        this.waittingpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, size: 5});
 
                     }
                 }
@@ -75,7 +75,7 @@ const RootComponent = {
                         this.paidpagination.total = response.bills.total;
                         this.paidpagination.pages = response.bills.pages;
                         this.paidpagination.records = response.bills.records;
-                        this.paidpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, max: 5});
+                        this.paidpagination.paging = this.doPaging({current: response.bills.current, pages: response.bills.pages, size: 5});
 
                     }
                 }

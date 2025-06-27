@@ -36,7 +36,7 @@ const RootComponent = {
                         this.online_pagination.total = response.cells.total;
                         this.online_pagination.pages = response.cells.pages;
                         this.online_pagination.records = response.cells.records;
-                        this.online_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+                        this.online_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, size: 5});
 
                     }
                 }
@@ -60,7 +60,7 @@ const RootComponent = {
                         this.offline_pagination.total = response.cells.total;
                         this.offline_pagination.pages = response.cells.pages;
                         this.offline_pagination.records = response.cells.records;
-                        this.offline_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+                        this.offline_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, size: 5});
                     }
                 }
             },
@@ -83,7 +83,7 @@ const RootComponent = {
                         this.draft_pagination.total = response.cells.total;
                         this.draft_pagination.pages = response.cells.pages;
                         this.draft_pagination.records = response.cells.records;
-                        this.draft_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
+                        this.draft_pagination.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, size: 5});
                     }
                 }
             }

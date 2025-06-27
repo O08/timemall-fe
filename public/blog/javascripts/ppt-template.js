@@ -25,7 +25,7 @@ const RootComponent = {
                         this.ppt_t_pagination.total = response.offer.total;
                         this.ppt_t_pagination.pages = response.offer.pages;
                         this.ppt_t_pagination.records = response.offer.records;
-                        this.ppt_t_pagination.paging = this.doPaging({current: response.offer.current, pages: response.offer.pages, max: 5});
+                        this.ppt_t_pagination.paging = this.doPaging({current: response.offer.current, pages: response.offer.pages, size: 5});
 
                     }
                 }

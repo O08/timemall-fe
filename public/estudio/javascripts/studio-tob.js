@@ -32,7 +32,7 @@ const RootComponent = {
                         this.mps_list_pagination.total = response.paper.total;
                         this.mps_list_pagination.pages = response.paper.pages;
                         this.mps_list_pagination.records = response.paper.records;
-                        this.mps_list_pagination.paging = this.doPaging({current: response.paper.current, pages: response.paper.pages, max: 5});
+                        this.mps_list_pagination.paging = this.doPaging({current: response.paper.current, pages: response.paper.pages, size: 5});
                     }
                 }
             },
@@ -56,7 +56,7 @@ const RootComponent = {
                         this.mps_order_receiving_pagination.total = response.paper.total;
                         this.mps_order_receiving_pagination.pages = response.paper.pages;
                         this.mps_order_receiving_pagination.records = response.paper.records;
-                        this.mps_order_receiving_pagination.paging = this.doPaging({current: response.paper.current, pages: response.paper.pages, max: 5});
+                        this.mps_order_receiving_pagination.paging = this.doPaging({current: response.paper.current, pages: response.paper.pages, size: 5});
                     }
                 }
             }

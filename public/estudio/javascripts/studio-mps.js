@@ -60,7 +60,7 @@ const RootComponent = {
                         this.mps_list_pagination.total = response.mps.total;
                         this.mps_list_pagination.pages = response.mps.pages;
                         this.mps_list_pagination.records = response.mps.records;
-                        this.mps_list_pagination.paging = this.doPaging({current: response.mps.current, pages: response.mps.pages, max: 5});
+                        this.mps_list_pagination.paging = this.doPaging({current: response.mps.current, pages: response.mps.pages, size: 5});
                     }
                 }
             },
@@ -83,7 +83,7 @@ const RootComponent = {
                         this.mps_chain_pagination.total = response.chain.total;
                         this.mps_chain_pagination.pages = response.chain.pages;
                         this.mps_chain_pagination.records = response.chain.records;
-                        this.mps_chain_pagination.paging = this.doPaging({current: response.chain.current, pages: response.chain.pages, max: 5});
+                        this.mps_chain_pagination.paging = this.doPaging({current: response.chain.current, pages: response.chain.pages, size: 5});
                     }
                 }
             },
@@ -106,7 +106,7 @@ const RootComponent = {
                         this.mps_chain_search_pagination.total = response.chain.total;
                         this.mps_chain_search_pagination.pages = response.chain.pages;
                         this.mps_chain_search_pagination.records = response.chain.records;
-                        this.mps_chain_search_pagination.paging = this.doPaging({current: response.chain.current, pages: response.chain.pages, max: 5});
+                        this.mps_chain_search_pagination.paging = this.doPaging({current: response.chain.current, pages: response.chain.pages, size: 5});
                     }
                 }
             }

@@ -30,7 +30,7 @@ const RootComponent = {
                         this.api_market_pagination.total = response.ind.total;
                         this.api_market_pagination.pages = response.ind.pages;
                         this.api_market_pagination.records = response.ind.records;
-                        this.api_market_pagination.paging = this.doPaging({current: response.ind.current, pages: response.ind.pages, max: 5});
+                        this.api_market_pagination.paging = this.doPaging({current: response.ind.current, pages: response.ind.pages, size: 5});
     
                     }
                 }

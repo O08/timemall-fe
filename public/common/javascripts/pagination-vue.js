@@ -59,22 +59,28 @@ const Pagination = {
             this.interceptor(info);
             this.pageDataSource(info);
         },
-        doPaging({current, pages, max}) {
-            if (!current || !pages || !max) return null
-            max = pages < max ? pages: max;
+        doPaging({current, pages, size}) {
+            if (!current || !pages || !size) return null
+
+            let rg= current + Math.floor(size/2)
+            if(rg<size) rg=size
+            max = Math.min(pages,rg);
+
+            let min= Math.max(current - Math.floor(size/2),1);
+
+             if(current>=size && (max-min+1)<size) min= max -size +1;
+
             let prev = current === 1 ? null : current - 1,
                     next = current === max ? null : current + 1,
                     items = [1]
         
             if (current === 1 && max === 1) return {current, prev, next, items}
-            if (current > 4) items.push('…')
+          
         
-            let r = 2, r1 = current - r, r2 = current + r
+            for (let i = min > 2 ? min : 2; i <= max; i++) items.push(i)
+
         
-            for (let i = r1 > 2 ? r1 : 2; i <= Math.min(max, r2); i++) items.push(i)
-        
-            if (r2 + 1 < max) items.push('…')
-            if (r2 < max) items.push(max)
+            if(items.length>size ) items[1]="..."
         
             return {current, prev, next, items}
         }

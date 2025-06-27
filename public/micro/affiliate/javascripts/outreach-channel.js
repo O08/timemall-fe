@@ -39,7 +39,7 @@ const RootComponent = {
                     this.chn_pagination.total = response.outreach.total;
                     this.chn_pagination.pages = response.outreach.pages;
                     this.chn_pagination.records = response.outreach.records;
-                    this.chn_pagination.paging = this.doPaging({current: response.outreach.current, pages: response.outreach.pages, max: 5});
+                    this.chn_pagination.paging = this.doPaging({current: response.outreach.current, pages: response.outreach.pages, size: 5});
 
                 }
             }

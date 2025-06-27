@@ -35,7 +35,7 @@ const RootComponent = {
                         this.transpagination.total = response.workflows.total;
                         this.transpagination.pages = response.workflows.pages;
                         this.transpagination.records = response.workflows.records;
-                        this.transpagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.transpagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }
@@ -58,7 +58,7 @@ const RootComponent = {
                         this.auditing_pagination.total = response.workflows.total;
                         this.auditing_pagination.pages = response.workflows.pages;
                         this.auditing_pagination.records = response.workflows.records;
-                        this.auditing_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.auditing_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }
@@ -81,7 +81,7 @@ const RootComponent = {
                         this.confirm_pagination.total = response.workflows.total;
                         this.confirm_pagination.pages = response.workflows.pages;
                         this.confirm_pagination.records = response.workflows.records;
-                        this.confirm_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.confirm_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }
@@ -104,7 +104,7 @@ const RootComponent = {
                         this.starredTranspagination.total = response.workflows.total;
                         this.starredTranspagination.pages = response.workflows.pages;
                         this.starredTranspagination.records = response.workflows.records;
-                        this.starredTranspagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.starredTranspagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }
@@ -127,7 +127,7 @@ const RootComponent = {
                         this.paused_pagination.total = response.workflows.total;
                         this.paused_pagination.pages = response.workflows.pages;
                         this.paused_pagination.records = response.workflows.records;
-                        this.paused_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.paused_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }
@@ -150,7 +150,7 @@ const RootComponent = {
                         this.suspend_pagination.total = response.workflows.total;
                         this.suspend_pagination.pages = response.workflows.pages;
                         this.suspend_pagination.records = response.workflows.records;
-                        this.suspend_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.suspend_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }
@@ -173,7 +173,7 @@ const RootComponent = {
                         this.finish_pagination.total = response.workflows.total;
                         this.finish_pagination.pages = response.workflows.pages;
                         this.finish_pagination.records = response.workflows.records;
-                        this.finish_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, max: 5});
+                        this.finish_pagination.paging = this.doPaging({current: response.workflows.current, pages: response.workflows.pages, size: 5});
 
                     }
                 }

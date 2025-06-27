@@ -38,7 +38,7 @@ const RootComponent = {
                         this.open_data_pagination.total = response.semi.total;
                         this.open_data_pagination.pages = response.semi.pages;
                         this.open_data_pagination.records = response.semi.records;
-                        this.open_data_pagination.paging = this.doPaging({current: response.semi.current, pages: response.semi.pages, max: 5});
+                        this.open_data_pagination.paging = this.doPaging({current: response.semi.current, pages: response.semi.pages, size: 5});
         
                     }
                 }

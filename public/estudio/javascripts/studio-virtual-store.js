@@ -37,7 +37,7 @@ const RootComponent = {
                         this.online_pagination.total = response.product.total;
                         this.online_pagination.pages = response.product.pages;
                         this.online_pagination.records = response.product.records;
-                        this.online_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, max: 5});
+                        this.online_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, size: 5});
 
                     }
                 }
@@ -62,7 +62,7 @@ const RootComponent = {
                         this.offline_pagination.total = response.product.total;
                         this.offline_pagination.pages = response.product.pages;
                         this.offline_pagination.records = response.product.records;
-                        this.offline_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, max: 5});
+                        this.offline_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, size: 5});
                     }
                 }
             },
@@ -86,7 +86,7 @@ const RootComponent = {
                         this.draft_pagination.total = response.product.total;
                         this.draft_pagination.pages = response.product.pages;
                         this.draft_pagination.records = response.product.records;
-                        this.draft_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, max: 5});
+                        this.draft_pagination.paging = this.doPaging({current: response.product.current, pages: response.product.pages, size: 5});
                     }
                 }
             }

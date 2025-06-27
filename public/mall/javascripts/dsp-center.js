@@ -32,7 +32,7 @@ const RootComponent = {
                         this.caseList_pagination.total = response.reportCase.total;
                         this.caseList_pagination.pages = response.reportCase.pages;
                         this.caseList_pagination.records = response.reportCase.records;
-                        this.caseList_pagination.paging = this.doPaging({current: response.reportCase.current, pages: response.reportCase.pages, max: 5});
+                        this.caseList_pagination.paging = this.doPaging({current: response.reportCase.current, pages: response.reportCase.pages, size: 5});
 
                     }
                 }

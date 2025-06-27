@@ -47,7 +47,7 @@ const RootComponent = {
                         this.newOrderPagination.total = response.transactions.total;
                         this.newOrderPagination.pages = response.transactions.pages;
                         this.newOrderPagination.records = response.transactions.records;
-                        this.newOrderPagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.newOrderPagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             },
@@ -70,7 +70,7 @@ const RootComponent = {
                         this.finishpagination.total = response.transactions.total;
                         this.finishpagination.pages = response.transactions.pages;
                         this.finishpagination.records = response.transactions.records;
-                        this.finishpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.finishpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             },  
@@ -93,7 +93,7 @@ const RootComponent = {
                         this.confirm_pagination.total = response.transactions.total;
                         this.confirm_pagination.pages = response.transactions.pages;
                         this.confirm_pagination.records = response.transactions.records;
-                        this.confirm_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.confirm_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             },
@@ -116,7 +116,7 @@ const RootComponent = {
                         this.taskpagination.total = response.transactions.total;
                         this.taskpagination.pages = response.transactions.pages;
                         this.taskpagination.records = response.transactions.records;
-                        this.taskpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.taskpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             },
@@ -139,7 +139,7 @@ const RootComponent = {
                         this.auditpagination.total = response.transactions.total;
                         this.auditpagination.pages = response.transactions.pages;
                         this.auditpagination.records = response.transactions.records;
-                        this.auditpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.auditpagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             },
@@ -162,7 +162,7 @@ const RootComponent = {
                         this.paused_pagination.total = response.transactions.total;
                         this.paused_pagination.pages = response.transactions.pages;
                         this.paused_pagination.records = response.transactions.records;
-                        this.paused_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.paused_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             },
@@ -185,7 +185,7 @@ const RootComponent = {
                         this.suspend_pagination.total = response.transactions.total;
                         this.suspend_pagination.pages = response.transactions.pages;
                         this.suspend_pagination.records = response.transactions.records;
-                        this.suspend_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, max: 5});
+                        this.suspend_pagination.paging = this.doPaging({current: response.transactions.current, pages: response.transactions.pages, size: 5});
                     }
                 }
             }

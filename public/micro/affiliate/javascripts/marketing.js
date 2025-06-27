@@ -53,7 +53,7 @@ const RootComponent = {
                     this.link_market_pagination.total = response.ind.total;
                     this.link_market_pagination.pages = response.ind.pages;
                     this.link_market_pagination.records = response.ind.records;
-                    this.link_market_pagination.paging = this.doPaging({current: response.ind.current, pages: response.ind.pages, max: 5});
+                    this.link_market_pagination.paging = this.doPaging({current: response.ind.current, pages: response.ind.pages, size: 5});
 
                 }
             }
