@@ -145,7 +145,7 @@
                   <span class="bi feed-item-collapse ms-0">已加入部落</span>
                 </a>
                 <div class="collapse" id="collapseJoinedOasis">
-                  <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis?oasis_id='+oasis.id">
+                  <a v-for="oasis in joinedoases.records" class="nav-link p-2 ms-3 nva-link-default d-flex flex-row align-items-center" :href="'/micro/oasis/home?oasis_id='+oasis.id">
                     <div class="oasis-avatar-wrapper">
                       <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                     </div>

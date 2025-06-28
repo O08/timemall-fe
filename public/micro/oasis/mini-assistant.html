@@ -40,7 +40,7 @@
               </svg>              
           </div>
         </a>
-        <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+        <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis/home?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
           <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
                :class="{'active': oasis.id==oasisId}">
             <div class="oasis-avatar-wrapper">

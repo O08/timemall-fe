@@ -44,7 +44,7 @@
                   </svg>              
               </div>
             </a>
-            <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+            <a v-for="oasis in joinedoases.records"  :href="'/micro/oasis/home?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
               <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
                    :class="{'active': oasis.id==oasisId}">
                 <div class="oasis-avatar-wrapper">
@@ -167,7 +167,7 @@
       <div class="nav-oasis-container d-flex justify-content-between">
         <ul class="nav border-0 h-100">
           <li class="nav-item active" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis?oasis_id='+oasisId">公告</a>
+            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/home?oasis_id='+oasisId">公告</a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/micro/oasis/commission?oasis_id='+oasisId">委托</a>

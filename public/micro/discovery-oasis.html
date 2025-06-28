@@ -184,7 +184,7 @@
         <div  class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
           <div v-for="oasis in oasisgrid_pagination.records" class="col">
             <div class="team-card-container  px-3">
-              <a :href="'/micro/oasis?oasis_id=' + oasis.id" class="url-link">
+              <a :href="'/micro/oasis/home?oasis_id=' + oasis.id" class="url-link">
     
               <!-- <img class="card-img-top mt-3" src="/micro/images/discovery-oasis-banner.jpg"> -->
               <img :src="adaptiveImageUriV(oasis.avatar) || defaultOasisPreviewImage" class="card-img-top mt-3" alt="..." @error.once="e => { e.target.src = defaultOasisPreviewImage }">

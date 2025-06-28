@@ -23,7 +23,7 @@
         <col-nav-main>
         <nav>
           <div class="oasis-head">
-            <a :href="'/micro/oasis?oasis_id='+oasisId">
+            <a :href="'/micro/oasis/home?oasis_id='+oasisId">
               <img  class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             </a>
             <div class="oasis-title">{{announce.title}}</div>

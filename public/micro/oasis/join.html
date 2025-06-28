@@ -147,7 +147,7 @@
             </a>
             <div class="collapse" id="collapseJoinedOasis">
               <a v-for="oasis in joinedoases.records" class="nav-link nva-link-default p-2 ms-3  d-flex flex-row align-items-center" 
-                :href="'/micro/oasis?oasis_id='+oasis.id">
+                :href="'/micro/oasis/home?oasis_id='+oasis.id">
                 <div class="oasis-avatar-wrapper">
                   <img class="oasis-avatar-tiny"  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                 </div>
