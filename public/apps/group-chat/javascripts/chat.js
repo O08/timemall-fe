@@ -8,7 +8,7 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import Pagination  from "/common/javascripts/pagination-vue.js";
-import StemChatCompoent from "/micro/arch/javascripts/StemChatCompoent.js";
+import StemChatCompoent from "/rainbow/arch/javascripts/StemChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';

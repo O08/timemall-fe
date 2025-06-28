@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <meta name=”robots” content=”index,follow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>看遍全球、比较价格、 预约服务 & 分步交付  - 班蔚特约</title>
+    <meta name="description" content="浏览班蔚全球特约，查找你正在寻找的服务，比较价格，预约服务，敲定服务内容，分阶段交付。">
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/mall/stylesheets/gig.scss">
+</head>
+
+<body>
+  <mall-app id="app" v-cloak>
+    <div class="app-container">
+
+      <!-- header section start -->
+      <div class="header-container">
+        <header>
+          <nav>
+            <div class="header-primary-container">
+
+              <div class="logo-contaienr">
+     
+                <a href="/mall/gig-economy" class="logo_link" >
+                  <div class="d-flex align-items-center logo">
+                    <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                    <span class="mb-0 ms-2">心选商店</span>
+                  </div>
+                </a>
+              </div>
+
+              
+              
+
+            </div>
+            
+            <div class="appButton">
+
+              <div class="btn-group" style="margin-right: 8px;" >
+          
+                <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+                  <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z" fill="white"/>
+                      </svg>                  
+                  </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a href="/">
+                      <button class="dropdown-item" type="button">
+                        <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/rainbow/teixcalaanli">
+                      <button class="dropdown-item" type="button">
+                        <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/mall/gig-economy">
+                      <button class="dropdown-item" type="button">
+                        <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 心选商店
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/estudio/studio-dashboard">
+                      <button class="dropdown-item" type="button"><i class="bi bi-laptop me-2"></i> 薪动商号 </button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/affiliate/dashboard">
+                      <button class="dropdown-item" type="button" >
+                        <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                       </button>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="/epod/pod-millstone">
+                      <button class="dropdown-item" type="button" >
+                        <i class="bi bi-tags me-2"></i> 我的定制
+                       </button>
+                    </a>
+                  </li>
+                </ul>
+    
+              </div>
+
+
+              <a v-if="!user_already_login" class="btn btn-outline-dark button_login text-white" href="/login">
+                登录
+              </a>
+              <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>
+
+              <div v-if="user_already_login" class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a href="/estudio/studio-setting-profile">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                      <button id="logout-btn" @click="logout()" class="dropdown-item" type="button">   
+                        <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+                      </button>
+                  </li>
+                  <li>
+                    <a href="/mall/delete-account">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-trash3 me-1"></i> 删除账号
+                       </button>
+                    </a>
+                  </li>
+                  <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                      <i class="bi bi-flag me-1"></i> 反馈
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+        </header>
+      </div>
+       <!-- header section end -->
+
+      <!-- top search start -->
+
+      <div class="search-container">
+        <top-search class="section-top-serach">
+
+          <div class="input-search-wrapper">
+           
+            <div class="input-search-area">
+              <div class="d-flex">
+                <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索服务" aria-label="Search">
+                <div class="search-btn-container">
+                  <button v-preventreclick @click="retrieveCellGridV" class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+      
+            <div class="location-container ms-2 d-flex align-items-center ">
+              
+              <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle d-flex align-items-center local-input-btn" data-bs-toggle="dropdown" aria-expanded="false" >
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span class="ms-1 local-city">{{!currentLocalCity ? '中国大陆' : currentLocalCity}}</span> 
+                </button>
+                <form class="dropdown-menu p-4 location-select-form" onsubmit="return false">
+                  <div class="mb-3">
+                    <label for="localCity" class="form-label">城市</label>
+                    <input v-model="cellgrid_pagination.param.location" type="text" class="form-control" id="localCity">
+                  </div>
+                  <button v-preventreclick @click="retrieveCellGridV"  type="submit" id="btn_local_confirm" class="btn btn-dark">确定</button>
+                </form>
+              </div>
+
+            </div>
+          </div>
+          <div class="s_type_wrapper">
+            <div class="s_type active">
+              <i class="bi bi-calendar3"></i>
+              <span class="ms-1">特约</span>
+            </div>
+            <div class="s_type ms-3">
+              <a href="/mall/mall-plan">
+                <i class="bi bi-box"></i>
+                <span class="ms-1">单品</span>
+              </a>
+            </div>
+            <div class="s_type ms-3">
+              <a href="/mall/virtual">
+                <i class="bi bi-badge-vr"></i>
+                <span class="ms-1">虚拟商品</span>
+              </a>
+            </div>
+    
+  
+          </div>
+        </top-search>
+      </div>
+
+    <!-- top search end -->
+
+      
+      <content>
+        <div id="section_filter_wrapper" class="topbar-wrapper">
+          <section  class="section-filter">
+            <div class="top-bar d-flex justify-content-between">
+              <div class="dropdown ">
+                <button class="btn dropdown-toggle top-bar-filter-budget" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  筛选
+                </button>
+                <form class="dropdown-menu  p-4 budget-filter-form" onsubmit="return false">
+                  <div class="row g-3">
+                    <div class="col-6 input-wrapper">
+                      <label for="input_budget_min" class="form-label">最小预算</label>
+                      <input v-model="cellgrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
+                      <i>￥</i>
+                    </div>
+                    <div class="col-6 input-wrapper">
+                      <label for="input_budget_max" class="form-label">最大预算</label>
+                      <input  v-model="cellgrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
+                      <i>￥</i>
+                    </div>
+                  </div>
+                  <div class="row g-3 pb-4">
+                    <div class="col-6">
+                      <div class="form-check">
+                        <label for="input_online" class="form-check-label">仅显示在线品牌</label>
+                        <input v-model="cellgrid_pagination.param.online" type="checkbox" class="form-check-input"  id="input_online">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <button id="btn_budget_confirm" @click="filterCellGridV" type="submit" class="btn btn-dark">确定</button>
+                </form>
+              </div>
+              <div class="select-container row gx-0">
+                <div class="col">
+                  <select @change="filterCellGridV" v-model="input_sbu" class="form-select sbu-option">
+                    <option value="">标准收费单元</option>
+                    <option value="second">秒</option>
+                    <option value="minute">分钟</option>
+                    <option value="hour">小时</option>
+                    <option value="day">天</option>
+                    <option value="week">周</option>
+                    <option value="month">月</option>
+                    <option value="quarter">季度</option>
+                    <option value="year">年</option>
+                  </select>
+                </div>
+                <div class="col ms-1">
+                  <select @change="filterCellGridV" v-model="cellgrid_pagination.param.sort" class="form-select sort-by">
+                    <option value="">排序</option>
+                    <option value="1">最新发布</option>
+                    <option value="2">价格降序</option>
+                    <option value="3">价格升序</option>
+                  </select>
+                </div>
+              </div>
+              
+            </div>  
+          </section>
+        </div>
+        <main>                    
+                      <!-- service grid -->
+          
+                <section class="section-service-grid">
+                  <!-- service top bar -->
+                
+                 <div v-show="isEmptyObjV(cellgrid_pagination.records)" class="service_not_found_container">
+                  <div class="service_not_found_illustration">
+                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                  </div>
+                  <div class="service_not_found_description">
+                    <p class="sorry">抱歉，未找到商品</p>
+                    <p class="sub_command">尝试新搜索或告诉我们你的需要,另外,你也可以前往合约助手发布需求</p>
+                  </div>
+                  <div class="service_not_found_option mt-2">
+
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#user_need_feedback_offcanvas_right" aria-controls="user_need_feedback_offcanvas_right">
+                      告诉我们
+                    </button>
+
+                    <a  class="btn btn-primary ms-4" href="/estudio/studio-mps">
+                      发布需求
+                    </a>
+
+
+                  </div>
+
+                 </div> 
+                 
+                  <div id="div_gri_panel" 
+                    class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-6">
+                    <div v-for="cell in cellgrid_pagination.records" class="col cell-col">
+                      <div class="cell-item">
+                        <div class="card border-0">
+                          <a  target="_blank" :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                            <img loading="lazy" :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                          </a>
+                          <div class="card-body">
+                            <div class="d-flex portrait align-items-center">
+                              <div class="brand-logo-container">
+                                <img loading="lazy" class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                                <div v-if="cell.brandMark=='3'" class="online-indicator">
+                                  <div class="online-indicator-content">
+                                  </div>
+                                </div>
+                              </div>
+                              <h6 class="service-brand-name ms-2 my-0">{{cell.brand}}</h6>
+                            </div>
+                            <p class="card-text mt-2">
+                              <a target="_blank" :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                                {{cell.title}}
+                              </a>
+                            </p>
+                          </div>
+                          <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
+                            <span class="vip-award"
+                              :class="{'enable-blue': Number(cell.enableBlue)}">
+                              <i class="bi bi-award-fill"></i>
+                            </span>
+                            <div class="price">
+                              <i>￥</i>
+                              <ins class="text-decoration-none price-txt">{{cell.price}}</ins>
+                              <div class="line">
+                              </div>
+                              <span class="price-sbu">
+                                {{ transformSbuV(cell.sbu) }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  <div  v-show="cellgrid_pagination.pages > cellgrid_pagination.current"  class="show-more-row">
+                    <button v-preventreclick @click="showMoreCellV" type="button" class="btn btn-show-more"> 显示更多 </button>
+                  </div>
+
+                </section>
+              </main>
+      </content>
+    </div>
+   
+  </mall-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <section class="user_needs_feedback_offcanvas" id="section_user_need_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="user_need_feedback_offcanvas_right" aria-labelledby="userNeedFeedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="userNeedFeedbackOffcanvasRightLabel">告诉我们您的需要</h5>
+        <button id="closeUserNeedFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="user-need-feedback-form">
+          <div class="mt-3">
+            <label for="input_need_description" class="form-label">您的需求是什么？(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_need_description"></textarea>
+          </div>
+          <div class="mt-3">
+            <label for="input_need_budget" class="form-label">预算上限(选填)</label>
+            <input id="input_need_budget" type="text" min="1" max="50000" class="form-control" >
+
+          </div> 
+          <div class="mt-3 mb-2">
+            <label for="input_need_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_need_contact"  maxlength="300" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/user_need_story.js"></script>
+    <script type="module" src="/common/javascripts/tm.js"></script>
+    <script type="module" src="/mall/javascripts/gig.js"></script>
+    <script type="module" src="/common/javascripts/feedback.js"></script>
+
+
+
+</body>
+</html>

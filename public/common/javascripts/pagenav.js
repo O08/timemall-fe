@@ -17,7 +17,7 @@ export  function goLoginPage(){
  * 0.3 go home page
  */ 
 export  function goHome(){
-    go("/home")
+    go("/")
 }
 export  function goWelcome(){
     go("/welcome")

@@ -1,4 +1,4 @@
-import  PrivateApi from "/micro/arch/javascripts/PrivateApi.js";
+import  PrivateApi from "/rainbow/arch/javascripts/PrivateApi.js";
 import { Ftime } from "/common/javascripts/util.js";
 import {SseEventBusScene} from "/common/javascripts/tm-constant.js";
 

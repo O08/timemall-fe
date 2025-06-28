@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>商品数据查询 :-r 带货中心 :-r 班蔚</title>
+    <meta name="description" content="专业服务选品库，海量商品多维筛选排行与分析。全网首家提供专业服务销量和商品转化率数据以及爆款商品历史佣金与价格查询等数据，助力您轻松选品，快速制作爆款，高效变现流量。">
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/teixcalaanli.scss">
+    <link rel="stylesheet" href="/affiliate/stylesheets/gallery.scss">
+
+</head>
+<body>
+  <micro-app class="d-flex flex-row"  id="app" v-cloak>
+    <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+      <div class="sidebarContainer d-flex flex-row">
+        <col-nav-main>
+      <div class="nav-container-wrapper">
+        <a href="/rainbow/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落"> 
+          <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 13C3.8 13 2 14.8 2 17C2 19.2 3.8 21 6 21C8.2 21 10 19.2 10 17C10 14.8 8.2 13 6 13ZM12 3C9.8 3 8 4.8 8 7C8 9.2 9.8 11 12 11C14.2 11 16 9.2 16 7C16 4.8 14.2 3 12 3ZM18 13C15.8 13 14 14.8 14 17C14 19.2 15.8 21 18 21C20.2 21 22 19.2 22 17C22 14.8 20.2 13 18 13Z" fill="#36F7E5"/>
+              </svg>
+          </div>
+        </a>
+        <a href="/messages" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
+          <div class="nav-private nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.99991 11.9999H14.9999" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+              <path d="M15 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H15" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+              </svg>              
+          </div>
+        </a>
+        <a href="/mall/gig-economy" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="心选商店">
+          <div class="nav-discovery nav-item-default  nav-plus-13—street  d-flex align-items-center justify-content-center mt-5 ms-3">
+         
+            <svg width="24" height="24" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            
+              <g  data-name="Layer 2">
+                <path fill="#659fe2" d="M12.05,11.96l3.48,6.02h0c1.55,2.68-.39,6.02-3.48,6.02h0c-3.09,0-5.02-3.35-3.48-6.02h0s3.48-6.02,3.48-6.02Z"/>
+                <path fill="#659fe2" d="M12.05,0c3.09,0,5.02,3.35,3.48,6.02h0s-3.48,6.02-3.48,6.02l-3.48-6.02h0c-1.55-2.68,.39-6.02,3.48-6.02"/>
+                <path fill="#659fe2" d="M11.96,12.03l6.06-3.4h0c2.69-1.51,6.02,.46,5.98,3.55h0c-.04,3.09-3.41,4.98-6.06,3.4h0s-5.98-3.55-5.98-3.55Z"/>
+                <path fill="#659fe2" d="M0,11.89c.04-3.09,3.41-4.98,6.06-3.4h0s5.98,3.55,5.98,3.55l-6.06,3.4h0C3.29,16.95-.04,14.98,0,11.89"/>
+              </g>
+            </svg>
+               
+        </a>
+        <a href="/affiliate/dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="带货中心">
+          <div class="nav-affiliate-active nav-item-default d-flex align-items-center justify-content-center mt-5 ms-3">
+        
+            <i class="bi bi-megaphone-fill"></i>
+
+          </div>
+        </a>
+        <a href="/rainbow/discovery-oasis" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="探索">
+          <div class="nav-discovery nav-item-default  d-flex align-items-center justify-content-center mt-5 ms-3">
+         
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.0093 1.875C10.0067 1.875 8.04918 2.46882 6.38413 3.58137C4.71909 4.69392 3.42134 6.27523 2.655 8.12533C1.88866 9.97543 1.68816 12.0112 2.07883 13.9753C2.46951 15.9393 3.43382 17.7435 4.84983 19.1595C6.26583 20.5755 8.06993 21.5398 10.034 21.9305C11.998 22.3211 14.0338 22.1206 15.884 21.3543C17.7341 20.5879 19.3154 19.2902 20.4279 17.6251C21.5405 15.9601 22.1343 14.0025 22.1343 12C22.1318 9.31544 21.0643 6.74155 19.166 4.84329C17.2677 2.94502 14.6938 1.87748 12.0093 1.875ZM12.0093 19.875C10.4518 19.875 8.9292 19.4131 7.63417 18.5478C6.33913 17.6825 5.32977 16.4526 4.73373 15.0136C4.13769 13.5747 3.98174 11.9913 4.2856 10.4637C4.58946 8.93606 5.33948 7.53287 6.44082 6.43153C7.54215 5.3302 8.94534 4.58017 10.4729 4.27632C12.0005 3.97246 13.5839 4.12841 15.0229 4.72445C16.4619 5.32049 17.6918 6.32985 18.5571 7.62488C19.4224 8.91992 19.8843 10.4425 19.8843 12C19.8818 14.0878 19.0513 16.0894 17.575 17.5657C16.0987 19.042 14.0971 19.8725 12.0093 19.875ZM15.2905 7.24688L10.003 9.36563C9.86002 9.42022 9.73015 9.50439 9.62191 9.61263C9.51367 9.72087 9.4295 9.85074 9.37491 9.99375L7.25616 15.2906C7.17432 15.4951 7.15429 15.719 7.19854 15.9348C7.24279 16.1505 7.34938 16.3485 7.5051 16.5042C7.66081 16.6599 7.8588 16.7665 8.07453 16.8107C8.29025 16.855 8.51421 16.835 8.71866 16.7531L14.0155 14.6344C14.1585 14.5798 14.2884 14.4956 14.3967 14.3874C14.5049 14.2791 14.5891 14.1493 14.6437 14.0062L16.753 8.70938C16.8349 8.50493 16.8549 8.28097 16.8106 8.06524C16.7664 7.84952 16.6598 7.65153 16.5041 7.49582C16.3484 7.3401 16.1504 7.23351 15.9347 7.18926C15.7189 7.14501 15.495 7.16504 15.2905 7.24688ZM12.7312 12.7219L10.3124 13.6969L11.2874 11.2781L13.6968 10.3125L12.7312 12.7219Z" fill="#2AC230"/>
+            </svg> 
+          </div>
+        </a>
+      </div>
+      
+      <div class="nav-setting">
+        <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end ms-5">
+              <li>
+                <a href="/estudio/studio-setting-profile">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                   </button>
+                </a>
+              </li>
+              <li>
+                  <button @click="logout()" class="dropdown-item" type="button">   
+                    <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+                  </button>
+              </li>
+              <li>
+                <a href="/mall/delete-account">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-trash3 me-1"></i> 删除账号
+                   </button>
+                </a>
+              </li>
+              
+              <li>
+                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                  <i class="bi bi-flag me-1"></i> 反馈
+                </button>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </col-nav-main>
+    <col-nav-sub>
+    <div class="nav-title ms-3 mt-3">
+      <h3>带货中心</h3>
+    </div>
+    <div class="nav-sub-container mt-3">
+      <a href="/affiliate/dashboard" class="nav-link nva-link-default py-2 ps-3">
+        <i class="bi bi-graph-up-arrow"></i>
+        <span>大盘数据</span>  
+      </a>
+      <a href="#" class="nav-link nav-link-active py-2 ps-3 ">
+        <i class="bi bi-cup-hot"></i>
+        <span>选品</span>  
+      </a>
+      <a href="/affiliate/choice" class="nav-link nva-link-default  py-2 ps-3">
+        <i class="bi bi-bag"></i>
+        <span>橱窗</span>  
+      </a>
+      <a href="/affiliate/outreach-channel" class="nav-link nva-link-default  py-2 ps-3">
+        <i class="bi bi-signpost-split"></i>
+        <span>渠道</span>  
+      </a>
+      <div class="accordion accordionMarketingMenu" id="accordionMarketingMenu">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed py-2 ps-3" type="button" data-bs-toggle="collapse" data-bs-target="#marketingMenu" aria-expanded="true" aria-controls="marketingMenu">
+              <i class="bi bi-megaphone"></i>
+              <span>营销</span> 
+            </button>
+          </h2>
+          <div id="marketingMenu" class="accordion-collapse collapse marketingMenu" data-bs-parent="#accordionMarketingMenu">
+            <a href="/affiliate/marketing" class="nav-link  py-2 ps-3 nva-link-default">
+              <span>通用分销</span>  
+            </a>
+            <a href="/affiliate/api-marketing" class="nav-link  py-2 ps-3 nva-link-default">
+              <span>API分销</span>  
+            </a>
+          </div>
+          
+        </div>
+        
+      </div>
+      <div class="accordion accordionMarketingMenu" id="accordionCPCMenu">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed py-2 ps-3" type="button" data-bs-toggle="collapse" data-bs-target="#cpcMarketingMenu" aria-expanded="true" aria-controls="cpcMarketingMenu">
+              <i class="bi bi-badge-ad"></i>
+              <span>CPC推广</span> 
+            </button>
+          </h2>
+          <div id="cpcMarketingMenu" class="accordion-collapse collapse marketingMenu" data-bs-parent="#accordionCPCMenu">
+            <a href="/affiliate/cpc-link" class="nav-link  py-2 ps-3 nva-link-default">
+              <span>推广链接</span>  
+            </a>
+            <a href="/affiliate/cpc-achievement" class="nav-link  py-2 ps-3 nva-link-default">
+              <span>绩效表现</span>  
+            </a>
+            <a href="/affiliate/cpc-bill" class="nav-link  py-2 ps-3 nva-link-default">
+              <span>结算报告</span>  
+            </a>
+          </div>
+          
+        </div>
+        
+      </div>
+      
+      
+    </div>
+
+    
+    </col-nav-sub>
+      </div>
+    </div>
+    
+    <col-content>
+    <header>
+      <div class="d-flex justify-content-between p-3 text-white">
+        <div class="d-flex align-items-center logo">
+          <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+            </svg>
+            <div class="align-middle">
+              <h2 class="my-0">带货中心</h2>
+            </div>
+          </a>
+        </div>
+        <div class="toggle-nav">
+          <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+
+     <div class="content-wrapper w-100">
+      
+      <!-- search  pannel start -->
+      <div class="content-block pt-5">
+        <div class="d-flex justify-content-center">
+
+          <top-search class="section-top-serach">
+            <div class="search">
+              <input @keyup.enter.native="retrieveProductTableV" v-model="gallery_pagination.param.q" class="form-control Search-Button-Placeholder" type="text" placeholder="请输入商品名称或关键词" aria-label="Search">
+
+              <div class="Search-Icon-Container d-flex align-items-center ms-n5"> 
+                <svg width="20" height="20" class="Search-Icon" viewBox="0 0 20 20">
+                  <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="#616161" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>  
+              </div>
+            </div>
+          </top-search>
+
+        </div>
+
+        
+        <div class="search-menu-container">
+
+          <div class="condition-box">
+            <label class="search-cfg">品牌</label>
+            <div class="cdn-field">
+              
+              <div class="field-content">
+                <div class="dropdown ">
+                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    经营年限
+                  </button>
+                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
+                    <div class="row g-3">
+                      <div class="col-6 input-wrapper">
+                        <label for="input_account_age_left" class="form-label">最小年限</label>
+                        <input  v-model="gallery_pagination.param.supplierAccountAgeLeft" type="text" min="1" max="50000" step="1" class="form-control" id="input_account_age_left" @input="transformInputNumberV($event)">
+                        <i>月</i>
+                      </div>
+                      <div class="col-6 input-wrapper">
+                        <label for="input_account_age_right" class="form-label">最大年限</label>
+                        <input  v-model="gallery_pagination.param.supplierAccountAgeRight"  type="text" min="1" max="50000" step="1" class="form-control" id="input_account_age_right" @input="transformInputNumberV($event)">
+                        <i>月</i>
+                      </div>
+                    </div>        
+                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                  </form>
+                </div>
+              </div>
+              
+              <div class="field-content">
+                <select @change="filterPrductTableV" v-model="gallery_pagination.param.heartbeat" class="form-select tm-select account-age-select" >
+                  <option value=""><span>最近活跃</span></option>
+                  <option value="1"><span>一周内活跃</span> </option>
+                  <option value="2"><span>一个月内活跃</span> </option>
+                  <option value="3"><span>三个月内活跃</span> </option>
+                </select>
+              </div>
+
+              <div class="field-content">
+                <div class="form-check ms-2">
+                  <input 
+                  :true-value="1"
+                  :false-value="0"
+                  v-preventreclick
+                  @change="filterPrductTableV"
+                   v-model="gallery_pagination.param.blue" class="form-check-input" type="checkbox" value="" id="vip">
+                  <label class="form-check-label" for="vip">
+                    蓝标
+                  </label>
+                </div>
+              </div>
+              
+
+             
+
+            
+            </div>
+
+            
+          </div>
+
+          <div class="condition-box">
+            <label class="search-cfg">商品信息</label>
+            <div class="cdn-field">
+
+              <div class="field-content">
+                <div class="dropdown ">
+                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    价格
+                  </button>
+                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
+                    <div class="row g-3">
+                      <div class="col-6 input-wrapper">
+                        <label for="input_plan_price_left" class="form-label">单品价格下限</label>
+                        <input v-model="gallery_pagination.param.planPriceLeft"type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_price_left" @input="transformInputNumberV($event)">
+                        <i>￥</i>
+                      </div>
+                      <div class="col-6 input-wrapper">
+                        <label for="input_plan_price_right" class="form-label">单品价格上限</label>
+                        <input v-model="gallery_pagination.param.planPriceRight" type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_price_right" @input="transformInputNumberV($event)">
+                        <i>￥</i>
+                      </div>
+                    </div>
+  
+                    
+                    <button v-preventreclick @click="filterPrductTableV"  type="submit" class="btn btn-dark">确定</button>
+                  </form>
+                </div>
+
+              </div>
+              
+              <div class="field-content">
+                <div class="form-check ms-2">
+                  <input 
+                  v-preventreclick
+                  :true-value="1"
+                  :false-value=""
+                  v-model="gallery_pagination.param.provideInvoice"
+                  @change="filterPrductTableV"
+                  class="form-check-input" type="checkbox"  id="provideInvoice">
+                  <label class="form-check-label" for="provideInvoice">
+                    可开发票
+                  </label>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="condition-box">
+            <label class="search-cfg">商品佣金</label>
+            <div class="cdn-field">
+              
+              <div class="field-content">
+                <div class="dropdown ">
+                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    佣金比例
+                  </button>
+                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
+                    <div class="row g-3">
+                      <div class="col-6 input-wrapper">
+                        <label for="input_revshare_left" class="form-label">最低</label>
+                        <input  v-model="gallery_pagination.param.revshareLeft" type="text" min="1" max="100" step="1" class="form-control" id="input_revshare_left" @input="transformInputNumberV($event)">
+                        <i>%</i>
+                      </div>
+                      <div class="col-6 input-wrapper">
+                        <label for="input_revshare_right" class="form-label">最高</label>
+                        <input  v-model="gallery_pagination.param.revshareRight" type="text" min="1" max="100" step="1" class="form-control" id="input_revshare_right" @input="transformInputNumberV($event)">
+                        <i>%</i>
+                      </div>
+                    </div>
+  
+                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                  </form>
+                </div>
+              </div>
+              
+            </div>
+
+          </div>
+
+          <div class="condition-box">
+            <label class="search-cfg">带货信息</label>
+            <div class="cdn-field">
+
+              <div class="field-content">
+                <div class="dropdown ">
+                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    浏览量
+                  </button>
+                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
+                    <div class="row g-3">
+                      <div class="col-6 input-wrapper">
+                        <label for="input_views_left" class="form-label">下限</label>
+                        <input  v-model="gallery_pagination.param.viewsLeft" type="text" min="1" max="50000" step="1" class="form-control" id="input_views_left" @input="transformInputNumberV($event)">
+                        <i>千</i>
+                      </div>
+                      <div class="col-6 input-wrapper">
+                        <label for="input_views_right" class="form-label">上限</label>
+                        <input  v-model="gallery_pagination.param.viewsRight"  type="text" min="1" max="50000" step="1" class="form-control" id="input_views_right" @input="transformInputNumberV($event)">
+                        <i>千</i>
+                      </div>
+                    </div>
+                    
+                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                  </form>
+                </div>
+              </div>
+              
+              <div class="field-content">
+
+                <div class="dropdown ">
+                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    单品销量
+                  </button>
+                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
+                    <div class="row g-3">
+                      <div class="col-6 input-wrapper">
+                        <label for="input_plan_sale_volume_left" class="form-label">销量下限</label>
+                        <input v-model="gallery_pagination.param.saleVolumeLeft" type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_sale_volume_left" @input="transformInputNumberV($event)">
+                        <i>单</i>
+                      </div>
+                      <div class="col-6 input-wrapper">
+                        <label for="input_plan_sale_volume_right" class="form-label">销量上限</label>
+                        <input v-model="gallery_pagination.param.saleVolumeRight"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_plan_sale_volume_right" @input="transformInputNumberV($event)">
+                        <i>单</i>
+                      </div>
+                    </div>                  
+                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                  </form>
+                </div>
+
+              </div>
+              
+              <div class="field-content">
+                <div class="dropdown ">
+                  <button class="btn dropdown-toggle tool-tip-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    关联达人数
+                  </button>
+                  <form class="dropdown-menu  p-4 tool-tip-form" onsubmit="return false">
+                    <div class="row g-3">
+                      <div class="col-6 input-wrapper">
+                        <label for="input_influencers_left" class="form-label">带货人数下限</label>
+                        <input v-model="gallery_pagination.param.influencersLeft"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_influencers_left" @input="transformInputNumberV($event)">
+                        <i>人</i>
+                      </div>
+                      <div class="col-6 input-wrapper">
+                        <label for="input_influencers_right" class="form-label">带货人数上限</label>
+                        <input v-model="gallery_pagination.param.influencersRight"  type="text" min="1" max="5000000" step="1" class="form-control" id="input_influencers_right" @input="transformInputNumberV($event)">
+                        <i>人</i>
+                      </div>
+                    </div>
+                    
+                    <button v-preventreclick @click="filterPrductTableV" type="submit" class="btn btn-dark">确定</button>
+                  </form>
+                </div>
+              </div>
+              
+
+
+            </div>
+
+          </div>
+
+
+          <div class="condition-box">
+            <label class="search-cfg">展示</label>
+            <div class="cdn-field">
+
+              <div class="field-content">
+                <select @change="filterPrductTableV" v-model="gallery_pagination.param.sort" class="form-select tm-select sort-select" >
+                  <option value="">排序</option>
+                  <option value="1">单品价格</option>
+                  <option value="2">佣金</option>
+                  <option value="3">单品销量</option>
+                  <option value="4">销售额</option>
+                  <option value="5">浏览量</option>
+                  <option value="6">关联达人数</option>
+                </select>
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+       <!-- search  pannel end -->
+
+       <!-- service list pannel start -->
+      <div class="content-block mt-5">
+        <div class="heading">商品列表</div>
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">操作</th>
+                <th scope="col">商品</th>
+                <th scope="col">佣金比例</th>
+                <th scope="col">每单可赚</th>
+                <th scope="col">单品销量</th>
+                <th scope="col">特约销量</th>
+                <th scope="col">销售额</th>
+                <th scope="col">浏览量</th>
+                <th scope="col">转化率%</th>
+                <th scope="col">单品退款率%</th>
+                <th scope="col">关联达人数</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in gallery_pagination.records">
+                <th class="col-options">           
+                   <button 
+                    v-preventreclick
+                    @click="addProductToChoiceV(item.cellId)"
+                   :class="{'disabled': item.inChoice=='1' , 
+                   'btn-primary': item.inChoice=='0'  ,
+                   'btn-secondary': item.inChoice=='1' }" 
+                     class="btn" type="button">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    添加橱窗
+                   </button>
+                </th>
+                <td class="col-product">
+                  <div class="product-name text-start pb-2 ellipsis-2">
+                    <a :href="'/mall/cell-detail?cell_id=' + item.cellId+ '&brand_id=' + item.supplierBrandId" class="text-white text-decoration-none ellipsis-2" target="_blank">{{item.productName}}</a>
+                  </div>
+                  <div class="product-price d-flex align-items-center">
+                    <div>
+                      <span>￥{{item.planPrice}} <img  v-if="getIdentity().brandId==item.supplierBrandId" src="/common/icon/u.svg" class="ms-1"></span>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ Number(item.revshare).toFixed(0) }}%</td>
+                <td>{{(item.revshare * item.planPrice / 100).toFixed(2)}}</td>
+                <td>{{ !item.planSaleVolume ? "0" : formatCmpctNumberV(item.planSaleVolume)}}</td>
+                <td>{{ !item.cellSaleVolume ? "0" : formatCmpctNumberV(item.cellSaleVolume)}}</td>
+                <td>{{ !item.sales ? "0" : formatCmpctNumberV(item.sales)}}</td>
+                <td>{{ !item.views ? "0" : formatCmpctNumberV(item.views)}}</td>
+                <td>{{ (!item.views || Number(item.views)==0 ) ? "0" : ((100*(Number(item.planSaleVolume)+Number(item.cellSaleVolume)))/Number(item.views)).toFixed(2)}}</td>
+                <td>{{(!item.planSaleVolume || Number(item.planSaleVolume)==0)? "0" : (100*item.refundOrders/item.planSaleVolume).toFixed(2)}}</td>
+                <td>{{ !item.influencers ? "0" : item.influencers}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div v-show="gallery_pagination.records.length==0" class="empty-content-block">
+  
+            没有可用的内容！
+  
+          </div>
+          <nav v-if="!!gallery_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+            <ul class="pagination pagination-lg pagination-dark  border-0">
+              <li class="page-item" @click="pagePre(gallery_pagination)">
+                <a class="page-link"  aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"  v-for="page in gallery_pagination.paging.items" :class="{'current-page-active': gallery_pagination.paging.current == page}" 
+                    @click="pageGo(gallery_pagination,page)"><a class="page-link">{{page}}</a></li>
+              <li class="page-item" @click="pageNext(gallery_pagination)">
+                <a class="page-link" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+
+      <!-- service list pannel end -->
+
+      
+     </div>
+
+
+    </col-content>
+
+  </micro-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/affiliate/javascripts/gallery.js"></script>
+
+
+</body>
+</html>

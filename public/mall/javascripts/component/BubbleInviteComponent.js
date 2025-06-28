@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
-import  OasisApi from "/micro/javascripts/oasis/OasisApi.js";
+import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
 const BubbleInviteComponent = {
     data() {

@@ -21,15 +21,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist'),{extensions: ['html']}));
 
 
-// app.use('/', "'./public/home.html'");
-// app.use('/users', usersRouter);
+
 
 app.get('/',(req,res)=>{
   res.sendFile(__dirname+"/dist"+"/welcome.html")        //设置/ 下访问文件位置
 });
 
 app.get('/idea/:och', (req, res) => {
-  res.sendFile(__dirname+"/dist"+"/micro/oasis/idea.html")        //设置/ 下访问文件位置
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/idea.html")        //设置/ 下访问文件位置
 })
 
 app.get('/brand/:id', (req, res) => {
@@ -81,15 +80,15 @@ app.get('/mall/dsp-case/:case_no', (req, res) => {
 })
 
 app.get('/messages', (req, res) => {
-  res.sendFile(__dirname+"/dist"+"/micro/arch/messages.html")        //设置/ 下访问文件位置
+  res.sendFile(__dirname+"/dist"+"/rainbow/arch/messages.html")        //设置/ 下访问文件位置
 })
 
 app.get('/messages/:friend', (req, res) => {
-  res.sendFile(__dirname+"/dist"+"/micro/arch/messages.html")        //设置/ 下访问文件位置
+  res.sendFile(__dirname+"/dist"+"/rainbow/arch/messages.html")        //设置/ 下访问文件位置
 })
 
-app.get('/micro/oasis', (req, res) => {
-  res.sendFile(__dirname+"/dist"+"/micro/oasis/home.html")        //设置/ 下访问文件位置
+app.get('/rainbow/oasis', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/home.html")        //设置/ 下访问文件位置
 })
 
 app.get('/mall/virtual/:item', (req, res) => {
