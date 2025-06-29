@@ -12,7 +12,7 @@
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-millstone.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-packages-order.scss">
 
 </head>
 <body>
@@ -80,7 +80,7 @@
                 </li>
                 
                 <li>
-                  <a href="/epod/pod-millstone">
+                  <a href="/epod/pod-packages-order">
                     <button class="dropdown-item" type="button" >
                       <i class="bi bi-tags me-2"></i> 我的定制
                      </button>
@@ -188,7 +188,7 @@
                 </div>
                 <span>运营数据</span>
               </a>
-              <a class="nav-link" href="/estudio/studio-store">
+              <a class="nav-link" href="/estudio/studio-gig-store">
                 <div class="nav-icon">
                   <i class="bi bi-shop-window"></i>
                 </div>
@@ -260,12 +260,12 @@
               <button class="nav-link active" id="plan-order-tab" data-bs-toggle="tab" data-bs-target="#plan-order-tab-pane" type="button" role="tab" aria-controls="plan-order-tab-pane" aria-selected="true">单品</button>
             </li>
             <li class="nav-item" role="presentation">
-              <a href="/estudio/studio-millstone-cell">
+              <a href="/estudio/studio-gig-order">
                 <button class="nav-link">特约</button>
               </a>
             </li>
             <li class="nav-item" role="presentation">
-              <a href="/estudio/studio-tob">
+              <a href="/estudio/studio-b2b-order">
                 <button class="nav-link" type="button" role="tab" aria-controls="sp-order-tab-pane" aria-selected="true">商单</button>
               </a>
             </li>
@@ -336,7 +336,7 @@
                   <tbody>
                     <tr v-for="item in plan_pagination.records">
                       <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-plan?id=' + item.orderId">
+                        <a :href="'/estudio/packages-order-deliver?id=' + item.orderId">
                           <span class="ellipsis-1">
                             {{item.cellTitle}}
                           </span>
@@ -440,7 +440,7 @@
     </section>
     <script type="module" src="/common/javascripts/feedback.js"></script>
     <script type="module" src="/common/javascripts/tm.js"></script>
-    <script type="module" src="/estudio/javascripts/studio-millstone.js"></script>
+    <script type="module" src="/estudio/javascripts/studio-packages-order.js"></script>
 
 
 </body>

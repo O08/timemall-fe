@@ -12,7 +12,7 @@
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-millstone-cell.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-gig-order.scss">
 
 </head>
 <body>
@@ -80,7 +80,7 @@
                 </li>
                 
                 <li>
-                  <a href="/epod/pod-millstone">
+                  <a href="/epod/pod-packages-order">
                     <button class="dropdown-item" type="button" >
                       <i class="bi bi-tags me-2"></i> 我的定制
                      </button>
@@ -188,7 +188,7 @@
                 </div>
                 <span>运营数据</span>
               </a>
-              <a class="nav-link" href="/estudio/studio-store">
+              <a class="nav-link" href="/estudio/studio-gig-store">
                 <div class="nav-icon">
                   <i class="bi bi-shop-window"></i>
                 </div>
@@ -200,7 +200,7 @@
                 </div>
                 <span>虚拟商店</span>  
               </a>
-              <a class="nav-link active" href="/estudio/studio-millstone">
+              <a class="nav-link active" href="/estudio/studio-packages-order">
                 <div class="nav-icon">
                   <i class="bi bi-truck"></i>
                 </div>
@@ -257,7 +257,7 @@
         <div class="first-nav-tabs-container">
           <ul class="nav nav-tabs border-0 " id="millstone-first-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a href="/estudio/studio-millstone">
+              <a href="/estudio/studio-packages-order">
                 <button class="nav-link"  type="button" >单品</button>
               </a>
             </li>
@@ -265,7 +265,7 @@
               <button class="nav-link active" id="sp-order-tab" data-bs-toggle="tab" data-bs-target="#sp-order-tab-pane" type="button" role="tab" aria-controls="sp-order-tab-pane" aria-selected="true">特约</button>
             </li>
             <li class="nav-item" role="presentation">
-              <a href="/estudio/studio-tob">
+              <a href="/estudio/studio-b2b-order">
                 <button class="nav-link" type="button" >商单</button>
               </a>
             </li>
@@ -342,7 +342,7 @@
                   <tbody>
                     <tr v-for="item in newOrderPagination.records">
                       <td class="col-product-no-option">
-                          <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                          <a :href="'/estudio/gig-order-deliver?option=view&workflow_id=' + item.id">
                             <div class="ellipsis-1">
                               {{item.service}}
                             </div>
@@ -413,7 +413,7 @@
                   <tbody>
                     <tr v-for="item in auditpagination.records">
                       <td class="col-option">
-                        <a :href="'/estudio/studio-millstone-action?option=audit&workflow_id=' + item.id">
+                        <a :href="'/estudio/gig-order-deliver?option=audit&workflow_id=' + item.id">
                           <button  type="button" 
                           data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="审查客户设置的工作任务"
                           class="btn-option-secondary">
@@ -494,7 +494,7 @@
                   <tbody>
                     <tr v-for="item in confirm_pagination.records">
                       <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                        <a :href="'/estudio/gig-order-deliver?option=view&workflow_id=' + item.id">
                           <div class="ellipsis-1">
                             {{item.service}}
                           </div>
@@ -564,7 +564,7 @@
                   <tbody>
                     <tr v-for="item in taskpagination.records">
                       <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                        <a :href="'/estudio/gig-order-deliver?option=view&workflow_id=' + item.id">
                           <div class="ellipsis-1">
                             {{item.service}}
                           </div>
@@ -635,7 +635,7 @@
                   <tbody>
                     <tr v-for="item in paused_pagination.records">
                       <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                        <a :href="'/estudio/gig-order-deliver?option=view&workflow_id=' + item.id">
                           <div class="ellipsis-1">
                             {{item.service}}
                           </div>
@@ -706,7 +706,7 @@
                   <tbody>
                     <tr v-for="item in suspend_pagination.records">
                       <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                        <a :href="'/estudio/gig-order-deliver?option=view&workflow_id=' + item.id">
                           <div class="ellipsis-1">
                             {{item.service}}
                           </div>
@@ -776,7 +776,7 @@
                   <tbody>
                     <tr v-for="item in finishpagination.records">
                       <td class="col-product-no-option">
-                        <a :href="'/estudio/studio-millstone-action?option=view&workflow_id=' + item.id">
+                        <a :href="'/estudio/gig-order-deliver?option=view&workflow_id=' + item.id">
                           <div class="ellipsis-1">
                             {{item.service}}
                           </div>
@@ -876,7 +876,7 @@
     </section>
     <script type="module" src="/common/javascripts/feedback.js"></script>
     <script type="module" src="/common/javascripts/tm.js"></script>
-    <script type="module" src="/estudio/javascripts/studio-millstone-cell.js"></script>
+    <script type="module" src="/estudio/javascripts/studio-gig-order.js"></script>
 
 
 </body>

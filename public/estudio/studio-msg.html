@@ -81,7 +81,7 @@
                 </li>
                 
                 <li>
-                  <a href="/epod/pod-millstone">
+                  <a href="/epod/pod-packages-order">
                     <button class="dropdown-item" type="button" >
                       <i class="bi bi-tags me-2"></i> 我的定制
                      </button>
@@ -187,7 +187,7 @@
                   </div>
                   <span>运营数据</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-store">
+                <a class="nav-link" href="/estudio/studio-gig-store">
                   <div class="nav-icon">
                     <i class="bi bi-shop-window"></i>
                   </div>
@@ -199,7 +199,7 @@
                   </div>
                   <span>虚拟商店</span>  
                 </a>
-                <a class="nav-link" href="/estudio/studio-millstone">
+                <a class="nav-link" href="/estudio/studio-packages-order">
                   <div class="nav-icon">
                     <i class="bi bi-truck"></i>
                   </div>
@@ -266,7 +266,7 @@
                   <tr v-for="notice in eventFeed.records">
                     <td class="col-msg">
                       <div>
-                        <a class="url-link" :href="'/epod/pod-millstone-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
+                        <a class="url-link" :href="'/epod/gig-order-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
                           <p class="pt-1"><span class="ellipsis-1" style="max-width: calc(100% - 132px);display: -webkit-inline-box; vertical-align: middle; font-weight: bolder;">{{JSON.parse(notice.feed).upDesc}}</span><span>的新消息，点击查看</span></p>
                         </a>
                       </div>

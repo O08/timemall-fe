@@ -18,7 +18,7 @@ export async function preHandleCellId(brandId){
 export function addCellIdToUrl(cellId){
     const id = getQueryVariable("cell_id");
     if(!id){
-        let url = "/estudio/studio-store-define-cell?tab=pricing&cell_id="+ cellId
+        let url = "/estudio/studio-store-define-gig?tab=pricing&cell_id="+ cellId
         history.pushState(null, "", url);
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +7,14 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>特约工作空间 - E-Studio</title>
+    <title>单品工作空间 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
     <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-millstone-action.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/packages-order-deliver.scss">
+
 
 
 
@@ -83,7 +84,7 @@
                 </li>
                 
                 <li>
-                  <a href="/epod/pod-millstone">
+                  <a href="/epod/pod-packages-order">
                     <button class="dropdown-item" type="button" >
                       <i class="bi bi-tags me-2"></i> 我的定制
                      </button>
@@ -93,6 +94,7 @@
   
             </div>
   
+           
   
             <div class="btn-group private-msg-atom" style="margin-right: 8px;">
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
@@ -127,8 +129,12 @@
                     </a>
                   </li>
   
+                 
+  
                 </div>
                 
+  
+  
               </ul>
             </div>
   
@@ -186,7 +192,7 @@
                   </div>
                   <span>运营数据</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-store">
+                <a class="nav-link" href="/estudio/studio-gig-store">
                   <div class="nav-icon">
                     <i class="bi bi-shop-window"></i>
                   </div>
@@ -198,7 +204,7 @@
                   </div>
                   <span>虚拟商店</span>  
                 </a>
-                <a class="nav-link active" href="/estudio/studio-millstone">
+                <a class="nav-link active" href="/estudio/studio-packages-order">
                   <div class="nav-icon">
                     <i class="bi bi-truck"></i>
                   </div>
@@ -245,61 +251,11 @@
           </div>
         </aside>
         <main>
-
           <div class="main-content-container">
-
-          <div class="data-tag">快速访问</div>
-              <!-- tablist -->
-          <div class="nav-tabs-container">
-            <ul class="nav nav-tabs border-0 millstone-tab" id="millstone-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=new-order" class="text-decoration-none">
-                  <button class="nav-link" id="new-order-tab" data-bs-toggle="tab" data-bs-target="#new-order-tab-pane" type="button" role="tab" aria-controls="new-order-tab-pane" aria-selected="true">新单</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=audit" class="text-decoration-none">
-                  <button class="nav-link" id="audit-tab" data-bs-toggle="tab" data-bs-target="#audit-tab-pane" type="button" role="tab" aria-controls="audit-tab-pane" aria-selected="true">审查</button>
-                </a>
-              </li>
-  
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=confirm" class="text-decoration-none">
-                  <button class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">待定稿特约</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=task" class="text-decoration-none">
-                  <button class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=paused" class="text-decoration-none">
-                  <button class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">查询暂停中特约</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=suspend" class="text-decoration-none">
-                  <button class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">查询已中止特约</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/estudio/studio-millstone-cell?tab=finish" class="text-decoration-none">
-                  <button class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">查看已完成的特约</button>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="text-decoration-none" :href="'/messages/'+workflow.serviceInfo.consumerUserId">
-                  <button class="nav-link">私信客户</button>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
             <div class="nav-tabs-container">
-              <ul class="nav nav-tabs  millstone-sub-tab" id="millstone-sub-tablist" role="tablist">
+              <ul class="nav nav-tabs" id="tob-tablist" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="stage-tab" data-bs-toggle="tab" data-bs-target="#stage-tab-pane" type="button" role="tab" aria-controls="stage-tab-pane" aria-selected="true">
+                  <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">
                     <i class="bi bi-briefcase"></i>
                     服务内容
                   </button>
@@ -310,10 +266,18 @@
                     沟通
                   </button>
                 </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="deliver-tab" data-bs-toggle="tab" data-bs-target="#deliver-tab-pane" type="button" role="tab" aria-controls="deliver-tab-pane" aria-selected="false">
+                    <i class="bi bi-box-seam"></i>
+                    交付
+                  </button>
+                </li>
               </ul>
             </div>
-            <div class="tab-content" id="millstone-sub-tab">
+            <!-- tab content -->
+            <div class="tab-content">
               <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
+
                 <div class="room-msg-panel">
 
                   <div class="room-msg-container">
@@ -397,252 +361,273 @@
                     </div>
                   </div>
 
+                  
                 </div>
-              </div>
-              <div class="tab-pane fade show active" id="stage-tab-pane" role="tabpanel" aria-labelledby="stage-tab" tabindex="0">
 
-                <div v-if="workflow.mark=='2'" class="stage-panel-header">
-                  <section class="event-wrapper new-order">
-                    <div class="d-flex ps-3">
-
-                      <div class="opt_item_container d-flex flex-column justify-content-center">
-                        <div class="opt_item_head">
-                          <button v-preventreclick   @click="approvedWorkflowV"  class="btn btn-outline-primary">
-                            <i class="bi bi-check"></i>
-                          </button>
-                        </div>
-                          <span class="opt_item_desc">审核通过</span>
-                      </div>
-
-                      <div class="opt_item_container d-flex flex-column justify-content-center">
-                        <div class="opt_item_head">
-                          <button v-preventreclick  @click="rejectWorkflowV"  class="btn btn-outline-primary">
-                            <i class="bi bi-x"></i>
-                          </button>
-                        </div>
-                          <span class="opt_item_desc">驳回</span>
-                      </div>
-
-                    </div>
-                    
-                  </section>
-                </div>
                 
-                <section class="section-cell-info ps-4 my-5">
-                  <div class="row gx-3 gy-3 row-cols-sm-2">
+                
+
+              </div>
+            <!-- event tab end -->
+            <!-- sow tab begin -->
+              <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
+                
+                <div class="plan-info-container pb-5">
+
+
+                <section class="section-plan-header ps-4 pt-5">
+                  <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
                       <div class="col">
                           <h3>服务</h3>
                           <p class="ms-2 sow-cell-title">
-                              <a target="_blank" class="url-link" :href="'/mall/cell-detail?cell_id=' + workflow.serviceInfo.cellId + '&brand_id=' + workflow.serviceInfo.brandId">
-                                {{workflow.serviceInfo.title}}
-                              </a>
+                            {{orderDetail.cellTitle}}
                           </p>
                       </div>
+    
                       <div class="col">
                           <h3>服务商</h3>
                           <div class="d-flex justify-content-start align-items-center mx-2">
-                              <div class="brand-portrait">
-                                <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                              </div>
-                              <h6 class="sow-brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
-                          </div>
+                            <div class="brand-portrait">
+                              <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            </div>
+                            <h6 class="sow-brand-name mx-2">{{orderDetail.supplierName}}</h6>
+                        </div>
                       </div>
                   </div>
               </section>
+              <section class="section-plan-info ps-4">
+                <div class="which-plan d-flex">
+                  <div class="which-plan-label">
+                    单品套餐:
+                  </div>
+                  <span class="ms-3 plan-type">{{ explainCellPlanTypeV(orderDetail.planType) }}</span>
+                </div>
+                <div class="plan-content-wrapper pt-3">
+                    <div class="plan-content-header">
+                        <p class="paragraph">
+                          {{orderDetail.planTitle}}
+                        </p>
+                    </div>
+                    <div class="plan-content-info pt-2">
+                      <p class="paragraph">
+                        {{orderDetail.planContent}}
+                      </p>
+                    </div>
+                    <div class="plan-content-feature">
+                      <div class="plan-feature-label"> 套餐内容： </div>
+                      <p class="paragraph">
+                        {{orderDetail.feature}}
+                      </p>
+                    </div>
+                      <div class="price py-4">
+                        <i>
+                          ￥
+                        </i>
+                        <ins class="text-decoration-none price-txt">{{orderDetail.price}}</ins>
+                      </div>
+                      <div class="plan-mark">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
+                          <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
+                          <defs>
+                          <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
+                          <stop offset="0.314" stop-color="#FF9800"/>
+                          <stop offset="0.662" stop-color="#FF6D00"/>
+                          <stop offset="0.972" stop-color="#F44336"/>
+                          </radialGradient>
+                          <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
+                          <stop offset="0.214" stop-color="#FFF176"/>
+                          <stop offset="0.328" stop-color="#FFF27D"/>
+                          <stop offset="0.487" stop-color="#FFF48F"/>
+                          <stop offset="0.672" stop-color="#FFF7AD"/>
+                          <stop offset="0.793" stop-color="#FFF9C4"/>
+                          <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
+                          <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
+                          <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
+                          <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
+                          </radialGradient>
+                          </defs>
+                          </svg>
+                          
+                        <span class="ms-2 tag-desc">{{explainCellPlanOrderTagV(orderDetail.tag)}}</span>
+                      </div>
+                  </div>
 
-            <!-- edit feature start  -->
-            <section v-if="workflow.mark=='1' && workflow.ac=='1'" class="section-tool-bar ps-4 mb-5">
-              <div class="d-flex tool-bar mt-5">
-                <span>
-                  <button v-preventreclick  @click="newMillstoneV" type="button" id="btn-save-workflow" class="btn btn-outline-light">
-                    <i class="bi bi-plus"></i>
-                    <span>添加任务</span>
-                  </button>
-                </span>
-                <span class="ms-5">
+              </section>
+
+                </div>            
+
+              </div>
+            <!-- sow tab end -->
+            <!-- deliver tab begin -->
+              <div class="tab-pane fade" id="deliver-tab-pane" role="tabpanel" aria-labelledby="deliver-tab" tabindex="0">
+
+                <div class="deliver-panel-container">
+
+                  <div class="deliver-panel-header">
+                    <section class="event-wrapper new-order">
+
+                      <div class="d-flex ps-3">
+
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <button  @click="showAddNewDeliverModalV"  class="btn btn-outline-primary">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 4.5H6V1.5H4.5V4.5H1.5V6H4.5V9H6V6H9V4.5Z" fill="currentColor"/>
+                                <path d="M22.4393 12.4545L20.1893 7.2045C20.1315 7.06956 20.0354 6.95455 19.9129 6.87375C19.7903 6.79295 19.6468 6.74992 19.5 6.75H17.25V5.25C17.25 5.05109 17.1709 4.86032 17.0303 4.71967C16.8897 4.57902 16.6989 4.5 16.5 4.5H11.25V6H15.75V15.417C15.4082 15.6154 15.1092 15.8796 14.87 16.1941C14.6309 16.5088 14.4563 16.8676 14.3565 17.25H9.6435C9.48037 16.6063 9.10725 16.0354 8.58315 15.6276C8.05912 15.2198 7.41404 14.9984 6.75 14.9984C6.08596 14.9984 5.44089 15.2198 4.91683 15.6276C4.39277 16.0354 4.01965 16.6063 3.8565 17.25H3V10.5H1.5V18C1.5 18.1989 1.57902 18.3897 1.71967 18.5303C1.86032 18.6709 2.05109 18.75 2.25 18.75H3.8565C4.01965 19.3937 4.39277 19.9646 4.91683 20.3724C5.44089 20.7802 6.08596 21.0016 6.75 21.0016C7.41404 21.0016 8.05912 20.7802 8.58315 20.3724C9.10725 19.9646 9.48037 19.3937 9.6435 18.75H14.3565C14.5196 19.3937 14.8927 19.9646 15.4168 20.3724C15.9409 20.7802 16.586 21.0016 17.25 21.0016C17.914 21.0016 18.5591 20.7802 19.0832 20.3724C19.6073 19.9646 19.9804 19.3937 20.1435 18.75H21.75C21.9489 18.75 22.1397 18.6709 22.2803 18.5303C22.4209 18.3897 22.5 18.1989 22.5 18V12.75C22.5 12.6484 22.4794 12.5479 22.4393 12.4545ZM6.75 19.5C6.45333 19.5 6.16332 19.412 5.91665 19.2472C5.66997 19.0824 5.47771 18.8481 5.36418 18.574C5.25065 18.2999 5.22095 17.9984 5.27882 17.7074C5.3367 17.4164 5.47956 17.1491 5.68934 16.9394C5.89912 16.7296 6.1664 16.5867 6.45737 16.5288C6.74834 16.471 7.04993 16.5007 7.32403 16.6142C7.5981 16.7277 7.8324 16.92 7.99717 17.1667C8.16202 17.4134 8.25 17.7033 8.25 18C8.2494 18.3977 8.09115 18.7788 7.80997 19.06C7.5288 19.3411 7.14764 19.4994 6.75 19.5ZM17.25 8.25H19.005L20.613 12H17.25V8.25ZM17.25 19.5C16.9533 19.5 16.6634 19.412 16.4167 19.2472C16.17 19.0824 15.9777 18.8481 15.8642 18.574C15.7507 18.2999 15.721 17.9984 15.7788 17.7074C15.8367 17.4164 15.9796 17.1491 16.1894 16.9394C16.3991 16.7296 16.6664 16.5867 16.9574 16.5288C17.2484 16.471 17.5499 16.5007 17.824 16.6142C18.0981 16.7277 18.3324 16.92 18.4972 17.1667C18.662 17.4134 18.75 17.7033 18.75 18C18.7496 18.3977 18.5915 18.779 18.3102 19.0602C18.029 19.3415 17.6477 19.4996 17.25 19.5ZM21 17.25H20.1435C19.9783 16.6076 19.6046 16.0381 19.0809 15.631C18.5573 15.2237 17.9133 15.0019 17.25 15V13.5H21V17.25Z" fill="currentColor"/>
+                                </svg>                                
+                            </button>
+                         
+                          </div>
+                            <span class="opt_item_desc">新交付</span>
+                        </div>
+
+                        <div class="opt_item_container d-flex flex-column justify-content-center">
+                          <div class="opt_item_head">
+                            <a :href="'/messages/'+orderDetail.consumerUserId">
+                              <button   class="btn btn-outline-primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M8.99991 11.9999H14.9999" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                                  <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                                  <path d="M15 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H15" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
+                                  </svg> 
+                              </button>
+                            </a>
+                          </div>
+                            <span class="opt_item_desc">私信客户</span>
+                        </div>
+
+                      </div>
+                    </section>
+                  </div>
+                  <div v-show="isEmptyObjectV(mpdc__paperDeliver.records)" class="content-block">
+  
+                    <div  v-if="orderDetail.tag==='3'" class="d-flex flex-column">
+                      <span>单品订单已支付，点击【启动交付】开始履约交付</span>
+                      <div class="py-3">
+                        <button v-preventreclick @click="tagCellPlanOrderAsDeliveringV" type="button" class="btn btn-primary">启动交付</button>
+                      </div>
+                    </div>
+                    <span  v-if="orderDetail.tag!='3'" >
+                      还没有交付记录！
+                    </span>
+                  </div>
+                  <div class="deliver-record-container">
+                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
                   
-                  <button v-preventreclick  @click="replaceWorkflowV" type="button" id="btn-save-workflow" class="btn btn-outline-primary">
-                    <i class="bi bi-check-lg"></i>
-                    保存任务集
-                    <sup 
-                    :class="{'disabled': !btn_ctl.activate_general_save_btn, 
-                            'dot-red': btn_ctl.activate_general_save_btn}"
-                    class="dot"></sup>
-                  </button>
-                </span>
-                
-              </div>
-            </section>
-            <section v-if="workflow.mark=='1' && workflow.ac=='1'" class="section-workspace">
-                <div class="edit-pannel">
-                    <ul class="timeline">
-                        <li v-for="(item,mIndex) in workflow.millstones" class="timeline-item">
-                          <json-node class="json-item-node millstone-title d-flex flex-row">
-                            <div class="pt-2">
-                              <span v-preventreclick  @click="removeMillstoneV(mIndex)" class="option-remove me-2">
-                                <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="删除任务">           
-                                  <i class="bi bi-dash-circle"></i>
-                                </a>
-                              </span>
-                            </div>
-                            <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="item.title" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务标题" aria-describedby="addon-wrapping">
-
-                          </json-node>
-                          <json-node class="d-flex flex-column">
-                            <span>
-                              目标
-                              <span v-preventreclick  @click="newObjToFirstV(mIndex)" class="item-setting-plus">
-                                <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务目标">           
-                                  <i class="bi bi-plus"></i>
-                                </a>
-                              </span>
-                            </span>
-                            <json-node v-for="(obj,objIndex) in item.objective" class="json-item-node d-flex flex-row">  
-                              <div class="item-setting mx-1 my-1">
-                                <span v-preventreclick  @click="newObjAfterV(mIndex,objIndex)" class="item-setting-plus">
-                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务目标">           
-                                    <i class="bi bi-plus"></i>
-                                  </a>
-                                </span>
-                                <span v-preventreclick  @click="removeObjV(mIndex,objIndex)" class="item-setting-x">
-                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除任务目标">           
-                                    <i class="bi bi-dash"></i>
-                                  </a>
-                                </span>
-                              </div>  
-                              <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">           
-                            </json-node>
-                          </json-node>
-                          <json-node class="d-flex flex-column">
-                            <span>
-                              关键结果
-                              <span v-preventreclick  @click="newMetricToFirstV(mIndex)" class="item-setting-plus">
-                                <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务验收指标">           
-                                  <i class="bi bi-plus"></i>
-                                </a>
-                              </span>
-                            </span>
-                            <json-node v-for="(metric,metricIndex) in item.metric" class="json-item-node d-flex flex-row"> 
-                              <div class="item-setting mx-1 my-1">
-                                <span v-preventreclick  @click="newMetricAfterV(mIndex,metricIndex)" class="item-setting-plus">
-                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务验收指标">           
-                                    <i class="bi bi-plus"></i>
-                                  </a>
-                                </span>
-                                <span  v-preventreclick  @click="removeMetric(mIndex,metricIndex)" class="item-setting-x">
-                                  <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除任务验收指标">           
-                                    <i class="bi bi-dash"></i>
-                                  </a>
-                                </span>
-                              </div>               
-                              <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="metric.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写验收指标" aria-describedby="addon-wrapping">
-                            </json-node>
-                          </json-node>
-
-                          <json-node class="d-flex align-items-center">
-                            <span>
-                              结算比例(%) 
-                              <a data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="完成该任务结算比例，假设订单200，结算比例 20 ，任务完成时结算金额为200 * 0.2 = 40">           
-                                <i class="bi bi-info-circle"></i>           
-                              </a>
-                            </span> 
-                            <span>
-                              <input @change="btn_ctl.activate_general_save_btn = true"  
-                              @input="transformInputNumberV($event)"
-                               min="1" max="100" step="1"
-                        type="text" v-model="item.payRate" class="form-control millstone-input-box ms-2" placeholder="填写完成任务时结算比例" aria-describedby="addon-wrapping">                                </span>
-                          </json-node>  
-
-                          <json-node class="d-flex align-items-center">
-                            <span>开始时间</span> 
-                            <span>
-                              <input data-olddate="" @input="userInputDatePickerHandlerV($event)" @change="btn_ctl.activate_general_save_btn = true" type="text"   v-model="item.start"  class="form-control millstone-input-box datepicker ms-2"  placeholder="填写任务开始时间"  autocomplete="off"> 
-                            </span>
-                          </json-node>  
-
-                          <json-node class="d-flex align-items-center pb-5">
-                            <span>结束时间</span> 
-                            <span>
-                              <input data-olddate="" @input="userInputDatePickerHandlerV($event)" @change="btn_ctl.activate_general_save_btn = true" type="text"   v-model="item.end"  class="form-control millstone-input-box datepicker ms-2"  placeholder="填写任务结束时间"  autocomplete="off">
-                            </span>
-                          </json-node>  
-                        </li>
+                      <div class="d-flex">
+                        <div>
+                          交付内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.deliverName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                      </div>
+  
+                      <div class="d-flex">
                         
-                      </ul>
+                        <div>
+                          预览内容：
+                        </div>
+                        <div class="record-filename">
+                          {{record.previewName}}
+                        </div>
+                        <div class="ms-2">
+                          <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+                   
+                      </div>
+  
+                      <div>
+                        <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
+                      </div>
+                      <div>
+                        <span>提交时间：{{record.createAt}}</span>
+                      </div>
+  
+                      <div class="d-flex">
+                        <div class="delivery-remark-heading">留言：</div>
+                        <div class="delivery-remark-content">
+                          <p class="delivery-remark">
+                            {{record.msg}}
+                          </p>
+                        </div>
+                      </div>
+  
+                    </div>
+                  </div>
+
                 </div>
-            </section>
-            <!-- edit feature end -->
-            <section v-if="!(workflow.mark=='1' && workflow.ac=='1')" class="section-display-header ps-4 my-4">
-              <div class="d-flex inner-header">
-                <span>任务集</span>
-              </div>
-            </section>
-            <section v-if="!(workflow.mark=='1' && workflow.ac=='1')" class="section-workspace d-flex  px-3 pb-5 px-lg-5 mx-lg-5">
-                <div class="display-pannel">
-                    <ul class="timeline">
-                      <li :class="{'active': !!workflow.doneStageNo && i >= Number(workflow.doneStageNo)}" v-for="(millstone,i) in workflow.millstones" class="timeline-item pb-3">
-                        <json-node class="json-item-node millstone-title my-0 d-flex align-items-center">
-                          <h5>{{millstone.title}}</h5>
-                        </json-node>
-                        <json-node class="d-flex flex-column">
-                          任务目标:
-                          <json-node v-for="objective in millstone.objective">    
-                            <span>{{objective.entry}}</span>            
-                          </json-node>
-                        </json-node>
-                        <json-node>
-                          验收标准:
-                          <json-node v-for="metric in millstone.metric">    
-                            <span>{{metric.entry}}</span>            
-                          </json-node>
-                        </json-node>
-                        <json-node>
-                          结算比例:<span class="ms-2">{{millstone.payRate}}%</span>                            
-                        </json-node>  
-                        <json-node>
-                          开始时间:<span class="ms-2">{{millstone.start}}</span>                             
-                        </json-node>  
-                        <json-node>
-                          结束时间:<span class="ms-2">{{millstone.end}}</span>                            
-                        </json-node>  
-                      </li>
-                      </ul>
-                </div>
-          
-            </section>
-            <section class="section-rule-check ps-4 my-4">
-              <div class="d-flex inner-header">
-                <span>规则检查</span>
-              </div>
-              <div class="display-pannel">
-                <ol>
-                  <li v-for="res in ruleCheckResults">{{res}}</li>
-                </ol>
 
                 
+                
               </div>
-            </section>
-            <div class="workspace-pps ps-4 pb-5">
-              <div>
-                <span><i class="bi bi-pin-angle me-2"></i>服务商可联系客户授权「编辑服务内容」权限，开启协作.</span> 
-              </div>
-              <div>
-                <span><i class="bi bi-pin-angle me-2"></i>特约采用分步交付设计，服务商在每一阶段任务完成之后，向客户发起账单支付请求.账单支付请前往【账单管理】.</span> 
-              </div>
+
+            <!-- deliver tab end -->
+
+
+
             </div>
-
-              </div>
-            </div>
-
-            
           </div>
-
-          </div>
+          
+           
           
         </main>
+        
       </content>
       <footer></footer>
       <section class="modals">
+
+        <div class="modal-container">
+          <!-- Modal -->
+          <div class="modal fade" id="newDeliverModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">准备交付内容</h1>
+                  <button @click="closeDeliverPaperModalHandlerV"  type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form onsubmit="return false">
+                    <div class="row mb-3">
+                      <label class="col-sm-4 col-form-label">
+                        预览文件
+                        <div class="help-text">
+                          上传预览文件，采购商通过该文件判断是否接受您的交付内容。(最大20M)                          </div>
+                      </label>
+                      <div class="col-sm-8">
+                        <input type="file" @change="handlePreviewFileUpload" class="form-control form-control-sm" id="inputPreviewFile">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label  class="col-sm-4 col-form-label">
+                        交付文件
+                        <div class="help-text">
+                          上传交付文件，最终的交付内容。(最大20M)    
+                        </div>
+                      </label>
+                      <div class="col-sm-8">
+                        <input type="file" @change="handleDeliverFileUpload"  class="form-control form-control-sm" id="inputDeliverFile">
+                      </div>
+                    </div>
+                  </form>
+               
+                </div>
+                <div class="modal-footer btn-light">
+                  <button
+                  :class="{'disabled': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded , 
+                        'btn-primary': !delieverOrPreviewFileIsEmpty && !deliverFileSizeExceeded && !previewFileSizeExceeded,
+                        'btn-secondary': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded}"
+                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">交付内容</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="modal-container">
           <!-- Modal -->
           <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1">
@@ -743,7 +728,9 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-millstone-action.js"></script>
+  <script type="module" src="/estudio/javascripts/packages-order-deliver.js"></script>
+
+
 
 </body>
 </html>

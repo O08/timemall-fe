@@ -62,7 +62,7 @@ const CellPlanOrderDeliverCompoent = {
         repayV(){
             repay().then(response=>{
                 if(response.data.code==200){
-                    this.findPlanDetailV();// from studio-plan.js
+                    this.findPlanDetailV();// from packages-order-deliver.js
                     this.doFetchPaperDeliverDetailV();
 
                     Api.sendOrderReceivingEmail(EmailNoticeEnum.CELL_PLAN_ORDER_RECEIVING,response.data.planOrderId);
@@ -88,7 +88,7 @@ const CellPlanOrderDeliverCompoent = {
         refundV(){
             refund().then(response=>{
                 if(response.data.code==200){
-                    this.findPlanDetailV();// from studio-plan.js
+                    this.findPlanDetailV();// from packages-order-deliver.js
                     this.doFetchPaperDeliverDetailV();
                     customAlert.alert("单品订单已退款！");
                 }
@@ -132,7 +132,7 @@ const CellPlanOrderDeliverCompoent = {
         deliverPaperV(){
             deliverPaper().then(response=>{
                 if(response.data.code==200){
-                    this.findPlanDetailV();// from studio-plan.js
+                    this.findPlanDetailV();// from packages-order-deliver.js
                     $("#newDeliverModal").modal("hide"); // hide modal
                     this.doFetchPaperDeliverDetailV();
                 }

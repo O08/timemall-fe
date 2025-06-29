@@ -231,7 +231,7 @@ millstoneAuditPage.loadWorkflowInfoV();
 function goViewOption(){
     const id = getQueryVariable("workflow_id");
     if(id){
-        let url = "/estudio/studio-millstone-action?option=view&workflow_id="+ id;
+        let url = "/estudio/gig-order-deliver?option=view&workflow_id="+ id;
         history.pushState(null, "", url);
         millstoneAuditPage.url_var_option="view";
     }

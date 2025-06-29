@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
     
-    <link rel="stylesheet" href="/epod/stylesheets/pod-millstone-cell.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod-gig-order.scss">
 
 
 </head>
@@ -31,7 +31,7 @@
               </svg>
             </button>
           </div>
-          <a href="/epod/pod-millstone">
+          <a href="/epod/pod-packages-order">
             <div class="d-flex align-items-center logo">
               <img src="/common/icon/logo_blv-final-white.png" alt="logo">
               <h2 class="mb-0 ms-2">E-Pod</h2>
@@ -184,7 +184,7 @@
           <!-- menu -->
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
-              <a class="nav-link active" aria-current="page">
+              <a class="nav-link active" href="/epod/pod-packages-order">
                 <div class="nav-icon">
                   <i class="bi bi-truck"></i>
                 </div>
@@ -230,17 +230,17 @@
           <div class="first-nav-tabs-container">
             <ul class="nav nav-tabs border-0 ">
               <li class="nav-item" role="presentation">
-                <a href="/epod/pod-millstone">
+                <a href="/epod/pod-packages-order">
                   <button class="nav-link">单品</button>
                 </a>
               </li>
               <li class="nav-item" role="presentation">
-                <a href="/epod/pod-millstone-cell">
+                <a href="/epod/pod-gig-order">
                   <button class="nav-link active">特约</button>
                 </a>
               </li>
               <li class="nav-item" role="presentation">
-                <a href="/epod/pod-virtual">
+                <a href="/epod/pod-virtual-order">
                   <button class="nav-link">虚拟商品</button>
                 </a>
               </li>
@@ -302,7 +302,7 @@
                               <div class="option-container">
                               
                                 <span class="option-edit me-4">
-                                  <a :href="'/epod/pod-millstone-edit?workflow_id=' + trans.id">
+                                  <a :href="'/epod/gig-order-requirement?workflow_id=' + trans.id">
                                     <button type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="编辑服务内容">           
                                       <i class="bi bi-pencil-square"></i>                    
                                     </button>
@@ -394,7 +394,7 @@
                               </div>
                             </td>
                             <td class="col-product">
-                              <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                              <a :href="'/epod/gig-order-view?workflow_id=' + item.id">
                                 <div class="ellipsis-1">
                                   {{item.service}}
                                 </div>
@@ -454,7 +454,7 @@
                         <tbody>
                           <tr v-for="item in auditing_pagination.records">
                             <td class="col-product-no-option">
-                              <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                              <a :href="'/epod/gig-order-view?workflow_id=' + item.id">
                                 <div class="ellipsis-1">
                                   {{item.service}}
                                 </div>
@@ -524,7 +524,7 @@
                               </div>
                             </td>
                             <td class="col-big-product">
-                              <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                              <a :href="'/epod/gig-order-view?workflow_id=' + item.id">
                                 <div class="ellipsis-1">
                                   {{item.service}}
                                 </div>
@@ -593,7 +593,7 @@
                               </span>
                             </td>
                             <td class="col-big-product">
-                              <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                              <a :href="'/epod/gig-order-view?workflow_id=' + item.id">
                                 <div class="ellipsis-1">
                                   {{item.service}}
                                 </div>
@@ -654,7 +654,7 @@
                         <tbody>
                           <tr v-for="item in suspend_pagination.records">
                             <td class="col-product-no-option">
-                              <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                              <a :href="'/epod/gig-order-view?workflow_id=' + item.id">
                                 <div class="ellipsis-1">
                                   {{item.service}}
                                 </div>
@@ -715,7 +715,7 @@
                         <tbody>
                           <tr v-for="item in finish_pagination.records">
                             <td class="col-product-no-option">
-                              <a :href="'/epod/pod-millstone-view?workflow_id=' + item.id">
+                              <a :href="'/epod/gig-order-view?workflow_id=' + item.id">
                                 <div class="ellipsis-1">
                                   {{item.service}}
                                 </div>
@@ -815,7 +815,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script  type="module" src="/common/javascripts/tm.js"></script>
-  <script  type="module" src="/epod/javascripts/pod-millstone-cell.js"></script>
+  <script  type="module" src="/epod/javascripts/pod-gig-order.js"></script>
 
 
 </body>

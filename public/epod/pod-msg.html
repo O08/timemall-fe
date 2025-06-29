@@ -30,7 +30,7 @@
               </svg>
             </button>
           </div>
-          <a href="/epod/pod-millstone">
+          <a href="/epod/pod-packages-order">
             <div class="d-flex align-items-center logo">
               <img src="/common/icon/logo_blv-final-white.png" alt="logo">
               <h2 class="mb-0 ms-2">E-Pod</h2>
@@ -183,7 +183,7 @@
           <!-- menu -->
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
-              <a class="nav-link" href="/epod/pod-millstone">
+              <a class="nav-link" href="/epod/pod-packages-order">
                 <div class="nav-icon">
                   <i class="bi bi-truck"></i>
                 </div>
@@ -237,7 +237,7 @@
                 <tr v-for="notice in eventFeed.records">
                   <td class="col-msg">
                     <div class="ellipsis-1">
-                      <a class="url-link" :href="'/epod/pod-millstone-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
+                      <a class="url-link" :href="'/epod/gig-order-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
                         <p class="pt-1"><b>{{JSON.parse(notice.feed).upDesc}}</b>的新消息，点击查看</p>
                       </a>
                     </div>

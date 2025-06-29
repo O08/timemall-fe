@@ -182,7 +182,7 @@ function transformInputNumber(val,min,max){
 }
 function changeUrlQueryvariable(q){
   
-  let url = "/mall/mall-plan?q="+ q;
+  let url = "/mall/packages-economy?q="+ q;
   history.pushState(null, "", url);
   
 }

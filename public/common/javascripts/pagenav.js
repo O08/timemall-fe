@@ -24,7 +24,7 @@ export  function goWelcome(){
 }
 
 export function goStudioStore(){
-    go("/estudio/studio-store")
+    go("/estudio/studio-gig-store")
 }
 export function goStudioVirtualProductStore(){
     go("/estudio/studio-virtual-store")

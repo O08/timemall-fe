@@ -89,7 +89,7 @@ const TobChatCompoent = {
        this.putMsgHelperV(); // mark msg as read
     },
     changeChannelToBroadCastV(){
-      this.currentRTMChannel = this.paperDetail.mpsId; // from studio-tob-action.js
+      this.currentRTMChannel = this.paperDetail.mpsId; // from b2b-order-deliver.js
 
       this.changeRoomV(this.paperDetail.mpsId);
 
