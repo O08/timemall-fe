@@ -16,6 +16,8 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            current_tb: "pending",
+            searchQ: "",
             couponInfo: {},
             cellExpense: {
                 promotionCreditPointDeductionDifference: 0,
@@ -42,7 +44,8 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
-                    code: BillStatus.Pending
+                    code: BillStatus.Pending,
+                    q:""
                 },
                 paging: {},
                 responesHandler: (response)=>{
@@ -65,7 +68,8 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
-                    code: BillStatus.Paid
+                    code: BillStatus.Paid,
+                    q:""
                 },
                 paging: {},
                 responesHandler: (response)=>{
@@ -83,10 +87,39 @@ const RootComponent = {
         }
     },
     methods: {
+        searchBillV(){
+
+            if(this.current_tb=="pending"){
+             this.waittingpagination.current = 1;
+             this.waittingpagination.param.q=this.searchQ;
+             this.reloadPage(this.waittingpagination);
+            }
+            if(this.current_tb=="paid"){
+             this.paidpagination.current = 1;
+             this.paidpagination.param.q=this.searchQ;
+             this.reloadPage(this.paidpagination);
+            }
+        },
+        refreshPendingPaginationV(){
+            this.current_tb="pending";
+            this.searchQ="";
+            this.waittingpagination.current = 1;
+            this.waittingpagination.param.q="";
+            this.reloadPage(this.waittingpagination);
+        },
+        refreshPaidPaginationV(){
+            this.current_tb="paid";
+            this.searchQ="";
+            this.paidpagination.current = 1;
+            this.paidpagination.param.q="";
+            this.reloadPage(this.paidpagination);
+        },
         showBillPayFocusModalV(bill){
             showBillDetailModal(bill,this);
         },
         payBillV(billId){
+            
+            this.error="";
             payBill(billId).then(response=>{
                 if(response.data.code==200){
                     $("#goTopUpModal").modal("show"); 
@@ -111,7 +144,6 @@ const RootComponent = {
         },
         reload(){
             this.reloadPage(this.waittingpagination);
-            this.reloadPage(this.paidpagination);
             this.retrieveBrandFinInfoV();
         },
         isEmptyObjectV(obj){
@@ -121,7 +153,6 @@ const RootComponent = {
     created() {
         // todo url replace {brand_id}
         this.pageInit(this.waittingpagination);
-        this.pageInit(this.paidpagination);
         this.retrieveBrandFinInfoV();
     },
     updated(){

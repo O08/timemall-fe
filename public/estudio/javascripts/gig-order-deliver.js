@@ -195,7 +195,7 @@ function approvedWorkflow(){
         if(response.data.code == 200){
             goViewOption();
             millstoneAuditPage.workflow.mark=WorkflowStatus.Audited;
-            customAlert.alert("好棒，任务已经提交到客户进行定稿.");
+            customAlert.alert("好棒，任务已审查通过，可等待/联系客户启动需求交付.");
         }
         if(response.data.code!=200){
             customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
@@ -210,7 +210,7 @@ function rejectWorkflow(){
         if(response.data.code == 200){
             goViewOption();
             millstoneAuditPage.workflow.mark=WorkflowStatus.InQueue;
-            customAlert.alert("特约任务已驳回，接下来请与客户一起完善交付内容吧.")
+            customAlert.alert("需求已驳回，接下来请与客户一起完善需求内容吧.")
         }
         if(response.data.code!=200){
             customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);

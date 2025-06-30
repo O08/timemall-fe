@@ -17,6 +17,8 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 const RootComponent = {
     data() {
         return {
+            current_tb: "trans",
+            searchQ: "",
             transpagination:{
                 url: "/api/v1/web_epod/me/millstone/workflow",
                 size: 10,
@@ -25,6 +27,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.InQueue
                 },
                 paging: {},
@@ -48,6 +51,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.Auditing
                 },
                 paging: {},
@@ -71,6 +75,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.Audited
                 },
                 paging: {},
@@ -94,6 +99,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.Starred
                 },
                 paging: {},
@@ -117,6 +123,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.Paused
                 },
                 paging: {},
@@ -140,6 +147,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.Suspend
                 },
                 paging: {},
@@ -163,6 +171,7 @@ const RootComponent = {
                 pages: 0,
                 records: [],
                 param: {
+                    q:"",
                     code: WorkflowStatus.Finish
                 },
                 paging: {},
@@ -182,6 +191,43 @@ const RootComponent = {
         }
     },
     methods: {
+        searchOrderV(){
+            if(this.current_tb=="trans"){
+              this.transpagination.current = 1;
+              this.transpagination.param.q=this.searchQ;
+              this.reloadPage(this.transpagination);
+            }
+            if(this.current_tb=="auditing"){
+              this.auditing_pagination.current = 1;
+              this.auditing_pagination.param.q=this.searchQ;
+              this.reloadPage(this.auditing_pagination);
+            }
+            if(this.current_tb=="confirm"){
+              this.confirm_pagination.current = 1;
+              this.confirm_pagination.param.q=this.searchQ;
+              this.reloadPage(this.confirm_pagination);
+            }
+            if(this.current_tb=="starred"){
+              this.starredTranspagination.current = 1;
+              this.starredTranspagination.param.q=this.searchQ;
+              this.reloadPage(this.starredTranspagination);
+            }
+            if(this.current_tb=="paused"){
+              this.paused_pagination.current = 1;
+              this.paused_pagination.param.q=this.searchQ;
+              this.reloadPage(this.paused_pagination);
+            }
+            if(this.current_tb=="suspend"){
+              this.suspend_pagination.current = 1;
+              this.suspend_pagination.param.q=this.searchQ;
+              this.reloadPage(this.suspend_pagination);
+            }
+            if(this.current_tb=="finish"){
+              this.finish_pagination.current = 1;
+              this.finish_pagination.param.q=this.searchQ;
+              this.reloadPage(this.finish_pagination);
+            }
+         },
         confirmMillstoneV(workflowId){
             confirmMillstone(workflowId);
         },
@@ -202,46 +248,65 @@ const RootComponent = {
         },
         reloadTableWhenConfirmMillstone(){
             this.reloadPage(this.confirm_pagination);
-            this.reloadPage(this.starredTranspagination);
         },
         reloadTableWhenGoAudit(){
             this.reloadPage(this.transpagination);
-            this.reloadPage(this.auditing_pagination);
         },
         refreshTranspaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "40px";
+            this.current_tb="trans";
+            this.searchQ="";
+            this.transpagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "30px";
             this.transpagination.current = 1;
             this.reloadPage(this.transpagination);
         },
         refreshStarredTranspaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "320px";
+            this.current_tb="starred";
+            this.searchQ="";
+            this.starredTranspagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "296px";
             this.starredTranspagination.current = 1;
             this.reloadPage(this.starredTranspagination);
         },
         refreshConfirmPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "240px";
+            this.current_tb="confirm";
+            this.searchQ="";
+            this.confirm_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "210px";
             this.confirm_pagination.current = 1;
             this.reloadPage(this.confirm_pagination);
         },
         refreshSuspendPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "510px";
+            this.current_tb="suspend";
+            this.searchQ="";
+            this.suspend_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "460px";
             this.suspend_pagination.current = 1;
             this.reloadPage(this.suspend_pagination);
         },
         refreshPausedPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "420px";
+            this.current_tb="paused";
+            this.searchQ="";
+            this.paused_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "378px";
             this.paused_pagination.current = 1;
             this.reloadPage(this.paused_pagination);
 
         },
         refreshfinishPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "600px";
+            this.current_tb="finish";
+            this.searchQ="";
+            this.finish_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "545px";
             this.finish_pagination.current = 1;
             this.reloadPage(this.finish_pagination);
 
         },
         refreshAuditingPaginationV(){
-            document.querySelector("#bubble-tab li.pointer").style.left = "150px";
+            this.current_tb="auditing";
+            this.searchQ="";
+            this.auditing_pagination.param.q="";
+            document.querySelector("#bubble-tab li.pointer").style.left = "128px";
             this.auditing_pagination.current = 1;
             this.reloadPage(this.auditing_pagination);
 
@@ -320,17 +385,7 @@ function changeMarkForTask(workflowId,code){
         if(response.data.code==200){
             // 刷新任务箱
           millStonePage.reloadPage(millStonePage.starredTranspagination);
-          switch(code){
-            case WorkflowStatus.Paused:
-                millStonePage.reloadPage(millStonePage.paused_pagination);
-                break;
-            case WorkflowStatus.Suspend:
-                millStonePage.reloadPage(millStonePage.suspend_pagination);
-                break;
-            case WorkflowStatus.Finish:
-                millStonePage.reloadPage(millStonePage.finish_pagination);
-                break;
-          }
+
         }
      });
 }
@@ -340,7 +395,6 @@ function resumeTask(workflowId){
     markMillstone(workflowId,WorkflowStatus.Starred).then(response=>{
         if(response.data.code==200){
             // 刷新任务箱、暂停列表
-          millStonePage.reloadPage(millStonePage.starredTranspagination);
           millStonePage.reloadPage(millStonePage.paused_pagination);
 
         }

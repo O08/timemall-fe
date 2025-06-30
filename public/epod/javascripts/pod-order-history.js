@@ -8,6 +8,7 @@ import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 
 const RootComponent = {
@@ -21,7 +22,9 @@ const RootComponent = {
                 total: 0,
                 pages: 0,
                 records: [],
-                param: {},
+                param: {
+                    q: ""
+                },
                 paging: {},
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -38,6 +41,11 @@ const RootComponent = {
         }
     },
     methods: {
+        retrieveTransV(){
+            this.transpagination.current=1;
+            this.transpagination.size=10;
+            this.reloadPage(this.transpagination);
+        },
         showContactInfoV(brandId){
             showContactInfo(brandId);
         },
@@ -61,6 +69,7 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(Pagination);
+app.mixin(DirectiveComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,

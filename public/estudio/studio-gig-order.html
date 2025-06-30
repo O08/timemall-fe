@@ -290,11 +290,11 @@
               <button v-preventreclick  @click="refreshTranspaginationV"  class="nav-link active" id="new-order-tab" data-bs-toggle="tab" data-bs-target="#new-order-tab-pane" type="button" role="tab" aria-controls="new-order-tab-pane" aria-selected="true">新单</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button v-preventreclick  @click="refreshAuditingPaginationV" class="nav-link" id="audit-tab" data-bs-toggle="tab" data-bs-target="#audit-tab-pane" type="button" role="tab" aria-controls="audit-tab-pane" aria-selected="true">审查</button>
+              <button v-preventreclick  @click="refreshAuditingPaginationV" class="nav-link" id="audit-tab" data-bs-toggle="tab" data-bs-target="#audit-tab-pane" type="button" role="tab" aria-controls="audit-tab-pane" aria-selected="true">待审查</button>
             </li>
 
             <li class="nav-item" role="presentation">
-              <button v-preventreclick  @click="refreshConfirmPaginationV" class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿中</button>
+              <button v-preventreclick  @click="refreshConfirmPaginationV" class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">待启动</button>
             </li>
             <li class="nav-item" role="presentation">
               <button v-preventreclick @click="refreshStarredTranspaginationV" class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
@@ -306,7 +306,7 @@
               <button v-preventreclick @click="refreshSuspendPaginationV"  class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">已中止</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button  v-preventreclick @click="refreshfinishPaginationV" class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
+              <button  v-preventreclick @click="refreshfinishPaginationV" class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">已关单</button>
             </li>
             <li class="pointer"></li>
           </ul>

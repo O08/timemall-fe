@@ -223,12 +223,20 @@
         <!-- tablist -->
         <ul class="nav nav-tabs border-0" id="bill-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="waiting-tab" data-bs-toggle="tab" data-bs-target="#waiting-tab-pane" type="button" role="tab" aria-controls="waiting-tab-pane" aria-selected="true">待支付</button>
+              <button v-preventreclick  @click="refreshPendingPaginationV"  class="nav-link active" id="waiting-tab" data-bs-toggle="tab" data-bs-target="#waiting-tab-pane" type="button" role="tab" aria-controls="waiting-tab-pane" aria-selected="true">待支付</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid-tab-pane" type="button" role="tab" aria-controls="paid-tab-pane" aria-selected="false">已支付</button>
+              <button v-preventreclick  @click="refreshPaidPaginationV" class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid-tab-pane" type="button" role="tab" aria-controls="paid-tab-pane" aria-selected="false">已支付</button>
             </li>
         </ul>
+        <div class="col st-tool-bar d-flex align-items-center mt-4 mb-3">
+          <div class="tb-search">
+            <div class="tb-search-group">
+              <i class="bi bi-search"></i>
+              <input @keyup.enter.native="searchBillV" v-model="searchQ" type="search"  type="search"  autocomplete="off"  class="input_search" placeholder="搜索...">
+            </div>
+          </div> 
+        </div>
         <!--  tablist content-->
         <div class="tab-content" id="bill-tab-content">
           <div class="tab-pane fade show active" id="waiting-tab-pane" role="tabpanel" aria-labelledby="waiting-tab" tabindex="0">
@@ -242,7 +250,7 @@
                       <th class="option-th"></th>
                       <th class="col-bill-item">项目</th>
                       <th class="col-product">服务</th>
-                      <th class="col-brand">服务商</th>
+                      <th class="col-brand">商家</th>
                       <th scope="col">费用</th>
                       <th scope="col">入库时间</th>
                     </tr>
@@ -260,23 +268,26 @@
                         </div>
                         
                       </td>
-                      <td class="col-bill-item">
+                      <td  :title="bill.stage" class="col-bill-item">
                         <div class="ellipsis-1">
                           {{bill.stage}}
                         </div>
                       </td>
-                      <td class="col-product">
+                      <td  :title="bill.service" class="col-product">
                         <div class="ellipsis-1">
                           {{bill.service}}
                         </div>
                       </td>
-                      <td class="col-brand"> 
-                        <div class="ellipsis-1">
+                      <td :title="bill.brand"  class="col-brand"> 
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + bill.brandUserId">
+                            <img :src="adaptiveImageUriV(bill.brandAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
                           {{bill.brand}}
-                        </div>
+                        </span>
                       </td>
-                      <td class="col-fee">{{bill.amount.toFixed(2)}}</td>
-                      <td class="col-addTime">{{bill.added}}</td>
+                      <td  :title="bill.amount.toFixed(2)"  class="col-fee">{{bill.amount.toFixed(2)}}</td>
+                      <td  :title="bill.added"  class="col-addTime">{{bill.added}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -318,7 +329,7 @@
                     <tr>
                       <th>项目</th>
                       <th>服务</th>
-                      <th scope="col">服务商</th>
+                      <th scope="col">商家</th>
                       <th scope="col">费用</th>
                       <th scope="col">优惠减免</th>
                       <th scope="col">实际付款</th>
@@ -327,25 +338,28 @@
                   </thead>
                   <tbody>
                     <tr v-for="bill in paidpagination.records">
-                      <td class="col-bill-item">
+                      <td  :title="bill.stage"  class="col-bill-item">
                         <div class="ellipsis-1">
                           {{bill.stage}}
                         </div>
                       </td>
-                      <td class="col-product">
+                      <td  :title="bill.service"  class="col-product">
                         <div class="ellipsis-1">
                           {{bill.service}}
                         </div>
                       </td>
-                      <td class="col-brand"> 
-                        <div class="ellipsis-1">
+                      <td  :title="bill.brand"  class="col-brand"> 
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + bill.brandUserId">
+                            <img :src="adaptiveImageUriV(bill.brandAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
                           {{bill.brand}}
-                        </div>
+                        </span>
                       </td>
-                      <td class="col-fee">{{bill.amount.toFixed(2)}}</td>
-                      <td class="col-fee">{{bill.promotionDeduction}}</td>
-                      <td class="col-fee">{{(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)}}</td>
-                      <td class="col-addTime">{{bill.added}}</td>
+                      <td  :title="bill.amount.toFixed(2)"  class="col-fee">{{bill.amount.toFixed(2)}}</td>
+                      <td  :title="bill.promotionDeduction" class="col-fee">{{bill.promotionDeduction}}</td>
+                      <td  :title="(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)" class="col-fee">{{(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)}}</td>
+                      <td  :title="bill.added" class="col-addTime">{{bill.added}}</td>
                     </tr>
                    
                   </tbody>

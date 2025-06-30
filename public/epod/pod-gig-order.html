@@ -255,13 +255,13 @@
               <div class="nav-tabs-container sub-tabs-header mt-4">
                 <ul class="nav nav-tabs" id="bubble-tab" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button v-preventreclick  @click="refreshTranspaginationV" class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">配置任务</button>
+                    <button v-preventreclick  @click="refreshTranspaginationV" class="nav-link active" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">需求沟通</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button v-preventreclick  @click="refreshAuditingPaginationV" class="nav-link" id="auditing-tab" data-bs-toggle="tab" data-bs-target="#auditing-tab-pane" type="button" role="tab" aria-controls="auditing-tab-pane" aria-selected="true">审计中</button>
+                    <button v-preventreclick  @click="refreshAuditingPaginationV" class="nav-link" id="auditing-tab" data-bs-toggle="tab" data-bs-target="#auditing-tab-pane" type="button" role="tab" aria-controls="auditing-tab-pane" aria-selected="true">待审查</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button v-preventreclick  @click="refreshConfirmPaginationV" class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">定稿</button>
+                    <button v-preventreclick  @click="refreshConfirmPaginationV" class="nav-link" id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm-tab-pane" type="button" role="tab" aria-controls="confirm-tab-pane" aria-selected="true">待启动</button>
                   </li>
                   <li class="nav-item" role="presentation">
                     <button v-preventreclick @click="refreshStarredTranspaginationV" class="nav-link" id="task-tab" data-bs-toggle="tab" data-bs-target="#task-tab-pane" type="button" role="tab" aria-controls="task-tab-pane" aria-selected="false">任务箱</button>
@@ -270,14 +270,23 @@
                     <button v-preventreclick @click="refreshPausedPaginationV" class="nav-link" id="paused-tab" data-bs-toggle="tab" data-bs-target="#paused-tab-pane" type="button" role="tab" aria-controls="paused-tab-pane" aria-selected="false">暂停中</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button v-preventreclick @click="refreshSuspendPaginationV" class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">中止</button>
+                    <button v-preventreclick @click="refreshSuspendPaginationV" class="nav-link" id="suspend-tab" data-bs-toggle="tab" data-bs-target="#suspend-tab-pane" type="button" role="tab" aria-controls="suspend-tab-pane" aria-selected="false">已中止</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button v-preventreclick @click="refreshfinishPaginationV" class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">完成</button>
+                    <button v-preventreclick @click="refreshfinishPaginationV" class="nav-link" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish-tab-pane" type="button" role="tab" aria-controls="finish-tab-pane" aria-selected="false">已关单</button>
                   </li>
                   <li class="pointer"></li>
-              </ul>
+                </ul>
               </div>
+
+              <div class="col st-tool-bar d-flex align-items-center mt-2 mb-3">
+                <div class="gig-order-search d-flex">
+                  <form class="nosubmit" onsubmit="return false">
+                    <input @keyup.enter.native="searchOrderV" v-model="searchQ"  class="nosubmit gig-order-search-btn" type="search" placeholder="搜索...">
+                  </form>
+                </div>  
+              </div>
+
               <!--  tablist content-->
               <div class="tab-content" id="millstone-tab-content">
                 <div class="tab-pane fade show active" id="workflow-tab-pane" role="tabpanel" aria-labelledby="workflow-tab" tabindex="0">
@@ -291,7 +300,7 @@
                           <tr>
                             <th scope="col"></th>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -309,7 +318,7 @@
                                   </a>
                                 </span>
                                 <span class="option-go-audit me-2">
-                                  <button v-preventreclick @click="goAuditV(trans.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="通知服务商确认服务内容">           
+                                  <button v-preventreclick @click="goAuditV(trans.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="通知商家确认服务内容">           
                                     <i class="bi bi-hand-index"></i>                  
                                   </button>
                                 </span>
@@ -321,7 +330,14 @@
                                 </div>
                                 <div class="cell-package">时长：{{trans.quantity}} {{transformSbuV(trans.sbu)}}</div>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{trans.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + trans.supplierUserId">
+                                  <img :src="adaptiveImageUriV(trans.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{trans.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{trans.fee.toFixed(2)}}</span> </td>
                             <td class="col-addTime"><span> {{trans.added}}</span></td>
                           </tr>
@@ -365,7 +381,7 @@
                           <tr>
                             <th scope="col"></th>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -401,7 +417,14 @@
                                 <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                               </a>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + item.supplierUserId">
+                                  <img :src="adaptiveImageUriV(item.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{item.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span> </td>
                             <td class="col-addTime"><span>{{item.added}}</span></td>
                           </tr>
@@ -446,7 +469,7 @@
                         <thead>
                           <tr>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -461,7 +484,14 @@
                                 <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                               </a>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + item.supplierUserId">
+                                  <img :src="adaptiveImageUriV(item.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{item.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                             <td class="col-addTime"><span>{{item.added}}</span></td>
                           </tr>
@@ -507,7 +537,7 @@
                           <tr>
                             <th scope="col"></th>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -517,7 +547,7 @@
                             <td class="col-mini-option">
                               <div class="option-container">
                                 <span class="option-mark-millstone me-4">
-                                  <button v-preventreclick @click="confirmMillstoneV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="定稿服务内容，定稿之后不再更改">           
+                                  <button v-preventreclick @click="confirmMillstoneV(item.id)" type="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="启动订单，商家开始提供服务">           
                                     <i class="bi bi-star"></i>
                                   </button>
                                 </span>
@@ -531,7 +561,14 @@
                                 <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                               </a>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + item.supplierUserId">
+                                  <img :src="adaptiveImageUriV(item.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{item.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                             <td class="col-addTime"><span>{{item.added}}</span></td>
                           </tr>
@@ -578,7 +615,7 @@
                           <tr>
                             <th scope="col"></th>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -600,7 +637,14 @@
                                 <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                               </a>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + item.supplierUserId">
+                                  <img :src="adaptiveImageUriV(item.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{item.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                             <td class="col-addTime"><span>{{item.added}}</span></td>
                           </tr>
@@ -646,7 +690,7 @@
                         <thead>
                           <tr>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -661,7 +705,14 @@
                                 <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                               </a>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + item.supplierUserId">
+                                  <img :src="adaptiveImageUriV(item.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{item.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                             <td class="col-addTime"><span>{{item.added}}</span></td>
                           </tr>
@@ -707,7 +758,7 @@
                         <thead>
                           <tr>
                             <th class="col">服务</th>
-                            <th scope="col">服务商</th>
+                            <th scope="col">商家</th>
                             <th scope="col">预计费用</th>
                             <th scope="col">预约日期</th>
                           </tr>
@@ -722,7 +773,14 @@
                                 <div class="cell-package">时长：{{item.quantity}} {{transformSbuV(item.sbu)}}</div>
                               </a>
                             </td>
-                            <td class="col-brand"><span class="ellipsis-1">{{item.supplier}}</span> </td>
+                            <td class="col-brand">
+                              <span class="ellipsis-1">
+                                <a target="_blank" :href="'/messages/' + item.supplierUserId">
+                                  <img :src="adaptiveImageUriV(item.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                                </a>
+                                 {{item.supplier}}
+                              </span>
+                            </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
                             <td class="col-addTime"><span>{{item.added}}</span></td>
                           </tr>

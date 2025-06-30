@@ -290,6 +290,7 @@
                       <thead>
                         <tr>
                           <th class="col-product-no-option">服务</th>
+                          <th class="col-brand text-center">商家</th>
                           <th class="col-fee">
                             单品
                           </th>
@@ -304,19 +305,24 @@
                       </thead>
                       <tbody>
                         <tr v-for="item in plan_pagination.records">
-                          <td class="col-product-no-option">
+                          <td :title="item.cellTitle" class="col-product-no-option">
                             <a :href="'/epod/packages-order-deliver?id=' + item.orderId">
                               <span class="ellipsis-1">
                                 {{item.cellTitle}}
                               </span>
                             </a>
                           </td>
-                          <td class="col-fee"><span>{{explainCellPlanTypeV(item.planType)}}</span> </td>
-                          <td class="col-fee"><span>{{item.price}} </span> </td>
-                          <td class="col-fee"><span>{{item.promotionDeduction}}</span> </td>
-                          <td class="col-fee"><span>{{item.revenue}}</span></td>
-                          <td class="col-fee">{{explainCellPlanOrderTagV(item.tag)}}</td>
-                          <td class="col-addTime"><span> {{item.createAt}}</span></td>
+                          <td :title="item.sellerName"  class="col-brand text-center"> 
+                            <a target="_blank" :href="'/messages/' + item.sellerUserId">
+                              <img :src="adaptiveImageUriV(item.sellerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                            </a>
+                          </td>
+                          <td :title="explainCellPlanTypeV(item.planType)" class="col-fee"><span>{{explainCellPlanTypeV(item.planType)}}</span> </td>
+                          <td :title="item.price" class="col-fee"><span>{{item.price}} </span> </td>
+                          <td :title="item.promotionDeduction" class="col-fee"><span>{{item.promotionDeduction}}</span> </td>
+                          <td :title="item.revenue" class="col-fee"><span>{{item.revenue}}</span></td>
+                          <td :title="explainCellPlanOrderTagV(item.tag)" class="col-fee">{{explainCellPlanOrderTagV(item.tag)}}</td>
+                          <td :title="item.createAt" class="col-addTime"><span> {{item.createAt}}</span></td>
                         </tr>
                         
                         

@@ -219,7 +219,16 @@
         <div class="page-title">
           <h1>我的预约</h1>
         </div>  
-        <div class="table-responsive">
+        <top-search class="section-top-serach">
+          <div class="input-group input-normal-search">
+            <input @keyup.enter.native="retrieveTransV" v-model="transpagination.param.q"   class="form-control top-search-input" type="text"
+              placeholder="搜索..." aria-label="Search">
+            <button v-preventreclick @click="retrieveTransV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </top-search>
+        <div class="table-responsive pt-2">
 
           <div class="table-wrp">
 
@@ -229,15 +238,15 @@
                   <th scope="col"></th>
                   <th>服务</th>
                   <th scope="col">预估费用</th>
+                  <th scope="col">商家</th>
                   <th scope="col">预约日期</th>
-                  <th scope="col">服务商</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="trans in transpagination.records">
                   <td class="td-option">   
                     <div class="option-container">
-                       <span @click="showContactInfoV(trans.brandId)" class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看服务商联系方式">
+                       <span @click="showContactInfoV(trans.brandId)" class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看商家联系方式">
                         <i class="bi bi-person-rolodex"></i>
                        </span>
                        <span  class="btn-option-secondary option-view-contact ms-4" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
@@ -251,19 +260,22 @@
                       </span>
                     </div>   
                   </td>
-                  <td class="col-product">
+                  <td :title="trans.service" class="col-product">
                     <div class="ellipsis-1">
                       {{trans.service}}
                     </div>
                     <div class="cell-package">时长：{{trans.quantity}} {{transformSbuV(trans.sbu)}}</div>
                   </td>
-                  <td>{{trans.fee.toFixed(2)}}</td>
-                  <td>{{trans.added}}</td>
-                  <td class="col-brand">
-                    <div class="ellipsis-1">
+                  <td :title="trans.fee.toFixed(2)">{{trans.fee.toFixed(2)}}</td>
+                  <td :title="trans.supplier" class="col-brand">
+                    <span class="ellipsis-1">
+                      <a target="_blank" :href="'/messages/' + trans.supplierUserId">
+                        <img :src="adaptiveImageUriV(trans.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                      </a>
                       {{trans.supplier}}
-                    </div>
+                    </span>
                   </td>
+                  <td :title="trans.added">{{trans.added}}</td>
                 </tr>
               </tbody>
             </table>
@@ -301,7 +313,7 @@
             <div class="modal-dialog  display-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-gray">
                 <div class="modal-header display-dialog-header-bg">
-                  <h1 class="modal-title fs-5" id="displayModalLabel">服务商联系方式</h1>
+                  <h1 class="modal-title fs-5" id="displayModalLabel">商家联系方式</h1>
                   <button type="button" id="closeDisplayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body display-dialog-body-bg d-flex justify-content-center">

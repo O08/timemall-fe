@@ -33,3 +33,36 @@ body::-webkit-scrollbar {
     font-size: 10px;
     padding-top: .25rem;
 }
+
+.input-normal-search {
+    width: 35%;
+    min-width: 260px;
+    left: 0;
+}
+
+.top-search-input{
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: #fff;
+  border: 1px solid #6c757d;
+}
+
+.top-search-input::placeholder {
+  color: #bbb;
+}
+.top-search-input:focus {
+  border: 1px solid #6c757d;
+  box-shadow: none;
+  outline: none;
+  background: transparent;
+  caret-color: #fff;
+  color: #fff;
+
+}
+.peacemaker-avatar {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
