@@ -87,6 +87,13 @@
                    </button>
                 </a>
               </li>
+              <li v-if="!!getIdentity().hiLinkUrl">
+                <a :href="getIdentity().hiLinkUrl">
+                  <button class="dropdown-item" type="button" >
+                    <i class="bi bi-clouds me-2"></i> {{getIdentity().hiLinkName}}
+                   </button>
+                </a>
+              </li>
             </ul>
 
           </div>

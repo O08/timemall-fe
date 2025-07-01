@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { isValidHttpUrlNeedScheme } from "/common/javascripts/util.js";
+
 export default function BrandContactSetting(params) {
     const {
         need_init = true
@@ -11,7 +13,12 @@ export default function BrandContactSetting(params) {
                     email: "",
                     wechat: ""
                  },
-                 contact_already_change: false
+                 studio: {
+                    hiLinkName: "",
+                    hiLinkUrl: ""
+                 },
+                 contact_already_change: false,
+                 studio_already_change: false
             }
         },
         methods: {
@@ -33,6 +40,14 @@ export default function BrandContactSetting(params) {
             },
             closewechatQrModalHandlerV(){
                 closewechatQrModalHandler();
+            },
+            validateStudioSettingFormV(){
+              return !!this.studio.hiLinkName && !!this.studio.hiLinkUrl && isValidHttpUrlNeedScheme(this.studio.hiLinkUrl)  && this.studio_already_change
+            },
+            settingStudioV(){
+                settingStudio(this);
+                this.studio_already_change = false;
+                this.removeIdentity(); // from auth.js
             }
              
         },
@@ -77,11 +92,31 @@ function saveContactInfo(brandId,dto)
         }
     });  
 }
+function saveStudioInfo(dto){
+    const url = "/api/v1/web_estudio/brand/setting/studio_hi_link";
+    $.ajax({
+        url: url,
+        data: JSON.stringify(dto),
+        type: "put",
+        dataType:"json",
+        contentType: "application/json",
+        success:function(data){
+            // todo 
+            if(data.code == 200){
+            
+            }
+        },
+        error:function(){
+            //alert('error'); //错误的处理
+        }
+    }); 
+}
 function getBrandContact(appObj){
     const url = "/api/v1/web_estudio/brand/info";
     $.get(url,function(data) {
         if(data.code == 200){
             appObj.contact = data.brand.contact;
+            appObj.studio = data.brand.studio;
         }
        })
 }
@@ -110,6 +145,9 @@ function previewWechatQr(e){
     const URL2 = URL.createObjectURL(file)
     $('#wechatQrPreview').attr('src',URL2);
     $("#wechatQrModal").modal("show");
+}
+function settingStudio(appObj){
+    saveStudioInfo(appObj.studio)
 }
 function settingContact(appObj){
     const brandId =  appObj.getIdentity().brandId; // Auth.getIdentity();

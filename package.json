@@ -16,7 +16,7 @@
     "@picmo/popup-picker": "^5.8.5",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.2",
+    "bootstrap-icons": "^1.13.1",
     "cookie-parser": "~1.4.4",
     "cropperjs": "^1.6.1",
     "debug": "~2.6.9",

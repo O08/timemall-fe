@@ -88,6 +88,13 @@
                      </button>
                   </a>
                 </li>
+                <li v-if="!!getIdentity().hiLinkUrl">
+                  <a :href="getIdentity().hiLinkUrl">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-clouds me-2"></i> {{getIdentity().hiLinkName}}
+                     </button>
+                  </a>
+                </li>
               </ul>
   
             </div>
@@ -590,7 +597,7 @@
                   </div>
                  
                   <div class="dropstart me-5">
-                    <button class="btn btn-success btn-add-new-experience toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-outline-success btn-add-new-experience toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-three-dots-vertical"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end item-setting">
@@ -703,6 +710,38 @@
             'btn-primary': validateLinkFormV(),
             'btn-secondary': !validateLinkFormV()}" type="button" @click="settingLinksV" class="btn">保存</button>
 
+          </section>
+
+          <!-- e studio setting -->
+          <section class="section-seller-block box-bg-primary mb-5">
+            <div class="section-header">薪动商号超菜单</div>
+            <div class="d-flex align-items-center help-text">
+              <i class="bi bi-question-circle"></i><span class="ms-1">传送按钮显示该超级菜单。可自定义个人办公部落、高频访问App等超级链接</span>
+            </div>
+            <div class="info-block me-5 mt-5">
+  
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-floating">
+                    <input @change="studio_already_change=true"  v-model="studio.hiLinkName" maxlength="6" type="text" class="form-control" >
+                    <label>链接描述(必填，最长6字符)</label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-floating" >
+                    <input @change="studio_already_change=true"  v-model="studio.hiLinkUrl" type="text" class="form-control" maxlength="460" >
+                    <label>URL(必填，https://)</label>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+
+            <button :class="{'disabled': !validateStudioSettingFormV(), 
+            'btn-primary': validateStudioSettingFormV(),
+            'btn-secondary': !validateStudioSettingFormV()}" type="submit" @click="settingStudioV" class="btn">保存</button>
+            
+  
           </section>
             
         </main>
