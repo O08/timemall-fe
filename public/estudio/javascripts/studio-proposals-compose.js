@@ -55,9 +55,9 @@ const quill = new Quill('#editor', {
     modules: {
       toolbar: toolbarOptions
     },
-    placeholder: '编辑正文...',
     theme: 'snow'
 });
+
 
 
 const RootComponent = {
