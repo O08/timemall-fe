@@ -128,8 +128,45 @@
         color: #616161;
        }
        .url-link{
-          color: #616161;
+          color: #ccc;
         }
+        .inputDefault {
+          box-sizing: border-box;
+          color: #fff;
+          background-color: #000;
+          border: 1px solid #616161;
+          border-radius: 3px;
+          outline: 0;
+          width: 100%;
+          height: 40px;
+          padding: 10px;
+          font-size: 14px;
+        }
+        .form-signin  .form-control:focus,.form-signin .form-control:focus{
+          background-color: #000;
+          box-shadow: none;
+          color: #fff;
+          border: 1px solid #fff;
+
+        }
+        .form-signin  input::placeholder {
+          color: #c4c9ce;
+          font-size: 12px;
+        }
+        .bgPrimary{
+            background-color: #9373ee;
+        }
+        .bgPrimary:hover{
+            background-color: #b19af3;
+        }
+        .form-send{
+          color: #fff;
+          border: none;
+          box-shadow: none;
+          outline: none;
+          border-radius: 5px;
+        }
+
       @media (max-width: 576px) {
   .section-sign-in{
     display: block;
@@ -187,21 +224,21 @@
                 </div>
                
                 <div class="mb-4">
-                  <input type="text" class="form-control" id="identifierId" placeholder="邮箱/手机号" autocomplete="username webauthn" required>
+                  <input type="text" class="form-control inputDefault" id="identifierId" placeholder="邮箱/手机号" autocomplete="username webauthn" required>
                   <div class="invalid-feedback">
                     请提供一个有效邮箱或手机号.
                   </div>
                   <span id="email-error-tip" class="error-tip"></span>
                 </div>
                 <div class="mb-4">
-                  <input type="password" class="form-control" id="identifierPassword" placeholder="密码" autocomplete="current-password" required>
+                  <input type="password" class="form-control inputDefault" id="identifierPassword" placeholder="密码" autocomplete="current-password" required>
                   <div class="invalid-feedback">
                     请提供一个有效密码.
                   </div>
                   <span id="password-error-tip" class="error-tip"></span>
                 </div>
                 <div class="mb-4 ">
-                  <button type="submit" name="submitBtn" class="btn btn-primary w-100 fs-4 form-send">登录</button>
+                  <button type="submit" name="submitBtn" class="bgPrimary w-100 fs-4 form-send">登录</button>
                 </div>
                 <div class="my-4 d-flex justify-content-between help-box">
                   <a href="/password-reset" class="url-link">

@@ -355,7 +355,9 @@ header{
   text-decoration: none;
 }
 .link-view-url a:hover {
-  text-decoration: underline dashed #00aafc;
+  text-decoration-line: underline;
+  text-decoration-color: #00aafc;
+  text-decoration-style: dashed;
 }
 
 

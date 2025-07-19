@@ -18,6 +18,7 @@ const RootComponent = {
         return {
             current_tb: "pending",
             searchQ: "",
+            filterCategory:"",
             couponInfo: {},
             cellExpense: {
                 promotionCreditPointDeductionDifference: 0,
@@ -45,7 +46,8 @@ const RootComponent = {
                 records: [],
                 param: {
                     code: BillStatus.Pending,
-                    q:""
+                    q:"",
+                    categories: ""
                 },
                 paging: {},
                 responesHandler: (response)=>{
@@ -69,6 +71,7 @@ const RootComponent = {
                 records: [],
                 param: {
                     code: BillStatus.Paid,
+                    categories: "",
                     q:""
                 },
                 paging: {},
@@ -87,16 +90,43 @@ const RootComponent = {
         }
     },
     methods: {
-        searchBillV(){
+        explainCategoryV(categories){
+            var categoriesDesc="";
+            switch(categories){
+                case "cell":
+                    categoriesDesc="特约";
+                    break; 
+                case "proposal":
+                    categoriesDesc="提案";
+                    break; 
 
+            }
+            return categoriesDesc;
+        },
+        filterBillV(){
+            if(this.current_tb=="pending"){
+                this.waittingpagination.current = 1;
+                this.waittingpagination.param.categories=this.filterCategory;
+                this.reloadPage(this.waittingpagination);
+            }
+            if(this.current_tb=="paid"){
+                this.paidpagination.current = 1;
+                this.paidpagination.param.categories=this.filterCategory;
+                this.reloadPage(this.paidpagination);
+            }
+        },
+        searchBillV(){
+            this.filterCategory="";
             if(this.current_tb=="pending"){
              this.waittingpagination.current = 1;
              this.waittingpagination.param.q=this.searchQ;
+             this.waittingpagination.param.categories="";
              this.reloadPage(this.waittingpagination);
             }
             if(this.current_tb=="paid"){
              this.paidpagination.current = 1;
              this.paidpagination.param.q=this.searchQ;
+             this.paidpagination.param.categories="";
              this.reloadPage(this.paidpagination);
             }
         },

@@ -158,6 +158,7 @@
      height: 24px;
      width: 24px;
      border-radius: 50%;
+     position: relative;
   }
   .btn-close{
     outline: none;
@@ -168,7 +169,10 @@
     color: #fff;
   }
   .tb-url-link:hover{
-    text-decoration: underline dashed #fff;
+    text-decoration-line: underline;
+    text-decoration-color: #fff;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.25em;  
   }
 
 

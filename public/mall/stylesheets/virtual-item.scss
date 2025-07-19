@@ -572,6 +572,7 @@ border-bottom: none;
   overflow: hidden;
 }
 
+
 .link-view-url a:link {
   color: #00aafc;
   background-color: #0000;
@@ -579,7 +580,9 @@ border-bottom: none;
 }
 
 .link-view-url a:hover {
-  text-decoration: underline dashed #00aafc;
+  text-decoration-line: underline;
+  text-decoration-color: #00aafc;
+  text-decoration-style: dashed;
 }
 .copy-link{
   background-color: transparent;
@@ -763,6 +766,10 @@ border-bottom: none;
 
 img[alt] {
   text-indent: -9999px;
+}
+
+.ql-editor{
+  word-break: break-all;
 }
 
 .ql-editor pre {

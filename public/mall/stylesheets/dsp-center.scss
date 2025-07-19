@@ -308,7 +308,10 @@ main{
     color: #3498db;
 }
 .report-case-name a:hover {
-    text-decoration: underline dashed #00aafc;
+  text-decoration-line: underline;
+  text-decoration-color: #00aafc;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em;
 }
 
   .table,.not-found-resource {

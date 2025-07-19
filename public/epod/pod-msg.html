@@ -243,7 +243,7 @@
                     </div>
                   </td>
                   <td> 
-                    {{notice.createAt}}
+                    {{notice.createAt.replace(new RegExp('-', 'g'), '/')}}
                   </td>
                   <td>履约消息</td>
                 </tr>

@@ -229,13 +229,58 @@
               <button v-preventreclick  @click="refreshPaidPaginationV" class="nav-link" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid-tab-pane" type="button" role="tab" aria-controls="paid-tab-pane" aria-selected="false">已支付</button>
             </li>
         </ul>
-        <div class="col st-tool-bar d-flex align-items-center mt-4 mb-3">
-          <div class="tb-search">
-            <div class="tb-search-group">
-              <i class="bi bi-search"></i>
-              <input @keyup.enter.native="searchBillV" v-model="searchQ" type="search"  type="search"  autocomplete="off"  class="input_search" placeholder="搜索...">
+        <div class="col st-tool-bar d-flex align-items-center mt-4 mb-3 filter-bar">
+
+
+          <top-search class="section-top-serach">
+            <div class="input-group input-normal-search">
+              <input @keyup.enter.native="searchBillV" v-model="searchQ" class="form-control top-search-input" type="text" placeholder="搜索..." aria-label="Search">
             </div>
-          </div> 
+          </top-search>
+
+          <div class="filter-item tagsContainer">
+
+            <div class="dropdown">
+              <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                类别
+              </a>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="filterBill__Cell">
+                        特约
+                      </label>
+                      <input @change="filterBillV"  v-model="filterCategory"   value="cell" class="form-check-input" name="filterBill" type="radio"  id="filterBill__Cell" >
+                    </div>
+                  </a>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="filterBill__Proposal">
+                        提案
+                      </label>
+                      <input @change="filterBillV"  v-model="filterCategory"   value="proposal" class="form-check-input" name="filterBill" type="radio"  id="filterBill__Proposal" >
+                    </div>
+                  </a>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="filterBill__All">
+                        全部
+                      </label>
+                      <input @change="filterBillV"  v-model="filterCategory"   value="" class="form-check-input" name="filterBill" type="radio"  id="filterBill__All" >
+                    </div>
+                  </a>
+                </li>
+
+
+              </ul>
+            </div>
+
+          </div>
+
+
         </div>
         <!--  tablist content-->
         <div class="tab-content" id="bill-tab-content">
@@ -248,8 +293,9 @@
                   <thead>
                     <tr>
                       <th class="option-th"></th>
-                      <th class="col-bill-item">项目</th>
-                      <th class="col-product">服务</th>
+                      <th class="col-bill-item">账目</th>
+                      <th class="col-product">商品</th>
+                      <th scope="col">类别</th>
                       <th class="col-brand">商家</th>
                       <th scope="col">费用</th>
                       <th scope="col">入库时间</th>
@@ -278,6 +324,7 @@
                           {{bill.service}}
                         </div>
                       </td>
+                      <td :title="explainCategoryV(bill.categories)" class="col-fee"><span class="ellipsis-1">{{explainCategoryV(bill.categories)}}</span></td>
                       <td :title="bill.brand"  class="col-brand"> 
                         <span class="ellipsis-1">
                           <a target="_blank" :href="'/messages/' + bill.brandUserId">
@@ -287,7 +334,7 @@
                         </span>
                       </td>
                       <td  :title="bill.amount.toFixed(2)"  class="col-fee">{{bill.amount.toFixed(2)}}</td>
-                      <td  :title="bill.added"  class="col-addTime">{{bill.added}}</td>
+                      <td  :title="bill.added"  class="col-addTime">{{bill.added.replace(new RegExp('-', 'g'), '/')}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -327,8 +374,9 @@
                 <table class="table table-sm  table-hover align-middle">
                   <thead>
                     <tr>
-                      <th>项目</th>
-                      <th>服务</th>
+                      <th>账目</th>
+                      <th>商品</th>
+                      <th scope="col">类别</th>
                       <th scope="col">商家</th>
                       <th scope="col">费用</th>
                       <th scope="col">优惠减免</th>
@@ -348,6 +396,7 @@
                           {{bill.service}}
                         </div>
                       </td>
+                      <td :title="explainCategoryV(bill.categories)" class="col-fee"><span class="ellipsis-1">{{explainCategoryV(bill.categories)}}</span></td>
                       <td  :title="bill.brand"  class="col-brand"> 
                         <span class="ellipsis-1">
                           <a target="_blank" :href="'/messages/' + bill.brandUserId">
@@ -359,7 +408,7 @@
                       <td  :title="bill.amount.toFixed(2)"  class="col-fee">{{bill.amount.toFixed(2)}}</td>
                       <td  :title="bill.promotionDeduction" class="col-fee">{{bill.promotionDeduction}}</td>
                       <td  :title="(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)" class="col-fee">{{(Number(bill.amount) - Number(bill.promotionDeduction)).toFixed(2)}}</td>
-                      <td  :title="bill.added" class="col-addTime">{{bill.added}}</td>
+                      <td  :title="bill.added" class="col-addTime">{{bill.added.replace(new RegExp('-', 'g'), '/')}}</td>
                     </tr>
                    
                   </tbody>

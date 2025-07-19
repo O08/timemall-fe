@@ -217,7 +217,10 @@ h1{
   color: #00aafc;
 }
 .article-content-wrapper p a:hover {
-    text-decoration: underline dashed #00aafc;
+    text-decoration-line: underline;
+    text-decoration-color: #00aafc;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.25em;
 }
 .article-link-wrapper a{
     outline: none;

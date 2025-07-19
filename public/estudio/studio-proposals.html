@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content=”noindex,nofollow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+  <title>智能提案 - E-Studio</title>
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+  <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
+  <link rel="stylesheet" href="/estudio/stylesheets/studio-proposals.scss">
+
+</head>
+
+<body>
+  <pt-app id="app" v-cloak>
+    <!-- header nav -->
+    <header class="text-white">
+      <div class="d-flex justify-content-between align-items-center hdlayout">
+
+        <div class="d-flex">
+          <div class="toggle-nav">
+            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar"
+              aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
+                </path>
+              </svg>
+            </button>
+          </div>
+          <a href="/estudio/studio-dashboard">
+            <div class="d-flex align-items-center logo">
+              <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+              <h2 class="mb-0 ms-2">E-Studio</h2>
+            </div>
+          </a>
+
+        </div>
+
+        <div>
+
+          <div class="btn-group" style="margin-right: 8px;">
+
+            <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
+                data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.7623 3.25011C12.2215 3.25576 12.752 3.47285 13.0382 3.98431L13.2124 4.29565C15.8706 9.04584 18.0375 13.9835 19.6863 19.049C19.904 19.7181 19.5451 20.2857 19.097 20.5487C18.6585 20.806 18.0554 20.8404 17.5447 20.512L12.8173 17.4719C12.2948 17.1359 11.5857 17.135 11.0963 17.4441L6.46484 20.3691C5.94281 20.6988 5.33707 20.6351 4.9118 20.3799C4.48468 20.1236 4.10335 19.5712 4.30272 18.8969C5.78977 13.8676 7.79972 8.97844 10.3077 4.28867L10.472 3.98149C10.7563 3.44998 11.3042 3.24448 11.7623 3.25011ZM11.7551 4.76304L11.6305 4.99605C9.22521 9.49368 7.2879 14.1762 5.8404 18.9894L10.2954 16.1759C11.2941 15.5451 12.6321 15.5694 13.6286 16.2102L18.1247 19.1016C16.5242 14.2751 14.4428 9.56596 11.9034 5.02815L11.7551 4.76304Z"
+                    fill="white" />
+                </svg>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a href="/">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                  </button>
+                </a>
+              </li>
+              <li>
+                <a href="/rainbow/teixcalaanli">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/community.svg" alt="shopping-logo"> 彩虹部落
+                  </button>
+                </a>
+              </li>
+              <li>
+                <a href="/mall/gig-economy">
+                  <button class="dropdown-item" type="button">
+                    <img class="forward-icon me-2" src="/common/icon/choice-shopping.svg" alt="shopping-logo"> 心选商店
+                  </button>
+                </a>
+              </li>
+              <li>
+                <a href="/affiliate/dashboard">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-megaphone-fill affiliate-icon me-2"></i> 带货中心
+                  </button>
+                </a>
+              </li>
+
+              <li>
+                <a href="/epod/pod-packages-order">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-tags me-2"></i> 我的定制
+                  </button>
+                </a>
+              </li>
+              <li v-if="!!getIdentity().hiLinkUrl">
+                <a :href="getIdentity().hiLinkUrl">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-clouds me-2"></i> {{getIdentity().hiLinkName}}
+                  </button>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+
+
+
+          <div class="btn-group private-msg-atom" style="margin-right: 8px;">
+            <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="tooltip-nav" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip"
+                data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="消息">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M2.80403 8.3533C2.52389 10.9562 2.53637 13.9582 2.9262 16.5505C3.1419 17.9849 4.31257 19.0845 5.75763 19.2102L7.26787 19.3414C10.4169 19.6152 13.5838 19.6152 16.7328 19.3414L18.2431 19.2102C19.6881 19.0845 20.8588 17.9849 21.0745 16.5505C21.4643 13.9582 21.4768 10.9564 21.1967 8.35345C21.1605 8.05169 21.1197 7.75034 21.0745 7.44949C20.8588 6.0151 19.6881 4.91545 18.2431 4.78983L16.7328 4.65855C13.5838 4.38481 10.4169 4.38481 7.26787 4.65855L5.75763 4.78983C4.31257 4.91545 3.1419 6.0151 2.9262 7.44949C2.88096 7.75028 2.84024 8.05159 2.80403 8.3533ZM7.39777 6.15292C10.4604 5.88669 13.5403 5.88669 16.6029 6.15292L18.1131 6.2842C18.8675 6.34977 19.4786 6.92379 19.5912 7.67254C19.6029 7.7503 19.6142 7.82809 19.6253 7.90592L14.0643 10.9954C12.7807 11.7085 11.2199 11.7085 9.93632 10.9954L4.37539 7.90596C4.38645 7.82812 4.39783 7.75031 4.40952 7.67254C4.52211 6.92379 5.13321 6.34977 5.88754 6.2842L7.39777 6.15292ZM19.8088 9.51989C20.0028 11.7876 19.9303 14.0725 19.5912 16.3274C19.4786 17.0762 18.8675 17.6502 18.1132 17.7158L16.6029 17.8471C13.5403 18.1133 10.4604 18.1133 7.39777 17.8471L5.88754 17.7158C5.13321 17.6502 4.52211 17.0762 4.40952 16.3274C4.07043 14.0725 3.99787 11.7877 4.19184 9.51992L9.20786 12.3066C10.9445 13.2714 13.0561 13.2714 14.7928 12.3066L19.8088 9.51989Z"
+                    fill="white" />
+                </svg>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <div class="friend-header">
+                私信（{{friends.totalUnRead}}）
+              </div>
+              <div class="friend-list">
+
+                <li class="friend-item" v-for="friend in friends.records">
+                  <a target="_blank" :href="'/messages/'+ friend.id">
+                    <div class="friend-container">
+                      <div class="frend-avatar-container">
+                        <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage"
+                          @error.once="e => { e.target.src = defaultAvatarImage }">
+                        <div v-if="friend.brandMark=='3'" class="online-indicator">
+                          <div class="online-indicator-content">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="friend-info">
+                        <div class="friend-name"><span class="ellipsis-1">{{friend.title}}</span> </div>
+                        <div class="friend-msg"> <span class="ellipsis-1">{{friend.latestContent}}</span> </div>
+                        <div class="msg-time">{{getPublishTimeV(friend.modifiedAt)}}</div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+
+
+
+              </div>
+
+
+
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <img :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage"
+                @error.once="e => { e.target.src = defaultAvatarImage }">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a href="/estudio/studio-setting-profile">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-person-vcard me-2"></i> 品牌形象
+                  </button>
+                </a>
+              </li>
+              <li>
+                <button @click="logout()" class="dropdown-item" type="button">
+                  <i class="bi bi-box-arrow-right me-2"></i> 退出登录
+                </button>
+              </li>
+              <li>
+                <a href="/mall/delete-account">
+                  <button class="dropdown-item" type="button">
+                    <i class="bi bi-trash3 me-2"></i> 删除账号
+                  </button>
+                </a>
+              </li>
+
+              <li>
+                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas"
+                  data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                  <i class="bi bi-flag me-2"></i> 反馈
+                </button>
+              </li>
+            </ul>
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </header>
+    <content class="bd-layout">
+      <aside>
+        <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar"
+          aria-labelledby="bdSidebarOffcanvasLabel">
+          <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar"
+              aria-label="Close"></button>
+          </div>
+          <!-- menu -->
+          <div class="sidebar-wrapper">
+            <nav class="sidebar nav">
+              <a class="nav-link" href="/estudio/studio-dashboard">
+                <div class="nav-icon">
+                  <i class="bi bi-rocket-takeoff"></i>
+                </div>
+                <span>运营数据</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-gig-store">
+                <div class="nav-icon">
+                  <i class="bi bi-shop-window"></i>
+                </div>
+                <span>技能店铺</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-virtual-store">
+                <div class="nav-icon">
+                  <i class="bi bi-badge-vr"></i>
+                </div>
+                <span>虚拟店铺</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-packages-order">
+                <div class="nav-icon">
+                  <i class="bi bi-truck"></i>
+                </div>
+                <span>履约中心</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-bill">
+                <div class="nav-icon">
+                  <i class="bi bi-receipt"></i>
+                </div>
+                <span>账单管理</span>
+              </a>
+              <a class="nav-link active">
+                <div class="nav-icon">
+                  <i class="bi bi-file-medical"></i>
+                </div>
+                <span>智能提案</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-mps">
+                <div class="nav-icon">
+                  <i class="bi bi-columns"></i>
+                </div>
+                <span>合约助手</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-promotion">
+                <div class="nav-icon">
+                  <i class="bi bi-gift"></i>
+                </div>
+                <span>营销活动</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-msg">
+                <div class="nav-icon">
+                  <i class="bi bi-bell"></i>
+                </div>
+                <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-dsp">
+                <div class="nav-icon">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <span>争端解决</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-shop">
+                <div class="nav-icon">
+                  <i class="bi bi-bag"></i>
+                </div>
+                <span>补给商城</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </aside>
+      <main>
+        <div class="main-content-container">
+          <div class="page-title">
+            <h1>智能提案</h1>
+          </div>
+          <div class="filter-bar">
+            <a target="_blank" href="/proposal/compose" class="text-decoration-none">
+              <button class="btn btn-outline-dark tool-btn new-proposal"><i class="bi bi-plus"></i> 新建提案</button>
+            </a>
+            <!-- top search -->
+            <top-search class="section-top-serach">
+              <div class="input-group input-normal-search">
+                <input @keyup.enter.native="retrieveProposalListV" v-model="proposalList_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜索..." aria-label="Search">
+                <button v-preventreclick  @click="retrieveProposalListV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </top-search>
+
+            <div class="filter-item tagsContainer">
+
+              <div class="dropdown">
+                <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  状态
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterProposal__Draft">
+                          待签约
+                        </label>
+                        <input @change="filterProposalListV"  v-model="proposalList_pagination.param.tag"   value="0" class="form-check-input" name="filterProposal" type="radio"  id="filterProposal__Draft" >
+                      </div>
+                    </a>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterProposal__Signed">
+                          已签约
+                        </label>
+                        <input @change="filterProposalListV"  v-model="proposalList_pagination.param.tag"   value="1" class="form-check-input" name="filterProposal" type="radio"  id="filterProposal__Signed" >
+                      </div>
+                    </a>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterProposal__Delivering">
+                          正在交付
+                        </label>
+                        <input @change="filterProposalListV"  v-model="proposalList_pagination.param.tag"   value="2" class="form-check-input" name="filterProposal" type="radio"  id="filterProposal__Delivering" >
+                      </div>
+                    </a>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterProposal__Finish">
+                          已关单
+                        </label>
+                        <input @change="filterProposalListV"  v-model="proposalList_pagination.param.tag"   value="3" class="form-check-input" name="filterProposal" type="radio"  id="filterProposal__Finish" >
+                      </div>
+                    </a>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterProposal__Suspend">
+                          已中止
+                        </label>
+                        <input @change="filterProposalListV"  v-model="proposalList_pagination.param.tag"   value="4" class="form-check-input" name="filterProposal" type="radio"  id="filterProposal__Suspend" >
+                      </div>
+                    </a>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filterProposal__All">
+                          全部提案
+                        </label>
+                        <input @change="filterProposalListV"  v-model="proposalList_pagination.param.tag"   value="" class="form-check-input" name="filterProposal" type="radio"  id="filterProposal__All" >
+                      </div>
+                    </a>
+                  </li>
+
+
+                </ul>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="data-tb-container pt-2">
+            <div class="table-responsive">
+              <div class="table-wrp">
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <th class="col-snippet"></th>
+                    <th class="col-project">项目</th>
+                    <th class="col-snippet">编号</th>
+                    <th class="col-fee">费用</th>
+                    <th class="col-time">开始时间</th>
+                    <th class="col-time">结束时间</th>
+                    <th class="col-status">状态</th>
+                    <th class="col-people text-center">客户</th>
+                    <th class="col-time">创建日期</th>
+                  </thead>
+                  <tbody>
+                    <tr v-for="proposal in proposalList_pagination.records">
+                      <td>
+                        <div class="d-flex">
+                          <span v-preventreclick @click="copyProposalLinkV(proposal.projectNo)" class="btn-option-secondary" data-bs-custom-class="custom-popover"
+                             data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover"
+                             data-bs-content="复制提案链接">
+                             <i class="bi bi-copy"></i>
+                          </span>
+                          <span class="option-edit ms-3">
+                            <div class="dropdown">
+                              <a class="btn-option-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                              </a>
+                            
+                              <ul class="dropdown-menu">
+
+                                <li v-if="proposal.projectStatus=='0'"><a target="_blank" :href="'/proposal/'+proposal.projectNo + '/compose'" class="dropdown-item">修订</a></li>
+                                <li><a class="dropdown-item" target="_blank" :href="'/proposal/'+ proposal.projectNo">查看</a></li>
+                                
+                                <li v-preventreclick @click="duplicateProposalV(proposal.id)" ><a class="dropdown-item">拷贝</a></li>
+                                <li v-if="proposal.projectStatus=='0'" v-preventreclick @click="delProposalV(proposal.id)" ><a class="dropdown-item">删除</a></li>
+
+                                <li v-if="proposal.projectStatus!='0'"><a target="_blank" :href="'/messages/' + proposal.buyerUserId" class="dropdown-item">联系客户</a></li>
+                                <li v-if="proposal.projectStatus!='0'" @click="showProposalMaintenanceModalV(proposal.id)"><a class="dropdown-item">提案管理</a></li>
+
+                              </ul>
+                            </div>
+                          </span>
+                        </div>
+                        
+                      </td>
+                      <td :title="proposal.projectName"><span class="ellipsis-1">{{proposal.projectName}}</span></td>
+                      <td :title="proposal.projectNo">{{proposal.projectNo}}</td>
+                      <td :title="proposal.total"><span class="ellipsis-1">{{proposal.total}}</span></td>
+                      <td :title="proposal.projectStarts"><span class="ellipsis-1">{{proposal.projectStarts}}</span></td>
+                      <td :title="proposal.projectEnds"><span class="ellipsis-1">{{proposal.projectEnds}}</span></td>
+                      <td :title="explainProposalProjectStatusV(proposal.projectStatus)"><span class="ellipsis-1">{{explainProposalProjectStatusV(proposal.projectStatus)}}</span></td>
+                      <td :title="proposal.buyerName" class="text-center">
+                        <a v-if="!!proposal.buyerUserId" target="_blank" :href="'/messages/' + proposal.buyerUserId">
+                          <img
+                            :src="adaptiveImageUriV(proposal.buyerAvatar) || defaultAvatarImage"
+                            class="peacemaker-avatar">
+                        </a>
+                      </td>
+                      <td :title="proposal.createAt"><span class="ellipsis-1">{{proposal.createAt.replace(new RegExp('-', 'g'), '/')}}</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div v-show="proposalList_pagination.records.length==0" class="empty-content-block">
+
+                  未找到结果，试试通过【新建提案】自定义合约、需求或者订单.
+
+                </div>
+                <nav v-if="!!proposalList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(proposalList_pagination)">
+                      <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item" v-for="page in proposalList_pagination.paging.items"
+                      :class="{'current-page-active': proposalList_pagination.paging.current == page}"
+                      @click="pageGo(proposalList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(proposalList_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+    </content>
+    <section class="modals">
+       <!-- proposal management modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="proposalManagementModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header  display-dialog-header-bg">
+                <h1 class="modal-title fs-5">提案管理</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+
+                <form class="w-100" onsubmit="return false">
+                
+                  <div class="mt-3">
+                    <label for="project_status_setting" class="form-label">提案状态</label>
+                    <select id="project_status_setting" v-model="proposalMaintenanceObj.projectStatus"  class="form-select">
+                      <option value="">--请选择--</option>
+                      <option value="2">{{explainProposalProjectStatusV("2")}}</option>
+                      <option value="3">{{explainProposalProjectStatusV("3")}}</option>
+                      <option value="4">{{explainProposalProjectStatusV("4")}}</option>
+                    </select>  
+                  </div> 
+                  
+                  <button 
+                  :class="{'disabled': !proposalMaintenanceObj.projectStatus, 
+                  'btn-primary': !!proposalMaintenanceObj.projectStatus,
+                  'btn-secondary': !proposalMaintenanceObj.projectStatus}"
+                    v-preventreclick @click="maintenanceProposalV" 
+                  type="submit"  class="btn  mt-5 w-100">提交</button>
+
+                  
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </pt-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right"
+      aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea rows="8" type="text" maxlength="300" class="form-control" id="input_issue"></textarea>
+          </div>
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img id="lastestFeedbackAttachment">
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment" accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact" min="1" max="50000" step="1" type="text" class="form-control"
+              placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div>
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-proposals.js"></script>
+
+</body>
+
+</html>

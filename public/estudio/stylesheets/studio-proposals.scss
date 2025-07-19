@@ -1,129 +1,29 @@
-
-@media (min-width: 768px) {
-    .display-dialog-wrapper{
-        max-width: 46vw; 
-    }
-}
-.section-payway-info .card-body{
-    min-height: 200px;
-}
-
-.card-body-bg{
-    background-color: darken(#112629,10%);
-}
-
-
-
-.pay-binary-code img {
-    object-fit: cover;
-    width: 100%;
-}
-.pay-binary-code, .pay-binary-code img {
-    max-width: 18rem;
-    height: 180px;
-}
-.option-th{
-    width: 2% !important;
-}
-
-
-
-.pay_link{
-    font-size: 12px;
-}
-.error-notice{
-    width: 100%;
-      margin-top: 0.25rem;
-      font-size: .875em;
-      color: #dc3545
-  }
-  .disabled{
-    color: gray;
-  }
-
-  #focusModal form{
-    width: 100%;
-  }
-
-  .col-product {
-    width: 15%;
-    min-width: 240px;
-}
-.col-bill-item{
-    width: 27%;
-    min-width: 240px;
-}
-.col-brand{
-    width: 15%;
-    min-width: 120px;
-}
-.coupon-item {
-    color: #fff;
-    background-color: #ea383a;
-    border-radius: 3px;
-    padding: .2rem;
-    font-size: 10px;
-    font-weight: bold;
-}
-.expense{
-    border: 1px solid #4d5154;
-    border-radius: 5px;
-    padding: .5rem;
-    padding-left: 1.5rem;
-    margin-top: .5rem;
-}
-.expense,.sub-total{
-    font-size: 12px;
-    font-weight: bold;
-}
-.expense li{
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-}
-.col-fee{
-    width: 10%;
-    min-width: 100px;
-  }
-  .col-addTime{
-    width: 13%;
-    min-width: 130px;
-  }
-
-  .peacemaker-avatar {
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    position: relative;
-  }
-
-
 .input-normal-search {
-  width: 35%;
-  min-width: 260px;
-  left: 0;
+    width: 15%;
+    min-width: 500px;
+    left: 0;
 }
 .top-search-input{
-background: transparent;
-margin: 0;
-padding: 7px 8px;
-font-size: 14px;
-color: #fff;
-border: 1px solid #6c757d;
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: #fff;
+  border: 1px solid #6c757d;
 }
 
 .top-search-input::placeholder {
-color: #bbb;
+  color: #bbb;
 }
 .top-search-input:focus {
-border: 1px solid #6c757d;
-box-shadow: none;
-outline: none;
-background: transparent;
-caret-color: #fff;
-color: #fff;
+  border: 1px solid #6c757d;
+  box-shadow: none;
+  outline: none;
+  background: transparent;
+  caret-color: #fff;
+  color: #fff;
 
 }
-
 
 .filter-bar{
   flex-wrap: nowrap;
@@ -141,6 +41,7 @@ color: #fff;
   box-sizing: border-box;
   flex-shrink: 0;
   margin-right: 4px;
+  margin-bottom: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -237,4 +138,67 @@ line-height: normal;
 }
 .tagsContainer .form-check-label{
   width: 100%;
+}
+
+.peacemaker-avatar{
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  position: relative;
+}
+.btn-close{
+ outline: none;
+ box-shadow: none;
+ --bs-btn-close-focus-shadow: 0 0 0 .25rem transparent;
+}
+.tb-url-link{
+ color: #fff;
+}
+.tb-url-link:hover{
+  text-decoration-line: underline;
+  text-decoration-color: #fff;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em;
+}
+
+
+.col-soulution{
+  width: 18;
+}
+.col-people{
+  width: 5%;
+}
+.col-case-desc{
+  width: 15%;
+}
+.col-snippet{
+  width: 10%;
+}
+.col-status{
+  width: 6%;
+}
+.col-type,.col-scene,.col-time{
+  width: 12%;
+}  
+
+.main-content-container {
+  min-width: 1000px;
+}
+.new-proposal{
+    border-color: #1890ff;
+    color: #1890ff;
+}
+.table .dropdown-toggle:after{
+  content: none;
+}
+.col-project{
+  width: 25%;
+  min-width: 210px;
+}
+.col-fee{
+  width: 8%;
+}
+.modal .form-select{
+  outline: 0;
+  box-shadow: none;
 }

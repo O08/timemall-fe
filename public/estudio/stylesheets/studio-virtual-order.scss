@@ -172,6 +172,7 @@ body::-webkit-scrollbar {
   height: 24px;
   width: 24px;
   border-radius: 50%;
+  position: relative;
 }
 .option-edit .dropdown-toggle::after{
   content: unset;

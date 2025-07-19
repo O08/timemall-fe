@@ -325,5 +325,8 @@ micro-app{
   color: #3498db;
 }
 .product-name a:hover {
-  text-decoration: underline dashed #00aafc;
+  text-decoration-line: underline;
+  text-decoration-color: #00aafc;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em;
 }

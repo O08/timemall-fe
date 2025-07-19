@@ -275,7 +275,7 @@
                       {{trans.supplier}}
                     </span>
                   </td>
-                  <td :title="trans.added">{{trans.added}}</td>
+                  <td :title="trans.added">{{trans.added.replace(new RegExp('-', 'g'), '/')}}</td>
                 </tr>
               </tbody>
             </table>

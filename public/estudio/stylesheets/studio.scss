@@ -922,4 +922,9 @@ file upload
     position: static;
 }
 
+// safari outline
+.btn.show:focus-visible{
+  box-shadow: unset;
+}
+
 

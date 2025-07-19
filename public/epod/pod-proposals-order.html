@@ -12,14 +12,12 @@
 
 
     <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
-    
-    <link rel="stylesheet" href="/epod/stylesheets/pod-packages-order.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod-proposals-order.scss">
 
 
 </head>
 <body>
   <pt-app id="app" v-cloak>
-    <!-- header nav -->
     <header class="text-white">
       <div class="d-flex justify-content-between align-items-center hdlayout">
 
@@ -184,7 +182,7 @@
           <!-- menu -->
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
-              <a class="nav-link active" aria-current="page">
+              <a class="nav-link active" aria-current="page" href="/epod/pod-packages-order">
                 <div class="nav-icon">
                   <i class="bi bi-truck"></i>
                 </div>
@@ -231,7 +229,7 @@
             <ul class="nav nav-tabs border-0 ">
               <li class="nav-item" role="presentation">
                 <a href="/epod/pod-packages-order">
-                  <button class="nav-link active">单品</button>
+                  <button class="nav-link">单品</button>
                 </a>
               </li>
               <li class="nav-item" role="presentation">
@@ -246,133 +244,157 @@
               </li>
               <li class="nav-item" role="presentation">
                 <a href="/epod/pod-proposals-order">
-                  <button class="nav-link">提案</button>
+                  <button class="nav-link active">提案</button>
                 </a>
               </li>
             </ul>
           </div>
-           <!--  first tablist content-->
-           <div class="tab-content" id="millstone-first-tab-content">
   
-              <!--  plan content start-->
+          <!-- top search -->
+          <div class="filter-bar">
   
-              <div class="tab-pane fade show active" id="plan-order-tab-pane" role="tabpanel" aria-labelledby="plan-order-tab" tabindex="0">
+            <top-search class="section-top-serach">
+              <div class="input-group input-normal-search">
+                <input @keyup.enter.native="retrieveOrderDataV" v-model="proposalOrder_pagination.param.q"   class="form-control top-search-input" type="text"
+                  placeholder="搜索..." aria-label="Search">
+                <button v-preventreclick @click="retrieveOrderDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </top-search>
   
-                <div class="d-flex  cell-plan-order-list-header mt-4 mb-3">
-                  <div class="plan-order-search d-flex">
-                    <form class="nosubmit" onsubmit="return false">
-                      <input  @keyup.enter.native="retrieveCellPlanOrderTbV" v-model="plan_pagination.param.q"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
-                    </form>
-                  </div>  
+            <div class="filter-item tagsContainer">
   
-                  <select v-model="plan_pagination.param.planType" @change="retrieveCellPlanOrderListByPlanTypeV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
-                    <option value="">全部单品</option>
-                    <option value="bird">小鸟</option>
-                    <option value="eagle">老鹰</option>
-                    <option value="albatross">信天翁</option>
-                  </select>
+              <div class="dropdown">
+                <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  状态
+                </a>
+              
+                <ul class="dropdown-menu">
   
-                  <select v-model="plan_pagination.param.tag" @change="retrieveMpsPaperListByTagV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
-                    <option value="">全部标签</option>
-                    <option value="4">交付中</option>
-                    <option value="7">已退款</option>
-                    <option value="3">已支付</option>
-                    <option value="5">履约完成</option>
-                    <option value="0">订单创建中</option>
-                    <option value="1">已创建订单</option>
-                    <option value="2">等待支付</option>
-                    <option value="6">取消订单</option>
-                    <option value="8">失败订单</option>
-                    <option value="9">失效订单</option>
-                  </select> 
-  
-                </div>
-                <div class="table-responsive">
-
-                  <div class="table-wrp">
-
-                    <table class="table table-width-fixed table-dark table-hover align-middle">
-                      <thead>
-                        <tr>
-                          <th class="col-product-no-option">服务</th>
-                          <th class="col-brand text-center">商家</th>
-                          <th class="col-fee">
-                            单品
-                          </th>
-                          <th class="col-fee">费用</th>
-                          <th class="col-fee">优惠减免</th>
-                          <th class="col-fee">实际付款</th>
-                          <th class="col-fee">
-                            标签
-                          </th>
-                          <th class="col-addTime">下单时间</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="item in plan_pagination.records">
-                          <td :title="item.cellTitle" class="col-product-no-option">
-                            <a :href="'/epod/packages-order-deliver?id=' + item.orderId">
-                              <span class="ellipsis-1">
-                                {{item.cellTitle}}
-                              </span>
-                            </a>
-                          </td>
-                          <td :title="item.sellerName"  class="col-brand text-center"> 
-                            <a target="_blank" :href="'/messages/' + item.sellerUserId">
-                              <img :src="adaptiveImageUriV(item.sellerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
-                            </a>
-                          </td>
-                          <td :title="explainCellPlanTypeV(item.planType)" class="col-fee"><span>{{explainCellPlanTypeV(item.planType)}}</span> </td>
-                          <td :title="item.price" class="col-fee"><span>{{item.price}} </span> </td>
-                          <td :title="item.promotionDeduction" class="col-fee"><span>{{item.promotionDeduction}}</span> </td>
-                          <td :title="item.revenue" class="col-fee"><span>{{item.revenue}}</span></td>
-                          <td :title="explainCellPlanOrderTagV(item.tag)" class="col-fee">{{explainCellPlanOrderTagV(item.tag)}}</td>
-                          <td :title="item.createAt" class="col-addTime"><span> {{item.createAt.replace(new RegExp('-', 'g'), '/')}}</span></td>
-                        </tr>
-                        
-                        
-                      </tbody>
-                    </table>
-                    <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
-        
-                      没有可用的内容！
-        
-                    </div>
-                    <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                      <ul class="pagination pagination-lg pagination-dark  border-0">
-                        <li class="page-item" @click="pagePre(plan_pagination)">
-                          <a class="page-link"  aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                        <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
-                              @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
-                        <li class="page-item" @click="pageNext(plan_pagination)">
-                          <a class="page-link" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-
-                  </div>
-  
-                  
-  
-                </div>
+                 
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteOrderTag2">
+                          {{explainProposalProjectStatusV("1")}}
+                        </label>
+                        <input id="filteOrderTag2" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag"   value="1" class="form-check-input" name="filteOrderTag" type="radio"  >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteOrderTag3">
+                          {{explainProposalProjectStatusV("2")}}
+                        </label>
+                        <input id="filteOrderTag3" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag"   value="2" class="form-check-input" name="filteOrderTag" type="radio"  >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteOrderTag4">
+                          {{explainProposalProjectStatusV("3")}}
+                        </label>
+                        <input  id="filteOrderTag4" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag"   value="3" class="form-check-input" name="filteOrderTag" type="radio"  >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteOrderTag5">
+                          {{explainProposalProjectStatusV("4")}}
+                        </label>
+                        <input id="filteOrderTag5" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag"   value="4" class="form-check-input" name="filteOrderTag" type="radio"  >
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteOrderTag6">
+                          全部提案
+                        </label>
+                        <input id="filteOrderTag6" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag"   value="" class="form-check-input" name="filteOrderTag" type="radio"  >
+                      </div>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </div>
   
             </div>
-            <!--  plan content end -->
+  
+          </div>
+  
+          <div class="data-tb-container pt-2">
+            <div class="table-responsive">
+              <div class="table-wrp">
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <th class="col-case-desc">项目</th>
+                    <th class="col-snippet">编号</th>
+                    <th class="col-fee">费用</th>
+                    <th class="col-date">开始时间</th>
+                    <th class="col-date">结束时间</th>
+                    <th class="col-status">状态</th>
+                    <th class="col-people text-center">商家</th>
+                    <th class="col-time">创建日期</th>
+                  </thead>
+                  <tbody>
+                    <tr v-for="order in proposalOrder_pagination.records">
+                      
+                      <td :title="order.projectName"><a class="tb-url-link" target="_blank" :href="'/proposal/'+ order.projectNo"><span class="ellipsis-1">{{order.projectName}}</span></a> </td>
+                      <td :title="order.projectNo"><span class="ellipsis-1">{{order.projectNo}}</span></td>
+                      <td :title="order.total">{{order.total}}</td>
+                      <td :title="order.projectStarts"><span class="ellipsis-1">{{order.projectStarts}}</span></td>
+                      <td :title="order.projectEnds"><span class="ellipsis-1">{{order.projectEnds}}</span></td>
+                      <td :title="explainProposalProjectStatusV(order.projectStatus)">{{explainProposalProjectStatusV(order.projectStatus)}}</td>
+                      <td :title="order.sellerName" class="text-center"><a class="dropdown-item" :href="'/messages/' + order.sellerUserId"><img :src="adaptiveImageUriV(order.sellerAvatar) || defaultAvatarImage" class="peacemaker-avatar"></a></td>
+                      <td :title="order.createAt">{{order.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
+                    </tr>
+                  </tbody>
+                  
+                </table>
+  
+                <div v-show="proposalOrder_pagination.records.length==0" class="empty-content-block">
+    
+                  没有可用的内容！
       
-      
+                </div>
+                <nav v-if="!!proposalOrder_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(proposalOrder_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in proposalOrder_pagination.paging.items" :class="{'current-page-active': proposalOrder_pagination.paging.current == page}" 
+                          @click="pageGo(proposalOrder_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(proposalOrder_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+  
+  
+              </div>
+            </div>
           </div>
 
         </div>
         
       </main>
-
     </content>
-    <footer></footer>
+
+    
+   
   </pt-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 
@@ -409,7 +431,8 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script  type="module" src="/common/javascripts/tm.js"></script>
-  <script  type="module" src="/epod/javascripts/pod-packages-order.js"></script>
+  <script  type="module" src="/epod/javascripts/pod-proposals-order.js"></script>
+
 
 
 </body>

@@ -1,4 +1,4 @@
-import {CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -20,9 +20,34 @@ const CodeExplainComponent = {
     },
     explainVirtualProductTagV(tag){
         return explainVirtualProductTag(tag);
-    }
+    },
+    explainProposalProjectStatusV(projectStatus){
+        return explainProposalProjectStatus(projectStatus);
+    },
    }
 }
+function explainProposalProjectStatus(status){
+    var statusDesc = "";
+    switch(status){
+        case ProposalProjectStatusEnum.DRAFT:
+            statusDesc="待签约";
+            break; 
+        case ProposalProjectStatusEnum.SIGNED:
+            statusDesc="已签约";
+            break; 
+        case ProposalProjectStatusEnum.DELIVERING:
+            statusDesc="正在交付";
+            break; 
+        case ProposalProjectStatusEnum.COMPLETED:
+            statusDesc="已关单";
+            break;   
+        case ProposalProjectStatusEnum.SUSPENDED:
+        statusDesc="已中止";
+        break;       
+    }
+    return statusDesc;
+}
+
 function explainDspCaseStatus(status){
     var statusDesc = "";
     switch(status){

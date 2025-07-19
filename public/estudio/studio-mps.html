@@ -201,13 +201,13 @@
                   <div class="nav-icon">
                     <i class="bi bi-shop-window"></i>
                   </div>
-                  <span>我的工作</span>
+                  <span>技能店铺</span>
                 </a>
                 <a class="nav-link" href="/estudio/studio-virtual-store">
                   <div class="nav-icon">
                     <i class="bi bi-badge-vr"></i>
                   </div>
-                  <span>虚拟商店</span>  
+                  <span>虚拟店铺</span>  
                 </a>
                 <a class="nav-link" href="/estudio/studio-packages-order">
                   <div class="nav-icon">
@@ -220,6 +220,12 @@
                     <i class="bi bi-receipt"></i>
                   </div>
                   <span>账单管理</span>
+                </a>
+                <a class="nav-link" href="/estudio/studio-proposals">
+                  <div class="nav-icon">
+                    <i class="bi bi-file-medical"></i>
+                  </div>
+                  <span>智能提案</span>
                 </a>
                 <a class="nav-link active">
                   <div class="nav-icon">
@@ -268,13 +274,13 @@
           <div class="paper-tab">
             <ul class="nav nav-tabs border-0 store-tab" id="store-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="mps_list-tab" data-bs-toggle="tab" data-bs-target="#mps_list-tab-pane" type="button" role="tab" aria-controls="mps_list-tab-pane" aria-selected="true"><div class="nav-icon"> <i class="bi bi-list-task"></i> </div> <span class="ms-2">商单跟踪</span> </button>
+                  <button class="nav-link active" id="mps_list-tab" data-bs-toggle="tab" data-bs-target="#mps_list-tab-pane" type="button" role="tab" aria-controls="mps_list-tab-pane" aria-selected="true"><div class="head-nav-icon"> <i class="bi bi-list-task"></i> </div> <span class="ms-2">商单跟踪</span> </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="mps_chain-tab" data-bs-toggle="tab" data-bs-target="#mps_chain-tab-pane" type="button" role="tab" aria-controls="mps_chain-tab-pane" aria-selected="true"><div class="nav-icon"> <i class="bi bi-upc"></i></div> <span class="ms-2">商单模版</span></button>
+                  <button class="nav-link" id="mps_chain-tab" data-bs-toggle="tab" data-bs-target="#mps_chain-tab-pane" type="button" role="tab" aria-controls="mps_chain-tab-pane" aria-selected="true"><div class="head-nav-icon"> <i class="bi bi-upc"></i></div> <span class="ms-2">商单模版</span></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="mps_fund-tab" data-bs-toggle="tab" data-bs-target="#mps_fund-tab-pane" type="button" role="tab" aria-controls="mps_fund-tab-pane" aria-selected="true"><div class="nav-icon"><i class="bi bi-currency-bitcoin"></i></div> <span class="ms-2">合约基金</span></button>
+                  <button class="nav-link" id="mps_fund-tab" data-bs-toggle="tab" data-bs-target="#mps_fund-tab-pane" type="button" role="tab" aria-controls="mps_fund-tab-pane" aria-selected="true"><div class="head-nav-icon"><i class="bi bi-currency-bitcoin"></i></div> <span class="ms-2">合约基金</span></button>
                 </li>
               </ul>
           </div>
@@ -390,7 +396,7 @@
                         </td>
                         <td class="col-type">{{exlpainMpsTagV(trans.tag)}}</td>
                         <td class="col-type">{{explainMpsTypeV(trans.mpsType)}}</td>
-                        <td class="col-addTime">{{trans.createAt}}</td>
+                        <td class="col-addTime">{{trans.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -478,7 +484,7 @@
                         <td class="col-type">{{explianMpsChainTagV(trans.tag)}}</td>
                         <td class="col-fee">{{trans.processingCnt}}</td>
                         <td class="col-fee">{{trans.processedCnt}}</td>
-                        <td class="col-addTime">{{trans.createAt}}</td>
+                        <td class="col-addTime">{{trans.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
                       </tr>
                     </tbody>
                   </table>

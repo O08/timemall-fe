@@ -876,3 +876,8 @@ file upload
 .table-responsive .btn-group-vertical {
     position: static;
 }
+
+// safari outline
+.btn.show:focus-visible{
+  box-shadow: unset;
+}

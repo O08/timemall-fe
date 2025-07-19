@@ -95,6 +95,16 @@ app.get('/mall/virtual/:item', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/virtual-item.html")        //设置/ 下访问文件位置
 })
 
+app.get('/proposal/compose', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/estudio/studio-proposals-compose.html")        //设置/ 下访问文件位置
+})
+app.get('/proposal/:projectNo/compose', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/estudio/studio-proposals-compose.html")        //设置/ 下访问文件位置
+})
+app.get('/proposal/:projectNo', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/estudio/studio-proposals-review.html")        //设置/ 下访问文件位置
+})
+
 
 // match @abc @bcdddd,for brand handle mapping
 app.get( /^\/@/, (req, res) => {

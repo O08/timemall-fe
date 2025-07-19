@@ -1,0 +1,223 @@
+pt-app content main{
+    padding: 0;
+}
+.box-bg-primary{
+    background-color: #1f1f1f;
+}
+header{
+    border-bottom: 1px solid #fff3;
+}
+.content-box{
+    --gutterWidth: 24px;
+    --containerWidth: 1100px;
+    max-width: var(--containerWidth);
+    padding-bottom: 100px;
+    padding: 0 var(--gutterWidth);
+    margin: 50px auto 96px;
+    background-color: #141414;
+}
+.section-box{
+    min-height: 72px;
+    padding-top: 1.3rem;
+    padding-bottom: 2rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+}
+.material-item{
+    padding: .25rem;
+    padding-right: 4.375rem;
+    position: relative;
+    display: flex;
+}
+.material-item .material-actions{
+    position: absolute;
+    right: 8px;
+}
+.material-actions .dropdown-toggle:after{
+    content: none;
+}
+.material-item:hover{
+    background-color: #0d1117;
+}
+
+
+
+.btn-file-upload{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    padding: 2px 16px;
+    color: #fff;
+    min-height: 28px;
+}
+.btn-file-upload:hover{
+    background-color: hsl(228 calc(1 * 6.024%) 32.549% / 0.6) ;
+}
+
+.bgPrimary{
+    background-color: hsl(234.935 calc(1 * 85.556%) 64.706% / 1);
+}
+.bgPrimary:hover{
+    background-color: hsl(234.72 calc(1 * 51.44%) 52.353% / 1);
+}
+.section-header{
+    padding-bottom: 1rem;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-save {
+    box-sizing: border-box;
+    color: #fff;
+    background: #248045;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    line-height: 16px;
+    display: flex;
+    position: relative;
+    min-height: 38px;
+    padding: 2px 16px;
+    font-size: 14px;
+}
+
+.bgPrimaryBlue:hover{
+    background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
+}
+
+.disabled{
+    background-color: #6c757d !important;
+}
+.download {
+    color: #fff9;
+}
+.download:hover,.btn-option-secondary:hover{
+    color: #00ba9d;
+}
+.btn-option-secondary{
+    background-color: unset;
+}
+
+.loading .btn-file-upload-wrp{
+    display: none;
+}
+
+.loading-content{
+    display: none;
+}
+.loading .loading-content{
+    display: block;
+}
+
+
+.btn-option-secondary{
+    box-shadow: none;
+    outline: none;
+}
+.inputDefault {
+    box-sizing: border-box;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    border-radius: 3px;
+    outline: 0;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.table{
+    width: 100%;
+    min-width: 100%;
+    vertical-align: middle;
+}
+
+.ql-editor{
+    word-break: break-all;
+}
+.ql-editor pre {
+    color: #f8f8f2;
+    scrollbar-width: none;
+    background-color: #2b2d31;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0.5rem;
+    font-family: monospace;
+    overflow: scroll;
+  }
+  
+  .ql-editor  blockquote {
+    border-left: 4px solid #ccc;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 16px;
+  }
+  .ql-editor  .ql-align-center {
+    text-align: center;
+  }
+  .ql-editor  .ql-align-right {
+    text-align: right;
+  }
+  .ql-editor   .ql-align-justify {
+    text-align: justify;
+  }
+  .col-form-label{
+    font-size: 14px;
+    font-weight: 500;
+}
+.logo img{
+    display: block;
+}
+.w-10{
+    width: 10%;
+    min-width: 48px;
+}
+.w-15{
+    width: 15%;
+    min-width: 64px;
+}
+.w-20{
+    width: 20%;
+    min-width: 72px;
+}
+.table td{
+    word-break: break-all;
+}
+  @media (max-width: 767px){
+    .section-box{
+        padding: .75rem;
+    } 
+    .content-box {
+        --gutterWidth: 12px;
+    }
+    .inputDefault{
+        font-size: 12px;
+    }
+    .section-header{
+        padding-bottom: 12px;
+    }
+    .material-item{
+        font-size: 12px;
+    }
+    .table td{
+       font-size: 10px;
+    }
+    tr td:first-child, tr th:first-child {
+        padding-left: 4px;
+    }
+
+
+}

@@ -244,6 +244,11 @@
                   <button class="nav-link">虚拟商品</button>
                 </a>
               </li>
+              <li class="nav-item" role="presentation">
+                <a href="/epod/pod-proposals-order">
+                  <button class="nav-link">提案</button>
+                </a>
+              </li>
             </ul>
           </div>
            <!--  first tablist content-->
@@ -339,7 +344,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{trans.fee.toFixed(2)}}</span> </td>
-                            <td class="col-addTime"><span> {{trans.added}}</span></td>
+                            <td class="col-addTime"><span> {{trans.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                         </tbody>
                       </table>
@@ -426,7 +431,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span> </td>
-                            <td class="col-addTime"><span>{{item.added}}</span></td>
+                            <td class="col-addTime"><span>{{item.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                           
                         
@@ -493,7 +498,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
-                            <td class="col-addTime"><span>{{item.added}}</span></td>
+                            <td class="col-addTime"><span>{{item.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                           
                         
@@ -570,7 +575,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
-                            <td class="col-addTime"><span>{{item.added}}</span></td>
+                            <td class="col-addTime"><span>{{item.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                           
                         
@@ -646,7 +651,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
-                            <td class="col-addTime"><span>{{item.added}}</span></td>
+                            <td class="col-addTime"><span>{{item.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                           
                         
@@ -714,7 +719,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
-                            <td class="col-addTime"><span>{{item.added}}</span></td>
+                            <td class="col-addTime"><span>{{item.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                           
                         
@@ -782,7 +787,7 @@
                               </span>
                             </td>
                             <td class="col-fee"><span>{{item.fee.toFixed(2)}}</span></td>
-                            <td class="col-addTime"><span>{{item.added}}</span></td>
+                            <td class="col-addTime"><span>{{item.added.replace(new RegExp('-', 'g'), '/')}}</span></td>
                           </tr>
                           
                         
