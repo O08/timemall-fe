@@ -156,20 +156,38 @@
 
             <span v-show="Number(homeInfo.enableBlue)" class="service-brand-blue mx-2 px-2">尊享蓝标</span>
           </div>
+
+          <div v-if="user_already_login"  class="d-flex cooperation">
+            <div v-if="!!homeInfo.pdOasisId" class="actio-item">
+              <a :href="'/rainbow/oasis/home?oasis_id='+homeInfo.pdOasisId" target="_blank">
+                <button type="button"  class="btn btn-primary option-swap" >
+                  <i class="bi bi-forward"></i> 访问社区
+                </button>
+              </a>
+            </div>
+            <div  class="actio-item ms-2">
+              <button type="button" @click="retrieveOasesCreatedV" class="btn btn-primary option-invitation" data-bs-toggle="modal" data-bs-target="#inviteModal">
+                <i class="bi bi-building-add"></i> 邀请加入部落
+              </button>
+            </div>
+          </div>
           
         </section>
         <section id="section-tabs" class="section-tabs">
           <!-- bubble tablist -->
           <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">虚拟商品</button>
+              <button @click="changeUrlTabV('home')" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">虚拟商品</button>
             </li>
+
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">特约服务</button>
+              <button @click="changeUrlTabV('service')"  class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">特约服务</button>
             </li>
-            <li v-if="user_already_login" class="nav-item" role="presentation">
-              <button class="nav-link" id="cooperation-tab" data-bs-toggle="tab" data-bs-target="#cooperation-tab-pane" type="button" role="tab" aria-controls="cooperation-tab-pane" aria-selected="false">互动</button>
+
+            <li class="nav-item" role="presentation">
+              <button @click="changeUrlTabV('subscription')"  class="nav-link" id="subscription-tab" data-bs-toggle="tab" data-bs-target="#subscription-tab-pane" type="button" role="tab" aria-controls="subscription-tab-pane" aria-selected="false">付费订阅</button>
             </li>
+
           </ul>
         </section>
 
@@ -215,9 +233,66 @@
                   </div>
                 </section>
               </div>
+              <div class="tab-pane fade" id="subscription-tab-pane" role="tabpanel" aria-labelledby="subscription-tab" tabindex="0">
+                <section class="section-list-render">
+                  <div v-if="!subscription.records || subscription.records.length==0" class="not-found-resource">
+                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                    <h4>未找到结果</h4>
+                  </div>
+                  <div class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-3">
+
+                    <div v-for="plan in subscription.records" class="col">
+                     
+                      <div @click="goPlanShoppingPageV(plan)" class="cell-item">
+                        <div class="card border-0 cell-card-body-bg pb-1">
+                          <div class="card-body px-2">
+                            <div class="plan-product d-flex align-items-center">
+                              <div>
+                                <div class="plan-product__icon"><i class="bi bi-tag-fill"></i></div>
+                              </div>
+                              <div class="plan-product__name ms-2">{{plan.productName}}</div>
+                            </div>
+                            <div class="plan-info py-3">
+                              <div class="plan-info__name py-2">
+                                {{plan.planName}}
+                              </div>
+                              <div class="card-text plan-info__desc">
+                                {{plan.planDesc}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card-footer px-2 d-flex align-items-center justify-content-between card-footer-highlight">
+                            <span class="vip-award">
+                              <i class="bi bi-award-fill"></i>
+                            </span>
+                            <div class="price">
+                              <i>￥</i>
+                              <ins class="text-decoration-none price-txt">{{plan.price}}</ins>
+                              <div class="line">
+                              </div>
+                              <span class="price-sbu">
+                                月
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+
+                  </div>
+
+                  <div v-if="subscription.queryParam.pages > subscription.queryParam.current" class="show-more-row">
+                    <button v-preventreclick @click="infinitePlanHandler" type="button"  class="btn btn-show-more" >
+                      显示更多
+                    </button>
+                  </div>
+
+                </section>
+              </div>
 
               <div class="tab-pane fade" id="service-tab-pane" role="tabpanel" aria-labelledby="service-tab" tabindex="0">
-                <section class="section-list-render" id="service_library">
+                <section class="section-list-render">
                   <div v-if="!cells || cells.length==0" class="not-found-resource">
                     <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
                     <h4>未找到结果</h4>
@@ -257,24 +332,6 @@
                     <button v-preventreclick @click="infiniteHandler" type="button"  class="btn btn-show-more" >
                       显示更多
                     </button>
-                  </div>
-                </section>
-              </div>
-              <div class="tab-pane fade" id="cooperation-tab-pane" role="tabpanel" aria-labelledby="cooperation-tab" tabindex="0">
-                <section class="section-list-render" id="cooperation_library">
-                  <div  class="row gx-0 gy-0  row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 row-cols-xl-8 ms-3 me-3">
-                    <div v-if="!!homeInfo.pdOasisId" class="col actio-item">
-                      <a :href="'/rainbow/oasis/home?oasis_id='+homeInfo.pdOasisId" target="_blank">
-                        <button type="button"  class="btn btn-primary option-swap" >
-                          <i class="bi bi-forward"></i> 访问社区
-                        </button>
-                      </a>
-                    </div>
-                    <div  class="col actio-item">
-                      <button type="button" @click="retrieveOasesCreatedV" class="btn btn-primary option-invitation" data-bs-toggle="modal" data-bs-target="#inviteModal">
-                        <i class="bi bi-building-add"></i> 邀请加入部落
-                      </button>
-                    </div>
                   </div>
                 </section>
               </div>

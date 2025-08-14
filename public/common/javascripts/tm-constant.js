@@ -96,7 +96,8 @@ var EmailNoticeEnum= Object.freeze({
 }); 
 var RefundSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "CELL_PLAN_ORDER",  // cell plan order 
-    "VIRTUAL_ORDER": "VIRTUAL_ORDER"
+    "VIRTUAL_ORDER": "VIRTUAL_ORDER",
+    "SUBSCRIPTION": "SUBSCRIPTION"
 }); 
 var CellPlanOrderTag=Object.freeze({
     "CREATING": "0",  // 订单创建中
@@ -195,8 +196,36 @@ var ProposalProjectStatusEnum = Object.freeze({
 
 });
 
+var SubscriptionStatusEnum = Object.freeze({
+    "ACTIVE": "active", // 订阅中
+    "TRIALING": "trialing", // 试用中
+    "INCOMPLETE": "incomplete", // 等待支付
+    "INCOMPLETE_EXPIRED": "incomplete_expired", // 已过期
+    "UNPAID": "unpaid" ,// 支付失败
+    "CANCELED": "canceled", // 已取消
+    "CLOSED": "closed" // 已关闭
+});
+var SubsBillCalendarEnum = Object.freeze({
+    "MONTHLY": "monthly", // 月缴
+    "QUARTERLY": "quarterly", // 季缴
+    "YEARLY": "yearly"// 年缴
+});
+var SubsOfferStatusEnum = Object.freeze({
+    "DRAFT": "1", // 待上线
+    "ONLINE": "2", // 发放中
+    "OFFLINE": "3"// 已下线
+});
+var SubsOfferTypeEnum = Object.freeze({
+    "PAY_QUARTERLY_DISCOUNT_COUPON_SP": "pay_quarterly_discount_coupon_sp", //  季缴优惠
+    "PAY_YEARLY_DISCOUNT_COUPON_SP": "pay_yearly_discount_coupon_sp", //  年缴优惠
+    "FIRST_PERIOD_DISCOUNT_PROMO_CODE_SP": "first_period_discount_promo_code_sp", // 首月折扣
+    "FIRST_PERIOD_CASH_PROMO_CODE_SP": "first_period_cash_promo_code_sp", // 首月现金减免
+    "FULL_ITEM_DISCOUNT_PROMO_CODE": "full_item_discount_promo_code"// 全店通用折扣
+});
+
 export {
-    MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,
+    SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,
+    MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,

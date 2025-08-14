@@ -17,6 +17,7 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            init_finish: false,
             promotion: {},
             updatePromotionObj: {}
         }
@@ -42,7 +43,7 @@ const RootComponent = {
             loadBrandPromotionInfo().then(response=>{
                 if(response.data.code == 200){
                     this.promotion = !response.data.promotion ? {} : response.data.promotion ;
-
+                    this.init_finish=true;
                 }
             })
         },

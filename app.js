@@ -106,6 +106,13 @@ app.get('/proposal/:projectNo', (req, res) => {
 })
 
 
+app.get('/:seller/:product/subscription', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/estudio/studio-user-subscribe.html")        //设置/ 下访问文件位置
+})
+
+app.get('/:seller/:product/:planId/subscription', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/estudio/studio-user-subscribe.html")        //设置/ 下访问文件位置
+})
 // match @abc @bcdddd,for brand handle mapping
 app.get( /^\/@/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置

@@ -50,7 +50,7 @@ async function doSendOrderReceivingEmail(dto){
   return await axios.post(url,dto);
 }
 
-async function doVirtualProductOrderRefund(dto){
+async function doEstudioRefund(dto){
   const url="/api/v1/web_estudio/order/refund";
   return await axios.post(url,dto);
 }
@@ -63,9 +63,18 @@ async function virtualProductOrderRefund(orderId,term){
      scene: RefundSceneEnum.VIRTUAL_ORDER,
      param: JSON.stringify({orderId: orderId,term: term})
   }
- return doVirtualProductOrderRefund(dto);
+ return doEstudioRefund(dto);
 }
-
+async function subscriptionBillRefund(billId,term){
+  if(!billId){
+      return;
+  }
+  const dto={
+     scene: RefundSceneEnum.SUBSCRIPTION,
+     param: JSON.stringify({billId: billId,term: term})
+  }
+ return doEstudioRefund(dto);
+}
 
 function sendOrderReceivingEmail(noticeType,orderId){
   const dto={
@@ -78,5 +87,6 @@ function sendOrderReceivingEmail(noticeType,orderId){
 Api.getBrandProfile=getBrandProfile;
 Api.sendOrderReceivingEmail=sendOrderReceivingEmail;
 Api.virtualProductOrderRefund=virtualProductOrderRefund;
+Api.subscriptionBillRefund=subscriptionBillRefund;
 
 export {Api}

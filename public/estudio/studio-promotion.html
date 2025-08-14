@@ -233,6 +233,12 @@
                   </div>
                   <span>商单助手</span>
                 </a>
+                <a class="nav-link" href="/estudio/studio-subscription">
+                  <div class="nav-icon">
+                    <i class="bi bi-magic"></i>
+                  </div>
+                  <span>付费订阅</span>
+                </a>
                 <a class="nav-link active" >
                     <div class="nav-icon">
                       <i class="bi bi-gift"></i>
@@ -270,7 +276,7 @@
 
             <section class="section-coupon-list">
 
-              <div v-if="isEmptyObjectV(promotion)">
+              <div v-if="init_finish && isEmptyObjectV(promotion)">
                 <div class="pt-5">
                   <span>你还未激活营销活动功能</span>
                 </div>

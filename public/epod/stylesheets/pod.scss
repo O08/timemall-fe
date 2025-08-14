@@ -288,6 +288,7 @@ pt-app header{
     border-radius: 50%;
     padding: unset;
     margin: 0 8px;
+    position: relative;
 }
 pt-app content,main,pt-app main{
     height: calc(100vh - 56px);

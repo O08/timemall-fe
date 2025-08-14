@@ -169,24 +169,12 @@ nav{
 {
     margin-top: 50px;
     background-color: #000;
-    margin-right: 10%;
+    margin-right: 12px;
 }
 
 
 
-/* #service_library{
-  height: 76vh;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: scroll;
-  margin: 0 auto;
-  background: #333536;
-  border-radius: 10px;
-  padding: 30px;
-  color: #fff;
-  margin: 30px;
-  display: inline-block;
-} */
+
 .nav-tabs .nav-link{
   color: #a7a7a7;
 }
@@ -284,8 +272,7 @@ nav{
   color: #666666;
 }
 .actio-item{
-  height: 60px;
-  margin-top: 20px;  
+  height: 48px;
 }
 .btn-info {
   color: white;
@@ -319,12 +306,53 @@ nav{
   display: -webkit-box;
   overflow: hidden;
 }
+.plan-product__icon{
+  background-color: #4d5154;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  color: #fff;
+}
+.plan-product__name{
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  -webkit-box-orient: vertical;
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  font-size: 14px;
+  color: #fff;
+}
+.plan-info__name{
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  color: #c4b1d4;
+}
 @media (max-width: 576px) {
   .nav-tabs .nav-link{
     font-size: 16px;
+    padding-left: .75rem;
+    padding-right: .75rem;
   }
 .portrait{
   margin-left: 12px;
+}
+.cooperation{
+  padding-left: 12px;
+}
+.actio-item{
+  height: 36px;
 }
   .join-now,.button_login{
     width: 50px;
@@ -373,6 +401,7 @@ header,.header-container {
 
   #bubble-tab-content,.section-tabs{
     margin-left: 12px;
+    margin-right: 12px;
     padding-left: 0;
 
   }
@@ -381,7 +410,7 @@ header,.header-container {
   }
 
   .section-list-render{
-    margin-right: 12px;
+    margin-right: 0px;
   }
   .logo{
     justify-content: flex-end !important;

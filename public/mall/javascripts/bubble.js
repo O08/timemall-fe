@@ -29,11 +29,31 @@ const RootComponent = {
                 vr: []
             },
             cells: {},
+            subscription: {
+                records: [],
+                queryParam: {
+                    sellerBrandId: "",
+                    current: 1,
+                    size: 24,
+                    loading: false,
+                    pages: ""
+                }
+            },
             count: 10,
             queryParam: initQueryParam()
         }
     },
     methods: {
+        goPlanShoppingPageV(plan){
+            window.location.href="/"+this.homeInfo.sellerHandle+"/"+plan.productCode+"/"+plan.planId+"/subscription?planType=standard&mode=hard"
+        },
+        infinitePlanHandler(){
+            infiniteSubscriptionPlan();
+        },
+        changeUrlTabV(tab){
+            const url = window.location.pathname+"?tab="+tab;
+            history.pushState(null, "", url);
+        },
         loadHomeInfoV(){
             loadHomeInfo();
         },
@@ -55,6 +75,8 @@ const RootComponent = {
                     this.queryParam.brandId=this.homeInfo.browseBrandId;
                     this.cells=response.data.responseContext.cells.records;
                     this.queryParam.pages = response.data.responseContext.cells.pages;
+                    this.subscription.queryParam.sellerBrandId=this.homeInfo.browseBrandId;
+                    loadSubscriptionPlans(this.subscription.queryParam);
 
                 }
             })
@@ -90,6 +112,19 @@ bubblePage.loadBrandGuideV();
 async function getBrandGuide(dto){
     const url = "/api/v1/web_mall/brand/guide";
     return await axios.post(url,dto);
+}
+async function fetchSubscriptionPlans(sellerBrandId,size,current){
+    const url = "/api/public/brand/space/subscription/plan/query?size="+size+"&current="+current+"&sellerBrandId="+sellerBrandId;
+    return await axios.get(url);
+}
+async function loadSubscriptionPlans(queryParam){
+    fetchSubscriptionPlans(queryParam.sellerBrandId,queryParam.size,queryParam.current).then(response=>{
+        if(response.data.code == 200){
+            bubblePage.subscription.records.push(...response.data.plan.records);
+            bubblePage.subscription.queryParam.pages=response.data.plan.pages;
+        }
+        bubblePage.subscription.queryParam.loading = false;
+    });
 }
 async function loadBrandGuide(){
     const urlParam=window.location.pathname.split('/').pop();
@@ -147,6 +182,18 @@ function initServiceTab(){
     bubblePage.queryParam.pages = data.pages;
     
 }
+function infiniteSubscriptionPlan(){
+    if(!bubblePage.subscription.queryParam.sellerBrandId || bubblePage.subscription.queryParam.loading ){
+        return
+    }
+    if(bubblePage.subscription.queryParam.current +1 > bubblePage.subscription.queryParam.pages){
+        return ;
+    }
+    // loading data
+    bubblePage.subscription.queryParam.loading = true;
+    bubblePage.subscription.queryParam.current = bubblePage.subscription.queryParam.current + 1;
+    loadSubscriptionPlans(bubblePage.subscription.queryParam);
+}
 function infiniteBrandCell(){
 
     if(!bubblePage.queryParam.brandId || bubblePage.queryParam.loading ){
@@ -190,3 +237,27 @@ window.addEventListener("scroll", e => {
     navbar.classList.remove('fixed');
   }
 });
+
+
+
+function showContent(){
+    const option = getQueryVariable("tab");
+    if(!option){
+        option="home";
+    }
+
+    switch(option){
+        case "home":
+            $("#home-tab").trigger("click");
+            break; 
+        case "service":
+            $("#service-tab").trigger("click");
+                break; 
+        case "subscription":
+            $("#subscription-tab").trigger("click");
+                break; 
+    }
+    
+}
+
+showContent();

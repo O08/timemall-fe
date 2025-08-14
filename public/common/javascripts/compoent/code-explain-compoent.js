@@ -1,4 +1,4 @@
-import {ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -24,7 +24,103 @@ const CodeExplainComponent = {
     explainProposalProjectStatusV(projectStatus){
         return explainProposalProjectStatus(projectStatus);
     },
+    explainSubscriptionStatusV(status){
+        return explainSubscriptionStatus(status);
+    },
+    explainSubsBillCalendarV(billCalendar){
+        return explainSubsBillCalendar(billCalendar);
+    },
+    explainSubscriptionOfferStatusV(status){
+        return explainSubscriptionOfferStatus(status);
+    },
+    explainSubscriptionOfferTypeV(offerType){
+        return explainSubscriptionOfferType(offerType);
+    }
    }
+}
+function explainSubsBillCalendar(billCalendar){
+    var billCalendarDesc="";
+    switch(billCalendar){
+        case SubsBillCalendarEnum.MONTHLY:
+            billCalendarDesc="月付";
+            break; 
+        case SubsBillCalendarEnum.QUARTERLY:
+                billCalendarDesc="季付";
+                break; 
+        case SubsBillCalendarEnum.YEARLY:
+            billCalendarDesc="年付";
+            break;     
+    }
+    return billCalendarDesc;
+
+}
+function explainSubscriptionOfferType(offerType){
+    var offerTypeDesc = "";
+    switch(offerType){
+
+        case SubsOfferTypeEnum.PAY_QUARTERLY_DISCOUNT_COUPON_SP:
+            offerTypeDesc="季付折扣优惠";
+            break; 
+        case SubsOfferTypeEnum.PAY_YEARLY_DISCOUNT_COUPON_SP:
+            offerTypeDesc="年付折扣优惠";
+            break; 
+        case SubsOfferTypeEnum.FIRST_PERIOD_DISCOUNT_PROMO_CODE_SP:
+            offerTypeDesc="首月折扣优惠优惠码";
+            break;  
+        case SubsOfferTypeEnum.FIRST_PERIOD_CASH_PROMO_CODE_SP:
+            offerTypeDesc="首期现金减免优惠码";
+            break; 
+        case SubsOfferTypeEnum.FULL_ITEM_DISCOUNT_PROMO_CODE:
+            offerTypeDesc="全店通用折扣优惠码";
+            break;       
+    }
+    return offerTypeDesc;
+}
+
+function explainSubscriptionOfferStatus(status){
+    var statusDesc = "";
+    switch(status){
+
+        case SubsOfferStatusEnum.DRAFT:
+            statusDesc="待上线";
+            break; 
+        case SubsOfferStatusEnum.ONLINE:
+            statusDesc="发放中";
+            break; 
+        case SubsOfferStatusEnum.OFFLINE:
+            statusDesc="已下线";
+            break;   
+    }
+    return statusDesc;
+}
+
+function explainSubscriptionStatus(status){
+    var statusDesc = "";
+    switch(status){
+
+        case SubscriptionStatusEnum.ACTIVE:
+            statusDesc="订阅中";
+            break; 
+        case SubscriptionStatusEnum.TRIALING:
+            statusDesc="试用中";
+            break; 
+        case SubscriptionStatusEnum.INCOMPLETE:
+            statusDesc="等待支付";
+            break; 
+        case SubscriptionStatusEnum.INCOMPLETE_EXPIRED:
+            statusDesc="已过期";
+            break;   
+        case SubscriptionStatusEnum.UNPAID:
+            statusDesc="支付失败";
+            break;
+        case SubscriptionStatusEnum.CANCELED:
+            statusDesc="已取消";
+            break;   
+        case SubscriptionStatusEnum.CLOSED:
+            statusDesc="已关闭";
+            break;       
+    }
+    return statusDesc;
 }
 function explainProposalProjectStatus(status){
     var statusDesc = "";

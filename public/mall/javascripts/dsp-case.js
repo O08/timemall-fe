@@ -22,6 +22,10 @@ const RootComponent = {
                 orderId: "",
                 term: ""
             },
+            subscriptionBillrRefundObj: {
+                billId: "",
+                term: ""
+            },
             offlineVirtualProductId: "",
             freezeUserId: "",
             blockOasisId: "",
@@ -69,6 +73,24 @@ const RootComponent = {
                 }
             })
         },
+        showSubscriptionBillRefundModalV(){
+          this.subscriptionBillrRefundObj={};
+          $("#subscriptionBillrRefundModal").modal("show"); // show modal
+        },
+        subscriptionBillRefundV(){
+            Api.subscriptionBillRefund(this.subscriptionBillrRefundObj.billId, this.subscriptionBillrRefundObj.term).then(response => {
+                if (response.data.code == 200) {
+                    $("#subscriptionBillrRefundModal").modal("hide");
+                }
+                if (response.data.code != 200) {
+                    const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+                    customAlert.alert(error);
+                }
+
+            }).catch(error => {
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+            });
+        },
         showVirtualProductRefundModalV(){
             this.virtualProductOrderRefundObj={};
             $("#virtualProductOrderRefundModal").modal("show"); // show modal
@@ -78,6 +100,8 @@ const RootComponent = {
             Api.virtualProductOrderRefund(this.virtualProductOrderRefundObj.orderId,this.virtualProductOrderRefundObj.term).then(response=>{
                 if(response.data.code==200){
                     customAlert.alert("订单已退款！");
+                    $("#virtualProductOrderRefundModal").modal("hide"); // show modal
+
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;

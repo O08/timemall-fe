@@ -45,11 +45,15 @@
                   <fieldset disabled>
                     <div class="mb-3">
                       <label for="dspScene" class="form-label">内容归类</label>
-                      <input :value="virtualOrder.scene" type="text" id="dspScene" class="form-control" >
+                      <input :value="dspCase.scene" type="text" id="dspScene" class="form-control" >
                     </div>
-                    <div class="mb-3">
+                    <div v-if="!!dspCase.orderId" class="mb-3">
                       <label for="dspClue" class="form-label">被举报订单号</label>
-                      <input :value="virtualOrder.orderId" type="text" id="dspClue" class="form-control">
+                      <input :value="dspCase.orderId" type="text" id="dspClue" class="form-control">
+                    </div>
+                    <div v-if="!!dspCase.commonId" class="mb-3">
+                      <label for="dspIdClue" class="form-label">被举报Id</label>
+                      <input :value="dspCase.commonId" type="text" id="dspIdClue" class="form-control">
                     </div>
                   </fieldset>
                   </form>
