@@ -38,6 +38,25 @@ col-content::-webkit-scrollbar {
       height: 100%;
   }
 }
+@media only screen and (max-width: 1399.99px){
+  .xxl-hiden-menu{
+    height: 100%;
+    overflow-x: unset;
+    overflow-y: unset;
+  }
+  .xxl-hiden-menu col-content{
+    height: 100%;
+    min-height: 100vh;
+    overflow-y: unset;
+    overflow-x: unset;
+    scrollbar-width: none;
+  }
+}
+@media (max-width: 767px)  {
+  .empty-box{
+    height: 200px; width: 100%;
+  }
+}
   col-content{
     width: 100%;
   }
@@ -45,12 +64,11 @@ col-content::-webkit-scrollbar {
     width: 340px;
   }
   header{
-    position:sticky;
+    z-index: 1020;
+    position: sticky;
     top: 0;
-    left: 0;
-    background: #161416;
-    z-index: 2;
     height: 56px;
+    background: #161416;;
   }
   .toggle-nav{
     background: inherit;
@@ -86,6 +104,7 @@ col-content::-webkit-scrollbar {
   text-overflow: ellipsis;
   color: #fff;
 }
+
 .nav-sub-container{
     overflow-y: scroll;
     height: calc(100% - 100px);

@@ -9,38 +9,46 @@ pt-app content main {
 header {
   border-bottom: 1px solid #fff3;
 }
-
-
-.button_login {
-  border-color: #fff;
-  border-radius: 30px;
-  height: 34px;
+.join-now{
+  background-color: #9373ee;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  border-radius: 8px;
   width: 88px;
-}
-
-.join-now {
   margin-left: 12px;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
+}
+.join-now:hover{
+  background-color: #b19af3;
+  
 }
 
-.join-now,
-.button_login {
+.button_login{
+  border-color: #4e4e4e;
+  border-radius: 8px;
+  height: 34px;
+  width: 88px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(90deg, hsla(36, 77%, 86%, .322) 0, hsla(35, 70%, 68%, .322)) !important;
+  border: 1px solid #00000024;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px 0 #0000001a;
+  color: #ffdfb1;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.button_login:hover{
+  color: #E1B85E;
+}
+
+.join-now,.button_login{
   height: unset;
 }
 
-.join-now {
-  background-color: #248045;
-  border: none;
-  outline: none;
+.logo img{
+  display: block;
 }
-
-.join-now:hover {
-  background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
-
-}
-
 .content-box {
   --gutterWidth: 24px;
   --containerWidth: 1100px;
@@ -525,6 +533,13 @@ header {
 
 @media (max-width: 576px) {
 
+  .join-now,.button_login{
+    width: 50px;
+    padding: .125rem .2rem;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
   .btn-check + .btn {
     font-size: 10px;
     --bs-btn-padding-x: .35rem;
@@ -537,13 +552,7 @@ header {
 .plan-price {
   font-size: 1.8rem;
 }
-  .join-now,
-  .button_login {
-    width: 50px;
-    padding: .125rem .2rem;
-    font-size: 12px;
-    border-radius: 16px;
-  }
+
 
   .section-box {
     min-height: 72px;

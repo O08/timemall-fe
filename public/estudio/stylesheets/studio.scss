@@ -4,6 +4,11 @@
 @import 'npm:jquery-ui/themes/base/datepicker.css';
 
 
+@font-face {
+  font-family: 'YouSheBiaoTiHei';
+  src: url('/common/fonts/YouSheBiaoTiHei-mini.ttf') format('truetype');
+}
+
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 
 { 
   font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
@@ -34,6 +39,8 @@ a {
 .logo h2 {
     text-decoration: none;
     color: #fff;
+    font-family: "YouSheBiaoTiHei", Microsoft YaHei, Arial, Helvetica, sans-serif !important;
+
 }
 body {
     background-color: #000;
@@ -42,6 +49,12 @@ body {
 body {
   margin: 0;
   height: 100vh;
+}
+header{
+  z-index: 1020;
+  position: sticky;
+  top: 0;
+  background-color: #000;
 }
 
 [v-cloak] {
@@ -257,6 +270,7 @@ pt-app header{
   .logo img{
     height: 32px;
     width: 32px;
+    border-radius: 4px;
     display: none;
   }
   .nav-icon,.entry-nav svg{
@@ -276,6 +290,11 @@ pt-app header{
 }
 .entry-nav svg{
     fill: white;
+}
+.entry-nav i{
+  color: white;
+  font-size: 14px;
+
 }
 .brand-avatar{
     background-color: unset !important;
@@ -526,7 +545,7 @@ img:after {
  }
 
  pt-app content main{
-    padding: 80px;
+    padding: 40px;
 }
 
 
@@ -839,7 +858,14 @@ file upload
       gap: 1.5rem;
    }
   }
-
+  @media (max-width: 767px)  {
+    .table,.empty-content-block,.main-content-container.full{
+      min-width: 1200px;
+    }
+    .empty-box{
+      height: 200px; width: 100%;
+    }
+  }
   
   @media (max-width: 576px) {
 
@@ -863,6 +889,9 @@ file upload
     }
     pt-app content main {
         padding: 0 24px;
+    }
+    .brand-avatar img{
+      margin: unset;
     }
 
 

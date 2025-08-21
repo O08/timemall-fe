@@ -241,7 +241,7 @@ window.addEventListener("scroll", e => {
 
 
 function showContent(){
-    const option = getQueryVariable("tab");
+    var option = getQueryVariable("tab");
     if(!option){
         option="home";
     }

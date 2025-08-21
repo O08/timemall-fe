@@ -203,9 +203,7 @@ body::-webkit-scrollbar {
   min-width: 130px;
 }
 
-.main-content-container {
-  min-width: 1000px;
-}
+
 
 
 .table .dropdown-toggle:after {
@@ -263,4 +261,10 @@ body::-webkit-scrollbar {
   opacity: 1;
   color: #3483fa;
 
+}
+
+@media (max-width: 767px)  {
+  .table,.empty-content-block,.main-content-container.full{
+    min-width: 1500px;
+  }
 }

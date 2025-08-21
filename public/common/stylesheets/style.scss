@@ -3,6 +3,13 @@
 @import 'npm:bootstrap-icons/font/bootstrap-icons.css';
 @import 'npm:jquery-ui/themes/base/datepicker.css';
 
+
+@font-face {
+  font-family: 'YouSheBiaoTiHei';
+  src: url('/common/fonts/YouSheBiaoTiHei-mini.ttf') format('truetype');
+}
+
+
 /*----------------------------------------------------
     0. Basic 
 ------------------------------------------------------*/
@@ -28,7 +35,9 @@ body {
   display:none !important;
 }
 
-
+img[alt] {
+  text-indent: -9999px;
+}
 .mx-120 {
     margin-left: 10%;
     margin-right: 5%;
@@ -65,12 +74,13 @@ body {
 }
 
 .join-now{
-  background-color: #248045;
+  background-color: #9373ee;
   border: none;
   outline: none;
+  font-size: 14px;
 }
 .join-now:hover{
-  background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
+  background-color: #b19af3;
   
 }
 /* 大型设备（笔记本电脑/台式机，992 像素及以上） */
@@ -276,6 +286,9 @@ body {
     border: 2px solid #3D3D3D;
 }
 
+.font-biaotihei{
+  font-family: YouSheBiaoTiHei, Microsoft YaHei, Arial, Helvetica, sans-serif !important;
+}
 /*----------------------------------------------------
     4. E Pod layout
 ------------------------------------------------------*/
@@ -756,6 +769,35 @@ opacity: 0;
   border-top-left-radius: unset;
   border-top-right-radius: unset;
 }
+.join-now{
+  margin-left: 12px;
+  border-radius: 8px;
+  height: 34px;
+  width: 88px;
+}
+
+.button_login{
+  border-color: #4e4e4e;
+  border-radius: 8px;
+  height: 34px;
+  width: 88px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(90deg, hsla(36, 77%, 86%, .322) 0, hsla(35, 70%, 68%, .322)) !important;
+  border: 1px solid #00000024;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px 0 #0000001a;
+  color: #ffdfb1;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.button_login:hover{
+  color: #E1B85E;
+}
+
+.join-now,.button_login{
+  height: unset;
+}
 .button_user_account{
   color: #4cffa9;
   background-color: unset;
@@ -836,6 +878,12 @@ json-node span{
   }
   .logo{
   justify-content: center !important;
+  }
+  .join-now,.button_login{
+    width: 50px;
+    padding: .125rem .2rem;
+    font-size: 12px;
+    border-radius: 6px;
   }
 }
 @media only screen and (max-height: 700px) {
@@ -1089,12 +1137,22 @@ col-container{
   background-color: #108b39;
   border-radius: 5px;
 }
+.nav-discovery i,.nav-discovery-active i{
+  color: #659fe2;
+  font-size: larger;
+  font-weight: 500;
+}
 .nav-private-active{
   background-color: #F44336;
 }
 .nav-private:hover{
   background-color: #F44336;
   border-radius: 5px;
+}
+.nav-private i,.nav-private-active i{
+  color: #fff;
+  font-size: larger;
+  font-weight: 500;
 }
 .nav-affiliate:hover,.nav-affiliate-active{
   background-color: #f89898;
@@ -1112,6 +1170,11 @@ col-container{
 .nav-teixcalaanli:hover{
   background-color: #009688;
   border-radius: 5px;
+}
+.nav-teixcalaanli i,.nav-teixcalaanli-active i{
+  color:  #36F7E5;
+  font-size: larger;
+  font-weight: 500;
 }
 .nav-link-active{
   background-color: #2d2c2ce6;
@@ -1346,6 +1409,9 @@ col-container{
   .tab-content > .tab-pane{
     height: calc(100vh - 72px);
   }
+  .brand-avatar img{
+    margin: unset;
+  }
 }
 
 /* table */
@@ -1393,6 +1459,7 @@ table th{
   width: 32px;
   height: 32px;
   margin: 0 8px;
+  position: relative;
 }
 /* fullscreen modal */
 .fullscreen-modal{
@@ -1428,6 +1495,10 @@ table th{
 .entry-nav svg{
   fill: white;
 }
+.entry-nav i{
+  color: white;
+  font-size: 14px;
+}
 .forward-icon {
   width: 16px;
   height: 16px;
@@ -1438,11 +1509,15 @@ table th{
 .logo_link {
   text-decoration: none;
 }
+.logo_link img{
+  border-radius: 4px;
+}
 .logo_link span{
   font-size: calc(1rem + .9vw);
   font-weight: 500;
   line-height: 1.2;
   color: #fff;
+  font-family: "YouSheBiaoTiHei", Microsoft YaHei, Arial, Helvetica, sans-serif !important;
   
 }
 .custom-tooltip{

@@ -365,7 +365,7 @@ function orderCellPlan(planId){
         }
         if(response.data.code==40007){
             $("#errorModal").modal("show"); 
-            cellDetailPage.error=response.data.message + ";不用担心,已为你创建了订单,可前往商城充值,再回到【个人中心】继续付款。";
+            cellDetailPage.error=response.data.message + ";不用担心,已为你创建了订单,可前往商城充值,再回到【奇迹工坊】继续付款。";
             return ;
         }
         if(response.data.code!=200){
@@ -416,7 +416,7 @@ function orderNow(){
             uploadCellDataLayerWhenAppointment([cellId]);
 
             // give option
-            customAlert.alert("成功预约，可在【个人中心】查看预约记录");
+            customAlert.alert("成功预约，可在【奇迹工坊】查看预约记录");
 
         }
         if(response.data.code==40024){

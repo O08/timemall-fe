@@ -1,0 +1,23 @@
+{
+    "name": "班蔚",
+    "short_name": "班蔚",
+    "description": "个性化定制、社交、商务、远程办公、创业为一体的数字职场",
+    "start_url": "/",
+    "background_color": "#12121252",
+    "theme_color": "#12121252",
+    "orientation": "any",
+    "display": "minimal-ui",
+    "icons": [
+        {
+            "src": "/common/images/favicon-512x512.png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "/common/images/favicon-maskable-512x512.png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        }
+    ],
+    "categories": ["商务"]
+
+}

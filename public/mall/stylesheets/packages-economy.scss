@@ -107,19 +107,7 @@ nav{
   width: 32px;
 }
 
-.button_login{
-  border-color: #fff;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
-}
 
-.join-now{
-  margin-left: 12px;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
-}
 .search-container,mall-app content{
   padding-left: 72px;
   padding-right: 72px;
@@ -422,9 +410,7 @@ nav{
   width: 30px;
   height: 30px;
 }
-.join-now,.button_login{
-  height: unset;
-}
+
 .service_not_found_illustration{
   display: flex;
   justify-content: center;
@@ -435,6 +421,13 @@ nav{
 .service_not_found_description{
   text-align: center;
 }
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+  .search-container,mall-app content{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
   @media (max-width: 576px) {
     .top-bar-filter-budget,.sort-by , .sbu-option,.sbu-option option,.s_type{
       font-size: 14px;
@@ -443,12 +436,6 @@ nav{
       font-size: 12px;
       height: unset;
     }
-    .join-now,.button_login{
-      width: 50px;
-      padding: .125rem .2rem;
-      font-size: 12px;
-      border-radius: 16px;
-  }
     .input-search-area {
       width: 200px;
   }

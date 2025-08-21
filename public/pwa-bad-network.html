@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <!-- Meta Definitions -->
+  <meta charset="UTF-8">
+  <!-- Define the viewport for better responsive behavior -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.png" />
+  <!-- Theme colour Meta Tag -->
+  <meta name="theme-color" content="#FFFFFF" />
+  <!-- Other Meta Tags -->
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Title of the Webpage -->
+  <title>网络出错啦！～ - bluvarri.com</title>
+
+  <link rel="stylesheet" href="common/stylesheets/style.scss">
+  <!-- Inline CSS for Styling -->
+  <style>
+    html,
+    body,
+    .content-container {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .content-container {
+
+      /* Internet Explorer 10 */
+      display: -ms-flexbox;
+      -ms-flex-pack: center;
+      -ms-flex-align: center;
+
+      /* Firefox */
+      display: -moz-box;
+      -moz-box-pack: center;
+      -moz-box-align: center;
+
+      /* Safari, Opera, and Chrome */
+      display: -webkit-box;
+      -webkit-box-pack: center;
+      -webkit-box-align: center;
+
+      /* W3C */
+      display: box;
+      box-pack: center;
+      box-align: center;
+    }
+
+    .option-refresh {
+      opacity: .8;
+      background: linear-gradient(90deg, #68a4fd 0%, #aecefd 44.3%);
+      border: none;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .option-refresh:hover {
+      opacity: 1;
+    }
+
+    .icon-bg {
+      -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+      box-sizing: border-box;
+      background-image: linear-gradient(147deg, #000 0%, #434343 74%);
+      border-radius: 4px;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: row;
+      justify-content: space-evenly;
+      gap: 12px;
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content-container  icon-bg ">
+    <div class="d-flex justify-content-center align-items-center flex-column">
+      <div class="d-flex justify-content-center align-items-center" style="font-size: 72px; color: #8b949e; ">
+        <i class="bi bi-cloud-slash"></i>
+      </div>
+      <h1>应用网络状况不佳</h1>
+      <div class="d-flex justify-content-center align-items-center" style="color: #8b949e; padding-bottom: 32px;">
+        <p>无法连接到 bluvarri.com，请检查您的网络连接是否正常.</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    //除navigator.onLine属性之外，为了更好地确定网络是否可用，HTML5还定义了两个事件：online和offline。
+    //当网络从离线变为在线或者从在线变为离线时，分别触发这两个事件。这两个事件在window对象上触发。
+    var EventUtil = {
+        addHandler: function(element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        }
+    };
+
+    EventUtil.addHandler(window, "online", function() {
+       window.location.href="/";
+    });
+
+  </script>
+
+
+</body>
+
+
+</html>

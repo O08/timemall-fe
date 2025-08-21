@@ -60,12 +60,7 @@ a{
     align-items: center;
 }
 
-.button_login{
-    border-color: #fff;
-    border-radius: 30px;
-    height: 34px;
-    width: 88px;
-  }
+
   
   .join-now{
     margin-left: 12px;
@@ -226,12 +221,6 @@ a{
     padding-left: .5rem;
 }
 
-.button_user,.join-now,.button_login{
-    display: none;
-}
-.join-now,.button_login{
-    height: unset;
-}
 @media (max-width: 600px) {
     html { font-size: 12px; }
 }
@@ -241,12 +230,6 @@ a{
     }
     .header-container{
         padding: 0 6px;
-    }
-    .join-now,.button_login{
-        width: 50px;
-        padding: .125rem .2rem;
-        font-size: 12px;
-        border-radius: 16px;
     }
     .nav_links{
       font-size: 14px;

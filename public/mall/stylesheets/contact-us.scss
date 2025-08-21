@@ -65,6 +65,8 @@ body::-webkit-scrollbar {
   .header-container{
     padding-left: 24px;
     padding-right: 24px;
+    background-color: #000;
+
   }
   nav{
     display: flex;
@@ -131,22 +133,6 @@ body::-webkit-scrollbar {
     width: 32px;
   }
   
-  .button_login{
-    border-color: #fff;
-    border-radius: 30px;
-    height: 34px;
-    width: 88px;
-  }
-  
-  .join-now{
-    margin-left: 12px;
-    border-radius: 30px;
-    height: 34px;
-    width: 88px;
-  }
-  .join-now,.button_login{
-    height: unset;
-}
   @media (max-width: 576px) {
 
   .header-container {
@@ -167,11 +153,5 @@ body::-webkit-scrollbar {
   .header-primary-container .nav_links{
     display: none;
   }
-  .join-now,.button_login{
-    width: 50px;
-    padding: .125rem .2rem;
-    font-size: 12px;
-    border-radius: 16px;
-}
   
   }

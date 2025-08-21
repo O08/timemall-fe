@@ -37,9 +37,14 @@
 .header-container,.nav_link{
   height: 55px;
 }
+body{
+  height: unset;
+  overflow-y: unset;
+}
 .header-container{
   padding-left: 24px;
   padding-right: 24px;
+  background-color: #000;
 }
 nav{
   display: flex;
@@ -106,22 +111,9 @@ nav{
   width: 32px;
 }
 
-.button_login{
-  border-color: #fff;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
-}
 
-.join-now{
-  margin-left: 12px;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
-}
-.join-now,.button_login{
-    height: unset;
-}
+
+
 @media (max-width: 576px) {
 
 .header-container {
@@ -142,12 +134,7 @@ nav{
 .header-primary-container .nav_links{
   display: none;
 }
-.join-now,.button_login{
-        padding: .325rem .275rem;
-        width: 66px;
-        font-size: 12px;
-        border-radius: 16px;
-    }
+
 
 }
     </style>
@@ -157,7 +144,7 @@ nav{
     <mall-app id="app" class="h-100" v-cloak>
         
       <!-- header section start -->
-      <div class="header-container">
+      <div class="header-container sticky-top">
         <header>
           <nav>
             <div class="header-primary-container">
@@ -186,7 +173,7 @@ nav{
                 <li class="nav_link">
                   <a  href="/epod/pod-packages-order" > 
                     <span>
-                      个人中心
+                      奇迹工坊
                     </span>
                   </a>
                 </li>
@@ -198,7 +185,7 @@ nav{
             
             <div class="appButton">
 
-              <a v-if="!user_already_login" class="btn btn-outline-dark button_login text-white" href="/login">
+              <a v-if="!user_already_login" class="btn btn-outline-dark button_login" href="/login">
                 登录
               </a>
               <a v-if="!user_already_login" href="/signup" class="btn btn-primary join-now button_register text-white">注册</a>

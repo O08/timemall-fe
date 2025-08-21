@@ -20,6 +20,16 @@ footer {
     margin-top: -100px;
     position: relative;
 }
+header{
+    z-index: 1020;
+    position: sticky;
+    top: 0;
+    background-color: #000;
+}
+.toggle-nav {
+    font-weight: 600;
+    font-size: 24px;
+}
 .content-main,.header-container{
     padding-bottom: 100px;
     --gutterWidth: 24px;

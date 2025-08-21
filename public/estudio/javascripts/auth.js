@@ -5,6 +5,20 @@ import "/common/javascripts/pagenav.js";
 import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
 
+//除navigator.onLine属性之外，为了更好地确定网络是否可用，HTML5还定义了两个事件：online和offline。
+//当网络从离线变为在线或者从在线变为离线时，分别触发这两个事件。这两个事件在window对象上触发。
+var EventUtil = {
+    addHandler: function(element, type, handler) {
+        if (element.addEventListener) {
+            element.addEventListener(type, handler, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = handler;
+        }
+    }
+};
+
 
 
 export default function Auth(params) {
@@ -61,6 +75,9 @@ export default function Auth(params) {
             if(need_init){
                 this.userAdapter();
             }
+            EventUtil.addHandler(window, "offline", function() {
+                window.location.href="/pwa-bad-network";
+            });
         }
     }
     
@@ -82,3 +99,6 @@ function getTidentity(){
     const identity = localStorage.getItem("Tidentity001");
     return JSON.parse(identity);
 }
+
+
+

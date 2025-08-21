@@ -116,19 +116,8 @@ mall-app {
     width: 32px;
   }
   
-  .button_login{
-    border-color: #fff;
-    border-radius: 30px;
-    height: 34px;
-    width: 88px;
-  }
-  
-  .join-now{
-    margin-left: 12px;
-    border-radius: 30px;
-    height: 34px;
-    width: 88px;
-  }
+
+
   .sub-nav-container,.content-container{
     padding-left: 60px;
     padding-right: 60px;
@@ -575,9 +564,6 @@ mall-app {
 .alert-info{
     padding: 0 3rem;
 }
-.join-now,.button_login{
-    height: unset;
-}
 .exeperince-millstone .card-body{
     padding-left: 4.5rem;
 }
@@ -664,6 +650,14 @@ mall-app {
 .font-w-500{
   font-weight: 500;
 }
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+    .sub-nav-container,.content-container{
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+}
+
 @media (width >= 1200px) {
     .modal-head{
         font-size: 2.5rem;
@@ -677,12 +671,6 @@ mall-app {
         border-radius: 4px;
     }
 
-    .join-now,.button_login{
-        width: 50px;
-        padding: .125rem .2rem;
-        font-size: 12px;
-        border-radius: 16px;
-    }
 
     .alert-info{
         padding: 0 .5rem;

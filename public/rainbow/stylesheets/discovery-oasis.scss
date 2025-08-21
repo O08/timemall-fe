@@ -17,6 +17,20 @@ header{
     width: calc(100% - 340px);
   }
 }
+@media only screen and (max-width: 1399.99px){
+  .xxl-hiden-menu{
+    height: 100%;
+    overflow-x: unset;
+    overflow-y: unset;
+  }
+  .xxl-hiden-menu col-content{
+    height: 100%;
+    min-height: 100vh;
+    overflow-y: unset;
+    overflow-x: unset;
+    scrollbar-width: none;
+  }
+}
 col-content{
   width: 100%;
 }

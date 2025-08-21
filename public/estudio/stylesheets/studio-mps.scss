@@ -356,3 +356,9 @@ min-width: 130px;
 .modal-body form{
   width: 100%;
 }
+
+@media (max-width: 767px) {
+  .fund-info-container{
+    margin: 50px 0px;
+  }
+}

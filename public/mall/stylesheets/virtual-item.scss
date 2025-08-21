@@ -133,19 +133,6 @@ main{
   width: 32px;
 }
 
-.button_login{
-  border-color: #fff;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
-}
-  
-.join-now{
-  margin-left: 12px;
-  border-radius: 30px;
-  height: 34px;
-  width: 88px;
-}
 
 
 
@@ -485,7 +472,7 @@ border-bottom: none;
   padding-bottom: 18px;
 }
 .empty-spacer{
-  height: 100px;
+  height: 200px;
   width: 100%;
 }
 .seller-info{
@@ -752,13 +739,6 @@ border-bottom: none;
 
 }
 @media (width <= 576px) {
-  .join-now, .button_login {
-      border-radius: 16px;
-      width: 50px;
-      padding: .125rem .2rem;
-      font-size: 12px;
-      height: unset;
-  }
   .alert-info{
     padding: 0 .5rem;
 }
