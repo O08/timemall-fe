@@ -184,7 +184,7 @@
   .not-found-resource{
     border-radius: 10px;
     padding: 16px;
-    height: 450px;
+    height: calc(100vh - 270px);
     display: flex;
     justify-content: center;
     align-items: center;

@@ -617,6 +617,41 @@ div,button{
 .author-info-wrp .author::-webkit-scrollbar{
   display: none; 
 }
+
+.not-found-resource {
+    border-radius: 10px;
+    padding: 16px;
+    height: calc(100vh - 170px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #141414;
+    width: 100%;
+}
+
+.not-found-resource img {
+    height: 145px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.not-found-resource p {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+    color: #61666d;
+}
+
+.not-found-resource h4 {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #b5bac1;
+}
+
+
 @media only screen and (width >= 1400px) {
     .btn-reset, .btn-save {
         min-height: 38px;

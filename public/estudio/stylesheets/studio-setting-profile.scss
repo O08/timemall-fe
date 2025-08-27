@@ -48,7 +48,6 @@
 }
 .brand-identity
 {
-    max-width: 900px;
     min-height: 150px;
     padding-left: 100px;
     padding-right: 40px;
@@ -437,4 +436,9 @@ body::-webkit-scrollbar {
 .story-wrapper h5{
     font-size: 14px;
     font-weight: 500;
+}
+.add-new-skill {
+    font-size: smaller;
+    padding: .5rem;
+    border-radius: 6px
 }

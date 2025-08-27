@@ -7,7 +7,7 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>邀请设置</title>
+    <title>成员管理</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
@@ -33,10 +33,11 @@
             <div class="list-group list-group-flush">
               <a :href="'/rainbow/oasis/setting?oasis_id='+oasisId" class="list-group-item">基础设置</a>
               <a :href="'/rainbow/oasis/setting-role?oasis_id='+oasisId" class="list-group-item">身份组</a>
-              <a :href="'/rainbow/oasis/setting-member?oasis_id='+oasisId" class="list-group-item">成员管理</a>
+              <a href="#" class="list-group-item active">成员管理</a>
               <a :href="'/rainbow/oasis/setting-fast-link?oasis_id='+oasisId" class="list-group-item ">快速访问</a>
-              <a href="#" class="list-group-item active">邀请</a>
+              <a :href="'/rainbow/oasis/setting-invitation?oasis_id='+oasisId" class="list-group-item ">邀请</a>
               <a :href="'/rainbow/oasis/setting-change-admin?oasis_id='+oasisId" class="list-group-item">管理权移交</a>
+
 
             </div>
           </nav>
@@ -72,112 +73,117 @@
 
 
           <div class="feature-title">
-            邀请
+            成员管理
           </div>
 
-          <div class="section-container">
-            <div class="section_divider">
-
-              <div class="cardPrimary">
-                <div class="d-flex" style="flex: 1 1 auto;">
-                  <div class="d-flex align-items-center" style="flex: 1 1 auto;">
-                    <div class="ct-wrp">
-                      <div class="icon-container">
-                        <i class="bi bi-person-lock"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="text-semibold mb-2">
-                        部落招新
-                      </div>
-                      <div class="help-text">
-                        新成员可通过邀请或者链接加入部落
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="d-flex align-items-center" style="flex: 0 0 auto;">
-                    <div class="form-check form-switch form-switch-ui">
-                      <input v-model="putAnnounce.canAddMember" true-value="1" false-value="0" class="form-check-input" type="checkbox" role="switch" >
-                    </div>              
+          <div class="cardPrimary">
+            <div class="d-flex" style="flex: 1 1 auto;">
+              <div class="d-flex align-items-center" style="flex: 1 1 auto;">
+                <div class="ct-wrp">
+                  <div class="icon-container">
+                    <i class="bi bi-people-fill"></i>
                   </div>
                 </div>
-              </div>
 
-
-              <div class="cardPrimary">
-                <div class="d-flex" style="flex: 1 1 auto;">
-                  <div class="d-flex align-items-center" style="flex: 1 1 auto;">
-        
-                    <div class="ct-wrp">
-                      <div class="icon-container">
-                        <i class="bi bi-shield-lock"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="text-semibold mb-2">
-                        私密部落
-                      </div>
-                      <div class="help-text">
-                        将部落设为私密，则只有内部成员能够访问此部落。
-                      </div>
-                    </div>
-
-                  </div>
-                  <div class="d-flex align-items-center" style="flex: 0 0 auto;">
-                    <div class="form-check form-switch form-switch-ui">
-                      <input v-model="putAnnounce.forPrivate" true-value="1" false-value="0" class="form-check-input" type="checkbox" role="switch" >
-                    </div> 
-                  </div>
+                <div class="feature-notice-detail">
+                  为部落成员分配身份组，管理成员的内容访问范围。
                 </div>
               </div>
+            </div>
+          </div>
 
-            
 
+          <div style="margin-bottom: 16px;">
+            <div class="tb-search">
+              <div class="tb-search-group">
+                <i class="bi bi-search"></i>
+                <input @keyup.enter.native="fetchOasisMemberV" v-model="memberQueryKey" type="search" class="input_search"
+                  placeholder="搜索成员..." autocomplete="off">
+              </div>
+            </div>
 
+          </div>
+          <div v-for="member in members" class="authed-link">
+            <div class="authed-link-header">
+              <img :src="adaptiveImageUriV(member.memberAvatar)|| defaultAvatarImage" @error="e => { e.target.src = defaultAvatarImage }"  style="position: relative;">
+              <div class="link-info">
+                <h4>{{member.memberName}}</h4>
+                <div class="link-info-time">
+                  {{ formatDateV(member.joinOasisAt)}} 加入
+                </div>
+
+              </div>
+              <button  v-preventreclick @click="showConfigMemberRoleModalV(member)" class="btn-del-link">
+                <div class="btn-contents">
+                  配置身份组
+                </div>
+              </button>
+            </div>
+
+            <div  class="authed-link-body">
+               <div>
+                <h5>身份组</h5>
+                <div class="role-grid">
+                  <div v-for="role in member.roles" class="role-item">
+                    {{role.roleName}}
+                  </div>
+                </div>
+               </div>
             </div>
 
           </div>
 
-
-          <div class="section-container">
-            <div class="section_divider">
-              <div class="label-color field-label">私密部落邀请码</div>
-              <div class="inputWrapper">
-                <input v-model="putAnnounce.privateCode"  type="text" class="inputDefault" maxlength="6"  value="X99910">
-              </div>
-              <div class="help-text marginTop8">私密部落只能通过邀请码加入</div>
-            </div>
-
+          <div v-show="members.length==0 && init_finish" class="not-found-resource">
+            <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+            <h4>未找到结果</h4>
           </div>
 
-
         </div>
 
-     <!-- notice to save section start -->
-     <div v-show="settingAlreadyChangeV()"  class="notice-container">
-      <div class="notice-setction">
-        <div class="msg">注意！您尚未保存更改！</div>
-        <div class="option-wrp">
-          <button v-preventreclick  @click="resetV" type="button"  class="btn-reset">
-            <div class="contents">重置</div>
-          </button>
-          <button v-preventreclick  @click="saveSettingV" type="button"  class="btn-save ms-2 bgPrimaryBlue"><div class="btn-file-upload-wrp">保存更改</div>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- notice to save section end -->
       
       </col-content>
     </main>
+    <section class="modals">
+       <!-- Modal -->
+       <div class="modal fade" id="configMemberRoleModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content text-color-dark">
+            <div class="modal-header">
+              <div class="d-flex align-items-center">
+                <img :src="adaptiveImageUriV(configRoleModalObj.memberAvatar) || defaultAvatarImage" @error="e => { e.target.src = defaultAvatarImage }" style="position: relative; width: 20px; height: 20px; border-radius: 4px;">
+                <span class="ms-2" style="font-size: 16px; font-weight: 500;">配置身份组</span>
+
+              </div>
+
+              <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form class="channels-container">
+
+
+                <div v-for="role in configRoleModalObj.roles" class="roleRow">
+                  <div  class="form-check">
+                    <input  @change="configRoleV(role)"  v-model="role.assigned"  class="form-check-input form-check-input-setting" type="checkbox" true-value="1" false-value="0">
+                    <label class="form-check-label" for="checkDefault">
+                      {{role.roleName}}
+                    </label>
+                  </div>
+                </div>
+             
+
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     
   </micro-app>
 
   
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/rainbow/oasis/javascripts/setting-invitation.js"></script>
+  <script type="module" src="/rainbow/oasis/javascripts/setting-member.js"></script>
 
 
 

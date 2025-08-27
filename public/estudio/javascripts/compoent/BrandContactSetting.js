@@ -11,7 +11,8 @@ export default function BrandContactSetting(params) {
                  contact: {
                     phone: "",
                     email: "",
-                    wechat: ""
+                    wechat: "",
+                    realName: ""
                  },
                  studio: {
                     hiLinkName: "",
@@ -74,7 +75,7 @@ async function saveWechatQrImg(brandId, files){
 }
 function saveContactInfo(brandId,dto)
 {
-    const url = "/api/v1/web_estudio/brand/{brand_id}/contact_setting".replace("{brand_id}",brandId);
+    const url = "/api/v1/web_estudio/brand/contact_setting";
     $.ajax({
         url: url,
         data: JSON.stringify(dto),
@@ -116,6 +117,7 @@ function getBrandContact(appObj){
     $.get(url,function(data) {
         if(data.code == 200){
             appObj.contact = data.brand.contact;
+            appObj.contact.realName=data.brand.realName;
             appObj.studio = data.brand.studio;
         }
        })
@@ -154,6 +156,7 @@ function settingContact(appObj){
     const dto = {};
     dto.phone = appObj.contact.phone;
     dto.email = appObj.contact.email;
+    dto.realName = appObj.contact.realName;
     saveContactInfo(brandId,dto)
 }
 // close modal handler

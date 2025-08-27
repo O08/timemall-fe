@@ -30,8 +30,11 @@
           </div>
           <div class="list-group list-group-flush">
             <a href="#" class="list-group-item  active">基础设置</a>
+            <a :href="'/rainbow/oasis/setting-role?oasis_id='+oasisId" class="list-group-item">身份组</a>
+            <a :href="'/rainbow/oasis/setting-member?oasis_id='+oasisId" class="list-group-item">成员管理</a>
             <a :href="'/rainbow/oasis/setting-fast-link?oasis_id='+oasisId" class="list-group-item ">快速访问</a>
             <a :href="'/rainbow/oasis/setting-invitation?oasis_id='+oasisId" class="list-group-item ">邀请</a>
+            <a :href="'/rainbow/oasis/setting-change-admin?oasis_id='+oasisId" class="list-group-item">管理权移交</a>
           </div>
         </nav>
       </col-nav-main>
@@ -185,7 +188,7 @@
                 </div>
               </div>
               <div class="modal-footer btn-light">
-                <button  v-preventreclick  @click="uploadOasisCoverV"  type="button" id="btn-save-oasis_cover" class="btn btn-primary">设置为部落图标</button>
+                <button  v-preventreclick  @click="uploadOasisCoverV"  type="button" id="btn-save-oasis_cover" class="btn btn-primary modal-btn-ui">提交</button>
               </div>
             </div>
           </div>
@@ -208,7 +211,7 @@
                 </div>
               </div>
               <div class="modal-footer btn-light">
-                <button  v-preventreclick  @click="uploadAnnounceFileV"  type="button" id="btn-save-oasis_announce" class="btn btn-primary">设置为部落海报</button>
+                <button  v-preventreclick  @click="uploadAnnounceFileV"  type="button" id="btn-save-oasis_announce" class="btn btn-primary modal-btn-ui">提交</button>
               </div>
             </div>
           </div>
