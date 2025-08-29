@@ -224,21 +224,52 @@
 
 
     <section class="section-member-grid">
-      <div  class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-6 row-cols-xl-8">
-        <div v-for="record in member.records" class="col member-card-container ms-2">
-          <div class="member-avatar">
-            <img class="card-img-top mt-3" :src="adaptiveImageUriV(record.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+      <div  class="result-box">
+
+        <div style="margin-bottom: 16px;">
+          <div class="tb-search">
+            <div class="tb-search-group">
+              <i class="bi bi-search"></i>
+              <input @keyup.enter.native="loadMemberV" v-model="q" type="search" class="input_search" placeholder="搜索..." autocomplete="off">
+            </div>
           </div>
-          <div class="card-body member-title mb-3">
-            <span class="mt-3 fs-6">{{record.brandName}}</span>
-            
+
+        </div>
+
+        <div class="member-result-container">
+
+
+          <div v-for="record in member.records"  class="member-card-container">
+
+            <div class="member-avatar-box">
+              <div class="member-avatar">
+                <img  :src="adaptiveImageUriV(record.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              </div>
+            </div>
+            <div class="member-info ms-2">
+              <div class="member-title ellipsis-1">
+                {{record.brandName}}
+              </div>
+              <div class="member-intro ellipsis-2">
+                {{record.title}}
+              </div>
+              <div class="meta mt-2">
+                <div class="meta-pill">
+                  <i class="bi bi-hearts"></i><span class="ms-2">{{record.amount}}</span>
+                </div>
+              </div>
+            </div>
+       
           </div>
+
+
+
         </div>
         <div v-if="!member || !member.records || member.records.length==0" class="not-found-resource">
           <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
           <h4>没找到相关数据</h4>
-          <p>试试提升部落活跃度吧。</p>
         </div>
+
 
 
       </div>

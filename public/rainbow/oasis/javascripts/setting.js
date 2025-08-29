@@ -1,5 +1,11 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
+
+import Quill from 'quill';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.bubble.css';
+import 'quill/dist/quill.snow.css';
+
 import Auth from "/estudio/javascripts/auth.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
@@ -11,6 +17,34 @@ import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg"
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
+
+
+const fontSizeArr = ['14px', '16px', '18px', '20px', '22px'];
+const backgroundArr = [
+  "#1a1a1a", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff",
+  "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff",
+  "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff",
+  "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2",
+  "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466"
+];
+
+var Size = Quill.import('attributors/style/size');
+Size.whitelist = fontSizeArr;
+Quill.register(Size, true);
+
+
+const toolbarOptions = [
+    [{ 'size': fontSizeArr }],  // custom dropdown
+    [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    [{ 'align': [] }],
+    ['blockquote'],
+    ['link'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+    ['clean']                                         // remove formatting button
+];
+var quill = ""; // init in mounted
 
 const RootComponent = {
     data() {
@@ -65,6 +99,10 @@ const RootComponent = {
                         window.location.href="/rainbow/teixcalaanli";
                     }
                     this.putAnnounce=JSON.parse(JSON.stringify(this.announce));
+                    quill.root.innerHTML = '';
+                    quill.clipboard.dangerouslyPasteHTML(0, response.data.announce.risk);  
+                    this.announce.risk=quill.getSemanticHTML();
+
                 }
             })
         },
@@ -95,32 +133,15 @@ const RootComponent = {
         
     },
     created(){
-        this.loadAnnounceV();
         this.oasisId =  getQueryVariable("oasis_id");
     },
-    updated(){
-        
-        $(function() {
-            // Enable popovers 
-            $('[data-bs-toggle="popover"]').popover();
+    mounted(){
+        quill=new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
         });
-
-        // resize textarea
-        var elem = document.getElementById("inputRisk");
-        elem.style.height = "auto";
-        elem.scrollTop = 0; // 防抖动
-        
-        elem.style.height = elem.scrollHeight + "px";
-        if(elem.scrollHeight==0){
-            elem.style.height=32 + "px";
-        }
-        if(elem.scrollHeight>500){
-            elem.style.height=500 + "px";
-        }
-     
-
-        // document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
-        
     }
 }
 
@@ -139,6 +160,8 @@ app.config.compilerOptions.isCustomElement = (tag) => {
 const setting = app.mount('#app');
 
 window.oasisSettingPage = setting;
+setting.loadAnnounceV();
+
 
 
 
@@ -167,6 +190,11 @@ function saveSetting(announce){
         customAlert.alert("私密部落选项出错，操作失败！");
         return
     }
+    if(quill.getSemanticHTML().length>25000){
+        customAlert.alert("公告内容长度超出容量，需重新调整！")
+        return;
+    }
+    announce.risk=quill.getSemanticHTML();
 
 
     const dto={
@@ -290,3 +318,7 @@ function closeAnnounceFileModalHandler(){
     }
    document.querySelector('#file_announce').value = null;
 }
+
+quill.on('text-change', () => {
+    setting.putAnnounce.risk=quill.getSemanticHTML();
+});

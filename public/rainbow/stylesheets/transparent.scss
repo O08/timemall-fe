@@ -65,21 +65,86 @@
     border-bottom-left-radius: .375rem;
     border-bottom-right-radius: .375rem;
 }
-.member-avatar,.member-title{
+
+.tb-search-group{
+    min-height: 40px;
+    height: 40px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 4px;
+    padding-inline: 16px 4px;
+    outline: none;
+    border-radius: 5px;
+    color: #c3bfbf;
+    background-color: #212529;
+    border: 1px solid #555;
+
+}
+.tb-search-group .input_search{
+    appearance: textfield;
+    all: unset;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+    outline: none;
+}
+.tb-search-group:has(.input_search:active, .input_search:focus) {
+    border-color: #aaa;
+}
+
+.member-avatar{
     display: flex;
     justify-content: center;
 }
 .member-avatar img{
-    width: 80px;
-    height: 80px;
-    border-radius: 40px;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    position: relative;
 }
-.section-member-grid{
-    margin-left: 12px;
-    margin-right: 12px;
+
+.member-card-container{
+    padding: 12px;
+    border-bottom: 1px solid #555;
+    line-height: 1.6;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-weight: 200;
+    border: 1px solid #555;
+    align-items: flex-start;
+    flex-direction: row;
 }
+.member-card-container:hover{
+    background-color: #2e2e2e;
+}
+.member-card-container:first-of-type{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-top: 1px solid #555;
+}
+.member-card-container:last-of-type{
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
 .member-title{
-    min-width: 80px;
+    font-weight: 600;
+    margin-right: 10px;
+    font-size: 16px;
+}
+.member-intro,.member-title{
     width: 100%;
 }
 .member-title span{
@@ -87,7 +152,27 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
-
+.member-intro{
+    font-size: .775rem;
+    line-height: 1rem;
+    margin-bottom: .315rem;
+}
+.meta-pill{
+    color: #ffdfb1;
+    box-shadow: 0 1px 4px #0000001a;
+    background: linear-gradient(90deg, #f7e1c052 0, #e7b77452) !important;
+    border-radius: 4px;
+    padding: 4px 10px;
+    height: auto;
+    font-weight: 200;
+    letter-spacing: .1em;
+    display: flex;
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
+    margin: 0;
+    width: fit-content;
+}
 .not-found-resource{
     border-radius: 10px;
       height: 456px;
@@ -116,7 +201,9 @@
       margin-bottom: 8px;
       color: #b5bac1;
   }
-
+.section-member-grid{
+    padding-bottom: 200px;
+}
   @media (max-width: 48rem) {
     .insight-menu{
         display: none;
@@ -126,5 +213,8 @@
     }
     .small-device-menu{
         display: block;
+    }
+    .member-card-container{
+       padding: 6px;
     }
   }

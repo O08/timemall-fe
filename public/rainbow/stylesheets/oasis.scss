@@ -115,6 +115,37 @@
   background-color: #fff;
 }
 
+.ql-editor{
+  word-break: break-all;
+}
+.ql-editor pre {
+  color: #f8f8f2;
+  scrollbar-width: none;
+  background-color: #2b2d31;
+  border-radius: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 0.5rem;
+  font-family: monospace;
+  overflow: scroll;
+}
+
+.ql-editor  blockquote {
+  border-left: 4px solid #ccc;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 16px;
+}
+.ql-editor  .ql-align-center {
+  text-align: center;
+}
+.ql-editor  .ql-align-right {
+  text-align: right;
+}
+.ql-editor   .ql-align-justify {
+  text-align: justify;
+}
+
 @media only screen and (min-width: 1400px){
   .toggle-nav {
     display: none;

@@ -1,18 +1,52 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import axios from 'axios';
+
+import Quill from 'quill';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.bubble.css';
+import 'quill/dist/quill.snow.css';
+
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
-import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
 import {OasisMark} from "/common/javascripts/tm-constant.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
+
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
-import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
+
+
+const fontSizeArr = ['14px', '16px', '18px', '20px', '22px'];
+const backgroundArr = [
+  "#1a1a1a", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff",
+  "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff",
+  "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff",
+  "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2",
+  "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466"
+];
+
+var Size = Quill.import('attributors/style/size');
+Size.whitelist = fontSizeArr;
+Quill.register(Size, true);
+
+
+const toolbarOptions = [
+    [{ 'size': fontSizeArr }],  // custom dropdown
+    [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    [{ 'align': [] }],
+    ['blockquote'],
+    ['link'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+    ['clean']                                         // remove formatting button
+];
+var quill = ""; // init in mounted
 
 const RootComponent = {
     data() {
@@ -47,26 +81,14 @@ const RootComponent = {
             if(!oasisId){
                 return;
             }
-            recoverOasisInfo(oasisId).then(response=>{
-                if(response.data.code==200){
-                    this.base.title = response.data.announce.title;
-                    this.base.subTitle = response.data.announce.subTitle;
-
-                    $('#lastestOasisCover').attr('src',_that.adaptiveImageUriV(response.data.announce.avatar));
-                    $('#lastestAnnounceFile').attr('src',_that.adaptiveImageUriV(response.data.announce.announceUrl));
-                    
-                    this.risk = response.data.announce.risk;
-                    $('.oasis-risk-box').html(response.data.announce.risk);
-                    this.btn_ctl.activate_baseInfo_save= true;
-
-                }
-            });
+            recoverOasisInfo(oasisId,_that);
         },
         saveBaseInfoAndtoNextSlideV(){
             saveBaseInfo(this.base);
         },
         saveOasisRiskInfoV(){
-            saveOasisRiskInfo(this.risk).then(response=>{
+      
+            saveOasisRiskInfo().then(response=>{
                 if(response.data.code==200){
                     this.nextSlideV();
                 }
@@ -105,6 +127,14 @@ const RootComponent = {
             uploadAnnounceFile();
         }
     },
+    mounted(){
+        quill=new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+    },
     updated(){
         
         $(function() {
@@ -121,7 +151,6 @@ app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('col-')
 }
-app.component('contenteditable', ContentediableComponent)
 
 const createOasisPage = app.mount('#app');
 
@@ -129,8 +158,10 @@ window.createOasisPage = createOasisPage;
 // init
 createOasisPage.userAdapter(); // auth.js
 
-createOasisPage.recoverOasisInfoV();
 createOasisPage.loadSubNav() // sub nav component .js init 
+
+createOasisPage.recoverOasisInfoV();
+
 
 async function createOasis(dto){
     const url="/api/v1/team/oasis/new";
@@ -157,9 +188,25 @@ async function getAnnounce(oasisId){
     return await axios.get(url);
 }
 
-function recoverOasisInfo(oasisId){
+function recoverOasisInfo(oasisId,_that){
   
-    return getAnnounce(oasisId);
+    getAnnounce(oasisId).then(response=>{
+        if(response.data.code==200){
+            createOasisPage.base.title = response.data.announce.title;
+            createOasisPage.base.subTitle = response.data.announce.subTitle;
+
+            $('#lastestOasisCover').attr('src',_that.adaptiveImageUriV(response.data.announce.avatar));
+            $('#lastestAnnounceFile').attr('src',_that.adaptiveImageUriV(response.data.announce.announceUrl));
+            
+            createOasisPage.risk = response.data.announce.risk;
+                // editor
+            quill.root.innerHTML = '';
+            quill.clipboard.dangerouslyPasteHTML(0, response.data.announce.risk);  
+
+            createOasisPage.btn_ctl.activate_baseInfo_save= true;
+
+        }
+    });
 }
 function markOasisB(oasisId,mark){
 
@@ -245,10 +292,16 @@ function saveBaseInfo(base){
    }
 
 }
-function saveOasisRiskInfo(risk){
+function saveOasisRiskInfo(){
     const oasisId = getQueryVariable("oasis_id");
+    if(quill.getSemanticHTML().length>25000){
+        customAlert.alert("公告内容长度超出容量，需重新调整！")
+        return;
+    }
+    createOasisPage.risk=quill.getSemanticHTML();
+
     var dto  = {
-        risk: risk,
+        risk: quill.getSemanticHTML(),
         oasisId: oasisId
     }
     

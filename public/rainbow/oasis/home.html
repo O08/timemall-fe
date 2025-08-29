@@ -190,15 +190,15 @@
               <figure v-if="announce.announceUrl">
                 <img class="announceContent" alt="" class="fit" :src="adaptiveImageUriV(announce.announceUrl)" >
               </figure>
-              <p v-else>未设置海报</p>
             </div>
           </div>
           
           <div id="oasis_risk">
-            <div class="py-4">
-              <h3>风险告知</h3>
+            <div class="text-preline risk-info">
+              <div class="ql-editor" v-html="announce.risk">
+
+              </div>
             </div>
-            <p class="text-preline risk-info">{{ announce.risk}}</p>
   
           </div>
           <div id="section3" class="spacer">

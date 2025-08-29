@@ -195,8 +195,6 @@ const RootComponent = {
         return transformInputNumberAsPositive(e);
       }
     },
-    created() {
-    },
     updated(){
         
       $(function() {

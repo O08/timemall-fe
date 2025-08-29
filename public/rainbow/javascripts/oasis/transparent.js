@@ -26,6 +26,7 @@ const RootComponent = {
             channelSort, oaisiChannelList,getChannelDataV,
             defaultAvatarImage,
             currentOch: "oasis-home",
+            q: "",
             member: {}
         }
     },
@@ -37,7 +38,7 @@ const RootComponent = {
             this.loadJoinedOases(); // sub nav component.js
         },
         loadMemberV(){
-            loadMember().then(response=>{
+            loadMember(this.q).then(response=>{
                 if(response.data.code == 200){
                     this.member = response.data.member;
                 }
@@ -75,8 +76,8 @@ teamOasisMemberPage.loadAnnounceV(); // oasis announce component .js init
 teamOasisMemberPage.loadSubNav() // sub nav component .js init 
 teamOasisMemberPage.loadFastLink() // announce  component .js init 
 
-async function getMember(oasisId){
-    const url="/api/v1/team/member?oasisId=" + oasisId;
+async function getMember(oasisId,q){
+    const url="/api/v1/team/member?oasisId=" + oasisId+"&q="+q;
     return await axios.get(url);
 }
 async function removeMember(param){
@@ -90,7 +91,7 @@ function removeMemberB(oasisId,brandId){
 
     return removeMember(form);
 }
-function loadMember(){
+function loadMember(q){
     const oasisId = getQueryVariable("oasis_id");
-    return getMember(oasisId);
+    return getMember(oasisId,q);
 }

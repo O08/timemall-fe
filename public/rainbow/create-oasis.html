@@ -182,58 +182,59 @@
                 <div class="needs-head">
                   <h3>使用部落与粉丝、好友、职员畅快互动</h3>
                 </div>
-                <div class="d-flex justify-content-center align-items-center flex-column">
+                <div class="d-flex justify-content-center align-items-center flex-column zero-box">
                   <div class="needs-material">
                     <div>
-                      <h5>1.部落的宣传海报</h5>
-                      <div class="help-text ms-2">提供共同规则、价值、愿景和风险信息</div>
+                      <h5>1.宣传海报</h5>
+                      <div class="help-text ms-2">1张，格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 576 x 576 像素且单边长度不能超过4096像素</div>
                     </div>
                     <div class="mt-3">
-                      <h5>2.让部落与众不同</h5>
-                      <div class="help-text ms-2">需要设置部落的名称、描述和logo。</div>
+                      <h5>2.基础信息</h5>
+                      <div class="help-text ms-2">需要提供部落的名称、简介。</div>
+                    </div>
+                    <div class="mt-3">
+                      <h5>3.图标</h5>
+                      <div class="help-text ms-2">1个，格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 99 x 99 像素且单边长度不能超过4096像素。</div>
+                    </div>
+                    <div class=" mt-5 pt-5">
+                      <div>
+                        <button type="button" @click="nextSlideV" class="btn-get-started" >
+                          <span>现在开始 <i class="bi bi-arrow-right"></i></span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class=" mt-5 pt-5 d-flex justify-content-center">
-              <div class="row">
-                <div class="col-6">
-
-                </div>
-                <div class="col-6">
-                  <button type="button" @click="nextSlideV" class="btn btn-primary btn-option-primary-micro" >开始</button>
-                </div>
-              </div>
-            </div>
+            
           </div>
           <div class="carousel-item">
             <h4>基本信息:</h4>
             <div class="mt-5 pt-5 mx-2 oasis-base ">
-              <div>
-                <div class="form-floating mb-3">
-                  <input type="text" maxlength="80" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="form-control input-base-item" id="floatingInputTitle" placeholder="title" required>
-                  <label for="floatingInputTitle">名称(最大80字符) </label>
-                  <div class="invalid-feedback">
-                    名称超出允许长度，请提供一个有效名称！
-                  </div>
-                </div>
-                <div class="form-floating">
-                  <textarea rows="10" class="form-control"  maxlength="200" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle"  v-model="base.subTitle"  class="form-control input-base-item" id="floatingInputSubtitle" placeholder="subTitle" required></textarea>
-                  <label for="floatingInputSubtitle">简介(最大200字符) </label>
-                  <div class="invalid-feedback">
-                    简介超出允许长度，请提供一个有效简介！
+              <div class="label-color field-label">名称</div>
+              <div class="inputWrapper">
+                <input type="text" maxlength="80" @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.title" class="inputDefault" autocomplete="off">
+              </div>
+
+              <div class="mt-3">
+                <div class="label-color field-label">简介</div>
+                <div class="inputWrapper">
+                  <div class="inputMaxLength">
+                    <textarea @change="btn_ctl.activate_baseInfo_save = !!base.title && !!base.subTitle" v-model="base.subTitle" type="text"  maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                    <div class="maxLength">{{ (!base || !base.subTitle) ? 200 : 200-base.subTitle.length}}</div>
                   </div>
                 </div>
               </div>
+
             </div>
-            <div class=" mt-5 pt-5">
-              <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
+            <div class=" mt-5 pt-5 d-flex">
+              <button type="button"  class="btn btn-outline-dark btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
               <button type="button"  v-preventreclick 
               :class="{'disabled': !btn_ctl.activate_baseInfo_save , 
-                        'btn-primary': btn_ctl.activate_baseInfo_save,
-                        'btn-secondary': !btn_ctl.activate_baseInfo_save}"
-               class="btn btn-option-primary-micro" @click="saveBaseInfoAndtoNextSlideV">下一步</button>   
+                        'btn-option-primary-micro': btn_ctl.activate_baseInfo_save,
+                        'btn-option-disabled': !btn_ctl.activate_baseInfo_save}"
+               class="btn" @click="saveBaseInfoAndtoNextSlideV">下一步</button>   
             </div>
           </div>
           <div class="carousel-item">
@@ -254,8 +255,8 @@
                 
               </div>
             </div>
-            <div class="mt-5 pt-5">
-              <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
+            <div class="mt-5 pt-5 d-flex">
+              <button type="button"  class="btn btn-outline-dark btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
               <button type="button"  v-preventreclick class="btn btn-option-primary-micro" @click="nextSlideV">下一步</button>
             </div>
           </div>
@@ -264,35 +265,44 @@
             <div class="row mb-3">
               <div class="col-form-label col-sm-6 pt-0">
                 <div class="help-text">
-                  宣传，运行规则相关内容。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 576 x 576 像素且单边长度不能超过4096像素)。
+                  独特的视觉冲击，有效传达的品牌内涵信息。(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 576 x 576 像素且单边长度不能超过4096像素)。
                   <a @click="clickAnnounceUploadBtn" class="btn-upload">上传
                     <input id="file_announce" @change="previewAnnounceFileV($event)"type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
                   </a>
                 </div>
               </div>
             </div> 
-            <div class="d-flex align-items-center flex-column justify-content-center mt-5 pt-5 ">
+            <div class="mt-5 pt-5 ">
               <div class="announce-container dropzone-wrapper">
                 <img alt="announce" id="lastestAnnounceFile">
               </div>
             </div>
-            <div class="mt-5 pt-5">
-              <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
+            <div class="mt-5 pt-5 d-flex">
+              <button type="button"  class="btn btn-outline-dark btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
               <button type="button"  v-preventreclick class="btn btn-option-primary-micro" @click="nextSlideV">下一步</button>
             </div>
   
           </div>
           <div class="carousel-item">
-            <h4>风险告知:</h4>
+            <h4>公告内容:</h4>
+            <div class="row mb-3">
+              <div class="col-form-label col-sm-6 pt-0">
+                <div class="help-text">
+                  分享有趣的故事，传达使命和理念，构建人设。
+                </div>
+              </div>
+            </div> 
             <div class="d-flex align-items-center justify-content-center mt-5 pt-5">
               <section class="section-workspace d-flex justify-content-start align-items-center w-100">
                 <div class="edit-pannel d-flex flex-column w-100">
-                  <contenteditable  class="oasis-risk-box"   placeholder="添加部落风险信息" v-model="risk"/>
+                  <div id="editor">
+  
+                  </div>
                 </div>
               </section>
             </div>
-            <div class="mt-5 pt-5">
-              <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
+            <div class="mt-5 pt-5 d-flex">
+              <button type="button"  class="btn btn-outline-dark btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
               <button type="button"  v-preventreclick class="btn btn-option-primary-micro" @click="saveOasisRiskInfoV">下一步</button>
             </div>
           </div>
@@ -317,8 +327,8 @@
               </div>
 
             </div>
-            <div class="mt-5 py-5">
-              <button type="button"  class="btn btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
+            <div class="mt-5 py-5 d-flex">
+              <button type="button"  class="btn btn-outline-dark btn-option-secondary-micro me-3" @click="prevSlideV" >上一步</button>
               <button type="button"  :class="{'disabled': !agree_check, 
               'btn-primary': agree_check,
               'btn-secondary': !agree_check}" v-preventreclick class="btn btn-option-primary-micro" @click="publishOasisV">发布</button>

@@ -96,7 +96,7 @@
               <div class="label-color field-label">简介</div>
                 <div class="inputWrapper">
                   <div class="inputMaxLength">
-                    <textarea v-model="putAnnounce.subTitle" type="text" placeholder="告诉大家如何使用该部落吧！" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                    <textarea v-model="putAnnounce.subTitle" type="text"  maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
                     <div class="maxLength">{{ (!putAnnounce || !putAnnounce.subTitle) ? 200 : 200-putAnnounce.subTitle.length}}</div>
                   </div>
                 </div>
@@ -106,10 +106,10 @@
   
           <div class="section-container">
             <div class="section_divider">
-              <div class="label-color field-label">风险告知</div>
+              <div class="label-color field-label">公告内容</div>
                 <div class="inputWrapper">
-                  <div class="inputMaxLength">
-                    <textarea id="inputRisk" v-model="putAnnounce.risk" @change="autoHeightV($event)"  type="text" placeholder="告诉大家需要防范的风险！" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 85px;"></textarea>
+                  <div id="editor">
+  
                   </div>
                 </div>
             </div>
