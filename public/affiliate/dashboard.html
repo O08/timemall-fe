@@ -35,9 +35,21 @@
           </div>
         </a>
         <a href="/mall/gig-economy" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="心选商店">
-          <div class="nav-discovery nav-item-default  nav-plus-13—street  d-flex align-items-center justify-content-center mt-5 ms-3">
+          <div class="nav-plus-13—street  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <i class="bi bi-bag-heart"></i>
+               
+        </a>
+        <a href="/estudio/studio-dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="薪动商号">
+          <div class="nav-plus-studio  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
+         
+            <i class="bi bi-laptop"></i>
+               
+        </a>
+        <a href="/epod/pod-packages-order" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="奇迹工坊">
+          <div class="nav-plus-pod  nav-item-default  d-flex align-items-center justify-content-center mt-5 ms-3">
+         
+            <i class="bi bi-tags"></i>
                
         </a>
         <a href="/affiliate/dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="带货中心">
@@ -100,19 +112,19 @@
         <h3 class="font-biaotihei">带货中心</h3>
       </div>
       <div class="nav-sub-container mt-3">
-        <a href="#"  class="nav-link nav-link-active py-2 ps-3">
+        <a href="#"  class="nav-link nav-link-active p-2 ms-2">
           <i class="bi bi-graph-up-arrow"></i>
           <span>大盘数据</span>  
         </a>
-        <a href="/affiliate/gallery" class="nav-link py-2 ps-3 nva-link-default">
+        <a href="/affiliate/gallery" class="nav-link p-2 ms-2 nva-link-default">
           <i class="bi bi-cup-hot"></i>
           <span>选品</span>  
         </a>
-        <a href="/affiliate/choice" class="nav-link nva-link-default  py-2 ps-3">
+        <a href="/affiliate/choice" class="nav-link nva-link-default  p-2 ms-2">
           <i class="bi bi-bag"></i>
           <span>橱窗</span>  
         </a>
-        <a href="/affiliate/outreach-channel" class="nav-link nva-link-default  py-2 ps-3">
+        <a href="/affiliate/outreach-channel" class="nav-link nva-link-default  p-2 ms-2">
           <i class="bi bi-signpost-split"></i>
           <span>渠道</span>  
         </a>
@@ -125,10 +137,10 @@
               </button>
             </h2>
             <div id="marketingMenu" class="accordion-collapse collapse marketingMenu" data-bs-parent="#accordionMarketingMenu">
-              <a href="/affiliate/marketing" class="nav-link  py-2 ps-3 nva-link-default">
+              <a href="/affiliate/marketing" class="nav-link  p-2 ms-2  nva-link-default">
                 <span>通用分销</span>  
               </a>
-              <a href="/affiliate/api-marketing" class="nav-link  py-2 ps-3 nva-link-default">
+              <a href="/affiliate/api-marketing" class="nav-link  p-2 ms-2  nva-link-default">
                 <span>API分销</span>  
               </a>
             </div>
@@ -145,13 +157,13 @@
               </button>
             </h2>
             <div id="cpcMarketingMenu" class="accordion-collapse collapse marketingMenu" data-bs-parent="#accordionCPCMenu">
-              <a href="/affiliate/cpc-link" class="nav-link  py-2 ps-3 nva-link-default">
+              <a href="/affiliate/cpc-link" class="nav-link  p-2 ms-2  nva-link-default">
                 <span>推广链接</span>  
               </a>
-              <a href="/affiliate/cpc-achievement" class="nav-link  py-2 ps-3 nva-link-default">
+              <a href="/affiliate/cpc-achievement" class="nav-link  p-2 ms-2  nva-link-default">
                 <span>绩效表现</span>  
               </a>
-              <a href="/affiliate/cpc-bill" class="nav-link  py-2 ps-3 nva-link-default">
+              <a href="/affiliate/cpc-bill" class="nav-link  p-2 ms-2  nva-link-default">
                 <span>结算报告</span>  
               </a>
             </div>
@@ -395,45 +407,47 @@
         </div>
 
         <div class="table-responsive">
+          <div class="table-wrp">
 
-          <table class="table table-dark">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">品牌</th>
-                <th scope="col">商品</th>
-                <th scope="col">单品销量</th>
-                <th scope="col">特约销量</th>
-                <th scope="col">销售额</th>
-                <th scope="col">已结算收款</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr  v-for="(item, index) in hotProduct.records">
-                <th scope="row">{{index+1}}</th>
-                <td class="col-brand">
-                  <div class="ellipsis-2">
-                    {{item.supplierBrandName}}
-                  </div>
-                </td>
-                <td class="col-product">
-                  <div class="ellipsis-2">
-                    {{item.productName}}
-                  </div>
-                </td>
-                <td>{{!item.planSaleVolume ? "0" : item.planSaleVolume}}</td>
-                <td>{{!item.cellSaleVolume ? "0" : item.cellSaleVolume}}</td>
-                <td>{{item.sales}}</td>
-                <td>{{item.revenue}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div v-show="hotProduct.records.length==0" class="empty-content-block">
-  
-            没有可用的内容！
-  
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">品牌</th>
+                  <th scope="col">商品</th>
+                  <th scope="col">单品销量</th>
+                  <th scope="col">特约销量</th>
+                  <th scope="col">销售额</th>
+                  <th scope="col">已结算收款</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  v-for="(item, index) in hotProduct.records">
+                  <th scope="row">{{index+1}}</th>
+                  <td class="col-brand">
+                    <div class="ellipsis-2">
+                      {{item.supplierBrandName}}
+                    </div>
+                  </td>
+                  <td class="col-product">
+                    <div class="ellipsis-2">
+                      {{item.productName}}
+                    </div>
+                  </td>
+                  <td>{{!item.planSaleVolume ? "0" : item.planSaleVolume}}</td>
+                  <td>{{!item.cellSaleVolume ? "0" : item.cellSaleVolume}}</td>
+                  <td>{{item.sales}}</td>
+                  <td>{{item.revenue}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-show="hotProduct.records.length==0" class="empty-content-block">
+    
+              没有可用的内容！
+    
+            </div>
+
           </div>
-
         </div>
 
       </div>
@@ -476,48 +490,50 @@
         </div>
 
         <div class="table-responsive">
+          <div class="table-wrp">
 
-          <table class="table table-dark">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">渠道</th>
-                <th scope="col">单品销量</th>
-                <th scope="col">特约销量</th>
-                <th scope="col">销售额</th>
-                <th scope="col">浏览/转化</th>
-                <th scope="col">退单/单品退款率</th>
-                <th scope="col">预期收益</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(item, index) in hotChannel.records">
-                <th scope="row">{{index+1}}</th>
-                <td class="col-chn">
-                  <div class="ellipsis-2">
-                    {{item.channelName}}
-                  </div>
-                </td>
-                <td>{{ !item.planSaleVolume ? "0" : item.planSaleVolume }}</td>
-                <td>{{ !item.cellSaleVolume ? "0" : item.cellSaleVolume}}</td>
-                <td>{{item.sales}}</td>
-                <td>
-                  {{!item.views ? "0" : formatCmpctNumberViewV(item.views)}}/{{ (!item.views || Number(item.views)==0 ) ? "0.00" : ((100*(Number(item.planSaleVolume)+Number(item.cellSaleVolume)))/Number(item.views)).toFixed(2)}}%
-                </td>
-                <td>
-                  {{!item.refundOrders ? "0" : item.refundOrders}}/{{(!item.planSaleVolume || Number(item.planSaleVolume)==0)? "0.00" : (100*item.refundOrders/item.planSaleVolume).toFixed(2)}}%
-                </td>
-                <td>{{(Number(item.settledPayment)+Number(item.unsettledPayment)).toFixed(2)}}</td>
-              </tr>
-              
-            </tbody>
-          </table>
-          <div v-show="hotChannel.records.length==0" class="empty-content-block">
-  
-            没有可用的内容！
-  
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">渠道</th>
+                  <th scope="col">单品销量</th>
+                  <th scope="col">特约销量</th>
+                  <th scope="col">销售额</th>
+                  <th scope="col">浏览/转化</th>
+                  <th scope="col">退单/单品退款率</th>
+                  <th scope="col">预期收益</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in hotChannel.records">
+                  <th scope="row">{{index+1}}</th>
+                  <td class="col-chn">
+                    <div class="ellipsis-2">
+                      {{item.channelName}}
+                    </div>
+                  </td>
+                  <td>{{ !item.planSaleVolume ? "0" : item.planSaleVolume }}</td>
+                  <td>{{ !item.cellSaleVolume ? "0" : item.cellSaleVolume}}</td>
+                  <td>{{item.sales}}</td>
+                  <td>
+                    {{!item.views ? "0" : formatCmpctNumberViewV(item.views)}}/{{ (!item.views || Number(item.views)==0 ) ? "0.00" : ((100*(Number(item.planSaleVolume)+Number(item.cellSaleVolume)))/Number(item.views)).toFixed(2)}}%
+                  </td>
+                  <td>
+                    {{!item.refundOrders ? "0" : item.refundOrders}}/{{(!item.planSaleVolume || Number(item.planSaleVolume)==0)? "0.00" : (100*item.refundOrders/item.planSaleVolume).toFixed(2)}}%
+                  </td>
+                  <td>{{(Number(item.settledPayment)+Number(item.unsettledPayment)).toFixed(2)}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            <div v-show="hotChannel.records.length==0" class="empty-content-block">
+    
+              没有可用的内容！
+    
+            </div>
+
           </div>
-
         </div>
         
 

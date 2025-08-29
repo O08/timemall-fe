@@ -1137,10 +1137,28 @@ col-container{
   background-color: #108b39;
   border-radius: 5px;
 }
-.nav-discovery i,.nav-discovery-active i{
+.nav-plus-13—street i{
   color: #659fe2;
   font-size: larger;
   font-weight: 500;
+}
+.nav-plus-studio i{
+  color: #7E57C2;
+  font-size: larger;
+  font-weight: 500;
+}
+.nav-plus-studio:hover{
+  background-color: #f2bcf856;
+  border-radius: 5px;
+}
+.nav-plus-pod i{
+  color: #ec6c00;
+  font-size: larger;
+  font-weight: 500;
+}
+.nav-plus-pod:hover{
+  background-color: #FFCC8056;
+  border-radius: 5px;
 }
 .nav-private-active{
   background-color: #F44336;
@@ -1391,6 +1409,7 @@ col-container{
 .nav-gear .button_user_vue.show:hover{
   background-color: unset;
 }
+
 @media (max-width: 1399.98px){
   .display_account_xxl {
     display: none;
@@ -1415,6 +1434,15 @@ col-container{
 }
 
 /* table */
+.table-wrp {
+  width: 100%;
+}
+.table-responsive{
+  scrollbar-width: none;
+  &::-webkit-scrollbar{
+    display: none
+  };
+}
 table th{
   vertical-align: middle;
 }

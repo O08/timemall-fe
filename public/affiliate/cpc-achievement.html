@@ -35,9 +35,21 @@
           </div>
         </a>
         <a href="/mall/gig-economy" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="心选商店">
-          <div class="nav-discovery nav-item-default  nav-plus-13—street  d-flex align-items-center justify-content-center mt-5 ms-3">
+          <div class="nav-plus-13—street  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <i class="bi bi-bag-heart"></i>
+               
+        </a>
+        <a href="/estudio/studio-dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="薪动商号">
+          <div class="nav-plus-studio  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
+         
+            <i class="bi bi-laptop"></i>
+               
+        </a>
+        <a href="/epod/pod-packages-order" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="奇迹工坊">
+          <div class="nav-plus-pod  nav-item-default  d-flex align-items-center justify-content-center mt-5 ms-3">
+         
+            <i class="bi bi-tags"></i>
                
         </a>
         <a href="/affiliate/dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="带货中心">
@@ -125,10 +137,10 @@
             </button>
           </h2>
           <div id="marketingMenu" class="accordion-collapse collapse  marketingMenu" data-bs-parent="#accordionMarketingMenu">
-            <a href="/affiliate/marketing" class="nav-link  py-2 ps-3 nva-link-default">
+            <a href="/affiliate/marketing" class="nav-link  p-2 ms-2 nva-link-default">
               <span>通用分销</span>  
             </a>
-            <a href="/affiliate/api-marketing" class="nav-link  py-2 ps-3 nva-link-default">
+            <a href="/affiliate/api-marketing" class="nav-link  p-2 ms-2 nva-link-default">
               <span>API分销</span>  
             </a>
           </div>
@@ -146,13 +158,13 @@
             </button>
           </h2>
           <div id="cpcMarketingMenu" class="accordion-collapse collapse show marketingMenu" data-bs-parent="#accordionCPCMenu">
-            <a href="/affiliate/cpc-link" class="nav-link  py-2 ps-3 nva-link-default">
+            <a href="/affiliate/cpc-link" class="nav-link  p-2 ms-2 nva-link-default">
               <span>推广链接</span>  
             </a>
             <a href="#" class="nav-link  p-2 ms-2 nav-link-active">
               <span>绩效表现</span>  
             </a>
-            <a href="/affiliate/cpc-bill" class="nav-link  py-2 ps-3 nva-link-default">
+            <a href="/affiliate/cpc-bill" class="nav-link  p-2 ms-2 nva-link-default">
               <span>结算报告</span>  
             </a>
           </div>
@@ -293,60 +305,63 @@
           </div>
         </div>
         <div class="table-responsive">
-          <table class="table table-dark">
-            <thead>
-              <tr>
-                <th scope="col">访问时间</th>
-                <th scope="col" class="col-chn">来源</th>
-                <th scope="col">访问IP</th>
-                <th scope="col" class="col-chn">推广链接</th>
-                <th scope="col">采购价格</th>
-                <th scope="col">合法标识</th>
-                <th scope="col">结算标识</th>
-                <th scope="col">结算批次</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in visit_pagination.records">
-                <td class="col-options" :title="item.createAt">
-                  {{item.createAt}}
-                </td>
-                <td class="col-chn" :title="!item.sourceAddress ? '直接访问' : item.sourceAddress">
-                  <span v-if="!item.sourceAddress">直接访问</span>
-                  <a v-if="!!item.sourceAddress" :href="item.sourceAddress" target="_blank"><span class="ellipsis-1">{{item.sourceAddress}}</span></a> 
-                </td>
-                <td :title="item.ip">{{item.ip}}</td>
-                <td class="col-chn" :title="item.linkAddress"><span class="ellipsis-1">{{item.linkAddress}}</span></td>
-                <td :title="item.price">{{item.price}}</td>
-                <td :title="item.valid">{{item.valid}}</td>
-                <td :title="item.pay">{{item.pay}}</td>
-                <td :title="item.batch">{{item.batch}}</td>
-              </tr>
-              
-            </tbody>
-          </table>
-          <div v-show="visit_pagination.records.length==0" class="empty-content-block">
-  
-            没有可用的内容！
-  
-          </div>
-          <nav v-if="!!visit_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-            <ul class="pagination pagination-lg pagination-dark  border-0">
-              <li class="page-item" @click="pagePre(visit_pagination)">
-                <a class="page-link"  aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item"  v-for="page in visit_pagination.paging.items" :class="{'current-page-active': visit_pagination.paging.current == page}" 
-                    @click="pageGo(visit_pagination,page)"><a class="page-link">{{page}}</a></li>
-              <li class="page-item" @click="pageNext(visit_pagination)">
-                <a class="page-link" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <div class="table-wrp">
 
+            <table class="table table-dark">
+              <thead>
+                <tr>
+                  <th scope="col">访问时间</th>
+                  <th scope="col" class="col-chn">来源</th>
+                  <th scope="col">访问IP</th>
+                  <th scope="col" class="col-chn">推广链接</th>
+                  <th scope="col">采购价格</th>
+                  <th scope="col">合法标识</th>
+                  <th scope="col">结算标识</th>
+                  <th scope="col">结算批次</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in visit_pagination.records">
+                  <td class="col-options" :title="item.createAt">
+                    {{item.createAt}}
+                  </td>
+                  <td class="col-chn" :title="!item.sourceAddress ? '直接访问' : item.sourceAddress">
+                    <span v-if="!item.sourceAddress">直接访问</span>
+                    <a v-if="!!item.sourceAddress" :href="item.sourceAddress" target="_blank"><span class="ellipsis-1">{{item.sourceAddress}}</span></a> 
+                  </td>
+                  <td :title="item.ip">{{item.ip}}</td>
+                  <td class="col-chn" :title="item.linkAddress"><span class="ellipsis-1">{{item.linkAddress}}</span></td>
+                  <td :title="item.price">{{item.price}}</td>
+                  <td :title="item.valid">{{item.valid}}</td>
+                  <td :title="item.pay">{{item.pay}}</td>
+                  <td :title="item.batch">{{item.batch}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            <div v-show="visit_pagination.records.length==0" class="empty-content-block">
+    
+              没有可用的内容！
+    
+            </div>
+            <nav v-if="!!visit_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+              <ul class="pagination pagination-lg pagination-dark  border-0">
+                <li class="page-item" @click="pagePre(visit_pagination)">
+                  <a class="page-link"  aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"  v-for="page in visit_pagination.paging.items" :class="{'current-page-active': visit_pagination.paging.current == page}" 
+                      @click="pageGo(visit_pagination,page)"><a class="page-link">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(visit_pagination)">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
         </div>
         
 
