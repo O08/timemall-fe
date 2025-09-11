@@ -5,7 +5,7 @@ import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
 
-import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+import {EventFeedScene,EnvWebsite} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
@@ -16,6 +16,10 @@ import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+import { copyValueToClipboard } from "/common/javascripts/share-util.js";
+
+const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
 
 const RootComponent = {
     data() {
@@ -24,6 +28,7 @@ const RootComponent = {
         }
     },
     methods:{
+
         findAllMpsPaperV(){
             findAllMpsPaper().then(response=>{
                 if(response.data.code==200){
@@ -33,8 +38,17 @@ const RootComponent = {
                 }
             })
         },
+        getPaperLinkV(paperId){
+
+            const windowUrl= "/business/paper/" + paperId;
+            return  currentDomain+windowUrl;
+        },
         isEmptyObjectV(obj){
             return $.isEmptyObject(obj);
+        },
+        copyValueToClipboardV(paperId){
+            var copyContent=this.getPaperLinkV(paperId); 
+            copyValueToClipboard(copyContent);
         },
         transformInputNumberV(event){
             return  transformInputNumberAsPositive(event);
@@ -54,6 +68,7 @@ app.mixin(DirectiveComponent);
 app.mixin(MpsPaperChatCompoent);
 app.mixin(MpsPaperManagementCompoent);
 app.mixin(MpsPaperDeliverCompoent);
+app.mixin(CodeExplainComponent);
 app.mixin(RtmCompoent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')

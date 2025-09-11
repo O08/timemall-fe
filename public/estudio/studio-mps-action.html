@@ -47,8 +47,8 @@
             <div class="btn-group" style="margin-right: 8px;" >
             
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
-                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
-                  <i class="bi bi-map"></i>                  
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                  <i class="bi bi-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -91,7 +91,7 @@
                 <li v-if="!!getIdentity().hiLinkUrl">
                   <a :href="getIdentity().hiLinkUrl">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-lightning me-2"></i> {{getIdentity().hiLinkName}}
+                      <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
                      </button>
                   </a>
                 </li>
@@ -170,7 +170,7 @@
                 
                 <li>
                   <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                    <i class="bi bi-flag me-2"></i> 反馈
+                    <i class="bi bi-flag me-2"></i> 问题反馈
                   </button>
                 </li>
               </ul>
@@ -486,16 +486,6 @@
                   </p>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      商单号
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.paperId}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
                       职能
                     </div>
                     <div class="detail-item-content">
@@ -546,7 +536,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      合约有效期/天
+                      招商期/天
                     </div>
                     <div class="detail-item-content">
                       <span>
@@ -574,17 +564,76 @@
                       </span>
                     </div>
                   </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      经验要求
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{!!mpmc__paperDetail.experience ? mpmc__paperDetail.experience + "年及以上" : "不限"}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      接单消耗电力
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{mpmc__paperDetail.bidElectricity}} 
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      办公地点
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{mpmc__paperDetail.location}} 
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      任务难度
+                    </div>
+                    <div class="detail-item-content">
+                      <span>
+                        {{explainMpsDifficultyV(mpmc__paperDetail.difficulty)}} 
+                      </span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-item-head">
+                      商单链接
+                    </div>
+                    <div class="detail-item-content">
+                      <div class="paper-link">
+                        <span>{{getPaperLinkV(mpmc__paperDetail.paperId)}}</span> 
+                        <span class="ms-2" @click="copyValueToClipboardV(mpmc__paperDetail.paperId)">
+                          <i class="bi bi-copy"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="skills-box">
+                      <div class="skill-pill" v-for="skill in mpmc__paperDetail.skills">
+                        {{skill}}
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="mt-5 pb-5">
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-primary">下线</button>
-                    <!-- <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#editPaperModal">
-                      编辑
-                    </button> -->
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='1' || mpmc__paperDetail.tag==='3'" @click="showEditPaperModelV" class="btn btn-dark">编辑</button>
+                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-primary modal-btn-ui">下线</button>
+
+                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='1' || mpmc__paperDetail.tag==='3'" @click="showEditPaperModelV" class="btn btn-dark modal-btn-ui">编辑</button>
 
 
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='3'" @click="onlineMpsPaperV(mpmc__paperDetail.paperId)" class="btn btn-primary ms-5">上线</button>
+                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='3'" @click="onlineMpsPaperV(mpmc__paperDetail.paperId)" class="btn btn-primary modal-btn-ui ms-5">上线</button>
 
+                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='5' && canRefindSupplierV(mpmc__paperDetail.bidAt)" @click="showRefindSupplierConfrimModelV" class="btn btn-danger modal-btn-ui">重新招商</button>
 
                   </div>
                 </div>
@@ -636,7 +685,7 @@
   
                   <div class="deliver-record-container">
                     <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                      <div v-if="record.tag=='3'" class="d-flex">
+                      <div v-if="record.tag=='3'" class="d-flex pb-2">
                         <div>
                           交付内容：
                         </div>
@@ -647,7 +696,7 @@
                           <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                         </div>
                       </div>
-                      <div v-else class="d-flex">
+                      <div v-else class="d-flex pb-2">
                         
                           <div>
                             预览内容：
@@ -660,14 +709,14 @@
                           </div>
                      
                       </div>
-                      <div class="py-2">
+                      <div class="pb-2">
                         <span>
                           状态：
                           {{paperDeliverTagExplainV(record.tag)}}
                         </span>
                         
                       </div>
-                      <div class="py-2">
+                      <div class="pb-2">
                         <span>
                           提交时间：
                           {{record.createAt}}
@@ -684,7 +733,7 @@
                         </div>
                       </div>
                       <div v-else class="leave-msg-container py-4" >
-                          <textarea class="form-control" rows="6" maxlength="600" v-model="record.newMsg"></textarea>
+                          <textarea class="textAreaDefault" rows="6" maxlength="600" v-model="record.newMsg"></textarea>
                           <div class="py-2">
                             <button 
                             :class="{'disabled': !record.newMsg, 
@@ -718,6 +767,29 @@
           
         </main>
         <section class="modals">
+
+          <!-- focus modal -->
+          <div class="modal-container">
+            <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+                    <h1 class="modal-title fs-5">操作提示</h1>
+                  </div>
+                  <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                    <div class="product-feature">
+                      <p class="card-text">{{focusModal.message}}</p>
+                    </div>
+                  </div>
+                  <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                    <button type="button" class="btn btn-secondary modal-btn-ui" data-bs-dismiss="modal">取消</button>
+                    <button v-preventreclick @click="focusModal.confirmHandler" type="button"
+                      class="btn btn-primary modal-btn-ui">继续</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal-container">
               
@@ -754,7 +826,7 @@
                     :class="{'disabled': !btn_ctl.activate_edit_mps_save_btn || !validatePutTemplateV(), 
                     'btn-primary': btn_ctl.activate_edit_mps_save_btn && validatePutTemplateV(),
                     'btn-secondary': !btn_ctl.activate_edit_mps_save_btn || !validatePutTemplateV()}"
-                      @click="modifyMpsPaperV" type="button"   class="btn">保存</button>
+                      @click="modifyMpsPaperV" type="button"   class="btn modal-btn-ui">提交</button>
                   </div>
                 </div>
               </div>
@@ -786,7 +858,7 @@
                     :class="{'disabled': errors.length > 0, 
                           'btn-primary': errors.length == 0,
                           'btn-secondary': errors.length > 0}"
-                     v-preventreclick type="button" class="btn btn-primary">选中</button>
+                     v-preventreclick type="button" class="btn modal-btn-ui">选中</button>
                   </div>
                 </div>
               </div>
@@ -818,7 +890,7 @@
                     :class="{'disabled': errors.length > 0, 
                           'btn-primary': errors.length == 0,
                           'btn-secondary': errors.length > 0}"
-                     v-preventreclick type="button" class="btn btn-primary">发送</button>
+                     v-preventreclick type="button" class="btn modal-btn-ui">发送</button>
                   </div>
                 </div>
               </div>

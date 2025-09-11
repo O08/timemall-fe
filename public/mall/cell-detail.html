@@ -43,8 +43,8 @@
             <div class="btn-group" style="margin-right: 8px;" >
           
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
-                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
-                  <i class="bi bi-map"></i>                  
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                  <i class="bi bi-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -71,7 +71,7 @@
                 </li>
                 <li>
                   <a href="/estudio/studio-dashboard">
-                    <button class="dropdown-item" type="button"><i class="bi bi-laptop me-2"></i> 薪动商号 </button>
+                    <button class="dropdown-item" type="button"><i class="bi bi-flower1 me-2"></i> 薪动商号 </button>
                   </a>
                 </li>
                 <li>
@@ -124,7 +124,7 @@
                 </li>
                 <li>
                   <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                    <i class="bi bi-flag me-1"></i> 反馈
+                    <i class="bi bi-flag me-1"></i> 问题反馈
                   </button>
                 </li>
               </ul>
@@ -179,11 +179,7 @@
                       <div class="opt_item_head">
                         <a :href="'/messages/'+ brandProfile.brandUserId" target="_blank">
                           <button  class="btn btn-dark  copy-link private-msg-link">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M8.99991 11.9999H14.9999" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
-                              <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
-                              <path d="M15 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H15" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
-                              </svg>  
+                            <i class="bi bi-soundwave"></i> 
                             <div v-if="profile.brandMark=='3'"  class="online-indicator">
                               <div class="online-indicator-content">
                               </div>
@@ -400,8 +396,10 @@
                     <!-- seller skills -->
                     <section v-if="!isEmptyObjectV(brandProfile.skills)" class="section-seller-skills">
                       <div class="section-header">品牌词条</div>
-                      <div class="me-skills">
-                        <p v-for="skill in brandProfile.skills" class="fw-bold opt_item_desc ps-4"><i class="bi bi-stars"></i> <span>{{skill.entry}}</span> </p>
+                      <div class="brand-skill-box">
+                        <p v-for="skill in brandProfile.skills" class="brand-skill-item">
+                          {{skill.entry}}
+                        </p>
                       </div>
                     </section>
 

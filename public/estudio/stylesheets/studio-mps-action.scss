@@ -17,7 +17,7 @@ background-color: #272727;
 }
 
 .mps-panel-detail{
-  padding-left: 2rem;
+  padding: 1.5rem;
 
 }
 .deliver-record{
@@ -59,7 +59,6 @@ background-color: #272727;
   font-size: 16px;
   min-height: 30px;
   color: #aaa;
-  padding-left: 12px;
 }
 .detail-item-head{
   width: 120px;
@@ -106,6 +105,7 @@ background-color: #272727;
   line-height: 1.875;
     font-size: 14px;
     min-height: 30px;
+    margin-bottom: 0;
 }
 .room-msg-container{
   min-height: 400px;
@@ -141,6 +141,9 @@ background-color: #272727;
 }
 .opt_item_head {
   padding-bottom: .5rem;
+}
+.opt_item_head i{
+  font-size: 24px;
 }
 .opt_item_desc {
   color: #aaa;
@@ -235,6 +238,73 @@ pt-app content main {
 .msg-room-panel::-webkit-scrollbar { 
   display: none; 
 }
+.skills-box{
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 24px;
+  display: flex;
+}
+.skill-pill{
+  background-color: #c4c9ce27;
+  border-color: #c4c9ce99;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  margin-right: 6px;
+  padding: 4px 10px;
+  font-size: 14px;
+  color: #757a81;
+  word-break: break-all;
+}
+.paper-link{
+  color: #757a81;
+  word-break: break-all;
+  border: none;
+  border-radius: 2px;
+  width: 100%;
+  padding-top: 4px;
+  font-size: 12px;
+  display: inline-flex;
+  width: fit-content;
+}
+.paper-link span{
+  background: #c4c9ce27;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 4px;
+}
+.paper-link i:hover {
+  color: #fff;
+}
+
+.textAreaDefault{
+  font-size: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #1a1a1a;
+  border: none;
+  outline: 0;
+  padding: 10px;
+
+}
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+  .mps-panel-detail{
+    padding: 1rem;
+  }
+  .paper-info-container, .chat-container, .deliver-panel-container {
+    min-width: 700px;
+  }
+  .room-msg-container{
+    padding: 8px 12px 16px 12px;
+  }
+  .event-date{
+    padding-left: 0;
+  }
+}
 @media (max-width: 1162px) {
   .chat-action-wrapper{
       display: block;
@@ -247,6 +317,12 @@ pt-app content main {
     }
     .room-msg-container {
       height: calc(100% - 166px);
+    }
+    .room-msg-container{
+      padding: 8px 12px 16px 12px;
+    }
+    .event-date{
+      padding-left: 0;
     }
 }
 body::-webkit-scrollbar {

@@ -5,7 +5,18 @@
     line-height: 1.65;
 
 }
+nav{
+    height: 56px;
+}
+.button_user,
+.join-now,
+.button_login {
+  display: none;
+}
+.header-container{
+    background-color: #000;
 
+}
 .hero-section{
     padding-top: 80px;
     justify-content: space-between;
@@ -170,9 +181,12 @@ p{
 }
 // moblile
 @media (max-width: 767px){
+    .header-container{
+        padding: 0 12px;
 
+    }
     .main-info-container{
-        padding: 0 24px;
+        padding: 0 12px;
     }
     .hero-section{
         padding-bottom: 0;
@@ -228,7 +242,7 @@ p{
     margin-top: 12px;
 }
 .opt_container{
-    padding: 48px 24px;
+    padding: 48px 12px;
 }
 .heading_desc{
     padding-top: 12px;

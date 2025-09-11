@@ -15,6 +15,7 @@ import MpsPaperDeliverCompoent from "/estudio/javascripts/compoent/MpsPaperDeliv
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 
 const RootComponent = {
     data() {
@@ -93,6 +94,7 @@ app.mixin(DirectiveComponent);
 app.mixin(TobChatCompoent);
 app.mixin(MpsPaperDeliverCompoent);
 app.mixin(RtmCompoent);
+app.mixin(CodeExplainComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
@@ -114,7 +116,7 @@ window.cTobActionPage = tobActionPage;
 tobActionPage.joinRoomInitV(); // rtm.js
 
 async function fetchPaperDetail(paperId){
-    const url="/api/v1/web_estudio/commercial_paper/{id}/detail".replace("{id}",paperId);
+    const url="/api/public/commercial_paper/{id}/detail".replace("{id}",paperId);
     return await axios.get(url);
 }
 

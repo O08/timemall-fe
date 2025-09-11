@@ -14,10 +14,49 @@ const MpsPaperManagementCompoent = {
                 sow: "",
                 bonus: "",
                 paperId: ""
+            },
+            focusModal:{
+                message: "",
+                confirmHandler:()=>{
+      
+                }
             }
         }
     },
     methods: {
+        canRefindSupplierV(bidDateStr){
+            if(!bidDateStr){
+                return false;
+            }
+            var bidDate=new Date(bidDateStr);
+            var nowDate=new Date();
+            var total = (nowDate.getTime() - bidDate.getTime()) / 1000;//相差的秒数;
+            var endTime = parseInt(total / ( 60 * 60));//计算是否超过24小时;
+
+            return endTime<=24;
+        
+        },
+        showRefindSupplierConfrimModelV() {
+            this.focusModal.message =  "即将重置商单供应商数据，重置后不可恢复！";
+            this.focusModal.confirmHandler = () => {
+                refindSupplier(this.mpmc__paperDetail.paperId).then(response => {
+
+                    if (response.data.code == 200) {
+                        this.mpmc__paperDetail={};
+                        $("#focusModal").modal("hide"); // hide modal
+
+                    }
+                    if (response.data.code != 200) {
+                        const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+                        customAlert.alert(error);
+                    }
+
+                }).catch(error => {
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+                });
+            }
+            $("#focusModal").modal("show"); // show modal
+        },
         paperAlreadyInvalidV(){
           return  (Date.parse(this.mpmc__paperDetail.modifiedAt) + (Number(this.mpmc__paperDetail.contractValidityPeriod) * (1000 * 3600 * 24)))  < new Date().getTime()
         },
@@ -92,11 +131,16 @@ async function tagMpsPaper(dto){
     return await axios.put(url,dto);
 }
 async function fetchPaperDetail(paperId){
-  const url="/api/v1/web_estudio/commercial_paper/{id}/detail".replace("{id}",paperId);
+  const url="/api/public/commercial_paper/{id}/detail".replace("{id}",paperId);
   return await axios.get(url);
 }
-
-
+async function doRefindSupplier(paperId){
+    const url="/api/v1/web_estudio/commercial_paper/{id}/redeploy_supplier".replace("{id}",paperId);
+    return await axios.put(url,{});
+}
+async function refindSupplier(paperId){
+  return doRefindSupplier(paperId);
+}
 
 function modifyMpsPaper(dto){
     return updateMpsPaper(dto);

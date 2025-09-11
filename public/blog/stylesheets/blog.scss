@@ -287,6 +287,14 @@ h1{
         display: none;
     }
 }
+@media (min-width: 768px) and  (max-width: 1024px) {
+    .content-main{
+        --gutterWidth: 12px;
+    }
+    .header-container {
+        --gutterWidth: 24px;
+    }
+}
 @media (max-width: 576px) {
     .mx-120 {
       grid-template-columns: 1fr 1fr;
@@ -300,8 +308,8 @@ h1{
     .blog-item-img-container img{
         height: 242px;
     }
-    .content-main{
-        --gutterWidth: 16px;
+    .content-main, .header-container {
+        --gutterWidth: 12px;
     }
     
 }

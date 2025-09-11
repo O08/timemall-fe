@@ -4,7 +4,7 @@
     border-radius: 5px;
   }
   .oasis-info-header,.oasis-info-body{
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid #4d515445;
     padding: 1rem;
   }
   .oasis-info-container{
@@ -15,4 +15,18 @@
   }
   .oasis-info-detail{
     width: 80px;
+  }
+
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .oasis-info-container{
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+}
+  @media (max-width: 48rem) {
+    .oasis-info-container{
+      margin-left: 0px;
+      margin-right: 0px;
+    }
   }

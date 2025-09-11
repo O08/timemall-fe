@@ -17,6 +17,7 @@ const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCA
 const RootComponent = {
     data() {
         return {
+            closedCommercialPaperId:"",
             webAppDomain: currentDomain,
             virtualProductOrderRefundObj: {
                 orderId: "",
@@ -45,6 +46,10 @@ const RootComponent = {
     methods: {
         transformInputNumberAsPositiveDecimalV(event){
             return transformInputNumberAsPositiveDecimal(event);
+        },
+        showCloseCommercialPaperModalV(){
+            this.closedCommercialPaperId = "";
+            $("#closeCommercialPaperModal").modal("show"); // show modal
         },
         showOfflineCellModalV(){
             this.offlineCellId = "";
@@ -149,6 +154,17 @@ const RootComponent = {
                 customAlert.alert(response.data.message)
             }
           })
+        },
+        closeCommercialPaperV(){
+            closeCommercialPaper(this.closedCommercialPaperId).then(response=>{
+                if(response.data.code==200){
+                    customAlert.alert("关单成功");
+                    $("#closeCommercialPaperModal").modal("hide"); // show modal
+                }
+                if(response.data.code!=200){
+                    customAlert.alert(response.data.message)
+                }
+            })
         },
         recallWithdrawLimitV(){
             this.settingWithdrawLimitObj.offOrOn='0';
@@ -284,6 +300,13 @@ async function doOfflineVirtualProduct(productId){
     return await axios.put(url,{});
 }
 
+async function doCloseCommercialPaper(id){
+    const url = "/api/v1/team/dsp_case/action/mps/paper/{id}/close".replace("{id}",id);
+    return await axios.put(url,{});
+}
+async function closeCommercialPaper(id){
+    return doCloseCommercialPaper(id);
+}
 async function offlineVirtualProduct(productId){
     return doOfflineVirtualProduct(productId);
 }

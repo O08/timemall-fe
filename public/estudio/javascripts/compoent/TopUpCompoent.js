@@ -4,7 +4,7 @@ const TopUpCompoent = {
       return {
         top_up_amount_little: 12.00,
         top_up_amount_big: 0.00,
-        drawable: ""
+        drawable: "0.00"
       }
     },
     methods: {

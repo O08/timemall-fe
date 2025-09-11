@@ -70,6 +70,7 @@
   display: flex;
   flex-direction: row;
   margin-left: 24px;
+  margin-right: 24px;
 }
 
 @media (max-width: 992px) {
@@ -88,6 +89,7 @@
   margin-top: 0.5rem;
   overflow: auto;
   scrollbar-width: none;
+  margin-right: 3rem;
 }
 .info-container::-webkit-scrollbar { 
   display: none; 
@@ -163,6 +165,14 @@
   display: -webkit-box;
   overflow: hidden;
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+  .info-container{
+    margin-right: 0;
+  }
+  .announceContent, .risk-info{
+    width: 100%;
+  }
+}
 @media (max-width: 576px) {
   .nav-item a{
     padding-left: .75rem;
@@ -176,6 +186,16 @@
   }
   .oasis-commission-header{
     margin-left: 1rem;
+  }
+  .oasis-announce-body {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .info-container{
+    margin-right: 0;
+  }
+  .announceContent, .risk-info{
+    width: 100%;
   }
 }
 .oasis-blocked-icon-box{

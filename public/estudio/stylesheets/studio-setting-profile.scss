@@ -92,7 +92,7 @@
 
 @media (max-width: 48rem) {
     main > section{
-        width: 48rem;
+        min-width: 650px;
     }
 }
 .input-box{
@@ -386,7 +386,12 @@ body::-webkit-scrollbar {
     width: 200px;
     height: 200px;
 }
-
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+    .section-seller-banner, .section-seller-experience, .section-seller-block, .section-seller-links, .section-branding {
+        margin-right: 0px;
+    }
+}
 @media (max-width: 767px){
     .cropped-banner-container, .cropped-avatar-container{
         width: 600px;

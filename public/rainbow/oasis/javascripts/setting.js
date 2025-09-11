@@ -102,6 +102,7 @@ const RootComponent = {
                     quill.root.innerHTML = '';
                     quill.clipboard.dangerouslyPasteHTML(0, response.data.announce.risk);  
                     this.announce.risk=quill.getSemanticHTML();
+                    this.putAnnounce.risk=quill.getSemanticHTML();
 
                 }
             })

@@ -25,6 +25,7 @@ textarea{
   padding: 1rem;
   border: 1px solid #22242626;
   outline: none;
+  border-radius: 4px;
 }
 .iput:focus{
   border-color:#96c8da;
@@ -174,13 +175,86 @@ body::-webkit-scrollbar {
   word-break: break-all;
   font-size: 16px;
 }
-// xxl
-@media (min-width: 1400px) { 
-  #editChainTemplateModal form,#newChainTemplateModal form, #editChainTemplateModal  .modal-header,#newChainTemplateModal  .modal-header{
-    padding-left: calc(50% - 700px);
-    padding-right: calc(50% - 700px) ;
-  }
+.skills-box{
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 24px;
+  display: flex;
+}
+.skill-pill{
+  background-color: #c4c9ce27;
+  border-color: #c4c9ce99;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  margin-right: 6px;
+  padding: 4px 10px;
+  font-size: 14px;
+  color: #757a81;
+  word-break: break-all;
+
+}
+
+// tags
+.tags-wrapper{
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.06);
+}
+.tags-wrapper :where(li, li i, .tag-details){
+  display: flex;
+  align-items: center;
+}
+.tags-wrapper .tag-content{
+  margin: 10px 0;
+}
+
+.tag-content ul{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 7px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: 1px solid #dee2e6;
+}
+.tag-content ul  li{
+  color: #333;
+  margin: 4px 3px;
+  list-style: none;
+  border-radius: 5px;
+  background: #F2F2F2;
+  padding: 5px 8px 5px 10px;
+  border: 1px solid #e3e1e1;
+  word-break: break-all;
+}
+.tag-content ul li i{
+  height: 20px;
+  width: 20px;
+  color: #808080;
+  margin-left: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: #dfdfdf;
+  justify-content: center;
+}
+.tag-content ul input{
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.tags-wrapper .tag-details{
+  justify-content: space-between;
+}
+
+// tablets ipad air mini pro
+@media (min-width: 768px) and  (max-width: 1024px) {
+  pt-app content main{
+    padding-left: 1rem;
+    padding-right: 1rem;
  }
+}
+
 @media (max-width: 576px) {
 .chain-setting-container{
   padding: 0;

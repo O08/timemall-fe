@@ -45,8 +45,8 @@
             <div class="btn-group" style="margin-right: 8px;" >
             
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
-                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
-                  <i class="bi bi-map"></i>                  
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                  <i class="bi bi-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -89,7 +89,7 @@
                 <li v-if="!!getIdentity().hiLinkUrl">
                   <a :href="getIdentity().hiLinkUrl">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-lightning me-2"></i> {{getIdentity().hiLinkName}}
+                      <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
                      </button>
                   </a>
                 </li>
@@ -168,7 +168,7 @@
                 
                 <li>
                   <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                    <i class="bi bi-flag me-2"></i> 反馈
+                    <i class="bi bi-flag me-2"></i> 问题反馈
                   </button>
                 </li>
               </ul>
@@ -284,7 +284,7 @@
                   <button class="nav-link" id="mps_chain-tab" data-bs-toggle="tab" data-bs-target="#mps_chain-tab-pane" type="button" role="tab" aria-controls="mps_chain-tab-pane" aria-selected="true"><div class="head-nav-icon"> <i class="bi bi-upc"></i></div> <span class="ms-2">商单模版</span></button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="mps_fund-tab" data-bs-toggle="tab" data-bs-target="#mps_fund-tab-pane" type="button" role="tab" aria-controls="mps_fund-tab-pane" aria-selected="true"><div class="head-nav-icon"><i class="bi bi-piggy-bank"></i></div> <span class="ms-2">合约基金</span></button>
+                  <button class="nav-link" id="mps_fund-tab" data-bs-toggle="tab" data-bs-target="#mps_fund-tab-pane" type="button" role="tab" aria-controls="mps_fund-tab-pane" aria-selected="true"><div class="head-nav-icon"><i class="bi bi-piggy-bank"></i></div> <span class="ms-2">商单基金</span></button>
                 </li>
               </ul>
           </div>
@@ -333,15 +333,15 @@
                 
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">            
+                      <a class="dropdown-item">            
                         <button @click="showMpsModalV" type="button" class="btn btn-dropdown-option" >
                           <i class="bi bi-collection me-1"></i> 模版商单
                        </button>
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        <button type="button" class="btn btn-dropdown-option" data-bs-toggle="modal" data-bs-target="#newFastPaperModal">
+                      <a class="dropdown-item">
+                        <button @click="showNewFastPaperModalV"  type="button" class="btn btn-dropdown-option">
                           <i class="bi bi-lightning me-1"></i> 快捷商单
                        </button>
                       </a>
@@ -372,17 +372,26 @@
                        <td class="col-option">
     
                         <span>
-                          <button v-if="trans.tag=='1'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'2')" type="button" 
-                          data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="进入线上商单交易市场招商"
-                          class="btn-option-secondary ms-3">
-                          <i class="bi bi-cloud-arrow-up"></i>
+                          <button 
+                              :class="{'option-disabled': trans.tag!='1'}"
+                                :disabled="trans.tag!='1'"
+                                v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'2')" type="button" 
+                                data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="进入线上商单交易市场招商"
+                                class="btn-option-secondary ms-3">
+                                <i class="bi bi-cloud-arrow-up"></i>
                           </button>
-                          <button v-if="trans.tag=='1'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'3')" type="button" 
+                          <button 
+                              :class="{'option-disabled': trans.tag!='1'}"
+                              :disabled="trans.tag!='1'"
+                             v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'3')" type="button" 
                             data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="废弃"
                             class="btn-option-secondary ms-3">
                             <i class="bi bi-trash2"></i>
                           </button>
-                          <button v-if="trans.tag=='2'"  v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'4')" type="button" 
+                          <button 
+                            :class="{'option-disabled': trans.tag!='2'}"
+                            :disabled="trans.tag!='2'"
+                             v-preventreclick   @click="taggingMpsV(trans.chainId,trans.id,'4')" type="button" 
                             data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="标记为已完成"
                             class="btn-option-secondary ms-3">
                             <i class="bi bi-star"></i>
@@ -455,7 +464,7 @@
 
 
                 <a href="/estudio/studio-chain-setting">
-                  <button type="button" class="btn btn-primary me-5">
+                  <button type="button" class="btn btn-outline-success btn-save bgPrimaryBlue me-5">
                     <i class="bi bi-plus"></i> 新设模版
                   </button>
                 </a>
@@ -537,17 +546,17 @@
                     {{mpsFund.mpsBalance}}
                   </div>
                   <div class="fund_footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#topUpFundModal">
+                    <button type="button" class="btn btn-primary modal-btn-ui" data-bs-toggle="modal" data-bs-target="#topUpFundModal">
                       转入
                     </button>
                   </div>
                 </div>
                 <div v-else class="fund_info-unopen-wrapper py-3">
                   <div class="pt-5">
-                    <span>您还未开通合约基金账户</span>
+                    <span>您还未开通商单基金账户</span>
                   </div>
                   <div class="py-3">
-                  <button v-preventreclick @click="appleMpsFundAccountV"  type="button" class="btn btn-primary" >
+                  <button v-preventreclick @click="appleMpsFundAccountV"  type="button" class="btn btn-primary modal-btn-ui" >
                     点击开通
                   </button>
                   </div>
@@ -609,7 +618,7 @@
                     :class="{'disabled':  !newMps.title || !newMps.chainId, 
                         'btn-primary': newMps.title && newMps.chainId,
                         'btn-secondary': !newMps.title || !newMps.chainId}"
-                     type="button"  v-preventreclick class="btn btn-primary">创建商单</button>
+                     type="button"  v-preventreclick class="btn modal-btn-ui">创建商单</button>
                   </div>
                 </div>
               </div>
@@ -623,7 +632,7 @@
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5">转账到合约基金账户</h1>
+                    <h1 class="modal-title fs-5">转账到商单基金账户</h1>
                     <button type="button" @click="closeTopUpFundModalHandlerV" id="closeTopUpFundModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -652,7 +661,7 @@
                   <div class="modal-footer btn-light">
                     <button :class="{'disabled': !mpsTopUpAmount || (mpsFund.drawable < mpsTopUpAmount) , 
                     'btn-primary': !!mpsTopUpAmount || (mpsFund.drawable >= mpsTopUpAmount) ,
-                    'btn-secondary': !mpsTopUpAmount || (mpsFund.drawable < mpsTopUpAmount)  }"  type="button" v-preventreclick @click="topUpMpsFundV"  class="btn">转账</button>
+                    'btn-secondary': !mpsTopUpAmount || (mpsFund.drawable < mpsTopUpAmount)  }"  type="button" v-preventreclick @click="topUpMpsFundV"  class="btn modal-btn-ui">转账</button>
                   </div>
                 </div>
               </div>
@@ -672,7 +681,7 @@
                     <form onsubmit="return false">
                       <div class="row mb-3 mt-3">
                         <label for="inputMpsTitle" class="col-sm-4 col-form-label"> 
-                          项目<div class="help-text"> 项目名称(最大80字符) </div>
+                          项目<div class="help-text"> 项目名称(最大80字符，必填) </div>
                         </label>
                         <div class="col-sm-8">
                           <textarea v-model="newFastPaper.mpsTitle" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
@@ -681,7 +690,7 @@
 
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          商单名称 <div class="help-text"> 商单标题，(比如，logo设计，最大80字符) </div>
+                          商单名称 <div class="help-text"> 商单标题，(比如，logo设计，最大80字符，必填) </div>
                         </label>
                         <div class="col-sm-8">
                           <textarea v-model="newFastPaper.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
@@ -689,15 +698,15 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等 </div>
+                          合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等，必填 </div>
                         </label>
                         <div class="col-sm-8">
-                          <textarea v-model="newFastPaper.sow" class="form-control" rows="13"  aria-label="With textarea"></textarea>
+                          <textarea maxlength="2000" v-model="newFastPaper.sow" class="form-control" rows="13"  aria-label="With textarea"></textarea>
                         </div>
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置以更精确匹配您的服务商 (最大80字符) </div>
+                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置可以更精确匹配您的服务商 (最大80字符，必填) </div>
                         </label>
                         <div class="col-sm-8">
                           <input class="form-control" v-model="newFastPaper.piece" maxlength="80" type="text">
@@ -705,10 +714,10 @@
                       </div>
                       <div class="row mb-3 mt-3">
                         <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元) </div>
+                          奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元，必填) </div>
                         </label>
                         <div class="col-sm-8">
-                          <input class="form-control" v-model="newFastPaper.bonus" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  type="number">
+                          <input class="form-control" v-model="newFastPaper.bonus" @input="transformInputNumberV($event)" min="1" max="5000000" step="1"  type="number">
                         </div>
                       </div>
                       <div class="row mb-3 mt-3">
@@ -736,7 +745,7 @@
   
                       <div class="row mb-3 mt-3" >
                         <label for="inputDeliveryCycle" class="col-sm-4 col-form-label"> 
-                          交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天)</div>
+                          交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天，必填)</div>
                         </label>
                         <div class="col-sm-8">
                           <input id="inputDeliveryCycle" 
@@ -746,12 +755,86 @@
   
                       <div class="row pb-3 mt-3" >
                         <label for="inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
-                          合约有效期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天)</div>
+                          招商期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天，必填)</div>
                         </label>
                         <div class="col-sm-8">
                           <input id="inputContractValidityPeriod" 
                           class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.contractValidityPeriod" type="number">
                         </div>
+                      </div>
+
+                      <div class="row pb-3 mt-3" >
+                        <label class="col-sm-4 col-form-label"> 
+                          任务难度 <div class="help-text">必填。初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，供应商需在某个领域的取得卓越成就和非凡的技能。</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <select class="form-select"  v-model="newFastPaper.difficulty">
+                            <option value="easy">初级</option>
+                            <option value="medium">中级</option>
+                            <option value="advanced">高级</option>
+                            <option value="expert">专家</option>
+                            <option value="master">大师</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row pb-3 mt-3" >
+                        <label class="col-sm-4 col-form-label"> 
+                          工作地点 <div class="help-text">实际工作地址或常驻办公地，必填</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <textarea v-model="newFastPaper.location" class="form-control" maxlength="8" aria-label="With textarea"></textarea>
+                        </div>
+                      </div>
+                      <div class="row pb-3 mt-3" >
+                        <label  class="col-sm-4 col-form-label"> 
+                          经验要求 <div class="help-text">工作经验或行业资历限制，值为空系统将处理为不限经验</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <div class="input-group">
+                            <input  class="form-control" @input="transformInputNumberV($event)" min="1" max="40" step="1"  v-model="newFastPaper.experience" type="number">
+                            <span class="input-group-text">年及以上从业经验</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row pb-3 mt-3" >
+                        <label  class="col-sm-4 col-form-label"> 
+                          接单消耗电量 <div class="help-text">供应商接单需要消耗的电量值，必填</div>
+                        </label>
+                        <div class="col-sm-8">
+                          <input  
+                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.bidElectricity" type="number">
+                        </div>
+                      </div>
+  
+                      <div class="row mb-3 mt-3">
+  
+                        <label  class="col-sm-4 col-form-label">
+                          技能&资质
+                          <div class="help-text">
+                            按回车键Enter添加  
+                          </div>
+                        </label>
+                        <div class="col-sm-8">
+                          <div class="tags-wrapper">
+                            <div class="tag-content">
+                              <ul>
+                                <li v-for="(tag, index) in newFastPaper.skills" :key="index" >
+                                  {{ tag }}
+                                  <span>
+                                    <i class="bi bi-x" @click="removeNewModalSkillV(index)"></i>
+                                  </span>
+                                </li>
+                                <input maxlength="40" class="form-control" @keyup="deleteContentOrTagFromNewModalSkillV"
+                                    @keyup.enter.prevent="addSkillInNewModalV"
+                                    type="text" spellcheck="false">
+                              </ul>
+                            </div>
+                            <div class="tag-details">
+                              <p class="help-text">还可添加<span>{{5 - newFastPaper.skills.length}}</span>标签</p>
+                            </div>
+                          </div>
+                        </div>
+  
                       </div>
   
   
@@ -763,7 +846,7 @@
                     :class="{'disabled': !validateNewFastPaperV() , 
                     'btn-primary': validateNewFastPaperV()  ,
                     'btn-secondary': !validateNewFastPaperV()  }" 
-                       @click="createOneFastMpsV" type="button"  v-preventreclick class="btn">创建商单</button>
+                       @click="createOneFastMpsV" type="button"  v-preventreclick class="btn modal-btn-ui">创建商单</button>
                   </div>
                 </div>
               </div>

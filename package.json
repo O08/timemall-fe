@@ -61,7 +61,7 @@
     "vm-browserify": "^1.1.2"
   },
   "alias": {
-    "vue": "vue/dist/vue.esm-browser.js"
+    "vue": "vue/dist/vue.esm-browser.prod.js"
   },
   "staticFiles": {
     "staticPath": "public/favicon.png"

@@ -52,8 +52,8 @@ col-content{
     position: relative;
     z-index: 1;
     overflow: hidden;
-    border: 1px solid #e3e5e7;
-    background-color: #fff;
+    border: 1px solid #000;
+    background-color: #000;
     opacity: .9;
     transition: background-color .3s;
     border-radius: 4px;
@@ -99,7 +99,7 @@ col-content{
     height: 32px;
     border: none;
     border-radius: 6px;
-    color: #18191C;
+    color: #8a8a8a;
     line-height: 32px;
     cursor: pointer;
     transition: background-color .3s;
@@ -115,11 +115,39 @@ col-content{
     border: none;
     padding: .15rem .5rem;
     font-size: 18px;
+    background-color: #000;
 }
 .nav-find-new-friend-btn:hover{
     color: #ff6464;
 }
+.room-msg-header{
+    display: none;
+}
 
+// xxl big
+@media (min-width: 1400px) {
+    .room-msg-header{
+        padding: 1rem;
+        border-bottom: 1px solid #efeff01c;
+        color: #757a81;
+        font-size: 14px;
+        height: 48px;
+        display: block;
+        font-weight: 500;
+    }  
+    .room-msg-container{
+        height: calc(100% - 166px);
+    }
+}
+@media (min-width: 768px) and (max-width: 1399.98px) {
+    .event-date {
+        padding-top: 1rem;
+        padding-left: 1rem;
+    }
+    .content-wrapper{
+        height: calc(100% - 56px);
+    }
+}
 
 @media (max-width: 576px) {
     col-content header{
@@ -135,6 +163,10 @@ col-content{
     .chat-input-wrapper{
         height: 222px;
         position:relative;
+    }
+    .event-date {
+        padding-top: 1rem;
+        padding-left: 1rem;
     }
 }
 
@@ -221,11 +253,15 @@ col-content{
 }
 
 .friend-avatar-wrapper, .friend-avatar-tiny {
-    border-radius: 18px;
+    border-radius: 2px;
     width: 32px;
     height: 32px;
     position: relative;
 }
 .friend-avatar-tiny {
     object-fit: cover;
+}
+.nav-link .link-title {
+    font-weight: 400;
+    font-size: 14px;
 }

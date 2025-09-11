@@ -283,6 +283,13 @@
 }
 .nav-sub-container .nav-link{
   margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: 400;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .case-archive-content{
+    padding: 20px 0;
+  }
 }
 @media (max-width: 576px) {
   .logo{
@@ -371,7 +378,7 @@
 }
 
 .modal-footer {
-  background-color: #2b2b2b;
+  background-color: #000000e7;
   border: none;
 }
 .modal-footer  .btn{

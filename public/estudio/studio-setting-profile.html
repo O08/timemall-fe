@@ -45,8 +45,8 @@
             <div class="btn-group" style="margin-right: 8px;" >
             
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
-                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
-                  <i class="bi bi-map"></i>                  
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                  <i class="bi bi-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -89,7 +89,7 @@
                 <li v-if="!!getIdentity().hiLinkUrl">
                   <a :href="getIdentity().hiLinkUrl">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-lightning me-2"></i> {{getIdentity().hiLinkName}}
+                      <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
                      </button>
                   </a>
                 </li>
@@ -168,7 +168,7 @@
                 
                 <li>
                   <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                    <i class="bi bi-flag me-2"></i> 反馈
+                    <i class="bi bi-flag me-2"></i> 问题反馈
                   </button>
                 </li>
               </ul>
@@ -736,7 +736,7 @@
           <section class="section-seller-block box-bg-primary mb-5">
             <div class="section-header">薪动商号超菜单</div>
             <div class="d-flex align-items-center help-text">
-              <i class="bi bi-info-square-fill"></i><span class="ms-1">传送按钮显示该超级菜单。可自定义个人办公空间、高频访问App等超级链接</span>
+              <i class="bi bi-info-square-fill"></i><span class="ms-1">访达按钮显示该超级菜单。可自定义个人办公空间、高频访问App等超级链接</span>
             </div>
             <div class="info-block me-5 mt-3">
   

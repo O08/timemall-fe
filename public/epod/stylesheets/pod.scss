@@ -165,7 +165,10 @@ header{
 }
 
 .sidebar .nav-link span {
-    padding-left: 10px;
+  padding-left: 12px;
+}
+.sidebar .nav-link i{
+ font-size: 18px;
 }
 .pagination {
     --bs-pagination-color: #95979d;
@@ -284,7 +287,7 @@ pt-app header{
 }
 .entry-nav i{
   color: white;
-  font-size: 14px;
+  font-size: 16px;
 
 }
 .brand-avatar{
@@ -302,7 +305,7 @@ pt-app header{
     height: 32px;
     border-radius: 50%;
     padding: unset;
-    margin: 0 8px;
+    margin: 0;
     position: relative;
 }
 pt-app content,main,pt-app main{

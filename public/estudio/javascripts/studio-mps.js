@@ -27,15 +27,7 @@ const RootComponent = {
                 title: "",
                 chainId: ""
             },
-            newFastPaper: {
-                mpsTitle: "",
-                title: "",
-                sow: "",
-                piece: "",
-                bonus: "",
-                firstSupplier: "",
-                duration: ""
-            },
+            newFastPaper: generateEmptyFastPaper(),
             supplier:{
                 records: []
             },
@@ -113,6 +105,21 @@ const RootComponent = {
         }
     },
     methods: {
+        removeNewModalSkillV(index){
+            this.newFastPaper.skills.splice(index, 1);
+        },
+        addSkillInNewModalV(event){
+            addSkillInNewModal(event)
+        },
+        deleteContentOrTagFromNewModalSkillV(event){
+            deleteContentOrTagFromNewModalSkill(event);
+        },
+        showNewFastPaperModalV(){
+            this.supplierSelectedItem="";
+            
+            this.newFastPaper=generateEmptyFastPaper(),
+            $("#newFastPaperModal").modal("show"); // hide modal
+        },
         showMpsModalV(){
             this.searchV();// load template info
             $("#newMpsModal").modal("show"); // hide modal
@@ -205,7 +212,7 @@ const RootComponent = {
         },
         closeNewFastPaperHandlerV(){
             // reset
-            this.newFastPaper={};
+            this.newFastPaper=generateEmptyFastPaper();
             this.supplierSelectedItem="";
             $('.iput').val("");
         },
@@ -213,6 +220,8 @@ const RootComponent = {
             if(!!this.newFastPaper.mpsTitle && !!this.newFastPaper.title && !!this.newFastPaper.sow 
                 && !!this.newFastPaper.piece && !!this.newFastPaper.bonus 
                 && !!this.newFastPaper.deliveryCycle && !!this.newFastPaper.contractValidityPeriod
+                && !!this.newFastPaper.difficulty && !!this.newFastPaper.location 
+                && !!this.newFastPaper.bidElectricity
                 && ((!this.supplierSelectedItem && !this.newFastPaper.duration)
                      || (!!this.supplierSelectedItem && !!this.newFastPaper.duration))){
 
@@ -230,7 +239,7 @@ const RootComponent = {
                     $("#newFastPaperModal").modal("hide"); // hide modal
                     this.reloadPage(this.mps_list_pagination);
                       // reset
-                    this.newFastPaper={};
+                    this.newFastPaper=generateEmptyFastPaper();
                     this.supplierSelectedItem="";
                     $('.iput').val("");
                 }
@@ -359,7 +368,9 @@ async function newFastMps(dto){
     return await axios.post(url,dto);
 }
 function createOneFastMps(newFastPaper){
-   return newFastMps(newFastPaper);
+    var dto = JSON.parse(JSON.stringify(newFastPaper));
+    dto.skills=JSON.stringify(newFastPaper.skills);
+   return newFastMps(dto);
 }
 function taggingMps(chainId,mpsId,tag){
     const dto={
@@ -509,3 +520,47 @@ function transformInputNumber(val,min,max){
     
 }
 
+function generateEmptyFastPaper(){
+    return {
+        mpsTitle: "",
+        title: "",
+        sow: "",
+        piece: "",
+        bonus: "",
+        firstSupplier: "",
+        duration: "",
+        difficulty: "easy",
+        location: "远程",
+        bidElectricity: "1",
+        skills: []
+    }
+}
+
+
+async function addSkillInNewModal(e){
+    
+
+    var tag = e.target.value.replace(/\s+/g, ' ');
+    var tags=mpsPage.newFastPaper.skills;
+    if(tag.length > 0 && !tags.includes(tag)){
+        if(tags.length < 5){
+            mpsPage.newFastPaper.skills.push(tag);
+        }
+    }
+    e.target.value = "";
+
+}
+
+// tmp_global_val
+var gl_tag_before_del_in_new_modal='';
+async function deleteContentOrTagFromNewModalSkill(e){
+
+    if (e.keyCode == 8 || e.keyCode == 46) {
+        
+        if(e.target.value.length==0 && gl_tag_before_del_in_new_modal.length==0 && mpsPage.newFastPaper.skills.length>0){
+            mpsPage.newFastPaper.skills.pop();
+        }
+    }
+    gl_tag_before_del_in_new_modal=e.target.value;
+
+}

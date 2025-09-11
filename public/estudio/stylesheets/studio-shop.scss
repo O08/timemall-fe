@@ -33,10 +33,10 @@ body::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
-#div_gri_panel .card,#topUpModal .card,#blueSignBuyModal .card{
+#div_gri_panel .card,.modal-content-shop .card{
     color: #fff;
 }
-.modal-content{
+.modal-content-shop{
     padding: 0;
     color: #fff;
 }

@@ -82,7 +82,7 @@ const OasisOptionCtlComponent = {
     <li v-if="initiatorRoleV()">
       <a  class="dropdown-item" :href="'/rainbow/oasis/mini-assistant?oasis_id='+oasisId">
         <button type="button" class="btn oasis-option">
-          <i class="bi bi-speedometer2 me-1"></i> 频道助手
+          <i class="bi bi-flask me-1"></i> 频道助手
         </button>
       </a>
     </li>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content=”index,nofollow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+  <title>Here Is Business Paper Title</title>
+  <meta name="keywords" content="班蔚,bluvarri,创客,创新与创业社区,数字游民,Freelancer,up主商业化数字工作室,自由职业,超级玩家,写作与翻译,原神超级玩家,视频与动画制作剪辑">
+  <meta name="description" content="在班蔚，你可以提供/定制各种稀缺、专业的服务，我们不断努力将小蔚打造成为一个创客、企业家、自由职业等群体喜爱的双创社区">
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+  <link rel="stylesheet" href="/mall/stylesheets/business-paper.scss">
+
+</head>
+
+<body>
+  <mall-app id="app" v-cloak>
+
+
+   
+  <div class="content-container">
+
+    <!-- header section start -->
+    <div  v-if="display=='normal'"  class="header-container sticky-top">
+      <header>
+        <nav>
+          <div class="header-primary-container">
+    
+            <div class="logo-contaienr">
+              <a href="/" class="logo_link">
+                <div class="d-flex align-items-center logo">
+                  <img src="/common/icon/logo_blv-final-white.png" alt="logo">
+                </div>
+              </a>
+            </div>
+    
+    
+    
+          </div>
+    
+          <div class="appButton topHeader-right-box">
+
+            <a class="btn-entry" href="/messages">
+              <i class="bi bi-soundwave"></i>
+              <span>私信</span>
+            </a>
+            <a class="btn-entry" href="/rainbow/discovery-commercial-order">
+              <i class="bi bi-briefcase"></i>
+              <span>商单</span>
+            </a>
+          
+    
+            <div class="btn-group entry-feature">
+    
+              <a type="button" class="btn-entry" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-grid"></i>
+                <span>访达</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="/">
+                    <button class="dropdown-item" type="button">
+                      <img class="forward-icon me-1" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                    </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/rainbow/teixcalaanli">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-rainbow me-1"></i> 彩虹部落
+                    </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/mall/gig-economy">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-bag-heart me-1"></i> 心选商店
+                    </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/estudio/studio-dashboard">
+                    <button class="dropdown-item" type="button"><i class="bi bi-flower1 me-1"></i> 薪动商号 </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/affiliate/dashboard">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-megaphone me-1"></i> 带货中心
+                    </button>
+                  </a>
+                </li>
+    
+                <li>
+                  <a href="/epod/pod-packages-order">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-tags me-1"></i> 奇迹工坊
+                    </button>
+                  </a>
+                </li>
+              </ul>
+    
+            </div>
+    
+            <a v-if="!user_already_login" class="btn btn-outline-dark button_login" href="/login">
+              登录
+            </a>
+    
+            <div v-if="user_already_login" class="btn-group account-feature">
+              <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <img :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage"
+                  @error.once="e => { e.target.src = defaultAvatarImage }">
+              </button>
+              <div class="dropdown-menu dropdown-menu-end">
+                <div class="menu-user-info">
+                  <div class="user-brand-avatar-box">
+                    <img :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage"
+                    @error.once="e => { e.target.src = defaultAvatarImage }">
+                  </div>
+                  <div class="user-abastract">
+                    <div class="menu-user-name">{{getIdentity().brandName}}</div>
+                    <div class="menu-user-data"><span class="strong">电量余额：</span><span>{{getIdentity().electricity}}</span></div>
+                  </div>
+                </div>
+                <div class="menu-links">
+                  <div class="menu-link-box">
+                    <a href="/estudio/studio-setting-profile">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                      </button>
+                    </a>
+                  </div>
+                  <div class="menu-link-box">
+                    <button id="logout-btn" @click="logout()" class="dropdown-item" type="button">
+                      <i class="bi bi-box-arrow-right me-1"></i> 退出登录
+                    </button>
+                  </div>
+                  <div class="menu-link-box">
+                    <a href="/mall/delete-account">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-trash3 me-1"></i> 删除账号
+                      </button>
+                    </a>
+                  </div>
+                  <div class="menu-link-box">
+                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right"
+                      aria-controls="feedback_offcanvas_right">
+                      <i class="bi bi-flag me-1"></i> 问题反馈
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </nav>
+    
+      </header>
+    </div>
+    <!-- header section end -->
+
+    <section v-if="loading" class="skeleton">
+
+      <p class="placeholder-wave" style="margin-top: 96px;">
+        <span class="placeholder bg-dark col-12" style="height: 32px;"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder bg-dark" style="max-width: 200px; width: 25%;"></span>
+        <span class="placeholder bg-dark ms-2" style="max-width: 200px; width: 25%;"></span>
+        <span class="placeholder bg-dark ms-2" style="max-width: 200px; width: 25%;"></span>
+      </p>
+
+      <p class="placeholder-wave" style="margin-top: 72px;">
+        <span class="placeholder bg-dark col-12" style="height: 400px;"></span>
+      </p>
+
+      <p class="placeholder-glow">
+        <span class="placeholder bg-dark col-3"></span>
+        <span class="placeholder bg-dark col-3 ms-2"></span>
+        <span class="placeholder bg-dark col-3 ms-2"></span>
+      </p>
+      <p class="placeholder-glow">
+        <span class="placeholder bg-dark col-3"></span>
+        <span class="placeholder bg-dark col-3 ms-2"></span>
+      </p>
+
+      <p class="placeholder-wave">
+        <span class="placeholder bg-dark col-12"></span>
+      </p>
+
+      <p class="placeholder-glow">
+        <span class="placeholder bg-dark col-12"></span>
+      </p>
+
+      <p class="placeholder-wave">
+        <span class="placeholder bg-dark col-12"></span>
+      </p>
+
+      <p class="placeholder-glow">
+        <span class="placeholder bg-dark col-12"></span>
+      </p>
+
+      <p class="placeholder-wave">
+        <span class="placeholder bg-dark col-12"></span>
+      </p>
+    </section>
+    <div v-show="!loading" class="content-box">
+
+      <div class="paper-details-content">
+        <div class="paper-details-card">
+          <div class="paper-core-card">
+            <section class="paper-head-card paper-card">
+              <h4 class="d-flex align-items-center mt-0 mb-5">{{paperDetail.title}}</h4>
+              <div class="paper-attention">
+                <div class="attention-container">
+                  <div class="attention-icon">
+                    <i class="bi bi-clock-history"></i>
+                  </div>
+                  <span>{{getPublishTimeV(paperDetail.createAt)}}发布</span>
+                </div>
+                <div class="attention-container">
+                  <div class="attention-icon">
+                    <i class="bi bi-geo-alt-fill"></i>
+                  </div>
+                  <span>{{paperDetail.location}} </span>
+                </div>
+                <div class="attention-container">
+                  <div class="attention-icon">
+                    <i class="bi bi-lightning-fill"></i>
+                  </div>
+                  <span>
+                    {{paperDetail.bidElectricity}}
+                  </span>
+                </div>
+              </div>
+            </section>
+            <section class="paper-card">
+              <div class="paper-description">
+                <strong class="text-base-sm">任务描述</strong>
+                <p class="text-body-sm pre-wrap-text">
+                  {{paperDetail.sow}}
+                </p>
+
+              </div>
+            </section>
+            <section class="paper-card">
+              <ul class="paper-keys">
+                <li class="paper-key-item">
+                  <div class="attention-icon">
+                    <i class="bi bi-paperclip"></i>
+                  </div>
+                  <div>
+                    <strong style="font-weight: 500;"> {{paperDetail.paperId}}</strong>
+                  </div>
+                </li>
+                <li class="paper-key-item">
+                  <div class="attention-icon">
+                    <i class="bi bi-gift"></i>
+                  </div>
+                  <strong style="font-weight: 500;">完成任务获得 {{paperDetail.bonus}} 元奖金</strong>
+                </li>
+                <li class="paper-key-item">
+                  <div class="attention-icon">
+                    <i class="bi bi-calendar-check"></i>
+                  </div>
+                  <strong style="font-weight: 500;">{{paperDetail.deliveryCycle}}天内交付</strong>
+                </li>
+                <li class="paper-key-item">
+                  <div class="attention-icon">
+                    <i class="bi bi-clock"></i>
+                  </div>
+                  <strong style="font-weight: 500;">{{!!paperDetail.experience ? paperDetail.experience + "年及以上从业经验" : "经验不限"}}</strong>
+                </li>
+                <li class="paper-key-item">
+                  <div class="attention-icon">
+                    <i class="bi bi-mortarboard"></i>
+                  </div>
+                  <strong style="font-weight: 500;">{{explainMpsDifficultyV(paperDetail.difficulty)}}</strong>
+                </li>
+              </ul>
+            </section>
+            <section class="paper-card">
+              <span>
+                <strong style="font-weight: 500; margin-right: 4px;">职能类别:</strong><span>  {{paperDetail.piece}}</span>
+              </span>
+            </section>
+            <section v-if="paperDetail.skills.length>0" class="paper-card">
+              <strong class="text-base-sm">技能&资质</strong>
+              <div class="skill-list">
+                <div v-for="skill in paperDetail.skills" class="skill-item">{{skill}}</div>
+              </div>
+            </section>
+            <section v-if="!!clientInfo" class="paper-card">
+              <strong class="text-base-sm">客户信息</strong>
+              <ul class="buyer-general">
+                <li>
+                  <strong>已发布 {{clientInfo.tasksPosted}} 个商单</strong>
+                  <div>      
+                    {{getRate(clientInfo.tasksPosted,clientInfo.tasksFinished)}}% 的商单已经圆满完成, {{clientInfo.tasksBiding}}  个商单正在招商
+                  </div>
+                </li>
+                <li>
+                  <strong>累计采购金额 {{formatCmpctNumberV(clientInfo.totalSpent)}}元</strong>
+                  <div>      
+                    共有供应商 {{clientInfo.suppliers}} 位 
+                  </div>
+                </li>
+                <li>
+                  <strong>{{clientInfo.industry}}</strong>
+                  <div>      
+                    商单基金余额为 {{formatCmpctNumberV(clientInfo.funds)}}元
+                  </div>
+                </li>
+                <li>
+                  <small>{{formatDateV(clientInfo.registerAt)}}注册</small>
+                </li>
+
+              </ul>
+            </section>
+            <section class="paper-card">
+              <strong class="text-base-sm">商单规则</strong>
+              <div class="paper-term">
+                <p class="text-body-sm">1.接取商单需要消耗电量值，如遇电量值余额不足，可前往【薪动商号】-【补给商城】进行充值。</p>
+                <p class="text-body-sm">2.商单接取成功 24h 内，如果供应商（商单接单方）未能通过评估，采购商（需求发布方）有权更换供应商，更换成功后，供应商消耗的电量值不退还。建议接单前与采购商取得联系，了解更详细的需求细节。</p>
+              </div>
+            </section>
+            <section v-if="paperDetail.tag=='2'" class="order-receiving-tab">
+              <a :href="'/messages/'+paperDetail.purchaserUserId">
+                <div class="btns topup">私信客户</div>
+              </a>
+              <div v-preventreclick  @click="orderReceivingV" class="btns get bgPrimary">消耗{{paperDetail.bidElectricity}}点电量接取商单</div>
+            </section>
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <section class="modals">
+    <div class="modal-container">
+      <div class="modal fade" id="orderReceivingSuccessModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content text-color-dark">
+            <div class="modal-header">
+              <h2 class="modal-title fs-5">商单接取成功！</h2>
+            </div>
+            <div class="modal-body">
+              <p>
+                很荣幸通知您，您凭借顶尖的智慧与幸运收获一个订单。
+              </p>
+            </div>
+            <div class="modal-footer btn-light d-flex justify-content-between border-0">
+              <button @click="closeOrderReceivingSuccessModalV" type="button" class="btn btn-dark modal-btn-ui ">关闭</button>
+              <a href="/estudio/studio-b2b-order">
+                <button type="button" class="btn btn-primary modal-btn-ui ">履约中心</button>
+              </a>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </mall-app>
+
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <script  type="module" src="/common/javascripts/tm.js"></script>
+
+  <script  type="module" src="/mall/javascripts/business-paper.js"></script>
+</body>
+
+</html>

@@ -204,6 +204,17 @@
 .section-member-grid{
     padding-bottom: 200px;
 }
+@media (min-width: 768px) and (max-width: 1024px) {
+    .small-device-menu{
+        display: block;
+    }
+    .insight-menu{
+        display: none;
+    }
+    .menu-content{
+        width: 100%;
+    }
+}
   @media (max-width: 48rem) {
     .insight-menu{
         display: none;

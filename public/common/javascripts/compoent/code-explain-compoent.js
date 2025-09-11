@@ -35,6 +35,9 @@ const CodeExplainComponent = {
     },
     explainSubscriptionOfferTypeV(offerType){
         return explainSubscriptionOfferType(offerType);
+    },
+    explainMpsDifficultyV(level){
+        return explainMpsDifficulty(level);
     }
    }
 }
@@ -311,6 +314,28 @@ function explainVirtualProductTag(tag){
             break;    
     }
     return desc;
+}
+function explainMpsDifficulty(level){
+  var levelDesc="";
+  switch(level){
+    case "easy":
+        levelDesc="初级"
+        break;
+    case "medium":
+        levelDesc="中级"
+        break;
+    case "advanced":
+        levelDesc="高级"
+        break;
+    case "expert":
+        levelDesc="专家"
+        break;
+    case "master":
+        levelDesc="大师"
+        break;
+
+}
+  return levelDesc;
 }
 
 export {

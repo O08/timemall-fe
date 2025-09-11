@@ -46,8 +46,8 @@
           <div class="btn-group" style="margin-right: 8px;" >
           
             <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
-              <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
-                <i class="bi bi-map"></i>                  
+              <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                <i class="bi bi-grid"></i>                  
               </div>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -90,7 +90,7 @@
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-lightning me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
                    </button>
                 </a>
               </li>
@@ -169,7 +169,7 @@
               
               <li>
                 <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                  <i class="bi bi-flag me-2"></i> 反馈
+                  <i class="bi bi-flag me-2"></i> 问题反馈
                 </button>
               </li>
             </ul>
@@ -275,42 +275,16 @@
           </div>
           <section class="section-product-list">
             <div id="div_gri_panel" class="row gy-2 row-cols-1  row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-              <div class="col">
-
-                <div class="card product-blue-sign border-0 cell-card-body-bg" 
-              :class="{ 'product-unavailable': enableBluesignV()}">
-                 <div class="card-body px-0 py-0">
-                   <div class="title-container d-flex align-items-center justify-content-between" style="height: 3rem;">
-                     <div>
-                       <h5 v-show="enableBluesignV()" class="card-title ps-3">剩余{{getDaysBetweenV(new Date() ,product_bluesign.blueEndAt) + 1 }}天</h5>
-                     </div>
-                     <button type="button" class="btn tip-info" data-bs-toggle="modal" data-bs-target="#blueSignIntroModal">
-                       <i class="bi bi-question-circle"></i>
-                     </button>
-                   </div>
-                   <div class="product-img text-center">
-                     <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                       <path d="M30.2156 2.7L25 0L19.7844 2.7L13.9781 3.58125L11.3469 8.83125L7.16875 12.9562L8.125 18.75L7.16875 24.5438L11.3469 28.6687L13.9781 33.9188L19.7844 34.8L25 37.5L30.2156 34.8L36.0219 33.9188L38.6531 28.6687L42.8312 24.5438L41.875 18.75L42.8312 12.9562L38.6531 8.83125L36.0219 3.58125L30.2156 2.7ZM33.9531 6.42812L36.0906 10.6937L39.4844 14.0437L38.7094 18.75L39.4844 23.4562L36.0906 26.8062L33.9531 31.0719L29.2344 31.7875L25 33.9812L20.7656 31.7875L16.0469 31.0719L13.9094 26.8062L10.5156 23.4562L11.2937 18.75L10.5125 14.0437L13.9094 10.6937L16.0469 6.42812L20.7656 5.7125L25 3.51875L29.2375 5.7125L33.9531 6.42812Z" fill="#3887FE"/>
-                       <path d="M12.5 36.8563V50L25 46.875L37.5 50V36.8563L31.1938 37.8125L25 41.0188L18.8063 37.8125L12.5 36.8563Z" fill="#3887FE"/>
-                       </svg>
-                   </div>
-                   <p class="card-text text-center">{{product_bluesign.tradingName}}</p>
-                   <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
-                     <p class="card-text">￥{{product_bluesign.price}}</p>
-                   </div>
-                 </div>
-               </div>
-               
-
-              </div>
+              
 
               
               <div class="col">
+
                 <div class="card product-top_up border-0 cell-card-body-bg">
                   <div class="card-body px-0 py-0">
                    <div class="title-container d-flex align-items-center justify-content-between" style="height: 3rem;">
                      <div>
-                       <h5 class="card-title ps-3">余额：{{drawable}}</h5>
+                       <h5 class="card-title ps-3">钱包余额：{{drawable}}</h5>
                      </div>
                      <button type="button" class="btn tip-info" data-bs-toggle="modal" data-bs-target="#topUpIntroModal">
                        <i class="bi bi-question-circle"></i>
@@ -330,12 +304,75 @@
                                           
                          
                     </div>
-                    <p class="card-text text-center">充值</p>
+                    <p class="card-text text-center pt-2">充值</p>
                     <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
                       <p class="card-text">￥12.00起</p>
                     </div>
                   </div>
                 </div>
+
+              </div>
+
+              <div class="col">
+                <div class="card electrcity-top_up border-0 cell-card-body-bg">
+                  <div class="card-body px-0 py-0">
+                   <div class="title-container d-flex align-items-center justify-content-between" style="height: 3rem;">
+                     <div>
+                       <h5 class="card-title ps-3">可用电量值： {{product_electricity.electricity}}</h5>
+                     </div>
+                     <button type="button" class="btn tip-info" data-bs-toggle="modal" data-bs-target="#electricIntroModal">
+                       <i class="bi bi-question-circle"></i>
+                     </button>
+                   </div>
+                    <div class="product-img text-center">
+                      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_25833_15)">
+                        <path d="M20.7 1.34625C20.8143 0.957483 21.0514 0.616195 21.3759 0.3735C21.7004 0.130805 22.0948 -0.000236949 22.5 3.21644e-07H37.5C37.7969 0.000225726 38.0896 0.0709725 38.3538 0.206416C38.6181 0.34186 38.8464 0.538128 39.0199 0.779063C39.1935 1.02 39.3074 1.29871 39.3521 1.59225C39.3969 1.8858 39.3713 2.18578 39.2775 2.4675L32.6025 22.5H46.875C47.2261 22.4998 47.5703 22.5981 47.8682 22.7839C48.1662 22.9696 48.406 23.2353 48.5604 23.5507C48.7148 23.8661 48.7775 24.2185 48.7414 24.5677C48.7053 24.917 48.5718 25.2491 48.3563 25.5263L22.1062 59.2763C21.8373 59.6237 21.455 59.8656 21.0259 59.9599C20.5968 60.0542 20.1482 59.9948 19.7584 59.7921C19.3687 59.5894 19.0624 59.2562 18.8932 58.8508C18.724 58.4454 18.7025 57.9934 18.8325 57.5737L25.5862 35.625H13.125C12.8335 35.6252 12.546 35.5574 12.2852 35.427C12.0245 35.2966 11.7978 35.1072 11.6231 34.8739C11.4483 34.6405 11.3304 34.3697 11.2787 34.0828C11.2269 33.7959 11.2428 33.5009 11.325 33.2213L20.7 1.34625Z" fill="#4CFFA9"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_25833_15">
+                        <rect width="60" height="60" fill="white"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                        
+                    </div>
+                    <p class="card-text text-center pt-2">{{product_electricity.tradingName}}</p>
+                    <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
+                      <p class="card-text">￥{{product_electricity.price}}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="col">
+
+                <div class="card product-blue-sign border-0 cell-card-body-bg" 
+                   :class="{ 'product-unavailable': enableBluesignV()}">
+                  <div class="card-body px-0 py-0">
+                    <div class="title-container d-flex align-items-center justify-content-between" style="height: 3rem;">
+                      <div>
+                        <h5 v-show="enableBluesignV()" class="card-title ps-3">剩余{{getDaysBetweenV(new Date() ,product_bluesign.blueEndAt) + 1 }}天</h5>
+                      </div>
+                      <button type="button" class="btn tip-info" data-bs-toggle="modal" data-bs-target="#blueSignIntroModal">
+                        <i class="bi bi-question-circle"></i>
+                      </button>
+                    </div>
+                    <div class="product-img text-center">
+                      <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30.2156 2.7L25 0L19.7844 2.7L13.9781 3.58125L11.3469 8.83125L7.16875 12.9562L8.125 18.75L7.16875 24.5438L11.3469 28.6687L13.9781 33.9188L19.7844 34.8L25 37.5L30.2156 34.8L36.0219 33.9188L38.6531 28.6687L42.8312 24.5438L41.875 18.75L42.8312 12.9562L38.6531 8.83125L36.0219 3.58125L30.2156 2.7ZM33.9531 6.42812L36.0906 10.6937L39.4844 14.0437L38.7094 18.75L39.4844 23.4562L36.0906 26.8062L33.9531 31.0719L29.2344 31.7875L25 33.9812L20.7656 31.7875L16.0469 31.0719L13.9094 26.8062L10.5156 23.4562L11.2937 18.75L10.5125 14.0437L13.9094 10.6937L16.0469 6.42812L20.7656 5.7125L25 3.51875L29.2375 5.7125L33.9531 6.42812Z" fill="#3887FE"/>
+                        <path d="M12.5 36.8563V50L25 46.875L37.5 50V36.8563L31.1938 37.8125L25 41.0188L18.8063 37.8125L12.5 36.8563Z" fill="#3887FE"/>
+                        </svg>
+                    </div>
+                    <p class="card-text text-center pt-2">{{product_bluesign.tradingName}}</p>
+                    <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
+                      <p class="card-text">￥{{product_bluesign.price}}</p>
+                    </div>
+                  </div>
+                </div>
+               
 
               </div>
 
@@ -360,18 +397,82 @@
                 <h1 class="modal-title fs-5" id="blueSignModalLabel">蓝标介绍</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body d-flex justify-content-center">
-                <p>每次购买蓝标，可立即获得为期30天的蓝标展示权益。</p>
+              <div class="modal-body d-flex flex-column">
+                <p>1.每次购买蓝标，可立即获得为期30天的蓝标展示权益。</p>
+                <p>2.购买成功后，赠送 200 电量值。</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!--  electric intro modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="electricIntroModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="blueSignModalLabel">电量值购买规则</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex flex-column">
+                <p>1.购买成功，可获得 200 电量值。</p>
+                <p>2.每月单个账号限购 12 次。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- electricity buy modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="electricityBuyModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content modal-content-shop">
+              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-buy-bg">
+                <h1 class="modal-title fs-5" id="blueSignModalLabel">购买物品</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-buy-bg">
+                <div class="product-container">
+                  <div class="card product-blue-sign border-0 cell-card-body-bg" style="width: 8rem;">
+                    <div class="card-body px-0 pb-0">
+                      <div class="text-center">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_25833_15)">
+                          <path d="M20.7 1.34625C20.8143 0.957483 21.0514 0.616195 21.3759 0.3735C21.7004 0.130805 22.0948 -0.000236949 22.5 3.21644e-07H37.5C37.7969 0.000225726 38.0896 0.0709725 38.3538 0.206416C38.6181 0.34186 38.8464 0.538128 39.0199 0.779063C39.1935 1.02 39.3074 1.29871 39.3521 1.59225C39.3969 1.8858 39.3713 2.18578 39.2775 2.4675L32.6025 22.5H46.875C47.2261 22.4998 47.5703 22.5981 47.8682 22.7839C48.1662 22.9696 48.406 23.2353 48.5604 23.5507C48.7148 23.8661 48.7775 24.2185 48.7414 24.5677C48.7053 24.917 48.5718 25.2491 48.3563 25.5263L22.1062 59.2763C21.8373 59.6237 21.455 59.8656 21.0259 59.9599C20.5968 60.0542 20.1482 59.9948 19.7584 59.7921C19.3687 59.5894 19.0624 59.2562 18.8932 58.8508C18.724 58.4454 18.7025 57.9934 18.8325 57.5737L25.5862 35.625H13.125C12.8335 35.6252 12.546 35.5574 12.2852 35.427C12.0245 35.2966 11.7978 35.1072 11.6231 34.8739C11.4483 34.6405 11.3304 34.3697 11.2787 34.0828C11.2269 33.7959 11.2428 33.5009 11.325 33.2213L20.7 1.34625Z" fill="#4CFFA9"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_25833_15">
+                          <rect width="60" height="60" fill="white"/>
+                          </clipPath>
+                          </defs>
+                          </svg>
+                      </div>
+                      <p class="card-text text-center">{{product_electricity.tradingName}}</p>
+                      <div class="product-desc-container mt-3 d-flex align-items-center justify-content-center">
+                        <p class="card-text">￥{{product_electricity.price}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="product-feature">
+                  <p class="card-text">购买立刻获得 200 电量值</p>
+                </div>
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-buy-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick  type="button" @click="buyElectricityProductV" class="btn btn-primary">购买</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- blue sign buy modal -->
       <div class="modal-container">
         <div class="modal fade" id="blueSignBuyModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+            <div class="modal-content modal-content-shop">
               <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-buy-bg">
                 <h1 class="modal-title fs-5" id="blueSignModalLabel">购买物品</h1>
               </div>
@@ -393,12 +494,12 @@
                   </div>
                 </div>
                 <div class="product-feature">
-                  <p class="card-text">购买立刻获得30天</p>
+                  <p class="card-text">购买即可获得 30 天会员与 200 电量值权益</p>
                 </div>
               </div>
               <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-buy-bg">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button v-preventreclick  type="button" @click="buyProductV" id="btn-save-avator" class="btn btn-primary">购买</button>
+                <button v-preventreclick  type="button" @click="buyVipProductV" id="btn-save-avator" class="btn btn-primary">购买</button>
               </div>
             </div>
           </div>
@@ -413,8 +514,9 @@
                 <h1 class="modal-title fs-5" id="topUpIntroModalLabel">充值介绍</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body d-flex justify-content-center">
-                <p>平台充值，充值后可在平台内部自由交易。</p>
+              <div class="modal-body d-flex flex-column">
+                <p>1.平台充值，将资金存入钱包，以便在平台内部自由消费、交易。</p>
+                <p>2.钱包中的资金可以随时通过资金转出提现。</p>
               </div>
             </div>
           </div>
@@ -424,7 +526,7 @@
       <div class="modal-container">
         <div class="modal fade" id="topUpModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+            <div class="modal-content modal-content-shop">
               <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-buy-bg">
                 <h1 class="modal-title fs-5" id="topUpModalLabel">购买物品</h1>
               </div>

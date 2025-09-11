@@ -36,16 +36,10 @@
                 <i class="bi bi-soundwave"></i>
               </div>
             </a>
-            <a href="/mall/gig-economy" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="心选商店">
-              <div class="nav-plus-13—street  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
-             
-                <i class="bi bi-bag-heart"></i>
-                   
-            </a>
             <a href="/estudio/studio-dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="薪动商号">
               <div class="nav-plus-studio  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
              
-                <i class="bi bi-laptop"></i>
+                <i class="bi bi-flower1"></i>
                    
             </a>
             <a href="/epod/pod-packages-order" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="奇迹工坊">
@@ -54,11 +48,17 @@
                 <i class="bi bi-tags"></i>
                    
             </a>
+            <a href="/mall/gig-economy" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="心选商店">
+              <div class="nav-plus-13—street  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
+             
+                <i class="bi bi-bag-heart"></i>
+                   
+            </a>
             <a href="/affiliate/dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right"
               data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="带货中心">
               <div class="nav-affiliate nav-item-default d-flex align-items-center justify-content-center mt-5 ms-3">
 
-                <i class="bi bi-megaphone-fill"></i>
+                <i class="bi bi-megaphone"></i>
 
               </div>
             </a>
@@ -110,7 +110,7 @@
                   <li>
                     <button class="dropdown-item" type="button" data-bs-toggle="offcanvas"
                       data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                      <i class="bi bi-flag me-1"></i> 反馈
+                      <i class="bi bi-flag me-1"></i> 问题反馈
                     </button>
                   </li>
                 </ul>
@@ -134,7 +134,7 @@
             <a href="/rainbow/discovery-partner" class="url-link" data-bs-custom-class="custom-popover" data-bs-placement="right"
             data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加好友">
               <div class="nav-find-new-friend-btn">
-                <i class="bi bi-person-plus"></i>
+                <i class="bi bi-plus"></i>
               </div>
             </a>
 
@@ -219,7 +219,12 @@
             <i class="bi bi-envelope-exclamation"></i>
           </div>
         </div>
+        <div v-show="!!currentChatFriendId" class="room-msg-header">
+          {{friendProfile.username}}
+        </div>
         <div @scroll="scrollToTopThenLoadV($event)" v-show="!!currentChatFriendId" class="room-msg-container">
+
+
 
           <div v-for="record in eventObj.records" class="event-date">
             <section class="event-wrapper new-order">

@@ -160,3 +160,15 @@ body,
         padding: 24px;
     }
 }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .mini-main-container{
+        padding: 12px;
+    }
+}
+
+@media (max-width: 48rem) {
+    .mini-main-container{
+        padding: 12px;
+    }
+}

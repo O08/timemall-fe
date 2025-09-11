@@ -20,8 +20,8 @@ col-content::-webkit-scrollbar {
   color: dimgrey;
 }
 .oasis-avatar-wrapper, .oasis-avatar-tiny{
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 18px;
   position: relative;
 
@@ -78,7 +78,7 @@ col-content::-webkit-scrollbar {
     margin-right: 5px;
 }
 .feed-item-collapse,.feed-item-collapse::before{
-    color: #616161;
+    color: #757a81;
 }
 .collapse-ctl:not([aria-expanded="false"]) {
     .feed-item-collapse::before{
@@ -112,6 +112,8 @@ col-content::-webkit-scrollbar {
 .nav-sub-container .nav-link {
   margin-bottom: 2px;
   margin-right: 12px;
+  font-size: 14px;
+  font-weight: 400;
 }
 #collapseInvitedOasis span{
     white-space: nowrap;

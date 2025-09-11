@@ -291,7 +291,7 @@ pt-app header{
 }
 .entry-nav i{
   color: white;
-  font-size: 14px;
+  font-size: 16px;
 
 }
 .brand-avatar{
@@ -309,7 +309,7 @@ pt-app header{
     height: 32px;
     border-radius: 50%;
     padding: unset;
-    margin: 0 8px;
+    margin: 0;
 }
 pt-app content,main,pt-app main{
     height: calc(100vh - 56px);
@@ -997,3 +997,10 @@ file upload
   position: relative;
 }
 
+.option-disabled,.btn-option-secondary.disabled {
+  color: #555;
+}
+.modal-btn-ui {
+  min-width: 88px;
+  font-size: 12px;
+}

@@ -93,6 +93,9 @@
                                       <div class="del_post">
                                         <button v-preventreclick @click="showSubscriptionBillRefundModalV" class="btn-del_post">付费订阅账单退款</button>
                                       </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showCloseCommercialPaperModalV" class="btn-del_post">关闭商单</button>
+                                      </div>
                                     </div>
                             
                             
@@ -375,6 +378,32 @@
                   'btn-primary': !!freezeUserId ,
                   'btn-secondary': !freezeUserId }"
                    v-preventreclick @click="freezeUserV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- freeze user modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="closeCommercialPaperModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">关闭商单</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form class="w-100" onsubmit="return false">
+                    <input v-model="closedCommercialPaperId" class="form-control  only-show-bottom dark-input-default" type="text" placeholder="商单号">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button
+                  :class="{'disabled': !closedCommercialPaperId, 
+                  'btn-primary': !!closedCommercialPaperId ,
+                  'btn-secondary': !closedCommercialPaperId }"
+                   v-preventreclick @click="closeCommercialPaperV" type="button"  class="btn">提交</button>
                 </div>
               </div>
             </div>

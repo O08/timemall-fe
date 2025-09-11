@@ -12,14 +12,16 @@ col-content {
     height: 32%;
     min-height: 200px;
     width: 100%;
-    background-image: url("/rainbow/images/discovery-oasis-banner.jpg");
+    background-image: url("/rainbow/images/blue-gold-splattered-paint-min.jpg");
     background-size: 100% 100%;
     border-radius: 10px;
   }
-  
+  .avif .obj-banner-container{
+    background-image: url("/rainbow/images/blue-gold-splattered-paint-min.avif");
+  }
   .Search-Button-Placeholder{
       font-size: 1rem;
-      color: #616161;
+      color: #757a81;
   }
   .section-top-serach{
     max-width: 800px;
@@ -177,6 +179,8 @@ col-content {
   }
   .nav-sub-container .nav-link{
     margin-bottom: 2px;
+    font-size: 14px;
+    font-weight: 400;
   }
   @media (max-width: 576px) {
     .logo{

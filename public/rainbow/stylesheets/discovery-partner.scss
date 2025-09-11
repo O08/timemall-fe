@@ -5,6 +5,13 @@ col-content {
 header{
   z-index: 1035;
 }
+h2{
+  font-size: 18px;
+}
+p{
+  white-space: pre-wrap;
+  word-break: break-all;
+}
 .nav-title h3 {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -67,7 +74,7 @@ header{
 
 .Search-Button-Placeholder{
     font-size: 1rem;
-    color: #616161;
+    color: #757a81;
 }
 .section-top-serach{
   max-width: 800px;
@@ -164,7 +171,7 @@ header{
 .btn-close-paper-prewview-modal{
   background-color: #343434;
   border-radius: 50%;
-  color: #fff;
+  color: #b5bac1;
   border: none;
   height: 32px;
   width: 32px;
@@ -174,6 +181,9 @@ header{
 .btn-close-paper-prewview-modal i{
   vertical-align: middle;
   font-size: 20px;
+}
+.btn-close-paper-prewview-modal:hover{
+  color: #fff;
 }
 .partner-card-container{
   padding: 16px;
@@ -284,7 +294,7 @@ header{
   border-radius: 50%;
 }
 .archiveDetail-header{
-  border-bottom: 1px #ededed solid;
+  border-bottom: 1px #2a2a2a solid;
   margin: 0 45px;
   padding-top: 120px;
   text-align: center;
@@ -310,7 +320,7 @@ header{
 }
 
 .archiveDetail-core-keyinfo{
-   border: 1px solid #ededed;
+   border: 1px solid #2a2a2a;
    border-radius: 3px;
     box-sizing: border-box;
     display: flex;
@@ -396,12 +406,16 @@ header{
   font-weight: bold;
 }
 .archiveDetail-skills-item{
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  background-color: #c4c9ce27;
+  border-color: #c4c9ce99;
+  border-radius: 3px;
+  margin-bottom: 6px;
+  margin-right: 6px;
+  padding: 4px 10px;
+  font-size: 14px;
 
 }
-.business-scope,.archiveDetail-skills-item{
+.business-scope{
   width: 100%;
   word-break: break-all;
   min-height: 30px;
@@ -465,6 +479,25 @@ header{
 }
 .nav-sub-container .nav-link{
   margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.brand-skill-box{
+  flex-wrap: wrap;
+  gap: 8px;
+  display: flex;
+  padding-top: 8px;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .partner-archive-content{
+    padding: 20px 0px;
+  }
+  #partnerInfoPreviewModal .modal-body {
+    border: none;
+    border-bottom: none;
+    border-radius: 0;
+    padding: 12px;
+  }
 }
 @media (max-width: 576px) {
   .logo{
@@ -498,7 +531,13 @@ header{
    }
    .can_opt_wrapper {
     padding-top: 24px;
-}
+  }
+  #partnerInfoPreviewModal .modal-body {
+    border: none;
+    border-bottom: none;
+    border-radius: 0;
+    padding: 12px;
+  }
 }
 
 .not-found-resource{

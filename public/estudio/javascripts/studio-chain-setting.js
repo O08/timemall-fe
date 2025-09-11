@@ -11,6 +11,7 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import  StudioApi from "/estudio/javascripts/compoent/StudioApi.js";
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -19,7 +20,8 @@ const RootComponent = {
         return {
             btn_ctl: {
                 activate_show_add_template_model__btn: false,
-                activate_save_mps_chain__btn: false
+                activate_save_mps_chain__btn: false,
+                activate_edit_template_save__btn: false
             },
             chain: {
                 title: "",
@@ -27,15 +29,7 @@ const RootComponent = {
             },
             template: {},
             templateDetail: {},
-            newTemplate: {
-                title: "",
-                sow: "",
-                piece: "",
-                bonus: "",
-                firstSupplier: "",
-                duration: "",
-                chainId: ""
-            },
+            newTemplate: generateEmptyTemplate(),
             putTemplate: {
                 title: "",
                 sow: "",
@@ -43,7 +37,9 @@ const RootComponent = {
                 bonus: "",
                 firstSupplier: "",
                 duration: "",
-                chainId: ""
+                chainId: "",
+                experience: "",
+                skills: []
             },
             supplier:{
                 records: []
@@ -54,10 +50,32 @@ const RootComponent = {
 },
   
     methods: {
+            //tags
+        removeEditModalSkillV(index){
+            this.btn_ctl.activate_edit_template_save__btn=true;
+            this.putTemplate.skills.splice(index, 1);
+        },
+        addSkillInEditModalV(event){
+            addSkillInEditModal(event)
+        },
+        deleteContentOrTagFromEditModalSkillV(event){
+            deleteContentOrTagFromEditModalSkill(event);
+        },
+        removeNewModalSkillV(index){
+            this.newTemplate.skills.splice(index, 1);
+        },
+        addSkillInNewModalV(event){
+            addSkillInNewModal(event)
+        },
+        deleteContentOrTagFromNewModalSkillV(event){
+            deleteContentOrTagFromNewModalSkill(event);
+        },
         validateNewTemplateV(){
             if(!!this.newTemplate.title && !!this.newTemplate.sow 
                 && !!this.newTemplate.piece && !!this.newTemplate.bonus 
                 && !!this.newTemplate.deliveryCycle && !!this.newTemplate.contractValidityPeriod
+                && !!this.newTemplate.difficulty && !!this.newTemplate.location 
+                && !!this.newTemplate.bidElectricity
                 && ((!this.newTemplate.firstSupplier && !this.newTemplate.duration)
                      || (!!this.newTemplate.firstSupplier && !!this.newTemplate.duration))){
 
@@ -69,6 +87,9 @@ const RootComponent = {
             if(!!this.putTemplate.title && !!this.putTemplate.sow 
                 && !!this.putTemplate.piece && !!this.putTemplate.bonus 
                 && !!this.putTemplate.deliveryCycle && !!this.putTemplate.contractValidityPeriod
+                && !!this.putTemplate.difficulty && !!this.putTemplate.location 
+                && !!this.putTemplate.bidElectricity
+                && this.btn_ctl.activate_edit_template_save__btn
                 && ((!this.putTemplate.firstSupplier && !this.putTemplate.duration)
                      || (!!this.putTemplate.firstSupplier && !!this.putTemplate.duration))){
 
@@ -81,7 +102,7 @@ const RootComponent = {
             this.supplierQ="";
             this.fetchFirstSupplierV();
             
-            this.newTemplate={};
+            this.newTemplate=generateEmptyTemplate(),
             $('.iput').val("");
             $("#newChainTemplateModal").modal("show"); // hide modal
 
@@ -99,7 +120,7 @@ const RootComponent = {
                 if(response.data.code==200){
                     $("#newChainTemplateModal").modal("hide"); // hide modal
                     this.findAllTemplateOwnedChainV(); // refresh 
-                    this.newTemplate={}; // reset 
+                    this.newTemplate=generateEmptyTemplate(); // reset 
                     $('.iput').val(""); // reset suplier selector
                 }
                 if(response.data.code!=200){
@@ -185,6 +206,7 @@ const RootComponent = {
         showEditTemplateModelV(){
             // load supplier info
             this.supplierQ="";
+            this.btn_ctl.activate_edit_template_save__btn=false;
             this.fetchFirstSupplierV();
 
             this.putTemplate=JSON.parse(JSON.stringify(this.templateDetail));// deep copy
@@ -218,8 +240,9 @@ app.mixin(DirectiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
-app.mixin(new FriendListCompoent({need_init: true}));
+app.mixin(CodeExplainComponent);
 
+app.mixin(new FriendListCompoent({need_init: true}));
 app.mixin(
     new Ssecompoent({
         sslSetting:{
@@ -273,9 +296,12 @@ function fetchFirstSupplier(q){
     return StudioApi.doFetchFirstSupplier(!q ? "": q);
 }
 function modifyMpsTemplate(template){
-    template.chainId=getQueryVariable("chain_id");
 
-    return updateMpsTemplate(template);
+    template.chainId=getQueryVariable("chain_id");
+    var dto=JSON.parse(JSON.stringify(template));
+    dto.skills=JSON.stringify(template.skills);
+
+    return updateMpsTemplate(dto);
 }
 function removeTemplate(id){
     return doRemoveTemplate(id);
@@ -283,8 +309,10 @@ function removeTemplate(id){
 function newMpsTemplate(template){
 
     template.chainId=getQueryVariable("chain_id");
+    var dto=JSON.parse(JSON.stringify(template));
+    dto.skills=JSON.stringify(template.skills);
 
-    return addMpsTemplate(template);
+    return addMpsTemplate(dto);
 }
 
 function findTemplateDetail(templateId){
@@ -360,8 +388,14 @@ $(document).on('click', '.iop', function () {
     $('.op-list').addClass('hidden');
     var text = $(this).text();
     $('.iput').val(text);
-    chainSettingPage.newTemplate.firstSupplier=$(this).attr("id"); // for add
-    chainSettingPage.putTemplate.firstSupplier=$(this).attr("id"); // for update
+    var targetSupplierId=$(this).attr("id");
+    if(chainSettingPage.putTemplate.firstSupplier!=targetSupplierId){
+        chainSettingPage.btn_ctl.activate_edit_template_save__btn=true; // for update
+    }
+    chainSettingPage.newTemplate.firstSupplier=targetSupplierId; // for add
+    chainSettingPage.putTemplate.firstSupplier=targetSupplierId; // for update
+
+
     if(!chainSettingPage.newTemplate.firstSupplier){
         chainSettingPage.newTemplate.duration="";
         chainSettingPage.newTemplate.firstSupplier="";
@@ -398,3 +432,76 @@ function transformInputNumber(val,min,max){
   $(function(){
 	$(".tooltip-nav").tooltip();
 });
+
+
+function generateEmptyTemplate(){
+    return {
+        title: "",
+        sow: "",
+        piece: "",
+        bonus: "",
+        firstSupplier: "",
+        duration: "",
+        chainId: "",
+        difficulty: "easy",
+        location: "远程",
+        bidElectricity: "1",
+        experience: "",
+        skills: []
+    }
+}
+async function addSkillInEditModal(e){
+    
+    var tag = e.target.value.replace(/\s+/g, ' ');
+    var tags=chainSettingPage.putTemplate.skills;
+    if(tag.length > 0 && !tags.includes(tag)){
+        if(tags.length < 5){
+            chainSettingPage.putTemplate.skills.push(tag);
+            chainSettingPage.btn_ctl.activate_edit_template_save__btn=true;
+        }
+    }
+    e.target.value = "";
+
+}
+
+// tmp_global_val
+var gl_tag_before_del_in_edit_modal='';
+async function deleteContentOrTagFromEditModalSkill(e){
+
+    if (e.keyCode == 8 || e.keyCode == 46) {
+        
+        if(e.target.value.length==0 && gl_tag_before_del_in_edit_modal.length==0 && chainSettingPage.putTemplate.skills.length>0){
+            chainSettingPage.putTemplate.skills.pop();
+            chainSettingPage.btn_ctl.activate_edit_template_save__btn=true;
+        }
+    }
+    gl_tag_before_del_in_edit_modal=e.target.value;
+
+}
+
+async function addSkillInNewModal(e){
+    
+    var tag = e.target.value.replace(/\s+/g, ' ');
+    var tags=chainSettingPage.newTemplate.skills;
+    if(tag.length > 0 && !tags.includes(tag)){
+        if(tags.length < 5){
+            chainSettingPage.newTemplate.skills.push(tag);
+        }
+    }
+    e.target.value = "";
+
+}
+
+// tmp_global_val
+var gl_tag_before_del_in_new_modal='';
+async function deleteContentOrTagFromNewModalSkill(e){
+
+    if (e.keyCode == 8 || e.keyCode == 46) {
+        
+        if(e.target.value.length==0 && gl_tag_before_del_in_new_modal.length==0 && chainSettingPage.newTemplate.skills.length>0){
+            chainSettingPage.newTemplate.skills.pop();
+        }
+    }
+    gl_tag_before_del_in_new_modal=e.target.value;
+
+}

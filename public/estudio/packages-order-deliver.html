@@ -47,8 +47,8 @@
             <div class="btn-group" style="margin-right: 8px;" >
             
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
-                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="传送">
-                  <i class="bi bi-map"></i>                  
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                  <i class="bi bi-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -91,7 +91,7 @@
                 <li v-if="!!getIdentity().hiLinkUrl">
                   <a :href="getIdentity().hiLinkUrl">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-lightning me-2"></i> {{getIdentity().hiLinkName}}
+                      <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
                      </button>
                   </a>
                 </li>
@@ -170,7 +170,7 @@
                 
                 <li>
                   <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                    <i class="bi bi-flag me-2"></i> 反馈
+                    <i class="bi bi-flag me-2"></i> 问题反馈
                   </button>
                 </li>
               </ul>
@@ -503,11 +503,7 @@
                           <div class="opt_item_head">
                             <a :href="'/messages/'+orderDetail.consumerUserId">
                               <button   class="btn btn-outline-primary">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M8.99991 11.9999H14.9999" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
-                                  <path d="M9 18H8C4.68629 18 2 15.3137 2 12C2 8.68629 4.68629 6 8 6H9" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
-                                  <path d="M15 6H16C19.3137 6 22 8.68629 22 12C22 15.3137 19.3137 18 16 18H15" stroke="#949494" stroke-width="2" stroke-linecap="round"/>
-                                  </svg> 
+                                <i class="bi bi-soundwave"></i>
                               </button>
                             </a>
                           </div>

@@ -100,7 +100,12 @@ col-content{
       margin-bottom: 8px;
       color: #b5bac1;
   }
-
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .event-date {
+        padding-top: 1rem;
+        padding-left: 1rem;
+    }
+}
 @media (max-width: 576px) {
     col-content header{
         height: 72px;
@@ -118,6 +123,10 @@ col-content{
     }
     .not-found-resource{
         margin-left: 0;
+    }
+    .event-date {
+        padding-top: 1rem;
+        padding-left: 1rem;
     }
 }
 

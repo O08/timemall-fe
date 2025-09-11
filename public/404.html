@@ -8,90 +8,138 @@
     <!-- Favicon -->
     <link rel="icon" href="/favicon.png" />
     <!-- Theme colour Meta Tag -->
-    <meta name="theme-color" content="#FFFFFF" />
     <!-- Other Meta Tags -->
-    <link rel="apple-touch-icon" href="/favicon.png" />
 
     <!-- Title of the Webpage -->
     <title>出错啦！～ - bluvarri.com</title>
 
-
     <!-- Inline CSS for Styling -->
 <style>
-html,body,.content-container{
-  height: 100%;
-  width: 100%;
+    * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  padding: 0;
   margin: 0;
-}
-body{
-  background-color: #dad7d7;
-}
-html::after {
-    content:'';
-    background: radial-gradient(circle, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  background-color: #000;
 }
 
-h1, p {
-    margin: 0;
-    padding: 0;
-    color: rgba(0, 0, 0, 0.5);
-}
-h1 {
-    font-size: 16rem;
-    -webkit-filter: blur(2px);
-    filter: blur(2px);
-}
-p {
-    font-size: 2rem;
+#notfound {
+  position: relative;
+  height: 100vh;
 }
 
-.content-container{
-
- /* Internet Explorer 10 */
-display:-ms-flexbox;
--ms-flex-pack:center;
--ms-flex-align:center;
-
-/* Firefox */
-display:-moz-box;
--moz-box-pack:center;
--moz-box-align:center;
-
-/* Safari, Opera, and Chrome */
-display:-webkit-box;
--webkit-box-pack:center;
--webkit-box-align:center;
-
-/* W3C */
-display:box;
-box-pack:center;
-box-align:center;
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
-@media (max-width: 48rem) {
-    h1 {
-      font-size: 12rem;
+
+.notfound {
+  max-width: 520px;
+  width: 100%;
+  line-height: 1.4;
+}
+
+.notfound>div:first-child {
+  padding-left: 200px;
+  padding-top: 12px;
+  height: 170px;
+  margin-bottom: 20px;
+}
+
+.notfound .notfound-404 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 170px;
+  height: 170px;
+  background: #e01818;
+  border-radius: 7px;
+  -webkit-box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
+          box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
+  color: #fff;
+  font-size: 118px;
+  margin: 0px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: inline-block;
+  height: 60px;
+  line-height: 60px;
+}
+
+.notfound h2 {
+ font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
+  font-size: 68px;
+  color: #fff;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0px;
+  line-height: 1.1;
+}
+
+.notfound p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  margin-top: 5px;
+}
+
+.notfound a {
+  color: #ff7e3e;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 480px) {
+  .notfound {
+    padding-left: 15px;
+    padding-right: 15px;
   }
-  p {
-      font-size: 1.5rem;
+  .notfound>div:first-child {
+    padding: 0px;
+    height: auto;
   }
-
-} 
-    </style>
+  .notfound .notfound-404 {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  .notfound h2 {
+    font-size: 42px;
+  }
+}
+</style>
 </head>
 <body>
-    <div class="content-container">
-      <div class="center">
-        <h1>404</h1>
+    <div id="notfound">
+		<div class="notfound">
+			<div>
+				<div class="notfound-404">
+					<h1>!</h1>
+				</div>
+				<h2>Error<br>404</h2>
+			</div>
+			<p>非常抱歉，未找到相关资源，可能原因：网址有错误或网址已失效，请检查地址是否完整或存在多余字符。 <a onclick="goBack()">返回上一页</a></p>
+		</div>
+	</div>
 
-        <p>[:] 很抱歉，你要找的页面不见了.</p>
-    </div>
-    </div>
-
-
+    <script>
+        function goBack() {
+            window.history.back()
+         }
+      </script>
  </body>
 </html>

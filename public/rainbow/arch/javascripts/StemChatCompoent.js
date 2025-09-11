@@ -18,7 +18,8 @@ export default function StemChatCompoent(config) {
           current: 1,
           size: 10,
           defaultCurrent: 1,
-          defaultSize: 10
+          defaultSize: 10,
+          loading: false
         },
         chatSetting: chatSetting,
          eventObj:{
@@ -110,21 +111,47 @@ export default function StemChatCompoent(config) {
             });
 
             this.$nextTick(() => {
-              document.querySelector('.room-msg-container').scrollTop = document.querySelector('.room-msg-container').scrollHeight;
+
+              var element = document.querySelector('.room-msg-container');
+              element.scrollTop = element.scrollHeight;
+
+
             })
           
           }
         })
       },
       scrollToTopThenLoadV(e){
+        var container = e.currentTarget;
+
+        if(container.scrollTop>200){
+          return
+        }
+
+        const prevScrollHeight = container.scrollHeight;
+
         scrollToTopThenLoad(e,chatSetting,this.pageLoadSetting).then(response=>{
+          if(!response.data.code){
+            return
+          }
           if(response.data.code==200){
 
             response.data.event.records.forEach(element => {
               this.eventObj.records.unshift(element);
             });
+
+            this.$nextTick(() => {
+
+              const newScrollHeight = container.scrollHeight;
+              container.scrollTop = newScrollHeight - prevScrollHeight;
+
+
+            })
+       
           
           }
+          this.pageLoadSetting.loading=false;
+
         })
       },
       sendTextMessageV(){
@@ -180,17 +207,6 @@ export default function StemChatCompoent(config) {
           customAlert.alert("系统异常，请检查网络或者重新发送！")
         });
       },
-      // retrieveMessageV(){
-      //   if(!chatSetting.rtcChannel){
-      //     return ;
-      //   }
-      //   retrieveMessage(chatSetting,this.pageLoadSetting).then(response=>{
-      //     if(response.data.code==200){
-      //       this.eventObj = response.data.event;
-            
-      //     }
-      //   })
-      // },
       sendImageMessageV(){
         if(!chatSetting.rtcChannel){
           return ;
@@ -486,23 +502,26 @@ function fetchIncrementMessage(chatSetting){
   const finalUrl=chatSetting.fetchMessageUrl+"?current="+1 + "&size="+5;
   return getMessageEvent(finalUrl);
 }
-var previousY = 0;
 
 async function scrollToTopThenLoad(e,chatSetting,pageLoadSetting){
-  // var scrollTop = e.currentTarget.scrollTop;
-  var currentY = e.currentTarget.scrollTop;
-  
-  var canLoadNewRecord =(currentY < previousY && currentY < 500 && pageLoadSetting.current<pageLoadSetting.pages);
+
+  var container = e.currentTarget;
+
+  var canLoadNewRecord =(container.scrollTop<200 && !pageLoadSetting.loading && pageLoadSetting.current<pageLoadSetting.pages);
   if (canLoadNewRecord) {
+    console.log("start fetch message");
+
     pageLoadSetting.current=pageLoadSetting.current+1;
+    pageLoadSetting.loading=true;
   
     const finalUrl=chatSetting.fetchMessageUrl+"?current="+pageLoadSetting.current + "&size="+pageLoadSetting.size;
-    previousY=0;
     return await getMessageEvent(finalUrl);
   }
-  previousY = currentY;
+
+
 
   if(!canLoadNewRecord){
+
     return Promise.resolve({data: {code: ""}});
   }
 }

@@ -22,7 +22,9 @@ export  function goHome(){
 export  function goWelcome(){
     go("/welcome")
 }
-
+export  function goError(){
+    go("/404")
+}
 export function goStudioStore(){
     go("/estudio/studio-gig-store")
 }

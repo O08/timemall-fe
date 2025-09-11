@@ -375,6 +375,22 @@ mall-app {
 {
     background-color: #121212;
 }
+.brand-skill-box{
+    flex-wrap: wrap;
+    gap: 8px;
+    display: flex;
+    padding-top: 8px;
+}
+.brand-skill-item{
+    background-color: #121212;
+    border-color: #c4c9ce99;
+    border-radius: 3px;
+    margin-bottom: 6px;
+    margin-right: 6px;
+    padding: 4px 10px;
+    font-size: 14px;
+    color: #aaa;
+}
 .me-skills ,.me-links
 {
     padding-top: .75rem;

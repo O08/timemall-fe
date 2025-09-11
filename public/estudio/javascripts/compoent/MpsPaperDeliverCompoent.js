@@ -86,6 +86,12 @@ const MpsPaperDeliverCompoent = {
             modifyPaperDeliverTag(CommercialPaperDeliverTag.DELIVERED,deliver.deliverId,deliver.paperId).then(response=>{
                 if(response.data.code==200){
                     deliver.tag = CommercialPaperDeliverTag.DELIVERED
+                    this.fetchPaperDeliverDetailV(deliver.paperId);
+                }
+                if(response.data.code==40007){
+                    const error="商单基金余额不足，请前往商单助手转入资金。";
+                    customAlert.alert(error);
+                    return
                 }
                 if(response.data.code!=200){
                     const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;

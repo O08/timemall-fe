@@ -12,21 +12,34 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 
 const RootComponent = {
     data() {
         return {
-            product_bluesign: {}
+            product_bluesign: {
+                tradingName: "蓝标",
+                price: "30"
+            },
+            product_electricity: {
+                electricity: "0",
+                tradingName: "200 电量值",
+                price: "20"
+            }
         }
     },
     methods: {
-        buyProductV(){
-            buyProduct()
+        buyElectricityProductV(){
+            buyElectricityProduct()
+        },
+        buyVipProductV(){
+            buyVipProduct()
         },
         init(){
-            initBlueSign()
+            initBlueSign();
+            fetchProductElectricity();
         },
         getDaysBetweenV(begainDate,endDate){
             if(!begainDate || !endDate){
@@ -72,11 +85,47 @@ async function getBlueSign(){
     return await axios.get(url)
 }
 
-async function newOrder(productCode){
+async function buyVipOrder(){
     const url = "/api/v1/web_estudio/order/new_order";
-    return await axios.post(url,productCode);
+    return await axios.post(url);
 }
 
+
+async function getElectricityInfo(){
+    const url = "/api/v1/web_estudio/shop/electricity/query";
+    return await axios.get(url)
+}
+async function buyElectricity(){
+    const url = "/api/v1/web_estudio/shop/electricity/buy";
+    return await axios.post(url);
+}
+
+async function buyElectricityProduct() {
+
+    buyElectricity().then((response) => {
+        if (response.data.code == 200) {
+
+            fetchProductElectricity();
+            shopPage.getDrawableV(); // from topupcompoent.js
+            $("#electricityBuyModal").modal("hide");
+            customAlert.alert("电力商品购买成功");
+
+        }
+        if (response.data.code != 200) {
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message);
+        }
+    }).catch(error => {
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+    });
+
+}
+async function fetchProductElectricity(){
+    getElectricityInfo().then((response)=>{
+        if(response.data.code == 200){
+            shopPage.product_electricity= response.data.product
+        }
+    })
+}
 
 async function initBlueSign(){
     getBlueSign().then((response)=>{
@@ -86,18 +135,25 @@ async function initBlueSign(){
     })
 }
 
-async function buyProduct(){
+async function buyVipProduct() {
 
-    var productCode = '';
-    newOrder(productCode).then((response)=>{
-        if(response.data.code == 200){
-            // if create order success ,forward to pay 
-            const merchantUserId = response.data.order.merchantUserId;
-            const merchantOrderId = response.data.order.merchantOrderId;
-            window.location.href= '/api/payment/goAlipay.html?merchantUserId=' + merchantUserId + '&merchantOrderId=' + merchantOrderId;
+    buyVipOrder().then((response) => {
+        if (response.data.code == 200) {
+            initBlueSign();
+            shopPage.getDrawableV(); // from topupcompoent.js
+            fetchProductElectricity();
+
+            $("#blueSignBuyModal").modal("hide");
+            customAlert.alert("蓝标商品购买成功");
+
         }
-    })
- 
+        if (response.data.code != 200) {
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message);
+        }
+    }).catch(error => {
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+    });
+
 }
 // init 
 shopPage.init();
@@ -115,6 +171,12 @@ $(".product-top_up .product-img").on("click",()=>{
     
 
     $("#topUpModal").modal("show");
+})
+
+$(".electrcity-top_up .product-img").on("click",()=>{
+    
+
+    $("#electricityBuyModal").modal("show");
 })
 
 $(function(){

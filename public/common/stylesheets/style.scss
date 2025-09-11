@@ -1138,26 +1138,26 @@ col-container{
   border-radius: 5px;
 }
 .nav-plus-13—street i{
-  color: #659fe2;
+  color: #d1c4e9;
   font-size: larger;
   font-weight: 500;
 }
 .nav-plus-studio i{
-  color: #7E57C2;
+  color: #ff9800;
   font-size: larger;
   font-weight: 500;
 }
 .nav-plus-studio:hover{
-  background-color: #f2bcf856;
+  background-color: #cccccc44;
   border-radius: 5px;
 }
 .nav-plus-pod i{
-  color: #ec6c00;
+  color: #ff8a65;
   font-size: larger;
   font-weight: 500;
 }
 .nav-plus-pod:hover{
-  background-color: #FFCC8056;
+  background-color: #cccccc44;
   border-radius: 5px;
 }
 .nav-private-active{
@@ -1173,7 +1173,7 @@ col-container{
   font-weight: 500;
 }
 .nav-affiliate:hover,.nav-affiliate-active{
-  background-color: #f89898;
+  background-color: #f8bbd0;
   border-radius: 5px;
 }
 
@@ -1202,7 +1202,7 @@ col-container{
   color: whitesmoke;
 }
 .nva-link-default{
-  color: #616161;
+  color: #757a81;
 }
 .nva-link-default:hover,.nav-sub-link-active{
   background-color: rgba(45, 44, 44, 0.9);
@@ -1216,19 +1216,8 @@ col-container{
 .nav-link{
   font-weight: 800;
 }
-.nav-plus-active{
-  background-color: #2d6aa48f;
-}
-// .nav-plus:hover{
-//   background-color: #2d6aa48f;
-//   border-radius: 5px;
-// }
-// .nav-gear:hover{
-//   background-color: #2d2c2ce6;
-//   border-radius: 5px;
-// }
 .nav-plus-13—street:hover{
-  background-color: #2d6aa48f;
+  background-color: #cccccc44;
   border-radius: 5px;
 }
 
@@ -1474,7 +1463,7 @@ table th{
   border-radius: 50%;
   width: 32px;
   height: 32px;
-  margin: 0 8px;
+  margin: 0;
   position: relative;
 }
 /* fullscreen modal */
@@ -1513,7 +1502,7 @@ table th{
 }
 .entry-nav i{
   color: white;
-  font-size: 14px;
+  font-size: 16px;
 }
 .forward-icon {
   width: 16px;
@@ -1583,4 +1572,9 @@ table th{
   // safari outline
   .btn.show:focus-visible{
     box-shadow: unset;
+  }
+
+  .modal-btn-ui {
+    min-width: 88px;
+    font-size: 12px;
   }
