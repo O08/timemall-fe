@@ -46,7 +46,7 @@ body {
   align-items: center;
   grid-column-gap: 24px;
   column-gap: 24px;
-  margin-right: 62px;
+  margin-right: 32px;
 
 }
 
@@ -1116,7 +1116,7 @@ svg:not(:root) {
   text-size-adjust: none;
   margin: 0;
   overflow-wrap: break-word;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 500;
   letter-spacing: calc(.10455px - .14205vw);
 }
@@ -1127,9 +1127,9 @@ svg:not(:root) {
   overflow-wrap: break-word;
   text-size-adjust: none;
   -webkit-font-smoothing: antialiased;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 36px;
+  line-height: 28px;
 }
 
 .workplace-benefits-container {
@@ -1671,7 +1671,7 @@ h2 {
   }
 
   .platform-value h1 {
-    font-size: 36px;
+    font-size: 32px;
   }
 
   h2 {
