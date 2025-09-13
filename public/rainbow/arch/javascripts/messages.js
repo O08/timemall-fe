@@ -43,7 +43,8 @@ const RootComponent = {
           }
           PrivateApi.fetchFriendProfile(friend).then(response=>{
             if(response.data.code==200){
-               this.friendProfile=response.data.profile;
+               this.friendProfile=!response.data.profile ? {} : response.data.profile;
+               
             }
          });
         },
