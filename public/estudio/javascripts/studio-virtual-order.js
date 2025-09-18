@@ -21,6 +21,14 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            btn_ctl:{
+              changeOrderPackObj_already_change: false
+            },
+            changeOrderPackObj: {
+              orderNO: "",
+              orderId: "",
+              pack: ""
+            },
             orderMaintenanceObj:{
               tag: "",
               orderId: ""
@@ -90,6 +98,30 @@ const RootComponent = {
           }).catch(error=>{
               customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
           });
+        },
+        changeOrderPackInfoV(){
+          changeOrderPackInfo(this.changeOrderPackObj).then(response=>{
+            if(response.data.code==200){
+              this.reloadPage(this.virtual_pagination); // refresh tb
+              $("#changeOrderPackModal").modal("hide"); // show modal
+
+            }
+            if(response.data.code!=200){
+                const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                customAlert.alert(error);
+            }
+
+          }).catch(error=>{
+              customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+          });
+        },
+        showChangeOrderPackModalV(order){
+          this.changeOrderPackObj.orderId=order.orderId;
+          this.changeOrderPackObj.pack=order.pack;
+          this.changeOrderPackObj.orderNO=order.orderNO;
+          this.btn_ctl.changeOrderPackObj_already_change=false;
+          $("#changeOrderPackModal").modal("show"); // show modal
+
         },
         showOrderMaintenanceModalV(orderId){
           this.orderMaintenanceObj.orderId= orderId;
@@ -222,6 +254,13 @@ async function doModifyOrderTag(dto){
   const url = "/api/v1/web_estudio/brand/virtual/product/order/maintenance";
   return await axios.put(url,dto);
   
+}
+async function doChangeOrderPackInfo(dto){
+  const url = "/api/v1/web_estudio/virtual/product/order/pack/change";
+  return await axios.put(url,dto);
+}
+async function changeOrderPackInfo(dto){
+  return await doChangeOrderPackInfo(dto);
 }
 async function maintenanceOrder(dto){
   return await doModifyOrderTag(dto);

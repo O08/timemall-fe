@@ -673,6 +673,12 @@
                   <p v-if="!!deliverMaterial.error">{{deliverMaterial.error}}</p>
 
                   <p v-if="!!deliverMaterial.deliverNote">{{deliverMaterial.deliverNote}}</p>
+                  <div class="pb-3">
+                    <div class="attachmement-head"><i class="bi bi-box-seam"></i><span class="ms-1">货品</span></div>
+                    <div class="material-item " style="word-break: break-all; white-space: pre-wrap; padding: .25rem;">
+                      {{!deliverMaterial.pack ? "未找到货品数据，请咨询商家" : deliverMaterial.pack}}
+                    </div>
+                  </div>
                   <div class="pb-3" v-if="!!deliverMaterial.deliverAttachment">
                     <div class="attachmement-head"><i class="bi bi-link-45deg"></i><span class="ms-1">附件</span></div>
 

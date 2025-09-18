@@ -194,6 +194,133 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
 }
 
 
+#nav-searchform {
+  display: flex;
+  align-items: center;
+  padding: 0 4px 0 32px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid #2e2e2e9d;
+  background-color: #2e2e2e9d;
+  opacity: .9;
+  transition: background-color .3s;
+  border-radius: 4px;
+  height: 36px;
+}
+
+.nav-search-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 0;
+  padding-right: 8px;
+  width: 100%;
+  height: 32px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+}
+.nav-search-content .nav-search-input {
+  flex: 1;
+  overflow: hidden;
+  padding-right: 8px;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  color: #61666D;
+  font-size: 14px;
+  line-height: 20px;
+}
+.nav-search-content .nav-search-input:focus{
+  outline: none;
+  color: #61666D;
+}
+.nav-search-btn {
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  color: #8a8a8a;
+  line-height: 32px;
+  cursor: pointer;
+  transition: background-color .3s;
+}
+
+.ship-item-widget{
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #2f2f2f;
+
+}
+.widgetList{
+  height: 340px;
+  overflow-y: auto;
+  margin-top: 8px;
+}
+.widgetList{
+  scrollbar-width: none;
+  &::-webkit-scrollbar{
+    display: none
+  };
+}
+.widgetListItemBox{
+  padding: 8px;
+  background-color: #2e2e2e9d;
+  border-radius: 4px;
+  color: whitesmoke;
+  height: fit-content;
+  margin-bottom: 8px;
+
+}
+
+.widgetListItem{
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 60px;
+  font-size: 12px;
+}
+.widgetListItemContent{
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+.widgetListItemOptionBox{
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+}
+.widgetListItemOptionBox .cta{
+  border: 0;
+  border-radius: .25rem;
+  padding: .5em;
+  line-height: 1;
+  font-size: 12px;
+  height: 24px;
+  width: 24px;
+  background-color: unset;
+}
+.widgetListItemOptionBox .cta:hover{
+  background-color: #333;
+}
+.widgetListItemOptionBox .cta.edit:hover{
+  color: #3483fa;
+  
+}
+
+.widgetListItemOptionBox .cta.del:hover{
+  color: #dc3545;
+}
+.add-icon:hover{
+  color: #3483fa;
+}
 @media (max-width: 767px) {
     .tip-font-sm{
         font-size: 8px;

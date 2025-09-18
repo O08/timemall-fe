@@ -48,6 +48,17 @@ const RootComponent = {
 
     data() {
         return {
+          randomMerchandiseQueryParam: "",
+          randomMerchandiseQueryItems: [],
+          changeRandomShippingMerchandiseObj: {
+            merchandiseId: "",
+            pack: ""
+          },
+          addRandomShippingMerchandiseObj:{
+            productId: "",
+            pack: ""
+          },
+          randomMerchandise: [],
           changeShowcaseImageCropper: {},
           addShowcaseImageCropper:{},
           thumbnailCoverCropper: {},
@@ -59,6 +70,8 @@ const RootComponent = {
               activate_add_show__btn: false,
               activate_change_show__btn: false,
               activate_deliver_save__btn: false,
+              activate_shipping_save__btn: false,
+              editRandomShippingMerchandise_already_change: false
           },
           editIngShowcase: {},
           product: {
@@ -80,6 +93,12 @@ const RootComponent = {
         }
     },
     methods: {
+        validateShippingFormV(){
+          if(this.product.shippingMethod=="standard"){
+            return this.btn_ctl.activate_shipping_save__btn && !!this.product.pack;
+          }
+          return this.btn_ctl.activate_shipping_save__btn ;
+        },
         validateGeneralFormV(){
           if(!this.productId && !this.product.thumbnailBlob){
             return false;
@@ -96,6 +115,7 @@ const RootComponent = {
               if(response.data.code==200){
                 addProductIdToUrl(response.data.productId,this);
                 this.btn_ctl.activate_general_save_btn = false;
+                this.loadProductInfoV();
               }
               if(response.data.code!=200){
                 customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
@@ -200,6 +220,45 @@ const RootComponent = {
         transformInputNumberV(event){
           return transformInputNumberAsPositive(event);
         },
+        // shipping setting
+        changShippingInfoV(){
+          changShippingInfo(this.productId,this.product.pack,this.product.shippingMethod);
+        },
+        findRandomShippingMerchandiseV(){
+          findRandomShippingMerchandise(this.productId);
+        },
+        showAddRandomShippingMerchandiseModalV(){
+          this.addRandomShippingMerchandiseObj={
+            productId: this.productId,
+            pack: ""
+          }
+          $("#createRandomShippingMerchandiseModal").modal("show"); // show modal
+        },
+        addRandomShippingMerchandiseV(){
+          addRandomShippingMerchandise(this.addRandomShippingMerchandiseObj)
+        },
+        showEditRandomShippingMerchandiseV(merchandise){
+          this.changeRandomShippingMerchandiseObj.merchandiseId=merchandise.id;
+          this.changeRandomShippingMerchandiseObj.pack=merchandise.pack;
+          this.btn_ctl.editRandomShippingMerchandise_already_change=false;
+          $("#editRandomShippingMerchandiseModal").modal("show"); // show modal
+
+        },
+        editRandomShippingMerchandiseV(){
+          editRandomShippingMerchandise(this.changeRandomShippingMerchandiseObj);
+        },
+        removeRandomShippingMerchandiseV(id){
+          removeRandomShippingMerchandise(id);
+        },
+        searchMerchandiseV(){
+         if(!this.randomMerchandiseQueryParam){
+          this.randomMerchandise= this.randomMerchandiseQueryItems;
+         }
+         if(!!this.randomMerchandiseQueryParam){
+          this.randomMerchandise= this.randomMerchandiseQueryItems.filter(e=>e.pack.search(this.randomMerchandiseQueryParam) >=0);
+        }
+
+        }
     }
 }
 const app = createApp(RootComponent);
@@ -237,7 +296,7 @@ defineVirtualProductPage.userAdapter(); // auth.js
 defineVirtualProductPage.fetchPrivateFriendV();// FriendListCompoent.js
 defineVirtualProductPage.sseInitV();// Ssecompoent.js
 defineVirtualProductPage.initEventFeedCompoentV(); // EventFeed.js
-
+defineVirtualProductPage.findRandomShippingMerchandiseV();
 
 
 
@@ -334,6 +393,103 @@ async function doChangeDeliverMaterial(productId,deliverNote,deliverAttachment){
   return await axios.put(url, fd);
 
 }
+async function doShippingSetting(dto){
+  const url = "/api/v1/web_estudio/virtual/product/shipping/setting";
+  return await axios.post(url,dto);
+}
+async function fetchRandomShippingMerchandiseInfo(productId){
+  const url = "/api/v1/web_estudio/virtual/product/shipping/random/merchandise?productId="+productId;
+  return await axios.get(url);
+}
+async function doCreateRandomShippingMerchandise(dto){
+  const url = "/api/v1/web_estudio/virtual/product/shipping/random/merchandise/create";
+  return await axios.post(url,dto);
+}
+async function doEditRandomShippingMerchandise(dto){
+  const url = "/api/v1/web_estudio/virtual/product/shipping/random/merchandise/change";
+  return await axios.put(url,dto);
+}
+async function delRandomShippingMerchandiseInfo(id){
+  const url = "/api/v1/web_estudio/virtual/product/shipping/random/merchandise/{id}/del".replace("{id}",id);
+  return await axios.delete(url);
+}
+async function removeRandomShippingMerchandise(id){
+  delRandomShippingMerchandiseInfo(id).then(response=>{
+    if(response.data.code == 200){
+      
+      defineVirtualProductPage.findRandomShippingMerchandiseV();
+
+      
+    }
+    if(response.data.code!=200){
+      customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+    }
+  });
+}
+async function editRandomShippingMerchandise(dto){
+  doEditRandomShippingMerchandise(dto).then(response=>{
+    if(response.data.code == 200){
+      
+      defineVirtualProductPage.findRandomShippingMerchandiseV();
+      $("#editRandomShippingMerchandiseModal").modal("hide"); // show modal
+
+      
+    }
+    if(response.data.code!=200){
+      customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+    }
+  });
+}
+async function addRandomShippingMerchandise(dto){
+  doCreateRandomShippingMerchandise(dto).then(response=>{
+    if(response.data.code == 200){
+      
+      defineVirtualProductPage.findRandomShippingMerchandiseV();
+      $("#createRandomShippingMerchandiseModal").modal("hide"); // show modal
+
+      
+    }
+    if(response.data.code!=200){
+      customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+    }
+  });
+}
+async function findRandomShippingMerchandise(productId){
+  fetchRandomShippingMerchandiseInfo(productId).then(response=>{
+    if(response.data.code == 200){
+      
+      defineVirtualProductPage.randomMerchandise=response.data.merchandise;
+      defineVirtualProductPage.randomMerchandiseQueryItems=response.data.merchandise;
+
+    }
+    if(response.data.code!=200){
+      customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+    }
+  });
+}
+
+async function changShippingInfo(productId,pack,shippingMethod){
+  const dto={
+    productId: productId,
+    pack: pack,
+    shippingMethod: shippingMethod
+  }
+  doShippingSetting(dto).then(response=>{
+    if(response.data.code == 200){
+
+      changeUrlTabWithoutRefreshPage("publish");// open publish settign
+      // reload data
+      defineVirtualProductPage.loadProductInfoV();
+      defineVirtualProductPage.btn_ctl.activate_shipping_save__btn= false;
+
+    }
+    if(response.data.code!=200){
+      customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+    }
+  });
+
+
+}
 async function changeDeliverMaterial(appObj){
   const deliverAttachment = document.getElementById("deliverAttachment").files[0];
 
@@ -353,7 +509,7 @@ async function changeDeliverMaterial(appObj){
   doChangeDeliverMaterial(appObj.productId,appObj.product.deliverNote,deliverAttachment).then(response=>{
     if(response.data.code == 200){
 
-      changeUrlTabWithoutRefreshPage("publish");// open publish settign
+      changeUrlTabWithoutRefreshPage("publish");// open shipping settign
       // reload data
       defineVirtualProductPage.loadProductInfoV();
       document.querySelector('#deliverAttachment').value = null;
@@ -371,7 +527,7 @@ async function changeProductInfo(product){
   doChangeProduct(product).then(response=>{
     if(response.data.code==200){
        defineVirtualProductPage.btn_ctl.activate_general_save_btn = false;
-       changeUrlTabWithoutRefreshPage("deliver");// open showcase and deliver settign
+       changeUrlTabWithoutRefreshPage("publish");// open showcase and deliver settign
     }
     if(response.data.code!=200){
       customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
@@ -395,7 +551,7 @@ async function changeProductDescInfo(product){
   doChangeProductDesc(product).then(response=>{
     if(response.data.code==200){
        defineVirtualProductPage.btn_ctl.activate_product_desc_save_btn = false;
-       changeUrlTabWithoutRefreshPage("deliver");// open showcase and deliver settign
+       changeUrlTabWithoutRefreshPage("publish");// open showcase and deliver settign
     }
     if(response.data.code!=200){
       customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
@@ -765,9 +921,10 @@ function currentTabInt(currentTab){
   navIntMap.set("about",2);
   navIntMap.set("showcase",3);
   navIntMap.set("deliver",4);
-  navIntMap.set("publish",5);
+  navIntMap.set("shipping",5);
+  navIntMap.set("publish",6);
   // if edit open all
-  return option === "edit" ? 5 < currentTab : navIntMap.get(tab) < currentTab;
+  return option === "edit" ? 6 < currentTab : navIntMap.get(tab) < currentTab;
 }
 
 const toolbarOptions = [

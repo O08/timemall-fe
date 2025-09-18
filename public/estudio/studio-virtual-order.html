@@ -364,6 +364,7 @@
                                 <li  v-if="item.alreadyPay=='1' && item.alreadyRefund!='1' && item.alreadyRemittance!='1'"><a class="dropdown-item" v-preventreclick @click="showRefundModalV(item.orderId)">订单退款</a></li>
                                 <li><a class="dropdown-item"  v-preventreclick @click="showViewDeliverMaterialModalV(item.orderId)" >交付信息</a></li>
                                 <li><a class="dropdown-item" v-preventreclick @click="showOrderMaintenanceModalV(item.orderId)" >订单管理</a></li>
+                                <li><a class="dropdown-item" v-preventreclick @click="showChangeOrderPackModalV(item)" >货品管理</a></li>
                                 <li><a class="dropdown-item" :href="'/mall/virtual/'+item.productId + '?brand_id=' + getIdentity().brandId" target="_blank">商品详情</a></li>
 
 
@@ -385,7 +386,6 @@
                       <td :title="item.buyerBrandName">
                         <span class="ellipsis-1">
                           <img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
-                          {{item.buyerBrandName}}
                         </span>
                       </td>
                       <td :title="item.createAt">{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
@@ -434,6 +434,49 @@
       </main>
     </content>
     <section class="modals">
+
+
+      <!-- order pack management modal -->
+      <div class="modal-container">
+        <div class="modal fade" id="changeOrderPackModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header  display-dialog-header-bg">
+                <h1 class="modal-title fs-5">货品管理</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+
+                <form class="w-100" onsubmit="return false">
+  
+                  <div class="mt-3">
+                    <label for="changeOrderPack_orderNo" class="form-label">当前订单</label>
+                    <input id="changeOrderPack_orderNo" :value="changeOrderPackObj.orderNO"   type="text" class="form-control" disabled>
+
+                  </div> 
+                
+                  <div class="mt-3">
+                    <label for="changeOrderPack_pack" class="form-label">货品</label>
+                    <textarea @change="btn_ctl.changeOrderPackObj_already_change=true" v-model="changeOrderPackObj.pack"  rows="8" type="text" maxlength="300" class="form-control"  id="changeOrderPack_pack"></textarea>
+                  </div> 
+
+
+                  
+                  <button 
+                  :class="{'disabled': !changeOrderPackObj.pack || !btn_ctl.changeOrderPackObj_already_change , 
+                  'btn-primary': !!changeOrderPackObj.pack && btn_ctl.changeOrderPackObj_already_change,
+                  'btn-secondary': !changeOrderPackObj.pack || !btn_ctl.changeOrderPackObj_already_change}"
+                    v-preventreclick @click="changeOrderPackInfoV" 
+                  type="submit"  class="btn  mt-5 w-100">提交</button>
+
+                  
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- order management modal -->
       <div class="modal-container">
@@ -520,6 +563,12 @@
                 <form class="w-100" onsubmit="return false">
 
                   <p style="white-space: pre-wrap;">{{deliverMaterial.deliverNote}}</p>
+                  <div class="pb-3">
+                    <div class="attachmement-head"><i class="bi bi-box-seam"></i><span class="ms-1">货品</span></div>
+                    <div class="material-item " style="word-break: break-all; white-space: pre-wrap; padding: .25rem;">
+                      {{!deliverMaterial.pack ? "未找到货品数据，可通过【货品管理】进行设置" : deliverMaterial.pack}}
+                    </div>
+                  </div>
                   <div class="pb-3" v-if="!!deliverMaterial.deliverAttachment">
                     <div class="attachmement-head"><i class="bi bi-link-45deg"></i><span class="ms-1">附件</span></div>
 

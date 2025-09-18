@@ -563,12 +563,105 @@
                   </div>
                 </div>
                 <div class="accordion-item">
-                  <h2 class="accordion-header" id="panelsStayOpen-headingFiver">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingFive">
                     <button :class="{'disable-text': currentTabIntV(5)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive" v-bind:disabled="currentTabIntV(5)">
+                      发货管理
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                    <div class="accordion-body">
+                      <form onsubmit="return false">
+                        <div class="row mb-3">
+                          <label  class="col-sm-4 col-form-label">
+                            发货策略
+                            <div class="help-text">
+                              配置发货方式。标准发货：自动发货方式，适用于向所以客户发送同一个网盘链接、账号等场景，选用该方式，每一个订单客户限购 1 份商品。随机发货：自动发货方式，从已配置的货品中随机选取并发送给客户，选用该方式，每一个订单客户限购 1 份商品。手动发货：每一个订单，商家需手动填写货品信息，选用该方式，不对客户进行限购。 
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <select @change="btn_ctl.activate_shipping_save__btn=true" v-model="product.shippingMethod" class="form-select">
+                              <option value="standard">标准发货</option>
+                              <option value="random">随机发货</option>
+                              <option value="manual">手动发货</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div  v-if="product.shippingMethod=='standard' || product.shippingMethod=='random'" class="row mb-3">
+                          <label  class="col-sm-4 col-form-label">
+                            <span>
+                              货品
+                              <span   class="add-icon" v-if="product.shippingMethod=='random'"  v-preventreclick @click="showAddRandomShippingMerchandiseModalV" ><i class="bi bi-plus-circle-fill ms-2"></i></span>
+                            </span>
+                            <div class="help-text">
+                              内容可以是卡密、激活码、电子书下载链接以及其他形式，货品数据加密存储，仅商家与购买商品的客户可以访问最终内容   
+                            </div>
+                          </label>
+                          <div class="col-sm-8">
+                            <textarea @change="btn_ctl.activate_shipping_save__btn=true" v-if="product.shippingMethod=='standard'"   v-model="product.pack"  rows="8" type="text" maxlength="300" class="form-control" ></textarea>
+
+                            <div v-if="product.shippingMethod=='random'" class="ship-item-widget">
+                              <div id="nav-searchform">
+                                <div class="nav-search-btn">
+                                  <i class="bi bi-search"></i>
+                                </div>
+                                <div class="nav-search-content">
+                                  <input @keyup.enter.native="searchMerchandiseV"  v-model="randomMerchandiseQueryParam" @input="searchMerchandiseV"  class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+                                     placeholder="搜索" >
+                                </div>
+                              </div>
+                              <div class="widgetList">
+
+                    
+
+                                <div v-if="!randomMerchandise || randomMerchandise.length==0" class="widgetListItemBox">
+                                  <div class="widgetListItem">
+                                    未找到货品数据，点击「货品」旁边的添加按钮录入货品
+                                  </div>
+                                </div>
+
+                                <div v-for="record in randomMerchandise" class="widgetListItemBox">
+                                  <div class="widgetListItem">
+                                    <div class="widgetListItemContent">
+                                      {{record.pack}}
+                                    </div>
+                                    <div class="widgetListItemOption">
+                                      <div class="widgetListItemOptionBox">
+                                        <button v-preventreclick @click="showEditRandomShippingMerchandiseV(record)"  class="btn  btn-dark cta edit">
+                                          <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                        <button  v-preventreclick @click="removeRandomShippingMerchandiseV(record.id)"  class="btn  btn-danger cta del">
+                                          <i class="bi bi-trash"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                 
+
+                        <div class="text-start my-3">
+                          <button 
+                          :class="{'disabled': !validateShippingFormV(), 
+                          'btn-primary': validateShippingFormV(),
+                          'btn-secondary': !validateShippingFormV()}" 
+                          type="submit" v-preventreclick @click="changShippingInfoV" class="btn">保存</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                    <button :class="{'disable-text': currentTabIntV(6)}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix" v-bind:disabled="currentTabIntV(6)">
                       商品上线
                     </button>
                   </h2>
-                  <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFiver">
+                  <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
                     <div class="accordion-body">
                       <div class="publish-agreement mb-3">
                         <div class="text-center mb-3">
@@ -608,6 +701,85 @@
 
       </main>
       <section class="modals">
+
+        <!-- edit one random shipping merchandise modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="editRandomShippingMerchandiseModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">随机发货货品更新</h1>
+                  <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+  
+                  <form class="w-100" onsubmit="return false">
+    
+
+                  
+                    <div class="mt-3">
+                      <label for="changeRandomShippingMerchandiseObj_pack" class="form-label">货品</label>
+                      <textarea @change="btn_ctl.editRandomShippingMerchandise_already_change=true" v-model="changeRandomShippingMerchandiseObj.pack"  rows="8" type="text" maxlength="300" class="form-control"  id="changeRandomShippingMerchandiseObj_pack"></textarea>
+                    </div> 
+
+
+                    
+                    <button
+                    :class="{'disabled btn-secondary': !changeRandomShippingMerchandiseObj.pack || !btn_ctl.editRandomShippingMerchandise_already_change, 
+                    'btn-primary': !!changeRandomShippingMerchandiseObj.pack && btn_ctl.editRandomShippingMerchandise_already_change }"
+                    v-preventreclick @click="editRandomShippingMerchandiseV"  type="button"  class="btn  mt-5 w-100">提交</button>
+
+                    
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- create one random shipping merchandise modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="createRandomShippingMerchandiseModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">随机发货货品录入</h1>
+                  <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+  
+                  <form class="w-100" onsubmit="return false">
+    
+                    <div class="mt-3">
+                      <label for="addRandomShippingMerchandiseObj_productId" class="form-label">当前商品编号</label>
+                      <input id="addRandomShippingMerchandiseObj_productId" :value="addRandomShippingMerchandiseObj.productId"   type="text" class="form-control" disabled>
+
+                    </div> 
+                  
+                    <div class="mt-3">
+                      <label for="addRandomShippingMerchandiseObj_pack" class="form-label">货品</label>
+                      <textarea v-model="addRandomShippingMerchandiseObj.pack"  rows="8" type="text" maxlength="300" class="form-control"  id="addRandomShippingMerchandiseObj_pack"></textarea>
+                    </div> 
+
+
+                    
+                    <button
+                    :class="{'disabled': !addRandomShippingMerchandiseObj.pack , 
+                  'btn-primary': !!addRandomShippingMerchandiseObj.pack,
+                  'btn-secondary': !addRandomShippingMerchandiseObj.pack }"
+                     v-preventreclick @click="addRandomShippingMerchandiseV"  type="button"  class="btn  mt-5 w-100">提交</button>
+
+                    
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
         
 
         <div class="modal-container">

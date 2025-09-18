@@ -234,12 +234,16 @@
                   <form onsubmit="return false">
                     <div class="input-group mb-3">
                       <span class="input-group-text">购买数量</span>
-                      <input @input="transformInputNumberAsPositiveV($event)" v-model="bill.quantity" id="purchase-quantity" type="text" class="form-control" min="1" max="50000" step="1">
+                      <input :disabled="isAutoShippingV(profile.shippingMethod)" @input="transformInputNumberAsPositiveV($event)" v-model="bill.quantity" id="purchase-quantity" type="text" class="form-control" min="1" max="50000" step="1">
                     </div>
 
                     <div class="help-text mb-2">
+                      <i class="bi bi-receipt me-1"></i>
                       <span v-if="profile.provideInvoice==='1'"> 服务可申请开具发票</span>
                       <span v-else>服务不提供发票</span>
+                    </div>
+                    <div class="help-text mb-2">
+                      <span><i class="bi bi-truck me-1"></i>{{isAutoShippingV(profile.shippingMethod) ? "自动发货" : "手动发货"}}</span>
                     </div>
                     <div v-if="profile.productStatus!='2'" class="help-text mb-2">
                       <span>商品暂时不可购买</span>

@@ -59,6 +59,9 @@ const RootComponent = {
         }
     },
     methods: {
+      isAutoShippingV(shippingMethod){
+        return "standard"===shippingMethod || "random"===shippingMethod;
+      },
       uploadVirtualProductDataLayerClicksV(){
         if(!!currentProductId){
           uploadVirtualProductDataLayerWhenClick([currentProductId]);
