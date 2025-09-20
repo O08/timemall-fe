@@ -531,33 +531,12 @@
                         </div>
                         <input @change="previewCellIntroBannerV($event)" type="file"  accept="image/jpg, image/png, image/jpeg" id="intro-banner-file" class="dropzone">
                       </section>
-                      <section class="section-tool-bar">
-                        <div class="d-flex tool-bar my-5">
-                          <div class="add-new-text-container">
-                            <div @click="pannelAddTextToFisrt" class="add-new-text">
-                              <i class="bi bi-plus"></i>
-                              <span>添加文本</span>
-                            </div>
-                          </div>
-                        </div>
-                      </section>
-                      <section class="section-workspace d-flex justify-content-start align-items-center">
-                        <div class="edit-pannel d-flex flex-column w-100">
-                          <div v-for="(item,index) in content.items" class="text-paragraph-wrapper py-1 d-flex flex-row">
-                            <div class="item-setting">
-                              <span @click="pannelAddText(index+1)" class="item-setting-plus">
-                                <i class="bi bi-plus"></i>
-                              </span>
-                              <span @click="pannelRemoveText(index)" class="item-setting-x">
-                                <i class="bi bi-x"></i>
-                              </span>
-                            </div>
-                            <contenteditable  class="cell-content-item-box"  @change="btn_ctl.activate_intro_save_btn = true" placeholder="添加介绍" v-model="item.section"></contenteditable>
+                      <section class="section-workspace pt-5">
 
-                            <!-- <span class="textarea" role="textbox" contenteditable v-html="item.section"  @input="$emit('update:modelValue', $event.target.innerHTML)"></span> -->
-                            <!-- <span class="textarea" role="textbox" contenteditable v-bind:innerHTML.prop="item.section" v-html="item.section"></span> -->
-
-                            <!-- <textarea  v-model="item.section" @change="btn_ctl.activate_intro_save_btn = true" class="form-control cell-content-item my-0 w-100 border-0" rows="1"></textarea> -->
+                        <div class="label-color field-label">内容文案</div>
+                        <div class="inputWrapper">
+                          <div id="editor">
+          
                           </div>
                         </div>
                       </section>

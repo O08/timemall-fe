@@ -184,13 +184,7 @@
           <div class="s_type_wrapper">
             <div class="s_type active">
               <i class="bi bi-calendar3"></i>
-              <span class="ms-1">特约</span>
-            </div>
-            <div class="s_type ms-3">
-              <a href="/mall/packages-economy">
-                <i class="bi bi-box"></i>
-                <span class="ms-1">单品</span>
-              </a>
+              <span class="ms-1">技能服务</span>
             </div>
             <div class="s_type ms-3">
               <a href="/mall/virtual-economy">
@@ -301,7 +295,7 @@
                     <div v-for="cell in cellgrid_pagination.records" class="col cell-col">
                       <div class="cell-item">
                         <div class="card border-0">
-                          <a  target="_blank" :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                          <a  :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
                             <img loading="lazy" :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                           </a>
                           <div class="card-body">
@@ -316,7 +310,7 @@
                               <h6 class="service-brand-name ms-2 my-0">{{cell.brand}}</h6>
                             </div>
                             <p class="card-text mt-2">
-                              <a target="_blank" :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
+                              <a :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
                                 {{cell.title}}
                               </a>
                             </p>

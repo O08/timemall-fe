@@ -62,9 +62,9 @@ const RootComponent = {
                 content:[],
                 dataLoadFinish: false
             },
-            selectedSbu: '',
+            selectedSbu: 'day',
             total: 0,
-            quantity: "",
+            quantity: "1",
             cellplan: {
                 records: []
             },
@@ -175,14 +175,19 @@ const RootComponent = {
             getIntroInfoForCell(cellId).then(response=>{
                 if(response.data.code == 200){
                     this.profile = response.data.profile;
-                    if(!this.profile.content){
-                        this.profile.content = []
-                    }
+            
                     sortSbu();
-                    var description=this.profile.content.items.length>0 ?  this.profile.content.items[0].section : "";
+
+                    this.$nextTick(() => {
+                        this.computeFeeV();
+                      })
+
+                    const documentDescriptionTextFormat=convertToPlain(this.profile.productDesc);
+
+                    var description=!documentDescriptionTextFormat ? "" :  documentDescriptionTextFormat.substring(0,Math.min(156,documentDescriptionTextFormat.length));
 
                     renderPageMetaInfo(this.profile.title,description,this.profile.tags);
-                    renderStructuredDataForSEO(this.profile);
+                    renderStructuredDataForSEO(this.profile,description);
                 }
                 this.profile.dataLoadFinish = true;
 
@@ -409,8 +414,9 @@ function orderNow(){
             // notice supplier
             Api.sendOrderReceivingEmail(EmailNoticeEnum.CELL_ORDER_RECEIVING,response.data.orderId);
             // reset 
-            cellDetailPage.quantity ="";
+            cellDetailPage.quantity ="1";
             initCellExpense();
+            cellDetailPage.__initPromotionComponentV();
 
             // science data
             uploadCellDataLayerWhenAppointment([cellId]);
@@ -522,9 +528,8 @@ function renderPageMetaInfo(title,description,tags){
     document.getElementsByTagName('meta')["keywords"].content = keywords+","+title;
 }
 
-function renderStructuredDataForSEO(product){
+function renderStructuredDataForSEO(product,description){
     var url=window.location.origin + "/mall/cell-detail?cell_id=" + product.id + "&brand_id=" + product.brandId;
-    var description=product.content.items.map(obj => obj.section).join("\n");
     var price=product.fee.filter(e=>e.sbu==="hour")[0].price;
 
     doRenderStructuredDataForSEO(product.title,description,url,price,product.cover);
@@ -632,3 +637,14 @@ function transformInputNumber(val,min,max){
       $("#reportOasisModal").modal("show");
   }
 
+  function convertToPlain(html){
+
+    // Create a new div element
+    var tempDivElement = document.createElement("div");
+    
+    // Set the HTML content with the given value
+    tempDivElement.innerHTML = html;
+    
+    // Retrieve the text property of the element 
+    return (tempDivElement.textContent || tempDivElement.innerText || "");
+  }

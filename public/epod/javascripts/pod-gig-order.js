@@ -12,6 +12,8 @@ import FriendListCompoent from "/common/javascripts/compoent/private-friend-list
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 
 const RootComponent = {
@@ -369,6 +371,9 @@ function confirmMillstone(workflowId){
        if(response.data.code==200){
          millStonePage.reloadTableWhenConfirmMillstone();
        }
+       if(response.data.code!=200){
+        customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+       }
     });
 }
 // 流转到服务商进行审计
@@ -376,6 +381,9 @@ function goAudit(workflowId){
     markMillstone(workflowId,WorkflowStatus.Auditing).then(response=>{
         if(response.data.code==200){
           millStonePage.reloadTableWhenGoAudit();
+        }
+        if(response.data.code!=200){
+            customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);
         }
      });
 }
@@ -387,6 +395,9 @@ function changeMarkForTask(workflowId,code){
           millStonePage.reloadPage(millStonePage.starredTranspagination);
 
         }
+        if(response.data.code!=200){
+            customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+        }
      });
 }
 // 恢复暂停任务
@@ -397,6 +408,9 @@ function resumeTask(workflowId){
             // 刷新任务箱、暂停列表
           millStonePage.reloadPage(millStonePage.paused_pagination);
 
+        }
+        if(response.data.code!=200){
+            customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);
         }
      });
 }

@@ -179,13 +179,7 @@
             <div class="s_type">
               <a href="/mall/gig-economy">
                 <i class="bi bi-calendar3"></i>
-                <span class="ms-1">特约</span>
-              </a>
-            </div>
-            <div class="s_type  ms-3">
-              <a href="/mall/packages-economy">
-                <i class="bi bi-box"></i>
-                <span class="ms-1">单品</span>
+                <span class="ms-1">技能服务</span>
               </a>
             </div>
             <div class="s_type active ms-3">
@@ -280,7 +274,7 @@
                       <div class="cell-item">
                         <div class="card border-0">
                           <div class="cell-thumbnail-box">
-                            <a target="_blank" :href="'/mall/virtual/'+item.productId + '?brand_id=' + item.brandId "  class="url-link">
+                            <a :href="'/mall/virtual/'+item.productId + '?brand_id=' + item.brandId "  class="url-link">
                               <img :src="adaptiveImageUriV(item.thumbnailUrl) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
                             </a>
 
@@ -316,7 +310,7 @@
                               <h6 class="service-brand-name ms-1 my-0">{{item.brand}}</h6>
                             </div>
                             <p class="card-text mt-2">
-                              <a target="_blank" :href="'/mall/virtual/'+item.productId + '?brand_id=' + item.brandId " class="url-link">
+                              <a  :href="'/mall/virtual/'+item.productId + '?brand_id=' + item.brandId " class="url-link">
                                 {{item.productName}}
                               </a>
                             </p>

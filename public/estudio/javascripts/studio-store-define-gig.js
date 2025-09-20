@@ -8,18 +8,53 @@ import { preHandleCellId ,addCellIdToUrl} from "/estudio/javascripts/compoent/De
 
 import axios from 'axios';
 
+import Quill from 'quill';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.bubble.css';
+import 'quill/dist/quill.snow.css';
+
 import DefineCellCoverAndBanner from "/estudio/javascripts/compoent/DefineCellCoverAndBanner.js";
 
 
 import {CellStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import {goStudioStore} from "/common/javascripts/pagenav.js";
 
-import {ContentediableComponent} from "/common/javascripts/contenteditable-compoent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
+
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
+const fontSizeArr = ['14px', '16px', '18px', '20px', '22px'];
+const backgroundArr = [
+  "#1a1a1a", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff",
+  "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff",
+  "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff",
+  "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2",
+  "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466"
+];
+
+var Size = Quill.import('attributors/style/size');
+Size.whitelist = fontSizeArr;
+Quill.register(Size, true);
+
+const toolbarOptions = [
+    [{ 'size': fontSizeArr }],  // custom dropdown
+    [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    [{ 'align': [] }],
+    ['blockquote'],
+    ['link'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+    ['clean']                                         // remove formatting button
+];
+var quill = ""; // init in mounted
+
+
 const RootComponent = {
 
     data() {
@@ -37,9 +72,6 @@ const RootComponent = {
                 tags: []
             },
             pricing: {},
-            content: {
-                items: []
-            },
             introCover: "",
             agree_check: false,
             cofingPlan:{},
@@ -100,16 +132,6 @@ const RootComponent = {
         setACellIntroContentV(){
             setACellIntroContent();
         },
-        // text edit pannel
-        pannelAddTextToFisrt(){
-            addTextToFirst();
-        },
-        pannelAddText(index){
-            nextText(index);
-        },
-        pannelRemoveText(index){
-            removeText(index);
-        },
         
         onlineCell(){
             // code 1--draft ; 2--onsale; 3--offsale;
@@ -146,10 +168,17 @@ const RootComponent = {
               event.currentTarget.dispatchEvent(new Event('input')); // update v-model
             }
         }
+    },
+    mounted(){
+        quill=new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
     }
 }
 const app = createApp(RootComponent);
-app.component('contenteditable', ContentediableComponent)
 app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(DirectiveComponent);
 app.mixin(DefineCellCoverAndBanner);
@@ -207,9 +236,9 @@ async function savePricingInfo(cellId,pricing){
     return await axios.put(url,{pricing});  
 }
 
-async function saveCellIntroContent(cellId,content){
-    const url = "/api/v1/web_estudio/services/{cell_id}/intro/content".replace("{cell_id}",cellId);
-    return await axios.put(url,{content});  
+async function saveCellIntroContent(dto){
+    const url = "/api/v1/web_estudio/services/intro/content/change";
+    return await axios.put(url,dto);  
 }
 
 
@@ -237,6 +266,10 @@ function putCellPlan(dto){
     if(response.data.code==200){
         $("#planConfigModal").modal("hide");
         defineCellPage.fetchCellPlanV(); // fetch last data
+    }
+    if(response.data.code!=200){
+        const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+        customAlert.alert(error);
     }
    });
 }
@@ -292,6 +325,10 @@ async function defineCellOverview(){
             addCellIdToUrl(cellId);
             defineCellPage.btn_ctl.activate_general_save_btn = false;
         }
+        if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error);
+        }
     }); 
 }
 function defineCellPricing(){
@@ -304,6 +341,10 @@ function defineCellPricing(){
             changeUrlTabWithoutRefreshPage("intro");
             defineCellPage.btn_ctl.activate_pricing_save_btn = false;
         }
+        if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error);
+        }
     });
 }
 function setACellIntroContent(){
@@ -311,10 +352,23 @@ function setACellIntroContent(){
     if(!cellId){
         return;
     }
-    saveCellIntroContent(cellId,defineCellPage.content).then(response=>{
+    if(quill.getSemanticHTML().length>4800){
+        customAlert.alert("内容文案长度超出容量，需重新调整！")
+        return;
+    }
+
+    const dto ={
+        id: cellId,
+        productDesc: quill.getSemanticHTML()
+    }
+    saveCellIntroContent(dto).then(response=>{
         if(response.data.code == 200){
             changeUrlTabWithoutRefreshPage("publish");
             defineCellPage.btn_ctl.activate_intro_save_btn = false;
+        }
+        if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error);
         }
     });
 }
@@ -331,9 +385,13 @@ function loadCellInfo(){
             defineCellPage.overview.tags=!response.data.profile.tags ? [] : response.data.profile.tags;
             defineCellPage.overview.revshare = response.data.profile.revshare;
 
-            if(response.data.profile.content){
-                defineCellPage.content = response.data.profile.content;
-            }
+            
+            quill.root.innerHTML = '';
+            quill.clipboard.dangerouslyPasteHTML(0, response.data.profile.productDesc);  
+            defineCellPage.productDesc=quill.getSemanticHTML();
+            defineCellPage.btn_ctl.activate_intro_save_btn = false;
+
+
             initPricing(response.data.profile.fee);
             defineCellPage.introCover = response.data.profile.introCover;
         }
@@ -362,6 +420,10 @@ function onOrOffSaleForCell(cellId,code){
         if(response.data.code == 200){
             goStudioStore();
             defineCellPage.agree_check = false;
+        }
+        if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error);
         }
      });
 }
@@ -428,16 +490,7 @@ function calAndFillPricing(){
 
 }
 
-// edit pannel
-function nextText(index){
-    defineCellPage.content.items.splice(index,0,{section: ""});
-}
-function removeText(index){
-    defineCellPage.content.items.splice(index,1);
-}
-function addTextToFirst(){
-    defineCellPage.content.items.unshift({section: ""});
-}
+
 
 function currentTabInt(currentTab){
     const tab = getQueryVariable("tab");
@@ -454,8 +507,12 @@ function currentTabInt(currentTab){
 
 function changeUrlTabWithoutRefreshPage(tab){
     const id = getQueryVariable("cell_id");
+    var option = getQueryVariable("option");
+    if(!option){
+        option="create"
+    }
     if(id){
-        let url = "/estudio/studio-store-define-cell?tab="+ tab+ "&cell_id="+ id;
+        let url = "/estudio/studio-store-define-cell?tab="+ tab+ "&cell_id="+ id + "&option="+option;
         history.pushState(null, "", url);
     }
 }
@@ -480,4 +537,9 @@ function transformInputNumber(val,max){
 
   $(function(){
 	$(".tooltip-nav").tooltip();
+});
+
+quill.on('text-change', () => {
+    defineCellPage.btn_ctl.activate_intro_save_btn = true;
+
 });

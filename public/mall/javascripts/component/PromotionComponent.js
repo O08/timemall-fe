@@ -20,7 +20,9 @@ const PromotionComponent = {
                 if(response.data.code == 200){
                    this.brandPromotionData=!response.data.promotion ? {} : response.data.promotion;
                    this.brandPromotionDataLoadFinish=true;
-
+                   this.$nextTick(() => {
+                    this.computeFeeV();
+                   })
                 }
                
             })
@@ -30,13 +32,16 @@ const PromotionComponent = {
                 if(response.data.code == 200){
                     this.userPromotionBenefit=!response.data.benefit ? {} : response.data.benefit;
                     this.userPromotionBenefitLoadFinish=true;
-
+                    this.$nextTick(() => {
+                        this.computeFeeV();
+                    })
                  }
             })
         },
         __initPromotionComponentV(){
             this.loadBrandPromotionDataV();
             this.loadUserPromotionBenefitV();
+     
         }
     },
     computed:{

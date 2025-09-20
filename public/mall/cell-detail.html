@@ -140,10 +140,10 @@
      <div class="sub-nav-container">
       <ul class="nav nav-tabs" id="cell-detail-tab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane" type="button" role="tab" aria-controls="intro-tab-pane" aria-selected="true">介绍</button>
+          <button style="padding-left: 0;" class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro-tab-pane" type="button" role="tab" aria-controls="intro-tab-pane" aria-selected="true">服务预约</button>
         </li>
         <li v-if="!isEmptyObjectV(cellplan.records)" class="nav-item" role="presentation">
-          <button class="nav-link" id="plan-tab" data-bs-toggle="tab" data-bs-target="#plan-tab-pane" type="button" role="tab" aria-controls="plan-tab-pane" aria-selected="false">单品</button>
+          <button class="nav-link" id="plan-tab" data-bs-toggle="tab" data-bs-target="#plan-tab-pane" type="button" role="tab" aria-controls="plan-tab-pane" aria-selected="false">匠心单品</button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">品牌信息</button>
@@ -239,9 +239,9 @@
 
                       <h1 class="cell-title my-4">{{profile.title}}</h1>
                       <div  class="cell-intro-content pb-5">
-                        <p v-for="item in profile.content.items" class="cell-content-item">
-                          {{item.section}}
-                        </p>
+                        <div class="product-info__story ql-editor" v-html="profile.productDesc">
+            
+                        </div>
                       </div>
                     </div>
                     <!-- right panel : pricing -->
@@ -273,7 +273,6 @@
                           <div class="input-group w-100 mb-3">
                             <input type="text" class="form-control border-0 option-sbu-input" min="1" max="50000" step="1" v-model="quantity" @change="computeFeeV" @input="transformInputNumberV($event)" aria-label="Text input with dropdown button">
                             <select class="form-select option-sbu" v-model="selectedSbu" @change="computeFeeV" aria-label="Default select example">
-                              <option value="">计量</option>
                               <option :value="item.sbu" v-for="item in profile.fee">{{transformSbuV(item.sbu)}}</option>
                             </select>
                           </div>
