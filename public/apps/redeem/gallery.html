@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>兑换中心</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/redeem/stylesheets/gallery.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container"  :class="{'sandbox': sandbox=='1' }">
+        <main>
+
+          <div id="nav-searchform" >
+              <div class="nav-search-btn">
+                <i class="bi bi-search"></i>
+              </div>
+              <div class="nav-search-content">
+                <input  v-model="feedList_pagination.param.q" @keyup.enter.native="retrieveFeedListV" class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+                  x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="搜索商品" >
+              </div>
+              <div class="btn-wrp">
+                <button  v-preventreclick @click="retrieveFeedListV" class="btn-tm-primary">
+                  <div class="btn-content">
+                      搜索
+                  </div>
+                </button>
+              </div>
+          </div>
+
+          <div class="tagsContainer">
+
+            <div class="dropdown">
+              <a class="btn-dropdown dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-arrow-down-up me-1"></i>排序
+              </a>
+            
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item groupLabel">            
+                    排序
+                  </a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortCreateTime">
+                        上架日期
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"   value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                    </div>
+                  </a>
+                </li>
+  
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortHot">
+                        商品热度
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"  value="4" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortPirceAsc">
+                        价格升序
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"   value="3" class="form-check-input" name="sortRadios" type="radio"  id="sortPirceAsc" >
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortPirceDesc">
+                        价格降序
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"   value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortPirceDesc" >
+                    </div>
+                  </a>
+                </li>
+                
+  
+              </ul>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="genre-list-box">
+
+              <div class="genre-list">
+                <div  v-preventreclick @click="filterFeedListV('')"  class="genre-item"
+                :class="{'active': !feedList_pagination.param.genreId }">
+                  全部商品
+                </div>
+                <div  v-for="genre in genres"  v-preventreclick @click="filterFeedListV(genre.genreId)"   class="genre-item"
+                :class="{'active': genre.genreId==feedList_pagination.param.genreId }">
+                  {{genre.genreName}}
+                </div>
+              </div>
+
+            </div>
+
+            <div v-if="genres.length>0" class="dropdown">
+
+              <a class="btn-dropdown  dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                全部
+              </a>
+
+              <div class="dropdown-menu">
+               <div class="genre-list-menu">
+
+                <div  v-for="genre in genres"  v-preventreclick @click="filterFeedListV(genre.genreId)"   class="genre-item"
+                :class="{'active': genre.genreId==feedList_pagination.param.genreId }">
+                  {{genre.genreName}}
+                </div>
+
+               </div>
+              </div>
+
+            </div>
+
+           
+
+            
+  
+          </div>
+
+          <div class="content-container" style="padding-bottom: 160px;">
+
+            <!-- grid start -->
+           <div  class="row  gx-3 gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4" >
+
+
+            <div v-for="card in feedArr" class="col">
+              <div  v-preventreclick @click="showProductInfoModalV(card.productId)" class="item-box">
+                <div class="item-cover-container">
+
+                  <img :src="adaptiveImageUriV(card.thumbnail)">
+
+                  <div v-if="card.salesQuotaType=='per_person'" class="sales-quota">每人限购 {{card.historyBuyerOrders}}/{{card.salesQuota}}</div>
+                  <div v-if="card.salesQuotaType=='month_limit'" class="sales-quota">本月限购 {{card.monthBuyerOrders}}/{{card.salesQuota}}</div>
+
+                </div>
+                <div class="item-meta">
+
+                  <div class="product-name-cotainer">
+                    <div class="product-name-wrapper">
+                      <span class="product-name">{{card.productName}}</span>
+                    </div>
+                  </div>
+
+              
+
+                  <div v-if="canShowReminderV(card.releaseAt)" class="release-reminder">
+                    即将开放
+                  </div>
+                  <div v-if="!canShowReminderV(card.releaseAt)" class="release-reminder-empty">
+                    
+                  </div>
+                  <div class="item-footer">
+                    <div class="price-wrapper">
+                      <span class="price-unit">¥</span>
+                      <span class="price-value">{{card.price}}</span>
+                    </div>
+                    <div class="item-inventory">{{ card.inventory>0 ? '库存'+ card.inventory : '已售罄' }}</div>
+                  </div>
+     
+
+                </div>
+
+              </div>
+            </div>
+          
+            
+
+         </div>
+         <!-- grid end -->
+
+            <div  v-show="feedList_pagination.pages > feedList_pagination.current"  class="show-more-row">
+              <button v-preventreclick @click="showMoreV" type="button" class="btn btn-show-more"> 显示更多 </button>
+            </div>
+
+            <div v-show="feedArr.length == 0" class="not-found-resource">
+              <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+              <h4>未找到结果</h4>
+            </div>
+
+
+          </div>
+
+
+        </main>
+    </div>
+    <section class="modals">
+
+
+         <!-- focus modal -->
+         <div class="modal-container">
+          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <!--begin::Alert-->
+              <div class="d-flex text-center flex-column alert-info mb-5">
+
+
+                <!--begin::Icon-->
+                <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <!--end::Icon-->
+
+                <!--begin::Wrapper-->
+                <div class="text-center">
+                    <!--begin::Title-->
+                    <span class="fw-bold mb-2 modal-head">操作提示</span>
+                    <!--end::Title-->
+
+                    <!--begin::Separator-->
+                    <div class="separator separator-dashed border-dark opacity-25 mb-2"></div>
+                    <!--end::Separator-->
+
+                    <!--begin::Content-->
+                    <div class="font12" style="word-break: break-all; padding-left: .5rem; padding-right: .5rem;">
+                        <span class="me-2">即将为您兑换商品:</span>
+                        <span  style="font-weight: 600;">{{focusModal.feed}}</span>
+                        <span>
+                          ;商品兑换成功后，前往【奇迹工坊】-【兑换记录】配置收货邮箱、地址信息，查看最新的货品消息
+                        </span>
+                    </div>
+       
+                    <!--end::Content-->
+
+                    <!--begin::Buttons-->
+                    <div class="d-flex justify-content-center flex-wrap pt-5">
+
+                        <a  v-preventreclick @click="closeOrderProductFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">取消操作</a>
+                        <a  v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">确认兑换</a>
+                    </div>
+                    <!--end::Buttons-->
+                </div>
+                <!--end::Wrapper-->
+              </div>
+              <!--end::Alert-->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- product info modal start -->
+      <div class="modal-container">
+        
+        <div class="modal fade" id="productInfoModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-top-right modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header border-0">
+                <div class="w-100">
+                  <div class="d-flex">
+                    <h1 class="modal-title fs-5">商品卡</h1>
+                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+               
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="product-info-box">
+
+                  <div class="product-general">
+                    <div class="product-thumbnail">
+                      <img :src="adaptiveImageUriV(productProfile.thumbnail)">
+                    </div>
+                    <div class="product-core">
+                      <div class="key-info">
+                        <div class="price-wrapper">
+                          <span class="price-unit">¥</span>
+                          <span class="price-value">{{productProfile.price}}</span>
+                        </div>
+                        <div class="item-inventory">库存{{productProfile.inventory}}</div>
+                      </div>
+                      <div class="product-hi">
+                        <div v-if="productProfile.salesQuotaType=='per_person'" class="modal-sales-quota">每人限购 {{productProfile.historyBuyerOrders}}/{{productProfile.salesQuota}}</div>
+                        <div v-if="productProfile.salesQuotaType=='month_limit'" class="modal-sales-quota">本月限购 {{productProfile.monthBuyerOrders}}/{{productProfile.salesQuota}}</div>
+      
+                        <div v-if="canShowReminderV(productProfile.releaseAt)" class="modal-release-reminder">
+                          即将开放
+                        </div>
+                      </div>
+                      <div class="product-name-wrapper">{{productProfile.productName}}</div>
+                    </div>
+
+                  </div>
+                  <div class="product-shipping_term product-section">
+                    <div class="section-title">权益须知</div>
+                    <div class="shipping_term-content">
+                      <div class="ql-editor" v-html="productProfile.shippingTerm">
+
+                      </div>
+                    </div>
+  
+                  </div>
+                  <div class="product-reminder_term product-section">
+                    <div class="section-title">温馨提示</div>
+                    <div class="shipping_term-content">
+                      {{productProfile.warmReminder}}
+                    </div>
+  
+                  </div>
+                  <div class="product-extra product-section">
+                    <div class="product-extra-pair">
+                      <div class="pair-key">品类</div>
+                      <div class="pair-value">{{productProfile.genreName}}</div>
+                    </div>
+                    <div class="product-extra-pair">
+                      <div class="pair-key">发货方式</div>
+                      <div class="pair-value">{{explainAppRedeemShippingTypeV(productProfile.shippingType)}}</div>
+                    </div>
+                    
+                 
+
+                    <div class="product-extra-pair">
+                      <div class="pair-key">销量</div>
+                      <div class="pair-value">{{formatCmpctNumberV(productProfile.soldOrders)}}</div>
+                    </div>
+
+                    <div class="product-extra-pair">
+                      <div class="pair-key">热度</div>
+                      <div class="pair-value">{{formatCmpctNumberV(productProfile.views)}}</div>
+                    </div>
+
+                    <div class="product-extra-pair">
+                      <div class="pair-key">开售日期</div>
+                      <div class="pair-value">{{renderDateToDayInChinaV(productProfile.releaseAt)}}</div>
+                    </div>
+
+                    <div class="product-extra-pair">
+                      <div class="pair-key">首批发货时间</div>
+                      <div class="pair-value">{{renderDateToDayInChinaV(productProfile.estimatedDeliveryAt)}}</div>
+                    </div>
+  
+                  </div>
+                  
+                  <div class="total-info product-section" style="border: none;">
+                    <div class="d-flex justify-content-between total-info__quantity pt-3">
+                      <div style="font-size: 12px;">购买数量</div>
+                      <div class="quantity-selector">
+                        <button @click="decreaseQuantityV()">−</button>
+                        <input type="text" v-model="newOrderObj.quantity" disabled>
+                        <button @click="increaseQuantityV()">+</button>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center pb-3">
+
+                      <div class="coin-info">
+
+                        <div class="d-flex align-items-baseline">
+                          <div style="font-size: 12px; font-weight: 500;">合计：</div>
+                          <div class="price-wrapper" style="margin-bottom: 0;">
+                            <span class="price-unit">¥</span>
+                            <span class="price-value">{{Number(newOrderObj.quantity * productProfile.price).toFixed(2)}}</span>
+                          </div>
+                        </div>
+    
+                        <div class="points-box">
+                          <span>余额：</span>
+                          <span>{{currentUserPoints}}</span>
+                          <button type="button" class="btn  btn-note" data-bs-custom-class="custom-popover" data-bs-trigger="hover"  data-bs-toggle="popover" data-bs-title="余额说明" data-bs-content="余额为部落贡献值，可通过 「助力部落」 或 接取本部落发布的委托任务获取">
+                            <i class="bi bi-info-circle"></i>
+                          </button>
+
+                         
+                        </div>
+  
+                      </div>
+
+                      <div>
+
+                        <button v-if="productProfile.inventory==0" type="button" class="btn-save btn-cta-disabled">已售罄</button>
+                        <button v-if="!hasQuotaV() && productProfile.inventory>0" type="button" class="btn-save btn-cta-disabled">额度已用完</button>
+
+
+                        <button  v-preventreclick v-if="!canShowReminderV(productProfile.releaseAt) && hasQuotaV() && productProfile.inventory>0" @click="showOrderProductFocusModalV" type="button" class="btn-save btn-cta-primary">立即兑换</button>
+                        <button v-if="canShowReminderV(productProfile.releaseAt) && hasQuotaV() && productProfile.inventory>0"  type="button" class="btn-save btn-cta-disabled">{{getDayNameV(productProfile.releaseAt)}}开放兑换</button>
+
+                      </div>
+                   
+    
+
+                    </div>
+                   
+                  </div>
+
+                  
+
+
+                </div>
+                
+              </div>
+
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- product info modal end -->
+    </section>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/redeem/javascripts/gallery.js"></script>
+
+
+
+</body>
+</html>

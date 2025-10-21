@@ -62,7 +62,7 @@ const RootComponent = {
 
             }
         }
-    },
+      },
     }},
     methods: {
       getMoneyStatusV(order){

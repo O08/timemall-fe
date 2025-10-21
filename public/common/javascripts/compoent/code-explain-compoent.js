@@ -1,4 +1,4 @@
-import {SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -38,6 +38,15 @@ const CodeExplainComponent = {
     },
     explainMpsDifficultyV(level){
         return explainMpsDifficulty(level);
+    },
+    explainAppRedeemOrderStatusV(status){
+        return explainAppRedeemOrderStatus(status);
+    },
+    explainAppRedeemShippingTypeV(shippingType){
+        return explainAppRedeemShippingType(shippingType);
+    },
+    explainProductStausV(status){
+        return explainProductStaus(status);
     }
    }
 }
@@ -336,6 +345,71 @@ function explainMpsDifficulty(level){
 
 }
   return levelDesc;
+}
+
+function explainAppRedeemOrderStatus(status){
+    var statusDesc="未知";
+    switch(status){
+      case RedeemOrderStatusEnum.CREATED:
+        statusDesc="新建订单"
+          break;
+      case RedeemOrderStatusEnum.PAID:
+        statusDesc="已付款"
+          break;
+      case RedeemOrderStatusEnum.DELIVERING:
+        statusDesc="交付中"
+          break;
+      case RedeemOrderStatusEnum.COMPLETED:
+        statusDesc="已关单"
+          break;
+      case RedeemOrderStatusEnum.CANCELLED:
+        statusDesc="已取消"
+          break;
+      case RedeemOrderStatusEnum.REFUNDED:
+        statusDesc="已退款"
+            break;
+      case RedeemOrderStatusEnum.FAIL:
+        statusDesc="失败"
+          break;
+      case RedeemOrderStatusEnum.INVALID:
+        statusDesc="失效"
+          break;    
+    }
+    return statusDesc;
+}
+
+function explainAppRedeemShippingType(shippingType){
+    var shippingTypeDesc="未知";
+    switch(shippingType){
+        case AppRedeemShippingTypeEnum.LOGISTICS:
+            shippingTypeDesc="物流发货";
+            break; 
+        case AppRedeemShippingTypeEnum.EMAIL:
+            shippingTypeDesc="邮箱发货";
+            break; 
+        case AppRedeemShippingTypeEnum.OTHERS:
+            shippingTypeDesc="其他方式";
+            break; 
+    }
+    return shippingTypeDesc;
+
+}
+
+function explainProductStaus(status){
+    var statusDesc="未知";
+    switch(status){
+      case ProductStatus.Draft:
+        statusDesc="草稿"
+          break;
+      case ProductStatus.Online:
+        statusDesc="售卖中"
+          break;
+      case ProductStatus.Offline:
+        statusDesc="已下架"
+          break;   
+    }
+    return statusDesc;
+
 }
 
 export {

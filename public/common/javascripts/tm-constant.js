@@ -15,9 +15,9 @@ var CellStatus = Object.freeze({
 });
 
 var ProductStatus = Object.freeze({
-    "Draft":1,
-    "Online":2,
-    "Offline":3
+    "Draft": "1",
+    "Online": "2",
+    "Offline": "3"
 });
 
 var WorkflowStatus = Object.freeze({
@@ -223,8 +223,25 @@ var SubsOfferTypeEnum = Object.freeze({
     "FULL_ITEM_DISCOUNT_PROMO_CODE": "full_item_discount_promo_code"// 全店通用折扣
 });
 
+var RedeemOrderStatusEnum=Object.freeze({
+    "CREATED": "0",  // 新建订单
+    "PAID": "1",  // 已付款 
+    "DELIVERING": "2",  // 交付中
+    "COMPLETED": "3",  // 已关单 
+    "CANCELLED": "4",  // 已取消 
+    "REFUNDED": "5",  // 已退款
+    "FAIL": "6",  //  失败 
+    "INVALID": "7"  // 失效
+}); 
+
+var AppRedeemShippingTypeEnum = Object.freeze({
+    "LOGISTICS": "logistics", // 物流发货
+    "EMAIL": "email", // 邮箱发货
+    "OTHERS": "others"// 其他方式
+});
+
 export {
-    SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,
+    SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,

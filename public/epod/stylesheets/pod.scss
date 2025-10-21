@@ -317,7 +317,7 @@ pt-app content,main,pt-app main{
 }
 
 .sidebar{
-  width: 200px;
+  width: 100%;
 }
 aside,main{
   background-color: #141414;
@@ -337,7 +337,7 @@ aside,main{
     vertical-align: middle !important;
 }
 tr td:first-child,tr th:first-child{
-  padding-left: 24px;
+  padding-left: 12px;
 }
 pt-app aside{
   border: none;
@@ -389,11 +389,12 @@ pt-app footer {
     max-width: none;
 }
 .sidebar .active ,.sidebar .nav-link:hover{
-    color: whitesmoke;
-    background-color: #1b69dd;
-    border-radius: 5px;
-    stroke: whitesmoke;
+  background-color: rgba(45, 44, 44, 0.9);
+  color: rgba(255, 255, 255, .8);
+  border-radius: 5px;
+  stroke: rgba(255, 255, 255, .8);
 }
+
 .nav-tabs .nav-link{
     color: #fff;
     stroke: #fff;

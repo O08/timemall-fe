@@ -166,3 +166,57 @@ export function validateEmailOrPhoneInput(input) {
   var combinedRegex = /^([a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}|1[3-9]\d{9})$/;
   return combinedRegex.test(input);
 }
+
+export function renderDateInChina(dateStr){
+    if(!dateStr){
+        return ""
+    }
+       
+    var targetDate =new Date(dateStr);
+    const year=targetDate.getFullYear();
+    const month=targetDate.getMonth()+1;
+    const day=targetDate.getDate();
+    const hour=targetDate.getHours();
+    const minute=targetDate.getMinutes();
+
+    return `${year}年${month}月${day}日 ${hour}:${minute}`;
+
+}
+
+export function renderDateToDayInChina(dateStr){
+    if(!dateStr){
+        return ""
+    }
+       
+    var targetDate =new Date(dateStr);
+    const year=targetDate.getFullYear();
+    const month=targetDate.getMonth()+1;
+    const day=targetDate.getDate();
+
+    return `${year}年${month}月${day}日`;
+}
+
+export function getDayName(d){
+		
+
+   var td=new Date();
+   td=new Date(td.getFullYear(),td.getMonth(),td.getDate());
+   var od=new Date(d);
+   od=new Date(od.getFullYear(),od.getMonth(),od.getDate());
+   var xc=(od-td)/1000/60/60/24;
+   if(xc<-2){
+      return -xc+"天前";
+   }else if(xc<-1){
+      return "前天";
+   }else if(xc<0){
+      return "昨天";
+   }else if(xc==0){
+      return "今天";
+   }else if(xc<2){
+      return "明天";
+   }else if(xc<3){
+      return "后天";
+   }else{
+      return xc+"天后";
+   }
+}

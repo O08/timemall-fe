@@ -52,3 +52,19 @@ tr td:first-child,tr th:first-child{
 tbody tr {
     height: unset;
 }
+
+.blue-light {
+    color: #fff;
+    text-align: center;
+    background-color: #d2691e;
+    border-color: #d2691e;
+    border-radius: 3px;
+    height: 18px;
+    margin-right: 4px;
+    padding: 0 6px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 18px;
+    display: inline-block;
+    min-width: 48px;
+}

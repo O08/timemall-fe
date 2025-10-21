@@ -11,7 +11,10 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
-import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg"
+import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg";
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+
+let customAlert = new CustomAlertModal();
 
 
 
@@ -50,6 +53,10 @@ const RootComponent = {
         deleteChn(och).then(response=>{
           if(response.data.code == 200){
             this.fetchchannelListV(); // refresh 
+          }
+          if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error); 
           }
         })
       },

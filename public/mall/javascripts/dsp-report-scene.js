@@ -9,9 +9,10 @@ const commonId= getQueryVariable("subscription_id");
 
 const sceneParma = getQueryVariable("scene");
 
-var DspRefundSceneEnum=Object.freeze({
+var DspReportSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "cell_plan_order",  // cell plan order 
     "VIRTUAL_ORDER": "virtual_order",
+    "APP_REDEEM_ORDER": "redeem",
     "SUBSCRIPTION": "subscription"
 }); 
 
@@ -35,15 +36,18 @@ window.ReportScenePage = reportScenePage;
 function explainScene(scene){
     var sceneDesc="";
     switch(scene){
-        case DspRefundSceneEnum.CELL_PLAN_ORDER:
+        case DspReportSceneEnum.CELL_PLAN_ORDER:
             sceneDesc="单品订单";
             break; 
-        case DspRefundSceneEnum.VIRTUAL_ORDER:
+        case DspReportSceneEnum.VIRTUAL_ORDER:
             sceneDesc="虚拟商品订单";
             break; 
-        case DspRefundSceneEnum.SUBSCRIPTION:
+        case DspReportSceneEnum.SUBSCRIPTION:
             sceneDesc="付费订阅";
             break; 
+        case DspReportSceneEnum.APP_REDEEM_ORDER:
+            sceneDesc="兑换订单";
+            break;     
     }
     return sceneDesc;
 }

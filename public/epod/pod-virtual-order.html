@@ -204,6 +204,12 @@
                 </div>
                 <span>付费订阅</span>
               </a>
+              <a class="nav-link" href="/epod/pod-redeem">
+                <div class="nav-icon">
+                  <i class="bi bi-box2-heart"></i>
+                </div>
+                <span>兑换记录</span>
+              </a>
               <a class="nav-link" href="/epod/pod-dsp">
                 <div class="nav-icon">
                   <i class="bi bi-shield-plus"></i>
@@ -394,7 +400,7 @@
                   <tbody>
                     <tr v-for="order in virtualOrder_pagination.records">
                       <td>
-                        <div class="d-flex">
+                        <div class="d-flex align-items-center">
 
                           <span  v-preventreclick @click="showViewDeliverMaterialModalV(order.orderId)"  class="btn-option-secondary">
                             使用

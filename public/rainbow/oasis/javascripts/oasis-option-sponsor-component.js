@@ -26,7 +26,7 @@ const  OasisOptionSponsorComponent = {
           if(response.data.code == 200){
               this.closeTopUpOasisModelV();
               this.amount="";
-              customAlert.alert("充值成功,感谢您对部落的助力！");
+              customAlert.alert("打款成功，感谢您对部落的助力，祝您生活愉快");
           }else{
               customAlert.alert(response.data.message);
           }
@@ -79,6 +79,9 @@ const  OasisOptionSponsorComponent = {
               <label for="t3" class="form-label">助力金额</label>
               <input id="t3" v-model="amount" placeholder="请输入助力金额" @input="transformInputNumberV($event)" min="1" max="50000" type="number" class="form-control">
             </div> 
+            <div class="help-text fs-6 ms-1 mt-1">
+              <i class="bi bi-question-circle"></i><span class="ms-1">特别提示：助力金额将转化为同等数额的贡献值</span>
+            </div>
           </form>
           
         </div>

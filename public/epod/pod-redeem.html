@@ -8,12 +8,12 @@
   <meta http-equiv='content-language' content='zh-cn'>
 
   <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-  <title>付费订阅 - E-Pod</title>
+  <title>兑换记录 - E-Pod</title>
   <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
   <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
-  <link rel="stylesheet" href="/epod/stylesheets/pod-subscription.scss">
+  <link rel="stylesheet" href="/epod/stylesheets/pod-redeem.scss">
 
 
 </head>
@@ -214,15 +214,15 @@
                 </div>
                 <span>账单管理</span>
               </a>
-              <a class="nav-link active" href="/epod/pod-subscription">
+              <a class="nav-link" href="/epod/pod-subscription">
                 <div class="nav-icon">
                   <i class="bi bi-magic"></i>
                 </div>
                 <span>付费订阅</span>
               </a>
-              <a class="nav-link" href="/epod/pod-redeem">
+              <a class="nav-link active" href="/epod/pod-redeem">
                 <div class="nav-icon">
-                  <i class="bi bi-box2-heart"></i>
+                   <i class="bi bi-box2-heart"></i>
                 </div>
                 <span>兑换记录</span>
               </a>
@@ -247,7 +247,7 @@
         <div class="main-content-container full">
 
           <div class="page-title mb-5">
-            <h1>付费订阅</h1>
+            <h1>兑换记录</h1>
           </div>
 
 
@@ -256,9 +256,10 @@
 
             <top-search class="section-top-serach">
               <div class="input-group input-normal-search">
-                <input @keyup.enter.native="searchV" v-model="subscription_pagination.param.q"
+                <input
+                  v-model="orderList_pagination.param.q" @keyup.enter.native="searchOrderListV" 
                   class="form-control top-search-input" type="text" placeholder="搜索..." aria-label="Search">
-                <button v-preventreclick @click="searchV" class="btn btn-outline-secondary input-group-search-btn"
+                <button v-preventreclick @click="searchOrderListV" class="btn btn-outline-secondary input-group-search-btn"
                   type="button">
                   <i class="bi bi-search"></i>
                 </button>
@@ -275,15 +276,25 @@
 
                 <ul class="dropdown-menu">
 
-
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteTag1">
+                          已支付
+                        </label>
+                        <input id="filteTag1" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
+                          value="1" class="form-check-input" name="filteTag" type="radio">
+                      </div>
+                    </a>
+                  </li>
                   <li>
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag2">
-                          {{explainSubscriptionStatusV("active")}}
+                          交付中
                         </label>
-                        <input id="filteTag2" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="active" class="form-check-input" name="filteTag" type="radio">
+                        <input id="filteTag2" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
+                          value="2" class="form-check-input" name="filteTag" type="radio">
                       </div>
                     </a>
                   </li>
@@ -291,10 +302,10 @@
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag3">
-                          {{explainSubscriptionStatusV("trialing")}}
+                          已关单
                         </label>
-                        <input id="filteTag3" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="trialing" class="form-check-input" name="filteTag" type="radio">
+                        <input id="filteTag3" @change="filterOrderListV"   v-model="orderList_pagination.param.status"
+                          value="3" class="form-check-input" name="filteTag" type="radio">
                       </div>
                     </a>
                   </li>
@@ -302,10 +313,10 @@
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag4">
-                          {{explainSubscriptionStatusV("incomplete")}}
+                          已取消
                         </label>
-                        <input id="filteTag4" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="incomplete" class="form-check-input" name="filteTag" type="radio">
+                        <input id="filteTag4" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
+                          value="4" class="form-check-input" name="filteTag" type="radio">
                       </div>
                     </a>
                   </li>
@@ -313,47 +324,13 @@
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag5">
-                          {{explainSubscriptionStatusV("unpaid")}}
+                          已退款
                         </label>
-                        <input id="filteTag5" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="unpaid" class="form-check-input" name="filteTag" type="radio">
+                        <input id="filteTag5" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
+                          value="5" class="form-check-input" name="filteTag" type="radio">
                       </div>
                     </a>
                   </li>
-                  <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag6">
-                          {{explainSubscriptionStatusV("incomplete_expired")}}
-                        </label>
-                        <input id="filteTag6" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="incomplete_expired" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag7">
-                          {{explainSubscriptionStatusV("canceled")}}
-                        </label>
-                        <input id="filteTag7" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="canceled" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag8">
-                          {{explainSubscriptionStatusV("closed")}}
-                        </label>
-                        <input id="filteTag8" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="closed" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
-                  </li>
-
 
                   <li>
                     <a class="dropdown-item">
@@ -361,7 +338,7 @@
                         <label class="form-check-label" for="filteTagAll">
                           全部
                         </label>
-                        <input id="filteTagAll" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
+                        <input id="filteTagAll" @change="filterOrderListV" v-model="orderList_pagination.param.status"
                           value="" class="form-check-input" name="filteTag" type="radio">
                       </div>
                     </a>
@@ -380,95 +357,84 @@
                   <thead>
                     <th class="col-option"></th>
                     <th class="col-product">商品</th>
-                    <th class="col-product">套餐</th>
-                    <th class="col-status">缴费频率</th>
-                    <th class="col-time">订阅起始日</th>
-                    <th class="col-time">订阅结束日</th>
+                    <th class="col-quantity">数量</th>
+                    <th class="col-shipping">发货方式</th>
+                    <th class="col-person">收货人</th>
+                    <th class="col-address">收货地址</th>
+                    <th class="col-email">收货邮箱</th>
                     <th class="col-status">状态</th>
-                    <th class="col-people text-center">商家</th>
-                    <th class="col-people text-center">备注</th>
-
                   </thead>
                   <tbody>
-                    <tr v-for="subscription in subscription_pagination.records">
+                    <tr v-for="order in orderList_pagination.records">
                       <td>
                         <div class="d-flex align-items-center">
-
-                          <span v-preventreclick @click="showPlanViewModalV(subscription.planId)"
-                            class="btn-option-secondary">
-                            套餐信息
+                          <span @click="showOrderDetailModalV(order.orderId)" class="btn-option-secondary">
+                            货品信息
                           </span>
-                          <span class="option-edit ms-3" class="btn-option-secondary">
+                          <span  class="option-edit ms-3" class="btn-option-secondary">
                             <div class="dropdown">
-                              <a class="btn-option-secondary dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                              <a class="btn-option-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots"></i>
                               </a>
-
+                            
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/estudio/studio-shop">充值</a></li>
-                                <li><a class="dropdown-item"
-                                    :href="'/'+subscription.sellerHandle+'/'+subscription.productCode+'/subscription'">同商品套餐</a>
-                                </li>
-                                <li
-                                  v-if="subscription.status=='active'|| subscription.status=='trialing' || subscription.status=='unpaid'">
-                                  <a class="dropdown-item" v-preventreclick
-                                    @click="showCancelFocusModalV(subscription)">取消订阅</a></li>
-                                <li><a class="dropdown-item" :href="'/messages/' + subscription.sellerUserId">联系商家</a>
-                                </li>
-                                <li><a class="dropdown-item" v-preventreclick
-                                    @click="showOasisReportModalV(subscription.subscriptionId)">举报投诉</a></li>
-
+                                <li ><a class="dropdown-item" v-preventreclick  @click="showEditShippingInfoModalV(order)">收货设置</a></li>
+                                <li ><a class="dropdown-item" v-preventreclick  @click="showProductInfoModalV(order.productId)">商品详情</a></li>
+                                <li><a class="dropdown-item" v-preventreclick  @click="showOasisReportModalV(order.orderId)">举报投诉</a></li>
                               </ul>
                             </div>
                           </span>
-
                         </div>
-
+                 
                       </td>
-                      <td :title="subscription.productName"><span class="ellipsis-1">{{subscription.productName}}</span>
+         
+                      <td>
+                        <div class="tb-product-info">
+                          <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail">
+                          <div class="productInfo__name">
+                            <span v-if="order.refunded=='1'" class="blue-light">退款成功</span>
+                            <span style="word-break: break-all;">
+                              {{order.productName}}
+                            </span>
+                          </div>
+                        </div>
                       </td>
-                      <td :title="subscription.planName"><span class="ellipsis-1">{{subscription.planName}}</span></td>
-                      <td :title="explainSubsBillCalendarV(subscription.billCalendar)"><span
-                          class="ellipsis-1">{{explainSubsBillCalendarV(subscription.billCalendar)}}</span></td>
-                      <td :title="subscription.startsAt">{{!subscription.startsAt ? "" :
-                        subscription.startsAt.replace(new RegExp('-', 'g'), '/')}}</td>
-                      <td :title="subscription.endsAt">{{!subscription.endsAt ? "" : subscription.endsAt.replace(new
-                        RegExp('-', 'g'), '/')}}</td>
-                      <td :title="explainSubscriptionStatusV(subscription.status)"><span
-                          class="ellipsis-1">{{explainSubscriptionStatusV(subscription.status)}}</span></td>
-                      <td :title="subscription.sellerBrandName" class="text-center"><a class="dropdown-item"
-                          :href="'/messages/' + subscription.sellerUserId"><img
-                            :src="adaptiveImageUriV(subscription.sellerAvatar) || defaultAvatarImage"
-                            class="peacemaker-avatar"></a></td>
-                      <td :title="subscription.remark" style="font-size: smaller;">{{subscription.remark}}</td>
+                      <td>{{order.quantity}}</td>
+                      <td>{{explainAppRedeemShippingTypeV(order.shippingType)}}</td>
+                      <td><span style="word-break: break-all;">{{order.consignee}}</span></td>
+                      <td><span style="word-break: break-all;">{{order.shippingAddress}}</span></td>
+                      <td><span style="word-break: break-all;">{{order.shippingEmail}}</span></td>
+                      <td>{{explainAppRedeemOrderStatusV(order.status)}}</td>
+                        
                     </tr>
                   </tbody>
 
                 </table>
 
-                <div v-show="subscription_pagination.records.length==0" class="empty-content-block">
+                <div v-show="orderList_pagination.records.length==0" class="empty-content-block">
 
                   没有可用的内容！
 
                 </div>
-                <nav v-if="!!subscription_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+
+                <nav v-if="!!orderList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
                   <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(subscription_pagination)">
+                    <li class="page-item" @click="pagePre(orderList_pagination)">
                       <a class="page-link" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                       </a>
                     </li>
-                    <li class="page-item" v-for="page in subscription_pagination.paging.items"
-                      :class="{'current-page-active': subscription_pagination.paging.current == page}"
-                      @click="pageGo(subscription_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(subscription_pagination)">
+                    <li class="page-item" v-for="page in orderList_pagination.paging.items"
+                      :class="{'current-page-active': orderList_pagination.paging.current == page}"
+                      @click="pageGo(orderList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(orderList_pagination)">
                       <a class="page-link" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                       </a>
                     </li>
                   </ul>
                 </nav>
+
 
 
               </div>
@@ -484,84 +450,195 @@
     <section class="modals">
 
       <div class="modal-container">
-        <!-- repay focus modal -->
-        <div class="modal-container">
-          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <!--begin::Alert-->
-                <div class="d-flex text-center flex-column alert-info mb-5">
+        <!-- Modal -->
+        <div class="modal fade" id="editShippingInfoModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">更新收货信息</h1>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <form class="w-100">
+      
+                  <input id="input_consignee" v-model="shippingObj.consignee" maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货人">
+                  <input id="input_shipping_email" v-model="shippingObj.shippingEmail"  maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货邮箱">
+                  <input id="input_shipping_address" v-model="shippingObj.shippingAddress" maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货地址">
 
-
-                  <!--begin::Icon-->
-                  <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span
-                      class="path3"></span></i>
-                  <!--end::Icon-->
-
-                  <!--begin::Wrapper-->
-                  <div class="text-center">
-                    <!--begin::Title-->
-                    <span class="fw-bold mb-2 modal-head">操作提示</span>
-                    <!--end::Title-->
-
-                    <!--begin::Separator-->
-                    <div class="separator separator-dashed border-dark opacity-25 mb-2"></div>
-                    <!--end::Separator-->
-
-                    <!--begin::Content-->
-                    <div class="font12">
-                      {{focusModal.message}}
-                    </div>
-                    <!--end::Content-->
-
-                    <!--begin::Buttons-->
-                    <div class="d-flex justify-content-center flex-wrap pt-5">
-
-                      <a href="#" @click="closFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">撤回操作</a>
-                      <a href="#" v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">帮我取消</a>
-                    </div>
-                    <!--end::Buttons-->
-                  </div>
-                  <!--end::Wrapper-->
-                </div>
-                <!--end::Alert-->
+      
+                </form>
+      
+              </div>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button :class="{'disabled': !validateEditShippingInfoFormAlereadyChangeV() }"  v-preventreclick  type="button"  @click="changeShippingInfoV"
+                  class="btn btn-primary">更新</button>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
 
-        <!-- plan  view modal -->
-        <div class="modal-container">
-          <div class="modal fade" id="planViewModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header  display-dialog-header-bg">
-                  <div class="product-info">
-                    <div class="brand-avatar">
-                      <img :src="adaptiveImageUriV(viewPlanObj.sellerAvatar)  || defaultAvatarImage">
+      <!-- product info modal start -->
+      <div class="modal-container">
+        
+        <div class="modal fade" id="productInfoModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-top-right modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">商品卡</h1>
+                <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="product-info-box">
+
+                  <div class="product-general">
+                    <div class="product-thumbnail">
+                      <img  :src="adaptiveImageUriV(productProfile.thumbnail)">
                     </div>
-                    <div class="ellipsis-1">{{viewPlanObj.sellerName}}</div>
-                  </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                    <div class="product-core">
+                      <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{productProfile.price}}</span></div>
 
-                  <div class="plan-box">
-
-                    <div class="plan-box__name">{{viewPlanObj.planName}}</div>
-                    <div class="plan-box__description">{{viewPlanObj.description}}</div>
-                    <div class="plan-price-box"><span class="plan-price">¥{{viewPlanObj.price}}</span>/月</div>
-                    <div class="features">
-                      <div v-for="feature in viewPlanObj.features" class="features_item">{{feature.title}}</div>
+                      <div style="font-weight: 500; word-break: break-all;">{{productProfile.productName}}</div>
                     </div>
+
+                  </div>
+                  <div class="product-shipping_term product-section">
+                    <div class="setction-title">权益须知</div>
+                    <div class="shipping_term-content">
+                      <div class="ql-editor" v-html="productProfile.shippingTerm">
+
+                      </div>
+                    </div>
+  
+                  </div>
+                  <div class="product-reminder_term product-section">
+                    <div class="setction-title">温馨提示</div>
+                    <div class="shipping_term-content" style="word-break: break-all; white-space: pre-wrap; font-size: 14px;">
+                     {{productProfile.warmReminder}}
+                    </div>
+  
+                  </div>
+
+                  <div class="product-extra product-section">
+                    <div class="product-extra-pair">
+                      <div class="pair-key">品类</div>
+                      <div class="pair-value">{{productProfile.genreName}}</div>
+                    </div>
+                    <div class="product-extra-pair">
+                      <div class="pair-key">发货方式</div>
+                      <div class="pair-value">{{explainAppRedeemShippingTypeV(productProfile.shippingType)}}</div>
+                    </div>
+                    
+
+                    <div class="product-extra-pair">
+                      <div class="pair-key">开售日期</div>
+                      <div class="pair-value">{{renderDateToDayInChinaV(productProfile.releaseAt)}}</div>
+                    </div>
+
+                    <div class="product-extra-pair">
+                      <div class="pair-key">首批发货时间</div>
+                      <div class="pair-value">{{renderDateToDayInChinaV(productProfile.estimatedDeliveryAt)}}</div>
+                    </div>
+  
                   </div>
 
                 </div>
+                
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <!-- product info modal end -->
+
+      <!-- order detail modal start -->
+      <div class="modal-container">
+        
+        <div class="modal fade" id="orderDetailModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-top-right modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <div class="w-100">
+                  <div class="d-flex">
+                    <h1 class="modal-title fs-5">订单#{{orderDetail.orderNo}}</h1>
+                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="small-info">
+                    <span class="order-status">{{explainAppRedeemOrderStatusV(orderDetail.status)}}</span>
+                    <span class="ms-2">{{renderDateInChinaV(orderDetail.createAt)}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="buyer-info">
+                  <div class="buyer-avatar">
+                    <img :src="adaptiveImageUriV(orderDetail.sellerAvatar) || defaultAvatarImage">
+                  </div>
+                  <div class="buyer-name mt-2">{{orderDetail.sellerName}}</div>
+                  <div class="buyer-contact-info">
+
+                    <a :href="'/messages/'+orderDetail.sellerUserId">
+                      <div class="contact-item btn-cta-primary">
+                        联系商家
+                      </div>
+                    </a>
+           
+                  
+
+                  </div>
+                </div>
+                <div class="product-info">
+            
+                  <div class="product-core">
+                    <div class="product-thumbnail">
+                      <img :src="adaptiveImageUriV(orderDetail.productThumbnail)">
+                    </div>
+
+                   
+                    <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.productPrice}}</span></div>
+
+                    <div style="font-weight: 500; word-break: break-all;">{{orderDetail.productName}}</div>
+
+                  </div>
+                </div>
+                <div v-if="!orderDetail.deliveryNote" class="product-info">
+                  <div>未找到货品数据，请咨询商家</div>
+                </div>
+                <div v-if="!!orderDetail.deliveryNote" class="product-info">
+                  <div style="word-break: break-all;white-space: pre-wrap; ">{{orderDetail.deliveryNote}}</div>
+                </div>
+                <div v-if="!!orderDetail.deliveryMaterial" class="product-info">
+                  <div  class="material-item">
+                    <span style="display: contents;">
+                      <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">交付文件</span>
+                    </span>
+                    <a target="_blank" class="download" :download="orderDetail.orderNo + '-' + orderDetail.productName+ '-兑换订单交付资料'" :href="orderDetail.deliveryMaterial"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+
+                  </div>
+                </div>
+                <div class="total-info">
+                  <div class="d-flex justify-content-between">
+                    <span>购买数量</span>
+                    <span>{{orderDetail.quantity}}</span>
+                  </div>
+                </div>
+                <div class="total-info" style="border: none;">
+                  <div class="d-flex justify-content-between">
+                    <span>合计：</span>
+                    <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.total}}</span></div>
+
+                  </div>
+                </div>
+
+      
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- order detail modal end -->
 
         <!-- report Modal -->
         <div class="modal-container">
@@ -662,7 +739,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/epod/javascripts/pod-subscription.js"></script>
+  <script type="module" src="/epod/javascripts/pod-redeem.js"></script>
 
 
 

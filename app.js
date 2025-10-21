@@ -118,6 +118,10 @@ app.get('/business/paper/:id', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/business-paper.html")        //设置/ 下访问文件位置
 })
 
+app.get('/apps/redeem/gallery/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/redeem/gallery.html")        //设置/ 下访问文件位置
+})
+
 
 
 

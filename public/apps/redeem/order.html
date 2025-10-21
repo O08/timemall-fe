@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content=”noindex,nofollow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+  <title>订单管理 | 兑换中心</title>
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+  <link rel="stylesheet" href="/apps/redeem/stylesheets/admin.scss">
+
+
+  <link rel="stylesheet" href="/apps/redeem/stylesheets/order.scss">
+
+
+</head>
+
+<body>
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head">
+              <img class="oasis-avatar" src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/app/app-redeem-logo.svg">
+              <div class="oasis-title">{{general.channelName}}</div>
+            </div>
+            <div class="list-group list-group-flush">
+              <a  :href="'/apps/redeem/admin?och='+general.och" class="list-group-item">频道设置</a>
+              <a  :href="'/apps/redeem/product?och='+general.och"  class="list-group-item">商品管理</a>
+              <a class="list-group-item active">订单管理</a>
+            </div>
+          </nav>
+        </col-nav-main>
+
+      </div>
+
+
+      <col-content>
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <div class="align-middle">
+                  <h2 class="my-0">订单管理</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+        <div class="content-container">
+
+          <div class="content-core-box">
+
+            <div class="dashboard-box">
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">已兑换</div>
+                    <div class="countValue">{{dashboard.soldOrders}}</div>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">待发货</div>
+                    <div class="countValue">{{dashboard.shippingOrders}}</div>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">兑换人数</div>
+                    <div class="countValue">{{dashboard.buyers}}</div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">兑换金额</div>
+                    <div class="countValue">¥{{dashboard.totalSales}}</div>
+                  </div>
+                </div>
+              </div>
+     
+            </div>
+  
+            <div class="order-list-box mt-4">
+  
+              <div class="order-filter">
+                <div id="nav-searchform">
+                  <div class="nav-search-btn">
+                    <i class="bi bi-search"></i>
+                  </div>
+                  <div class="nav-search-content">
+                    <input v-model="orderList_pagination.param.q" @keyup.enter.native="searchOrderListV"   class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+                       placeholder="搜索" >
+                  </div>
+                </div>
+  
+                <div class="right-pannel">
+                  <select v-model="orderList_pagination.param.status" @change="filterOrderListV" class="form-select">
+                    <option value="">全部状态</option>
+                    <option value="1">已支付</option>
+                    <option value="2">交付中</option>
+                    <option value="3">已关单</option>
+                    <option value="4">已取消</option>
+                    <option value="5">已退款</option>
+                  </select>
+  
+                  <select v-model="orderList_pagination.param.genreId" @change="filterOrderListV" class="form-select">
+                    <option value="">全部品类</option>
+                    <option v-for="item in genres" :value="item.genreId">{{item.genreName}}</option>
+  
+                  </select>
+  
+                </div>
+            
+              </div>
+  
+              <div class="table-responsive">
+                <div class="table-wrp">
+                  <table class="table table-sm table-dark table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-option"></th>
+                        <th class="col-order">商品</th>
+                        <th class="col-quantity">数量</th>
+                        <th class="col-shipping">发货方式</th>
+                        <th class="col-person">收件人</th>
+                        <th class="col-address">收货地址</th>
+                        <th class="col-email">收货邮箱</th>
+                        <th class="col-status">状态</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="order in orderList_pagination.records">
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <span  v-preventreclick  @click="showOrderDetailModalV(order.orderId)" class="btn-option-secondary">
+                              明细
+                            </span>
+                            <span  class="option-edit ms-3" class="btn-option-secondary">
+                              <div class="dropdown">
+                                <a class="btn-option-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="bi bi-three-dots"></i>
+                                </a>
+                              
+                                <ul class="dropdown-menu">
+    
+                                  <li v-if="order.alreadyPay=='1' && order.refunded!='1'"><a class="dropdown-item" v-preventreclick @click="showRefundModalV(order)">订单退款</a></li>
+                                  <li><a class="dropdown-item" v-preventreclick @click="showOrderMaintenanceModalV(order.orderId)">订单管理</a></li>
+                                  <li><a class="dropdown-item" v-preventreclick @click="showChangeOrderPackModalV(order)">发货管理</a></li>
+                                </ul>
+                              </div>
+                            </span>
+                          </div>
+                   
+                        </td>
+                        <td>
+                          <div class="tb-product-info">
+                            <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail">
+                            <div class="productInfo__name">
+                              <span v-if="order.refunded=='1'" class="blue-light">退款成功</span>
+                              <span style="word-break: break-all;">
+                                {{order.productName}}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{explainAppRedeemShippingTypeV(order.shippingType)}}</td>
+                        <td><span style="word-break: break-all;">{{order.consignee}}</span></td>
+                        <td><span style="word-break: break-all;">{{order.shippingAddress}}</span></td>
+                        <td><span style="word-break: break-all;">{{order.shippingEmail}}</span></td>
+                        <td>{{explainAppRedeemOrderStatusV(order.status)}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <nav v-if="!!orderList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(orderList_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in orderList_pagination.paging.items" :class="{'current-page-active': orderList_pagination.paging.current == page}" 
+                            @click="pageGo(orderList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(orderList_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                  <div v-if="orderList_pagination.records.length==0" class="not-found-resource"><img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found"><h4>未找到结果</h4></div>
+                </div>
+              </div>
+  
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+      </col-content>
+    </main>
+    <section class="modals">
+
+       <!-- order pack management modal -->
+       <div class="modal-container">
+        <div class="modal fade fresh-ui" id="changeOrderPackModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content  text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title">发货管理</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0">
+
+                <form class="w-100" onsubmit="return false">
+  
+                  <div class="mt-3">
+                    <label for="changeOrderPack_orderNo" class="form-label">当前订单</label>
+                    <input id="changeOrderPack_orderNo" :value="changeOrderPackObj.orderNo"   type="text" class="form-control" disabled>
+
+                  </div> 
+                
+                  <div class="mt-3">
+                    <label for="changeOrderPack_pack" class="form-label">货品</label>
+                    <textarea @change="btn_ctl.changeOrderPackObj_already_change=true" v-model="changeOrderPackObj.deliveryNote"  rows="8" type="text" maxlength="200" placeholder="输入货品信息，比如卡密、链接或者其他关键信息，该数据仅对商家与目标客户开放" class="form-control"  id="changeOrderPack_pack"></textarea>
+                  </div> 
+                  <div class="mt-3">
+                    <label for="changeOrderPack_material" class="form-label">交付文件</label>
+                  
+                    <input @change="btn_ctl.changeOrderPackObj_already_change=true" id="changeOrderPack_material"   type="file" class="form-control">
+
+                    <div v-if="!!changeOrderPackObj.deliveryMaterial" class="material-item mt-2">
+                      <span style="display: contents;">
+                        <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">最新交付文件</span>
+                      </span>
+                      <a target="_blank" class="download" :download="changeOrderPackObj.orderNo + '-' + changeOrderPackObj.productName + '-兑换订单交付资料'" :href="changeOrderPackObj.deliveryMaterial"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+  
+                    </div>
+                  </div> 
+
+
+                  
+                  <button 
+                    :class="{'disabled': !changeOrderPackObj.deliveryNote || !btn_ctl.changeOrderPackObj_already_change}"
+                    v-preventreclick @click="changeOrderPackV"
+                  type="submit"  class="btn btn-primary mt-5 w-100">提交</button>
+
+                  
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- order management modal -->
+      <div class="modal-container">
+        <div class="modal fade fresh-ui" id="orderManagementModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title">订单管理</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0">
+
+                <form class="w-100" onsubmit="return false">
+  
+
+                
+                  <div class="mt-3">
+                    <label for="order_status_setting" class="form-label">设置当前订单状态</label>
+                    <select id="order_status_setting" v-model="orderMaintenanceObj.status"  class="form-select">
+                      <option value="">--请选择--</option>
+
+                      <option value="2">交付中</option>
+                      <option value="3">已关单</option>
+                      <option value="4">已取消</option>
+                    </select>  
+                  </div> 
+
+
+                  
+                  <button 
+                  :class="{'disabled': !orderMaintenanceObj.status}"
+                    v-preventreclick @click="changeOrderStatusV"
+                  type="submit"  class="btn btn-primary mt-5 w-100">提交</button>
+
+                  
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  refund  modal -->
+      <div class="modal-container">
+        <div class="modal fade fresh-ui" id="orderRefundModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title">订单退款</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0">
+                <form class="w-100" onsubmit="return false">
+
+                  <div class="mt-3">
+                    <label for="input_refund_term" class="form-label">填写“我支持退款”进行退款授权</label>
+                    <input id="input_refund_term" v-model="refundObj.term"  maxlength="5" type="text" class="form-control" placeholder="我支持退款">
+                  </div> 
+                  <button 
+                  :class="{'disabled': !refundObj.term}"
+                  type="submit" v-preventreclick @click="refundV" class="btn btn-primary mt-5 w-100">提交</button>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- order detail modal start -->
+      <div class="modal-container">
+        
+        <div class="modal fade" id="orderDetailModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-top-right modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <div class="w-100">
+                  <div class="d-flex">
+                    <h1 class="modal-title fs-5">订单-{{orderDetail.orderNo}}</h1>
+                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="small-info">
+                    <span class="order-status">{{explainAppRedeemOrderStatusV(orderDetail.status)}}</span>
+                    <span class="ms-2">{{orderDetail.createAt}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="buyer-info">
+                  <div class="buyer-avatar">
+                    <img :src="adaptiveImageUriV(orderDetail.buyerAvatar) || defaultAvatarImage">
+                  </div>
+                  <div class="buyer-name mt-2">{{orderDetail.buyerName}}</div>
+                  <div class="buyer-contact-info">
+
+                    <a target="_blank" :href="'/messages/'+orderDetail.buyerUserId"> 
+                      <div class="contact-item btn-cta-primary">
+                        联系买家
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-core">
+                    <div class="product-thumbnail">
+                      <img :src="adaptiveImageUriV(orderDetail.productThumbnail)">
+                    </div>
+
+                    <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.productPrice}}</span></div>
+
+                    <div style="font-weight: 500; word-break: break-all;">{{orderDetail.productName}}</div>
+
+                  </div>
+                </div>
+                <div v-if="!orderDetail.deliveryNote" class="product-info">
+                  <div>未找到货品数据，商家可通过【发货管理】告知目标客户物流信息、发货通知、网盘链接、账号/密码等货品数据，货品数据加密处理，仅商家与目标客户能够访问</div>
+                </div>
+                <div v-if="!!orderDetail.deliveryNote" class="product-info">
+                  <div style="word-break: break-all; white-space: pre-wrap;">{{orderDetail.deliveryNote}}</div>
+                </div>
+                <div v-if="!!orderDetail.deliveryMaterial" class="product-info">
+                  <div  class="material-item">
+                    <span style="display: contents;">
+                      <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">交付文件</span>
+                    </span>
+                    <a target="_blank" class="download"  :download="orderDetail.orderNo + '-' + orderDetail.productName+ '-兑换订单交付资料'" :href="orderDetail.deliveryMaterial"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                  </div>
+                </div>
+                <div class="total-info">
+                  <div class="d-flex justify-content-between">
+                    <span>购买数量</span>
+                    <span>{{orderDetail.quantity}}</span>
+                  </div>
+                </div>
+                <div class="total-info" style="border: none;">
+                  <div class="d-flex justify-content-between">
+                    <span>合计：</span>
+                    <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.total}}</span></div>
+
+                  </div>
+                </div>
+
+      
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- order detail modal end -->
+    </section>
+
+  </micro-app>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/apps/redeem/javascripts/order.js"></script>
+
+
+
+</body>
+
+</html>
