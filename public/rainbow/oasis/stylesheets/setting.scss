@@ -349,6 +349,9 @@ col-content{
     padding: 20px;
     background-color: #2e2e2e9d;
 }
+.authed-link:hover{
+    border-color: #555;
+}
 .authed-link-header{
 
     box-sizing: border-box;
@@ -441,6 +444,7 @@ img[alt] {
     line-height: 18px;
     color: hsl(210 calc(1*9.091%) 87.059% /1);
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 #addFastLinkModal .modal-content {
@@ -641,6 +645,70 @@ img[alt] {
     background-color: #555;
     font-size: 12px;
 }
+.setting-membership .record-tier-thumbnail{
+    position: relative;
+    aspect-ratio: 4/3;
+    width: 200px;
+}
+.setting-membership .record-tier-thumbnail img{
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    width: 100%;
+}
+.setting-membership  .authed-link-body{
+    box-sizing: border-box;
+    grid-template-columns: 1fr auto;
+    display: grid;
+    gap: 8px;
+}
+.setting-membership  .link-cover-box {
+    aspect-ratio: 4 / 3;
+    background-color: #000;
+    border-radius: 4px;
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+  
+.setting-membership  .link-cover-box img {
+    box-sizing: border-box;
+    object-fit: cover;
+    pointer-events: none;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.status-color-green{
+    color: green;
+}
+.status-color-red{
+    color: rgb(243, 32, 32);
+}
+.status-color-gray{
+    color: #61666D;
+}
+.loading .btn-file-upload-wrp{
+    display: none;
+  }
+  
+  .loading-content{
+    display: none;
+  }
+  .loading .loading-content{
+    display: block;
+  }
+.membership-thumbnail-container{
+    flex-direction: row;
+    flex: 50%;
+    align-items: stretch;
+    display: flex;
+}  
+.fresh-ui-btn {
+    font-size: 12px;
+}
+
 @media only screen and (min-width: 1400px) {
     header{
         display: none;
@@ -718,10 +786,36 @@ img[alt] {
         height: 72px;
         min-width: 72px;
     }
+    .setting-membership  .authed-link-body{
+       display: flex;
+       flex-direction: column-reverse;
+       gap: 0;
+    }  
+    .setting-membership  .tier-core{
+      margin-top: 12px;
+    }  
+    .mobile-full-screen-modal{
+        min-height: 100%;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .mobile-full-screen-modal .modal-content {
+        height: 100%;
+    }
 }
 
-
-
+// model select 
+// long text fix
+.ui.selection.dropdown .menu > .item {
+    word-break: break-all;
+}
+.ui.search.dropdown > .text{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 // quill editor
 .ql-snow{

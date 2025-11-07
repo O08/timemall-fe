@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content=”noindex,nofollow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+  <title>会员套餐</title>
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+  <link rel="stylesheet" href="/rainbow/oasis/stylesheets/setting.scss">
+
+
+</head>
+
+<body class="setting-membership">
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head">
+              <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+                <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault"
+                  @error.once="e => { e.target.src = oasisAvatarDefault }">
+              </a>
+              <div class="oasis-title">{{announce.title}}</div>
+            </div>
+            <div class="list-group list-group-flush">
+              <a :href="'/rainbow/oasis/setting?oasis_id='+oasisId" class="list-group-item">基础设置</a>
+              <a :href="'/rainbow/oasis/setting-role?oasis_id='+oasisId" class="list-group-item">身份组</a>
+              <a :href="'/rainbow/oasis/setting-member?oasis_id='+oasisId" class="list-group-item">成员管理</a>
+              <a :href="'/rainbow/oasis/setting-membership?oasis_id='+oasisId" class="list-group-item active">会员套餐</a>
+              <a :href="'/rainbow/oasis/setting-fast-link?oasis_id='+oasisId" class="list-group-item ">快速访问</a>
+              <a :href="'/rainbow/oasis/setting-invitation?oasis_id='+oasisId" class="list-group-item ">邀请</a>
+              <a :href="'/rainbow/oasis/setting-change-admin?oasis_id='+oasisId" class="list-group-item">管理权移交</a>
+            </div>
+          </nav>
+        </col-nav-main>
+
+      </div>
+
+
+      <col-content>
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z"
+                    fill="#3887FE"></path>
+                </svg>
+                <div class="align-middle">
+                  <h2 class="my-0">部落设置</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar"
+                aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor"
+                  viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z">
+                  </path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div class="content-container">
+
+
+          <div class="feature-title">
+            会员套餐
+          </div>
+
+          <div class="cardPrimary">
+            <div class="d-flex" style="flex: 1 1 auto;">
+              <div class="d-flex align-items-center" style="flex: 1 1 auto;">
+                <div class="ct-wrp">
+                  <div class="icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" d="m4 6l4 4.5L12 6m-4 7.5l6.5-7l-3.5-4H5l-3.5 4z" stroke-width="1"></path></svg>
+                  </div>
+                </div>
+
+                <div class="feature-notice-detail">
+                  为您的粉丝或用户提供付费内容。
+                </div>
+              </div>
+              <div class="d-flex align-items-center" style="flex: 0 0 auto;">
+                <button v-preventreclick @click="showNewTierModalV" type="button" class="btn-file-upload bgPrimary">
+                  <div class="btn-file-upload-wrp">
+                    <i class="bi bi-plus-lg"></i><span class="d-none-sm ms-2">新建套餐</span></div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <div v-for="(oasisTier, index)  in tiers" class="authed-link">
+            <div class="authed-link-header">
+              <div 
+                 :class="{'status-color-gray': oasisTier.status=='1','status-color-red': oasisTier.status=='3','status-color-green': oasisTier.status=='2'}" 
+                 style="font-size: 18px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 13l3 6.5l3-6.5m3.5 0v6.5m4-2.225h1.48c.651 0 1.277-.275 1.721-.75a2.34 2.34 0 0 0 .215-2.932a1.4 1.4 0 0 0-1.14-.593H20.5zm0 0V19.5M5 7h22a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2"/></svg>
+              </div>
+              <div class="link-info">
+                <h4 style="margin-bottom: unset;">{{oasisTier.tierName}}</h4>
+              </div>
+              <button v-preventreclick @click="showRoleResourceModalV(oasisTier.subscribeRoleId)" class="btn-option-secondary me-2">
+                <div class="btn-contents">
+                  会员权益
+                </div>
+              </button>
+              <div class="btn-more-container">
+                <div class="btn-group">
+                  <button type="button" class="btn-option-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="d-flex flex-row align-items-center">
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </div>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li v-if="oasisTier.status!='2'"><a v-preventreclick @click="onlineTierV(oasisTier.tierId)" class="dropdown-item">上架售卖</a></li>
+                    <li v-if="oasisTier.status=='2'"><a v-preventreclick @click="offlineTierV(oasisTier.tierId)" class="dropdown-item">下架套餐</a></li>
+                    <li v-if="index>0"><a v-preventreclick @click="changeTierSortV(oasisTier.tierId,'up')" class="dropdown-item">向上移动</a></li>
+                    <li v-if="(tiers.length -1) >index"><a v-preventreclick @click="changeTierSortV(oasisTier.tierId,'down')" class="dropdown-item">向下移动</a></li>
+                    <li><a v-preventreclick @click="showEditTierModalV(oasisTier)" class="dropdown-item">编辑套餐</a></li>
+                    <li v-if="oasisTier.status!='2'"><a v-preventreclick @click="deleteTierV(oasisTier.tierId)" class="dropdown-item">删除套餐</a></li>
+                  </ul>
+                </div>
+
+              </div>
+             
+            </div>
+
+            <div class="authed-link-body">
+              <div class="tier-core">
+                <h5>¥{{oasisTier.price}} / 月
+                  ⸱
+                  {{oasisTier.members}} 会员</h5>
+                <div class="authed-link-desc">{{oasisTier.tierDescription}}</div>
+              </div>
+              <div class="record-tier-thumbnail">
+                <img :src="adaptiveImageUriV(oasisTier.thumbnail)" alt="tier-thumbnail">
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div v-show="tiers.length==0 && init_finish" class="not-found-resource">
+            <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png"
+              alt="bluvarri-service-not-found">
+              <h4>未找到结果</h4>
+
+          </div>
+
+
+
+
+        </div>
+
+
+      </col-content>
+    </main>
+    <section class="modals">
+
+
+      <!-- new tier Modal start -->
+      <div class="modal-container">
+        <div class="modal define-product-modal" id="newTierModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-scrollable mobile-full-screen-modal">
+            <div class="modal-content">
+              <div class="modal-body">
+
+                <form class="row g-3" onsubmit="return false">
+
+                  <div class="col-12">
+                    <label for="newTier__tierName" class="form-label">套餐名称</label>
+                    <input tabindex="-1" id="newTier__tierName" v-model="newTier.tierName" maxlength="72"
+                      class="form-control  only-show-bottom mb-3" type="text" placeholder="比如，福卡内参" autocomplete="off">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newTier__productPrice" class="form-label">每月订阅费用</label>
+                    <input tabindex="-1" id="newTier__productPrice" v-model="newTier.price"
+                      @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" type="text"
+                      class="form-control  only-show-bottom  mb-3" autocomplete="off">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newTier__tierRole" class="form-label">订阅成功授权身份组</label>
+                    <model-select tabindex="-1" id="newTier__tierRole" class="mb-3" :options="roleOptions" placeholder=""
+                      v-model="roleSelectedItem">
+                    </model-select>
+                  </div>
+
+
+                  <div class="col-12">
+                    <label for="newTier__tierDescription" class="form-label">描述</label>
+                    <textarea id="newTier__tierDescription" v-model="newTier.tierDescription"
+                      placeholder="内容摘要或介绍" rows="8" maxlength="199"
+                      class="form-control  only-show-bottom"></textarea>
+                  </div>
+
+
+                  <div class="col-12">
+                    <div class="horizontal-line"></div>
+                  </div>
+
+
+                  <div class="membership-thumbnail-container">
+                    <div id="link-cover-preview-box" class="link-cover-box">
+                      <img v-show="!!newTier.tierThumbnailFileUrl" :src="newTier.tierThumbnailFileUrl">
+                    </div>
+                    <div class="title-col">
+                      <div class="help-text">图片建议使用至少 99x99 大小的图片。</div>
+                      <button type="button" class="btn-file-upload">
+                        <div class="btn-file-upload-wrp">上传配图<input id="file_thumbnail"
+                            @change="previewNewTierThumbnailV" class="file-input" type="file" tabindex="-1"
+                            multiple="" accept=".jpg,.jpeg,.png,.gif"
+                            style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;">
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+
+                </form>
+
+              </div>
+
+              <div class="modal-footer">
+
+                <button v-preventreclick @click="closeNewTierModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick @click="createTierV"
+                  :class="{'disabled': !validateNewTierFormV()}" 
+                  type="button" class="btn btn-primary fresh-ui-btn">添加</button>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- new tier Modal end -->
+
+      <!-- edit tier Modal start -->
+      <div class="modal-container">
+        <div class="modal define-product-modal" id="editTierModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-scrollable mobile-full-screen-modal">
+            <div class="modal-content">
+              <div class="modal-body">
+      
+                <form class="row g-3" onsubmit="return false">
+      
+                  <div class="col-12">
+                    <label for="editTier__tierName" class="form-label">套餐名称</label>
+                    <input tabindex="-1" id="editTier__tierName" v-model="editTier.tierName" maxlength="72"
+                      class="form-control  only-show-bottom mb-3" type="text" placeholder="比如，福卡内参" autocomplete="off">
+                  </div>
+      
+                  <div class="col-md-6">
+                    <label for="editTier__Price" class="form-label">每月订阅费用</label>
+                    <input tabindex="-1" id="editTier__Price" v-model="editTier.price"
+                      @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" type="text"
+                      class="form-control  only-show-bottom  mb-3" autocomplete="off">
+                  </div>
+      
+                  <div class="col-md-6">
+                    <label for="editTier__role" class="form-label">订阅成功授权身份组</label>
+                    <model-select tabindex="-1" id="editTier__role" class="mb-3" :options="roleOptions"
+                      placeholder="" v-model="roleSelectedItem">
+                    </model-select>
+                  </div>
+      
+      
+                  <div class="col-12">
+                    <label for="editTier__tierDescription" class="form-label">描述</label>
+                    <textarea id="editTier__tierDescription" v-model="editTier.tierDescription"
+                      placeholder="内容摘要或介绍" rows="8" maxlength="199"
+                      class="form-control  only-show-bottom"></textarea>
+                  </div>
+      
+      
+                  <div class="col-12">
+                    <div class="horizontal-line"></div>
+                  </div>
+      
+      
+                  <div class="membership-thumbnail-container">
+                    <div id="link-cover-preview-box" class="link-cover-box">
+                      <img v-show="!!editTier.tierThumbnailFileUrl" :src="adaptiveImageUriV(editTier.tierThumbnailFileUrl)">
+                    </div>
+                    <div class="title-col">
+                      <div class="help-text">图片建议使用至少 99x99 大小的图片。</div>
+                    
+                      <button :class="{'loading': btn_ctl.material_uploading}" type="button" class="btn-file-upload">
+                        <div class="btn-file-upload-wrp">替换配图 <input id="edit_file_thumbnail" @change="previewEditTierThumbnailV" tabindex="-1" class="file-input" type="file"  multiple="" accept=".jpg,.jpeg,.png,.gif" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+                        <div class="loading-content">
+                          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                          <span role="status">正在上传...</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+      
+      
+                </form>
+      
+              </div>
+      
+              <div class="modal-footer">
+      
+                <button v-preventreclick @click="closeEditTierModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+      
+                <button v-preventreclick 
+                 :class="{'disabled': !validateEditTierFormCanSaveV()}"
+                  @click="changeTierV" type="button"
+                  class="btn btn-primary fresh-ui-btn">提交</button>
+      
+              </div>
+      
+      
+      
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- edit tier Modal end -->
+
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="editOasisRoleResourceModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content text-color-dark">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">身份组频道访问权限配置</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <div style="padding-bottom: 16px; border-bottom: 1px solid #2f2f2f;">
+                <div class="tb-search">
+                  <div class="tb-search-group">
+                    <i class="bi bi-search"></i>
+                    <input @keyup.enter.native="searchRoleResourceV" v-model="configRoleChannelModalObj.q" type="search" class="input_search"
+                      placeholder="搜索频道..." autocomplete="off">
+                  </div>
+                </div>
+              </div>
+
+              <form class="channels-container">
+
+                <div v-for="channel in configRoleChannelModalObj.channels" class="channelRow roleRow">
+                  <div class="channelInfo__heading d-flex flex-row justify-content-between">
+                    <div>{{channel.channelName}}</div>
+                    <div class="form-check form-switch form-switch-ui">
+                      <input @change="configPermissionV(channel)" true-value="1" false-value="0"
+                        v-model="channel.assigned" class="form-check-input" type="checkbox" role="switch">
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </micro-app>
+
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/oasis/javascripts/setting-membership.js"></script>
+
+
+
+</body>
+
+</html>

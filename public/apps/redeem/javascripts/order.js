@@ -10,6 +10,7 @@ import { CodeExplainComponent } from "/common/javascripts/compoent/code-explain-
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
+import { renderDateInChina,renderDateToDayInChina } from "/common/javascripts/util.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
@@ -197,6 +198,12 @@ const RootComponent = {
           customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
       });
     },
+    renderDateInChinaV(dateStr){
+        return renderDateInChina(dateStr);
+    },
+    renderDateToDayInChinaV(dateStr){
+        return renderDateToDayInChina(dateStr);
+    }
   }
 }
 

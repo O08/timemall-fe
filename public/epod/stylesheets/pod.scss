@@ -170,6 +170,10 @@ header{
 .sidebar .nav-link i{
  font-size: 18px;
 }
+.sidebar .nav-link svg{
+  width: 18px;
+  height: 18px;
+}
 .pagination {
     --bs-pagination-color: #95979d;
     --bs-pagination-bg: lighten(#393838, 5%);

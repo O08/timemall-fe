@@ -27,6 +27,10 @@ const RootComponent = {
                 billId: "",
                 term: ""
             },
+            oasisMembershipOrderRefundObj: {
+                orderId: "",
+                term: ""
+            },
             offlineVirtualProductId: "",
             freezeUserId: "",
             blockOasisId: "",
@@ -239,6 +243,26 @@ const RootComponent = {
             }
           });
         },
+        showOasisMembershipRefundModalV() {
+            this.oasisMembershipOrderRefundObj.orderId="";
+            this.oasisMembershipOrderRefundObj.term="";
+
+            $("#oasisMembersipRefundModal").modal("show"); // show modal
+        },
+        oasisMembersipRefundV(){
+            oasisMembersipRefund(this.oasisMembershipOrderRefundObj).then(response=>{
+                if(response.data.code == 200){
+                    customAlert.alert("订单已退款！");
+
+                   $("#oasisMembersipRefundModal").modal("hide");
+        
+                }
+                if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    customAlert.alert(error); 
+                }
+            });
+        },
     }
 }
 
@@ -304,6 +328,13 @@ async function doCloseCommercialPaper(id){
     const url = "/api/v1/team/dsp_case/action/mps/paper/{id}/close".replace("{id}",id);
     return await axios.put(url,{});
 }
+async function doOasisMembershipRefund(dto){
+    const url="/api/v1/team/membership/open_order/refund";
+    return await axios.post(url,dto);
+}  
+async function oasisMembersipRefund(dto){
+    return await doOasisMembershipRefund(dto);
+ }
 async function closeCommercialPaper(id){
     return doCloseCommercialPaper(id);
 }

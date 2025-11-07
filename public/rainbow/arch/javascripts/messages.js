@@ -14,7 +14,7 @@ import StemChatCompoent from "/rainbow/arch/javascripts/StemChatCompoent.js";
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 
 
-const currentFreiend = window.location.pathname.split('/').pop();
+const currentFreiend = (window.location.pathname.split('/').pop()=='messages') ? '' : window.location.pathname.split('/').pop();
 
 const RootComponent = {
     data() {

@@ -8,12 +8,12 @@
   <meta http-equiv='content-language' content='zh-cn'>
 
   <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-  <title>兑换记录 - E-Pod</title>
+  <title>部落会员 - E-Pod</title>
   <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
   <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
-  <link rel="stylesheet" href="/epod/stylesheets/pod-redeem.scss">
+  <link rel="stylesheet" href="/epod/stylesheets/pod-oasis-membership-order.scss">
 
 
 </head>
@@ -220,13 +220,13 @@
                 </div>
                 <span>付费订阅</span>
               </a>
-              <a class="nav-link" href="/epod/pod-oasis-membership-order">
+              <a class="nav-link active" href="/epod/pod-oasis-membership-order">
                 <div class="nav-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" d="m4 6l4 4.5L12 6m-4 7.5l6.5-7l-3.5-4H5l-3.5 4z" stroke-width="1"/></svg>
                 </div>
                 <span>部落会员</span>
               </a>
-              <a class="nav-link active" href="/epod/pod-redeem">
+              <a class="nav-link" href="/epod/pod-redeem">
                 <div class="nav-icon">
                    <i class="bi bi-box2-heart"></i>
                 </div>
@@ -253,7 +253,7 @@
         <div class="main-content-container full">
 
           <div class="page-title mb-5">
-            <h1>兑换记录</h1>
+            <h1>会员订单</h1>
           </div>
 
 
@@ -282,11 +282,12 @@
 
                 <ul class="dropdown-menu">
 
+
                   <li>
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag1">
-                          已支付
+                          {{explainMembershipOrderStatusV('1')}}
                         </label>
                         <input id="filteTag1" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
                           value="1" class="form-check-input" name="filteTag" type="radio">
@@ -297,7 +298,7 @@
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag2">
-                          交付中
+                          {{explainMembershipOrderStatusV('2')}}
                         </label>
                         <input id="filteTag2" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
                           value="2" class="form-check-input" name="filteTag" type="radio">
@@ -307,33 +308,33 @@
                   <li>
                     <a class="dropdown-item">
                       <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag3">
-                          已关单
-                        </label>
-                        <input id="filteTag3" @change="filterOrderListV"   v-model="orderList_pagination.param.status"
-                          value="3" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag4">
-                          已取消
-                        </label>
-                        <input id="filteTag4" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
-                          value="4" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
                         <label class="form-check-label" for="filteTag5">
-                          已退款
+                          {{explainMembershipOrderStatusV('5')}}
                         </label>
                         <input id="filteTag5" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
                           value="5" class="form-check-input" name="filteTag" type="radio">
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteTag7">
+                          {{explainMembershipOrderStatusV('7')}}
+                        </label>
+                        <input id="filteTag7" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
+                          value="7" class="form-check-input" name="filteTag" type="radio">
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item">
+                      <div class="form-check form-check-reverse">
+                        <label class="form-check-label" for="filteTag8">
+                          {{explainMembershipOrderStatusV('8')}}
+                        </label>
+                        <input id="filteTag8" @change="filterOrderListV"  v-model="orderList_pagination.param.status"
+                          value="8" class="form-check-input" name="filteTag" type="radio">
                       </div>
                     </a>
                   </li>
@@ -362,20 +363,23 @@
                 <table class="table table-sm table-hover align-middle">
                   <thead>
                     <th class="col-option"></th>
-                    <th class="col-product">商品</th>
-                    <th class="col-quantity">数量</th>
-                    <th class="col-shipping">发货方式</th>
-                    <th class="col-person">收货人</th>
-                    <th class="col-address">收货地址</th>
-                    <th class="col-email">收货邮箱</th>
+                    <th class="col-orderNo">订单号</th>
+                    <th class="col-tier">会员</th>
+                    <th class="col-total">金额</th>
+                    <th class="col-brand text-center">商家</th>
+                    <th class="col-type">卡种</th>
                     <th class="col-status">状态</th>
+                    <th class="col-time">订单时间</th>
+
                   </thead>
                   <tbody>
                     <tr v-for="order in orderList_pagination.records">
                       <td>
                         <div class="d-flex align-items-center">
-                          <span @click="showOrderDetailModalV(order.orderId)" class="btn-option-secondary">
-                            货品信息
+                          <span  class="btn-option-secondary">
+                            <a  :href="'/messages/' + order.sellerUserId">
+                              联系商家
+                            </a>
                           </span>
                           <span  class="option-edit ms-3" class="btn-option-secondary">
                             <div class="dropdown">
@@ -384,8 +388,8 @@
                               </a>
                             
                               <ul class="dropdown-menu">
-                                <li ><a class="dropdown-item" v-preventreclick  @click="showEditShippingInfoModalV(order)">收货设置</a></li>
-                                <li ><a class="dropdown-item" v-preventreclick  @click="showProductInfoModalV(order.productId)">商品详情</a></li>
+                                <li ><a class="dropdown-item" :href="'/rainbow/oasis/home?oasis_id='+order.oasisId">前往部落</a></li>
+                                <li ><a class="dropdown-item" :href="'/rainbow/oasis/membership?oasis_id='+order.oasisId">再次购买</a></li>
                                 <li><a class="dropdown-item" v-preventreclick  @click="showOasisReportModalV(order.orderId)">举报投诉</a></li>
                               </ul>
                             </div>
@@ -395,22 +399,25 @@
                       </td>
          
                       <td>
-                        <div class="tb-product-info">
-                          <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail">
-                          <div class="productInfo__name">
-                            <span v-if="order.refunded=='1'" class="blue-light">退款成功</span>
-                            <span style="word-break: break-all;">
-                              {{order.productName}}
-                            </span>
-                          </div>
-                        </div>
+                        <span style="word-break: break-all;">
+                          {{order.orderNo}}
+                        </span>
                       </td>
-                      <td>{{order.quantity}}</td>
-                      <td>{{explainAppRedeemShippingTypeV(order.shippingType)}}</td>
-                      <td><span style="word-break: break-all;">{{order.consignee}}</span></td>
-                      <td><span style="word-break: break-all;">{{order.shippingAddress}}</span></td>
-                      <td><span style="word-break: break-all;">{{order.shippingEmail}}</span></td>
-                      <td>{{explainAppRedeemOrderStatusV(order.status)}}</td>
+                      <td>
+                        <span style="word-break: break-all;">
+                          {{order.tierName}}
+                        </span>
+                      </td>
+                      <td>{{order.total}}</td>
+                      <td :title="order.sellerBrandName" class="text-center"><a class="dropdown-item"
+                        :href="'/messages/' + order.sellerUserId"><img
+                          :src="adaptiveImageUriV(order.sellerAvatar) || defaultAvatarImage"
+                          class="peacemaker-avatar"></a>
+                      </td>
+                      <td><span style="word-break: break-all;">{{order.cardType=='monthly'? '月卡': '年卡'}}</span></td>
+                      <td>{{explainMembershipOrderStatusV(order.status)}}</td>
+                      <td><span style="word-break: break-all;">{{order.createAt.replace(new RegExp('-', 'g'), '/')}}</span></td>
+
                         
                     </tr>
                   </tbody>
@@ -455,254 +462,63 @@
 
     <section class="modals">
 
+      <!-- report Modal -->
       <div class="modal-container">
-        <!-- Modal -->
-        <div class="modal fade" id="editShippingInfoModal" data-bs-backdrop="static" tabindex="-1">
+
+        <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title fs-5">更新收货信息</h1>
+                <h1 class="modal-title fs-5">举报投诉</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center">
                 <form class="w-100">
-      
-                  <input id="input_consignee" v-model="shippingObj.consignee" maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货人">
-                  <input id="input_shipping_email" v-model="shippingObj.shippingEmail"  maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货邮箱">
-                  <input id="input_shipping_address" v-model="shippingObj.shippingAddress" maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货地址">
-
-      
-                </form>
-      
-              </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button :class="{'disabled': !validateEditShippingInfoFormAlereadyChangeV() }"  v-preventreclick  type="button"  @click="changeShippingInfoV"
-                  class="btn btn-primary">更新</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- product info modal start -->
-      <div class="modal-container">
-        
-        <div class="modal fade" id="productInfoModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog modal-dialog-top-right modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">商品卡</h1>
-                <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="product-info-box">
-
-                  <div class="product-general">
-                    <div class="product-thumbnail">
-                      <img  :src="adaptiveImageUriV(productProfile.thumbnail)">
-                    </div>
-                    <div class="product-core">
-                      <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{productProfile.price}}</span></div>
-
-                      <div style="font-weight: 500; word-break: break-all;">{{productProfile.productName}}</div>
-                    </div>
-
-                  </div>
-                  <div class="product-shipping_term product-section">
-                    <div class="setction-title">权益须知</div>
-                    <div class="shipping_term-content">
-                      <div class="ql-editor" v-html="productProfile.shippingTerm">
-
-                      </div>
-                    </div>
-  
-                  </div>
-                  <div class="product-reminder_term product-section">
-                    <div class="setction-title">温馨提示</div>
-                    <div class="shipping_term-content" style="word-break: break-all; white-space: pre-wrap; font-size: 14px;">
-                     {{productProfile.warmReminder}}
-                    </div>
-  
-                  </div>
-
-                  <div class="product-extra product-section">
-                    <div class="product-extra-pair">
-                      <div class="pair-key">品类</div>
-                      <div class="pair-value">{{productProfile.genreName}}</div>
-                    </div>
-                    <div class="product-extra-pair">
-                      <div class="pair-key">发货方式</div>
-                      <div class="pair-value">{{explainAppRedeemShippingTypeV(productProfile.shippingType)}}</div>
-                    </div>
-                    
-
-                    <div class="product-extra-pair">
-                      <div class="pair-key">开售日期</div>
-                      <div class="pair-value">{{renderDateToDayInChinaV(productProfile.releaseAt)}}</div>
-                    </div>
-
-                    <div class="product-extra-pair">
-                      <div class="pair-key">首批发货时间</div>
-                      <div class="pair-value">{{renderDateToDayInChinaV(productProfile.estimatedDeliveryAt)}}</div>
-                    </div>
-  
-                  </div>
-
-                </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- product info modal end -->
-
-      <!-- order detail modal start -->
-      <div class="modal-container">
-        
-        <div class="modal fade" id="orderDetailModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog modal-dialog-top-right modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <div class="w-100">
-                  <div class="d-flex">
-                    <h1 class="modal-title fs-5">订单#{{orderDetail.orderNo}}</h1>
-                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="small-info">
-                    <span class="order-status">{{explainAppRedeemOrderStatusV(orderDetail.status)}}</span>
-                    <span class="ms-2">{{renderDateInChinaV(orderDetail.createAt)}}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="buyer-info">
-                  <div class="buyer-avatar">
-                    <img :src="adaptiveImageUriV(orderDetail.sellerAvatar) || defaultAvatarImage">
-                  </div>
-                  <div class="buyer-name mt-2">{{orderDetail.sellerName}}</div>
-                  <div class="buyer-contact-info">
-
-                    <a :href="'/messages/'+orderDetail.sellerUserId">
-                      <div class="contact-item btn-cta-primary">
-                        联系商家
-                      </div>
-                    </a>
-           
-                  
-
-                  </div>
-                </div>
-                <div class="product-info">
-            
-                  <div class="product-core">
-                    <div class="product-thumbnail">
-                      <img :src="adaptiveImageUriV(orderDetail.productThumbnail)">
-                    </div>
-
-                   
-                    <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.productPrice}}</span></div>
-
-                    <div style="font-weight: 500; word-break: break-all;">{{orderDetail.productName}}</div>
-
-                  </div>
-                </div>
-                <div v-if="!orderDetail.deliveryNote" class="product-info">
-                  <div>未找到货品数据，请咨询商家</div>
-                </div>
-                <div v-if="!!orderDetail.deliveryNote" class="product-info">
-                  <div style="word-break: break-all;white-space: pre-wrap; ">{{orderDetail.deliveryNote}}</div>
-                </div>
-                <div v-if="!!orderDetail.deliveryMaterial" class="product-info">
-                  <div  class="material-item">
-                    <span style="display: contents;">
-                      <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">交付文件</span>
-                    </span>
-                    <a target="_blank" class="download" :download="orderDetail.orderNo + '-' + orderDetail.productName+ '-兑换订单交付资料'" :href="orderDetail.deliveryMaterial"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-
-                  </div>
-                </div>
-                <div class="total-info">
-                  <div class="d-flex justify-content-between">
-                    <span>购买数量</span>
-                    <span>{{orderDetail.quantity}}</span>
-                  </div>
-                </div>
-                <div class="total-info" style="border: none;">
-                  <div class="d-flex justify-content-between">
-                    <span>合计：</span>
-                    <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.total}}</span></div>
-
-                  </div>
-                </div>
-
-      
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- order detail modal end -->
-
-        <!-- report Modal -->
-        <div class="modal-container">
-
-          <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5">举报投诉</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <form class="w-100">
-                    <div class="pt-3">
-                      <ul class="list-group">
-                        <li v-for="report in reportOptions" class="list-group-item">
-                          <div class="form-check">
-                            <input class="form-check-input" v-bind:value="report.itemCode"
-                              v-model="reportForm.fraudType" type="radio" name="reportList">
-                            <label class="form-check-label" for="reportList">
-                              {{report.item}}
-                            </label>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="py-3">
-                      <div class="label-color field-label">详细描述（必填）</div>
-                      <div class="inputWrapper">
-                        <div class="inputMaxLength">
-                          <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~"
-                            maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault"
-                            style="padding-right: 38.92px; height: 150px;"></textarea>
-                          <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 :
-                            200-reportForm.caseDesc.length}}</div>
+                  <div class="pt-3">
+                    <ul class="list-group">
+                      <li v-for="report in reportOptions" class="list-group-item">
+                        <div class="form-check">
+                          <input class="form-check-input" v-bind:value="report.itemCode"
+                            v-model="reportForm.fraudType" type="radio" name="reportList">
+                          <label class="form-check-label" for="reportList">
+                            {{report.item}}
+                          </label>
                         </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="py-3">
+                    <div class="label-color field-label">详细描述（必填）</div>
+                    <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                        <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~"
+                          maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault"
+                          style="padding-right: 38.92px; height: 150px;"></textarea>
+                        <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 :
+                          200-reportForm.caseDesc.length}}</div>
                       </div>
-                      <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
-
-                      <input style="font-size: 12px;" id="caseMaterialFile" class="form-control mb-3" type="file"
-                        placeholder="选择举报材料">
-
                     </div>
+                    <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
 
-                  </form>
+                    <input style="font-size: 12px;" id="caseMaterialFile" class="form-control mb-3" type="file"
+                      placeholder="选择举报材料">
 
-                </div>
-                <div class="modal-footer btn-light">
-                  <button :class="{'disabled': !validateReportFormV(), 
-                  'btn-primary': validateReportFormV() ,
-                  'btn-secondary': !validateReportFormV()  }" v-preventreclick @click="newReportCaseV" type="button"
-                    class="btn">提交</button>
-                </div>
+                  </div>
+
+                </form>
+
+              </div>
+              <div class="modal-footer btn-light">
+                <button :class="{'disabled': !validateReportFormV(), 
+                'btn-primary': validateReportFormV() ,
+                'btn-secondary': !validateReportFormV()  }" v-preventreclick @click="newReportCaseV" type="button"
+                  class="btn">提交</button>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
     </section>
 
@@ -745,7 +561,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/epod/javascripts/pod-redeem.js"></script>
+  <script type="module" src="/epod/javascripts/pod-oasis-membership-order.js"></script>
 
 
 

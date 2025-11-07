@@ -43,10 +43,13 @@ tbody tr {
     font-size: 14px;
     font-weight: bold;
 }
-.btn-refresh{
+.btn-refresh,.btn-refresh:focus,.btn-refresh:active{
     background-color: unset;
     color: #fff;
+    box-shadow: none;
+    outline: 0;
+    border: none;
 }
-.btn-refresh:hover{
+.btn-refresh:hover,.btn-refresh:focus,.btn-refresh:active{
     color: cornflowerblue;
 }

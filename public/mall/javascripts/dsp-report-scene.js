@@ -13,7 +13,8 @@ var DspReportSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "cell_plan_order",  // cell plan order 
     "VIRTUAL_ORDER": "virtual_order",
     "APP_REDEEM_ORDER": "redeem",
-    "SUBSCRIPTION": "subscription"
+    "SUBSCRIPTION": "subscription",
+    "OASIS_MEMBERSHIP": "oasis_membership",
 }); 
 
 const RootComponent = {
@@ -47,7 +48,10 @@ function explainScene(scene){
             break; 
         case DspReportSceneEnum.APP_REDEEM_ORDER:
             sceneDesc="兑换订单";
-            break;     
+            break;   
+        case DspReportSceneEnum.OASIS_MEMBERSHIP:
+            sceneDesc="部落会员";
+            break;        
     }
     return sceneDesc;
 }

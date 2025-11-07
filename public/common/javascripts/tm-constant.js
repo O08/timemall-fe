@@ -240,8 +240,20 @@ var AppRedeemShippingTypeEnum = Object.freeze({
     "OTHERS": "others"// 其他方式
 });
 
+var OrderStatusEnum=Object.freeze({
+    "CREATING": "0",  // 订单创建中
+    "CREATED": "1",  // 已创建订单 
+    "PAID": "2",  // 已支付
+    "SHIPPED": "3",  // 已发货 
+    "COMPLETED": "4",  // 订单履约完成 
+    "CANCELLED": "5",  // 取消订单
+    "FAIL": "6",  //  失败 
+    "INVALID": "7" , // 失效
+    "REFUNDED": "8" // 已退款
+}); 
+
 export {
-    SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,
+    SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,

@@ -1,4 +1,4 @@
-import {ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -47,6 +47,9 @@ const CodeExplainComponent = {
     },
     explainProductStausV(status){
         return explainProductStaus(status);
+    },
+    explainMembershipOrderStatusV(status){
+        return explainMembershipOrderStatus(status);
     }
    }
 }
@@ -227,6 +230,42 @@ function explainCellPlanOrderTag(tag){
     }
     return orderTagDesc;
 }
+
+
+function explainMembershipOrderStatus(status){
+    var statusDesc="未知";
+    switch(status){
+        case OrderStatusEnum.CREATING:
+            statusDesc="订单创建中";
+            break; 
+        case OrderStatusEnum.CREATED:
+            statusDesc="已创建订单";
+                break; 
+        case OrderStatusEnum.PAID:
+            statusDesc="支付成功";
+                break; 
+        case OrderStatusEnum.SHIPPED:
+            statusDesc="已发货";
+                break; 
+        case OrderStatusEnum.COMPLETED:
+            statusDesc="履约完成";
+                break;  
+        case OrderStatusEnum.CANCELLED:
+            statusDesc="已取消";
+            break; 
+        case OrderStatusEnum.FAIL:
+            statusDesc="失败";
+                break; 
+        case OrderStatusEnum.INVALID:
+            statusDesc="失效";
+                break; 
+        case OrderStatusEnum.REFUNDED:
+            statusDesc="已退款";
+                break;         
+    }
+    return statusDesc;
+}
+
 function explainOasisCommissionTag(tag){
     var desc="";
     switch(tag){

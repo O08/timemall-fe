@@ -66,6 +66,14 @@ const OasisOptionCtlComponent = {
       </button>
 
       <ul class="dropdown-menu">
+
+        <li>
+          <a  class="dropdown-item"  :href="'/rainbow/oasis/membership?oasis_id='+oasisId">
+            <button type="button" class="btn  oasis-option">
+            <i class="bi bi-cart me-1"></i> 订阅会员
+            </button>
+          </a>
+        </li>
         
       <li><a class="dropdown-item">
       <button @click="showSponsorModalV" v-preventreclick   type="button" class="btn  oasis-option">

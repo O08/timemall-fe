@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>会员订阅</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/teixcalaanli.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/oasis.scss">
+    <link rel="stylesheet" href="/rainbow/arch/stylesheets/teixcalaanli-arch.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/transparent.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/membership-order.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/oasis-action-compoent.scss">
+    <link rel="stylesheet" href="/rainbow/oasis/stylesheets/fast-link-container.scss">
+</head>
+<body>
+  <micro-app  id="app" v-cloak>
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <div class="sidebarContainer d-flex flex-row">
+          <col-nav-main>
+            <div class="nav-container-wrapper">
+              <a href="/rainbow/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落"> 
+                <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
+                  <i class="bi bi-rainbow"></i>
+                </div>
+              </a>
+              <a href="/messages" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
+                <div class="nav-private nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2">
+                  <i class="bi bi-soundwave"></i>             
+                </div>
+              </a>
+              <a :key="oasis.id" v-for="oasis in joinedoases.records"  :href="'/rainbow/oasis/home?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+                <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
+                    :class="{'active': oasis.id==oasisId}">
+                  <div class="oasis-avatar-wrapper">
+                    <img class="oasis-avatar-tiny" 
+                  :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
+                  </div>
+                </div>
+              </a>
+
+            </div>
+            
+            <div class="nav-setting">
+              <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end ms-5">
+                    <li>
+                      <a href="/estudio/studio-setting-profile">
+                        <button class="dropdown-item" type="button">
+                          <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                        </button>
+                      </a>
+                    </li>
+                    <li>
+                        <button @click="logout()" class="dropdown-item" type="button">   
+                          <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+                        </button>
+                    </li>
+                    <li>
+                      <a href="/mall/delete-account">
+                        <button class="dropdown-item" type="button">
+                          <i class="bi bi-trash3 me-1"></i> 删除账号
+                        </button>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                        <i class="bi bi-flag me-1"></i> 问题反馈
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+      
+              </div>
+            </div>
+          </col-nav-main>
+          <col-nav-sub>
+            <div>
+              <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce"  :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
+            </div>
+            <div class="nav-sub-container">
+              <div>
+                <div>
+                  <fastlinks  :links="fastlinks"/>
+                </div>
+
+                <a  class="nav-link nav-sub-link-active p-2 ms-3 d-flex flex-row align-items-center">
+                  <i class="bi bi-house"></i>
+                    
+              
+                  <span>主页</span>  
+                </a>
+                <a class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/rainbow/arch/channel-0001?oasis_id='+ oasisId">
+                  <i class="bi bi-fan"></i>
+                  <span class="link-title">日常</span>   
+                </a>
+                <div v-for="channel in channelSort" 
+                  :class="{'channel-active': currentOch==channel}"
+                  class="w-100 position-relative sub-channel-box">
+                  <a  
+                  :class="{
+                    'nva-link-default': currentOch!=channel,
+                    'nav-sub-link-active ':  currentOch==channel}"
+                      class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/rainbow/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
+                
+                    <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
+                    <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
+
+                  </a>
+                  <div :class="{'isAdmin': initiatorRoleV()}" class="channel-options">
+                    <div class="channel-options-ctl">
+                        <a  :href="getChannelDataV(channel,oaisiChannelList).appAdminUrl + '?och=' + channel" class="option-channel-setting">
+                            <button type="button" class="btn  btn-secondary"><i class="bi bi-gear"></i></button>
+                        </a>
+                    </div>
+                  </div>
+                </div>
+
+              
+              </div>
+              
+              
+            </div>
+          </col-nav-sub>
+        </div>
+      </div>
+      <col-content>
+        <div class="hero-container">
+          <div class="hero-info d-flex flex-row align-items-baseline">
+              <div>
+                <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+              </div>
+            <div class="ms-4">
+              <h2>{{announce.title}}</h2>
+              <p>{{announce.subTitle}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="nav-oasis-container">
+          <div class="d-flex justify-content-between">
+            <ul class="nav border-0 h-75">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/rainbow/oasis/home?oasis_id='+oasisId">公告</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/rainbow/oasis/commission?oasis_id='+oasisId">委托</a>
+              </li>
+              <li class="nav-item active" role="presentation">
+                <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId">数据</a>
+              </li>
+            </ul>
+            <div class="toggle-nav me-3 ">
+              <div class="d-flex align-items-center h-100 " >
+                <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+
+        <div class="insight-container ">
+
+          <div class="mt-2 mx-3 d-flex ">
+
+            <div class="insight-menu">
+
+              <div class="transparent-category">
+                <ul>
+
+                  <li>
+                    <a :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId" class="text-decoration-none">
+                      <div class="transparent-category-item help-text-color"><i class="bi bi-bar-chart me-1"></i> 部落概况</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a :href="'/rainbow/oasis/transparent?oasis_id='+oasisId" class="text-decoration-none">
+                      <div class="transparent-category-item help-text-color"><i class="bi  bi-heart-pulse me-1"></i> 活跃成员</div>
+                    </a>
+                  </li>
+                  <li>
+                    <a :href="'/rainbow/oasis/membership-order?oasis_id='+oasisId" class="text-decoration-none text-white">
+                      <div class="transparent-category-item active"><i class="bi  bi-file-text me-1"></i> 会员订阅</div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div class="menu-content">
+
+              <div class="small-device-menu">
+                <button class="btn  dropdown-toggle small-device-menu-trigger me-1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="contents"><i class="bi bi-file-text"></i> 会员订阅</div>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId" class="dropdown-item">
+                      <i class="bi bi-bar-chart ms-4"></i> 部落概况
+                    </a>
+                  </li>
+                  <li>
+                    <a :href="'/rainbow/oasis/transparent?oasis_id='+oasisId" class="dropdown-item">
+                      <i class="bi bi-heart-pulse ms-4"></i> 活跃成员
+                    </a>
+                  </li>
+                  <li>
+                    <a :href="'/rainbow/oasis/membership-order?oasis_id='+oasisId" class="dropdown-item">
+                      <i class="bi bi-check-lg me-1"></i>   <i class="bi bi-file-text"></i> 会员订阅
+                    </a>
+                  </li>
+                </ul>
+
+              </div>
+
+
+
+              <section class="section-member-grid">
+                <div  class="result-box">
+
+                  <div style="margin-bottom: 16px;">
+                    <div class="tb-search">
+                      <div class="tb-search-group">
+                        <i class="bi bi-search"></i>
+                        <input @keyup.enter.native="loadOrdersV" v-model="q" type="search" class="input_search" placeholder="搜索订单..." autocomplete="off">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="member-result-container">
+
+
+                    <div v-for="record in order.records"  class="member-card-container" v-preventreclick  @click="showOrderDetailModalV(record.orderId)">
+
+                      <div class="member-avatar-box">
+                        <div class="member-avatar">
+                          <img  :src="adaptiveImageUriV(record.buyerAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                        </div>
+                      </div>
+                      <div class="member-info">
+
+                        <div class="member-title ellipsis-1">
+                          {{record.buyerName}}
+                        </div>
+
+                        <div class="meta">
+                          <div class="small-info">
+                            <span class="modal-release-reminder"> {{record.cardType=='monthly'? '月卡': '年卡'}} </span>
+                            <span class="order-status ms-2">{{explainMembershipOrderStatusV(record.status)}}</span>
+                          </div>
+                        </div>
+                      
+                        <div class="member-intro ellipsis-2">
+                          {{record.tierName}}
+                        </div>
+                        <div class="price-wrapper">
+                          <span class="price-unit">¥</span>
+                          <span class="price-value">{{record.total}}</span>
+                        </div>
+                      
+                      </div>
+                
+                    </div>
+                  </div>
+
+                  <div v-if="!order || !order.records || order.records.length==0" class="not-found-resource">
+                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                    <h4>没找到相关数据</h4>
+                  </div>
+
+                </div>
+              </section>
+
+            </div>
+
+          </div>
+
+        </div>
+      </col-content>
+    </main>
+
+    <section class="modals">
+
+      <!--  refund  modal start -->
+      <div class="modal-container">
+        <div class="modal fade fresh-ui" id="orderRefundModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title">订单退款</h1>
+                <button @click="closeRefundModalV" type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center border-0">
+                <form class="w-100" onsubmit="return false">
+
+                  <div class="mt-3">
+                    <label for="input_refund_term" class="form-label">填写“我支持退款”进行退款授权</label>
+                    <input id="input_refund_term" v-model="refundObj.term"  maxlength="5" type="text" class="form-control" placeholder="我支持退款">
+                  </div> 
+                  <button 
+                  :class="{'disabled': !refundObj.term}"
+                  type="submit" v-preventreclick @click="refundV" class="btn btn-primary mt-5 w-100">提交</button>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- refund end -->
+
+        <!-- order detail modal start -->
+      <div class="modal-container">
+        
+        <div class="modal fade" id="orderDetailModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-top-right mobile-full-screen-modal modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header border-0">
+                <div class="w-100">
+                  <div class="d-flex mb-2">
+                    <h1 class="modal-title fs-5">订单-{{orderDetail.orderNo}}</h1>
+                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="small-info">
+                    <span class="modal-release-reminder"> {{orderDetail.cardType=='monthly'? '月卡': '年卡'}} </span>
+                    <span class="order-status ms-2">{{explainMembershipOrderStatusV(orderDetail.status)}}</span>
+                    <span class="ms-2">{{renderDateInChinaV(orderDetail.createAt)}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="buyer-info">
+                  <div class="buyer-avatar">
+                    <img :src="adaptiveImageUriV(orderDetail.sellerAvatar) || defaultAvatarImage">
+                  </div>
+                  <div class="buyer-name mt-2">{{orderDetail.buyerName}}</div>
+                  <div class="buyer-contact-info">
+
+                    <a target="_blank" :href="'/messages/'+orderDetail.sellerUserId"> 
+                      <div class="contact-item btn-cta-primary">
+                        联系商家
+                      </div>
+                    </a> 
+                    <a v-if="orderDetail.status=='2' && initiatorRoleV()"> 
+                      <div v-preventreclick @click="showRefundModalV(orderDetail)" class="contact-item btn-cta-primary">
+                        订单退款
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+                <div class="product-info">
+                  <div class="product-core">
+                    <div class="product-thumbnail">
+                      <img :src="adaptiveImageUriV(orderDetail.tierThumbnail)">
+                    </div>
+                    <div class="d-flex align-items-center" style="height: 48px">
+                      <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.total}}</span></div>
+                    </div>
+
+
+
+                    <div style="font-weight: 500; word-break: break-all;">{{orderDetail.tierName}}</div>
+
+                  </div>
+                </div>
+
+                <div class="product-info border-0">
+                  <div style="word-break: break-all; white-space: pre-wrap;">{{orderDetail.tierDescription}}</div>
+                </div>
+
+      
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- order detail modal end -->
+    </section>
+    
+    
+  </micro-app>
+  <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+        <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="feedback-form">
+          <div class="mt-3">
+            <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+            <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+          </div> 
+          <div class="mt-3">
+            <label class="form-label">附件图片(选填)</label>
+            <div class="feedback-attachment-upload-container dropzone-wrapper">
+              <img  id="lastestFeedbackAttachment" >
+              <div class="dropzone-desc">
+                <i class="bi bi-cloud-plus"></i>
+              </div>
+              <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+            </div>
+          </div>  
+          <div class="mt-3">
+            <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+            <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+          </div> 
+          <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+        </form>
+      </div>
+    </div>
+
+  </section>
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/javascripts/oasis/membership-order.js"></script>
+
+
+</body>
+</html>
