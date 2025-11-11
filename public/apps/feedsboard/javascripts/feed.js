@@ -41,12 +41,16 @@ const sandboxEnv= getQueryVariable("sandbox");
 const RootComponent = {
     data() {
       return {
+        btn_ctl: {
+          material_uploading: false
+        },
         sandbox: !sandboxEnv ? "0" : sandboxEnv,
         newFeedComment:{
           feedId: currentFeedId,
           content: "",
           safeMode: "0"
         },
+        attachmentsArr: [],
         commentArr: [],
         commentList_pagination: {
           url: "/api/open/v1/app/feed/comment/list",
@@ -104,6 +108,31 @@ const RootComponent = {
       }
     },
     methods: {
+      findFeedAttachmemtsV(){
+        findFeedAttachmemts(currentFeedId).then(response=>{
+          if(response.data.code == 200){
+
+            this.attachmentsArr=response.data.attachments;
+
+          }
+        })
+      },
+      uploadAttachmentV(e){
+        uploadAttachment(e,this);
+      },
+      deleteAttachmentV(id){
+        deleteAttachment(id).then(response=>{
+          if(response.data.code == 200){
+
+            this.findFeedAttachmemtsV();
+
+          }
+          if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error);
+          }
+        })
+      },
       previewFeedCoverV(e){
         previewFeedCover(e,this);
        },
@@ -310,6 +339,7 @@ const quill = new Quill('#editor', {
 feedPage.fetchFeedInfoV();
 feedPage.pageInit(feedPage.commentList_pagination);
 feedPage.fetchOasisRoleInfoV();
+feedPage.findFeedAttachmemtsV();
 
 async function fetchFeedInfo(feedId){
   const url="/api/open/v1/app/feed/{id}".replace("{id}",feedId);
@@ -383,6 +413,28 @@ async function doDeleteFeedComment(id){
 async function doFetchOasisRoleInfo(params){
   const url = "/api/open/app/oasis/role";
   return await axios.get(url,{params});
+}
+
+async function doFetchAttachments(feedId){
+  const url="/api/open/v1/app/feed/{id}/attachments".replace("{id}",feedId);
+  return await axios.get(url);
+}
+async function doUploadAttachment(file,feedId){
+  var fd = new FormData();
+  fd.append('feedId', feedId);
+  fd.append('attachment', file);
+  const url = "/api/v1/app/feed/attachment/add";
+  return await axios.post(url, fd);
+}
+async function doDeleteAttachment(id){
+  const url="/api/v1/app/feed/attachment/{id}/del".replace("{id}",id);
+  return await axios.delete(url);
+}
+async function deleteAttachment(id){
+  return await doDeleteAttachment(id);
+}
+async function findFeedAttachmemts(feedId){
+  return await doFetchAttachments(feedId);
 }
 async function removeFeedCover(){
   return await deleteFeedCover(currentFeedId);
@@ -532,3 +584,46 @@ container.onscroll = () => {
     feedPage.reloadPage(feedPage.commentList_pagination);
   }
 };
+
+
+function uploadAttachment(e, appObj) {
+  const file = e.target.files[0];
+  if (!file) {
+    return;
+  }
+
+
+  // validate image size <=6M
+  var size = parseFloat(file.size);
+  var maxSizeMB = 50; //Size in MB.
+  var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
+  if (size > maxSize) {
+    customAlert.alert("文件最大为50M!");
+    return false;
+  }
+
+  appObj.btn_ctl.material_uploading = true;
+
+  // upload product cover file
+  doUploadAttachment(file,currentFeedId).then(response => {
+
+    if (response.data.code == 200) {
+
+
+      appObj.findFeedAttachmemtsV();
+
+    }
+    if (response.data.code != 200) {
+      const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+      customAlert.alert(error);
+    }
+    appObj.btn_ctl.material_uploading = false;
+
+    var fileInputEl=document.getElementById("feed_attachment_file");
+    if(!!fileInputEl){
+      fileInputEl.value=null;
+    }
+
+  })
+
+}

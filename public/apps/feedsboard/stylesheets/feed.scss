@@ -726,7 +726,72 @@ div,button{
     white-space: pre-wrap;
     text-align: justify;
 }
+.attachments{
+    padding-bottom: 44px;
+}
+.btn-file-upload{
+    position: relative;
+}
+.attachments .attachment-card{
+    margin-bottom: 6px;
+    color: #ccc;
+}
+.attachment-info-wrp{
+    width: calc(100% - 24px);
+}
 
+.attachment-card{
+    display: flex;
+    gap: 8px;
+    padding: 4px 8px;
+    border-radius: 2px;
+}
+.attachment-card:hover{
+   background-color: #212529;
+}
+
+.attachment-info{
+    display: flex;
+
+}
+.attachment-name {
+  width: calc(100% - 46px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+.attachment-option{
+    display: flex;
+    gap: 12px;
+    width: 46px;
+    justify-content: flex-end;
+}
+.loading .btn-file-upload-wrp {
+    display: none;
+}
+
+.loading-content {
+    display: none;
+}
+
+.loading .loading-content {
+    display: block;
+}
+.attachment-option__cta{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.attachment-option__cta.trash:hover{
+    color: #dc3545;
+}
+.attachment-option__cta.download:hover{
+    color: #5865f2;
+}
 @media (max-width: 767px){
     .feed-cover-col{
       display: none;

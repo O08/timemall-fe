@@ -29,13 +29,15 @@ export default function Auth(params) {
         data() {
             return {
                 user_already_login: false,
-                defaultAvatarImage
+                defaultAvatarImage,
+                auth_init_finish: false
 
             }
         },
         methods: {
             userAdapter(){
                 var responese = Api.getUserInfo()
+                this.auth_init_finish=true;
                 if(responese.code == 200){
                    this.user_already_login = true;
                    setTidentity(responese.user);
@@ -58,11 +60,11 @@ export default function Auth(params) {
             },
             getIdentity(){
                 var userInfo=  getTidentity();
-                if(!userInfo){
+                if(!userInfo && !this.auth_init_finish){
                     this.userAdapter();
                     userInfo= getTidentity();
                 }
-                return userInfo;
+                return !userInfo ? {} : userInfo;
             },
             isEmptyObjV(obj){
                 return $.isEmptyObject(obj);
