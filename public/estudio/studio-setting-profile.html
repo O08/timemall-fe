@@ -359,9 +359,9 @@
                     
                   </div>
                 </p>
-
-                <p class="ip-location">品牌ID：<span class="white-box">{{ !getIdentity() ? "" : getIdentity().brandId }}</span> </p>
-                <p class="ip-location">ip 属地：<span class="white-box">{{ parseIpLocationCityInfoV(identity.location) }}</span> </p>
+                <p class="ip-location">UID: <span class="white-box">{{ !getIdentity() ? "" : getIdentity().userId }}</span></p>
+                <p class="ip-location">BID: <span class="white-box">{{ !getIdentity() ? "" : getIdentity().brandId }}</span></p>
+                <p class="ip-location">IP属地: <span class="white-box">{{ parseIpLocationCityInfoV(identity.location) }}</span></p>
               </div>
               <button type="submit" 
               :class="{'disabled': !activiateSaveBtnWhenGeneralChangeV() , 

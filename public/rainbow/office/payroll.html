@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>薪资发放</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/rainbow/office/stylesheets/office.scss">
+    <link rel="stylesheet" href="/rainbow/office/stylesheets/payroll.scss">
+
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head-box">
+              <div class="oasis-head">
+                <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+                  <img  class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                </a>
+                <div class="oasis-title-box">
+                  <div class="oasis-title">后勤中心</div>
+                </div>
+              </div>
+            </div>
+            <div class="list-group list-group-flush">
+              <a :href="'/rainbow/office/department?oasis_id='+oasisId" class="list-group-item">部门配置</a>
+              <a :href="'/rainbow/office/compensation?oasis_id='+oasisId" class="list-group-item">薪酬配置</a>
+              <a :href="'/rainbow/office/employee?oasis_id='+oasisId" class="list-group-item">员工档案</a>
+              <a :href="'/rainbow/office/payroll?oasis_id='+oasisId" class="list-group-item active">薪资发放</a>
+            </div>
+          </nav>
+       </col-nav-main>
+
+      </div>
+
+
+      <col-content>
+
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <div class="align-middle">
+                  <h2 class="my-0">后勤中心</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <div class="d-flex justify-content-center align-items-center">
+                <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content-container">
+
+          <div class="content-core-box">
+
+            <div class="dashboard-box">
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">员工人数</div>
+                    <div class="countValue">{{renderDashboard(dashboard.employees)}}</div>
+                  </div>
+                </div>
+              </div>
+
+
+  
+  
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">待发薪资</div>
+                    <div class="countValue">{{renderDashboard(dashboard.pendingPayments)}}</div>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">本月支出</div>
+                    <div class="countValue">{{renderDashboard(dashboard.monthlyExpense)}}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="redeem-stats-info">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">本月已发放人次</div>
+                    <div class="countValue">{{renderDashboard(dashboard.monthlyPayrolls)}}</div>
+                  </div>
+                </div>
+              </div>
+  
+     
+     
+            </div>
+  
+            <div class="order-list-box mt-4">
+  
+              <div class="order-filter">
+                <div class="search-widget">
+
+                  <div id="nav-searchform">
+                    <div class="nav-search-btn">
+                      <i class="bi bi-search"></i>
+                    </div>
+                    <div class="nav-search-content">
+                      <input v-model="payrollList_pagination.param.q" @keyup.enter.native="searchPayrollListV"   class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+                         placeholder="搜索" >
+                    </div>
+                  </div>
+
+                  <select v-model="payrollList_pagination.param.status" @change="filterPayrollListV" class="form-select">
+                    <option value="">全部状态</option>
+                    <option value="1">待打款</option>
+                    <option value="2">已支付</option>
+                  </select>
+
+                </div>
+
+  
+                <div class="right-pannel">
+               
+
+                  <div class="dropdown">
+                    <button class="btn-save dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <div class="btn-content d-flex align-items-center justify-content-center">
+                        发放薪资
+                      </div>
+  
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li v-preventreclick @click="showPayGeneralModalV"><a class="dropdown-item" href="#">批量发放</a></li>
+                      <li v-preventreclick @click="showPayOneModalV"><a class="dropdown-item" href="#">单个发放</a></li>
+                      <li v-preventreclick @click="showPayRetroactivelyModalV"><a class="dropdown-item" href="#">福利发放</a></li>
+                    </ul>
+                  </div>
+  
+
+                </div>
+            
+              </div>
+  
+              <div class="table-responsive">
+                <div class="table-wrp">
+                  <table class="table table-sm fresh-ui-table table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-option"></th>
+                        <th class="col-title">标题</th>
+                        <th class="col-employee">员工</th>
+                        <th class="col-department">部门</th>
+                        <th class="col-role">职能</th>
+                        <th class="col-status">员工状态</th>
+                        <th class="col-status">员工类型</th>
+                        <th class="col-quantity">应发薪资（元）</th>
+                        <th class="col-quantity">应扣薪资（元）</th>
+                        <th class="col-quantity">代扣代缴（元）</th>
+                        <th class="col-quantity">实发薪资（元）</th>
+                        <th class="col-status">状态</th>
+                        <th class="col-date">打款日期</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="payrollItem in payrollList_pagination.records">
+                        <td>
+                          <div class="d-flex align-items-center">
+                            <a :href="'/payroll/statement/'+payrollItem.id">
+                              <button   class="btn-option-secondary">
+                                查看
+                              </button>
+                            </a>
+                            <button  v-preventreclick @click="showDeletePayrollFocusModalV(payrollItem)"  
+                              :class="{'option-disabled': payrollItem.payrollStatus=='2'}"
+                              :disabled="payrollItem.payrollStatus=='2'"
+                              class="ms-3 btn-option-secondary">
+                              移除
+                            </button>
+                          </div>
+                   
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.title">{{payrollItem.title}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.employeeName">{{payrollItem.employeeName}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.department">{{payrollItem.department}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.role">{{payrollItem.role}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="explianEmployeeStatusV(payrollItem.employeeStatus)">{{explianEmployeeStatusV(payrollItem.employeeStatus)}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="explianEmployeeGenreV(payrollItem.employeeGenre)">{{explianEmployeeGenreV(payrollItem.employeeGenre)}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.grossPay">{{payrollItem.grossPay}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.deductions">{{payrollItem.deductions}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.withholdAndRemitTax">{{payrollItem.withholdAndRemitTax}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="payrollItem.netPay">{{payrollItem.netPay}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="explianPayrollStatusV(payrollItem.payrollStatus)">{{explianPayrollStatusV(payrollItem.payrollStatus)}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="renderTableDateV(payrollItem.paymentDate)">{{renderTableDateV(payrollItem.paymentDate)}}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <nav v-if="!!payrollList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(payrollList_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in payrollList_pagination.paging.items" :class="{'current-page-active': payrollList_pagination.paging.current == page}" 
+                            @click="pageGo(payrollList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(payrollList_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                  <div v-if="payrollList_pagination.records.length==0" class="not-found-resource"><img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found"><h4>未找到结果</h4></div>
+                </div>
+              </div>
+  
+            </div>
+
+          </div>
+
+        </div>
+      </col-content>
+    </main>
+    <section class="modals">
+
+
+      <div class="modal-container">
+        <div class="modal-container">
+          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center border-0 ">
+                  <h1 class="modal-title fs-5">操作提示</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0">
+                  <div class="product-feature">
+                    <p class="card-text">{{focusModal.message}}</p>
+                  </div>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 ">
+                  <button type="button" class="btn btn-secondary modal-btn-ui" data-bs-dismiss="modal">取消</button>
+                  <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary modal-btn-ui">继续</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- pay general employee Modal start -->
+      <div class="modal-container">
+        <div class="modal" id="payGeneralModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form class="row g-3" onsubmit="return false">
+
+                  <div class="mt-3">
+                    <label for="payGeneralObj__title" class="form-label">标题</label>
+                    <input id="payGeneralObj__title" v-model="batchGeneratePayrollObj.title" class="form-control" maxlength="32" type="text" placeholder="比如：2025年12月工资"
+                      autocomplete="off">
+                  </div>
+                  <div class="mt-3">
+                    <label for="payGeneralObj__status" class="form-label">职员状态</label>
+                    <select id="payGeneralObj__status" v-model="batchGeneratePayrollObj.employeeStatus"  class="form-select">
+                      <option value="1">在职</option>
+                      <option value="3">休假</option>
+                      <option value="4">试用期</option>
+                      <option value="5">工伤</option>
+                    </select>  
+                    <div class="form-text">给处于相应状态下的职员发放工资，已离职有待发薪资员工请通过「单个发放」处理.生成薪资底单后，可根据需要编辑薪资项、五险一金、个税、报销、津贴等数据，确认无误后进行打款即可完成工资发放.</div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closePayGeneralModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick @click="generatePayrollByEmployeeStatusV" type="button" 
+                :class="{'disabled': !batchGeneratePayrollObj.title}"
+                class="btn btn-primary fresh-ui-btn">生成底单</button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- pay general employee Modal end -->
+
+      <!-- pay one employee Modal start-->
+      <div class="modal-container">
+        <div class="modal fade" id="payOneEmployeeModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header border-0">
+                <h1 class="modal-title fs-5">职员工资发放</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+                <div class="search-container">
+      
+                  <!-- top search -->
+                  <top-search class="section-top-serach">
+                    <div class="input-group input-normal-search">
+                      <input  @keyup.enter.native="loadEmployeeListV" v-model="oasisEmployeeQueryParam"   class="form-control top-search-input" type="text" 
+                        placeholder="搜索员工..." aria-label="Search">
+                      <button v-preventreclick  @click="loadEmployeeListV"  class="btn  input-group-search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </top-search>
+      
+                </div>
+                 
+                <div class="person-list-container">
+                  <ul class="list-group">
+                    <li v-for="employeeRow in employeeList" class="list-group-item">
+                      <div class="person-head">
+                        <img  class="oasis-avatar" :src="adaptiveImageUriV(employeeRow.photo) || personManDefault" @error.once="e => { e.target.src = personManDefault }">
+                        {{employeeRow.employeeName}}
+                      </div>
+                      <button 
+                      :class="{'disabled': employeeRow.areadyPay=='1','btn-outline-secondary': employeeRow.areadyPay=='1', 'btn-outline-success': employeeRow.areadyPay!='1'}"
+                       v-preventreclick @click="generateOnePayrollV(employeeRow)" class="btn link-btn" type="button" >
+                        {{employeeRow.areadyPay=='1' ? '已生成' : '生成底单'}}
+                      </button>
+                    </li>
+                    
+                    
+                  </ul>
+                </div>
+
+                <div class="modal-bottom-section">
+                  <div class="other-input">在您生成薪资底单之前，请填写标题</div>
+                  <div class="input-payroll-title-container">
+                    <div class="input-payroll-title-wrp">
+                      <input v-model="payOneEmployeeTitle" id="payOneEmployeeObj__title" class="form-control" maxlength="32" type="text" placeholder="比如：2025年12月工资" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                
+      
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+       <!-- pay one employee Modal end-->
+
+       <!-- pay perk Modal start -->
+      <div class="modal-container">
+        <div class="modal" id="payRetroactivelyModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form class="row g-3" onsubmit="return false">
+
+
+                  <div class="mt-3">
+                    <label for="payRetroactivelyObj__title" class="form-label">标题</label>
+                    <input id="payRetroactivelyObj__title" v-model="perkPayrollObj.title" class="form-control" maxlength="32" type="text" placeholder="比如：2025年12月通讯费用津贴-在职"
+                      autocomplete="off">
+                  </div>
+
+                  <div class="mt-3">
+                    <label for="payRetroactivelyObj__status" class="form-label">职员状态</label>
+                    <select id="payRetroactivelyObj__status" v-model="perkPayrollObj.employeeStatus"  class="form-select">
+                      <option value="1">在职</option>
+                      <option value="3">休假</option>
+                      <option value="4">试用期</option>
+                      <option value="5">工伤</option>
+                    </select>   
+                    <div class="form-text">给处于相应状态下的职员发放奖金、津贴，暂不支持给已离职员工发放.</div>
+ 
+                  </div>
+
+
+
+                  <div class="mt-3">
+                    <label for="payRetroactivelyObj__grossWage" class="form-label">应发薪资（元）</label>
+                    <input id="payRetroactivelyObj__grossWage" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" v-model="perkPayrollObj.grossAmount" class="form-control"  type="text"
+                      autocomplete="off">
+                  </div>
+                  <div class="mt-3">
+                    <label for="payRetroactivelyObj__deductWage" class="form-label">应扣薪资（元）</label>
+                    <input id="payRetroactivelyObj__deductWage" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" v-model="perkPayrollObj.deduction"  class="form-control"  type="text"
+                      autocomplete="off">
+                  </div>
+                  <div class="mt-3">
+                    <label for="payRetroactivelyObj__remit" class="form-label">代扣代缴（元）</label>
+                    <input id="payRetroactivelyObj__remit" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" v-model="perkPayrollObj.withholdAndRemitTax" class="form-control" type="text"
+                      autocomplete="off">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closePayRetroactivelyModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick @click="generatePayrollWhenGivePerkV" type="button" 
+                :class="{'disabled': !validatePayPerkModalCanSaveV()}"
+                class="btn btn-primary fresh-ui-btn">生成底单</button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- pay retroactively Modal end -->
+
+    </section>
+    
+  </micro-app>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/office/javascripts/payroll.js"></script>
+
+
+
+</body>
+</html>

@@ -7,19 +7,18 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>履约中心 - E-Pod</title>
+    <title>工资明细 - E-Pod</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
-    
-    <link rel="stylesheet" href="/epod/stylesheets/pod-packages-order.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod-salary.scss">
+
 
 
 </head>
 <body>
   <pt-app id="app" v-cloak>
-    <!-- header nav -->
     <header class="text-white">
       <div class="d-flex justify-content-between align-items-center hdlayout">
 
@@ -182,7 +181,7 @@
           <!-- menu -->
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
-              <a class="nav-link active" aria-current="page">
+              <a class="nav-link" href="/epod/pod-packages-order">
                 <div class="nav-icon">
                   <i class="bi bi-truck"></i>
                 </div>
@@ -218,7 +217,7 @@
                 </div>
                 <span>兑换记录</span>
               </a>
-              <a class="nav-link" href="/epod/pod-salary">
+              <a class="nav-link active" href="/epod/pod-salary">
                 <div class="nav-icon">
                   <i class="bi bi-credit-card-2-front"></i>
                 </div>
@@ -241,159 +240,108 @@
         </div>
       </aside>
       <main>
+        <div class="page-title">
+          <h1>工资明细</h1>
+        </div>  
 
-        <div class="main-content-container full">
+        <div class="table-responsive">
+          <div class="table-wrp">
 
-          <div class="page-title">
-            <h1>履约中心</h1>
-          </div>  
-          <div class="data-tag">服务类型</div>
-          <!-- first tablist -->
-          <div class="first-nav-tabs-container">
-            <ul class="nav nav-tabs border-0 ">
-              <li class="nav-item" role="presentation">
-                <a href="/epod/pod-packages-order">
-                  <button class="nav-link active">单品</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/epod/pod-gig-order">
-                  <button class="nav-link">特约</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/epod/pod-virtual-order">
-                  <button class="nav-link">虚拟商品</button>
-                </a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a href="/epod/pod-proposals-order">
-                  <button class="nav-link">提案</button>
-                </a>
-              </li>
-            </ul>
-          </div>
-           <!--  first tablist content-->
-           <div class="tab-content" id="millstone-first-tab-content">
-  
-              <!--  plan content start-->
-  
-              <div class="tab-pane fade show active" id="plan-order-tab-pane" role="tabpanel" aria-labelledby="plan-order-tab" tabindex="0">
-  
-                <div class="d-flex  cell-plan-order-list-header mt-4 mb-3">
-                  <div class="plan-order-search d-flex">
-                    <form class="nosubmit" onsubmit="return false">
-                      <input  @keyup.enter.native="retrieveCellPlanOrderTbV" v-model="plan_pagination.param.q"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
-                    </form>
-                  </div>  
-  
-                  <select v-model="plan_pagination.param.planType" @change="retrieveCellPlanOrderListByPlanTypeV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
-                    <option value="">全部套餐</option>
-                    <option value="bird">小鸟</option>
-                    <option value="eagle">老鹰</option>
-                    <option value="albatross">信天翁</option>
-                  </select>
-  
-                  <select v-model="plan_pagination.param.tag" @change="retrieveMpsPaperListByTagV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
-                    <option value="">全部标签</option>
-                    <option value="4">交付中</option>
-                    <option value="7">已退款</option>
-                    <option value="3">已支付</option>
-                    <option value="5">履约完成</option>
-                    <option value="0">订单创建中</option>
-                    <option value="1">已创建订单</option>
-                    <option value="2">等待支付</option>
-                    <option value="6">取消订单</option>
-                    <option value="8">失败订单</option>
-                    <option value="9">失效订单</option>
-                  </select> 
-  
-                </div>
-                <div class="table-responsive">
-
-                  <div class="table-wrp">
-
-                    <table class="table table-width-fixed table-dark table-hover align-middle">
-                      <thead>
-                        <tr>
-                          <th class="col-product-no-option">服务</th>
-                          <th class="col-brand text-center">商家</th>
-                          <th class="col-fee">
-                            套餐
-                          </th>
-                          <th class="col-fee">费用</th>
-                          <th class="col-fee">优惠减免</th>
-                          <th class="col-fee">实际付款</th>
-                          <th class="col-fee">
-                            标签
-                          </th>
-                          <th class="col-addTime">下单时间</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="item in plan_pagination.records">
-                          <td :title="item.cellTitle" class="col-product-no-option">
-                            <a :href="'/epod/packages-order-deliver?id=' + item.orderId">
-                              <span class="ellipsis-1">
-                                {{item.cellTitle}}
-                              </span>
-                            </a>
-                          </td>
-                          <td :title="item.sellerName"  class="col-brand text-center"> 
-                            <a target="_blank" :href="'/messages/' + item.sellerUserId">
-                              <img :src="adaptiveImageUriV(item.sellerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
-                            </a>
-                          </td>
-                          <td :title="explainCellPlanTypeV(item.planType)" class="col-fee"><span>{{explainCellPlanTypeV(item.planType)}}</span> </td>
-                          <td :title="item.price" class="col-fee"><span>{{item.price}} </span> </td>
-                          <td :title="item.promotionDeduction" class="col-fee"><span>{{item.promotionDeduction}}</span> </td>
-                          <td :title="item.revenue" class="col-fee"><span>{{item.revenue}}</span></td>
-                          <td :title="explainCellPlanOrderTagV(item.tag)" class="col-fee">{{explainCellPlanOrderTagV(item.tag)}}</td>
-                          <td :title="item.createAt" class="col-addTime"><span> {{item.createAt.replace(new RegExp('-', 'g'), '/')}}</span></td>
-                        </tr>
-                        
-                        
-                      </tbody>
-                    </table>
-                    <div v-show="isEmptyObjV(plan_pagination.records)" class="empty-content-block">
-        
-                      没有可用的内容！
-        
+            <table class="table table-sm  table-hover align-middle">
+              <thead>
+                <tr>
+                  <th class="col-title">标题</th>
+                  <th class="col-org">机构</th>
+                  <th class="col-org">部门</th>
+                  <th class="col-quantity">应发工资（元）</th>
+                  <th class="col-quantity">应扣工资（元）</th>
+                  <th class="col-quantity">代扣代缴（元）</th>
+                  <th class="col-quantity">实发工资（元）</th>
+                  <th class="col-date">打款日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="record in payrollList_pagination.records">
+                  <td>
+                    <a :href="'/payroll/statement/'+record.id" class="tb-url-link">
+                      <div class="td-content">
+                        <span :title="record.title">{{record.title}}</span>
+                      </div>
+                    </a>
+            
+                  </td>
+                  <td> 
+                    <div class="td-content">
+                      <span :title="record.company">{{record.company}}</span>
                     </div>
-                    <nav v-if="!!plan_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                      <ul class="pagination pagination-lg pagination-dark  border-0">
-                        <li class="page-item" @click="pagePre(plan_pagination)">
-                          <a class="page-link"  aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                          </a>
-                        </li>
-                        <li class="page-item"  v-for="page in plan_pagination.paging.items" :class="{'current-page-active': plan_pagination.paging.current == page}" 
-                              @click="pageGo(plan_pagination,page)"><a class="page-link">{{page}}</a></li>
-                        <li class="page-item" @click="pageNext(plan_pagination)">
-                          <a class="page-link" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-
-                  </div>
-  
-                  
-  
-                </div>
+                  </td>
+                  <td>
+                    <div class="td-content">
+                      <span :title="record.department">{{record.department}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="td-content">
+                      <span :title="record.grossPay">{{record.grossPay}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="td-content">
+                      <span :title="record.deductions">{{record.deductions}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="td-content">
+                      <span :title="record.withholdAndRemitTax">{{record.withholdAndRemitTax}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="td-content">
+                      <span :title="record.netPay">{{record.netPay}}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="td-content">
+                      <span :title="record.paymentDate.replace(new RegExp('-', 'g'), '/')">{{record.paymentDate.replace(new RegExp('-', 'g'), '/')}}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div v-show="payrollList_pagination.records.length==0" class="empty-content-block">
+    
+              没有可用的内容！
   
             </div>
-            <!--  plan content end -->
-      
-      
-          </div>
+            <nav v-if="!!payrollList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+              <ul class="pagination pagination-lg pagination-dark  border-0">
+                <li class="page-item" @click="pagePre(payrollList_pagination)">
+                  <a class="page-link"  aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"  v-for="page in payrollList_pagination.paging.items" :class="{'current-page-active': payrollList_pagination.paging.current == page}" 
+                      @click="pageGo(payrollList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(payrollList_pagination)">
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
 
+          </div>
+          
         </div>
+
+          
+        </div>
+
         <div class="empty-box"></div>
 
+           
       </main>
-
+      
     </content>
     <footer></footer>
   </pt-app>
@@ -432,8 +380,6 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script  type="module" src="/common/javascripts/tm.js"></script>
-  <script  type="module" src="/epod/javascripts/pod-packages-order.js"></script>
-
-
+  <script  type="module" src="/epod/javascripts/pod-salary.js"></script>
 </body>
 </html>

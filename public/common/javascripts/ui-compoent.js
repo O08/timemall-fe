@@ -4,7 +4,7 @@ import "/common/javascripts/import-jquery.js";
 function CustomAlertModal(){
 
     this.alert = function(message){
-        var alertModalHtmlString='<div class="modal  fade" id="alertModal" tabindex="-1" ><div class="modal-dialog">' + '<div style="padding: 8px;" class="modal-content">' + message + '</div></div></div>';
+        var alertModalHtmlString='<div class="modal  fade" id="alertModal" tabindex="-1" aria-hidden="false"><div class="modal-dialog">' + '<div style="padding: 8px;" class="modal-content">' + message + '</div></div></div>';
         var modalEl = document.createElement('div');
         modalEl.innerHTML = alertModalHtmlString.trim();
         document.body.appendChild(modalEl);

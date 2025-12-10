@@ -1,0 +1,45 @@
+
+  .employee-filter {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .col-option {
+    width: 8%;
+  }
+  
+  .col-item {
+    width: 52%;
+  }
+  
+
+  .col-fee {
+    width: 10%;
+  }
+
+  
+  .employee-filter .form-select {
+    width: 124px;
+    color: #c3bfbf;
+    background-color: #212529;
+    border: 1px solid #555;
+    border-radius: 5px;
+    max-width: 140px;
+    font-size: 14px;
+    line-height: 1.625;
+  }
+  
+  .right-pannel .dropdown-toggle:after,
+  .more-option-menu .dropdown-toggle:after {
+    content: none;
+  }
+  
+  .search-widget {
+    display: grid;
+    gap: 8px;
+    grid-auto-flow: column;
+  }
+  
+  .content-core-box {
+    min-width: 1280px;
+  }

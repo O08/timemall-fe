@@ -1,0 +1,230 @@
+.dashboard-box,
+.order-list-box {
+    background-color: #373b3e52;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.search-widget {
+    grid-auto-flow: column;
+    gap: 8px;
+    display: grid;
+}
+
+.dashboard-box {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.redeem-stats-info {
+    background-color: #141414;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.stats-info,
+.stats-trend {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+
+}
+
+.countKey {
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: #b5b6ba;
+    font-weight: 600;
+}
+
+.countValue {
+    margin-top: 24px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+.stats-trend {
+    background-color: #141414;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+
+.order-filter {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.col-option {
+    width: 8%;
+}
+
+
+.col-quantity {
+    width: 6%;
+}
+
+
+.col-status {
+    width: 5%;
+}
+.col-employee{
+    width: 8%;
+}
+.col-date{
+    width: 9%;
+}
+.col-role{
+    width: 10%;
+}
+.col-department{
+    width: 11%;
+}
+.col-title{
+    width: 15%;
+}
+
+
+.table .dropdown-toggle:after {
+    content: none;
+}
+
+.order-filter {
+    padding-bottom: 20px;
+}
+
+.order-filter .form-select {
+    width: 124px;
+    color: #c3bfbf;
+    background-color: #212529;
+    border: 1px solid #555;
+    border-radius: 5px;
+    max-width: 140px;
+    font-size: 14px;
+    line-height: 1.625;
+}
+
+
+
+.content-core-box {
+    min-width: 1280px;
+}
+
+
+#payOneEmployeeModal .oasis-avatar {
+    width:  48px;
+    aspect-ratio: 3/4;
+    border-radius: 2px
+}
+
+#payOneEmployeeModal .input-normal-search {
+    width: 100%;
+    min-width: 100%;
+    left: 0;
+}
+
+#payOneEmployeeModal .modal-body {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+#payOneEmployeeModal  .person-head {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 100px);
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.search-container,
+.invite-link-container,
+.other-input {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.modal-bottom-section {
+    background-color: #f6f6f6;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#payOneEmployeeModal .input-group-search-btn {
+    background-color: #f1f3f7;
+    color: #2f2f2f;
+}
+
+#payOneEmployeeModal .top-search-input {
+    outline: none;
+    box-shadow: none;
+    border-color: #ebedf0;
+}
+
+
+.person-list-container {
+    height: 200px;
+    overflow-y: auto;
+    margin-top: 1rem;
+    scrollbar-width: none;
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+
+.person-list-container::-webkit-scrollbar {
+    display: none;
+}
+
+.person-list-container .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    border: unset;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 5px;
+    align-items: center;
+    background-color: transparent;
+    color: rgb(97, 102, 109);
+    margin-bottom: 1px;
+}
+.person-list-container .list-group-item:hover{
+    background-color: #f9f9f9;
+}
+.other-input{
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    color: #6d757a;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.33333;
+}
+.input-payroll-title-container{
+    box-sizing: border-box;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    height: 60px;
+    margin-top: 10px;
+    position: relative;
+}
+.input-payroll-title-wrp{
+    flex-wrap: nowrap;
+    flex: auto;
+    justify-content: start;
+    padding: 8px;
+    display: flex;
+    position: absolute;
+    inset: 0;
+}
+.focusModal p{
+    word-break: break-all;
+}

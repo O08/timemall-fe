@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>员工档案</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/rainbow/office/stylesheets/office.scss">
+    <link rel="stylesheet" href="/rainbow/office/stylesheets/employee.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head-box">
+              <div class="oasis-head">
+                <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+                  <img  class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                </a>
+                <div class="oasis-title-box">
+                  <div class="oasis-title">后勤中心</div>
+                </div>
+              </div>
+            </div>
+            <div class="list-group list-group-flush">
+              <a :href="'/rainbow/office/department?oasis_id='+oasisId" class="list-group-item">部门配置</a>
+              <a :href="'/rainbow/office/compensation?oasis_id='+oasisId" class="list-group-item">薪酬配置</a>
+              <a :href="'/rainbow/office/employee?oasis_id='+oasisId" class="list-group-item  active">员工档案</a>
+              <a :href="'/rainbow/office/payroll?oasis_id='+oasisId" class="list-group-item ">薪资发放</a>
+            </div>
+          </nav>
+       </col-nav-main>
+
+      </div>
+
+
+      <col-content>
+
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <div class="align-middle">
+                  <h2 class="my-0">后勤中心</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <div class="d-flex justify-content-center align-items-center">
+                <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content-container">
+
+          <div class="content-core-box">
+
+
+            <div class="feature-title">
+              员工列表
+            </div>
+
+            <div class="employee-filter">
+              <div class="search-widget">
+                <div id="nav-searchform">
+                  <div class="nav-search-btn">
+                    <i class="bi bi-search"></i>
+                  </div>
+                  <div class="nav-search-content">
+                    <input v-model="employeeList_pagination.param.q" @keyup.enter.native="searchEmployeeListV"
+                      class="nav-search-input" type="text" autocomplete="off" maxlength="100" placeholder="搜索">
+                  </div>
+                </div>
+
+                <select v-model="employeeList_pagination.param.status" @change="filterEmployeeListV"
+                  class="form-select custom-select">
+                  <option value="">全部状态</option>
+                  <option value="1">在职</option>
+                  <option value="2">离职</option>
+                  <option value="3">休假</option>
+                  <option value="4">试用期</option>
+                  <option value="5">工伤</option>
+                </select>
+
+                <select v-model="employeeList_pagination.param.genre" @change="filterEmployeeListV"
+                  class="form-select custom-select">
+                  <option value="">全部类型</option>
+                  <option value="1">全职员工</option>
+                  <option value="2">兼职员工</option>
+                  <option value="3">临时工</option>
+                  <option value="4">实习生</option>
+                  <option value="5">合同工</option>
+                  <option value="6">志愿者</option>
+                  <option value="7">派遣员工</option>
+
+                </select>
+
+
+              </div>
+
+
+              <div class="right-pannel">
+
+
+                <button v-preventreclick @click="showNewEmployeeModalV" class="btn-save" type="button">
+                  <div class="btn-content d-flex align-items-center justify-content-center">
+                    录入员工
+                  </div>
+                </button>
+
+              </div>
+
+
+            </div>
+
+            <div class="employees-box mt-4">
+
+
+              <div class="table-responsive">
+                <div class="table-wrp">
+                  <table class="table table-sm fresh-ui-table table-hover align-middle">
+                    <thead>
+                      <tr>
+                        <th class="col-option"></th>
+                        <th class="col-employee-name">员工</th>
+                        <th class="col-department">部门</th>
+                        <th class="col-role">职能</th>
+                        <th class="col-level">职级</th>
+                        <th class="col-salary">薪资（元）</th>
+                        <th class="col-genre">类型</th>
+                        <th class="col-officeLocation">办公地点</th>
+                        <th class="col-date">入职日期</th>
+                        <th class="col-status">状态</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="employee in employeeList_pagination.records">
+                        <td>
+                          <a :href="'/employee/'+employee.id+'/info'">
+                            <span   class="btn-option-secondary" >
+                              职员信息
+                            </span>
+                          </a>
+                       
+                        </td>
+
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.employeeName">{{employee.employeeName}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.department">{{employee.department}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.role">{{employee.role}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.level">{{employee.level}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.salary">{{employee.salary}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="explianEmployeeGenreV(employee.genre)">{{explianEmployeeGenreV(employee.genre)}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.officeLocation">{{employee.officeLocation}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="employee.hireDate.replace(new RegExp('-', 'g'), '/')">{{employee.hireDate.replace(new RegExp('-', 'g'), '/')}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="td-content">
+                            <span :title="explianEmployeeStatusV(employee.status)">{{explianEmployeeStatusV(employee.status)}}</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <nav v-if="!!employeeList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" v-preventreclick @click="pagePre(employeeList_pagination)">
+                        <a class="page-link" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item" v-for="page in employeeList_pagination.paging.items"
+                        :class="{'current-page-active': employeeList_pagination.paging.current == page}" v-preventreclick
+                        @click="pageGo(employeeList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" v-preventreclick @click="pageNext(employeeList_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                  <div v-if="employeeList_pagination.records.length==0" class="not-found-resource"><img
+                      src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png"
+                      alt="bluvarri-service-not-found">
+                    <h4>未找到结果</h4>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+
+
+        </div>
+      </col-content>
+    </main>
+    <section class="modals">
+      <!-- new employee Modal start -->
+      <div class="modal-container">
+        <div class="modal define-employee-modal" id="newEmployeeModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+          <div class="modal-dialog  modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-body">
+
+                <form class="row g-3" onsubmit="return false">
+                  <div class="section-name">职员信息</div>
+
+                  <div class="col-12">
+                    <label for="newEmployee__Name" class="form-label">职员姓名</label>
+                    <input tabindex="-1" id="newEmployee__Name" v-model="newEmployeeObj.employeeName" maxlength="16"
+                      class="form-control  only-show-bottom mb-3" type="text" autocomplete="off">
+                  </div>
+
+                  <div class="col-12 mb-3">
+                    <label for="newEmployee__uid" class="form-label">职员UID</label>
+                    <input id="newEmployee__uid" v-model="newEmployeeObj.uid" maxlength="72"
+                      class="form-control  only-show-bottom" type="text" autocomplete="off">
+                    <div class="form-text">职员在班蔚平台的注册账号，请联系待录入员工查阅【品牌形象】页面获取.</div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newEmployee__no" class="form-label">工号</label>
+                    <input @input="transformInputTextV($event)"  tabindex="-1" v-model="newEmployeeObj.employeeNumber" id="newEmployee__no" maxlength="30"
+                    class="form-control  only-show-bottom mb-3" type="text" autocomplete="off">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newEmployee__department" class="form-label">部门</label>
+                    <model-select tabindex="-1" id="newEmployee__department" class="mb-3" :options="departmentOptions" placeholder="" v-model="departmentSelectedItem">
+                    </model-select>
+
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newEmployee__role" class="form-label">职能</label>
+                    <input tabindex="-1" v-model="newEmployeeObj.role" id="newEmployee__role" maxlength="30"
+                    class="form-control  only-show-bottom mb-3" type="text" autocomplete="off">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newEmployee__site" class="form-label">办公地点</label>
+                    <input tabindex="-1" v-model="newEmployeeObj.officeLocation" id="newEmployee__site"  maxlength="80"
+                      class="form-control  only-show-bottom mb-3" type="text" autocomplete="off">
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newEmployee__genre" class="form-label">员工类型</label>
+                    <select id="newEmployee__genre" v-model="newEmployeeObj.genre"  class="form-select custom-select">
+                      <option value="1">全职员工</option>
+                      <option value="2">兼职员工</option>
+                      <option value="3">临时工</option>
+                      <option value="4">实习生</option>
+                      <option value="5">合同工</option>
+                      <option value="6">志愿者</option>
+                      <option value="7">派遣员工</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="newEmployee__grossWage" class="form-label">税前工资</label>
+                    <input tabindex="-1" v-model="newEmployeeObj.salary"  id="newEmployee__grossWage" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                      class="form-control  only-show-bottom mb-3" type="text" autocomplete="off">
+                  </div>
+
+                  <div class="section-name">五险一金</div>
+                  <div class="col-12">
+
+                    <table style="font-size: 14px;">
+                      <thead>
+                        <tr>
+                          <th>项目</th>
+                          <th>缴纳基数</th>
+                          <th>企业比例</th>
+                          <th>个人比例</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+  
+                        <tr>
+                          <td>
+                            养老保险
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.pensionInsuranceBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" class="form-control mb-3" type="text">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.pensionInsuranceCompanyRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" class="form-control  mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                    
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.pensionInsuranceEmployeeRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            医疗保险
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.medicalInsuranceBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" class="form-control mb-3" type="text">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.medicalInsuranceCompanyRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.medicalInsuranceEmployeeRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            失业保险
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.unemploymentInsuranceBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" class="form-control mb-3" type="text">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.unemploymentInsuranceCompanyRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.unemploymentInsuranceEmployeeRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            工伤保险
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.occupationalInjuryInsuranceBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" class="form-control mb-3" type="text">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.occupationalInjuryInsuranceCompanyRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.occupationalInjuryInsuranceEmployeeRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            生育保险
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.birthInsuranceBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" class="form-control mb-3" type="text">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.birthInsuranceCompanyRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.birthInsuranceEmployeeRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            住房公积金
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.housingProvidentFundsBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" class="form-control mb-3" type="text">
+                            </div>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.housingProvidentFundsCompanyRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                          <td>
+                            <div class="table-inner-input">
+                              <input v-model="newEmployeeObj.housingProvidentFundsEmployeeRate" @input="transformInputNumberAsPositiveDecimalV($event)" max="99"  class="form-control mb-3" type="text">
+                            </div>
+                            <span class="table-inner-content">
+                              %
+                            </span>
+                          </td>
+                        </tr>
+  
+  
+                      </tbody>
+                    </table>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closeNewEmployeeModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick @click="addOneEmployeeV"
+                :class="{'disabled': !validateNewEmployeeModalCanSaveV()}"
+                 type="button" class="btn btn-primary fresh-ui-btn">提交</button>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- new employee Modal end -->
+
+    </section>
+    
+  </micro-app>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/office/javascripts/employee.js"></script>
+
+
+
+</body>
+</html>

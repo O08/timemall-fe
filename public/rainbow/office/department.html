@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=”robots” content=”noindex,nofollow”>
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>部门配置</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/rainbow/office/stylesheets/office.scss">
+    <link rel="stylesheet" href="/rainbow/office/stylesheets/department.scss">
+
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head-box">
+              <div class="oasis-head">
+                <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+                  <img  class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+                </a>
+                <div class="oasis-title-box">
+                  <div class="oasis-title">后勤中心</div>
+                </div>
+              </div>
+            </div>
+   
+            <div class="list-group list-group-flush">
+                <a :href="'/rainbow/office/department?oasis_id='+oasisId" class="list-group-item active">部门配置</a>
+                <a :href="'/rainbow/office/compensation?oasis_id='+oasisId" class="list-group-item">薪酬配置</a>
+                <a :href="'/rainbow/office/employee?oasis_id='+oasisId" class="list-group-item  ">员工档案</a>
+                <a :href="'/rainbow/office/payroll?oasis_id='+oasisId" class="list-group-item ">薪资发放</a>
+            </div>
+          </nav>
+       </col-nav-main>
+
+      </div>
+
+
+      <col-content>
+
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <div class="align-middle">
+                  <h2 class="my-0">后勤中心</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <div class="d-flex justify-content-center align-items-center">
+                <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content-container">
+
+            <div class="content-core-box">
+  
+  
+              <div class="feature-title">
+                部门配置
+              </div>
+  
+              <div class="employee-filter">
+                <div class="search-widget">
+                  <div id="nav-searchform">
+                    <div class="nav-search-btn">
+                      <i class="bi bi-search"></i>
+                    </div>
+                    <div class="nav-search-content">
+                      <input v-model="departmentList_pagination.param.q" @keyup.enter.native="searchDepartmentV" 
+                        class="nav-search-input" type="text" autocomplete="off" maxlength="100" placeholder="搜索">
+                    </div>
+                  </div>
+  
+  
+                </div>
+  
+  
+                <div class="right-pannel">
+  
+  
+                  <button v-preventreclick @click="showNewEmployeeModalV" class="btn-save" type="button">
+                    <div class="btn-content d-flex align-items-center justify-content-center">
+                      录入部门
+                    </div>
+                  </button>
+  
+                </div>
+  
+  
+              </div>
+  
+              <div class="employees-box mt-4">
+  
+  
+                <div class="table-responsive">
+                  <div class="table-wrp">
+                    <table class="table fresh-ui-table table-sm  table-hover align-middle">
+                      <thead>
+                        <tr>
+                          <th class="col-option"></th>
+                          <th class="col-department-name">部门</th>
+                          <th class="col-fee">职员人数</th>
+                          <th class="col-fee">负责人</th>
+                          <th class="col-fee">添加时间</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="departmentRecord in departmentList_pagination.records">
+                          <td>
+                            <span v-preventreclick @click="delOneDepartmentV(departmentRecord.id)" class="btn-option-secondary" >
+                              删除
+                            </span>
+                            <span v-preventreclick @click="showEditDepartmentModalV(departmentRecord)"  class="btn-option-secondary ms-2" >
+                              编辑
+                            </span>
+                         
+                          </td>
+  
+                          <td>
+                           {{departmentRecord.title}}
+                          </td>
+                          <td>
+                            {{departmentRecord.totalStaff}}
+                          </td>
+                          <td>
+                            {{departmentRecord.leaderName}}
+                          </td>
+                          <td>
+                            {{departmentRecord.createAt.replace(new RegExp('-', 'g'), '/')}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <nav v-if="!!departmentList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                      <ul class="pagination pagination-lg pagination-dark  border-0">
+                        <li class="page-item" v-preventreclick @click="pagePre(departmentList_pagination)">
+                          <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="page-item" v-for="page in departmentList_pagination.paging.items"
+                          :class="{'current-page-active': departmentList_pagination.paging.current == page}" v-preventreclick
+                          @click="pageGo(departmentList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                        <li class="page-item" v-preventreclick @click="pageNext(departmentList_pagination)">
+                          <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                    <div v-if="departmentList_pagination.records.length==0" class="not-found-resource"><img
+                        src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png"
+                        alt="bluvarri-service-not-found">
+                      <h4>未找到结果</h4>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+  
+  
+  
+            </div>
+  
+  
+          </div>
+      </col-content>
+    </main>
+    <section class="modals">
+      <!-- new department Modal start -->
+      <div class="modal-container">
+        <div class="modal" id="newDepartmentModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form class="row g-3" onsubmit="return false">
+
+                  <div class="mt-3">
+                    <label for="newDepartmentObj__name" class="form-label">部门名称</label>
+                    <input id="newDepartmentObj__name" v-model="newDepartmentObj.title" class="form-control" maxlength="30" type="text"
+                      autocomplete="off">
+                  </div>
+                  <div class="mt-3">
+                    <label for="newDepartmentObj__Description" class="form-label">部门简介</label>
+                    <textarea id="newDepartmentObj__Description" v-model="newDepartmentObj.description"  rows="6" class="form-control" maxlength="172"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closeNewDepartmentModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick @click="establishDepartmentV"
+                  :class="{'disabled': !newDepartmentObj.title}"
+                 type="button" class="btn btn-primary fresh-ui-btn">添加</button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- new department Modal end -->
+      <!-- edit department Modal start -->
+      <div class="modal-container">
+        <div class="modal" id="editDepartmentModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <form class="row g-3" onsubmit="return false">
+
+                  <div class="mt-3">
+                    <label for="editDepartmentObj__name" class="form-label">部门名称</label>
+                    <input id="editDepartmentObj__name" @change="btn_ctl.editDepartmentModal_already_change=true" v-model="editDepartmentObj.title" class="form-control" maxlength="30" type="text"
+                      autocomplete="off">
+                  </div>
+                  <div class="mt-3">
+                    <label for="editDepartmentObj__leader" class="form-label">部门负责人</label>
+                    <model-select
+                      id="editDepartmentObj__leader" 
+                      :options="employeeOptions"
+
+                      @blur="btn_ctl.editDepartmentModal_already_change=true" 
+        
+                      placeholder=""
+
+                      v-model="leaderSelectedItem">
+                    </model-select>
+
+                  </div>
+                  <div class="mt-3">
+                    <label for="editDepartmentObj__Description" class="form-label">部门简介</label>
+                    <textarea id="editDepartmentObj__Description" @change="btn_ctl.editDepartmentModal_already_change=true" v-model="editDepartmentObj.description"  rows="6" class="form-control" maxlength="172"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closeEditDepartmentModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick @click="changeDepartmentV" type="button"
+                :class="{'disabled': !editDepartmentObj.title  || !btn_ctl.editDepartmentModal_already_change}"
+                 class="btn btn-primary fresh-ui-btn">提交</button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- edit department Modal end -->
+
+
+    </section>
+    
+  </micro-app>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/office/javascripts/department.js"></script>
+
+
+
+</body>
+</html>

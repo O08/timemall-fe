@@ -75,7 +75,7 @@ const RootComponent = {
             previewNewTierThumbnail(e,this);
         },
         previewEditTierThumbnailV(e){
-            previewEditTierThumbnailV(e,this);
+            previewEditTierThumbnail(e,this);
         },
         showNewTierModalV(){
             this.newTier= this.initNewTierModalV();
@@ -533,7 +533,7 @@ function previewNewTierThumbnail(e,appObj){
   
 }
 
-function previewEditTierThumbnailV(e,appObj){
+function previewEditTierThumbnail(e,appObj){
     const file = e.target.files[0];
     if(!file){
         return ;

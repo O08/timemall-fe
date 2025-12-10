@@ -335,6 +335,14 @@ aside,main{
     --bs-table-hover-color: #fff !important;
     margin-bottom: 0;
 }
+.table .td-content {
+  -webkit-line-clamp: 1;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
 .table > thead > tr > th{
     background-color:  #373b3e52!important;
     height: 48px;
@@ -343,6 +351,15 @@ aside,main{
 tr td:first-child,tr th:first-child{
   padding-left: 12px;
 }
+.tb-url-link{
+  color: #fff;
+}
+.tb-url-link:hover{
+  text-decoration-line: underline;
+  text-decoration-color: #fff;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em; 
+ }
 pt-app aside{
   border: none;
 

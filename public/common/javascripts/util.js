@@ -75,7 +75,7 @@ export function transformInputNumberAsPositiveDecimal(e){
 }
 
 function transformInputNumberDecimal(val,max){
-    return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val === '0.0' ? val : Number(val);
+    return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val.endsWith(".0") ? val : Number(val);
 }
 
 

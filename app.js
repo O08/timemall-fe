@@ -122,6 +122,14 @@ app.get('/apps/redeem/gallery/:och', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/redeem/gallery.html")        //设置/ 下访问文件位置
 })
 
+app.get('/payroll/statement/:id', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/office/salary-stripe.html")        //设置/ 下访问文件位置
+})
+
+app.get('/employee/:id/info', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/office/employee-info.html")        //设置/ 下访问文件位置
+})
+
 
 
 

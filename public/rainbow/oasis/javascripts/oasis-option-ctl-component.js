@@ -122,6 +122,13 @@ const OasisOptionCtlComponent = {
         </button>
       </a>
     </li>
+    <li v-if="initiatorRoleV()">
+      <a  class="dropdown-item" :href="'/rainbow/office/department?oasis_id='+oasisId">
+        <button  type="button" class="btn oasis-option">
+          <i class="bi bi-diagram-3 me-1"></i> 后勤服务
+        </button>
+      </a>
+    </li>
     <li  v-if="oasis_announce.canAddMember == '1' && (initiatorRoleV() || (!initiatorRoleV() && oasis_announce.forPrivate == '0') )">
       <a  class="dropdown-item">
         <button @click="showInvitationModalV" v-preventreclick  type="button" class="btn oasis-option">

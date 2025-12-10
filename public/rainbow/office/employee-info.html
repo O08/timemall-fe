@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name=”robots” content=”noindex,nofollow”>
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+  <title>职员信息</title>
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+
+  <link rel="stylesheet" href="/rainbow/office/stylesheets/office.scss">
+  <link rel="stylesheet" href="/rainbow/office/stylesheets/employee-info.scss">
+
+</head>
+
+<body>
+  <pt-app id="app" v-cloak>
+    
+    <content>
+      
+      <main>
+        <div class="content-box">
+          
+          <section class="section-service-block section-box box-bg-primary">
+            <div class="section-header d-flex justify-content-between">
+              <div>基本信息</div>
+              <button v-preventreclick @click="showEditBasicEmployeeModalV" class="btn btn-file-upload bgPrimary">
+                
+                <div class="btn-file-upload-wrp">编辑</div>
+                
+              </button>
+            </div>
+            <div class="info-block">
+              <div class="basic-info-box">
+          
+                <div class="employee-info-col">
+                  <div class="employeeInfo__name">
+                    <span>{{employee.employeeName}}</span>
+                  </div>
+                  <div class="employeeInfoField">
+                    <span>{{explianEmployeeGenreV(employee.genre)}}</span>
+                    <span>{{explianEmployeeStatusV(employee.status)}}</span>
+                    <span v-if="!!employee.gender">{{employee.gender}}</span>
+                    <span v-if="!!employee.education">{{employee.education}}</span>
+                    <span v-if="employee.major">{{employee.major}}</span>
+                  </div>
+                  <div class="employeeInfo__remark">
+                    <span>{{employee.remark}}</span>
+                  </div>
+                </div>
+
+                <div class="employee-avatar-container">
+                  <img :src="adaptiveImageUriV(employee.photo) || personManDefault" @error.once="e => { e.target.src = personManDefault }" alt="avatar">
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <section class="section-service-block section-box box-bg-primary mb-5">
+            <div class="info-block">
+              <div class="basic2-info-box">
+
+                <ul>
+                  <li>工号<strong>{{employee.employeeNumber}}</strong></li>
+                  <li>办公地址<strong>{{employee.officeLocation}}</strong></li>
+                  <li>部门<strong>{{employee.department}}</strong></li>
+                  <li>商业价值（元）<strong>{{renderNetWorthV(employee.netWorth)}}</strong></li>
+                  <li>职能<strong>{{employee.role}}</strong></li>
+                  <li>出生日期<strong>{{renderEmployeeFieldV(employee.birthdate)}}</strong></li>
+                  <li>职级<strong>{{renderEmployeeFieldV(employee.level)}}</strong></li>
+                  <li>入职时间<strong>{{employee.hireDate}}</strong></li>
+                  <li>邮箱<strong>{{renderEmployeeFieldV(employee.email)}}</strong></li>
+                  <li>联系电话<strong>{{renderEmployeeFieldV(employee.phone)}}</strong></li>
+
+
+                </ul>
+
+              </div>
+            </div>
+          </section>
+
+          <section class="section-service-block section-box box-bg-primary mb-5">
+            <div class="section-header d-flex justify-content-between">
+              <div>五险一金</div>
+              <button v-preventreclick @click="showEditEmployeeBenefitModalV" class="btn btn-file-upload bgPrimary">
+                
+                <div class="btn-file-upload-wrp">配置</div>
+                
+              </button>
+            </div>
+            <div class="info-block">
+              <div class="table-scroll-box">
+
+                <table class="table table-sm table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-employee-name">项目</th>
+                      <th class="col-employee-code">缴纳基数</th>
+                      <th class="col-fee">企业比例</th>
+                      <th class="col-inventory">个人比例</th>
+                      <th class="col-fee">企业缴纳（元）</th>
+                      <th class="col-status">个人缴纳（元）</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        养老保险
+                      </td>
+                      <td>
+                       {{employeeBenefit.pensionInsuranceBase}}
+                      </td>
+                      <td>
+                        {{employeeBenefit.pensionInsuranceCompanyRate}}%
+                      </td>
+                      <td>
+                        {{employeeBenefit.pensionInsuranceEmployeeRate}}%
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.pensionInsuranceBase,employeeBenefit.pensionInsuranceCompanyRate)}}
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.pensionInsuranceBase,employeeBenefit.pensionInsuranceEmployeeRate)}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        医疗保险
+                      </td>
+                      <td>
+                        {{employeeBenefit.medicalInsuranceBase}}
+                      </td>
+                      <td>
+                        {{employeeBenefit.medicalInsuranceCompanyRate}}%
+                      </td>
+                      <td>
+                        {{employeeBenefit.medicalInsuranceEmployeeRate}}%
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.medicalInsuranceBase,employeeBenefit.medicalInsuranceCompanyRate)}}
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.medicalInsuranceBase,employeeBenefit.medicalInsuranceEmployeeRate)}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        失业保险
+                      </td>
+                      <td>
+                        {{employeeBenefit.unemploymentInsuranceBase}}
+                      </td>
+                      <td>
+                        {{employeeBenefit.unemploymentInsuranceCompanyRate}}%
+                      </td>
+                      <td>
+                        {{employeeBenefit.unemploymentInsuranceEmployeeRate}}%
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.unemploymentInsuranceBase,employeeBenefit.unemploymentInsuranceCompanyRate)}}
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.unemploymentInsuranceBase,employeeBenefit.unemploymentInsuranceEmployeeRate)}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        工伤保险
+                      </td>
+                      <td>
+                        {{employeeBenefit.occupationalInjuryInsuranceBase}}
+                      </td>
+                      <td>
+                        {{employeeBenefit.occupationalInjuryInsuranceCompanyRate}}%
+                      </td>
+                      <td>
+                        {{employeeBenefit.occupationalInjuryInsuranceEmployeeRate}}%
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.occupationalInjuryInsuranceBase,employeeBenefit.occupationalInjuryInsuranceCompanyRate)}}
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.occupationalInjuryInsuranceBase,employeeBenefit.occupationalInjuryInsuranceEmployeeRate)}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        生育保险
+                      </td>
+                      <td>
+                        {{employeeBenefit.birthInsuranceBase}}
+                      </td>
+                      <td>
+                        {{employeeBenefit.birthInsuranceCompanyRate}}%
+                      </td>
+                      <td>
+                        {{employeeBenefit.birthInsuranceEmployeeRate}}%
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.birthInsuranceBase,employeeBenefit.birthInsuranceCompanyRate)}}
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.birthInsuranceBase,employeeBenefit.birthInsuranceEmployeeRate)}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        住房公积金
+                      </td>
+                      <td>
+                        {{employeeBenefit.housingProvidentFundsBase}}
+                      </td>
+                      <td>
+                        {{employeeBenefit.housingProvidentFundsCompanyRate}}%
+                      </td>
+                      <td>
+                        {{employeeBenefit.housingProvidentFundsEmployeeRate}}%
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.housingProvidentFundsBase,employeeBenefit.housingProvidentFundsCompanyRate)}}
+                      </td>
+                      <td>
+                        ¥{{calBenefitItemV(employeeBenefit.housingProvidentFundsBase,employeeBenefit.housingProvidentFundsEmployeeRate)}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        合计
+                      </td>
+                      <td>
+                       -
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        -
+                      </td>
+                      <td>
+                        ¥{{calCompanyBenefitExpenseV(employeeBenefit)}}
+                      </td>
+                      <td>
+                        ¥{{calEmployeeBenefitExpenseV(employeeBenefit)}}
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </section>
+
+          <section class="section-service-block section-box box-bg-primary mb-5">
+            <div class="section-header d-flex justify-content-between">
+              <div>薪酬结构</div>
+              <button v-preventreclick @click="showConfigCompensationModalV" class="btn btn-file-upload bgPrimary">
+                
+                <div class="btn-file-upload-wrp">配置</div>
+                
+              </button>
+            </div>
+            <div class="info-block">
+
+              <div class="redeem-stats-info  d-flex align-items-center justify-content-center">
+                <div class="stats-info">
+                  <div class="stats-info-title">
+                    <div class="countKey">税前工资</div>
+                    <div class="countValue">{{employee.salary}}</div>
+                  </div>
+                </div>
+              </div>
+              <div v-show="!isEmptyObjV(compensationList_pagination.records)"  class="table-scroll-box mt-4" style="min-height: 100%;">
+
+
+          
+
+                <table class="table table-sm table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-compensation-title">薪资项</th>
+                      <th class="col-compensation-amount">金额</th>
+                      <th class="col-compensation-status">状态</th>
+                      <th class="col-date">添加时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in compensationList_pagination.records">
+  
+                      <td>
+                       {{item.title}}
+                      </td>
+                      <td>
+                        <span>{{item.direction==1? "+" : "-" }}</span><span>{{item.amount}}</span>
+                      </td>
+                      <td>
+                        {{explianCompensationItemStatusV(item.status)}}
+                      </td>
+                      <td>
+                        {{item.createAt.replace(new RegExp('-', 'g'), '/').substr(0,10)}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <nav v-if="!!compensationList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(compensationList_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in compensationList_pagination.paging.items" :class="{'current-page-active': compensationList_pagination.paging.current == page}" 
+                          @click="pageGo(compensationList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(compensationList_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+
+              </div>
+            </div>
+          </section>
+
+          <section class="section-service-block section-box box-bg-primary mb-5">
+            <div class="section-header d-flex justify-content-between">
+              <div>员工材料</div>
+              <button :class="{'loading': btn_ctl.material_uploading}"  class="btn btn-file-upload bgPrimary">
+                
+                <div class="btn-file-upload-wrp">上传 <input id="employee_material_file" @change="uploadMaterialV($event)"  class="file-input" type="file"  style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+                <div class="loading-content">
+                  <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                  <span role="status">正在上传...</span>
+                </div>
+              </button>
+            </div>
+            <div class="info-block">
+              <div class="table-scroll-box">
+
+                <table class="table table-sm table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-material-name">文件</th>
+                      <th class="col-material-size">大小</th>
+                      <th class="col-material-option tb-col-sticky-right"></th>
+  
+                    </tr>
+                  </thead>
+                  <tbody>
+  
+                    <tr v-for="item in materialList_pagination.records">
+                      <td>
+                        <div class="td-content">
+                          <span :title="item.materialName">{{item.materialName}}</span>
+                        </div>
+                      </td>
+                      <td>
+                        {{renderFileSizeV(item.materialSize)}}
+                       </td>
+                      <td class="tb-col-sticky-right">
+                      
+                        <span  class="td-more-options">
+                          <div class="dropdown">
+                            <a class="btn-option-secondary dropdown-toggle" role="button"
+                              data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="bi bi-three-dots"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" v-preventreclick @click="showRenameEmployeeMaterialModalV(item)" >重命名</a></li>
+                              <li><a  target="_blank"  class="dropdown-item download" :download="item.materialName" :href="item.materialUri">下载</a></li>
+                              <li><a class="dropdown-item" v-preventreclick @click="removeOneMaterialV(item.materialId)">移除</a></li>
+                            </ul>
+                          </div>
+                        </span>
+  
+                      </td>
+                    </tr>
+                    
+                    
+  
+                  </tbody>
+                </table>
+                <nav v-if="!!materialList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(materialList_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in materialList_pagination.paging.items" :class="{'current-page-active': materialList_pagination.paging.current == page}" 
+                          @click="pageGo(materialList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(materialList_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+                <div v-show="isEmptyObjV(materialList_pagination.records)" class="empty-content-block">
+      
+                  未找到相关数据！
+    
+                </div>
+              </div>
+              
+            </div>
+          </section>
+
+          <section class="section-service-block section-box box-bg-primary mb-5">
+            <div class="section-header d-flex justify-content-between">
+              <div>其他</div>
+              <button v-preventreclick @click="showNewEmployeeExtraInfoModalV" class="btn btn-file-upload bgPrimary">
+                
+                <div class="btn-file-upload-wrp">录入</div>
+
+              </button>
+            </div>
+            <div class="info-block">
+              <div class="table-scroll-box">
+
+                <table class="table table-sm table-dark table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-kv-title">条目</th>
+                      <th class="col-kv-content">内容</th>
+                      <th class="col-kv-option tb-col-sticky-right"></th>
+  
+                    </tr>
+                  </thead>
+                  <tbody>
+  
+                    <tr v-for="item in kvList_pagination.records">
+  
+                      <td>
+                        {{item.title}}
+                      </td>
+                      <td>
+                        {{item.content}}
+                      </td>
+                      <td class="tb-col-sticky-right">
+                        <span class="td-more-options">
+                          <span v-preventreclick @click="removeOnekvPairV(item.id)"  class="btn-option-secondary" >
+                            <i class="bi bi-trash"></i>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    
+  
+                  </tbody>
+                </table>
+                <nav v-if="!!kvList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(kvList_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in kvList_pagination.paging.items" :class="{'current-page-active': kvList_pagination.paging.current == page}" 
+                          @click="pageGo(kvList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(kvList_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+                <div v-show="isEmptyObjV(kvList_pagination.records)" class="empty-content-block">
+      
+                  未找到相关数据！
+    
+                </div>
+
+              </div>
+            </div>
+          </section>
+         
+
+
+
+
+
+        </div>
+
+        <div class="empty-box"></div>
+
+        
+      </main>
+      <section class="modals">
+
+        <!-- edit basic info for employee Modal start -->
+        <div class="modal-container">
+          <div class="modal define-employee-modal" id="editEmployeeModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-body">
+
+                  <form class="row g-3" onsubmit="return false">
+                    <div class="section-name">职员信息</div>
+
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__Name" class="form-label">姓名</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.employeeName"  tabindex="-1" id="editEmployee__Name"  maxlength="16"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__gender" class="form-label">性别</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.gender"  tabindex="-1" id="editEmployee__gender" maxlength="8"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__education" class="form-label">学历</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.education"  tabindex="-1" id="editEmployee__education" maxlength="32"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__major" class="form-label">专业</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.major"  tabindex="-1" id="editEmployee__major" maxlength="100"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__birth" class="form-label">出生日期</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.birthdate"  tabindex="-1" id="editEmployee__birth"  data-olddate=""  @input="userInputDatePickerHandlerV($event)"
+                      class="form-control datepicker  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">职员照片</div>
+                    <div class="col-12">
+                      <div class="employee-photo">
+                        <div class="employee-avatar-container">
+                          <img :src="adaptiveImageUriV(employee.photo) || personManDefault" @error.once="e => { e.target.src = personManDefault }" alt="avatar">
+                        </div>
+                        <div class="upload-employee-materail-box">
+                          <button :class="{'loading': btn_ctl.photo_uploading}"  class="btn btn-file-upload bgPrimary">
+                
+                            <div class="btn-file-upload-wrp">上传图片 <input id="employee_photo_file" @change="uploadEmployeePhotoV($event)" accept=".jpg,.jpeg,.png" class="file-input" type="file"  style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+                            <div class="loading-content">
+                              <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                              <span role="status">正在上传...</span>
+                            </div>
+                          </button>
+                        </div>
+
+
+                      </div>
+
+                 
+                    </div>
+
+
+                    <div class="section-name">职场相关</div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__no" class="form-label">工号</label>
+                      <input @input="transformInputTextV($event)"  @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.employeeNumber" 
+                       tabindex="-1" id="editEmployee__no"  maxlength="30" class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__department" class="form-label">部门</label>
+                      <model-select  @blur="btn_ctl.basicInfo_already_change=true" 
+                       tabindex="-1" id="editEmployee__department" class="mb-3" :options="departmentOptions" placeholder="" v-model="departmentSelectedItem">
+                      </model-select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__role" class="form-label">职能</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.role"  tabindex="-1" id="editEmployee__role" maxlength="30"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__site" class="form-label">办公地点</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.officeLocation"  tabindex="-1" id="editEmployee__site" maxlength="80"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__level" class="form-label">职级</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.level"  tabindex="-1" id="editEmployee__level" maxlength="10"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__joinDate" class="form-label">入职时间</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.hireDate"  tabindex="-1" id="editEmployee__joinDate" data-olddate=""  @input="userInputDatePickerHandlerV($event)"
+                      class="form-control datepicker mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__status" class="form-label">状态</label>
+                      <select @change="btn_ctl.basicInfo_already_change=true" id="editEmployee__status"   v-model="editEmployeeBasicObj.status" class="form-select">
+                        <option value="">全部状态</option>
+                        <option value="1">在职</option>
+                        <option value="2">离职</option>
+                        <option value="3">休假</option>
+                        <option value="4">试用期</option>
+                        <option value="5">工伤</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__type" class="form-label">员工类型</label>
+                      <select @change="btn_ctl.basicInfo_already_change=true" id="editEmployee__type" v-model="editEmployeeBasicObj.genre"  class="form-select">
+                        <option value="">类型</option>
+                        <option value="1">全职员工</option>
+                        <option value="2">兼职员工</option>
+                        <option value="3">临时工</option>
+                        <option value="4">实习生</option>
+                        <option value="5">合同工</option>
+                        <option value="6">志愿者</option>
+                        <option value="7">派遣员工</option>
+                      </select>
+                    </div>
+
+                    <div class="section-name">联系方式</div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__phone" class="form-label">电话</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.phone"  tabindex="-1" id="editEmployee__phone" maxlength="24"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="editEmployee__email" class="form-label">邮箱</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.email"  tabindex="-1" id="editEmployee__email" maxlength="36"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">其他</div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__salary" class="form-label">税前工资（元）</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.salary"  tabindex="-1" id="editEmployee__salary" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="editEmployee__val" class="form-label">商业价值（元）</label>
+                      <input @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.netWorth"  tabindex="-1" id="editEmployee__val" @input="transformInputNumberAsPositiveDecimalV($event)" max="500000000"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">评语</div>
+                    <div class="col-12">
+                      <textarea @change="btn_ctl.basicInfo_already_change=true" v-model="editEmployeeBasicObj.remark"  rows="8" type="text" maxlength="300" class="form-control"  id="editEmployee__remark"></textarea>
+                    </div>            
+
+
+                  </form>
+
+                </div>
+
+                <div class="modal-footer fresh-ui-modal-footer">
+
+                  <button v-preventreclick @click="closeEditBasicEmployeeModalV" type="button"
+                    class="btn btn-outline-secondary fresh-ui-btn">
+                    <div class="contents">取消</div>
+                  </button>
+
+                  <button  v-preventreclick @click="editEmployeeBasicInfoV"  type="button"
+                  :class="{'disabled': !validateEditEmployeeBasicInfoModalCanSaveV()}"
+                   class="btn btn-primary fresh-ui-btn">提交</button>
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- edit basic info for employee Modal end -->
+          
+
+        <!-- edit benefit info for employee Modal start -->
+        <div class="modal-container">
+          <div class="modal define-employee-modal" id="editEmployeeBenefitModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-body">
+
+                  <form class="row g-3" onsubmit="return false">
+                    <div class="section-name">养老保险</div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__pensionBase" class="form-label">缴费基数</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.pensionInsuranceBase" id="employeeBenefit__pensionBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__pensionCompany" class="form-label">企业比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.pensionInsuranceCompanyRate"  id="employeeBenefit__pensionCompany" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__pensionPersonal" class="form-label">个人比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.pensionInsuranceEmployeeRate"  id="employeeBenefit__pensionPersonal" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">医疗保险</div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__medicalBase" class="form-label">缴费基数</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.medicalInsuranceBase"  id="employeeBenefit__medicalBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__medicalCompany" class="form-label">企业比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.medicalInsuranceCompanyRate"  id="employeeBenefit__medicalCompany" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__medicalPersonal" class="form-label">个人比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.medicalInsuranceEmployeeRate"  id="employeeBenefit__medicalPersonal" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">失业保险</div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__unemploymentBase" class="form-label">缴费基数</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.unemploymentInsuranceBase"  id="employeeBenefit__unemploymentBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__unemploymentCompany" class="form-label">企业比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.unemploymentInsuranceCompanyRate"  id="employeeBenefit__unemploymentCompany" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__unemploymentPersonal" class="form-label">个人比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.unemploymentInsuranceEmployeeRate"  id="employeeBenefit__unemploymentPersonal" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">工伤保险</div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__employmentInjuryBase" class="form-label">缴费基数</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.occupationalInjuryInsuranceBase" id="employeeBenefit__employmentInjuryBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__employmentInjuryCompany" class="form-label">企业比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.occupationalInjuryInsuranceCompanyRate" id="employeeBenefit__employmentInjuryCompany" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__employmentInjuryPersonal" class="form-label">个人比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.occupationalInjuryInsuranceEmployeeRate"  id="employeeBenefit__employmentInjuryPersonal" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">生育保险</div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__birthBase" class="form-label">缴费基数</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.birthInsuranceBase" id="employeeBenefit__birthBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__birthCompany" class="form-label">企业比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.birthInsuranceCompanyRate"  id="employeeBenefit__birthCompany" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__birthPersonal" class="form-label">个人比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.birthInsuranceEmployeeRate"  id="employeeBenefit__birthPersonal" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">住房公积金</div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__housingFundBase" class="form-label">缴费基数</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.housingProvidentFundsBase"  id="employeeBenefit__housingFundBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
+                        class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__housingFundCompany" class="form-label">企业比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.housingProvidentFundsCompanyRate"  id="employeeBenefit__housingFundCompany" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="employeeBenefit__housingFundhPersonal" class="form-label">个人比例</label>
+                      <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.housingProvidentFundsEmployeeRate"  id="employeeBenefit__housingFundhPersonal" @input="transformInputNumberAsPositiveDecimalV($event)" max="99" 
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    
+                  
+                  </form>
+
+                </div>
+
+                <div class="modal-footer fresh-ui-modal-footer">
+
+                  <button v-preventreclick @click="closeEditEmployeeBenefitModalV" type="button"
+                    class="btn btn-outline-secondary fresh-ui-btn">
+                    <div class="contents">取消</div>
+                  </button>
+
+                  <button  v-preventreclick @click="editEmployeeBenefitInfoV" type="button" 
+                  :class="{'disabled': !validateEditBenefitFormCanSaveV()}"
+                    class="btn btn-primary fresh-ui-btn">提交</button>
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- edit employee benefit info Modal end -->
+
+        <!-- config compensation Modal start -->
+        <div class="modal fade" id="configCompensationModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">薪酬配置</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="tb-search-container">
+                  <div class="tb-search">
+                    <div class="tb-search-group">
+                      <i class="bi bi-search"></i>
+                      <input @keyup.enter.native="loadComensationListV"   type="search" class="input_search" v-model="configCompensationObj.q"
+                        placeholder="搜索..." autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+
+                <form class="channels-container">
+
+                  <div v-for="el in compensationGrantInfo.records" class="channelRow roleRow">
+                    <div class="channelInfo__heading d-flex flex-row justify-content-between">
+                      <div>{{el.title}}</div>
+                      <div class="form-check form-switch form-switch-ui">
+                        <input @change="configCompensationV(el)" true-value="1" false-value="0"
+                          v-model="el.assigned" class="form-check-input" type="checkbox" role="switch">
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- config compensation Modal end -->
+
+
+      <!-- add   employee extra info Modal start -->
+      <div class="modal-container">
+        <div class="modal fade" id="newEmployeeExtraInfoModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-body">
+
+                <form class="row g-3" onsubmit="return false">
+
+                  <div class="col-12">
+                    <label for="newEmployeeExtraInfo__title" class="form-label">条目</label>
+                    <input  v-model="newEmployeeExtraInfoObj.title" id="newEmployeeExtraInfo__title"  maxlength="30" placeholder="比如：微信号"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                  </div>
+
+                  <div class="col-12">
+                    <label for="newEmployeeExtraInfo__content" class="form-label">内容</label>
+                    <textarea rows="6" id="newEmployeeExtraInfo__content" v-model="newEmployeeExtraInfoObj.content" placeholder="比如：wx_888888"
+                          class="form-control mb-3" maxlength="72"></textarea>
+                  </div>
+
+                
+                </form>
+
+              </div>
+
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closeNewEmployeeExtraInfoModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick  @click="addOneKvPairV" type="button" 
+                :class="{'disabled': !validateAddKvPairFormCanSaveV()}"
+                class="btn btn-primary fresh-ui-btn">添加</button>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- add employee extra info Modal end -->
+
+
+      <!-- rename employee material  Modal start -->
+      <div class="modal-container">
+        <div class="modal fade" id="renameEmployeeMaterialModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered   modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-body">
+
+                <form class="row g-3" onsubmit="return false">
+
+                  <div class="col-12">
+                    <label for="renameEmployeeMaterial_name" class="form-label">文件名称</label>
+                    <input @change="btn_ctl.renameMaterialModal_already_change=true" v-model="renameEmployeeMaterialObj.materialName" id="renameEmployeeMaterial_name"  maxlength="32"
+                      class="form-control  mb-3" type="text" autocomplete="off">
+                  </div>
+
+
+                
+                </form>
+
+              </div>
+
+              <div class="modal-footer fresh-ui-modal-footer">
+
+                <button v-preventreclick @click="closeRenameEmployeeMaterialModalV" type="button"
+                  class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+
+                <button  v-preventreclick  @click="renameEmployeeMaterialV" type="button" 
+                :class="{'disabled': !renameEmployeeMaterialObj.materialName || !btn_ctl.renameMaterialModal_already_change}"
+                class="btn btn-primary fresh-ui-btn">提交</button>
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- rename employee material  Modal end -->
+
+        
+
+      </section>
+
+    </content>
+  </pt-app>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/office/javascripts/employee-info.js"></script>
+
+</body>
+
+</html>
