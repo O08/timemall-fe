@@ -1,15 +1,3 @@
-// @import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
-@import "node_modules/bootstrap/scss/mixins";
-
-
-$midnight: #2c3e50;
-$clouds: #ecf0f1;
-$accordion-icon-color: #ecf0f1;
-$accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
-
-
 
 #productThumbnailAddModal .modal-dialog ,#showcaseAddModal .modal-dialog,#showcaseChangeModal .modal-dialog{
     max-width: 1200px;
@@ -517,15 +505,15 @@ $accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w
 #cell-define-container .accordion
 {
     --bs-accordion-bg: #2e2e2e9d;
-    --bs-accordion-color: $clouds;
+    --bs-accordion-color: #ecf0f1;
     --bs-accordion-border-color: none;
     --bs-accordion-border-width: none;
-    --bs-accordion-btn-color: $clouds;
+    --bs-accordion-btn-color: #ecf0f1;
     --bs-accordion-btn-focus-box-shadow: none;
-    --bs-accordion-active-color: $clouds;
+    --bs-accordion-active-color: #ecf0f1;
     --bs-accordion-active-bg: #000;
-    --bs-accordion-btn-icon: #{escape-svg($accordion-button-icon)};
-    --bs-accordion-btn-active-icon: #{escape-svg($accordion-button-icon)};
+    --bs-accordion-btn-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ecf0f1'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ecf0f1'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
 }
 #cell-define-container  .accordion-button:hover
 {
