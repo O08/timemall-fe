@@ -41,6 +41,38 @@
           <div>
             <div class="src_blvheader_box">
               <div class="top_header_box">
+                <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+                  <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+                    <div class="offcanvas-header">
+                      <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+                      <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                      <form id="feedback-form">
+                        <div class="mt-3">
+                          <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+                          <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+                        </div> 
+                        <div class="mt-3">
+                          <label class="form-label">附件图片(选填)</label>
+                          <div class="feedback-attachment-upload-container dropzone-wrapper">
+                            <img  id="lastestFeedbackAttachment" alt="feedback attachment">
+                            <div class="dropzone-desc">
+                              <i class="bi bi-cloud-plus"></i>
+                            </div>
+                            <input type="file" id="input_issue_attachment" accept="image/jpg, image/png, image/jpeg" class="dropzone">
+                          </div>
+                        </div>  
+                        <div class="mt-3">
+                          <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+                          <input id="input_issue_contact"  maxlength="255"  type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+                        </div> 
+                        <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+                      </form>
+                    </div>
+                  </div>
+
+                </section>
                 <div class="topheader_left_box"></div>
                 <div class="topheader_right_box">
 
@@ -86,7 +118,7 @@
                         <li><a class="dropdown-item" href="/estudio/studio-proposals"><i class="bi bi-file-medical me-1"></i>智能提案</a></li>
                         <li><a class="dropdown-item" href="/estudio/studio-virtual-store"><i class="bi bi-badge-vr me-1"></i>虚拟商品</a></li>
                         <li><a class="dropdown-item" href="/estudio/studio-subscription"><i class="bi bi-magic me-1"></i>付费订阅</a></li>
-                        <li><a class="dropdown-item" href="/rainbow/create-oasis"><i class="bi bi-music-note-beamed me-1"></i>内容社群或线上办公空间</a></li>
+                        <li><a class="dropdown-item" href="/rainbow/create-oasis"><i class="bi bi-music-note-beamed me-1"></i>内容社群/办公空间</a></li>
                       </ul>
                     </div>
 
@@ -94,7 +126,7 @@
 
                   <a class="btn-entry" href="/rainbow/discovery-partner">
                     <i class="bi bi-people"></i>
-                    <span>人脉</span>
+                    <span>找合伙人</span>
                   </a>
                   <a class="btn-entry" href="/messages">
                     <i class="bi bi-soundwave"></i>
@@ -168,6 +200,11 @@
                              </button>
                           </a>
                         </li>
+                        <li>
+                          <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                            <i class="bi bi-flag me-1"></i> 问题反馈
+                          </button>
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -220,9 +257,9 @@
               <div  class="workplace-container">
                 <div class="platform-value">
                   <h1>
-                    深受新世代喜爱的商务、社群、办公与生活平台
+                    深受新世代喜爱的社群、办公、协作与生活平台
                   </h1>
-                  <p>助你轻松实践自由职业，创作改变世界的顶尖产品，打造全球社区。</p>
+                  <p>助你轻松实践自由职业，研发人人喜爱的产品，运营高品质社群</p>
                 </div>
                 <div class="d-flex align-items-center justify-content-center pt-5 ">
                   <a style="text-decoration: none;" href="/rainbow/teixcalaanli">
@@ -275,7 +312,7 @@
                   
                     <div class="hook-info">
                       <div class="hook-info__title">
-                        <h3>成为居家办公的开服玩家</h3>
+                        <h3>成为居家办公开服玩家</h3>
                       </div>
                       <div class="hook-info__desc">
                         <p>远程狂飙，先手上桌，特约、商单、付费订阅、智能提案、任务、协同合作等诸多新功能让自由职业等数字工作者更便捷赢取工作机会，交付高质量工作产出</p>
@@ -353,13 +390,13 @@
               <!-- workplace benefits start -->
               <div class="workplace-benefits-container">
                 <div class="button-ui-hi heading">
-                  <h2>匠心设计的线上职场体验</h2>
+                  <h2>丝滑的智慧办公体验</h2>
                 </div>
                 <div class="benefit-group">
                   <div class="office-col glass">
                     <div class="benefit-item">
                       <div class="benefit-item-office-intro">
-                        <span class="benefit-intro-title">随时随地办公</span>
+                        <span class="benefit-intro-title">随时随地工作</span>
                         <p class="benefit-intro-desc">任何办公地点，一旦接入 bluvarri.com, 都可以使用卓越的移动办公能力高效完成工作，我们消除了地理、时空与通勤的约束，让你可以在工作的时候享受旅行和陪伴家人的快乐。 </p>
 
                       </div>
@@ -468,10 +505,68 @@
 
               <!-- workplace benefits end -->
 
+              <!--  lifestyle start -->
+              <div class="lifestyle-container">
+                <div class="lifestyle-section-wrapper">
+
+                  <div class="lifestyle-grid">
+                  <div class="lifestyle-left-pannel">
+                    <div class="lifestyle-title">
+                       不只是平台，更是生活方式
+                    </div>
+                    <p class="benefit-intro-desc" style="margin-top: 16px;">体验新潮的服务与科技造物，和朋友们一起游戏、放松，加入有趣的圈子，探索广阔的世界</p>
+                  </div>
+                  <div class="lifestyle-rigth-pannel">
+                    <div class="lifestyle-card">
+                      <div class="lifestyle-card-title">
+                        个性化私人定制体验
+                      </div>
+                      <p class="lifestyle-card-text benefit-intro-desc">从升学咨询、职业规划到为患者匹配最好的心理医师，用户可通过订阅或按需下单的方式，邀约领域专家，解决棘手难题</p>
+                      <div class="lifestyle-card-icon-wrapper">
+                        <div class="lifestyle-card-icon-box">
+                          <i class="bi bi-person-video2"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="lifestyle-card">
+                      <div class="lifestyle-card-title">
+                        发现独一无二的数字宝藏
+                      </div>
+                      <p class="lifestyle-card-text  benefit-intro-desc">游戏道具/货币/点券、会员、艺术藏品，海量虚拟商品，即刻购买，即时交付</p>
+                      <div class="lifestyle-card-icon-wrapper card_bg-2">
+                        <div class="lifestyle-card-icon-box">
+                          <i class="bi bi-bag-check"></i>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="lifestyle-card">
+                      <div class="lifestyle-card-title">
+                        遇见有趣圈子，收获知识和快乐
+                      </div>
+                      <p class="lifestyle-card-text  benefit-intro-desc">强大的内容工具连接创作者和粉丝，积极支持各类创意项目，让您零距离与大V互动、与名师共学</p>
+                      <div class="lifestyle-card-icon-wrapper card_bg-3">
+                        <div class="lifestyle-card-icon-box">
+                          <i class="bi bi-mortarboard"></i>
+                        </div>
+
+                      </div>
+                    </div>
+                    <img src="/common/images/home-arrow.svg" loading="lazy" class="lifestyle-arrow" alt="arrow">
+
+                  </div>
+                </div>
+
+                </div>
+              </div>
+               <!-- lifestyle end -->
+
               <!-- made in bluvarri start -->
               <div class="choice_service_container">
                 <div class="button-ui-hi choice_service_hero_title">
-                  <h2 style="text-align: center;">世界顶尖的独立工作者</h2>
+                  <h2 style="text-align: center;">优质技能服务推荐</h2>
                 </div>
                 <!-- grid start -->
                 <div id="choice_service" class="row g-2 row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
@@ -519,39 +614,7 @@
                 </div>
               </footer>
 
-              <section class="feedback_offcanvas" id="section_feedback_offcanvas">
-
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
-                  <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
-                    <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                  </div>
-                  <div class="offcanvas-body">
-                    <form id="feedback-form">
-                      <div class="mt-3">
-                        <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
-                        <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
-                      </div> 
-                      <div class="mt-3">
-                        <label class="form-label">附件图片(选填)</label>
-                        <div class="feedback-attachment-upload-container dropzone-wrapper">
-                          <img  id="lastestFeedbackAttachment" alt="feedback attachment">
-                          <div class="dropzone-desc">
-                            <i class="bi bi-cloud-plus"></i>
-                          </div>
-                          <input type="file" id="input_issue_attachment" accept="image/jpg, image/png, image/jpeg" class="dropzone">
-                        </div>
-                      </div>  
-                      <div class="mt-3">
-                        <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
-                        <input id="input_issue_contact"  maxlength="255"  type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
-                      </div> 
-                      <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
-                    </form>
-                  </div>
-                </div>
-      
-              </section>
+              
 
             </div>
 
@@ -561,6 +624,9 @@
       </div>
     </div>
   </div>
+
+
+  
   
 
   <!-- moblile content start-->
