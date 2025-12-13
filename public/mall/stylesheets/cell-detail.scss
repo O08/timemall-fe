@@ -48,7 +48,6 @@ mall-app {
   .header-container{
     padding-left: 24px;
     padding-right: 24px;
-    border-bottom: 1px solid #fff3;
   }
   nav{
     display: flex;
@@ -124,6 +123,7 @@ mall-app {
   }
   .sub-nav-container{
     padding-top: 72px;
+    background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
   }
 /*----------------------------------------------------
     1. Tab

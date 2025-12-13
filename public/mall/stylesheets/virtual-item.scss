@@ -16,6 +16,7 @@ mall-app content {
   display: flex;
   height: calc(100vh - 50px);
   overflow-y: auto;
+  background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
 }
 
 
@@ -45,11 +46,7 @@ mall-app main {
 .header-container,.nav_link,header{
   height: 55px;
 }
-.header-container{
 
-  border-bottom: 1px solid #fff3;
-
-}
 nav{
   display: flex;
   justify-content: space-between;

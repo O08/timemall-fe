@@ -49,9 +49,8 @@
   height: 55px;
 }
 .header-container{
-  padding-left: 24px;
-  padding-right: 24px;
-  border-bottom: 1px solid #fff3;
+  padding-left: 60px;
+  padding-right: 60px;
 }
 nav{
   display: flex;
@@ -404,6 +403,10 @@ header,.header-container {
     margin-left: 24px;
     margin-right: 24px;
   }
+  .header-container{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
   .nav_link.active span{
@@ -511,7 +514,7 @@ border-width: 3px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #141414;
+  background: linear-gradient(rgba(20, 20, 20, 0.8) 0%, rgba(20, 20, 20, 0.4) 100%);
   width: 100%;
 }
 .not-found-resource img{
@@ -526,9 +529,9 @@ border-width: 3px;
   color: #61666d;
 }
 .not-found-resource h4{
-  font-size: 20px;
   line-height: 1.25;
-  font-weight: 600;
   margin-bottom: 8px;
   color: #b5bac1;
+  font-weight: bolder;
+  font-size: 14px;
 }

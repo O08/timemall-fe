@@ -154,9 +154,9 @@
            
             <div class="input-search-area">
               <div class="d-flex">
-                <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="form-control top-search-input" type="text" placeholder="搜技能、职位" aria-label="Search">
+                <input @keyup.enter.native="retrieveCellGridV" v-model="cellgrid_pagination.param.q" class="top-search-input" type="text" placeholder="搜技能、职位" aria-label="Search">
                 <div class="search-btn-container">
-                  <button v-preventreclick @click="retrieveCellGridV" class="btn btn-outline-secondary" type="button">
+                  <button v-preventreclick @click="retrieveCellGridV" class="btn" type="button">
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
@@ -207,7 +207,7 @@
             <div class="top-bar d-flex justify-content-between">
               <div class="dropdown ">
                 <button class="btn dropdown-toggle top-bar-filter-budget" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  筛选
+                  预算
                 </button>
                 <form class="dropdown-menu  p-4 budget-filter-form" onsubmit="return false">
                   <div class="row g-3">
@@ -234,10 +234,10 @@
                   <button id="btn_budget_confirm" @click="filterCellGridV" type="submit" class="btn btn-dark">确定</button>
                 </form>
               </div>
-              <div class="select-container row gx-0">
-                <div class="col">
+              <div class="select-container d-flex">
+                <div class="widget-box">
                   <select @change="filterCellGridV" v-model="input_sbu" class="form-select sbu-option">
-                    <option value="">标准收费单元</option>
+                    <option value="">收费单元</option>
                     <option value="second">秒</option>
                     <option value="minute">分钟</option>
                     <option value="hour">小时</option>
@@ -248,7 +248,7 @@
                     <option value="year">年</option>
                   </select>
                 </div>
-                <div class="col ms-1">
+                <div class="widget-box ms-1">
                   <select @change="filterCellGridV" v-model="cellgrid_pagination.param.sort" class="form-select sort-by">
                     <option value="">排序</option>
                     <option value="1">最新发布</option>
@@ -296,12 +296,12 @@
                       <div class="cell-item">
                         <div class="card border-0">
                           <a  :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
-                            <img loading="lazy" :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error.once="e => { e.target.src = defaultCellPreviewImage }">
+                            <img loading="lazy" :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error="e => { e.target.src = defaultCellPreviewImage }">
                           </a>
                           <div class="card-body">
                             <div class="d-flex portrait align-items-center">
                               <div class="brand-logo-container">
-                                <img loading="lazy" class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                                <img loading="lazy" class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error="e => { e.target.src = defaultAvatarImage }">
                                 <div v-if="cell.brandMark=='3'" class="online-indicator">
                                   <div class="online-indicator-content">
                                   </div>
