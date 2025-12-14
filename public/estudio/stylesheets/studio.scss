@@ -1004,3 +1004,39 @@ file upload
   min-width: 88px;
   font-size: 12px;
 }
+
+
+/* Dark Dropdown */
+.dropdown-dark{
+  background: #1c1c1c;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 6px;
+  min-width: 180px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.dropdown-dark .dropdown-item{
+  color: rgba(255,255,255,0.8);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.dropdown-dark .dropdown-item:hover,
+.dropdown-dark .dropdown-item:focus{
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+.dropdown-dark .dropdown-item i{
+  margin-right: 10px;
+  opacity: 0.7;
+}
+.dropdown-dark .dropdown-divider{
+  border-color: rgba(255,255,255,0.06);
+  margin: 6px 0;
+}
+.dropdown-dark .dropdown-item.item-danger{
+  color: #f87171;
+}
+.dropdown-dark .dropdown-item.item-danger:hover{
+  background: rgba(248,113,113,0.1);
+}
