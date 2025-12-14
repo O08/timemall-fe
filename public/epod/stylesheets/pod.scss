@@ -491,7 +491,7 @@ img:after {
   padding-left: 1.25rem;
 }
 .friend-item:hover{
-  background-color: #f8f9fa;
+  background: rgba(255,255,255,0.04);
 }
 .friend-item a{
   color: #000;
@@ -511,11 +511,17 @@ img:after {
 .friend-info{
   grid-area: info;
 }
+.friend-name {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
 .friend-name,.friend-msg{
     line-height: 1.3;
 }
 .friend-msg,.private-msg-atom .msg-time{
-    color: #87888c;
+    color: #888;
 }
 .friend-msg{
     padding-bottom: 8px;
@@ -523,7 +529,7 @@ img:after {
 }
 .friend-info{
     padding: 8px 0;
-    border-bottom: 1px solid #e4e5e6;
+    border-bottom: 1px solid #555;
 }
 .private-msg-atom .dropdown-item{
   padding-right: 0;
@@ -535,16 +541,26 @@ img:after {
 }
 .friend-header{
     height: 40px;
-    background-color: #eaedef;
+    background: #161616;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     padding-left: 1rem;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     display : flex;
     align-items : center;
+    color: #fffc;
 }
 .private-msg-atom .dropdown-menu {
-  padding: 0;
-  width: 360px;;
+  min-width: 180px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 8px 32px;
+  background: #242628;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  width: 340px;
+  padding: 0px;
+  overflow: hidden;
 }
 .friend-list{
     height: 410px;
@@ -974,7 +990,7 @@ file upload
 
 /* Dark Dropdown */
 .dropdown-dark{
-  background: #1c1c1c;
+  background: #242628;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
   padding: 6px;
@@ -985,7 +1001,7 @@ file upload
   color: rgba(255,255,255,0.8);
   border-radius: 6px;
   padding: 10px 12px;
-  font-size: 13px;
+  font-size: 14px;
 }
 .dropdown-dark .dropdown-item:hover,
 .dropdown-dark .dropdown-item:focus{
