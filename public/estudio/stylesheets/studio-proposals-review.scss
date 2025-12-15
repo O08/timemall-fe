@@ -5,39 +5,135 @@ pt-app content main{
     background-color: #1f1f1f;
 }
 header{
-    border-bottom: 1px solid #fff3;
+    border-bottom: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+}
+.header-box{
+    --gutterWidth: 24px;
+    --containerWidth: 1100px;
+    max-width: var(--containerWidth);
+    padding: 0 var(--gutterWidth);
+    width: 100%;
 }
 .content-box{
     --gutterWidth: 24px;
     --containerWidth: 1100px;
     max-width: var(--containerWidth);
-    padding-bottom: 100px;
     padding: 0 var(--gutterWidth);
     margin: 50px auto 96px;
     background-color: #141414;
 }
+/* Page Header */
+.page-header{
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.page-header h1{
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #fff;
+}
+.page-header .subtitle{
+    color: #87888c;
+    font-size: 14px;
+}
+/* Section Card Style */
 .section-box{
     min-height: 72px;
-    padding-top: 1.3rem;
-    padding-bottom: 2rem;
-    padding-left: 1.3rem;
-    padding-right: 1.3rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s ease;
+    position: relative;
 }
+.section-box::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #5865F2 0%, #7289DA 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.section-box:hover{
+    border-color: rgba(88, 101, 242, 0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.section-box:hover::before{
+    opacity: 1;
+}
+
+/* Section Header with Icon */
+.section-header{
+    padding-bottom: 1rem;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.section-header i{
+    font-size: 18px;
+    color: #5865F2;
+}
+.section-header .header-title{
+    flex: 1;
+}
+.col-form-label{
+    font-size: 13px;
+    font-weight: 500;
+    color: #87888c;
+}
+
+/* Material Item Style */
 .material-item{
-    padding: .25rem;
-    padding-right: 4.375rem;
+    padding: 12px 16px;
+    padding-right: 80px;
     position: relative;
     display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
 }
 .material-item .material-actions{
     position: absolute;
-    right: 8px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .material-actions .dropdown-toggle:after{
     content: none;
 }
 .material-item:hover{
-    background-color: #0d1117;
+    background-color: rgba(88, 101, 242, 0.08);
+    border-color: rgba(88, 101, 242, 0.2);
+}
+.material-item .file-icon{
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff6b4a 0%, #ff4757 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+}
+.material-item .file-name{
+    flex: 1;
+    font-size: 14px;
+    color: #e4e6eb;
 }
 
 
@@ -68,11 +164,7 @@ header{
 .bgPrimary:hover{
     background-color: hsl(234.72 calc(1 * 51.44%) 52.353% / 1);
 }
-.section-header{
-    padding-bottom: 1rem;
-    font-size: 14px;
-    font-weight: 500;
-}
+
 
 .btn-save {
     box-sizing: border-box;
@@ -101,9 +193,17 @@ header{
 }
 .download {
     color: #fff9;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    transition: all .2s;
+    display: flex;
 }
 .download:hover,.btn-option-secondary:hover{
-    color: #00ba9d;
+    color: #5865f2;
+    background: #5865f21a;
 }
 .btn-option-secondary{
     background-color: unset;
@@ -127,21 +227,135 @@ header{
 }
 .inputDefault {
     box-sizing: border-box;
-    color: #fff;
-    background-color: #000;
-    border: none;
-    border-radius: 3px;
+    color: #e4e6eb;
+    background-color: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
     outline: 0;
     width: 100%;
-    height: 40px;
-    padding: 10px;
+    height: 44px;
+    padding: 10px 14px;
     font-size: 14px;
+    transition: all 0.2s ease;
+}
+.inputDefault:focus{
+    border-color: rgba(88, 101, 242, 0.5);
+    background-color: rgba(0,0,0,0.6);
+}
+
+
+/* Terms Block */
+.section-terms-block .info-block{
+    padding: 0;
+}
+.terms-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.terms-list li{
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    color: #b5bac1;
+    font-size: 13px;
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.terms-list li:last-child{
+    border-bottom: none;
+}
+.terms-list .term-number{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(88, 101, 242, 0.15);
+    color: #7289DA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+/* Empty State */
+.material-empty{
+    text-align: center;
+    padding: 32px 16px;
+    color: #87888c;
+    font-size: 13px;
+}
+.material-empty i{
+    font-size: 36px;
+    margin-bottom: 12px;
+    opacity: 0.5;
 }
 
 .table{
     width: 100%;
     min-width: 100%;
     vertical-align: middle;
+    border-radius: 8px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.table thead th{
+    color: #7289DA;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 14px 12px;
+    border: none !important;
+}
+
+
+.table tbody td{
+    padding: 14px 12px;
+    border-color: rgba(255,255,255,0.05) !important;
+    font-size: 13px;
+}
+
+.table-hi td{
+    font-weight: 600;
+    color: #7289DA;
+    font-size: 14px;
+
+}
+
+
+/* Status Badge */
+.status-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.status-badge.status-pending{
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+}
+.status-badge.status-signed{
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+}
+.status-badge.status-delivering{
+    background: rgba(201, 247, 220, 0.15);
+    color: #f4b0f3;
+}
+.status-badge.status-completed{
+    background: rgba(88, 101, 242, 0.15);
+    color: #7289DA;
+}
+.status-badge.status-cancelled{
+    background: rgba(255, 71, 87, 0.15);
+    color: #ff4757;
+}
+.status-badge i{
+    font-size: 8px;
 }
 
 .ql-editor{
@@ -174,10 +388,6 @@ header{
   .ql-editor   .ql-align-justify {
     text-align: justify;
   }
-  .col-form-label{
-    font-size: 14px;
-    font-weight: 500;
-}
 .logo img{
     display: block;
 }
@@ -196,27 +406,65 @@ header{
 .table td{
     word-break: break-all;
 }
+// tablets ipad air mini pro
+@media (min-width: 768px) and (max-width: 1100px) {
+    .header-box{
+        --gutterWidth: 0px; 
+    }
+}
+
   @media (max-width: 767px){
     .section-box{
-        padding: .75rem;
+        padding: 1rem;
+        border-radius: 8px;
     } 
+    pt-app header {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .header-box{
+        --gutterWidth: 0px; 
+    }
     .content-box {
         --gutterWidth: 12px;
+        margin-top: 24px;
     }
     .inputDefault{
         font-size: 12px;
+        height: 40px;
     }
     .section-header{
         padding-bottom: 12px;
+        font-size: 14px;
     }
     .material-item{
         font-size: 12px;
+        padding: 10px 12px;
+        padding-right: 70px;
+    }
+    .material-item .file-name,.table tbody td {
+        font-size: 12px;
+    }
+    .material-item .file-icon{
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    .table{
+        min-width: 400px;
     }
     .table td{
-       font-size: 10px;
+       font-size: 11px;
+    }
+    .table thead th{
+        font-size: 11px;
+        padding: 10px 8px;
     }
     tr td:first-child, tr th:first-child {
-        padding-left: 4px;
+        padding-left: 8px;
+    }
+    .page-header h1{
+        font-size: 20px;
     }
 
 

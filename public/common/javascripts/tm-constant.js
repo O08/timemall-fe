@@ -188,11 +188,11 @@ var VirtualOrderTag = Object.freeze({
 
 });
 var ProposalProjectStatusEnum = Object.freeze({
-    "DRAFT": "0", // 订单创建中
-    "SIGNED": "1", // 已创建订单
-    "DELIVERING": "2", // 等待支付
-    "COMPLETED": "3", // 已支付
-    "SUSPENDED": "4" // 交付中
+    "DRAFT": "0", // 待签约
+    "SIGNED": "1", // 已签约
+    "DELIVERING": "2", // 正在交付
+    "COMPLETED": "3", // 已关单
+    "SUSPENDED": "4" //  中止
 
 });
 

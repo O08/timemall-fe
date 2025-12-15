@@ -39,6 +39,18 @@ const RootComponent = {
         }
     },
     methods: {
+
+        getStatusBadgeClassV(status){
+            // 0: pending, 1: signed, 2: completed, 3: cancelled
+            const statusMap = {
+                '0': 'status-pending',
+                '1': 'status-signed',
+                '2': 'status-delivering',
+                '3': 'status-completed',
+                '4': 'status-cancelled'
+            };
+            return statusMap[status] || 'status-pending';
+        },
         
         loadProposalV(){
             loadProposal();

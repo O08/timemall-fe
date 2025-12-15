@@ -965,6 +965,10 @@ file upload
         width: 100vw;
         height: calc(100vh - 50px);
     }
+    .private-msg-atom  .friend-list{
+      height: calc(100% - 40px);
+    }
+  
     pt-app content main {
         padding: 0 24px;
     }

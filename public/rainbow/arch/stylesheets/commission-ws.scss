@@ -434,6 +434,9 @@ padding-left: 1.25rem;
   width: 100vw;
   height: calc(100vh - 50px);
 }
+.private-msg-atom  .friend-list{
+  height: calc(100% - 40px);
+}
 .tab-content > .tab-pane{
   height: 100%;
 }
