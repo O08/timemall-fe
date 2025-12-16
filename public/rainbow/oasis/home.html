@@ -158,24 +158,26 @@
             <img src="/common/icon/freeze-oasis.svg" alt="oasis already blocked">
            </div>
       </div>
-      <div class="nav-oasis-container d-flex justify-content-between">
-        <ul class="nav border-0 h-100">
-          <li class="nav-item active" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/rainbow/oasis/home?oasis_id='+oasisId">公告</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/rainbow/oasis/commission?oasis_id='+oasisId">委托</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link d-flex align-items-center" aria-current="page" :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId">数据</a>
-          </li>
-        </ul>
-        <div class="toggle-nav me-3 ">
-          <div class="d-flex align-items-center h-100 " >
-            <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
-              </svg>
+      <!-- 组织导航栏 -->
+      <div class="oasis-nav-tabs">
+        <div class="nav-tabs-inner">
+          <nav class="tabs-list">
+            <a class="tab-item active"  :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+              <i class="bi bi-megaphone"></i>
+              <span>公告</span>
+            </a>
+            <a class="tab-item" :href="'/rainbow/oasis/commission?oasis_id='+oasisId">
+              <i class="bi bi-stickies"></i>
+              <span>委托</span>
+            </a>
+            <a class="tab-item" :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId">
+              <i class="bi bi-activity"></i>
+              <span>数据</span>
+            </a>
+          </nav>
+          <div class="toggle-nav">
+            <button class="menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+              <i class="bi bi-list"></i>
             </button>
           </div>
         </div>

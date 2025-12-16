@@ -28,6 +28,13 @@ const RootComponent = {
     data() {
 
         return {
+            currentFilter: '',
+            currentFilterLabel: '',
+            currentStatusFilter: '',
+            currentStatusLabel: '',
+            currentSort: '',
+            currentSortLabel: '',
+
             currentOch: "oasis-home",
             channelSort, oaisiChannelList,getChannelDataV,
             commissionForm: {
@@ -153,15 +160,35 @@ const RootComponent = {
             });
         },
         filterCommissionV(filter){
+            this.currentFilter = filter;
+            this.currentFilterLabel = {
+                '1': '我已接收',
+                '2': '最近7天', 
+                '3': '最近1天'
+            }[filter] || '';
             filterCommission(filter);
         },
         retrieveOasisCommissionGridV(){
             retrieveOasisCommissionGrid();
         },
         retrieveOasisCommissionByTagV(tag){
+            this.currentStatusFilter=tag;
+            this.currentStatusLabel = {
+                '1': '待审核',
+                '2': '处理中',
+                '3': '已拒绝',
+                '4': '已交付', 
+                '5': '已废除',
+                '6': '派发中',
+            }[tag] || '';
             retrieveOasisCommissionByTag(tag);
         },
         sortCommissionV(sort){
+            this.currentSort=sort;
+            this.currentSortLabel = {
+                '1': '最新发布',
+                '2': '更早发布'
+            }[sort] || '';
             sortCommission(sort);
         },
         isOasisFounder(){
@@ -382,6 +409,12 @@ function retrieveOasisCommissionGrid(){
     teamCommission.commissionTb_pagination.param.tag = "";
     teamCommission.commissionTb_pagination.param.sort="1";
     teamCommission.commissionTb_pagination.current=1;
+    teamCommission.currentFilter= '';
+    teamCommission.currentFilterLabel= '';
+    teamCommission.currentStatusFilter= '';
+    teamCommission.currentStatusLabel= '';
+    teamCommission.currentSort= '';
+    teamCommission.currentSortLabel= '';
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 }
 function retrieveOasisCommissionByTag(tag){

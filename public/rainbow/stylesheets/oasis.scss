@@ -1,18 +1,120 @@
 
-.nav-item{
-    border-radius: 0;
-    border-bottom: 4px transparent solid;
-}
-.nav-item.active{
-    border-bottom: 4px #5390EC solid;
-}
-.nav-item .nav-link{
-    height: 100%;
-    color: #c3bfbf;
-}
-.nav-item .nav-link:hover{
-  color: #fff;
-
+/* ===== 组织导航栏 ===== */
+.oasis-nav-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 1044;
+  background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+  border-bottom: 1px solid #252525;
+  }
+  
+  .nav-tabs-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  max-width: 100%;
+  }
+  
+  .tabs-list {
+  display: flex;
+  gap: 4px;
+  }
+  
+  .tab-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s ease;
+  
+  i {
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+  
+  &:hover {
+    color: #adb5bd;
+    
+    i {
+      transform: scale(1.1);
+    }
+  }
+  
+  &.active {
+    color: #fff;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--bs-primary), #0dcaf0);
+      border-radius: 3px 3px 0 0;
+    }
+  }
+  }
+  
+  .toggle-nav {
+  display: none;
+  }
+  
+  .menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #adb5bd;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  i {
+    font-size: 20px;
+  }
+  
+  &:hover {
+    background: #252525;
+    border-color: #444;
+    color: #fff;
+  }
+  }
+  
+  @media (max-width: 1399.98px) {
+  .toggle-nav {
+    display: block;
+  }
+  }
+  
+  @media (max-width: 576px) {
+  .nav-tabs-inner {
+    padding: 0 16px;
+  }
+  
+  .tab-item {
+    padding: 14px 12px;
+    font-size: 13px;
+    gap: 6px;
+    
+    i {
+      font-size: 14px;
+    }
+    
+    &.active::after {
+      width: 24px;
+    }
+  }
 }
 .hero-container{
     background: linear-gradient(180deg, #68A4FD 0%, rgba(152, 193, 255, 0.1) 100%);
@@ -42,23 +144,6 @@
     font-size: 12px;
     color: #fff;
   }
-  .nav-oasis-container{
-    background: #3e444e;
-  }
-  .toggle-nav{
-    background: none;
-  }
-  .nav-oasis-container ul,.navbar-wrapper ul{
-    margin-left: 24px;
-  }
-  .nav-oasis-container ul .nav-item:first-child a{
-    padding-left: 0;
-  }
-.nav-oasis-container{
-    z-index: 1044;
-    position: sticky;
-    top: 0;
-}
 #nav-announce{
     z-index: 1044;
     position: sticky;
@@ -149,9 +234,6 @@
 }
 
 @media only screen and (min-width: 1400px){
-  .toggle-nav {
-    display: none;
-}
 .hero-info h2{
   width: 900px;
 }
@@ -177,9 +259,6 @@
   .nav-item a{
     padding-left: .75rem;
     padding-right: .75rem;
-  }
-  .nav-oasis-container ul{
-    margin-left: 1rem;
   }
   .hero-info{
     left: 1rem;
