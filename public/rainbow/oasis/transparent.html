@@ -138,16 +138,16 @@
       </div>
       <col-content>
       <div class="hero-container">
-        <div class="hero-info d-flex flex-row align-items-baseline">
+        <div class="hero-info">
             <div>
               <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             </div>
-           <div class="ms-4">
+           <div class="oasis-info">
             <h2>{{announce.title}}</h2>
             <p>{{announce.subTitle}}</p>
            </div>
         </div>
-    </div>
+      </div>
     <!-- 组织导航栏 -->
     <div class="oasis-nav-tabs">
       <div class="nav-tabs-inner">
@@ -178,28 +178,26 @@
       <div class="mt-2 mx-3 d-flex ">
 
         <div class="insight-menu">
+          <div class="transparent-category">
+            <ul>
 
-                
-      <div class="transparent-category">
-        <ul>
-
-          <li>
-            <a :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId" class="text-decoration-none">
-              <div class="transparent-category-item help-text-color"><i class="bi bi-bar-chart me-1"></i> 部落概况</div>
-            </a>
-          </li>
-          <li>
-            <a :href="'/rainbow/oasis/transparent?oasis_id='+oasisId" class="text-decoration-none text-white">
-              <div class="transparent-category-item active"><i class="bi  bi-heart-pulse me-1"></i> 活跃成员</div>
-            </a>
-          </li>
-          <li>
-            <a :href="'/rainbow/oasis/membership-order?oasis_id='+oasisId" class="text-decoration-none">
-              <div class="transparent-category-item help-text-color"><i class="bi  bi-file-text me-1"></i> 会员订阅</div>
-            </a>
-          </li>
-        </ul>
-      </div>
+              <li>
+                <a :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId" class="text-decoration-none">
+                  <div class="transparent-category-item help-text-color"><i class="bi bi-bar-chart me-1"></i> 部落概况</div>
+                </a>
+              </li>
+              <li>
+                <a :href="'/rainbow/oasis/transparent?oasis_id='+oasisId" class="text-decoration-none text-white">
+                  <div class="transparent-category-item active"><i class="bi  bi-heart-pulse me-1"></i> 活跃成员</div>
+                </a>
+              </li>
+              <li>
+                <a :href="'/rainbow/oasis/membership-order?oasis_id='+oasisId" class="text-decoration-none">
+                  <div class="transparent-category-item help-text-color"><i class="bi  bi-file-text me-1"></i> 会员订阅</div>
+                </a>
+              </li>
+            </ul>
+          </div>
 
         </div>
 
@@ -231,57 +229,77 @@
 
 
 
-    <section class="section-member-grid">
-      <div  class="result-box">
-
-        <div style="margin-bottom: 16px;">
-          <div class="tb-search">
-            <div class="tb-search-group">
-              <i class="bi bi-search"></i>
-              <input @keyup.enter.native="loadMemberV" v-model="q" type="search" class="input_search" placeholder="搜索..." autocomplete="off">
-            </div>
-          </div>
-
-        </div>
-
-        <div class="member-result-container">
-
-
-          <div v-for="record in member.records"  class="member-card-container">
-
-            <div class="member-avatar-box">
-              <div class="member-avatar">
-                <img  :src="adaptiveImageUriV(record.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+          <section class="section-member-grid">
+            <!-- 搜索栏 -->
+            <div class="member-search-bar">
+              <div class="search-input-wrapper">
+                <i class="bi bi-search"></i>
+                <input @keyup.enter.native="loadMemberV" v-model="q" type="search" placeholder="搜索成员..." autocomplete="off">
               </div>
             </div>
-            <div class="member-info ms-2">
-              <div class="member-title ellipsis-1">
-                {{record.brandName}}
-              </div>
-              <div class="member-intro ellipsis-2">
-                {{record.title}}
-              </div>
-              <div class="meta mt-2">
-                <div class="meta-pill">
-                  <i class="bi bi-hearts"></i><span class="ms-2">{{record.amount}}</span>
+
+            <!-- 有数据时显示 -->
+            <template v-if="member && member.records && member.records.length > 0">
+              
+              <!-- 排行榜列表 -->
+              <div class="ranking-list">
+                <div class="ranking-header">
+                  <span class="col-rank">排名</span>
+                  <span class="col-member">成员</span>
+                  <span class="col-contrib">贡献</span>
+                </div>
+                <div class="ranking-body">
+                  <div v-for="(record, index) in member.records" 
+                      class="ranking-item"
+                      :class="{'is-top-3': index < 3}"
+                      :style="{'--i': index}">
+                    <div class="rank-badge" :class="['rank-' + (index + 1)]">
+                      <template v-if="index === 0"><i class="bi bi-trophy-fill"></i></template>
+                      <template v-else-if="index === 1"><i class="bi bi-award-fill"></i></template>
+                      <template v-else-if="index === 2"><i class="bi bi-award"></i></template>
+                      <template v-else>{{index + 1}}</template>
+                    </div>
+                    <div class="member-profile">
+                      <div class="avatar-wrapper">
+                        <img :src="adaptiveImageUriV(record.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                      </div>
+                      <div class="profile-text">
+                        <div class="name ellipsis-1">{{record.brandName}}</div>
+                        <div class="title ellipsis-1">{{record.title}}</div>
+                      </div>
+                    </div>
+                    <div class="contrib-info">
+                      <div class="contrib-value">
+                        <i class="bi bi-heart-fill"></i>
+                        <span>{{record.amount}}</span>
+                      </div>
+                      <div class="contrib-bar">
+                        <div class="contrib-fill" :style="{width: getContributionPercent(record.amount) + '%'}"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </template>
+
+            <!-- 空状态 -->
+            <div v-if="!member || !member.records || member.records.length==0" class="member-empty-state">
+              <div class="empty-visual">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring delay-1"></div>
+                <div class="pulse-ring delay-2"></div>
+                <div class="orbit-ring">
+                  <div class="orbit-dot"></div>
+                  <div class="orbit-dot delay"></div>
+                </div>
+                <div class="empty-icon-box">
+                  <i class="bi bi-people"></i>
+                </div>
+              </div>
+              <h4>暂无数据</h4>
+              <p>未找到有关记录<br/>邀请更多成员加入，一起建设部落吧</p>
             </div>
-       
-          </div>
-
-
-
-        </div>
-        <div v-if="!member || !member.records || member.records.length==0" class="not-found-resource">
-          <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
-          <h4>没找到相关数据</h4>
-        </div>
-
-
-
-      </div>
-    </section>
+          </section>
 
         </div>
 

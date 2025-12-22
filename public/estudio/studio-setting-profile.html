@@ -271,139 +271,181 @@
           </div>  
           <!-- edit seller info -->
           <!-- seller banner -->
-          <section class="section-branding">
+          <section class="section-branding section-seller-block  box-bg-primary mb-5">
+            <div class="section-header">
+              <i class="bi bi-palette me-2" style="color: #4A90E2;"></i>品牌素材
+            </div>
+            <div class="d-flex align-items-center help-text mb-4">
+              <i class="bi bi-info-square-fill"></i>
+              <span class="ms-1">设置品牌横幅和头像，提升品牌形象与辨识度</span>
+            </div>
             <form onsubmit="return false">
-              <div class="row mb-3">
-                <div for="inputTitle" class="col-sm-4 col-form-label">
-                  横幅
-                  <div class="help-text">
-                    横幅被用来展示品牌形象，品牌店面界面将展示该内容。上传该内容以帮助您的品牌脱颖而出(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 1024 x 576 像素)。
-                    <a @click="clickBannerUploadBtn" class="btn-upload">上传
-                      <input @change="showPreviewBannerModalV($event)" type="file" id="file_banner" accept="image/jpg, image/png, image/jpeg" class="d-none">
-                    </a>
+              <div class="branding-grid">
+                <!-- 横幅上传 -->
+                <div class="branding-card">
+                  <div class="branding-card-header">
+                    <div class="branding-icon">
+                      <i class="bi bi-image"></i>
+                    </div>
+                    <div class="branding-title">
+                      <h4>品牌横幅</h4>
+                      <span class="branding-size">至少为 1024 × 576 像素</span>
+                    </div>
                   </div>
+                  <div class="branding-desc">
+                    横幅用于展示品牌形象，将在品牌店面界面展示
+                  </div>
+                  <div class="branding-requirements">
+                    <span class="req-item"><i class="bi bi-check-circle"></i> PNG / JPG / JPEG</span>
+                    <span class="req-item"><i class="bi bi-check-circle"></i> 最大 6MB</span>
+                  </div>
+                  <button @click="clickBannerUploadBtn" type="button" class="btn-branding-upload">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <span>上传横幅</span>
+                    <input @change="showPreviewBannerModalV($event)" type="file" id="file_banner" accept="image/jpg, image/png, image/jpeg" class="d-none">
+                  </button>
                 </div>
                 
-
-              </div>
-              <div class="row mb-3">
-                <div class="col-form-label col-sm-4 pt-0">
-                  头像
-                  <div class="help-text">
-                    头像能充分体现品牌的个性、形象，具有独一无二的感染力。头像内容将展示在与服务或者品牌的相关界面，快快上传吧(格式要求：png,jpg,jpeg;文件大小：最大为6M,须至少为 99 x 99 像素)。
-                    <a @click="clickAvatorUploadBtn" class="btn-upload">上传
-                      <input id="file_avator" @change="showPreviewAvatorModalV($event)" type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
-                    </a>
+                <!-- 头像上传 -->
+                <div class="branding-card">
+                  <div class="branding-card-header">
+                    <div class="branding-icon">
+                      <i class="bi bi-image"></i>
+                    </div>
+                    <div class="branding-title">
+                      <h4>品牌头像</h4>
+                      <span class="branding-size">至少为 99 × 99 像素</span>
+                    </div>
                   </div>
+                  <div class="branding-desc">
+                    头像体现品牌个性与形象，展示在服务和品牌相关界面
+                  </div>
+                  <div class="branding-requirements">
+                    <span class="req-item"><i class="bi bi-check-circle"></i> PNG / JPG / JPEG</span>
+                    <span class="req-item"><i class="bi bi-check-circle"></i> 最大 6MB</span>
+                  </div>
+                  <button @click="clickAvatorUploadBtn" type="button" class="btn-branding-upload">
+                    <i class="bi bi-cloud-arrow-up"></i>
+                    <span>上传头像</span>
+                    <input id="file_avator" @change="showPreviewAvatorModalV($event)" type="file" accept="image/jpg, image/png, image/jpeg" class="d-none">
+                  </button>
                 </div>
-              </div>                        
+              </div>
             </form>
           </section>
 
 
-          <section class="section-seller-banner position-relative">
-            <div class="brand-avator position-absolute">
-              <img  id="lastest_avator" :src="adaptiveImageUriV(brand.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-            </div>
-      
-            <div class="brand-intro-cover-container">
-
-              <div class="brand-intro-cover">
-                <img  id="lastest_banner" :src="adaptiveImageUriV(brand.banner)  || defaultBrandBanner" @error.once="e => { e.target.src = defaultBrandBanner }">
+          <section class="section-seller-banner mb-5">
+            <!-- 品牌展示区 -->
+            <div class="brand-showcase">
+              <div class="brand-banner-wrapper">
+                <img id="lastest_banner" :src="adaptiveImageUriV(brand.banner) || defaultBrandBanner" @error.once="e => { e.target.src = defaultBrandBanner }">
+                <div class="banner-overlay"></div>
+              </div>
+              <div class="brand-avatar-wrapper">
+                <img id="lastest_avator" :src="adaptiveImageUriV(brand.avator) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
               </div>
             </div>
-            <form>
-
-              <div class="brand-identity">
-                <span class="brand-name text-decoration-none">
-                  <div class="mb-3">
-                    <label for="input-identity-brand" class="form-label">
+            
+            <!-- 品牌信息表单 -->
+            <div class="brand-identity-card">
+              <form>
+                <div class="identity-form-grid">
+                  <!-- 品牌名称 -->
+                  <div class="form-field">
+                    <label for="input-identity-brand" class="field-label">
                       品牌名称
                     </label>
-                    <input type="text" id="input-identity-brand" maxlength="16" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.brand">
+                    <input type="text" id="input-identity-brand" maxlength="16" @change="btn_ctl.activate_general_save_btn = true" class="form-control" v-model="identity.brand" placeholder="输入品牌名称" autocomplete="off">
                   </div>
-                </span>
-                <p class="brand-title mb-2 mt-1">
-                  <div class="mb-3">
-                    <label for="input-identity-title" class="form-label">
-                      品牌简介
-                    </label>
-                    <textarea v-model="identity.title" id="input-identity-title" maxlength="255" @change="btn_ctl.activate_general_save_btn = true"   rows="6" type="text" maxlength="300" class="form-control input-box"></textarea>
-                  </div>
-                </p>
-                <p class="brand-title mb-2 mt-1">
-                  <div class="mb-3">
-                    <label for="input-identity-handle" class="form-label">
-                      品牌唯一标识<span @click="showExplainModelV(4)" class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
+                  
+                  <!-- 品牌唯一标识 -->
+                  <div class="form-field">
+                    <label for="input-identity-handle" class="field-label">
+                      品牌标识
+                      <span @click="showExplainModelV(4)" class="help-icon"><i class="bi bi-info-circle"></i></span>
                     </label>
                     <div class="input-group">
                       <span class="input-group-text">@</span>
-                      <input type="text" @input="transformInputTextV($event)" id="input-identity-handle" maxlength="40" @change="btn_ctl.activate_general_save_btn = true" class="form-control input-box" v-model="identity.handle">
+                      <input type="text" @input="transformInputTextV($event)" id="input-identity-handle" maxlength="39" @change="btn_ctl.activate_general_save_btn = true" class="form-control" v-model="identity.handle" placeholder="唯一标识符" autocomplete="off">
                     </div>
-                    
                   </div>
-                </p>
-                <p class="brand-title mb-2 mt-1">
-                  <div class="mb-3">
-                    <label for="input-identity-oasis" class="form-label">
-                      私域社群<span @click="showExplainModelV(5)" class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
+                  
+                  <!-- 私域社群 -->
+                  <div class="form-field">
+                    <label for="input-identity-oasis" class="field-label">
+                      私域社群
+                      <span @click="showExplainModelV(5)" class="help-icon"><i class="bi bi-info-circle"></i></span>
                     </label>
-                    <div class="input-group">
-                      <model-select
-                        :options="pdOasisOptions"
-                        v-model="pdOasisSelectedItem"
-                        placeholder=""
-                      >
-                      </model-select>
-                    </div>
-                    
+                    <model-select
+                      class="dark-model-select"
+                      :options="pdOasisOptions"
+                      v-model="pdOasisSelectedItem"
+                      placeholder="选择私域社群"
+                    >
+                    </model-select>
                   </div>
-                </p>
-                <p class="ip-location">UID: <span class="white-box">{{ !getIdentity() ? "" : getIdentity().userId }}</span></p>
-                <p class="ip-location">BID: <span class="white-box">{{ !getIdentity() ? "" : getIdentity().brandId }}</span></p>
-                <p class="ip-location">IP属地: <span class="white-box">{{ parseIpLocationCityInfoV(identity.location) }}</span></p>
-              </div>
+                  
+                  <!-- 品牌简介 -->
+                  <div class="form-field full-width">
+                    <label for="input-identity-title" class="field-label">
+                      品牌简介
+                    </label>
+                    <textarea v-model="identity.title" id="input-identity-title" maxlength="255" @change="btn_ctl.activate_general_save_btn = true" rows="4" class="form-control" placeholder="品牌愿景、价值主张..."></textarea>
+                  </div>
+                </div>
+                
+                <!-- 身份元数据 -->
+                <div class="identity-meta">
+                  <div class="meta-item">
+                    <span class="meta-label">UID</span>
+                    <span class="meta-value">{{ !getIdentity() ? "" : getIdentity().userId }}</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">BID</span>
+                    <span class="meta-value">{{ !getIdentity() ? "" : getIdentity().brandId }}</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">IP属地</span>
+                    <span class="meta-value">{{ parseIpLocationCityInfoV(identity.location) }}</span>
+                  </div>
+                </div>
+
+  
+              </form>
+
+
               <button type="submit" 
-              :class="{'disabled': !activiateSaveBtnWhenGeneralChangeV() , 
-                            'btn-primary': activiateSaveBtnWhenGeneralChangeV(),
-                            'btn-secondary': !activiateSaveBtnWhenGeneralChangeV()}"
-              v-preventreclick
-              @click="settingBrandBasicInfoV" class="btn btn-primary">保存</button>
-
-            </form>
-
-            
-
+                    :class="{'disabled': !activiateSaveBtnWhenGeneralChangeV()}"
+                    v-preventreclick
+                    @click="settingBrandBasicInfoV" class="btn btn-save">
+                  保存更改
+              </button>
+            </div>
           </section>
 
               <!-- seller Basic -->
               <section class="section-seller-block box-bg-primary mb-5">
-                <div class="section-header">基础信息</div>
-                <div class="info-block me-5">
-                  <div class="row mb-3 mt-3">
-                    <label for="inputBrandType" class="col-sm-4 col-form-label"> 
-                      账号类型
-
-                    </label>
-                    <div class="col-sm-8">
+                <div class="section-header">
+                  <i class="bi bi-sliders me-2" style="color: #4A90E2;"></i>基础信息
+                </div>
+                <div class="basic-info-form">
+                  <!-- 账号与行业 -->
+                  <div class="form-group-row">
+                    <div class="form-field">
+                      <label class="field-label">账号类型</label>
                       <model-select
+                        class="dark-model-select"
                         :options="brandTypeOptions"
-          
                         placeholder=""
-
                         v-model="brandTypeSelectedItem"
-            
                       >
                       </model-select>
                     </div>
-                  </div>
-
-                  <div class="row mb-3 mt-3">
-                    <label for="inputIndustry" class="col-sm-4 col-form-label"> 
-                      行业
-                    </label>
-                    <div class="col-sm-8">
+                    <div class="form-field">
+                      <label class="field-label">行业</label>
                       <model-select
+                        class="dark-model-select"
                         :options="industryOptions"
                         v-model="industrySelectedItem"
                         placeholder=""
@@ -412,44 +454,31 @@
                     </div>
                   </div>
 
-                  <div v-if="brandTypeSelectedItem==='0'" class="occupation-container">
-
-                    <div class="row inputOccupationContainer mb-3 mt-3">
-                      <label for="inputOccupation" class="col-sm-4 col-form-label"> 
-                        职业
-                      </label>
-                      <div class="col-sm-8">
-  
-                        <model-select
-                          :options="occupationOptions"
-                          v-model="occupationSelectedItem"
-                          placeholder=""
-                        >
-                        </model-select>
-                       
-                      </div>
+                  <!-- 职业设置 -->
+                  <div v-if="brandTypeSelectedItem==='0'" class="form-group-row">
+                    <div class="form-field">
+                      <label class="field-label">职业</label>
+                      <model-select
+                        class="dark-model-select"
+                        :options="occupationOptions"
+                        v-model="occupationSelectedItem"
+                        placeholder=""
+                      >
+                      </model-select>
                     </div>
-                    <div class="row inputOccupationContainer mb-3 mt-3">
-                      <label for="inputOccupation" class="col-sm-4 col-form-label"> 
-                        自定义职业<span @click="showExplainModelV(2)" class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
-                      </label>
-                      <div class="col-sm-8">
-  
-                        <input :disabled="occupationSelectedItem!='0'"
-                        type="text"  maxlength="60" v-model="selfDefinedOccupation"  class="form-control" >
-                       
-                      </div>
+                    <div class="form-field">
+                      <label class="field-label">自定义职业<span @click="showExplainModelV(2)" class="help-icon"><i class="bi bi-info-circle"></i></span></label>
+                      <input :disabled="occupationSelectedItem!='0'"
+                        type="text" maxlength="60" v-model="selfDefinedOccupation" class="form-control" placeholder="输入自定义职业">
                     </div>
-  
-
                   </div>
 
-                  <div v-if="brandTypeSelectedItem==='1'" class="row mb-3 mt-3">
-                    <label for="inputTypeOfBusiness" class="col-sm-4 col-form-label"> 
-                      主体
-                    </label>
-                    <div class="col-sm-8">
+                  <!-- 主体类型 -->
+                  <div v-if="brandTypeSelectedItem==='1'" class="form-group-row">
+                    <div class="form-field">
+                      <label class="field-label">主体</label>
                       <model-select
+                        class="dark-model-select"
                         :options="typeOfBusinessOptions"
                         v-model="typeOfBusinessSelectedItem"
                         placeholder=""
@@ -458,313 +487,394 @@
                     </div>
                   </div>
                   
-                  <div class="row mb-3 mt-3">
-                    <label for="inputHiring" class="col-sm-4 col-form-label"> 
-                      招聘
-                    </label>
-                    <div class="col-sm-8 input-area">
-                      <div>
-                        <input  id="inputHiring"
-                        class="form-check-input" type="checkbox" v-model="hiring" value=""> 开启
-                      </div>
+                  <!-- 开关选项 -->
+                  <div class="toggle-options">
+                    <div class="toggle-item">
+                      <span class="toggle-label">招聘</span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" v-model="hiring">
+                        <span class="toggle-slider"></span>
+                      </label>
+                    </div>
+                    <div class="toggle-item">
+                      <span class="toggle-label">求职</span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" v-model="availableForWork">
+                        <span class="toggle-slider"></span>
+                      </label>
+                    </div>
+                    <div class="toggle-item">
+                      <span class="toggle-label">夜间咨询<span @click="showExplainModelV(3)" class="help-icon"><i class="bi bi-info-circle"></i></span></span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" v-model="freeNightCounsellor">
+                        <span class="toggle-slider"></span>
+                      </label>
+                    </div>
+                    <div class="toggle-item">
+                      <span class="toggle-label">自由合作<span @click="showExplainModelV(0)" class="help-icon"><i class="bi bi-info-circle"></i></span></span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" v-model="supportFreeCooperation">
+                        <span class="toggle-slider"></span>
+                      </label>
                     </div>
                   </div>
-                  <div class="row mb-3 mt-3">
-                    <label for="inputWork" class="col-sm-4 col-form-label"> 
-                      求职
-                    </label>
-                    <div class="col-sm-8 input-area">
-                      <div>
-                        <input  id="inputWork"
-                        class="form-check-input" type="checkbox" v-model="availableForWork" value=""> 开启
-                      </div>
-                    </div>
+                  <!-- 文本区域 -->
+                  <div class="form-field full-width">
+                    <label class="field-label">合作资源<span @click="showExplainModelV(1)" class="help-icon"><i class="bi bi-info-circle"></i></span></label>
+                    <textarea rows="10" v-model="cooperationScope" class="form-control" maxlength="500" placeholder="合作意向、范围..."></textarea>
                   </div>
-                  <div class="row mb-3 mt-3">
-                    <label for="inputFreeNightCounsellor" class="col-sm-4 col-form-label"> 
-                      夜间咨询<span @click="showExplainModelV(3)" class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
-                    </label>
-                    <div class="col-sm-8 input-area">
-                      <div>
-                        <input  id="inputFreeNightCounsellor"
-                        class="form-check-input" type="checkbox" v-model="freeNightCounsellor"> 开启
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row mb-3 mt-3">
-                    <label for="inputActivity" class="col-sm-4 col-form-label"> 
-                      自由合作<span @click="showExplainModelV(0)" class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
-                    </label>
-                    <div class="col-sm-8 input-area">
-                      <div>
-                        <input  
-                        class="form-check-input" type="checkbox" v-model="supportFreeCooperation" value=""> 开启
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row mb-3 mt-3">
-                    <label for="inputActivity" class="col-sm-4 col-form-label"> 
-                      合作资源<span @click="showExplainModelV(1)"  class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
-                    </label>
-                    <div class="col-sm-8">
-                      <textarea 
-                      @input="autoHeightV($event)" v-model="cooperationScope" class="cooperation-scope" maxlength="500" placeholder="合作意向、范围..."></textarea>
-                    </div>
-                  </div>
-                  <div class="row mb-3 mt-3">
-                    <label for="inputBusinessScope" class="col-sm-4 col-form-label"> 
-                      经营范围<span @click="showExplainModelV(6)"  class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
-                    </label>
-                    <div class="col-sm-8">
-                      <textarea 
-                      @input="autoHeightV($event)" name="inputBusinessScope" v-model="businessScope" class="business-scope" maxlength="500" placeholder="商业化经营业务范围..."></textarea>
-                    </div>
+                  <div class="form-field full-width">
+                    <label class="field-label">经营范围<span @click="showExplainModelV(6)" class="help-icon"><i class="bi bi-info-circle"></i></span></label>
+                    <textarea rows="10" v-model="businessScope" class="form-control" maxlength="500" placeholder="商业化经营业务范围..."></textarea>
                   </div>
 
               
                 </div>
                 
                 
-                <button v-preventreclick :class="{'disabled': !canSaveBasicChangeV() , 
-                'btn-primary': canSaveBasicChangeV(),
-                'btn-secondary': !canSaveBasicChangeV()}" type="button" @click="settingBasicInfoV" class="btn">保存</button>
+                <button v-preventreclick :class="{'disabled': !canSaveBasicChangeV() }" type="button" @click="settingBasicInfoV" class="btn btn-save">保存更改</button>
     
         </section>
 
         <!-- seller contact info -->
-        <!-- seller Links -->
-        <section class="section-seller-block box-bg-primary mb-5">
-          <div class="section-header">联系方式</div>
-          <div class="d-flex align-items-center  help-text"><i class="bi bi-info-square-fill"></i><span class="ms-1">设置联络方式，当客户下单、预约或有合作意向可以联系到你</span></div>
-          <div class="info-block me-5 mt-3">
-
-            <form onsubmit="return false">
-              <div class="row mb-3">
-                <label for="inputPhone" class="col-sm-4 col-form-label">
-                  真实名称<span @click="showExplainModelV(7)" class="help-text ms-1"><i class="bi bi-info-circle"></i></span>
-                </label>
-                <div class="col-sm-8">
-                  <input @change="activeSaveContactBtn" v-model="contact.realName" type="text" maxlength="36" class="form-control" id="input-contact-realName">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputPhone" class="col-sm-4 col-form-label">
-                  电话
-                </label>
-                <div class="col-sm-8">
-                  <input @change="activeSaveContactBtn" v-model="contact.phone" type="text" maxlength="50" class="form-control" id="input-contact-phone">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="inputEmail" class="col-sm-4 col-form-label">
-                  邮箱
-                </label>
-                <div class="col-sm-8">
-                  <input @change="activeSaveContactBtn" v-model="contact.email" type="email" maxlength="255" class="form-control" id="input-contact-email">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label class="col-form-label col-sm-4 pt-0">
-                  微信二维码
-                </label>
-                <div class="col-sm-8">
-                  <div class="wechatQr-upload-container dropzone-wrapper">
-                    <img v-show="!!contact.wechat"  id="lastestWechatQr"  :src="contact.wechat">
-                    <div class="dropzone-desc">
-                      <i class="bi bi-cloud-plus"></i>
-                    </div>
-                    <input type="file" id="wechatQrFile" class="dropzone"  accept="image/jpg, image/png, image/jpeg" @change="previewWechatQrV($event)">
-                  </div>
-                  
-                </div>
-              </div>                        
-              <button :class="{'disabled': !contact_already_change, 
-              'btn-primary': contact_already_change,
-              'btn-secondary': !contact_already_change}" type="submit" @click="settingContactV" class="btn">保存</button>
-            </form>
-
+        <section class="section-seller-block section-contact box-bg-primary mb-5">
+          <div class="section-header">
+            <i class="bi bi-person-lines-fill me-2" style="color: #4A90E2;"></i>联系方式
+          </div>
+          <div class="d-flex align-items-center help-text mb-4">
+            <i class="bi bi-info-square-fill"></i>
+            <span class="ms-1">设置联络方式，当客户下单、预约或有合作意向可以联系到你</span>
           </div>
           
-
+          <form onsubmit="return false">
+            <div class="contact-form-grid">
+              <!-- 真实名称 -->
+              <div class="form-field">
+                <label for="input-contact-realName" class="field-label">
+                  真实名称
+                  <span @click="showExplainModelV(7)" class="help-icon"><i class="bi bi-info-circle"></i></span>
+                </label>
+                <input @change="activeSaveContactBtn" v-model="contact.realName" type="text" maxlength="36" class="form-control" id="input-contact-realName" placeholder="输入真实名称">
+              </div>
+              
+              <!-- 电话 -->
+              <div class="form-field">
+                <label for="input-contact-phone" class="field-label">
+                  联系电话
+                </label>
+                <input @change="activeSaveContactBtn" v-model="contact.phone" type="text" maxlength="50" class="form-control" id="input-contact-phone" placeholder="输入手机或座机号码">
+              </div>
+              
+              <!-- 邮箱 -->
+              <div class="form-field">
+                <label for="input-contact-email" class="field-label">
+                  电子邮箱
+                </label>
+                <input @change="activeSaveContactBtn" v-model="contact.email" type="email" maxlength="50" class="form-control" id="input-contact-email" placeholder="example@email.com">
+              </div>
+              
+              <!-- 微信二维码 -->
+              <div class="form-field wechat-field">
+                <label class="field-label">
+                  微信二维码
+                </label>
+                <div class="wechat-upload-area">
+                  <div class="wechat-preview" :class="{'has-image': !!contact.wechat}">
+                    <img v-show="!!contact.wechat" id="lastestWechatQr" :src="contact.wechat">
+                    <div v-show="!contact.wechat" class="upload-placeholder">
+                      <i class="bi bi-qr-code"></i>
+                      <span>上传二维码</span>
+                    </div>
+                    <input type="file" id="wechatQrFile" accept="image/jpg, image/png, image/jpeg" @change="previewWechatQrV($event)">
+                  </div>
+                  <div class="upload-hint">
+                    <span>支持 JPG、PNG 格式，点击上传</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <button :class="{'disabled': !contact_already_change}" 
+              type="submit" @click="settingContactV" class="btn btn-save">
+              保存更改
+            </button>
+          </form>
         </section>
 
           <!-- seller experience -->
-          <section class="section-seller-experience box-bg-primary">
+          <section class="section-seller-experience box-bg-primary mb-5">
             <div class="section-header">
-              品牌发展史
+              <i class="bi bi-clock-history me-2" style="color: #4A90E2;"></i>品牌发展史
             </div>
-            <div class="d-flex align-items-center  help-text"><i class="bi bi-info-square-fill"></i><span class="ms-1">展示品牌的独特历史、远景等信息</span></div>
+            <div class="d-flex align-items-center help-text mb-4">
+              <i class="bi bi-info-square-fill"></i>
+              <span class="ms-1">展示品牌的独特历史、里程碑与远景规划</span>
+            </div>
 
-            <div class="d-flex tool-bar mb-3 mt-3">
-              <div class="add-new-skill  tool-container" @click="showAddExperienceModalV">
-                <i class="bi bi-plus"></i>
-                <span>添加条目</span>
-              </div>
+            <div class="d-flex tool-bar mb-4">
+              <button class="btn-add-milestone" @click="showAddExperienceModalV">
+                <i class="bi bi-plus-circle"></i>
+                <span>添加经历</span>
+              </button>
             </div>
-            <div class="experience-edit-pannel">
-              <div v-for="(millstone,index) in brandProfile.experience" class="exeperince-millstone mt-2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="millstone-header d-flex  ms-2 mt-2">
-                    <div class="img-shadow pt-2">
-                      <img :src="defaultExperienceImage">
-                    </div>
-                    <div class="inner-header d-flex flex-column ms-2">
-                      <span class="fw-semibold lh-lg mb-1">{{millstone.title}}</span>
-                      <span style="font-size: 14px;" class="fw-normal mb-0">{{millstone.subTitle}}</span>
-                      <span class="help-text mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{!millstone.end ? '现在' : millstone.end }}</span>
+            
+            <!-- 空状态 -->
+            <div v-if="!brandProfile.experience || brandProfile.experience.length === 0" class="experience-empty">
+              <div class="empty-icon">
+                <i class="bi bi-camera-reels"></i>
+              </div>
+              <p class="empty-title">不存于历史中</p>
+              <p class="empty-desc">记录重要时刻，让客户了解你的品牌故事</p>
+            </div>
+            
+            <!-- 里程碑列表 -->
+            <div v-else class="milestone-list">
+              <div v-for="(millstone, index) in brandProfile.experience" :key="index" class="milestone-card">
+                <div class="milestone-header">
+                  <div class="milestone-icon">
+                    <img :src="defaultExperienceImage">
+                  </div>
+                  <div class="milestone-info">
+                    <h4 class="milestone-title">{{millstone.title}}</h4>
+                    <p v-if="millstone.subTitle" class="milestone-subtitle">{{millstone.subTitle}}</p>
+                    <div class="milestone-date">
+                      <i class="bi bi-calendar3"></i>
+                      <span>{{millstone.start}} - {{!millstone.end ? '至今' : millstone.end }}</span>
                     </div>
                   </div>
-                 
-                  <div class="dropstart me-5">
-                    <button class="btn btn-outline-info btn-add-new-experience toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <div class="milestone-actions">
+                    <button class="btn-milestone-menu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-three-dots-vertical"></i>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end item-setting">
-                      <li>
-                        <span class="item-setting-edit" @click="editExperienceV(index)">
-                          <i class="bi bi-pencil-square"></i>
-                          <span class="mx-1">编辑条目</span>
-                        </span>
-                      </li>
-                      <li>
-                        <span class="item-setting-plus" @click="showAddExperieneDescModalV(index)">
-                          <i class="bi bi-plus"></i>
-                          <span>添加描述</span>
-                        </span>
-                      </li>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item" href="#" @click.prevent="editExperienceV(index)"><i class="bi bi-pencil me-2"></i>编辑条目</a></li>
+                      <li><a class="dropdown-item" href="#" @click.prevent="showAddExperieneDescModalV(index)"><i class="bi bi-plus-lg me-2"></i>添加描述</a></li>
                     </ul>
                   </div>
                 </div>
-                <div v-if="millstone.entries" class="card-body">
-                  <ul class="timeline">
-                    <li v-for="(entry,descIndex) in millstone.entries" class="timeline-item">
-                      <div class="timeline-item-wrp  d-flex justify-content-between align-items-center">
-
-                        <div class="story-wrapper">
-                          <h5 class="mb-0">{{entry.title}}</h5>
-                          <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : '现在' }}</p>
-                          <p class="opt_item_desc mb-0">
-                            {{entry.story}}
-                          </p>
-                        </div>
-                        <span class="option-edit-wrapper me-5" :class="{'display-el': descIndex == 0}">
-                          <div @click="editExperienceDescV(index,descIndex)" class="d-flex justify-content-center align-items-center option-container circle ">
-                            <i class="bi bi-pen"></i>
-                          </div>
-                        </span>
-
+                
+                <!-- 子条目 -->
+                <div v-if="millstone.entries && millstone.entries.length" class="milestone-entries">
+                  <div v-for="(entry, descIndex) in millstone.entries" :key="descIndex" class="entry-row">
+                    <div class="entry-dot"></div>
+                    <div class="entry-body">
+                      <div class="entry-head">
+                        <h5 class="entry-title">{{entry.title}}</h5>
+                        <button @click="editExperienceDescV(index, descIndex)" class="btn-entry-edit">
+                          <i class="bi bi-pencil"></i>
+                        </button>
                       </div>
-
-                    </li>
-                  </ul>
+                      <span class="entry-time">{{entry.start}} - {{entry.end ? entry.end : '至今' }}</span>
+                      <p v-if="entry.story" class="entry-desc">{{entry.story}}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-
             </div>
           </section>
       
           <!-- seller skills -->
-          <section class="section-seller-block box-bg-primary mb-5">
-            <div class="section-header">品牌词条</div>
-            <div class="d-flex align-items-center  help-text"><i class="bi bi-info-square-fill"></i><span class="ms-1">展示品牌的专业能力、荣誉等信息</span></div>
-
-            <div class="d-flex tool-bar mb-3 mt-3">
-              <div class="add-new-skill tool-container" @click="addSkillV">
-                <i class="bi bi-plus"></i>
-                <span>添加词条</span>
+          <section class="section-seller-block section-skills box-bg-primary mb-5">
+            <div class="section-header">
+              <i class="bi bi-noise-reduction me-2" style="color: #4A90E2;"></i>品牌词条
+            </div>
+            <div class="d-flex align-items-center help-text mb-4">
+              <i class="bi bi-info-square-fill"></i>
+              <span class="ms-1">用简洁的标签展示品牌价值、专业能力与荣誉资质</span>
+            </div>
+            
+            <!-- 空状态 -->
+            <div v-if="!brandProfile.skills || brandProfile.skills.length === 0" class="skills-showcase-empty">
+              <div class="showcase-placeholder">
+                <div class="placeholder-tags">
+                  <span class="tag-demo"><i class="bi bi-trophy"></i> 10年行业经验</span>
+                  <span class="tag-demo"><i class="bi bi-patch-check"></i> ISO9001认证</span>
+                  <span class="tag-demo"><i class="bi bi-star"></i> 优质服务商</span>
+                </div>
+                <p class="empty-title">还没有添加词条</p>
+                <p class="empty-desc">添加荣誉、资质等信息</p>
+                <button v-if="!brandProfile.skills || brandProfile.skills.length === 0" 
+                  class="btn btn-save" 
+                  @click="addSkillV">
+                  <i class="bi bi-plus-circle"></i>
+                  <span>添加第一个词条</span>
+                </button>
               </div>
             </div>
-            <div class="info-block me-5">
-              <div v-for="(skill,index) in brandProfile.skills" class="row py-2">
-                <div class="col-10">
-                  <input type="text" class="form-control" v-model.trim="skill.entry" maxlength="100" @change="btn_ctl.activate_skills_save_btn = true" placeholder="输入词条" aria-describedby="basic-addon2">
+            
+            <!-- 词条展示 -->
+            <div v-else class="skills-showcase">
+              <div class="skills-tags-wrapper">
+                <div v-for="(skill, index) in brandProfile.skills" :key="index" class="skill-tag-item">
+                  <div class="tag-content">
+                    <input type="text" 
+                      class="tag-input" 
+                      v-model.trim="skill.entry" 
+                      maxlength="32" 
+                      @change="btn_ctl.activate_skills_save_btn = true" 
+                      placeholder="输入词条...">
+                  </div>
+                  <button v-preventreclick @click="removeSkillV(index)" class="tag-remove">
+                    <i class="bi bi-x"></i>
+                  </button>
                 </div>
-                <div class="col-2 d-flex align-items-center ">
-                  <div class="item-setting">
-                    <button v-preventreclick @click="removeSkillV(index)" class="btn btn-outline-danger item-setting-x"><i class="bi bi-trash"></i></button>
-                  </div> 
-                </div>
-      
+                
+                <!-- 添加按钮作为标签 -->
+                <button class="skill-tag-add" @click="addSkillV">
+                  <i class="bi bi-plus"></i>
+                  <span>添加词条</span>
+                </button>
               </div>
             </div>
-            <button v-preventreclick :class="{'disabled': !btn_ctl.activate_skills_save_btn, 
-            'btn-primary': btn_ctl.activate_skills_save_btn,
-            'btn-secondary': !btn_ctl.activate_skills_save_btn}" type="button" @click="settingSkillsV" class="btn">保存</button>
-
+            
+            <!-- 底部操作栏 -->
+            <div class="skills-footer">
+             
+              <div class="skills-actions">
+               
+                <button v-preventreclick 
+                  v-if="brandProfile.skills && brandProfile.skills.length > 0"
+                  :class="{'disabled': !validateSkillFormV()}" 
+                  type="button" 
+                  @click="settingSkillsV" 
+                  class="btn btn-save">
+                  保存更改
+                </button>
+              </div>
+              <div class="skills-count" v-if="brandProfile.skills && brandProfile.skills.length > 0">
+                <span class="count-num">{{ brandProfile.skills.length }}</span>
+                <span class="count-label">个词条</span>
+              </div>
+            </div>
           </section>
 
            <!-- seller Links -->
-           <section class="section-seller-block box-bg-primary mb-5">
-            <div class="section-header">链接</div>
-            <div class="d-flex align-items-center  help-text"><i class="bi bi-info-square-fill"></i><span class="ms-1">设置品牌的社交媒体、官网等链接</span></div>
-            <div class="d-flex tool-bar mb-3 mt-3">
-              <div class="add-new-skill tool-container" @click="addLinkV">
-                <i class="bi bi-plus"></i>
-                <span>添加链接</span>
+           <section class="section-seller-block section-links box-bg-primary mb-5">
+            <div class="section-header">
+              <i class="bi bi-link me-2" style="color: #4A90E2;"></i>品牌链接
+            </div>
+            <div class="d-flex align-items-center help-text mb-4">
+              <i class="bi bi-info-square-fill"></i>
+              <span class="ms-1">添加社交媒体、官网、作品集等链接，让客户更全面了解你</span>
+            </div>
+            
+            <!-- 空状态 -->
+            <div v-if="!brandProfile.links || brandProfile.links.length === 0" class="links-showcase-empty">
+              <div class="empty-preview">
+                <div class="preview-icons">
+                  <span class="icon-item"><i class="bi bi-globe"></i></span>
+                  <span class="icon-item"><i class="bi bi-instagram"></i></span>
+                  <span class="icon-item"><i class="bi bi-twitter-x"></i></span>
+                  <span class="icon-item"><i class="bi bi-youtube"></i></span>
+                  <span class="icon-item"><i class="bi bi-github"></i></span>
+                </div>
+                <p class="empty-title">还没有添加链接</p>
+                <p class="empty-desc">添加你的社交媒体、网站等链接</p>
+                <button class="btn btn-save" @click="addLinkV">
+                  <i class="bi bi-plus-circle"></i>
+                  <span>添加第一个链接</span>
+                </button>
               </div>
             </div>
-            <div class="info-block me-5">
-              <div v-for="(link,index) in brandProfile.links" class="row py-2">
+            
+            <!-- 链接列表 -->
+            <div v-else class="links-showcase">
+              <div class="links-grid">
+                <div v-for="(link, index) in brandProfile.links" :key="index" class="link-card">
+                  <div class="link-form">
+                    <div class="link-field">
+                      <label class="field-label">标题</label>
+                      <input @change="validateLinkTitleV(index)" 
+                        v-model.trim="link.linkTitle" 
+                        maxlength="20" 
+                        type="text" 
+                        class="link-input" 
+                        :id="'inputUrlTitle' + index" 
+                        placeholder="如：官方网站、Instagram..." autocomplete="off">
+                    </div>
+                    <div class="link-field link-url-field">
+                      <label class="field-label">URL</label>
+                      <input @change="validateLinkUriV(index)" 
+                        v-model.trim="link.uri" 
+                        maxlength="100"
+                        type="text" 
+                        class="link-input" 
+                        :id="'inputUrl' + index" 
+                        placeholder="https://..." autocomplete="off">
+                    </div>
+                  </div>
+                  <button v-preventreclick @click="removeLinkV(index)" class="link-remove">
+                    <i class="bi bi-trash3"></i>
+                  </button>
+                </div>
+              </div>
               
-                <div class="col-5">
-                  <div class="form-floating" :id="'form-floating-title-'+index">
-                    <input  @change="validateLinkTitleV(index)" v-model.trim="link.linkTitle" maxlength="20" type="text" class="form-control" :id="'inputUrlTitle' + index" >
-                    <label :for="'inputUrlTitle'+ index">链接描述(必填，最长20字符)</label>
-                  </div>
-                </div>
-                <div class="col-5">
-                  <div class="form-floating"  :id="'form-floating-uri-'+index">
-                    <input  @change="validateLinkUriV(index)" v-model.trim="link.uri" type="text" class="form-control" :id="'inputUrl' + index" >
-                    <label :for="'inputUrl' + index">URL(必填，https://)</label>
-                  </div>
-                </div>
-                <div class="col-2 d-flex align-items-center ">
-                  <div class="item-setting">
-                    <button v-preventreclick @click="removeLinkV(index)" class="btn btn-outline-danger item-setting-x"><i class="bi bi-trash"></i></button>
-                  </div> 
-                </div>
+              <!-- 添加链接按钮 -->
+              <button class="btn-add-link" @click="addLinkV">
+                <i class="bi bi-plus-lg"></i>
+                <span>添加链接</span>
+              </button>
+            </div>
+            
+            <!-- 底部操作栏 -->
+            <div v-if="brandProfile.links && brandProfile.links.length > 0" class="links-footer">
+              <button v-preventreclick 
+                :class="{'disabled': !validateLinkFormV()}" 
+                type="button" 
+                @click="settingLinksV" 
+                class="btn btn-save">
+                保存更改
+              </button>
+               <div class="links-count">
+                <span class="count-num">{{ brandProfile.links.length }}</span>
+                <span class="count-label">个链接</span>
               </div>
             </div>
-            <button v-preventreclick :class="{'disabled': !validateLinkFormV() , 
-            'btn-primary': validateLinkFormV(),
-            'btn-secondary': !validateLinkFormV()}" type="button" @click="settingLinksV" class="btn">保存</button>
-
           </section>
 
           <!-- e studio setting -->
-          <section class="section-seller-block box-bg-primary mb-5">
-            <div class="section-header">薪动商号超菜单</div>
-            <div class="d-flex align-items-center help-text">
-              <i class="bi bi-info-square-fill"></i><span class="ms-1">访达按钮显示该超级菜单。可自定义个人办公空间、高频访问App等超级链接</span>
+          <section class="section-seller-block section-super-menu box-bg-primary mb-5">
+            <div class="section-header">
+              <i class="bi bi-command me-2" style="color: #4A90E2;"></i>超级菜单
             </div>
-            <div class="info-block me-5 mt-3">
-  
-              <div class="row">
-                <div class="col-5">
-                  <div class="form-floating">
-                    <input @change="studio_already_change=true"  v-model="studio.hiLinkName" maxlength="6" type="text" class="form-control" >
-                    <label>链接描述(必填，最长6字符)</label>
-                  </div>
-                </div>
-                <div class="col-5">
-                  <div class="form-floating" >
-                    <input @change="studio_already_change=true"  v-model="studio.hiLinkUrl" type="text" class="form-control" maxlength="460" >
-                    <label>URL(必填，https://)</label>
-                  </div>
-                </div>
-                <div class="col-2">
-
+            <div class="d-flex align-items-center help-text mb-4">
+              <i class="bi bi-info-square-fill"></i>
+              <span class="ms-1">配置访达按钮的快捷入口，直达你的个人办公空间或高频应用</span>
+            </div>
+            
+            <div class="quick-entry-grid">
+              <div class="entry-field">
+                <div class="entry-content">
+                  <label class="entry-label">入口名称</label>
+                  <input @change="studio_already_change=true" 
+                    v-model="studio.hiLinkName" 
+                    maxlength="6" 
+                    type="text" 
+                    class="entry-input" 
+                    placeholder="输入名称，6字以内" autocomplete="off">
                 </div>
               </div>
-             
+              
+              <div class="entry-field">
+                <div class="entry-content">
+                  <label class="entry-label">目标地址</label>
+                  <input @change="studio_already_change=true" 
+                    v-model="studio.hiLinkUrl" 
+                    type="text" 
+                    class="entry-input" 
+                    maxlength="100" 
+                    placeholder="https://..."  autocomplete="off">
+                </div>
+              </div>
             </div>
-
-            <button :class="{'disabled': !validateStudioSettingFormV(), 
-            'btn-primary': validateStudioSettingFormV(),
-            'btn-secondary': !validateStudioSettingFormV()}" type="submit" @click="settingStudioV" class="btn">保存</button>
             
-  
+            <button 
+              :class="{'disabled': !validateStudioSettingFormV()}" 
+              type="button" 
+              @click="settingStudioV" 
+              class="btn btn-save">
+              保存更改
+            </button>
           </section>
             
 
@@ -776,14 +886,14 @@
          <!--  explain info modal -->
       <div class="modal-container">
         <div class="modal fade" id="explainInfoModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title" style="font-size: 14px;" id="explainInfoModalLabel">{{explain.title}}</h1>
+                <h1 class="modal-title" id="explainInfoModalLabel">{{explain.title}}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p class="help-text" style="font-size: 12px;">{{explain.content}}</p>
+                <p class="help-text">{{explain.content}}</p>
               </div>
             </div>
           </div>
@@ -911,92 +1021,147 @@
         <div class="modal-container">
           <!-- Modal -->
           <div class="modal fade" id="newExperienceModal" tabindex="-1">
-            <div class="modal-dialog  banner-modal-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
+            <div class="modal-dialog modal-dialog-scrollable modal-slide-right">
+              <div class="modal-content modal-slide-content">
                 
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="newExperienceModalLabel">编辑条目</h1>
-                  <button type="button" id="closeNewExperienceModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- Header -->
+                <div class="slide-modal-header">
+                  <div class="header-info">
+                    <h2 class="header-title">编写经历</h2>
+                    <p class="header-subtitle">记录个人/品牌发展的重要时刻</p>
+                  </div>
+                  <button type="button" id="closeNewExperienceModal" class="header-close" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
                 </div>
-                <div class="modal-body">
-                  <form class="form-new-experience">
-                    <div class="mb-3">
-                      <label for="experience-input-title" class="form-label">标题
-                        <span class="required-indicator" aria-hidden="true">*</span>
-                      </label>
-                      <input type="text" v-model="tmpMillstone.title" class="form-control" maxlength="500" id="experience-input-title" required="">
+                
+                <!-- Body -->
+                <div class="slide-modal-body">
+                  <div class="slide-form">
+                    
+                    <!-- 基本信息 -->
+                    <div class="form-section">
+                      
+                      <div class="slide-field">
+                        <label>标题 <span class="req">*</span></label>
+                        <input type="text" 
+                          v-model="tmpMillstone.title" 
+                          class="slide-input" 
+                          maxlength="32" 
+                          placeholder="比如 2022年A股上市">
+                      </div>
+                      
+                      <div class="slide-field">
+                        <label>子标题</label>
+                        <textarea rows="3"
+                          v-model="tmpMillstone.subtitle" 
+                          class="slide-input" 
+                          maxlength="72" 
+                          placeholder="可选，补充说明"></textarea>
+                      </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="experience-input-subtitle" class="form-label">子标题</label>
-                      <input type="text" v-model="tmpMillstone.subtitle" class="form-control" maxlength="1000" id="experience-input-subtitle">
-                    </div>
-                    <div class="mb-3">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="in-progress" v-model="tmpMillstone.inProgress">
-                        <label class="form-check-label" for="gridCheck">
-                          经历还在持续
+                    
+                    <!-- 时间设置 -->
+                    <div class="form-section">
+                      <div class="section-header">
+                        <i class="bi bi-calendar3"></i>
+                        时间设置
+                      </div>
+                      
+                      <div class="ongoing-toggle">
+                        <div class="toggle-info">
+                          <i class="bi bi-arrow-repeat"></i>
+                          <div class="toggle-text">
+                            <span class="toggle-title">经历还在持续</span>
+                            <span class="toggle-desc">开启后无需填写结束时间</span>
+                          </div>
+                        </div>
+                        <label class="switch-toggle">
+                          <input type="checkbox" v-model="tmpMillstone.inProgress">
+                          <span class="switch-slider"></span>
                         </label>
                       </div>
+                      
+                      <div class="time-row">
+                        <div class="slide-field">
+                          <label>开始年 <span class="req">*</span></label>
+                          <select v-model="tmpMillstone.startYear" class="slide-select">
+                            <option value="">选择</option>
+                            <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
+                          </select>
+                        </div>
+                        <div class="slide-field">
+                          <label>开始月 <span class="req">*</span></label>
+                          <select v-model="tmpMillstone.startMonth" class="slide-select">
+                            <option value="">选择</option>
+                            <option v-for="month in 12" :value="month">{{month}}月</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="time-row" :class="{'has-error': validateExperienceDateV}">
+                        <div class="slide-field">
+                          <label :class="{'disabled': tmpMillstone.inProgress}">
+                            结束年 <span v-show="!tmpMillstone.inProgress" class="req">*</span>
+                          </label>
+                          <select v-model="tmpMillstone.endYear" 
+                            :disabled="tmpMillstone.inProgress" 
+                            class="slide-select">
+                            <option value="">选择</option>
+                            <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
+                          </select>
+                        </div>
+                        <div class="slide-field">
+                          <label :class="{'disabled': tmpMillstone.inProgress}">
+                            结束月 <span v-show="!tmpMillstone.inProgress" class="req">*</span>
+                          </label>
+                          <select v-model="tmpMillstone.endMonth" 
+                            :disabled="tmpMillstone.inProgress" 
+                            class="slide-select">
+                            <option value="">选择</option>
+                            <option v-for="month in 12" :value="month">{{month}}月</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div v-show="validateExperienceDateV" class="time-error">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        结束日期不能早于开始日期
+                      </div>
                     </div>
-                    <div class="mb-3 row g-3">
-                      <div class="col">
-                        <label for="input-experience-start-year" class="form-label">开始年
-                          <span class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select v-model="tmpMillstone.startYear" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
-                          <option value="">年</option>
-                          <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
-                        </select>
-                      </div>
-                      <div class="col">
-                        <label for="input-experience-start-year" class="form-label">开始月
-                          <span class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select v-model="tmpMillstone.startMonth" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
-                          <option value="">月</option>
-                          <option v-for="month in 12" :value="month">{{month}}</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="mb-3 row gx-3" :class="{'error-wrapper':validateExperienceDateV}">
-                      <div class="col">
-                        <label :class="{'disable-text-coler':tmpMillstone.inProgress}" for="input-experience-end-year" class="form-label">结束年
-                          <span v-show="!tmpMillstone.inProgress" class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select v-model="tmpMillstone.endYear" class="form-select form-select-lg" aria-label=".form-select-lg" :disabled="tmpMillstone.inProgress">
-                          <option value="">年</option>
-                          <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
-                        </select>
-                      </div>
-                      <div class="col">
-                        <label :class="{'disable-text-coler':tmpMillstone.inProgress}" for="input-experience-end-month" class="form-label">结束月
-                          <span v-show="!tmpMillstone.inProgress" class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select v-model="tmpMillstone.endMonth" class="form-select form-select-lg" aria-label=".form-select-lg" :disabled="tmpMillstone.inProgress">
-                          <option value="">月</option>
-                          <option v-for="month in 12" :value="month">{{month}}</option>
-                        </select>
-                      </div>
-                      <div class="error-feedback">
-                        <span class="error-icon">
-                          <i class="bi bi-dash-circle"></i>
-                        </span>
-                        <span class="error-text">结束日期不能早于开始日期</span>
-                      </div>
-                    </div>
-                    <div class="py-5 d-flex justify-content-between">
-                      <button v-show="!tmpMillstone.mode" type="button" :class="{'disabled': validateExperienceModal, 
-                        'btn-primary': !validateExperienceModal,
-                        'btn-secondary': validateExperienceModal}" id="btn-add-experience" class="btn" @click="addExperienceV">添加</button>
-                        <button v-show="tmpMillstone.mode==='edit'" type="button" id="btn-remove-experience" class="btn btn-outline-secondary" @click="removeExperienceV(tmpMillstone.index)">删除</button>
-                        <button v-show="tmpMillstone.mode==='edit'" type="button" :class="{'disabled': validateExperienceModal, 
-                        'btn-primary': !validateExperienceModal,
-                        'btn-secondary': validateExperienceModal}" id="btn-update-experience" class="btn" @click="modifyExperienceV(tmpMillstone.index)">更新</button>
-                    </div>
-                   </form>
+                  </div>
                 </div>
-                <!-- <div class="modal-footer btn-light">
-                </div> -->
+                
+                <!-- Footer -->
+                <div class="slide-modal-footer">
+                  <div class="footer-left">
+                    <button v-show="tmpMillstone.mode==='edit'" 
+                      type="button" 
+                      class="btn-footer-delete"
+                       v-preventreclick 
+                      @click="removeExperienceV(tmpMillstone.index)">
+                      删除
+                    </button>
+                  </div>
+                  <div class="footer-right">
+                    <button v-show="!tmpMillstone.mode" 
+                      type="button" 
+                      :class="{'disabled': validateExperienceModalFailForAddMode}" 
+                      class="btn-footer-primary"
+                       v-preventreclick 
+                      @click="addExperienceV">
+                      提交
+                    </button>
+                    <button v-show="tmpMillstone.mode==='edit'" 
+                      type="button" 
+                      :class="{'disabled': !validateExperienceModalForEditModeCanSave}" 
+                      class="btn-footer-primary"
+                       v-preventreclick 
+                      @click="modifyExperienceV(tmpMillstone.index)">
+                      保存更改
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1005,119 +1170,174 @@
         <div class="modal-container">
           <!-- Modal -->
           <div class="modal fullscreen-modal fade" id="newExperienceDescModal" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="newExperienceDescModalLabel">编辑描述</h1>
-                  <button type="button" id="closenewExperienceDescModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog modal-dialog-scrollable modal-desc-slide">
+              <div class="modal-content modal-desc-v2">
+                
+                <!-- Header -->
+                <div class="desc-modal-header">
+                  <div class="header-left">
+                    <h2 class="header-title">编辑描述</h2>
+                  </div>
+                  <button type="button" id="closenewExperienceDescModal" class="header-close" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
                 </div>
-                <div class="modal-body">
-                   <form class="w-100">
-                    <div class="mb-3">
-                      <label for="input-experience-desc-title" class="form-label">标题
-                        <span class="required-indicator" aria-hidden="true">*</span>
-                      </label>
-                      <input v-model="tmpMillstioneDesc.title" type="text" class="form-control" maxlength="500" id="input-experience-desc-title" autocomplete="off">
-                    </div>
-                    <div class="mb-3">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="in-progress" v-model="tmpMillstioneDesc.inProgress">
-                        <label class="form-check-label" for="gridCheck">
-                          经历还在持续
-                        </label>
+                
+                <!-- Body -->
+                <div class="desc-modal-body">
+                  <div class="desc-form-grid">
+                    
+                    <!-- 左侧：基本信息 -->
+                    <div class="desc-section">
+
+                      <div class="desc-field">
+                        <label>标题 <span class="req">*</span></label>
+                        <input v-model="tmpMillstioneDesc.title" 
+                          type="text" 
+                          class="desc-input" 
+                          maxlength="32" 
+                          placeholder="输入标题">
                       </div>
-                    </div>
-                    <div class="mb-3 row g-3">
-                      <div class="col">
-                        <label for="input-experience-start-year" class="form-label">开始年
-                          <span class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select v-model="tmpMillstioneDesc.startYear" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
-                          <option value="">年</option>
-                          <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
-                        </select>
+                      
+                      <div class="desc-field">
+                        <label>详细描述</label>
+                        <textarea v-model="tmpMillstioneDesc.story" 
+                          maxlength="200" 
+                          class="desc-textarea" 
+                          rows="5"
+                          placeholder="详细说明这段经历..."></textarea>
                       </div>
-                      <div class="col">
-                        <label for="input-experience-start-year" class="form-label">开始月
-                          <span class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select v-model="tmpMillstioneDesc.startMonth" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
-                          <option value="">月</option>
-                          <option v-for="month in 12" :value="month">{{month}}</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="mb-3 row gx-3" :class="{'error-wrapper':validateExperienceDescDateV}">
-                      <div class="col">
-                        <label :class="{'disable-text-coler':tmpMillstioneDesc.inProgress}" for="input-experience-start-year" class="form-label">
-                            结束年
-                          <span class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select :disabled="tmpMillstioneDesc.inProgress" v-model="tmpMillstioneDesc.endYear" class="form-select form-select-lg" aria-label=".form-select-lg">
-                          <option value="">年</option>
-                          <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
-                        </select>
-                      </div>
-                      <div class="col">
-                        <label :class="{'disable-text-coler':tmpMillstioneDesc.inProgress}" for="input-experience-start-year" class="form-label">
-                            结束月
-                          <span class="required-indicator" aria-hidden="true">*</span>
-                        </label>
-                        <select :disabled="tmpMillstioneDesc.inProgress" v-model="tmpMillstioneDesc.endMonth" class="form-select form-select-lg" aria-label=".form-select-lg">
-                          <option value="">月</option>
-                          <option v-for="month in 12" :value="month">{{month}}</option>
-                        </select>
-                      </div>
-                      <div class="error-feedback">
-                        <span class="error-icon">
-                          <i class="bi bi-dash-circle"></i>
-                        </span>
-                        <span class="error-text">结束日期不能早于开始日期</span>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="input-experience-desc-story" class="form-label">描述</label>
-                      <textarea v-model="tmpMillstioneDesc.story" maxlength="2500"  class="form-control" id="input-experience-desc-story" rows="10">
                     </div>
                     
-                   </form>
+                    <!-- 右侧：时间设置 -->
+                    <div class="desc-section">
+                      <div class="section-title">
+                        <i class="bi bi-calendar3"></i>
+                        时间设置
+                      </div>
+                      
+                      <div class="ongoing-toggle">
+                        <div class="toggle-info">
+                          <i class="bi bi-arrow-repeat"></i>
+                          <div class="toggle-text">
+                            <span class="toggle-title">经历还在持续</span>
+                            <span class="toggle-desc">开启后无需填写结束时间</span>
+                          </div>
+                        </div>
+                        <label class="switch-toggle">
+                          <input type="checkbox" v-model="tmpMillstioneDesc.inProgress">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </div>
+                      
+                      <div class="time-row">
+                        <div class="desc-field">
+                          <label>开始年 <span class="req">*</span></label>
+                          <select v-model="tmpMillstioneDesc.startYear" class="desc-select">
+                            <option value="">选择</option>
+                            <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
+                          </select>
+                        </div>
+                        <div class="desc-field">
+                          <label>开始月 <span class="req">*</span></label>
+                          <select v-model="tmpMillstioneDesc.startMonth" class="desc-select">
+                            <option value="">选择</option>
+                            <option v-for="month in 12" :value="month">{{month}}月</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div class="time-row" :class="{'has-error': validateExperienceDescDateV}">
+                        <div class="desc-field">
+                          <label :class="{'disabled': tmpMillstioneDesc.inProgress}">
+                            结束年 <span v-show="!tmpMillstioneDesc.inProgress" class="req">*</span>
+                          </label>
+                          <select v-model="tmpMillstioneDesc.endYear" 
+                            :disabled="tmpMillstioneDesc.inProgress" 
+                            class="desc-select">
+                            <option value="">选择</option>
+                            <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
+                          </select>
+                        </div>
+                        <div class="desc-field">
+                          <label :class="{'disabled': tmpMillstioneDesc.inProgress}">
+                            结束月 <span v-show="!tmpMillstioneDesc.inProgress" class="req">*</span>
+                          </label>
+                          <select v-model="tmpMillstioneDesc.endMonth" 
+                            :disabled="tmpMillstioneDesc.inProgress" 
+                            class="desc-select">
+                            <option value="">选择</option>
+                            <option v-for="month in 12" :value="month">{{month}}月</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div v-show="validateExperienceDescDateV" class="time-error">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        结束日期不能早于开始日期
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="modal-footer btn-light">
-                  <div class="w-100 d-flex justify-content-between">
-                    <div v-show="!tmpMillstioneDesc.mode"></div>
-                    <button v-show="!tmpMillstioneDesc.mode" @click="addExperienceDescV" :class="{'disabled': validateExperienceDescModal, 
-                          'btn-primary': !validateExperienceDescModal,
-                          'btn-secondary': validateExperienceDescModal}" type="button" id="btn-new-experience-desc" class="btn btn-primary">添加</button>
-                      <button v-show="tmpMillstioneDesc.mode==='edit'" type="button" id="btn-remove-experience-desc" class="btn btn-outline-secondary" @click="removeExperienceDescV(tmpMillstioneDesc.experienceIndex,tmpMillstioneDesc.descIndex)">删除</button>
-                      <button v-show="tmpMillstioneDesc.mode==='edit'" type="button" :class="{'disabled': validateExperienceDescModal, 
-                      'btn-primary': !validateExperienceDescModal,
-                      'btn-secondary': validateExperienceDescModal}" id="btn-update-experience-desc" class="btn" @click="modifyExperienceDescV(tmpMillstioneDesc.experienceIndex,tmpMillstioneDesc.descIndex)">更新</button>
+                
+                <!-- Footer -->
+                <div class="desc-modal-footer">
+                  <div class="footer-left">
+                    <button v-show="tmpMillstioneDesc.mode==='edit'" 
+                      type="button" 
+                      class="btn-footer-delete"
+                       v-preventreclick 
+                      @click="removeExperienceDescV(tmpMillstioneDesc.experienceIndex, tmpMillstioneDesc.descIndex)">
+                      删除
+                    </button>
+                  </div>
+                  <div class="footer-right">
+                    <button v-show="!tmpMillstioneDesc.mode" 
+                      type="button" 
+                      :class="{'disabled': validateExperienceDescModalFailForAddMode}" 
+                      class="btn-footer-primary"
+                       v-preventreclick 
+                      @click="addExperienceDescV">
+                      添加描述
+                    </button>
+                    <button v-show="tmpMillstioneDesc.mode==='edit'" 
+                      type="button" 
+                      :class="{'disabled': !validateExperienceDescModalForEditModeCanSave}" 
+                      class="btn-footer-primary"
+                       v-preventreclick 
+                      @click="modifyExperienceDescV(tmpMillstioneDesc.experienceIndex, tmpMillstioneDesc.descIndex)">
+                      保存更改
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
           <!-- wechatQrModal Modal -->
         <div class="modal-container">
           <div class="modal fade" id="wechatQrModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="wechatQrModalLabel">预览</h1>
-                  <button type="button" @click="closewechatQrModalHandlerV"  id="closewechatQrModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <div class="wechatQr-upload-container">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+              <div class="modal-content modal-qr-v2">
+                
+                <button type="button" @click="closewechatQrModalHandlerV" class="qr-close-btn" data-bs-dismiss="modal">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+                
+                <div class="qr-content">
+                  <div class="qr-image-wrapper">
                     <img id="wechatQrPreview">
                   </div>
                 </div>
-                <div class="modal-footer btn-light border-0">
-                  <div class="w-100">
-                    <button v-preventreclick type="button" id="btn-save-wechatqr" class="btn btn-primary w-100" @click="wechatQrSettingV">设置为微信联系方式</button>
-                  </div>
+                
+                <div class="qr-actions">
+                  <button type="button" class="qr-btn-secondary" data-bs-dismiss="modal" @click="closewechatQrModalHandlerV">
+                    取消
+                  </button>
+                  <button v-preventreclick type="button" class="qr-btn-primary" @click="wechatQrSettingV">
+                    确认
+                  </button>
                 </div>
               </div>
             </div>

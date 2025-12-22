@@ -14,19 +14,9 @@ const BrandLinksSettingCompoent = {
           return linkValidated && this.btn_ctl.activate_links_save_btn;
          },
          validateLinkTitleV(index){
-          if(!this.brandProfile.links[index].linkTitle){
-            document.getElementById("form-floating-title-"+index).setAttribute("class","form-floating was-invalid");
-            return
-          }
-          document.getElementById("form-floating-title-"+index).setAttribute("class","form-floating");
           this.btn_ctl.activate_links_save_btn=true;
          },
          validateLinkUriV(index){
-           if(!isValidHttpUrl(this.brandProfile.links[index].uri)){
-            document.getElementById("form-floating-uri-"+index).setAttribute("class","form-floating was-invalid");
-            return
-           }
-           document.getElementById("form-floating-uri-"+index).setAttribute("class","form-floating");
            this.btn_ctl.activate_links_save_btn=true;
 
          },

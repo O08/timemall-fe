@@ -12,6 +12,9 @@ import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-c
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 const currentOasisId = getQueryVariable("oasis_id");
 
 const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
@@ -46,8 +49,30 @@ const RootComponent = {
             refreshOasisInd(this.oasisId).then(response=>{
                 if(response.data.code == 200){
                     this.retrieveOasisIndexV();
+                    customAlert.alert("刷新成功");
                 }
             });
+        },
+        getDataIcon(index){
+            const iconMap = {
+                '0': 'bi-currency-yen',
+                '1': 'bi-wallet2',
+                '2': 'bi-currency-yen',
+                '3': 'bi-currency-yen',
+                '4': 'bi-layers',
+                '5': 'bi-currency-yen',
+                '6': 'bi-people',
+                '7': 'bi-person-heart',
+                '8': 'bi-currency-yen'
+            };
+            if (index<9) {
+                return iconMap[index];
+            }
+            return 'bi-speedometer2';
+        },
+        getCardTheme(index){
+            const themes = ['theme-blue', 'theme-purple', 'theme-amber', 'theme-emerald', 'theme-rose', 'theme-cyan'];
+            return themes[index % themes.length];
         }
     },
     updated(){

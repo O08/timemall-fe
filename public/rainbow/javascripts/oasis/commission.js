@@ -13,6 +13,7 @@ import {CommissionTag} from "/common/javascripts/tm-constant.js";
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
+import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -34,6 +35,9 @@ const RootComponent = {
             currentStatusLabel: '',
             currentSort: '',
             currentSortLabel: '',
+            btn_ctl: {
+              edit_task_modal_already_change: false
+            },
 
             currentOch: "oasis-home",
             channelSort, oaisiChannelList,getChannelDataV,
@@ -222,6 +226,7 @@ const RootComponent = {
                 sow: record.sow,
                 id: record.id
             };
+            this.btn_ctl.edit_task_modal_already_change = false;
 
             $("#editTaskModal").modal("show");
         },
@@ -232,6 +237,7 @@ const RootComponent = {
                 sow: "",
                 id: ""
             };
+            this.btn_ctl.edit_task_modal_already_change = false;
             $("#editTaskModal").modal("hide");
         },
         changeCommissionV(){
@@ -263,19 +269,13 @@ const RootComponent = {
             return false;
         },
         validitateCommissionEditFormV(){
-            if(!!this.editingCommission.title && !!this.editingCommission.bonus && !!this.editingCommission.sow){
+            if(!!this.editingCommission.title && !!this.editingCommission.bonus && !!this.editingCommission.sow && this.btn_ctl.edit_task_modal_already_change){
                 return true;
             }
             return false;
         },
         transformInputNumberV(event){
-            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
-            var min = Number(event.target.min);
-            var max = Number(event.target.max);
-            event.target.value = transformInputNumber(val, min, max);
-            if(val !== Number(event.target.value)){
-              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
-            }
+           return transformInputNumberAsPositive(event);
         }
     },
     updated(){

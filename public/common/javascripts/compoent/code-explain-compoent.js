@@ -273,7 +273,7 @@ function explainOasisCommissionTag(tag){
             desc="待审核"
             break;
         case CommissionTag.ACCEPT:
-            desc="处理中"
+            desc="履约中"
             break;
         case CommissionTag.DENY:
             desc="已拒绝"
@@ -287,6 +287,9 @@ function explainOasisCommissionTag(tag){
         case CommissionTag.ADD_TO_NEED_POOL:
             desc="派发中"
             break;
+        case CommissionTag.FIND_NEW_SUPPLIER:
+            desc="退回派发中"
+            break;    
     }
     return desc;
 }

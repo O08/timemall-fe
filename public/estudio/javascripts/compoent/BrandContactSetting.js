@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { isValidHttpUrlNeedScheme } from "/common/javascripts/util.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 export default function BrandContactSetting(params) {
     const {
         need_init = true
@@ -48,7 +51,7 @@ export default function BrandContactSetting(params) {
             settingStudioV(){
                 settingStudio(this);
                 this.studio_already_change = false;
-                this.removeIdentity(); // from auth.js
+                this.refreshIdentity(); // from auth.js
             }
              
         },
@@ -144,7 +147,16 @@ function getBrandContact(appObj){
 function previewWechatQr(e){
     const file = e.target.files[0]
 
-    const URL2 = URL.createObjectURL(file)
+    const URL2 = URL.createObjectURL(file);
+      // validate image size <=6M
+    var size = parseFloat(file.size);
+    var maxSizeMB = 2; //Size in MB.
+    var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
+    if (size > maxSize) {
+        customAlert.alert("图片最大为2M!");
+        closewechatQrModalHandler();
+        return false;
+    }
     $('#wechatQrPreview').attr('src',URL2);
     $("#wechatQrModal").modal("show");
 }

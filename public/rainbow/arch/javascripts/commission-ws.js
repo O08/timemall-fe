@@ -28,6 +28,11 @@ const RootComponent = {
             deliverFileSizeExceeded: false,
             previewFileSizeExceeded: false,
             delieverOrPreviewFileIsEmpty: true,
+            previewFileSelected: false,
+            deliverFileSelected: false,
+            previewFileName: '',
+            deliverFileName: '',
+            uploadingDeliverMaterial: false,
             commissionDetail:{
 
             }
@@ -62,29 +67,41 @@ const RootComponent = {
         },
         handleDeliverFileUpload(event) {
             this.deliverFileSizeExceeded = false;
+            this.deliverFileSelected = false;
+            this.deliverFileName = '';
 
             const file = event.target.files[0];
+            if (!file) return;
+            
             if (file.size > this.maxFileSize) {
               this.deliverFileSizeExceeded = true;
-              return; // do not process the file if it exceeds the size limit
+              customAlert.alert("文件最大20M!");
+              return;
             }
 
-            this.delieverOrPreviewFileIsEmpty=((!document.querySelector('#inputPreviewFile').value) 
+            this.deliverFileSelected = true;
+            this.deliverFileName = file.name;
+            this.delieverOrPreviewFileIsEmpty = ((!document.querySelector('#inputPreviewFile').value) 
                    || (!document.querySelector('#inputDeliverFile').value));
-
-
         },
         handlePreviewFileUpload(event) {
             this.previewFileSizeExceeded = false;
+            this.previewFileSelected = false;
+            this.previewFileName = '';
 
             const file = event.target.files[0];
+            if (!file) return;
+            
             if (file.size > this.maxFileSize) {
               this.previewFileSizeExceeded = true;
-              return; // do not process the file if it exceeds the size limit
+              customAlert.alert("文件最大20M!");
+              return;
             }
-            this.delieverOrPreviewFileIsEmpty=((!document.querySelector('#inputPreviewFile').value) 
-            || (!document.querySelector('#inputDeliverFile').value));
-
+            
+            this.previewFileSelected = true;
+            this.previewFileName = file.name;
+            this.delieverOrPreviewFileIsEmpty = ((!document.querySelector('#inputPreviewFile').value) 
+                   || (!document.querySelector('#inputDeliverFile').value));
         }
   
     },

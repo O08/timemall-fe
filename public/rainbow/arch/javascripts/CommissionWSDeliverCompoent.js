@@ -19,7 +19,7 @@ const CommissionWSDeliverCompoent = {
     },
     methods: {
         showAcceptDeliverFocusModalV(deliver){
-            this.focusModal.feed="接受交付后，将解锁服务商的交付资料，同时您管理的部落负债项将增加，服务服务商有权从您管理的部落收账，您可点击 确定 接受交付"
+            this.focusModal.feed="接受交付后，将解锁服务商的交付资料，同时您管理的部落负债项将增加，服务服务商有权从您管理的部落收账，您可点击 「确定」 接受交付"
             this.focusModal.confirmHandler=()=>{
                 this.acceptPaperDeliverV(deliver);
                 $("#focusModal").modal("hide"); // show modal
@@ -34,6 +34,15 @@ const CommissionWSDeliverCompoent = {
         },
         showAddNewDeliverModalV(){
             resetDeliverModal();
+            // reset variable in  commission-ws.js
+            this.uploadingDeliverMaterial=false;
+            this.deliverFileSizeExceeded=false;
+            this.delieverOrPreviewFileIsEmpty=true;
+            this.previewFileSizeExceeded=false;
+            this.previewFileSelected=false;
+            this.deliverFileSelected=false;
+            this.previewFileName='';
+            this.deliverFileName='';
             $("#newDeliverModal").modal("show"); // show modal
         },
         fetchPaperDeliverDetailV(){
@@ -45,7 +54,9 @@ const CommissionWSDeliverCompoent = {
             })
         },
         deliverPaperV(){
+            this.uploadingDeliverMaterial=true;
             deliverPaper().then(response=>{
+                this.uploadingDeliverMaterial=false;
                 if(response.data.code==200){
                     $("#newDeliverModal").modal("hide"); // hide modal
                     this.fetchPaperDeliverDetailV();
@@ -55,6 +66,7 @@ const CommissionWSDeliverCompoent = {
                     customAlert.alert(error);
                 }
             }).catch(error=>{
+                this.uploadingDeliverMaterial=false;
                 customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
         },
@@ -179,10 +191,10 @@ function paperDeliverTagExplain(tag){
     var tagDesc="";
     switch(tag){
         case CommercialPaperDeliverTag.CREATED:
-            tagDesc="已提交交付内容";
+            tagDesc="待验收";
             break; 
         case CommercialPaperDeliverTag.REVISION:
-            tagDesc="修订";
+            tagDesc="退回";
                 break; 
         case CommercialPaperDeliverTag.DELIVERED:
             tagDesc="已交付";

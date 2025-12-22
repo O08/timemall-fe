@@ -47,6 +47,11 @@ const RootComponent = {
         removeMemberV(){
             const brandId = this.getIdentity().brandId; // Auth.getIdentity();
             removeMemberB(this.oasisId,brandId);
+        },
+        getContributionPercent(amount) {
+            if (!this.member || !this.member.records || this.member.records.length === 0) return 0;
+            const maxAmount = this.member.records[0].amount || 1;
+            return Math.min(100, Math.round((amount / maxAmount) * 100));
         }
     },
     updated(){

@@ -80,6 +80,7 @@ function showPreviewBannerModal(e,appObj){
     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
     if (size > maxSize) {
         customAlert.alert("图片最大为6M!");
+        closeBannerModalHandler();
         return false;
     }
 
@@ -92,6 +93,7 @@ function showPreviewBannerModal(e,appObj){
         if(!(bannerImgFile.width>=1024 && bannerImgFile.height>=576)){
             console.log("current image: width=" + bannerImgFile.width + "  height="+bannerImgFile.height);
             customAlert.alert("图片必须至少为 1024 x 576 像素!");
+            closeBannerModalHandler();
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -138,7 +140,6 @@ function closeBannerModalHandler(){
 }
 function uploadAvatorFile(appObj){
     const brandId =  appObj.getIdentity().brandId; // Auth.getIdentity();
-    const file = $('#file_avator')[0].files[0];
 
 
     appObj.avatarCropper.getCroppedCanvas().toBlob((blob) => {
@@ -155,7 +156,7 @@ function uploadAvatorFile(appObj){
                 document.querySelector('#file_avator').value = null;
                 $('#avatorPreview').attr('src',"");
                 // reset auth.js
-                appObj.removeIdentity(); // from auth.js
+                appObj.refreshIdentity(); // from auth.js
             }
         }).catch(error=>{
             document.querySelector('#file_avator').value = null;
@@ -185,6 +186,7 @@ function showPreviewAvatorModal(e,appObj){
     var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
     if (size > maxSize) {
         customAlert.alert("图片最大为6M!");
+        closeAvatorModalHandler();
         return false;
     }
 
@@ -195,6 +197,7 @@ function showPreviewAvatorModal(e,appObj){
         // validate image pixel
         if(!(avatarImgFile.width>=99 && avatarImgFile.height>=99)){
             customAlert.alert("图片必须至少为 99 x 99 像素!");
+            closeAvatorModalHandler();
             return false;
         }
         var minContainerSize= screen.availWidth<=768 ? 300 : 500;
@@ -238,9 +241,7 @@ function closeAvatorModalHandler(){
 }
 function uploadBannerFile(appObj){
     const brandId =  appObj.getIdentity().brandId; // Auth.getIdentity();
-    const file = $('#file_banner')[0].files[0];
   
-
 
     appObj.bannerCropper.getCroppedCanvas().toBlob((blob) => {
         

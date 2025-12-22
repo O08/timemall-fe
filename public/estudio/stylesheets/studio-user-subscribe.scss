@@ -68,200 +68,257 @@ header {
 }
 
 
+// 套餐卡片
 .plan-box {
   position: relative;
-  background-color: color-mix(in oklab, hsl(240 calc(1*6.494%) 15.098% /1) 100%, #000 0%);
-  border-radius: 10px;
-  padding: .75rem;
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 20px;
   height: 100%;
-  border: 1px solid color-mix(in oklab, hsl(240 calc(1*7.143%) 10.98% /1) 100%, #000 0%);
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  overflow: hidden;
+
+  &:hover {
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+  }
+
+  &.selected {
+    background: linear-gradient(145deg, rgba(147,115,238,0.12) 0%, #1a1a1a 60%);
+    border-color: rgba(147,115,238,0.35);
+    box-shadow: 0 8px 32px rgba(147,115,238,0.1);
+  }
 }
 
 .plan-box-bg {
-  pointer-events: none;
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  display: none;
 }
 
-.plan-box.selected {
-  background: radial-gradient(100% 70% at 40%, #595166 0, #0000 100%);
+.plan-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.plan-box .brand-avatar {
+  padding: 0;
+}
+
+.plan-box .brand-avatar img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.plan-box .form-check-input {
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid #444;
+  box-shadow: none;
+  cursor: pointer;
+
+  &:checked {
+    background-color: #9373ee;
+    border-color: #9373ee;
+  }
 }
 
 .plan-box__name {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin: 0px;
-  padding: 0px;
-  color: rgb(196, 177, 212);
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
 }
 
 .plan-box__description {
-  font-size: .75rem;
-  font-weight: 400;
-  line-height: 1rem;
-  word-break: break-all;
-  color: #8b949e;
-  padding-top: .75rem;
-}
-
-.plan-price {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 2.5rem;
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  min-height: 40px;
 }
 
 .plan-price-box {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 16px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.plan-price {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+.plan-price-box {
+  color: #666;
+  font-size: 14px;
 }
 
 .features {
   display: flex;
-  gap: 4px !important;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-direction: column;
-  padding-top: 1rem;
+  gap: 8px;
+  padding-top: 0;
+}
+
+.features__title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9373ee;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
 }
 
 .features_item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #999;
+
+  i {
+    color: #4cffa9;
+    font-size: 14px;
+  }
+}
+
+
+// 付费周期选择器
+.cycle-selector {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.cycle-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  color: #888;
   font-size: 14px;
   font-weight: 500;
-  color: #8b949e;
-  display: flex;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  em {
+    font-style: normal;
+    color: #4cffa9;
+    margin-left: 4px;
+    font-size: 12px;
+  }
+
+  &:hover {
+    border-color: rgba(255,255,255,0.15);
+    color: #aaa;
+  }
+
+  &.active {
+    background: linear-gradient(135deg, rgba(147,115,238,0.2) 0%, rgba(147,115,238,0.08) 100%);
+    border-color: rgba(147,115,238,0.4);
+    color: #fff;
+  }
 }
 
-.table {
-  min-width: 100%;
+@media (max-width: 576px) {
+  .cycle-selector {
+    gap: 8px;
+  }
+
+  .cycle-option {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  .cycle-option em{
+    font-size: 10px;
+  }
 }
 
-.expense,
-.sub-total {
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-}
 
-.expense {
-  border: 1px solid #4d5154;
-  border-radius: 5px;
-  padding: .5rem .5rem .5rem 1.5rem;
-}
-
-.expense li {
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-}
-
-.product-info {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-
-.pay-cycle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.pay-cycle-box {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 32px;
-  padding: 6px;
-  padding-left: 12px;
-  padding-right: 12px;
-  color: #fff;
-  font-weight: 600;
-  border: 1px solid #484f58;
-}
-
-.btn-check+.btn {
-  border: none;
-  border-radius: 24px;
-  outline: none;
-  box-shadow: none;
-  color: #fff;
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.btn-check:checked+.btn,
-.btn-check+.btn:hover {
-  background-color: #4d5154;
-  color: #fff;
-
-}
-
-.btn2--circle {
-  width: 32px;
-  height: 32px;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: #4d5154;
-  font-weight: 500;
-}
-
-.subs-product-heading {
-  display: flex;
-  align-items: center;
-}
-
-.subs-product-box {
-  height: 48px;
+// 商品标题区
+.product-hero {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-.input-normal-search {
-  width: 35%;
-  min-width: 220px;
-  left: 0;
-}
-
-.top-search-input {
-  background: transparent;
-  margin: 0;
-  padding: 7px 8px;
-  font-size: 14px;
-  color: #fff;
-  border: 1px solid #6c757d;
-}
-
-.top-search-input::placeholder {
-  color: #bbb;
-}
-
-.top-search-input:focus {
-  border: 1px solid #6c757d;
-  box-shadow: none;
-  outline: none;
-  background: transparent;
-  caret-color: #fff;
-  color: #fff;
-
-}
-
-.price {
-  color: #4cffa9;
+.hero-title {
   font-size: 20px;
-  line-height: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  i {
+    color: #9373ee;
+    font-size: 18px;
+  }
 }
 
-.price i {
-  vertical-align: middle;
-  margin-right: 3px;
-  font-family: MicrosoftYahei-regular, Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
+.hero-actions {
+  display: flex;
+  gap: 8px;
 }
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  border-radius: 8px;
+  color: #888;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+
+  &:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+}
+
+@media (max-width: 576px) {
+  .product-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 0;
+  }
+
+  .hero-title {
+    font-size: 18px;
+  }
+}
+
 
 .plan-box .form-check-input {
   outline: unset;
@@ -275,28 +332,177 @@ header {
   border-color: #5d4d78;
 }
 
-.form-send {
-  color: #fff;
-  box-shadow: none;
+
+// 费用区
+.fee-section {
+  margin-bottom: 24px;
+}
+
+.fee-card {
+  background: linear-gradient(160deg, #1f1f1f 0%, #181818 100%);
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.fee-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: linear-gradient(180deg, #4cffa9 0%, #2db87a 100%);
+    border-radius: 2px;
+  }
+}
+
+.promo-input {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+
+  input {
+    flex: 1;
+    max-width: 240px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #fff;
+    font-size: 13px;
+    transition: border-color 0.15s;
+
+    &::placeholder { color: #555; }
+    &:focus {
+      outline: none;
+      border-color: #9373ee;
+      background: rgba(0,0,0,0.35);
+    }
+  }
+
+  button {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #9373ee 0%, #7c5fd9 100%);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(147,115,238,0.25);
+    }
+  }
+}
+
+.promo-error {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin: -8px 0 12px;
+  padding-left: 2px;
+}
+
+.fee-list {
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+
+.fee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 13px;
+  color: #999;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.discount {
+    span:first-child {
+      color: #888;
+    }
+    span:last-child {
+      color: #4cffa9;
+      font-weight: 500;
+    }
+  }
+}
+
+.fee-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 0;
+  color: #444;
+
+  i {
+    font-size: 26px;
+    margin-bottom: 8px;
+    opacity: 0.6;
+  }
+
+  span {
+    font-size: 12px;
+  }
+}
+
+.fee-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0;
+  gap: 12px;
+}
+
+.fee-total {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  span:first-child {
+    font-size: 12px;
+    color: #777;
+  }
+
+  .total-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4cffa9;
+    text-shadow: 0 0 20px rgba(76,255,169,0.2);
+  }
+}
+
+.subscribe-btn {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #9373ee 0%, #7c5fd9 100%);
   border: none;
-  border-radius: 5px;
-  outline: none;
-  font-size: 16px;
-  padding: 6px;
-  padding-left: 12px;
-  padding-right: 12px;
-}
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 
-.bgPrimary {
-  background-color: #9373ee;
-}
-
-.bgPrimary:hover {
-  background-color: #b19af3;
-}
-
-.section-header {
-  padding-bottom: 32px;
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(147,115,238,0.3);
+  }
 }
 
 .plan-box {
@@ -358,51 +564,396 @@ header {
   height: 145px;
 }
 
-#goTopUpModal .modal-content {
-  padding: 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  background-color: #fff;
+// 费用预测区
+.predict-section {
+  margin-bottom: 24px;
 }
 
-#goTopUpModal .modal-header {
-  background: #47c9a2;
-  border-bottom: none;
-  position: relative;
-  text-align: center;
-  margin: -20px -20px 0;
-  border-radius: 5px 5px 0 0;
-  padding: 35px;
-
+.predict-card {
+  background: linear-gradient(160deg, #1f1f1f 0%, #181818 100%);
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
-#goTopUpModal .btn-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  color: #fff;
-  text-shadow: none;
-  opacity: 0.5;
+.predict-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: linear-gradient(180deg, #9373ee 0%, #7c5fd9 100%);
+    border-radius: 2px;
+  }
 }
 
-#goTopUpModal .modal-header .btn-close {
-  padding: 1rem 1rem;
-  margin: -1rem -1rem -1rem auto;
+.predict-table {
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.2);
 }
 
-#goTopUpModal i {
-  font-size: 72px;
-  margin: -4px 0 0 -4px;
+.predict-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(147,115,238,0.08);
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  letter-spacing: 0.02em;
 }
 
-#goTopUpModal .modal-body {
-  color: #121212;
+.predict-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  font-size: 13px;
+  color: #999;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(255,255,255,0.02);
+  }
+
+  &:first-of-type {
+    background: rgba(147,115,238,0.04);
+  }
+
+  .discount {
+    color: #4cffa9;
+    font-weight: 500;
+  }
+
+  .final {
+    color: #fff;
+    font-weight: 600;
+  }
 }
 
-#goTopUpModal p {
-  font-size: 12px;
+.predict-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+  color: #444;
+
+  i {
+    font-size: 28px;
+    margin-bottom: 8px;
+    opacity: 0.6;
+  }
+
+  span {
+    font-size: 12px;
+  }
 }
+
+// 订阅须知区
+.notice-section {
+  margin-bottom: 24px;
+}
+
+.notice-card {
+  background: linear-gradient(160deg, #1f1f1f 0%, #181818 100%);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.notice-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: linear-gradient(180deg, #f0b429 0%, #d9922a 100%);
+    border-radius: 2px;
+  }
+
+  i {
+    display: none;
+  }
+}
+
+.notice-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 4px 14px;
+
+  li {
+    position: relative;
+    padding: 8px 0 8px 16px;
+    font-size: 12px;
+    line-height: 1.55;
+    color: #888;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 4px;
+      height: 4px;
+      background: #555;
+      border-radius: 50%;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      color: #aaa;
+      font-weight: 600;
+    }
+  }
+}
+
+// 中等屏幕响应式
+@media (max-width: 768px) {
+  .fee-card,
+  .predict-card,
+  .notice-card {
+    padding: 14px 16px;
+  }
+
+  .promo-input input {
+    max-width: 200px;
+  }
+
+  .fee-total .total-price {
+    font-size: 22px;
+  }
+
+  .subscribe-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  // 费用预测中等屏幕
+  .predict-header {
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+
+  .predict-row {
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+// 小屏幕响应式
+@media (max-width: 576px) {
+  .fee-card,
+  .predict-card,
+  .notice-card {
+    padding: 12px 14px;
+  }
+
+  .fee-title,
+  .predict-title,
+  .notice-title {
+    font-size: 13px;
+    margin-bottom: 10px;
+
+    &::before {
+      width: 2px;
+      height: 12px;
+    }
+  }
+
+  .predict-header {
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 8px 10px;
+    font-size: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .predict-row {
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 4px;
+    padding: 8px 10px;
+    font-size: 11px;
+
+    .discount,
+    .final {
+      font-size: 11px;
+    }
+  }
+
+  .predict-table {
+    margin: 0 -4px;
+    border-radius: 6px;
+  }
+
+  .predict-empty,
+  .fee-empty {
+    padding: 20px 0;
+
+    i {
+      font-size: 22px;
+    }
+
+    span {
+      font-size: 11px;
+    }
+  }
+
+  .notice-list li {
+    font-size: 11px;
+    padding: 6px 0 6px 14px;
+  }
+
+  .fee-list {
+    padding: 2px 10px;
+  }
+
+  .fee-row {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+
+  .fee-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .fee-total {
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+
+    .total-price {
+      font-size: 22px;
+    }
+  }
+
+  .subscribe-btn {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .promo-input {
+    flex-wrap: wrap;
+
+    input {
+      flex: 1;
+      min-width: 0;
+      max-width: none;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    button {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+  }
+
+  .promo-error {
+    font-size: 11px;
+    margin: -6px 0 10px;
+  }
+}
+
+// 超小屏幕响应式
+@media (max-width: 400px) {
+  .fee-card,
+  .predict-card,
+  .notice-card {
+    padding: 10px 12px;
+  }
+
+  .predict-header {
+    grid-template-columns: 1.6fr 0.9fr 0.9fr 1fr;
+    gap: 2px;
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  .predict-row {
+    grid-template-columns: 1.6fr 0.9fr 0.9fr 1fr;
+    gap: 2px;
+    padding: 6px 8px;
+    font-size: 10px;
+
+    .discount,
+    .final {
+      font-size: 10px;
+    }
+  }
+
+  .predict-table {
+    margin: 0 -6px;
+  }
+
+  .fee-list {
+    padding: 2px 8px;
+    margin: 0 -4px 10px;
+  }
+
+  .fee-row {
+    font-size: 11px;
+    padding: 5px 0;
+  }
+
+  .fee-total {
+    .total-price {
+      font-size: 20px;
+    }
+
+    span:first-child {
+      font-size: 11px;
+    }
+  }
+
+  .subscribe-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .notice-list li {
+    font-size: 10px;
+    padding: 5px 0 5px 12px;
+    line-height: 1.5;
+
+    &::before {
+      top: 10px;
+      width: 3px;
+      height: 3px;
+    }
+  }
+}
+
 
 #reportOasisModal .modal-content {
   color: rgb(97, 102, 109);
@@ -569,5 +1120,191 @@ header {
 
   .info-block {
     padding-top: 1rem;
+  }
+}
+
+// focusModal 黑暗主题
+#focusModal {
+  .modal-content {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px;
+  }
+
+  .modal-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #eee;
+    margin: 0;
+  }
+
+  .btn-close {
+    filter: invert(1);
+    opacity: 0.5;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .modal-body {
+    padding: 16px 20px;
+  }
+
+  .focus-message {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #999;
+    margin: 0;
+  }
+
+  .modal-footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px;
+    gap: 12px;
+  }
+
+  .btn-cancel {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: 8px;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+  }
+
+  .btn-confirm {
+    flex: 1;
+    background: linear-gradient(135deg, #9373ee 0%, #7c5fd9 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    transition: all 0.15s;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// goTopUpModal 黑暗主题
+#goTopUpModal {
+  .modal-content {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .modal-header {
+    border: none;
+    padding: 24px 20px 0;
+    position: relative;
+  }
+
+  .success-icon {
+    width: 100%;
+    text-align: center;
+
+    i {
+      font-size: 48px;
+      color: #4cffa9;
+    }
+  }
+
+  .btn-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    filter: invert(1);
+    opacity: 0.5;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .modal-body {
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .success-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 8px;
+  }
+
+  .success-desc {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+  }
+
+  .modal-footer {
+    border: none;
+    padding: 16px 20px 24px;
+    gap: 12px;
+  }
+
+  .btn-secondary-action {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: 8px;
+    color: #aaa;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 12px;
+    transition: all 0.15s;
+    text-decoration: none;
+
+    &:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+  }
+
+  .btn-primary-action {
+    flex: 1;
+    background: linear-gradient(135deg, #9373ee 0%, #7c5fd9 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 12px;
+    transition: all 0.15s;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
   }
 }

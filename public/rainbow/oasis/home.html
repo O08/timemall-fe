@@ -145,18 +145,18 @@
       </div>
       <col-content>
       <div class="hero-container">
-          <div class="hero-info d-flex flex-row align-items-baseline">
-              <div>
-                <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
-              </div>
-             <div class="ms-4">
-              <h2>{{announce.title}}</h2>
-              <p>{{announce.subTitle}}</p>
-             </div>
-          </div>
-          <div v-if="announce.mark=='4'" class="oasis-blocked-icon-box">
-            <img src="/common/icon/freeze-oasis.svg" alt="oasis already blocked">
+        <div class="hero-info">
+            <div>
+              <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+            </div>
+           <div class="oasis-info">
+            <h2>{{announce.title}}</h2>
+            <p>{{announce.subTitle}}</p>
            </div>
+        </div>
+        <div v-if="announce.mark=='4'" class="oasis-blocked-icon-box">
+          <img src="/common/icon/freeze-oasis.svg" alt="oasis already blocked">
+        </div>
       </div>
       <!-- 组织导航栏 -->
       <div class="oasis-nav-tabs">

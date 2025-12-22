@@ -71,6 +71,10 @@ export default function Auth(params) {
             },
             removeIdentity(){
                 localStorage.removeItem("Tidentity001");
+            },
+            refreshIdentity(){
+                this.removeIdentity();
+                this.userAdapter();
             }
         },
         created: function() {

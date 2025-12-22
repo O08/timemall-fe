@@ -8,8 +8,13 @@ const SkillComponent = {
         }
     },
     methods: {
+        validateSkillFormV(){
+          var skillValidated=this.brandProfile.skills.filter(sk=>!sk.entry).length==0;
+          return skillValidated && this.btn_ctl.activate_skills_save_btn;
+        },
         addSkillV(){
           this.brandProfile.skills.push({});
+          this.btn_ctl.activate_skills_save_btn= true;
         },
         removeSkillV(index){
             this.brandProfile.skills.splice(index,1);

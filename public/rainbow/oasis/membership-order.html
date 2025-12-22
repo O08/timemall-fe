@@ -139,11 +139,11 @@
       </div>
       <col-content>
         <div class="hero-container">
-          <div class="hero-info d-flex flex-row align-items-baseline">
+          <div class="hero-info">
               <div>
                 <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
               </div>
-            <div class="ms-4">
+            <div class="oasis-info">
               <h2>{{announce.title}}</h2>
               <p>{{announce.subTitle}}</p>
             </div>
@@ -231,61 +231,85 @@
 
 
 
-              <section class="section-member-grid">
-                <div  class="result-box">
+              <section class="section-order-grid">
 
-                  <div style="margin-bottom: 16px;">
+                <div class="order-section-header">
+                  <div class="section-title-area">
+                    <h5>订阅订单</h5>
+                    <span class="order-count" v-if="order && order.records">{{order.records.length}} 条记录</span>
+                  </div>
+                  <div class="search-toolbar">
                     <div class="tb-search">
                       <div class="tb-search-group">
                         <i class="bi bi-search"></i>
                         <input @keyup.enter.native="loadOrdersV" v-model="q" type="search" class="input_search" placeholder="搜索订单..." autocomplete="off">
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                <div class="order-grid" v-if="order && order.records && order.records.length > 0">
+                  <div v-for="(record, index) in order.records" 
+                       class="order-card"
+                       :style="{'--delay': index * 0.06 + 's'}"
+                       v-preventreclick 
+                       @click="showOrderDetailModalV(record.orderId)">
+                    
+                    <div class="order-card-header">
+                      <div class="buyer-block">
+                        <div class="buyer-avatar-sm">
+                          <img :src="adaptiveImageUriV(record.buyerAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                        </div>
+                        <div class="buyer-meta">
+                          <div class="buyer-name-sm ellipsis-1">{{record.buyerName}}</div>
+                        </div>
+                      </div>
+                      <div class="order-badges">
+                        <span class="card-type-badge" :class="{'monthly': record.cardType=='monthly', 'yearly': record.cardType!='monthly'}">
+                          {{record.cardType=='monthly'? '月卡': '年卡'}}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="order-card-body">
+                      <div class="tier-name ellipsis-2">{{record.tierName}}</div>
+                    </div>
+
+                    <div class="order-card-footer">
+                      <div class="order-amount">
+                        <span class="amount-label">订单金额</span>
+                        <div class="amount-value">
+                          <span class="currency">¥</span>
+                          <span class="number">{{record.total}}</span>
+                        </div>
+                      </div>
+                      <div class="order-status-wrap">
+                        <span class="status-dot" :class="getStatusClass(record.status)"></span>
+                        <span class="status-text">{{explainMembershipOrderStatusV(record.status)}}</span>
+                      </div>
+                    </div>
+
+                    <div class="order-card-action">
+                      <span class="view-link">查看详情 <i class="bi bi-arrow-right"></i></span>
+                    </div>
 
                   </div>
+                </div>
 
-                  <div class="member-result-container">
-
-
-                    <div v-for="record in order.records"  class="member-card-container" v-preventreclick  @click="showOrderDetailModalV(record.orderId)">
-
-                      <div class="member-avatar-box">
-                        <div class="member-avatar">
-                          <img  :src="adaptiveImageUriV(record.buyerAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                        </div>
-                      </div>
-                      <div class="member-info">
-
-                        <div class="member-title ellipsis-1">
-                          {{record.buyerName}}
-                        </div>
-
-                        <div class="meta">
-                          <div class="small-info">
-                            <span class="modal-release-reminder"> {{record.cardType=='monthly'? '月卡': '年卡'}} </span>
-                            <span class="order-status ms-2">{{explainMembershipOrderStatusV(record.status)}}</span>
-                          </div>
-                        </div>
-                      
-                        <div class="member-intro ellipsis-2">
-                          {{record.tierName}}
-                        </div>
-                        <div class="price-wrapper">
-                          <span class="price-unit">¥</span>
-                          <span class="price-value">{{record.total}}</span>
-                        </div>
-                      
-                      </div>
-                
+                <!-- 空状态 -->
+                <div v-if="!order || !order.records || order.records.length==0" class="order-empty-state">
+                  <div class="empty-visual">
+                    <div class="empty-ring-outer"></div>
+                    <div class="empty-ring-middle"></div>
+                    <div class="empty-ring-inner"></div>
+                    <div class="empty-icon-box">
+                      <i class="bi bi-receipt"></i>
                     </div>
                   </div>
-
-                  <div v-if="!order || !order.records || order.records.length==0" class="not-found-resource">
-                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
-                    <h4>没找到相关数据</h4>
-                  </div>
-
+                  <h4>暂无订阅订单</h4>
+                  <p>还没有会员订阅相关的订单记录，当有用户订阅后会在这里显示</p>
                 </div>
+
               </section>
 
             </div>

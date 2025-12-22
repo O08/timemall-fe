@@ -141,11 +141,11 @@
       </div>
       <col-content>
       <div class="hero-container">
-        <div class="hero-info d-flex flex-row align-items-baseline">
+        <div class="hero-info">
             <div>
               <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             </div>
-           <div class="ms-4">
+           <div class="oasis-info">
             <h2>{{announce.title}}</h2>
             <p>{{announce.subTitle}}</p>
            </div>
@@ -175,11 +175,10 @@
           </div>
         </div>
       </div>
-    <div class="insight-container ">
-      <div class="mt-2 mx-3 d-flex ">
+    <div class="insight-container">
+      <div class="mt-2 mx-3 d-flex">
 
         <div class="insight-menu">
-                  
           <div class="transparent-category">
             <ul>
               <li>
@@ -189,27 +188,22 @@
               </li>
               <li>
                 <a :href="'/rainbow/oasis/transparent?oasis_id='+oasisId" class="text-decoration-none">
-                  <div class="transparent-category-item help-text-color "><i class="bi  bi-heart-pulse me-1"></i> 活跃成员</div>
+                  <div class="transparent-category-item help-text-color"><i class="bi bi-heart-pulse me-1"></i> 活跃成员</div>
                 </a>
               </li>
               <li>
                 <a :href="'/rainbow/oasis/membership-order?oasis_id='+oasisId" class="text-decoration-none">
-                  <div class="transparent-category-item help-text-color"><i class="bi  bi-file-text me-1"></i> 会员订阅</div>
+                  <div class="transparent-category-item help-text-color"><i class="bi bi-file-text me-1"></i> 会员订阅</div>
                 </a>
               </li>
-    
             </ul>
           </div>
-
-          
-
         </div>
-        <div class="menu-content">
 
-          
-        
+        <div class="menu-content">
+          <!-- 小屏幕菜单 -->
           <div class="small-device-menu">
-            <button class="btn  dropdown-toggle small-device-menu-trigger me-1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn dropdown-toggle small-device-menu-trigger me-1" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="contents"><i class="bi bi-bar-chart me-1"></i> 部落概况</div>
             </button>
             <ul class="dropdown-menu">
@@ -229,43 +223,73 @@
                 </a>
               </li>
             </ul>
-
           </div>
 
+          <!-- 数据概览 -->
+          <section class="section-data-overview">
 
-          <div class="box-header">
-            <h5>运营数据</h5>
-            <button type="button" @click="refreshOasisIndV" v-preventreclick  class="btn btn-refresh"  data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="刷新数据">
-              <i class="bi bi-arrow-repeat"></i>
-            </button>
-          </div>
-          <table class="table table-sm table-dark table-hover align-middle">
-              <tbody>
-                <tr v-for="record in oasisInd.records">
-                  <td>
-                    {{record.item}}
-                  </td>
-                  <td>{{record.val}}</td>
-                  <td class="text-center">
-                  </td>
-                </tr>
-                <div v-show="oasisInd.records.length==0" class="empty-content-block w-100">
-    
-                  没有可用的内容！
-        
+
+            <!-- 标题栏 -->
+            <div class="data-section-header">
+              <div class="header-left">
+                <div class="header-icon-wrapper">
+                  <i class="bi bi-bar-chart-line"></i>
                 </div>
-              </tbody>
-          </table>
+                <div class="header-text">
+                  <h5>运营数据</h5>
+                  <span class="header-subtitle">部落核心指标一览</span>
+                </div>
+              </div>
+              <div class="header-actions">
+                <button type="button" @click="refreshOasisIndV" v-preventreclick class="btn-refresh-modern" data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="刷新数据">
+                  <i class="bi bi-arrow-repeat"></i>
+                  <span>刷新</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 数据卡片网格 -->
+            <div class="data-grid" v-if="oasisInd.records.length > 0">
+              <div class="data-card" 
+                   v-for="(record, index) in oasisInd.records" 
+                   :key="index" 
+                   :style="{'--i': index}"
+                   :class="getCardTheme(index)">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                  <div class="card-header">
+                    <div class="card-icon">
+                      <i class="bi" :class="getDataIcon(index)"></i>
+                    </div>
+                    <div class="card-trend" v-if="index < 3">
+                      <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <span class="card-value">{{Number(record.val).toFixed(0)}}</span>
+                    <span class="card-label">{{record.item}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 空状态 -->
+            <div class="empty-state" v-if="oasisInd.records.length == 0">
+              <div class="empty-animation">
+                <div class="pulse-ring"></div>
+                <div class="pulse-ring delay-1"></div>
+                <div class="pulse-ring delay-2"></div>
+                <div class="empty-icon">
+                  <i class="bi bi-clipboard-data"></i>
+                </div>
+              </div>
+              <h4>暂无数据</h4>
+              <p>点击刷新查看最新运营状态</p>
+            </div>
+          </section>
 
         </div>
-
-
-        
-
-
       </div>
-
-      
     </div>
 
      

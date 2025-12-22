@@ -143,11 +143,11 @@
       </div>
       <col-content>
       <div class="hero-container">
-        <div class="hero-info d-flex flex-row align-items-baseline">
+        <div class="hero-info">
             <div>
               <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             </div>
-           <div class="ms-4">
+           <div class="oasis-info">
             <h2>{{announce.title}}</h2>
             <p>{{announce.subTitle}}</p>
            </div>
@@ -182,11 +182,11 @@
     <div class="toolbar-left">
       <div class="search-box">
         <i class="bi bi-search"></i>
-        <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" type="search" placeholder="搜索委托...">
+        <input @keyup.enter.native="retrieveOasisCommissionGridV" v-model="commissionTb_pagination.param.q" type="search" placeholder="搜索任务...">
       </div>
       <div class="filter-group">
         <div class="dropdown">
-          <button class="filter-btn" :class="{'active': currentFilter}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="filter-btn"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-funnel"></i>
             <span>{{currentFilterLabel || '高级筛选'}}</span>
             <i class="bi bi-chevron-down filter-arrow"></i>
@@ -208,7 +208,7 @@
           </ul>
         </div>
         <div class="dropdown">
-          <button class="filter-btn" :class="{'active': currentStatusFilter}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="filter-btn"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-filter-circle"></i>
             <span>{{currentStatusLabel || '状态'}}</span>
             <i class="bi bi-chevron-down filter-arrow"></i>
@@ -221,7 +221,7 @@
               <i class="bi bi-check2"></i>派发中
             </a></li>
             <li><a class="dropdown-item" :class="{'selected': currentStatusFilter=='2'}" v-preventreclick @click="retrieveOasisCommissionByTagV('2')">
-              <i class="bi bi-check2"></i>处理中
+              <i class="bi bi-check2"></i>履约中
             </a></li>
             <li><a class="dropdown-item" :class="{'selected': currentStatusFilter=='4'}" v-preventreclick @click="retrieveOasisCommissionByTagV('4')">
               <i class="bi bi-check2"></i>已交付
@@ -236,7 +236,7 @@
           </ul>
         </div>
         <div class="dropdown">
-          <button class="filter-btn" :class="{'active': currentSort}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="filter-btn"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-arrow-down-up"></i>
             <span>{{currentSortLabel || '排序'}}</span>
             <i class="bi bi-chevron-down filter-arrow"></i>
@@ -264,7 +264,7 @@
 
   <!-- 委托卡片列表 -->
   <div class="commission-list">
-    <div v-for="(record, index) in commissionTb_pagination.records" class="commission-card" :class="'card-status-' + record.tag" :style="{'--delay': index * 0.06 + 's'}">
+    <div v-for="(record, index) in commissionTb_pagination.records" class="commission-card" :class="'card-status-' + record.tag">
       <div class="card-accent"></div>
       <div class="card-content">
         <div class="card-header">
@@ -281,7 +281,7 @@
               </span>
               <div class="bonus-info">
                 <span class="bonus-label">佣金</span>
-                <span class="bonus-value">¥{{record.bonus}}</span>
+                <span class="bonus-value">¥{{Number(record.bonus).toFixed(0)}}</span>
               </div>
             </div>
           </div>
@@ -313,7 +313,7 @@
             </span>
           </div>
           <div class="card-actions">
-            <button v-if="record.tag=='6' && !isOasisFounder()" v-preventreclick @click="openViewTaskModalV(record)" 
+            <button v-if="(record.tag=='6' || record.tag=='7') && !isOasisFounder()" v-preventreclick @click="openViewTaskModalV(record)" 
               class="action-btn accept">
               <i class="bi bi-file-earmark-plus"></i>
               <span class="action-tooltip">接取任务</span>
@@ -389,7 +389,6 @@
                 </div>
                 <div class="modal-header-text">
                   <h5 class="modal-title">发布新委托</h5>
-                  <p class="modal-subtitle">创建一个新的委托任务</p>
                 </div>
               </div>
               <button @click="closeAddTaskModalHandlerV" type="button" class="btn-modal-close" data-bs-dismiss="modal">
@@ -437,7 +436,7 @@
 
       <!-- 审核任务模态框 -->
       <div class="modal fade commission-modal" id="auditTaskModal" data-bs-backdrop="static" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <div class="modal-header-content">
@@ -446,7 +445,6 @@
                 </div>
                 <div class="modal-header-text">
                   <h5 class="modal-title">审核委托</h5>
-                  <p class="modal-subtitle">确认是否通过此委托任务</p>
                 </div>
               </div>
               <button @click="closeAuditTaskModalHandlerV" type="button" class="btn-modal-close" data-bs-dismiss="modal">
@@ -483,7 +481,7 @@
 
       <!-- 接受任务模态框 -->
       <div class="modal fade commission-modal" id="acceptTaskModal" data-bs-backdrop="static" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <div class="modal-header-content">
@@ -491,8 +489,7 @@
                   <i class="bi bi-hand-thumbs-up"></i>
                 </div>
                 <div class="modal-header-text">
-                  <h5 class="modal-title">接受委托</h5>
-                  <p class="modal-subtitle">确认接受此委托任务</p>
+                  <h5 class="modal-title">接取委托</h5>
                 </div>
               </div>
               <button @click="closeAcceptTaskModalHandlerV" type="button" class="btn-modal-close" data-bs-dismiss="modal">
@@ -518,7 +515,7 @@
             <div class="modal-footer">
               <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">再考虑</button>
               <button type="button" v-preventreclick @click="receiveCommissionV(viewCommission.id)" class="btn-modal-success">
-                <i class="bi bi-check-lg"></i> 确认接受
+                <i class="bi bi-check-lg"></i> 接取
               </button>
             </div>
           </div>
@@ -536,7 +533,6 @@
                 </div>
                 <div class="modal-header-text">
                   <h5 class="modal-title">编辑委托</h5>
-                  <p class="modal-subtitle">修改委托任务信息</p>
                 </div>
               </div>
               <button @click="closeEditTaskModalHandlerV" type="button" class="btn-modal-close" data-bs-dismiss="modal">
@@ -548,7 +544,7 @@
                 <label class="form-label">
                   <span>任务</span>
                 </label>
-                <textarea v-model="editingCommission.title" class="form-input" maxlength="80" rows="2" placeholder="请输入任务标题"></textarea>
+                <textarea @change="btn_ctl.edit_task_modal_already_change=true" v-model="editingCommission.title" class="form-input" maxlength="80" rows="2" placeholder="请输入任务标题，最多80字符"></textarea>
               </div>
               <div class="form-group">
                 <label class="form-label">
@@ -556,14 +552,14 @@
                 </label>
                 <div class="bonus-input-wrapper">
                   <span class="bonus-prefix">¥</span>
-                  <input type="text" @input="transformInputNumberV($event)" v-model="editingCommission.bonus" min="1" max="50000" class="form-input bonus-input">
+                  <input type="text" @change="btn_ctl.edit_task_modal_already_change=true" @input="transformInputNumberV($event)" v-model="editingCommission.bonus" min="1" max="50000" class="form-input bonus-input">
                 </div>
               </div>
               <div class="form-group">
                 <label class="form-label">
                   <span>摘要</span>
                 </label>
-                <textarea v-model="editingCommission.sow" class="form-input" maxlength="4500" rows="10" placeholder="请详细描述任务要求..."></textarea>
+                <textarea v-model="editingCommission.sow" @change="btn_ctl.edit_task_modal_already_change=true" class="form-input" maxlength="4500" rows="10" placeholder="请详细描述任务要求、工作范围、交付标准等..."></textarea>
               </div>
             </div>
             <div class="modal-footer">

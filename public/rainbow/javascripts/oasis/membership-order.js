@@ -104,6 +104,16 @@ const RootComponent = {
         },
         renderDateToDayInChinaV(dateStr){
            return renderDateToDayInChina(dateStr);
+        },
+        getStatusClass(status) {
+            // 状态映射: 1-待支付, 2-已支付, 3-已取消, 8-已退款
+            const statusMap = {
+                '1': 'status-pending',
+                '2': 'status-paid',
+                '3': 'status-cancelled',
+                '8': 'status-refunded'
+            };
+            return statusMap[status] || 'status-pending';
         }
     },
     updated(){

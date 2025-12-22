@@ -199,7 +199,7 @@
 
             </div>
 
-            <div class="nav-tabs-container">
+            <div class="nav-tabs-container" style="height: 54px;">
               <ul class="nav nav-tabs" id="tob-tablist" role="tablist">
                 <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">
@@ -327,75 +327,36 @@
 
                 <div class="commission-info-container pb-5">
 
-
-                <section class="section-commission-header ps-4 pt-5">
-                  <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
-                      <div class="col">
-                          <h3>服务</h3>
-                          <p class="ms-2 sow-commission-title">
-                           {{commissionDetail.title}}
-                          </p>
+                  <!-- 顶部信息条 -->
+                  <div class="sow-hero">
+                    <div class="sow-header">
+                      <div class="sow-tag">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                        {{explainOasisCommissionTagV(commissionDetail.tag)}}
                       </div>
-    
-                      <div class="col">
-                          <h3>服务商</h3>
-                          <div class="d-flex justify-content-start align-items-center mx-2">
-                            <div class="brand-portrait">
-                              <img class="brand-avator" :src="adaptiveImageUriV(commissionDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                            </div>
-                            <h6 class="sow-brand-name mx-2">{{commissionDetail.supplierName}}</h6>
-                        </div>
+                      <div class="sow-price">
+                        <span class="price-currency">￥</span>{{commissionDetail.bonus}}
                       </div>
-                  </div>
-              </section>
-              <section class="section-commission-info ps-4">
-                  <div class="which-commission d-flex">
-                    <div>
-                      <h6>摘要:</h6>
+                    </div>
+                    <h1 class="sow-title">{{commissionDetail.title}}</h1>
+                    <div v-if="commissionDetail.supplierName" class="sow-meta">
+                      <div class="meta-item">
+                        <img :src="adaptiveImageUriV(commissionDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                        <span>{{commissionDetail.supplierName}}</span>
+                      </div>
                     </div>
                   </div>
-                  <div class="commission-content-wrapper ps-4">
-                      <div class="commission-content-info">
-                        <p class="paragraph">
-                          {{commissionDetail.sow}}
-                        </p>
-                      </div>
-                  </div>
-                  <div class="price py-3">
-                    <i>
-                      ￥
-                    </i>
-                    <ins class="text-decoration-none price-txt">{{commissionDetail.bonus}}</ins>
-                  </div>
 
-                  <div class="plan-mark">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
-                      <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
-                      <defs>
-                      <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
-                      <stop offset="0.314" stop-color="#FF9800"/>
-                      <stop offset="0.662" stop-color="#FF6D00"/>
-                      <stop offset="0.972" stop-color="#F44336"/>
-                      </radialGradient>
-                      <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
-                      <stop offset="0.214" stop-color="#FFF176"/>
-                      <stop offset="0.328" stop-color="#FFF27D"/>
-                      <stop offset="0.487" stop-color="#FFF48F"/>
-                      <stop offset="0.672" stop-color="#FFF7AD"/>
-                      <stop offset="0.793" stop-color="#FFF9C4"/>
-                      <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
-                      <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
-                      <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
-                      <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
-                      </radialGradient>
-                      </defs>
-                      </svg>
-                      
-                    <span class="ms-2 tag-desc">{{explainOasisCommissionTagV(commissionDetail.tag)}}</span>
+                  <!-- 服务描述 -->
+                  <div class="sow-description">
+                    <div class="description-header">
+                      <i class="bi bi-file-text"></i>
+                      <span>服务说明</span>
+                    </div>
+                    <div class="description-content">
+                      <p>{{commissionDetail.sow}}</p>
+                    </div>
                   </div>
-
-              </section>
 
                 </div>
 
@@ -407,191 +368,136 @@
                 <div class="deliver-panel-container">
 
                   <div v-if="commissionDetail.tag==='2' && mpdc__paperDeliver.role==='supplier' && !taskInConfirmIngV()"  class="deliver-panel-header">
-                    <section class="event-wrapper new-order">
-                      <div @click="showAddNewDeliverModalV" class="btn-container ms-5">
-                        <div class="package-icon new-order">
-                          <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 6H8V2H6V6H2V8H6V12H8V8H12V6Z" />
-                            <path d="M29.919 16.606L26.919 9.606C26.842 9.42608 26.7139 9.27273 26.5505 9.165C26.3871 9.05727 26.1957 8.99989 26 9H23V7C23 6.73478 22.8946 6.48043 22.7071 6.29289C22.5196 6.10536 22.2652 6 22 6H15V8H21V20.556C20.5443 20.8206 20.1456 21.1728 19.8267 21.5922C19.5078 22.0117 19.2751 22.4902 19.142 23H12.858C12.6405 22.1418 12.143 21.3806 11.4442 20.8368C10.7455 20.2931 9.88538 19.9979 9 19.9979C8.11462 19.9979 7.25452 20.2931 6.55578 20.8368C5.85703 21.3806 5.35953 22.1418 5.142 23H4V14H2V24C2 24.2652 2.10536 24.5196 2.29289 24.7071C2.48043 24.8946 2.73478 25 3 25H5.142C5.35953 25.8582 5.85703 26.6194 6.55578 27.1632C7.25452 27.7069 8.11462 28.0021 9 28.0021C9.88538 28.0021 10.7455 27.7069 11.4442 27.1632C12.143 26.6194 12.6405 25.8582 12.858 25H19.142C19.3595 25.8582 19.857 26.6194 20.5558 27.1632C21.2545 27.7069 22.1146 28.0021 23 28.0021C23.8854 28.0021 24.7455 27.7069 25.4442 27.1632C26.143 26.6194 26.6405 25.8582 26.858 25H29C29.2652 25 29.5196 24.8946 29.7071 24.7071C29.8946 24.5196 30 24.2652 30 24V17C30 16.8645 29.9725 16.7305 29.919 16.606ZM9 26C8.60444 26 8.21776 25.8827 7.88886 25.6629C7.55996 25.4432 7.30362 25.1308 7.15224 24.7654C7.00087 24.3999 6.96126 23.9978 7.03843 23.6098C7.1156 23.2219 7.30608 22.8655 7.58579 22.5858C7.86549 22.3061 8.22186 22.1156 8.60982 22.0384C8.99778 21.9613 9.39991 22.0009 9.76537 22.1522C10.1308 22.3036 10.4432 22.56 10.6629 22.8889C10.8827 23.2178 11 23.6044 11 24C10.9992 24.5302 10.7882 25.0384 10.4133 25.4133C10.0384 25.7882 9.53019 25.9992 9 26ZM23 11H25.34L27.484 16H23V11ZM23 26C22.6044 26 22.2178 25.8827 21.8889 25.6629C21.56 25.4432 21.3036 25.1308 21.1522 24.7654C21.0009 24.3999 20.9613 23.9978 21.0384 23.6098C21.1156 23.2219 21.3061 22.8655 21.5858 22.5858C21.8655 22.3061 22.2219 22.1156 22.6098 22.0384C22.9978 21.9613 23.3999 22.0009 23.7654 22.1522C24.1308 22.3036 24.4432 22.56 24.6629 22.8889C24.8827 23.2178 25 23.6044 25 24C24.9995 24.5303 24.7886 25.0387 24.4136 25.4136C24.0387 25.7886 23.5303 25.9995 23 26ZM28 23H26.858C26.6377 22.1434 26.1394 21.3842 25.4412 20.8413C24.743 20.2983 23.8844 20.0025 23 20V18H28V23Z"/>
-                          </svg>
-                        </div>
-                        <span class="paper-head">
-                          新交付
-                        </span>
+                    <div @click="showAddNewDeliverModalV" class="btn-container">
+                      <div class="package-icon">
+                        <i class="bi bi-file-earmark-plus"></i>
                       </div>
-                    </section>
+                      <span class="paper-head">提交新交付</span>
+                    </div>
                   </div>
+
                   <div v-show="isEmptyObjectV(mpdc__paperDeliver.records)" class="content-block">
-                    <span  v-if="commissionDetail.tag!='3'" >
-                      还没有交付记录！
-                    </span>
+                    <span v-if="commissionDetail.tag!='3'">还没有交付记录</span>
                   </div>
+
                   <!-- role is supplier start -->
                   <div v-if="mpdc__paperDeliver.role==='supplier'" class="deliver-record-container">
-                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                  
-                      <div class="d-flex">
-                        <div>
-                          交付内容：
-                        </div>
-                        <div class="record-filename">
-                          {{record.deliverName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                    <div v-for="(record, index) in mpdc__paperDeliver.records" :key="index" class="deliver-record">
+                      <div class="record-header">
+                        <div class="record-index">#{{index + 1}}</div>
+                        <div class="record-meta">
+                          <span class="record-time">{{record.createAt.replace(new RegExp('-', 'g'), '/')}}</span>
+                          <div class="record-status" :class="{'status-pending': record.tag=='1', 'status-accepted': record.tag=='3', 'status-revision': record.tag=='2'}">
+                            {{paperDeliverTagExplainV(record.tag)}}
+                          </div>
                         </div>
                       </div>
-  
-                      <div class="d-flex">
-                        
-                        <div>
-                          预览内容：
-                        </div>
-                        <div class="record-filename">
-                          {{record.previewName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                        </div>
-                   
+                      <div class="record-content">
+                        <a target="_blank" class="file-row" :download="record.deliverName" :href="record.deliver">
+                          <i class="bi bi-file-earmark"></i>
+                          <span class="file-label">交付文件</span>
+                          <span class="file-name">{{record.deliverName}}</span>
+                          <i class="bi bi-download"></i>
+                        </a>
+                        <a target="_blank" class="file-row preview" :download="record.previewName" :href="record.preview">
+                          <i class="bi bi-file-earmark"></i>
+                          <span class="file-label">预览文件</span>
+                          <span class="file-name">{{record.previewName}}</span>
+                          <i class="bi bi-download"></i>
+                        </a>
                       </div>
-  
-                      <div>
-                        <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
+                      <div v-if="record.msg" class="record-msg">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span>{{record.msg}}</span>
                       </div>
-                      <div>
-                        <span>提交时间：{{record.createAt}}</span>
-                      </div>
-  
-                      <div class="d-flex">
-                        <div class="delivery-remark-heading">留言：</div>
-                        <div class="delivery-remark-content">
-                          <p class="delivery-remark">
-                            {{record.msg}}
-                          </p>
-                        </div>
-                      </div>
-  
                     </div>
                   </div>
                 <!-- role is supplier end -->
                 <!-- role is viewer start -->
                 <div v-if="mpdc__paperDeliver.role==='viewer'" class="deliver-record-container">
-                  <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                    <div v-if="record.tag=='3'" class="d-flex">
-                      <div>
-                        交付内容：
-                      </div>
-                      <div class="record-filename">
-                        {{record.deliverName}}
-                      </div>
-                      <div class="ms-2">
-                        <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                      </div>
-                    </div>
-                    <div v-else class="d-flex">
-                      
-                        <div>
-                          预览内容：
+                  <div v-for="(record, index) in mpdc__paperDeliver.records" :key="index" class="deliver-record">
+                    <div class="record-header">
+                      <div class="record-index">#{{index + 1}}</div>
+                      <div class="record-meta">
+                        <span class="record-time">{{record.createAt.replace(new RegExp('-', 'g'), '/')}}</span>
+                        <div class="record-status" :class="{'status-pending': record.tag=='1', 'status-accepted': record.tag=='3', 'status-revision': record.tag=='2'}">
+                          {{paperDeliverTagExplainV(record.tag)}}
                         </div>
-                        <div class="record-filename">
-                          {{record.previewName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                        </div>
-                   
-                    </div>
-                    <div>
-                      <span>
-                        交付状态：
-                        {{paperDeliverTagExplainV(record.tag)}}
-                      </span>
-                    </div>
-                    <div>
-                      <span>提交时间：{{record.createAt}}</span>
-                    </div>
-                    
-                    <div class="d-flex">
-                      <div class="delivery-remark-heading">留言：</div>
-                      <div class="delivery-remark-content">
-                        <p class="delivery-remark">
-                          {{record.msg}}
-                        </p>
                       </div>
+                    </div>
+                    <div class="record-content">
+                      <a v-if="record.tag=='3'" target="_blank" class="file-row" :download="record.deliverName" :href="record.deliver">
+                        <i class="bi bi-file-earmark"></i>
+                        <span class="file-label">交付文件</span>
+                        <span class="file-name">{{record.deliverName}}</span>
+                        <i class="bi bi-download"></i>
+                      </a>
+                      <a v-else target="_blank" class="file-row preview" :download="record.previewName" :href="record.preview">
+                        <i class="bi bi-file-earmark"></i>
+                        <span class="file-label">预览文件</span>
+                        <span class="file-name">{{record.previewName}}</span>
+                        <i class="bi bi-download"></i>
+                      </a>
+                    </div>
+                    <div v-if="record.msg" class="record-msg">
+                      <i class="bi bi-chat-left-text"></i>
+                      <span>{{record.msg}}</span>
                     </div>
                   </div>
                 </div>
-  
                 <!-- role is viewer end -->
                    
                   <!-- role is admin start -->
-  
+
                   <div v-if="mpdc__paperDeliver.role==='admin'" class="deliver-record-container">
-                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                      <div v-if="record.tag=='3'" class="d-flex">
-                        <div>
-                          交付内容：
-                        </div>
-                        <div class="record-filename">
-                          {{record.deliverName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                    <div v-for="(record, index) in mpdc__paperDeliver.records" :key="index" class="deliver-record" :class="{'is-pending': record.tag=='1'}">
+                      <div class="record-header">
+                        <div class="record-index">#{{index + 1}}</div>
+                        <div class="record-meta">
+                          <span class="record-time">{{record.createAt.replace(new RegExp('-', 'g'), '/')}}</span>
+                          <div class="record-status" :class="{'status-pending': record.tag=='1', 'status-accepted': record.tag=='3', 'status-revision': record.tag=='2'}">
+                            {{paperDeliverTagExplainV(record.tag)}}
+                          </div>
                         </div>
                       </div>
-                      <div v-else class="d-flex">
-                        
-                          <div>
-                            预览内容：
-                          </div>
-                          <div class="record-filename">
-                            {{record.previewName}}
-                          </div>
-                          <div class="ms-2">
-                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                          </div>
-                     
+                      <div class="record-content">
+                        <a v-if="record.tag=='3'" target="_blank" class="file-row" :download="record.deliverName" :href="record.deliver">
+                          <i class="bi bi-file-earmark"></i>
+                          <span class="file-label">交付文件</span>
+                          <span class="file-name">{{record.deliverName}}</span>
+                          <i class="bi bi-download"></i>
+                        </a>
+                        <a v-else target="_blank" class="file-row preview" :download="record.previewName" :href="record.preview">
+                          <i class="bi bi-file-earmark"></i>
+                          <span class="file-label">预览文件</span>
+                          <span class="file-name">{{record.previewName}}</span>
+                          <i class="bi bi-download"></i>
+                        </a>
                       </div>
-                      <div>
-                        <span>
-                          交付状态：
-                          {{paperDeliverTagExplainV(record.tag)}}
-                        </span>
-                        
+                      
+                      <div v-if="record.msg" class="record-msg">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span>{{record.msg}}</span>
                       </div>
-                      <div>
-                        <span>提交时间：{{record.createAt}}</span>
-                      </div>
-  
-  
-  
-                       <div v-if="!record.msg && record.tag=='1'" class="leave-msg-container py-4" >
-                          <textarea class="form-control" rows="6" v-model="record.newMsg"></textarea>
-                          <div class="py-2">
-                            <button 
-                            :class="{'disabled': !record.newMsg, 
-                            'btn-primary': record.newMsg,
-                            'btn-secondary': !record.newMsg}"
-                             v-preventreclick class="btn" @click="leaveMessageV(record)">留言</button>
-                          </div>
-                      </div>
-                      <div v-else class="d-flex">
-                        <div class="delivery-remark-heading">留言：</div>
-                        <div class="delivery-remark-content">
-                          <p class="delivery-remark">
-                            {{record.msg}}
-                          </p>
-                        </div>
+                      
+                      <div v-if="!record.msg && record.tag=='1'" class="record-input">
+                        <textarea rows="6" maxlength="600" class="msg-input" placeholder="输入留言..." v-model="record.newMsg"></textarea>
+                        <button :class="{'disabled': !record.newMsg}" v-preventreclick class="btn-send-inline" @click="leaveMessageV(record)">
+                          <i class="bi bi-send"></i>
+                        </button>
                       </div>
                      
-                      <div v-show="record.tag=='1'" class="py-4">
-                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-dark">再次修订</button>
-                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-primary ms-5">接受交付</button>
+                      <div v-show="record.tag=='1'" class="record-actions">
+                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-revision">
+                          <i class="bi bi-arrow-repeat"></i>退回修订
+                        </button>
+                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-accept">
+                          <i class="bi bi-check-circle"></i>接受交付
+                        </button>
                       </div>
                     </div>
                   </div>
-  
+
                 <!-- role is admin end-->
 
                 </div>
@@ -615,19 +521,24 @@
         <!-- focus modal -->
       <div class="modal-container">
         <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                <h1 class="modal-title fs-5">操作提示</h1>
-              </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                <div class="product-feature">
-                  <p class="card-text">{{focusModal.feed}}</p>
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content focus-modal-content">
+              <div class="modal-header focus-modal-header">
+                <div class="focus-modal-icon">
+                  <i class="bi bi-exclamation-circle"></i>
                 </div>
+                <h1 class="modal-title">操作确认</h1>
               </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">确定</button>
+              <div class="modal-body focus-modal-body">
+                <p class="focus-modal-text">{{focusModal.feed}}</p>
+              </div>
+              <div class="modal-footer focus-modal-footer">
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">
+                  <i class="bi bi-x"></i>取消
+                </button>
+                <button v-preventreclick @click="focusModal.confirmHandler" type="button" class="btn btn-confirm">
+                  <i class="bi bi-check-lg"></i>确定
+                </button>
               </div>
             </div>
           </div>
@@ -635,46 +546,80 @@
       </div>
 
         <div class="modal-container">
-          <!-- Modal -->
+          <!-- 交付内容 Modal -->
           <div class="modal fade" id="newDeliverModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5">准备交付内容</h1>
-                  <button @click="closeDeliverPaperModalHandlerV"  type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content deliver-modal-content">
+                <div class="modal-header deliver-modal-header">
+                  <div class="modal-header-content">
+                    <div class="modal-icon">
+                      <i class="bi bi-file-earmark-plus"></i>
+                    </div>
+                    <div class="modal-title-group">
+                      <h1 class="modal-title">准备交付内容</h1>
+                      <p class="modal-subtitle">上传您的工作成果</p>
+                    </div>
+                  </div>
+                  <button @click="closeDeliverPaperModalHandlerV" type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
                 </div>
-                <div class="modal-body">
-                  <form onsubmit="return false">
-                    <div class="row mb-3">
-                      <label class="col-sm-4 col-form-label">
-                        预览文件
-                        <div class="help-text">
-                          上传预览文件，采购商通过该文件判断是否接受您的交付内容。(最大20M)                          </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input type="file" @change="handlePreviewFileUpload" class="form-control form-control-sm" id="inputPreviewFile">
+                <div class="modal-body deliver-modal-body">
+                  <form onsubmit="return false" class="deliver-form">
+                    <!-- 预览文件上传 -->
+                    <div class="upload-section">
+                      <div class="upload-card" :class="{'has-file': previewFileSelected}">
+                        <div class="upload-icon">
+                          <i class="bi bi-file-earmark"></i>
+                        </div>
+                        <div class="upload-info">
+                          <div class="upload-label">预览文件</div>
+                          <div v-if="previewFileSelected" class="upload-filename">{{previewFileName}}</div>
+                          <div v-else class="upload-hint">采购商通过该文件判断是否接受您的交付内容</div>
+                          <div class="upload-limit"><i class="bi bi-info-circle"></i> 最大 20MB</div>
+                        </div>
+                        <label class="upload-action">
+                          <input type="file" @change="handlePreviewFileUpload" id="inputPreviewFile" hidden>
+                          <span class="upload-btn">
+                            <i :class="previewFileSelected ? 'bi bi-arrow-repeat' : 'bi bi-plus-lg'"></i>
+                            {{previewFileSelected ? '重新选择' : '选择文件'}}
+                          </span>
+                        </label>
                       </div>
                     </div>
-                    <div class="row mb-3">
-                      <label  class="col-sm-4 col-form-label">
-                        交付文件
-                        <div class="help-text">
-                          上传交付文件，最终的交付内容。(最大20M)    
+                    
+                    <!-- 交付文件上传 -->
+                    <div class="upload-section">
+                      <div class="upload-card primary" :class="{'has-file': deliverFileSelected}">
+                        <div class="upload-icon">
+                          <i class="bi bi-file-earmark"></i>
                         </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input type="file" @change="handleDeliverFileUpload"  class="form-control form-control-sm" id="inputDeliverFile">
+                        <div class="upload-info">
+                          <div class="upload-label">交付文件 <span class="required">*</span></div>
+                          <div v-if="deliverFileSelected" class="upload-filename">{{deliverFileName}}</div>
+                          <div v-else class="upload-hint">上传最终的交付内容</div>
+                          <div class="upload-limit"><i class="bi bi-info-circle"></i> 最大 20MB</div>
+                        </div>
+                        <label class="upload-action">
+                          <input type="file" @change="handleDeliverFileUpload" id="inputDeliverFile" hidden>
+                          <span class="upload-btn">
+                            <i :class="deliverFileSelected ? 'bi bi-arrow-repeat' : 'bi bi-plus-lg'"></i>
+                            {{deliverFileSelected ? '重新选择' : '选择文件'}}
+                          </span>
+                        </label>
                       </div>
                     </div>
                   </form>
-               
                 </div>
-                <div class="modal-footer btn-light">
+                <div class="modal-footer deliver-modal-footer">
+                  <button @click="closeDeliverPaperModalHandlerV" type="button" class="btn btn-cancel" data-bs-dismiss="modal">
+                    <i class="bi bi-x"></i>取消
+                  </button>
                   <button
-                  :class="{'disabled': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded , 
-                        'btn-primary': !delieverOrPreviewFileIsEmpty && !deliverFileSizeExceeded && !previewFileSizeExceeded,
-                        'btn-secondary': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded}"
-                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">交付内容</button>
+                    :class="{'disabled': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded || uploadingDeliverMaterial}"
+                    v-preventreclick @click="deliverPaperV" type="button" class="btn btn-submit">
+                    <i class="bi bi-send"></i>{{uploadingDeliverMaterial ? '正在上传...' : '提交' }}
+                  </button>
                 </div>
               </div>
             </div>

@@ -27,8 +27,6 @@
           <a href="/">
             <div class="d-flex align-items-center logo">
               <img src="/common/icon/logo_blv-final-white.png" alt="logo">
-              <h2 class="mb-0 ms-2">主站首页</h2>
-
             </div>
           </a>
 
@@ -150,67 +148,46 @@
 
 
 
-          <div class="subs-product-box">
-            <div class="subs-product-heading">
-              <span><i class="bi bi-tag-fill me-1"></i>{{productName}}</span>
+          <div class="product-hero">
+            <div class="hero-main">
+              <h1 class="hero-title"><i class="bi bi-tag-fill"></i>{{productName}}</h1>
             </div>
-            <div class="subs-product-cta d-flex align-items-center">
-              <div data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover"
-                data-bs-toggle="popover" data-bs-content="访问店铺" class="btn2--circle">
-                <a :href="'/'+sellerHandle">
-                  <i class="bi bi-bag"></i>
-                </a>
-              </div>
-              <div data-bs-custom-class="custom-popover" data-bs-placement="top" data-bs-trigger="hover"
-                data-bs-toggle="popover" data-bs-content="联系商家" class="btn2--circle ms-3">
-                <a :href="'/messages/'+ sellerUserId" :href="'/rainbow/oasis/home?oasis_id='+sellerUserId">
-                  <i class="bi bi-chat-dots"></i>
-                </a>
-              </div>
-              <div v-if="!!sellerPdOasisId" data-bs-custom-class="custom-popover" data-bs-placement="top"
-                data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="社区" class="btn2--circle ms-3">
-                <a :href="'/rainbow/oasis/home?oasis_id='+sellerPdOasisId">
-                  <i class="bi bi-people"></i>
-                </a>
-              </div>
-              <div v-preventreclick @click="copyValueToClipboardV" data-bs-custom-class="custom-popover"
-                data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="分享"
-                class="btn2--circle ms-3">
-                <i class="bi bi-upload"></i>
-              </div>
-              <div v-preventreclick @click="showOasisReportModalV" data-bs-custom-class="custom-popover"
-                data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="举报"
-                class="btn2--circle ms-3">
-                <i class="bi bi-exclamation-diamond"></i>
-              </div>
+            <div class="hero-actions">
+              <a :href="'/'+sellerHandle" class="action-btn" title="访问店铺">
+                <i class="bi bi-bag"></i>
+              </a>
+              <a :href="'/messages/'+ sellerUserId" class="action-btn" title="联系商家">
+                <i class="bi bi-chat-dots"></i>
+              </a>
+              <a v-if="!!sellerPdOasisId" :href="'/rainbow/oasis/home?oasis_id='+sellerPdOasisId" class="action-btn" title="社区">
+                <i class="bi bi-people"></i>
+              </a>
+              <button v-preventreclick @click="copyValueToClipboardV" class="action-btn" title="分享">
+                <i class="bi bi-share"></i>
+              </button>
+              <button v-preventreclick @click="showOasisReportModalV" class="action-btn" title="举报">
+                <i class="bi bi-flag"></i>
+              </button>
             </div>
-
           </div>
           <section class="section-general-block section-box box-bg-primary mb-5">
             <div class="info-block">
 
-              <div class="pay-cycle mb-3">
-                <div class="pay-cycle-box">
-                  <div>
-                    <input type="radio" value="monthly" v-model="billCalendar" @change="changeBillCalendarV"
-                      class="btn-check" name="options-base" id="payMonthly" autocomplete="off" checked>
-                    <label class="btn radio-label" for="payMonthly">月付</label>
-                  </div>
-                  <div class="ms-2">
-                    <input type="radio" value="quarterly" v-model="billCalendar" @change="changeBillCalendarV"
-                      class="btn-check" name="options-base" id="payQuarterly" autocomplete="off">
-                    <label class="btn radio-label"
-                      for="payQuarterly">{{!hasOfferTypeV('pay_quarterly_discount_coupon_sp') ? "季付": ("季付享"+
-                      queryQuarterlyOrYearlyDiscountPercentageV('pay_quarterly_discount_coupon_sp') + "优惠")}}</label>
-                  </div>
-                  <div class="ms-2">
-                    <input type="radio" value="yearly" v-model="billCalendar" @change="changeBillCalendarV"
-                      class="btn-check" name="options-base" id="payYearly" autocomplete="off">
-                    <label class="btn radio-label" for="payYearly">{{!hasOfferTypeV('pay_yearly_discount_coupon_sp') ?
-                      "年付": ("年付享"+ queryQuarterlyOrYearlyDiscountPercentageV('pay_yearly_discount_coupon_sp') +
-                      "优惠")}}</label>
-                  </div>
-                </div>
+              <div class="cycle-selector">
+                <label class="cycle-option" :class="{'active': billCalendar==='monthly'}">
+                  <input type="radio" value="monthly" v-model="billCalendar" @change="changeBillCalendarV" name="options-base">
+                  <span>月付</span>
+                </label>
+                <label class="cycle-option" :class="{'active': billCalendar==='quarterly'}">
+                  <input type="radio" value="quarterly" v-model="billCalendar" @change="changeBillCalendarV" name="options-base">
+                  <span v-if="!hasOfferTypeV('pay_quarterly_discount_coupon_sp')">季付</span>
+                  <span v-else>季付<em>省{{queryQuarterlyOrYearlyDiscountPercentageV('pay_quarterly_discount_coupon_sp')}}</em></span>
+                </label>
+                <label class="cycle-option" :class="{'active': billCalendar==='yearly'}">
+                  <input type="radio" value="yearly" v-model="billCalendar" @change="changeBillCalendarV" name="options-base">
+                  <span v-if="!hasOfferTypeV('pay_yearly_discount_coupon_sp')">年付</span>
+                  <span v-else>年付<em>省{{queryQuarterlyOrYearlyDiscountPercentageV('pay_yearly_discount_coupon_sp')}}</em></span>
+                </label>
               </div>
               <div class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
                 <div v-for="tier in plans" class="col">
@@ -262,111 +239,82 @@
                 alt="bluvarri-service-not-found">
             </div>
           </section>
-          <section class="section-service-block section-box box-bg-primary mb-5">
-            <div class="section-header">
-              首期费用
-            </div>
-            <div class="info-block">
-              <div class="mb-2">
-                <top-search class="section-top-serach">
-                  <div class="input-group input-normal-search">
-                    <input @keyup.enter.native="queryPromoCodeInfoV" v-model="promoCode"
-                      class="form-control top-search-input" type="text" placeholder="输入促销码..."
-                      aria-label="Search"><button v-preventreclick @click="queryPromoCodeInfoV"
-                      class="btn btn-outline-secondary input-group-search-btn" type="button"><i
-                        class="bi bi-search"></i></button>
-                  </div>
-                </top-search>
+          <section class="fee-section">
+            <div class="fee-card">
+              <h3 class="fee-title">首期费用</h3>
+              <div class="promo-input">
+                <input @keyup.enter.native="queryPromoCodeInfoV" v-model="promoCode" type="text" placeholder="输入促销码...">
+                <button v-preventreclick @click="queryPromoCodeInfoV"><i class="bi bi-arrow-right"></i></button>
               </div>
-              <div v-if="!!promoError" class="mb-2" style="color: coral;">
-                {{promoError}}
-              </div>
-              <table class="table table-sm table-hover table-dark align-middle">
-                <thead>
-                  <th>项目</th>
-                  <th class="w-25">费用</th>
-                </thead>
-                <tbody>
-                  <tr v-if="!isEmptyObjectV(currentPlan)">
-                    <td>服务费用</td>
-                    <td>{{calRegularFeeV().toFixed(2) }}</td>
-                  </tr>
-                  <tr
-                    v-if="!!currentPlan.offers && billCalendar=='quarterly' && hasOfferTypeV('pay_quarterly_discount_coupon_sp')">
-                    <td>季付折扣({{queryQuarterlyOrYearlyDiscountPercentageV('pay_quarterly_discount_coupon_sp')}})</td>
-                    <td>-{{calMonthlyOrYearlyDiscountsV('pay_quarterly_discount_coupon_sp')}}</td>
-                  </tr>
-                  <tr
-                    v-if="!!currentPlan.offers && billCalendar=='yearly' && hasOfferTypeV('pay_yearly_discount_coupon_sp')">
-                    <td>年付折扣({{queryQuarterlyOrYearlyDiscountPercentageV('pay_yearly_discount_coupon_sp')}})</td>
-                    <td>-{{calMonthlyOrYearlyDiscountsV('pay_yearly_discount_coupon_sp')}}</td>
-                  </tr>
-                  <tr v-if="!!promoOffer">
-                    <td>促销码-{{promoOffer.name}}</td>
-                    <td>-{{calPromoCodeDiscountsV().toFixed(2) }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div v-if="isEmptyObjectV(currentPlan)" class="not-found-resource">
-                <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png"
-                  alt="bluvarri-service-not-found">
-              </div>
+              <p v-if="!!promoError" class="promo-error">{{promoError}}</p>
 
-
-              <div class="fee-footer d-flex justify-content-between py-3">
-                <div class="price"><i>￥</i><ins class="text-decoration-none">{{planFeePredict.length>0 ?
-                    planFeePredict[0].netIncome.toFixed(2) : "0"}}</ins></div>
-                <button v-preventreclick @click="showSubscribePlanModalV" class="bgPrimary form-send">即刻订阅</button>
-              </div>
-
-            </div>
-          </section>
-          <section class="section-service-block section-box box-bg-primary mb-5">
-            <div class="section-header">费用预测</div>
-            <div class="info-block">
-              <div class="table-responsive">
-
-                <div class="table-wrp">
-
-                  <table style="min-width: 325px;" class="table table-sm table-hover table-dark align-middle">
-                    <thead>
-                      <th>缴费周期</th>
-                      <th>优惠减免</th>
-                      <th>应付</th>
-                      <th>实付</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="feeItem in planFeePredict">
-                        <td>{{feeItem.period}}</td>
-                        <td>{{Number(feeItem.couponMoney).toFixed(2)}}</td>
-                        <td>{{feeItem.amount.toFixed(2)}}</td>
-                        <td>{{feeItem.netIncome.toFixed(2)}}</td>
-                      </tr>
-                      <tr>
-                    </tbody>
-                  </table>
-                  <div v-if="isEmptyObjectV(currentPlan)" class="not-found-resource">
-                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png"
-                      alt="bluvarri-service-not-found">
-                  </div>
-
+              <div class="fee-list">
+                <div v-if="!isEmptyObjectV(currentPlan)" class="fee-row">
+                  <span>服务费用</span>
+                  <span>￥{{calRegularFeeV().toFixed(2)}}</span>
+                </div>
+                <div v-if="!!currentPlan.offers && billCalendar=='quarterly' && hasOfferTypeV('pay_quarterly_discount_coupon_sp')" class="fee-row discount">
+                  <span>季付折扣 ({{queryQuarterlyOrYearlyDiscountPercentageV('pay_quarterly_discount_coupon_sp')}})</span>
+                  <span>-￥{{calMonthlyOrYearlyDiscountsV('pay_quarterly_discount_coupon_sp')}}</span>
+                </div>
+                <div v-if="!!currentPlan.offers && billCalendar=='yearly' && hasOfferTypeV('pay_yearly_discount_coupon_sp')" class="fee-row discount">
+                  <span>年付折扣 ({{queryQuarterlyOrYearlyDiscountPercentageV('pay_yearly_discount_coupon_sp')}})</span>
+                  <span>-￥{{calMonthlyOrYearlyDiscountsV('pay_yearly_discount_coupon_sp')}}</span>
+                </div>
+                <div v-if="!!promoOffer" class="fee-row discount">
+                  <span>促销码 - {{promoOffer.name}}</span>
+                  <span>-￥{{calPromoCodeDiscountsV().toFixed(2)}}</span>
                 </div>
               </div>
-              
+
+              <div v-if="isEmptyObjectV(currentPlan)" class="fee-empty">
+                <i class="bi bi-inbox"></i>
+                <span>请先选择套餐</span>
+              </div>
+
+              <div class="fee-footer">
+                <div class="fee-total">
+                  <span>应付</span>
+                  <span class="total-price">￥{{planFeePredict.length>0 ? planFeePredict[0].netIncome.toFixed(2) : "0"}}</span>
+                </div>
+                <button v-preventreclick @click="showSubscribePlanModalV" class="subscribe-btn">即刻订阅</button>
+              </div>
             </div>
           </section>
-          <section class="section-service-block section-box box-bg-primary mb-5">
-            <div class="section-header">订阅须知</div>
-            <div class="info-block" style="    color: rgb(219, 222, 225);
-            font-size: 12px;">
-              <ul>
-                <li>下架处理：套餐下架后，已订阅的套餐在下一个计费周期将不再提供订阅服务。</li>
-                <li>涨价说明：套餐价格涨幅超过6%，已订阅的套餐在下一个计费周期将停止订阅服务，6%以及6%以下的涨幅，已订阅的套餐将按新的价格扣除订阅费用。</li>
-                <li>续费：班蔚会在到期后24小时内扣费，订阅成功后订阅周期顺延一个订阅周期。</li>
-                <li>取消续订：如需取消续订，用户可在当前订阅周期到期前24小时以前，随时手动在【奇迹工坊】- 【付费订阅】中取消订阅，取消订阅后不再扣费。</li>
-                <li>退款：扣费7日内，用户可随时联系商家或者通过奇迹工坊订阅记录举报入口进行退款；超出7日的扣费账单，不再支持退款。</li>
-                <li>关于举报：用户在订阅过程中如发现违规行为，可随时通过奇迹工坊订阅记录或套餐订阅页面的举报入口检举违规、违法商家。</li>
+          <section class="predict-section">
+            <div class="predict-card">
+              <h3 class="predict-title">费用预测</h3>
+              <div class="predict-table">
+                <div class="predict-header">
+                  <span>缴费周期</span>
+                  <span>优惠减免</span>
+                  <span>应付</span>
+                  <span>实付</span>
+                </div>
+                <div v-for="feeItem in planFeePredict" class="predict-row">
+                  <span>{{feeItem.period}}</span>
+                  <span class="discount">{{Number(feeItem.couponMoney).toFixed(2)}}</span>
+                  <span>{{feeItem.amount.toFixed(2)}}</span>
+                  <span class="final">{{feeItem.netIncome.toFixed(2)}}</span>
+                </div>
+              </div>
+              <div v-if="isEmptyObjectV(currentPlan)" class="predict-empty">
+                <i class="bi bi-calendar3"></i>
+                <span>选择套餐后查看费用预测</span>
+              </div>
+            </div>
+          </section>
 
+          <section class="notice-section">
+            <div class="notice-card">
+              <h3 class="notice-title"><i class="bi bi-info-circle"></i> 订阅须知</h3>
+              <ul class="notice-list">
+                <li><strong>下架处理</strong>：套餐下架后，已订阅的套餐在下一个计费周期将不再提供订阅服务。</li>
+                <li><strong>涨价说明</strong>：套餐价格涨幅超过6%，已订阅的套餐在下一个计费周期将停止订阅服务；6%以及6%以下的涨幅，已订阅的套餐将按新的价格扣除订阅费用。</li>
+                <li><strong>续费</strong>：班蔚会在到期后24小时内扣费，订阅成功后订阅周期顺延一个订阅周期。</li>
+                <li><strong>取消续订</strong>：如需取消续订，用户可在当前订阅周期到期前24小时以前，随时手动在【奇迹工坊】-【付费订阅】中取消订阅。</li>
+                <li><strong>退款</strong>：扣费7日内，用户可随时联系商家或通过奇迹工坊订阅记录举报入口进行退款；超出7日的扣费账单，不再支持退款。</li>
+                <li><strong>关于举报</strong>：用户在订阅过程中如发现违规行为，可随时通过奇迹工坊订阅记录或套餐订阅页面的举报入口检举违规、违法商家。</li>
               </ul>
             </div>
           </section>
@@ -381,24 +329,21 @@
       <section class="modals">
 
         <div class="modal-container">
-
-          <!--TopUp Fund  Modal -->
+          <!--TopUp Fund Modal -->
           <div class="modal fade" id="goTopUpModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-
-                <div class="modal-header justify-content-center">
-                  <i class="bi bi-check-circle"></i>
+                <div class="modal-header">
+                  <div class="success-icon"><i class="bi bi-check-circle-fill"></i></div>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center">
-                  <div class="modal-head my-3">订阅成功!</div>
-                  <p>哇喔，成功下单，Respect！</p>
-                  <div class="d-flex justify-content-center flex-wrap pt-2">
-
-                    <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">前往商城充值</a>
-                    <a href="/epod/pod-subscription" class="btn btn-dark m-3">查看订阅</a>
-                  </div>
+                <div class="modal-body">
+                  <h4 class="success-title">订阅成功!</h4>
+                  <p class="success-desc">哇，成功下单，Respect！</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="/estudio/studio-shop" target="_blank" class="btn btn-secondary-action">前往商城充值</a>
+                  <a href="/epod/pod-subscription" class="btn btn-primary-action">查看订阅</a>
                 </div>
               </div>
             </div>
@@ -466,21 +411,18 @@
         <!-- focus modal -->
         <div class="modal-container">
           <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
-                <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                  <h1 class="modal-title fs-5">操作提示</h1>
+                <div class="modal-header">
+                  <h5 class="modal-title">操作提示</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                  <div class="product-feature">
-                    <p class="card-text">{{focusModal.message}}</p>
-                  </div>
+                <div class="modal-body">
+                  <p class="focus-message">{{focusModal.message}}</p>
                 </div>
-                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                  <button type="button" @click="closeSubscribePlanFocusModalV" class="btn btn-secondary"
-                    data-bs-dismiss="modal">取消</button>
-                  <button v-preventreclick @click="focusModal.confirmHandler" type="button"
-                    class="btn btn-primary">继续</button>
+                <div class="modal-footer">
+                  <button type="button" @click="closeSubscribePlanFocusModalV" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                  <button v-preventreclick @click="focusModal.confirmHandler" type="button" class="btn btn-confirm">继续</button>
                 </div>
               </div>
             </div>

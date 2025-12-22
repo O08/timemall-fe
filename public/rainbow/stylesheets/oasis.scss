@@ -127,22 +127,35 @@
     border-radius: 10px;
   }
   .hero-info{
-    position:absolute;
-    bottom:20px;
-    left: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    padding-left: 24px;
+    padding-top: 24px;
+  }
+  .oasis-info{
+    display: flex;
+    flex-direction: column;
+    padding-left: 12px;
+    padding-right: 12px;
+    max-width: calc(100% - 172px);
+    
   }
   .hero-info h2{
-    max-width: 900px;
-    min-width: 200px;
-    white-space: nowrap;
+    white-space: pre-wrap;
     text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
     overflow: hidden;
-    width: calc(100% - 260px);
   }
   .hero-info p {
     line-height: 16px;
     font-size: 12px;
     color: #fff;
+    margin-bottom: 0;
+    word-break: break-all;
   }
 #nav-announce{
     z-index: 1044;
@@ -233,13 +246,7 @@
   text-align: justify;
 }
 
-@media only screen and (min-width: 1400px){
-.hero-info h2{
-  width: 900px;
-}
-}
 .hero-info p{
-  width: 50%;
   white-space: pre-wrap;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
@@ -261,7 +268,27 @@
     padding-right: .75rem;
   }
   .hero-info{
-    left: 1rem;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    padding-left: 16px;
+  }
+  .oasis-info{
+    max-width: calc(100% - 24px);
+    padding: 0;
+  }
+  .oasis-avatar{
+    width: 144px;
+    height: 144px;
+    aspect-ratio: 1;
+  }
+  .hero-container{
+    height: 262px;
+  }
+  .hero-info h2{
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
   }
   .oasis-commission-header{
     margin-left: 1rem;

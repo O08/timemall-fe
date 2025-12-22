@@ -28,6 +28,8 @@ const RootComponent = {
     data() {
         return {
             rawProfile: {},
+            rawEditableMillstoneDescObj: {},
+            rawEditableMillstoneObj: {},
             defaultExperienceImage,
             defaultBrandBanner,
             defaultAvatarImage,
@@ -123,12 +125,20 @@ const RootComponent = {
          
     },
     computed:{
-        validateExperienceModal(){
-            return validateModal(this.tmpMillstone);
+        validateExperienceModalFailForAddMode(){
+            return validateModalFail(this.tmpMillstone);
              
          },
-         validateExperienceDescModal(){
-            return validateModal(this.tmpMillstioneDesc) ;
+         validateExperienceModalForEditModeCanSave(){
+            var modalChanged=!(JSON.stringify(this.tmpMillstone) === JSON.stringify(this.rawEditableMillstoneObj));
+            return !validateModalFail(this.tmpMillstone) && modalChanged ;
+         },
+         validateExperienceDescModalForEditModeCanSave(){
+            var modalChanged=!(JSON.stringify(this.tmpMillstioneDesc) === JSON.stringify(this.rawEditableMillstoneDescObj));
+            return !validateModalFail(this.tmpMillstioneDesc) && modalChanged ;
+         },
+         validateExperienceDescModalFailForAddMode(){
+            return validateModalFail(this.tmpMillstioneDesc) ;
          },
          validateExperienceDateV(){
             // inprogress true ,dont validate
@@ -287,9 +297,15 @@ function setBrandBasicInfo(){
         // brand name already exist and be used for other people
         if(response.data.code==2010){
             customAlert.alert("品牌名称已被使用，重新想一个吧！")
+            return
         }
         if(response.data.code==2011){
             customAlert.alert("品牌唯一标识已被使用，重新想一个吧！")
+            return
+        }
+        if(response.data.code!=200){
+            const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+            customAlert.alert(error);
         }
     });
 }
@@ -390,6 +406,7 @@ function editExperience(index){
     settingProfilePage.tmpMillstone.mode = "edit";
     // set tmp index
     settingProfilePage.tmpMillstone.index = index;
+    settingProfilePage.rawEditableMillstoneObj = JSON.parse(JSON.stringify(settingProfilePage.tmpMillstone));
     // show modal
     $("#newExperienceModal").modal("show");
     
@@ -466,6 +483,7 @@ function editExperienceDesc(experienceIndex,descIndex){
     // set tmp index
     settingProfilePage.tmpMillstioneDesc.experienceIndex = experienceIndex;
     settingProfilePage.tmpMillstioneDesc.descIndex = descIndex;
+    settingProfilePage.rawEditableMillstoneDescObj = JSON.parse(JSON.stringify(settingProfilePage.tmpMillstioneDesc));
 
     // show newExperienceDescModalLabel
     $("#newExperienceDescModal").modal("show");
@@ -494,7 +512,7 @@ function validateDate(startYear,startMonth,endYear,endMonth){
     return true;
 }
 
-function validateModal(modal){
+function validateModalFail(modal){
     return !modal.title
               || !modal.startYear
               || !modal.startMonth
