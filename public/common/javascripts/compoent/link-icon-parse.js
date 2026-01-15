@@ -1,9 +1,29 @@
-import weiboIcon from '/common/linkicon/sina-weibo.png';
-import tiktokIcon from '/common/linkicon/tiktok.png';
-import websiteIcon from '/common/linkicon/web.png';
-import xiaohongshuIcon from '/common/linkicon/xiaohongshu.png';
-import biliIcon from '/common/linkicon/bili-favicon.png';
+// import weiboIcon from '/common/linkicon/sina-weibo.png';
+// import tiktokIcon from '/common/linkicon/tiktok.png';
+// import websiteIcon from '/common/linkicon/web.png';
+// import xiaohongshuIcon from '/common/linkicon/xiaohongshu.png';
+// import biliIcon from '/common/linkicon/bili-favicon.png';
 
+const weiboIcon = new URL(
+    '/common/linkicon/sina-weibo.png',
+    import.meta.url
+);
+const tiktokIcon = new URL(
+    '/common/linkicon/tiktok.png',
+    import.meta.url
+);
+const websiteIcon = new URL(
+    '/common/linkicon/xiaohongshu.png',
+    import.meta.url
+);
+const xiaohongshuIcon = new URL(
+    '/common/linkicon/xiaohongshu.png',
+    import.meta.url
+);
+const biliIcon = new URL(
+    '/common/linkicon/bili-favicon.png',
+    import.meta.url
+);
 
 var domains = Object.freeze({
     "Bili": "bilibili.com",

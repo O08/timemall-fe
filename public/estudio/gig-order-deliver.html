@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name=”robots” content=”noindex,nofollow”>
-    <meta http-equiv ='content-language' content ='zh-cn'>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
     <title>特约工作空间 - E-Studio</title>
@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
     <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/gig-order-deliver.scss">
+
+  <script type="module" src="/common/javascripts/feedback.js"></script>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/estudio/javascripts/gig-order-deliver.js"></script>
+
 
 
 
@@ -503,6 +508,7 @@
                               </span>
                             </div>
                             <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="item.title" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务标题" aria-describedby="addon-wrapping">
+                            </textarea>
 
                           </json-node>
                           <json-node class="d-flex flex-column">
@@ -527,7 +533,8 @@
                                   </a>
                                 </span>
                               </div>  
-                              <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">           
+                              <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">    
+                              </textarea>       
                             </json-node>
                           </json-node>
                           <json-node class="d-flex flex-column">
@@ -553,6 +560,7 @@
                                 </span>
                               </div>               
                               <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="metric.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写验收指标" aria-describedby="addon-wrapping">
+                              </textarea>
                             </json-node>
                           </json-node>
 
@@ -724,7 +732,9 @@
           </div>
         </div>
       </section>
+    
   </pt-app>
+
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
@@ -758,9 +768,7 @@
     </div>
 
   </section>
-  <script type="module" src="/common/javascripts/feedback.js"></script>
-  <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/gig-order-deliver.js"></script>
+
 
 </body>
 </html>

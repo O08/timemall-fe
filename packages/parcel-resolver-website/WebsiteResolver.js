@@ -1,7 +1,5 @@
 const { Resolver } = require('@parcel/plugin')
 const path = require('path')
-const fs = require('fs')
-const {fileURLToPath, pathToFileURL} = require('url');
 
 
 module.exports = new Resolver({

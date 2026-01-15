@@ -9,7 +9,6 @@ import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
 
 import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
@@ -27,7 +26,6 @@ const RootComponent = {
         return {
             ruleCheckResults: [],
             url_var_option: "",
-            defaultAvatarImage,
             workflow: {
                 serviceInfo: {}
             },
@@ -142,9 +140,6 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
     scene: EventFeedScene.STUDIO}));
 app.mixin(ImageAdaptiveComponent);
-app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('content')
-}
 app.mixin(new FriendListCompoent({need_init: true}));
 
 app.mixin(
@@ -157,6 +152,9 @@ app.mixin(
         }
     })
 );  
+app.config.compilerOptions.isCustomElement = (tag) => {
+    return tag.startsWith('content') || tag.startsWith('json-node') 
+}
 const millstoneAuditPage = app.mount('#app');
 window.cMillstoneAudit= millstoneAuditPage;
 millstoneAuditPage.joinRoomInitV(); // rtm.js

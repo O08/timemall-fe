@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv='content-language' content='zh-cn'>
+
+  
+  <title>记录、分享美好时光 - Viber</title>
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+  <link rel="stylesheet" href="/apps/viber/stylesheets/hub.scss">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/apps/viber/stylesheets/post-render-template.scss">
+
+</head>
+
+<body>
+  <div id="app" class="app-container" v-cloak>
+
+    <div v-if="!hasAuth" style="display: grid; place-items: center;height: 100vh;">
+      <!-- 无权限访问空状态 -->
+      <div class="posts-no-permission-state" id="postsNoPermissionState">
+        <div class="no-permission-content">
+          <div class="no-permission-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3 class="no-permission-title">无权限访问</h3>
+          <p class="no-permission-desc">权限校验不通过，您无法查看本频道相关内容</p>
+        </div>
+      </div>
+    </div>
+    <div class="main-container" v-if="hasAuth">
+      <!-- 中间内容区 -->
+      <main class="content">
+        <!-- 搜索和发布区域 -->
+        <div class="create-post">
+          <div class="create-post-row">
+            <!-- 搜索框 -->
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input v-model="postList_pagination.param.q" @keyup.enter.native="searchPostListV" type="text" class="search-input" placeholder="搜索..." autocomplete="off">
+            </div>
+            <!-- 发布按钮 -->
+            <button class="create-post-btn"  v-preventreclick  @click="showCreatePostModalV">
+              <i class="fas fa-plus"></i>
+              <span>发布动态</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 动态列表 -->
+        <div class="posts-container" id="postsContainer">
+          <div v-for="(feed,feedIndex) in feedArr" class="post">
+            <div  class="post-header" style="cursor: pointer;">
+              <div  v-preventreclick  @click="goStoryPageV(feed.postId)" class="author-box">
+                <img
+                  :src="adaptiveImageUriV(feed.author.avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+                  alt="author" class="avatar">
+                <div class="post-user-info">
+                  <div class="post-username">{{feed.author.brandName}}</div>
+                  <div class="post-time">{{formatTimeV(feed.createdAt)}}</div>
+                </div>
+              </div>
+              <div class="dropdown">
+                 <button  v-preventreclick  @click="fetchUserCtaInfoV(feed.oasisId,feed.author.userId)" class="post-menu-toogle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                 </button>
+                <div class="dropdown-menu post-menu-dropdown" id="post-menu-1">
+                  <div v-if="!ctaInfoLoadFinish" class="menu-item-container-loading placeholder-glow">
+                    <div  class="menu-item">
+                      <span class="placeholder col-12 placeholder-lg"></span>
+                    </div>
+                    <div  class="menu-item">
+                      <span class="placeholder col-12 placeholder-lg"></span>
+                    </div>
+                    <div  class="menu-item">
+                      <span class="placeholder col-12 placeholder-lg"></span>
+                    </div>
+                    <div  class="menu-item">
+                      <span class="placeholder col-12 placeholder-lg"></span>
+                    </div>
+                  </div>
+                  <div v-if="ctaInfoLoadFinish" class="menu-item-container">
+                    <div  v-preventreclick  @click="copyValueToClipboardV(feed.textMsg)" class="menu-item">
+                      <i class="fas fa-copy"></i>
+                      <span>复制文字</span>
+                    </div>
+                    <div  v-preventreclick  @click="showOasisReportModalV(feed.postId)" class="menu-item">
+                      <i class="fas fa-flag"></i>
+                      <span>举报内容</span>
+                    </div>
+                    <div v-if="userCtaInfo?.hasAdminPermission=='1' || isPostAuthorV(feed.author?.userId)"  v-preventreclick  @click="delPostV(feed.postId)" class="menu-item">
+                      <i class="fas fa-trash-alt"></i>
+                      <span>删除内容</span>
+                    </div>
+                    <div v-if="userCtaInfo?.hasAdminPermission=='1' && userCtaInfo?.policyRel=='read_write'"  v-preventreclick  @click="muteUserV(feed.channel,feed.author.userId)" class="menu-item">
+                      <i class="fas fa-volume-mute"></i>
+                      <span>禁言用户</span>
+                    </div>
+                    <div v-if="userCtaInfo?.hasAdminPermission=='1' && userCtaInfo?.policyRel=='read'"  v-preventreclick  @click="unmuteUserV(feed.channel,feed.author.userId)" class="menu-item">
+                      <i class="fas fa-volume-up"></i>
+                      <span>解除禁言</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post-body">
+              <post-render-temploate :feed="feed"></post-render-temploate>
+            </div>
+            <div class="post-stats">
+              <div class="likes">{{formatNumberV(feed.likes)}} 赞</div>
+              <div class="comments">{{formatNumberV(feed.comments)}} 回复 • {{formatNumberV(feed.shares)}} 分享</div>
+            </div>
+            <div class="post-actions">
+              <div v-if="feed.author?.hasLike!='1'"  v-preventreclick  @click="likePostV(feed.postId,this,feed)" class="post-action like-action">
+                <i class="far fa-thumbs-up"></i>
+              </div>
+              <div v-if="feed.author?.hasLike=='1'"  v-preventreclick  @click="cancelLikePostV(feed.postId,this,feed)" class="post-action like-action liked">
+                <i class="far fa-thumbs-up"></i>
+              </div>
+              <div  v-preventreclick  @click="showPostCommmentModalV(feed.postId)" class="post-action comment-action">
+                <i class="far fa-comment"></i>
+              </div>
+              <div  v-preventreclick  @click="sharePostLinkV(feed.postId,this,feed)" class="post-action share-action" :class="{'liked': feed.author?.hasShare=='1'}">
+                <i class="far fa-share-square"></i>
+              </div>
+            </div>
+          </div>
+         
+          <div v-if="isEmptyObjV(feedArr)" class="posts-empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-rss"></i>
+            </div>
+            <h3 class="empty-title">未找到动态</h3>
+            <p class="empty-desc">发布动态，分享精彩瞬间！</p>
+          </div>
+        </div>
+
+        <!-- 自动加载指示器 -->
+        <div class="load-more" id="loadMoreIndicator" :class="{'visible': postList_pagination.isLoading}">
+          <div class="auto-loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>加载更多内容...</span>
+          </div>
+        </div>
+        <div v-if="postList_pagination.current >= postList_pagination.pages && postList_pagination.pages>0" class="posts-end-state visible" id="postsEndState">
+          <div class="posts-end-content">
+            <i class="fa-check-circle fas"></i>
+            <span>已浏览完所有内容</span>
+          </div>
+        </div>
+      </main>
+
+    </div>
+
+    
+
+    <section class="modals">
+
+
+      <!-- 发布评论模态框 -->
+      <div class="modal-container">
+        <div class="modal" id="publishCommentModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-user">
+                  <img
+                    :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+                    alt="User" class="modal-avatar">
+                  <span class="modal-username">{{getIdentity().brandName}}</span>
+                </div>
+                <button  v-preventreclick @click="closePostCommmentModalV" class="close-btn" id="closePostModal">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <textarea id="postCommment" v-model="newCommentObj.textMsg" placeholder="写下你的回复..." maxlength="500"></textarea>
+              </div>
+              <div tabindex="-1">
+                <div tabindex="0" class="close-emoji-picker"></div>
+                <div class="comment-emoji-picker-canvas ">
+                  <div  id="creat-post-comment-emoji-picker"  class="emoji-tooltip" >
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="modal-tools">
+                  <button id="create-comment-emoji-trigger" class="tool-btn" title="添加表情">
+                    <i class="fas fa-smile"></i>
+                  </button>
+                </div>
+                <button  v-preventreclick @click="publishOneCommentV(newCommentObj,this,feedArr.filter(e=>e.postId==newCommentObj.postId)[0])" class="post-btn" id="publishCommentBtn" :disabled="!newCommentObj.textMsg">发表</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 发布动态模态框 -->
+      <div class="modal-container">
+        <div class="modal" id="createPostModal" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-user">
+                  <img
+                    :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+                    alt="User" class="modal-avatar">
+                  <span class="modal-username">{{getIdentity().brandName}}</span>
+                </div>
+                <button  v-preventreclick  @click="closeCreatePostModalV" class="close-btn" id="closePostModal">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="modal-body" style="max-height: 600px;">
+                <textarea style="overflow: hidden; " id="postContent" v-model="newPostObj.textMsg" @input="detectAndPreviewLinkV" placeholder="分享你的想法..." maxlength="500"></textarea>
+                <div class="post-image-preview" id="imagePreview">
+                </div>
+                <div class="link-preview-container" id="linkPreview">
+                  <div v-if="newPostObj.linkPreviewLoading" class="link-preview-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>正在解析链接...</span>
+                  </div>
+                  <div class="post-audio-widget" v-if="postHasEmbedAudioV(newPostObj)">
+                    <div class="post-audio-preview active" id="audioPreview">
+                      <div class="audio-preview-list">
+                        <div v-for="(audio,index) in newPostObj.embed.audios" class="audio-preview-container">
+                          <audio class="audio-preview-player" controls>
+                            <source :src="audio.url" :type="audio.contentType">
+                            您的浏览器不支持音频播放。
+                          </audio>
+                          <div class="audio-preview-info">
+                            <button  v-preventreclick  @click="removeUploadedThirdPartyAudioV(index)" class="remove-audio-btn"  title="移除音频">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-video-widget" v-if="postHasEmbedVideoV(newPostObj)">
+                    <div v-for="(video,index) in newPostObj.embed.videos" class="post-video-preview">
+                      <div class="video-preview-container">
+                        <video class="video-preview-player" controls>
+                          <source :src="video.url" :type="video.contentType">
+                          您的浏览器不支持视频播放。
+                        </video>
+                        <div class="video-preview-controls">
+                          <button  v-preventreclick  @click="removeUploadedThirdPartyVideoV(index)" class="remove-video-btn" title="移除视频">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- local attachment viewer -->
+                  <div class="post-attachments-widget" v-if="newPostObj.attachments.length>0">
+                    <div class="post-attachment-preview">
+                      <div class="attachment-preview-list">
+                        <div v-for="(attachment,index) in newPostObj.attachments" class="attachment-preview-item">
+                          <div class="attachment-icon">
+                            <i :class="getFileIconV(attachment.fileName)"></i>
+                          </div>
+                          <div class="attachment-info">
+                            <div class="attachment-name">{{attachment.fileName}}</div>
+                            <div class="attachment-size">{{formatFileSizeV(attachment.size)}}</div>
+                          </div>
+                          <button  v-preventreclick @click="removeUploadedLocalAttachmentV(index)" class="remove-attachment-btn"  title="移除">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-images-grid-widget" v-if="postHasEmbedImageV(newPostObj) && newPostObj.images.length==0">
+                    <div class="image-preview-grid" :class="'grid-' + (newPostObj.embed.images.length>4 ? 'many' : newPostObj.embed.images.length)">
+                      <div v-for="(image,index) in newPostObj.embed.images"  class="preview-image-item">
+                        <img :src="image.link" alt="动态图片" style="cursor: pointer;">
+                        <button  v-preventreclick  @click="removeUploadedThirdPartyImageV(index)" class="remove-image-btn" title="移除">×</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- local image viewer -->
+                  <div class="post-images-grid-widget" v-if="newPostObj.images.length>0">
+                    <div class="image-preview-grid" :class="'grid-' + (newPostObj.images.length>4 ? 'many' : newPostObj.images.length)">
+                      <div v-for="(image,index) in newPostObj.images"  class="preview-image-item ">
+                        <img :src="image.link" alt="动态图片" style="cursor: pointer;">
+                        <button  v-preventreclick  @click="removeUploadedLocalImageV(index)" class="remove-image-btn" title="移除">×</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-link-preview-widget" v-if="postHasEmbedLinkV(newPostObj)">
+                    <div v-for="(link,index) in newPostObj.embed.links" class="link-preview-container active">
+                      <div class="link-preview-card">
+                        <button  v-preventreclick @click="removeUploadedThirdPartyLinkV(index)" class="remove-link-preview" title="移除">×</button>
+                        <div  v-if="link.image"  class="link-preview-image">
+                          <img :src="link.image" alt="预览图片" onerror="this.parentElement.style.display='none'">
+                        </div>
+                        <div class="link-preview-content">
+                          <div class="post-link-preview-domain">{{link.domain}}</div>
+                          <div class="post-link-preview-title">{{link.title}}</div>
+                          <div class="post-link-preview-description">{{link.description}}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div tabindex="-1">
+                <div tabindex="0" class="close-emoji-picker"></div>
+                <div class="emoji-picker-canvas">
+                  <div  id="creat-post-emoji-picker"  class="emoji-tooltip" >
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="modal-tools">
+       
+                  <button  v-preventreclick @click="openLocalFileBrowserForImageUploadV" class="tool-btn" id="uploadImageBtn" title="添加图片" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalImage">
+                    <i class="fas fa-image"></i>
+                  </button>
+                  <button id="create-post-emoji-trigger" class="tool-btn" title="添加表情">
+                    <i class="fas fa-smile"></i>
+                  </button>
+                  <button  v-preventreclick  @click="openLocalFileBrowserForAttachmentUploadV" id="uploadAttachmentBtn" class="tool-btn" title="添加文件" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAttachment">
+                    <i class="fas fa-paperclip"></i>
+                  </button>
+
+                </div>
+                <input @change="handleAttachmentUploadForCreatePostV($event)"  type="file" id="attachmentUpload"  multiple style="display: none;">
+                <input @change="handleImageUploadForCreatePostV($event)"  type="file" id="imageUpload" accept=".jpg,.jpeg,.png,.gif" multiple style="display: none;">
+                <button   v-preventreclick  @click="createPostV" class="post-btn" id="publishPostBtn" :class="{'loading': isPublishingPost}" :disabled="isPublishingPost || !hasAnyContentForCreatePostV()">
+                  <div v-if="!isPublishingPost">发布</div>
+                  <div v-if="isPublishingPost">
+                    <i class="fas fa-spinner fa-spin"></i> 发布中...
+                  </div>
+                </button>
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 举报内容 -->
+      <div class="modal-container">
+              
+        <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">举报投诉</h1>
+                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <form class="w-100">
+                  <div class="pt-3">
+                    <ul class="list-group">
+                      <li v-for="report in reportOptions" class="list-group-item">
+                          <div class="form-check">
+                          <input class="form-check-input" v-bind:value="report.itemCode"  v-model="reportForm.fraudType" type="radio" name="reportList">
+                          <label class="form-check-label" for="reportList">
+                              {{report.item}}
+                          </label>
+                          </div>
+                      </li>
+                    </ul>
+                 </div>
+    
+                 <div class="py-3">
+                  <div class="label-color field-label">详细描述（必填）</div>
+                  <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                          <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                          <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 : 200-reportForm.caseDesc.length}}</div>
+                      </div>
+                  </div>
+                  <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
+    
+                  <input style="font-size: 12px;" id="caseMaterialFile" class="form-control mb-3" type="file" placeholder="选择举报材料">
+    
+                 </div>
+    
+                </form>
+                
+              </div>
+              <div class="modal-footer btn-light">
+                <button 
+                :class="{'disabled': !validateReportFormV(), 
+                  'btn-primary': validateReportFormV() ,
+                  'btn-secondary': !validateReportFormV()  }"
+                 v-preventreclick @click="newReportCaseV" type="button"  class="btn">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/apps/viber/javascripts/hub.js"></script>
+</body>
+</html>

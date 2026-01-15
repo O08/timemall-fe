@@ -6,11 +6,14 @@ import { ImageAdaptiveComponent } from '/common/javascripts/compoent/image-adatp
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
-import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg"
 
 import { CustomAlertModal } from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const oasisAvatarDefault = new URL(
+    '/rainbow/images/oasis-default-building.jpeg',
+    import.meta.url
+);
 const RootComponent = {
     data() {
         return {

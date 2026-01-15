@@ -21,7 +21,6 @@ const RootComponent = {
       
         return {
             a: "",
-            // defaultAvatarImage,
             btn_ctl:{
                 activate_general_save_btn: false
             },
@@ -155,7 +154,7 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.POD}));
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('content')
+    return tag.startsWith('content') || tag.startsWith('json-node')
 }
 
 app.mixin(new FriendListCompoent({need_init: true}));
@@ -266,15 +265,8 @@ $('[data-bs-toggle="popover"]').popover();
 
 
 
-function transformInputNumber(val,min,max){
-    return val < min ? "" : val > max ? max : val;
-  }
-
   $(function(){
 	$(".tooltip-nav").tooltip();
 });
 
-function isDateValid(dateStr) {
-    return !isNaN(new Date(dateStr));
-  }
   

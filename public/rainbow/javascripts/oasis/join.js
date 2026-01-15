@@ -3,7 +3,6 @@ import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
 import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from "axios";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";

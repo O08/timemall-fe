@@ -1,0 +1,1212 @@
+/* Bluesky风格帖子预览页面 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    background: #000;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    color: #fff;
+    line-height: 1.5;
+    padding: 20px 0;
+    height: 100%;
+}
+
+.bsky-app {
+    max-width: 600px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: transparent;
+}
+
+
+
+/* 顶部导航 */
+.bsky-header {
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    margin: 0 16px 20px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.bsky-back-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.bsky-back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.bsky-header-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.bsky-header-spacer {
+    flex: 1;
+}
+
+/* 帖子详情 */
+.bsky-post-detail {
+    margin: 0 16px 20px;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(25, 25, 25, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bsky-post-detail:hover {
+    // transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.bsky-post-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 2px 0;
+    position: relative;
+}
+.bsky-avatar-box{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+}
+.bsky-avatar {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    transition: border-color 0.3s ease;
+}
+
+.bsky-avatar:hover {
+    border-color: rgba(29, 155, 240, 0.4);
+}
+.bsky-reply-item-img-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+}
+.bsky-avatar-sm {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.bsky-author-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.bsky-display-name {
+    font-weight: 600;
+    font-size: 15px;
+    background: linear-gradient(90deg, #ff6b6b 0%, #feca57 20%, #48dbfb 40%, #1dd1a1 60%, #ee5a6f 80%, #c44569 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.bsky-handle {
+    font-size: 13px;
+    color: #8899a6;
+    letter-spacing: 0;
+}
+
+.bsky-follow-btn {
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    white-space: nowrap;
+}
+
+.bsky-follow-btn:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.bsky-follow-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(102, 126, 234, 0.3);
+}
+
+
+
+/* 时间和来源 */
+.bsky-post-meta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    color: #71767b;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 统计数据 */
+.bsky-post-stats {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bsky-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bsky-stat-count {
+    font-weight: 700;
+    color: #fff;
+}
+
+.bsky-stat-label {
+    color: #71767b;
+}
+
+/* 操作栏 */
+.bsky-post-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0 4px;
+}
+
+.bsky-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #b0b3b8;
+    transition: all 0.2s ease;
+    flex: 1;
+    margin: 0 4px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bsky-action-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e4e6eb;
+    transform: translateY(-1px);
+}
+
+.bsky-action-btn i {
+    margin-right: 6px;
+    font-size: 18px;
+    transition: transform .2s;
+}
+
+.bsky-action-btn.liked {
+    color: #2d88ff;
+}
+
+/* 回复列表 */
+.bsky-replies {
+    margin: 0 16px 20px;
+    padding: 12px;
+    background: rgba(25, 25, 25, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* 空状态 */
+.bsky-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.bsky-empty-icon {
+    font-size: 48px;
+    color: #3a3b3c;
+    margin-bottom: 16px;
+}
+
+.bsky-empty-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #e7e9ea;
+    margin-bottom: 4px;
+}
+
+.bsky-empty-desc {
+    font-size: 15px;
+    color: #71767b;
+}
+
+.bsky-replies-header {
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #71767b;
+    border-bottom: 1px solid #2f3336;
+}
+
+/* 回复项 */
+.bsky-reply-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: rgba(30, 30, 30, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.bsky-reply-item:last-child {
+    margin-bottom: 0;
+}
+
+.bsky-reply-item:hover {
+    background-color: rgba(40, 40, 40, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+    // transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bsky-reply-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.bsky-reply-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    justify-content: space-between;
+}
+
+/* 评论菜单 */
+.post-menu-toogle {
+    color: #b0b3b8;
+    cursor: pointer;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: 0;
+}
+
+.post-menu-toogle:hover {
+    background-color: #3a3b3c;
+}
+.post-menu-toogle.dropdown-toggle:after{
+    content: none;
+}
+
+.post-menu-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #242526;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    min-width: 180px;
+    z-index: 100;
+    overflow: hidden;
+    border: 1px solid #3e4042;
+    padding: 0px;
+
+}
+
+.post-menu-dropdown.active {
+    display: block;
+}
+
+.post-menu-dropdown .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: #e4e6eb;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.post-menu-dropdown .menu-item:hover {
+    background-color: #3a3b3c;
+}
+
+.post-menu-dropdown .menu-item i {
+    width: 20px;
+    margin-right: 12px;
+    font-size: 14px;
+    color: #b0b3b8;
+}
+
+.post-menu-dropdown .menu-item:hover i {
+    color: #e4e6eb;
+}
+
+
+
+.bsky-reply-dot,
+.bsky-reply-time {
+    color: #71767b;
+    font-size: 13px;
+    margin-top: 8px;
+    display: block;
+}
+
+.bsky-replying-to {
+    font-size: 14px;
+    color: #71767b;
+    margin-bottom: 4px;
+}
+
+.bsky-replying-to a {
+    color: #1d9bf0;
+    text-decoration: none;
+}
+
+.bsky-replying-to a:hover {
+    text-decoration: underline;
+}
+
+.bsky-reply-text {
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #cfd9de;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+/* 评论操作栏 */
+.bsky-reply-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.bsky-reply-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #8899a6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.bsky-reply-action:hover i {
+    color: #1d9bf0;
+    background-color: rgba(29, 155, 240, 0.1);
+}
+
+.bsky-reply-action i {
+    font-size: 16px;
+}
+
+
+.bsky-reply-action.liked i {
+    font-weight: 900;
+    color: #1d9bf0;
+
+}
+
+
+.bsky-reply-actions .bsky-reply-time {
+    margin-left: auto;
+    margin-top: 0;
+    display: inline;
+    color: #8899a6;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+/* 加载更多 */
+.bsky-load-more {
+    padding: 16px;
+    text-align: center;
+}
+
+.bsky-load-more-btn {
+    padding: 12px 24px;
+    background-color: transparent;
+    color: #1d9bf0;
+    border: 1px solid #2f3336;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bsky-load-more-btn:hover {
+    background-color: rgba(29, 155, 240, 0.1);
+    border-color: rgba(29, 155, 240, 0.3);
+}
+
+
+/* 模态框样式 */
+
+.modal-content {
+    background-color: #242526;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #3e4042;
+}
+
+.modal-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.modal-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.modal-username {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e4e6eb;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #b0b3b8;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: #3a3b3c;
+    color: #e4e6eb;
+}
+
+.modal-body {
+    padding: 16px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.modal-body textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #e4e6eb;
+    resize: none;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+    outline: none;
+}
+
+.modal-body textarea::placeholder {
+    color: #65676b;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-top: 1px solid #3e4042;
+}
+
+.modal-tools {
+    display: flex;
+    gap: 4px;
+}
+
+.tool-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #b0b3b8;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.tool-btn:hover {
+    background-color: #3a3b3c;
+    color: #2d88ff;
+}
+
+.post-btn {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    white-space: nowrap;
+}
+
+.post-btn:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.post-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(102, 126, 234, 0.3);
+}
+
+.post-btn:disabled {
+    background: linear-gradient(135deg, #4e4f50 0%, #3a3b3c 100%);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+
+// emoji picker
+
+.emoji-tooltip{
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(56px, -172px, 0px);
+}
+.comment-emoji-picker-canvas{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    z-index: 1111;
+}
+.comment-emoji-picker-canvas:not(.shown) {
+    display: none;
+}
+
+
+/* 评论加载指示器 */
+.comments-load-more {
+    text-align: center;
+    margin-top: 16px;
+    padding: 0;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.comments-load-more.visible {
+    display: block;
+    opacity: 1;
+}
+
+.comments-loading-spinner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: #8899a6;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.comments-loading-spinner i {
+    font-size: 16px;
+    color: #667eea;
+}
+
+.comments-loading-spinner span {
+    color: #cfd9de;
+    letter-spacing: 0.02em;
+}
+
+/* 已浏览完所有评论提示 */
+.comments-end-state {
+    text-align: center;
+    padding: 20px 16px;
+    margin-top: 16px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.comments-end-state.visible {
+    display: block;
+    opacity: 1;
+}
+
+.comments-end-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: rgba(30, 30, 30, 0.6);
+    border-radius: 20px;
+    color: #8899a6;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.comments-end-content i {
+    font-size: 16px;
+    color: #667eea;
+}
+
+
+
+/* 响应式 - 多级断点优化 */
+/* 600px - 中等屏幕 */
+@media (max-width: 600px) {
+    body {
+        padding: 12px 0;
+    }
+    
+    .bsky-header {
+        margin: 0 8px 16px;
+        top: 12px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+    
+    .bsky-header-title {
+        font-size: 18px;
+    }
+    
+    .bsky-back-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .bsky-post-detail {
+        margin: 0 8px 16px;
+        padding: 16px;
+        border-radius: 16px;
+    }
+    
+    .bsky-post-author {
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .bsky-avatar ,.bsky-avatar-box{
+        width: 44px;
+        height: 44px;
+    }
+    
+    .bsky-display-name {
+        font-size: 14px;
+    }
+    
+    .bsky-follow-btn {
+        padding: 5px 14px;
+        font-size: 12px;
+    }
+    
+
+    .bsky-post-stats {
+        gap: 16px;
+        padding: 14px 0;
+    }
+    
+    .bsky-post-actions {
+        padding: 10px 0 4px;
+    }
+    
+    .bsky-action-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+
+    .bsky-replies {
+        margin: 0 8px 16px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+    
+    .bsky-reply-item {
+        gap: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+    
+    .bsky-avatar-sm,.bsky-reply-item-img-box {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .bsky-reply-text {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    
+    .bsky-reply-actions {
+        gap: 16px;
+        margin-top: 8px;
+    }
+    
+    .bsky-reply-action {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+    
+    .bsky-reply-action i {
+        font-size: 14px;
+    }
+}
+
+/* 480px - 小屏手机 */
+@media (max-width: 480px) {
+    body {
+        padding: 8px 0;
+    }
+    
+    .bsky-header {
+        margin: 0 6px 12px;
+        top: 8px;
+        padding: 12px 14px;
+        gap: 12px;
+        border-radius: 10px;
+    }
+    
+    .bsky-header-title {
+        font-size: 17px;
+    }
+    
+    .bsky-back-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
+    }
+    
+    .bsky-post-detail {
+        margin: 0 6px 12px;
+        padding: 14px;
+        border-radius: 14px;
+    }
+    
+    .bsky-post-author {
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+    
+    .bsky-avatar ,.bsky-avatar-box{
+        width: 40px;
+        height: 40px;
+    }
+    
+    .bsky-display-name {
+        font-size: 13px;
+    }
+    
+    .bsky-follow-btn {
+        padding: 4px 12px;
+        font-size: 11px;
+    }
+
+    
+    .bsky-post-stats {
+        gap: 12px;
+        padding: 12px 0;
+    }
+    
+    .bsky-stat-count,
+    .bsky-stat-label {
+        font-size: 13px;
+    }
+    
+    .bsky-post-actions {
+        padding: 8px 0 4px;
+    }
+    
+    .bsky-action-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+    }
+    
+    
+    .bsky-replies {
+        margin: 0 6px 12px;
+        padding: 12px;
+        border-radius: 10px;
+    }
+    
+    .bsky-empty-state {
+        padding: 36px 16px;
+    }
+    
+    .bsky-empty-icon {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+    
+    .bsky-empty-title {
+        font-size: 15px;
+    }
+    
+    .bsky-empty-desc {
+        font-size: 13px;
+    }
+    
+    .bsky-reply-item {
+        gap: 8px;
+        padding: 8px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
+    
+    .bsky-avatar-sm ,.bsky-reply-item-img-box{
+        width: 34px;
+        height: 34px;
+    }
+    
+    .bsky-reply-header {
+        margin-bottom: 6px;
+    }
+    
+    .bsky-display-name {
+        font-size: 13px;
+    }
+    
+    .bsky-reply-text {
+        font-size: 13px;
+        line-height: 1.55;
+        margin-bottom: 6px;
+    }
+    
+    .bsky-reply-actions {
+        gap: 12px;
+        margin-top: 6px;
+    }
+    
+    .bsky-reply-action {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+    
+    .bsky-reply-action i {
+        font-size: 13px;
+    }
+
+    
+    .comments-load-more {
+        margin-top: 12px;
+    }
+    
+    .comments-loading-spinner {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .comments-end-state {
+        padding: 16px 12px;
+        margin-top: 12px;
+    }
+    
+    .comments-end-content {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    .modal-username {
+        display: none;
+    }
+}
+
+/* 360px - 超小屏手机 */
+@media (max-width: 360px) {
+    body {
+        padding: 6px 0;
+    }
+    
+    .bsky-header {
+        margin: 0 4px 10px;
+        top: 6px;
+        padding: 10px 12px;
+        gap: 10px;
+        border-radius: 8px;
+    }
+    
+    .bsky-header-title {
+        font-size: 16px;
+    }
+    
+    .bsky-back-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    
+    .bsky-post-detail {
+        margin: 0 4px 10px;
+        padding: 6px;
+        border-radius: 12px;
+    }
+    
+    .bsky-post-author {
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+    
+    .bsky-avatar,.bsky-avatar-box {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .bsky-display-name {
+        font-size: 12px;
+    }
+    
+    .bsky-follow-btn {
+        padding: 3px 10px;
+        font-size: 10px;
+    }
+    
+
+    .bsky-post-stats {
+        gap: 10px;
+        padding: 10px 0;
+        flex-wrap: wrap;
+    }
+    
+    .bsky-stat-item {
+        gap: 3px;
+    }
+    
+    .bsky-stat-count {
+        font-size: 13px;
+    }
+    
+    .bsky-stat-label {
+        font-size: 11px;
+    }
+    
+    .bsky-post-actions {
+        padding: 6px 0 2px;
+    }
+    
+    .bsky-action-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+    
+    
+    .bsky-replies {
+        margin: 0 4px 10px;
+        padding: 2px;
+        border-radius: 8px;
+    }
+    
+    .bsky-empty-state {
+        padding: 30px 12px;
+    }
+    
+    .bsky-empty-icon {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+    
+    .bsky-empty-title {
+        font-size: 14px;
+    }
+    
+    .bsky-empty-desc {
+        font-size: 12px;
+    }
+    
+    .bsky-reply-item {
+        gap: 6px;
+        padding: 6px;
+        margin-bottom: 6px;
+        border-radius: 6px;
+    }
+    
+    .bsky-avatar-sm,.bsky-reply-item-img-box {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .bsky-reply-header {
+        margin-bottom: 5px;
+    }
+    
+    .bsky-display-name {
+        font-size: 12px;
+    }
+    
+    .bsky-reply-text {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 5px;
+    }
+    
+    .bsky-reply-actions {
+        gap: 10px;
+        margin-top: 5px;
+    }
+    
+    .bsky-reply-action {
+        font-size: 10px;
+        padding: 3px 5px;
+        gap: 4px;
+    }
+    
+    .bsky-reply-action i {
+        font-size: 12px;
+    }
+    
+
+    .comments-load-more {
+        margin-top: 10px;
+    }
+    
+    .comments-loading-spinner {
+        padding: 8px 12px;
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .comments-loading-spinner i {
+        font-size: 14px;
+    }
+    
+    .comments-end-state {
+        padding: 12px 8px;
+        margin-top: 10px;
+    }
+    
+    .comments-end-content {
+        padding: 6px 12px;
+        font-size: 12px;
+        gap: 6px;
+    }
+    
+    .comments-end-content i {
+        font-size: 14px;
+    }
+    .bsky-post-time,.bsky-reply-actions .bsky-reply-time{
+        font-size: 11px;
+    }
+    .bsky-author-info{
+        gap: 0;
+    }
+    .bsky-post-meta{
+        padding-top: 0;
+    }
+
+
+}
+
+

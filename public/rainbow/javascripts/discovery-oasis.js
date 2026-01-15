@@ -3,11 +3,14 @@ import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
-import defaultOasisPreviewImage from '/rainbow/images/oasis-default-building.jpeg';
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import {FromWhere} from "/common/javascripts/tm-constant.js";
 import { uploadScienceData } from "/common/javascripts/science.js";
 
+const defaultOasisPreviewImage = new URL(
+    '/rainbow/images/oasis-default-building.jpeg',
+    import.meta.url
+);
 
 const RootComponent = {
     data() {

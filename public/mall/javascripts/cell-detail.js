@@ -9,9 +9,6 @@ import { uploadCellDataLayerWhenClick,uploadCellDataLayerWhenAppointment,uploadC
 import {PriceSbu} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
-import defaultBrandBannerImage from '/common/images/default-brand-banner-4x3.svg';
-import defaultExperienceImage from '/common/images/default-experience-1x1.svg';
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {EmailNoticeEnum,CellPlanType,CodeMappingTypeEnum,EnvWebsite} from "/common/javascripts/tm-constant.js";
@@ -23,6 +20,16 @@ import  PromotionComponent  from "/mall/javascripts/component/PromotionComponent
 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+
+
+const defaultBrandBannerImage = new URL(
+    '/common/images/default-brand-banner-4x3.svg',
+    import.meta.url
+);
+const defaultExperienceImage = new URL(
+    '/common/images/default-experience-1x1.svg',
+    import.meta.url
+);
 
 const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
 const currentCellId= getQueryVariable("cell_id");
@@ -54,7 +61,6 @@ const RootComponent = {
                 total: 0
             },
             error:{},
-            defaultAvatarImage,
             defaultExperienceImage,
             defaultBrandBannerImage,
             defaultCellIntroCoverImage,
@@ -470,7 +476,7 @@ function explainCellPlanType(planType){
 function getSbuPrice()
 {
    const selectedFee = getFeeItemBySbu(cellDetailPage.selectedSbu);
-   return selectedFee.price;
+   return selectedFee ?  selectedFee.price : 0;
 }
 function sortSbu(){
 
@@ -486,6 +492,9 @@ function sortSbu(){
 
 }
 function getFeeItemBySbu(sbu){
+    if($.isEmptyObject(cellDetailPage.profile.fee)){
+        cellDetailPage.profile.fee=[]
+    }
     const filterFee = cellDetailPage.profile.fee.filter(item=>item.sbu===sbu)[0];
    return filterFee;
 }

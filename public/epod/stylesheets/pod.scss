@@ -986,6 +986,11 @@ file upload
     position: static;
 }
 
+// modal ui issue fix when upgrade bootstrap
+.modal{
+  --bs-modal-color: none;
+}
+
 // safari outline
 .btn.show:focus-visible{
   box-shadow: unset;

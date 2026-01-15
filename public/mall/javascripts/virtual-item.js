@@ -10,7 +10,6 @@ import {DspReportApi} from "/common/javascripts/dsp-report-api.js";
 
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 
-import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
@@ -25,8 +24,13 @@ import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const defaultCellPreviewImage = new URL(
+  '/common/images/default-cell-preview.jpg',
+  import.meta.url
+);
+
 const currentProductId= window.location.pathname.split('/').pop();
-const currentBrandId = brandId= getQueryVariable("brand_id");
+const currentBrandId = getQueryVariable("brand_id");
 const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
 
 const RootComponent = {

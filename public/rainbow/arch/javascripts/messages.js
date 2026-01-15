@@ -9,7 +9,6 @@ import  PrivateApi from "/rainbow/arch/javascripts/PrivateApi.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {SseEventBusScene} from "/common/javascripts/tm-constant.js";
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import StemChatCompoent from "/rainbow/arch/javascripts/StemChatCompoent.js";
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 
@@ -21,7 +20,6 @@ const RootComponent = {
       return {
         initingChannelData: true,
         timer: null,
-        defaultAvatarImage,
         currentFriendForOption: "",
         currentChatFriendId: "",
         friends:{records: []},

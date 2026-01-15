@@ -26,7 +26,10 @@ async function logout(){
     var data = await response.json();
     var isVuePage=document.querySelector(".button_user_vue");
     if(data.code==200 && !isVuePage){
-        document.querySelector(".button_login").style.display="block";
+        var loginBtnEl=document.querySelector(".button_login");
+        if(loginBtnEl){
+          loginBtnEl.style.display="block";
+        }
         document.querySelector(".button_user").style.display="none";
         window.location.href="/welcome";
     }
@@ -70,21 +73,35 @@ async function logout(){
 
   }
 
-  document.getElementById('input_issue_attachment').onchange=function(e){
-      previewFeedbackAttachment();
-  }
-  document.getElementById('feedback-form').onsubmit= async function (e) {
+  window.onload= function() {
+    var attachmentInputEl=document.getElementById('input_issue_attachment');
+    if(attachmentInputEl){
+        attachmentInputEl.onchange=function(e){
+          previewFeedbackAttachment();
+        }
+    }
 
-    // prevent default submit
-        e.preventDefault();
-        uploadFeedback();
+    var feedbadkFormEl=document.getElementById('feedback-form');
+
+    if(feedbadkFormEl){
+      feedbadkFormEl.onsubmit= async function (e) {
+
+        // prevent default submit
+            e.preventDefault();
+            uploadFeedback();
+        
+      }
+    }
     
+ 
+    // logout     
+    var logoutbtn=document.getElementById('logout-btn');
+    if(logoutbtn){
+      logoutbtn.onclick=async function() {
+        logout();
+      }
+    }
   }
-// logout     
-var logoutbtn=document.getElementById('logout-btn');
-if(!!logoutbtn){
-   logoutbtn.onclick=async function() {
-    logout();
-  }
-}
+
+
 

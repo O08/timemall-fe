@@ -1,7 +1,10 @@
 import axios from 'axios';
-import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg"
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
+const oasisAvatarDefault = new URL(
+    '/rainbow/images/oasis-default-building.jpeg',
+    import.meta.url
+);
 const TeicallaanliSubNavComponent = {
     data() {
         return {

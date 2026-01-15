@@ -15,131 +15,380 @@
 
     <!-- Inline CSS for Styling -->
 <style>
-    * {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  padding: 0;
-  margin: 0;
-  background-color: #000;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(88, 101, 242, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(255, 107, 107, 0.08) 0%, transparent 50%);
+  animation: bgShift 20s ease-in-out infinite alternate;
+  z-index: 0;
 }
 
 #notfound {
   position: relative;
-  height: 100vh;
-}
-
-#notfound .notfound {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 .notfound {
-  max-width: 520px;
+  max-width: 480px;
   width: 100%;
-  line-height: 1.4;
+  padding: 0 20px;
+  text-align: center;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
 }
 
-.notfound>div:first-child {
-  padding-left: 200px;
-  padding-top: 12px;
-  height: 170px;
-  margin-bottom: 20px;
+.notfound-content {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 36px 28px;
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  position: relative;
 }
 
-.notfound .notfound-404 {
+.notfound-content::before {
+  content: '';
   position: absolute;
-  left: 0;
   top: 0;
-  width: 170px;
-  height: 170px;
-  background: #e01818;
-  border-radius: 7px;
-  -webkit-box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
-          box-shadow: 0px 0px 0px 10px #e01818 inset, 0px 0px 0px 20px #fff inset;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
-.notfound .notfound-404 h1 {
-  font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
-  color: #fff;
-  font-size: 118px;
-  margin: 0px;
+/* 像素风格图标 */
+.notfound-icon {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 20px;
+  position: relative;
+  image-rendering: pixelated;
+}
+
+.icon-core {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2d1b3d 0%, #1a0f2e 100%);
+  border: 3px solid #ff6ec7;
+  box-shadow: 
+    0 0 20px rgba(255, 110, 199, 0.5),
+    0 0 40px rgba(106, 255, 255, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.6);
+  animation: iconFloat 3s ease-in-out infinite;
+  position: relative;
+}
+
+/* 像素笑脸 */
+.icon-core::before {
+  content: '';
   position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  display: inline-block;
-  height: 60px;
-  line-height: 60px;
+  inset: 10%;
+  background: 
+    linear-gradient(#ffeb3b 0 0) 20% 30% / 16px 16px no-repeat,
+    linear-gradient(#fff176 0 0) 20% 30% / 8px 8px no-repeat,
+    linear-gradient(#ffeb3b 0 0) 80% 30% / 16px 16px no-repeat,
+    linear-gradient(#fff176 0 0) 80% 30% / 8px 8px no-repeat,
+    radial-gradient(circle, rgba(255, 107, 199, 0.6) 0%, transparent 70%) 15% 55% / 16px 12px no-repeat,
+    radial-gradient(circle, rgba(255, 107, 199, 0.6) 0%, transparent 70%) 85% 55% / 16px 12px no-repeat,
+    linear-gradient(#6affff 0 0) 30% 70% / 8px 8px no-repeat,
+    linear-gradient(#6affff 0 0) 38% 75% / 8px 8px no-repeat,
+    linear-gradient(#6affff 0 0) 50% 78% / 8px 8px no-repeat,
+    linear-gradient(#6affff 0 0) 62% 75% / 8px 8px no-repeat,
+    linear-gradient(#6affff 0 0) 70% 70% / 8px 8px no-repeat;
+  animation: pixelGlow 3s ease-in-out infinite;
+}
+
+/* 扫描线 */
+.icon-core::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(106, 255, 255, 0.8), transparent);
+  animation: scanLine 3s linear infinite;
+  box-shadow: 0 0 10px rgba(106, 255, 255, 0.8);
+}
+
+/* 角标 */
+.corner-dots span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #ff6ec7, #ffeb3b);
+  box-shadow: 
+    0 0 12px rgba(255, 110, 199, 1),
+    0 0 24px rgba(255, 235, 59, 0.6);
+  animation: cornerPulse 2s ease-in-out infinite;
+}
+
+.corner-dots span:nth-child(1) { top: -10px; left: -10px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.corner-dots span:nth-child(2) { top: -10px; right: -10px; clip-path: polygon(0 0, 100% 0, 100% 100%); animation-delay: 0.5s; }
+.corner-dots span:nth-child(3) { bottom: -10px; left: -10px; clip-path: polygon(0 0, 0 100%, 100% 100%); animation-delay: 1s; }
+.corner-dots span:nth-child(4) { bottom: -10px; right: -10px; clip-path: polygon(100% 0, 0 100%, 100% 100%); animation-delay: 1.5s; }
+
+/* 404 代码 */
+.notfound-code {
+  font-size: 80px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #b5bac1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px;
+  letter-spacing: -3px;
+  line-height: 1;
+  animation: glitch 5s ease-in-out infinite;
 }
 
 .notfound h2 {
- font-family: Microsoft YaHei, Arial, Helvetica, sans-serif !important;
-  font-size: 68px;
-  color: #fff;
-  font-weight: 400;
-  text-transform: uppercase;
-  margin: 0px;
-  line-height: 1.1;
+  font-size: 22px;
+  font-weight: 600;
+  color: #e8eaed;
+  margin: 0 0 10px;
+  letter-spacing: -0.3px;
 }
 
 .notfound p {
-  font-size: 16px;
-  font-weight: 400;
-  color: #fff;
-  margin-top: 5px;
+  font-size: 14px;
+  color: #9aa0a6;
+  margin: 0 0 24px;
+  line-height: 1.5;
 }
 
-.notfound a {
-  color: #ff7e3e;
-  font-weight: 400;
+/* 按钮 */
+.notfound-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
   text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media only screen and (max-width: 480px) {
-  .notfound {
-    padding-left: 15px;
-    padding-right: 15px;
+.btn-primary {
+  background: linear-gradient(135deg, #5865f2, #4752c4);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(88, 101, 242, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4752c4, #3c45a3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(88, 101, 242, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(43, 45, 49, 0.6);
+  color: #e8eaed;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(53, 56, 61, 0.8);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* 错误详情 */
+.error-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.error-details p {
+  font-size: 12px;
+  color: #5f6368;
+  font-family: 'SF Mono', Monaco, monospace;
+  letter-spacing: 0.3px;
+}
+
+/* 动画 */
+@keyframes bgShift {
+  0% { opacity: 0.3; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.1); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes iconFloat {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+    box-shadow: 0 0 20px rgba(255, 110, 199, 0.5), 0 0 40px rgba(106, 255, 255, 0.3);
   }
-  .notfound>div:first-child {
-    padding: 0px;
-    height: auto;
+  50% { 
+    transform: translateY(-6px);
+    box-shadow: 0 0 30px rgba(255, 110, 199, 0.7), 0 0 60px rgba(106, 255, 255, 0.5);
   }
-  .notfound .notfound-404 {
-    position: relative;
-    margin-bottom: 15px;
+}
+
+@keyframes scanLine {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateY(96px); }
+}
+
+@keyframes pixelGlow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 6px rgba(255, 235, 59, 0.6)) drop-shadow(0 0 12px rgba(255, 110, 199, 0.4));
   }
-  .notfound h2 {
-    font-size: 42px;
+  50% { 
+    filter: drop-shadow(0 0 12px rgba(255, 235, 59, 0.8)) drop-shadow(0 0 18px rgba(255, 110, 199, 0.6));
   }
+}
+
+@keyframes cornerPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+  50% { transform: scale(1.4) rotate(180deg); opacity: 1; }
+}
+
+@keyframes glitch {
+  0%, 96%, 100% { transform: translate(0); }
+  97% { transform: translate(-1px, 1px); }
+  98% { transform: translate(1px, -1px); }
+  99% { transform: translate(-1px, -1px); }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .notfound { max-width: 420px; padding: 0 18px; }
+  .notfound-content { padding: 32px 24px; }
+  .notfound-icon { width: 80px; height: 80px; margin-bottom: 18px; }
+  .icon-core::before { transform: scale(0.85); }
+  .corner-dots span { width: 6px; height: 6px; }
+  .notfound-code { font-size: 68px; margin-bottom: 6px; }
+  .notfound h2 { font-size: 20px; margin-bottom: 8px; }
+  .notfound p { font-size: 13px; margin-bottom: 20px; }
+  .notfound-actions { gap: 8px; }
+  .btn-primary, .btn-secondary { padding: 10px 20px; font-size: 13px; }
+  .error-details { margin-top: 18px; padding-top: 18px; }
+}
+
+@media (max-width: 480px) {
+  .notfound { max-width: 100%; padding: 0; }
+  .notfound-content { 
+    padding: 28px 20px; 
+    border-radius: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+  }
+  .notfound-icon { width: 72px; height: 72px; margin-bottom: 16px; }
+  .icon-core { border-width: 2px; }
+  .icon-core::before { transform: scale(0.75); }
+  .icon-core::after { height: 1px; }
+  .corner-dots span { width: 5px; height: 5px; }
+  .corner-dots span:nth-child(1) { top: -6px; left: -6px; }
+  .corner-dots span:nth-child(2) { top: -6px; right: -6px; }
+  .corner-dots span:nth-child(3) { bottom: -6px; left: -6px; }
+  .corner-dots span:nth-child(4) { bottom: -6px; right: -6px; }
+  .notfound-code { font-size: 56px; letter-spacing: -2px; }
+  .notfound h2 { font-size: 18px; }
+  .notfound p { font-size: 13px; margin-bottom: 18px; line-height: 1.45; }
+  .notfound-actions { flex-direction: column; gap: 8px; }
+  .btn-primary, .btn-secondary { width: 100%; padding: 11px 18px; }
+  .error-details { margin-top: 16px; padding-top: 16px; }
+  .error-details p { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .notfound-content { padding: 24px 16px; }
+  .notfound-code { font-size: 48px; }
+  .notfound h2 { font-size: 17px; }
+  .notfound p { font-size: 12px; }
 }
 </style>
 </head>
 <body>
     <div id="notfound">
-		<div class="notfound">
-			<div>
-				<div class="notfound-404">
-					<h1>!</h1>
-				</div>
-				<h2>Error<br>404</h2>
-			</div>
-			<p>非常抱歉，未找到相关资源，可能原因：网址有错误或网址已失效，请检查地址是否完整或存在多余字符。 <a onclick="goBack()">返回上一页</a></p>
-		</div>
-	</div>
+        <div class="notfound">
+            <div class="notfound-content">
+                <div class="notfound-icon">
+                    <div class="icon-core">
+                        <div class="corner-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="notfound-code">404</div>
+                <h2>页面未找到</h2>
+                <p>抱歉，您访问的页面不存在或已被删除。请检查网址是否正确，或返回首页继续浏览。</p>
+                <div class="notfound-actions">
+                    <a href="/" class="btn-primary">返回首页</a>
+                    <button onclick="goBack()" class="btn-secondary">返回上一页</button>
+                </div>
+                <div class="error-details">
+                    <p>错误代码: 404 | Not Found</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         function goBack() {
-            window.history.back()
-         }
-      </script>
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        // 添加键盘快捷键支持
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                goBack();
+            }
+        });
+    </script>
  </body>
 </html>

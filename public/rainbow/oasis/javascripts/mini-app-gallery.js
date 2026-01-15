@@ -11,7 +11,6 @@ import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/Teicallaa
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 let customAlert = new CustomAlertModal();
@@ -22,7 +21,6 @@ const RootComponent = {
       return {
         timer: null,
         viewerProfile: {},
-        defaultAvatarImage,
         currentOptionMember: "",
         currentOptionMemberProfile: {},
         appLibrary: []

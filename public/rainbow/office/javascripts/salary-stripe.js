@@ -11,13 +11,17 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.js";
 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import personManDefault from "/common/images/default-person-man.jpg";
 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 
 let customAlert = new CustomAlertModal();
+
+const personManDefault = new URL(
+  '/common/images/default-person-man.jpg',
+  import.meta.url
+);
 
 const currentPayrollId= window.location.pathname.split('/').slice(-1).shift();
 

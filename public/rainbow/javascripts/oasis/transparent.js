@@ -6,7 +6,6 @@ import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/Teicallaa
 import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js"
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
@@ -24,7 +23,6 @@ const RootComponent = {
 
         return {
             channelSort, oaisiChannelList,getChannelDataV,
-            defaultAvatarImage,
             currentOch: "oasis-home",
             q: "",
             member: {}

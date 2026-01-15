@@ -8,22 +8,25 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import axios from 'axios';
 import {PriceSbu,BrandAccessWay} from "/common/javascripts/tm-constant.js";
 
-import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg';
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
-import defaultBannerImage from '/common/images/default-brand-banner-4x3.svg';
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
 
 
-
+const defaultBannerImage = new URL(
+    '/common/images/default-brand-banner-4x3.svg',
+    import.meta.url
+);
+const defaultCellPreviewImage = new URL(
+    '/common/images/default-cell-preview.jpg',
+    import.meta.url
+);
 
 const RootComponent = {
     data() {
         return {
             defaultCellPreviewImage,
-            defaultAvatarImage,
             defaultBannerImage,
             homeInfo: {
                 vr: []

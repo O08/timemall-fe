@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="content-language" content="zh-cn">
+  <title>帖子 - Viber</title>
+  <script src="/common/javascripts/avif-webp.min.js"></script>
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/common/stylesheets/style.scss">
+  <link rel="stylesheet" href="/apps/viber/stylesheets/story.scss">
+  <link rel="stylesheet" href="/apps/viber/stylesheets/post-render-template.scss">
+
+
+</head>
+
+<body>
+  <div class="bsky-app" id="app" v-cloak>
+    <!-- 顶部导航 -->
+    <header class="bsky-header">
+      <button class="bsky-back-btn"  v-preventreclick  @click="handleBackNavigationV">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h1 class="bsky-header-title">帖子</h1>
+      <div class="bsky-header-spacer"></div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="bsky-main">
+      <!-- 原帖 -->
+      <article class="bsky-post-detail">
+        <div class="bsky-post-author">
+          <div class="bsky-avatar-box">
+            <img :src="adaptiveImageUriV(post?.author?.avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="头像" class="bsky-avatar">
+          </div>
+
+          <div class="bsky-author-info">
+            <span class="bsky-display-name">{{post?.author?.brandName}}</span>
+            <span class="bsky-post-meta">
+              <span class="bsky-post-time">{{formatTimeV(post?.createdAt)}}</span>
+            </span>
+          </div>
+          <a target="_blank" :href="'/messages/'+ post?.author?.userId">
+            <button class="bsky-follow-btn">私信</button>
+          </a>
+        </div>
+
+        <div class="bsky-post-body">
+          <post-render-temploate :feed="post"></post-render-temploate>
+        </div>
+
+
+        <!-- 统计数据 -->
+        <div class="bsky-post-stats">
+          <div class="bsky-stat-item">
+            <span class="bsky-stat-count">{{formatNumberV(post?.likes)}}</span>
+            <span class="bsky-stat-label">赞</span>
+          </div>
+          <div class="bsky-stat-item">
+            <span class="bsky-stat-count">{{formatNumberV(post?.comments)}}</span>
+            <span class="bsky-stat-label">回复</span>
+          </div>
+          <div class="bsky-stat-item">
+            <span class="bsky-stat-count">{{formatNumberV(post?.shares)}}</span>
+            <span class="bsky-stat-label">分享</span>
+          </div>
+
+        </div>
+
+        <!-- 操作栏 -->
+        <div class="bsky-post-actions">
+          <div v-if="post?.author?.hasLike!='1'"  v-preventreclick  @click="likePostV(post.postId,this,post)"  class="bsky-action-btn">
+            <i class="far fa-thumbs-up"></i>
+          </div>
+          <div v-if="post?.author?.hasLike=='1'"  v-preventreclick  @click="cancelLikePostV(post.postId,this,post)"  class="bsky-action-btn liked">
+            <i class="far fa-thumbs-up"></i>
+          </div>
+          <div  v-preventreclick  @click="showPostCommmentModalV(post.postId)" class="bsky-action-btn">
+            <i class="far fa-comment"></i>
+          </div>
+          <div  v-preventreclick  @click="sharePostLinkV(post.postId,this,post)"  class="bsky-action-btn" :class="{'liked': post?.author?.hasShare=='1'}">
+            <i class="far fa-share-square"></i>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- 回复列表 -->
+      <section class="bsky-replies" id="repliesSection">
+        <!-- 回复列表容器 -->
+        <div id="commentsList">
+
+          <article v-for="comment in commentArr" class="bsky-reply-item">
+            <div class="bsky-reply-item-img-box">
+              <img :src="adaptiveImageUriV(comment.authorAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+              alt="头像" class="bsky-avatar-sm">
+            </div>
+            <div class="bsky-reply-content">
+              <div class="bsky-reply-header">
+                <span class="bsky-display-name">{{comment.authorName}}</span>
+                <div class="dropdown">
+                  <button  v-preventreclick  @click="fetchUserCtaInfoV(post.oasisId,comment.authorUserId)" class="dropdown-toggle post-menu-toogle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                  </button>
+                  <div class="dropdown-menu post-menu-dropdown">
+
+                    <div v-if="!ctaInfoLoadFinish" class="menu-item-container-loading placeholder-glow">
+                      <div  class="menu-item">
+                        <span class="placeholder col-12 placeholder-lg"></span>
+                      </div>
+                      <div  class="menu-item">
+                        <span class="placeholder col-12 placeholder-lg"></span>
+                      </div>
+                      <div  class="menu-item">
+                        <span class="placeholder col-12 placeholder-lg"></span>
+                      </div>
+                      <div  class="menu-item">
+                        <span class="placeholder col-12 placeholder-lg"></span>
+                      </div>
+                    </div>
+
+                    <div v-if="ctaInfoLoadFinish" class="menu-item-container">
+                      <div  v-preventreclick  @click="copyCommentContentV(comment.textMsg)" class="menu-item">
+                        <i class="fas fa-copy"></i>
+                        <span>复制文字</span>
+                      </div>
+                      <div  v-preventreclick @click="delCommentV(comment.cid)" class="menu-item">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>删除回复</span>
+                      </div>
+                      <div v-if="userCtaInfo?.hasAdminPermission=='1' && userCtaInfo?.policyRel=='read_write'"  v-preventreclick  @click="muteUserV(post.channel,comment.authorUserId)" class="menu-item">
+                        <i class="fas fa-volume-mute"></i>
+                        <span>禁言用户</span>
+                      </div>
+                      <div v-if="userCtaInfo?.hasAdminPermission=='1' && userCtaInfo?.policyRel=='read'"  v-preventreclick  @click="unmuteUserV(post.channel,comment.authorUserId)" class="menu-item">
+                        <i class="fas fa-volume-up"></i>
+                        <span>解除禁言</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="bsky-reply-text-container" v-html="formatContentWithLinksV(comment.textMsg)"></div>
+              <div class="bsky-reply-actions">
+                <div  v-preventreclick  @click="likeCommentV(comment)" class="bsky-reply-action" :class="{'liked': comment.interactLikeAction=='1'}">
+                  <i class="far fa-thumbs-up"></i>
+                  <span class="like-count">{{formatNumberV(comment.likes)}}</span>
+                </div>
+                <div  v-preventreclick  @click="dislikeCommentV(comment)" class="bsky-reply-action" :class="{'liked': comment.interactLikeAction=='2'}">
+                  <i class="far fa-thumbs-down"></i>
+                  <span class="dislike-count">{{formatNumberV(comment.dislike)}}</span>
+                </div>
+                <span class="bsky-reply-time">{{formatTimeV(comment.createAt)}}</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- 空状态 -->
+        <div v-if="isEmptyObjV(commentArr)" class="bsky-empty-state" id="emptyState">
+          <div class="bsky-empty-icon">
+            <i class="far fa-comment-dots"></i>
+          </div>
+          <p class="bsky-empty-title">还没有回复</p>
+          <p class="bsky-empty-desc">成为第一个发表回复的人吧</p>
+        </div>
+
+        <!-- 加载指示器 -->
+        <div class="comments-load-more" id="commentsLoadIndicator" :class="{'visible': commentList_pagination.isLoading}">
+          <div class="comments-loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>加载更多回复...</span>
+          </div>
+        </div>
+
+        <!-- 已浏览完所有回复提示 -->
+        <div v-if="!isEmptyObjV(commentArr)" class="comments-end-state" id="commentsEndState"
+          :class="{'visible': commentList_pagination.current >= commentList_pagination.pages}">
+          <div class="comments-end-content">
+            <i class="fas fa-check-circle"></i>
+            <span>已浏览完所有回复</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="modals">
+      <!-- 发布回复模态框 -->
+      <div class="modal-container">
+        <div class="modal" id="publishCommentModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-user">
+                  <img
+                    :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+                    alt="User" class="modal-avatar">
+                  <span class="modal-username">{{getIdentity().brandName}}</span>
+                </div>
+                <button  v-preventreclick  @click="closePostCommmentModalV" class="close-btn" id="closePostModal">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <textarea id="postCommment" v-model="newCommentObj.textMsg" placeholder="写下你的回复..." maxlength="500"></textarea>
+              </div>
+              <div tabindex="-1">
+                <div tabindex="0" class="close-emoji-picker"></div>
+                <div class="comment-emoji-picker-canvas ">
+                  <div  id="creat-post-comment-emoji-picker"  class="emoji-tooltip" >
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="modal-tools">
+                  <button id="create-comment-emoji-trigger" class="tool-btn" title="添加表情">
+                    <i class="fas fa-smile"></i>
+                  </button>
+                </div>
+                <button  v-preventreclick  @click="publishOneCommentV(newCommentObj,this,post)" class="post-btn" id="publishCommentBtn" :disabled="!newCommentObj.textMsg">发表</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/apps/viber/javascripts/story.js"></script>
+</body>
+
+</html>

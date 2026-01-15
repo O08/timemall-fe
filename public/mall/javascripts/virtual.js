@@ -4,23 +4,22 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import Auth from "/estudio/javascripts/auth.js"
 
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
-
-import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import { getQueryVariable,formatCmpctNumber } from "/common/javascripts/util.js";
 import {FromWhere} from "/common/javascripts/tm-constant.js";
 import { uploadScienceData,uploadVirtualProductDataLayerWhenImpression } from "/common/javascripts/science.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
-
+const defaultCellPreviewImage = new URL(
+  '/common/images/default-cell-preview.jpg',
+  import.meta.url
+);
 
 
 const RootComponent = {
   data() {
     return {
       currentLocalCity: '',
-      defaultAvatarImage,
       defaultCellPreviewImage,
       paging: {}, // 分页导航
       virtual_pagination:{

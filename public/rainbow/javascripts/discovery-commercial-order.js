@@ -3,7 +3,6 @@ import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
 // todo
-import defaultObjPreviewImage from '/common/images/default-cell-preview.jpg'
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import {FromWhere,EnvWebsite,CodeMappingTypeEnum} from "/common/javascripts/tm-constant.js";
 import { uploadScienceData } from "/common/javascripts/science.js";
@@ -11,7 +10,10 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import {DspReportApi} from "/common/javascripts/dsp-report-api.js";
 
-
+const defaultObjPreviewImage = new URL(
+    '/common/images/default-cell-preview.jpg',
+    import.meta.url
+);
 const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
 
 const RootComponent = {

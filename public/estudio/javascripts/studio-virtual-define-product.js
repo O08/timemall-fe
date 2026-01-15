@@ -43,6 +43,21 @@ var Size = Quill.import('attributors/style/size');
 Size.whitelist = fontSizeArr;
 Quill.register(Size, true);
 
+const toolbarOptions = [
+  [{ 'size': fontSizeArr }],  // custom dropdown
+  [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  [{ 'align': [] }],
+  ['blockquote', 'code-block'],
+  ['link'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  ['clean']                                         // remove formatting button
+];
+
+
+var quill = ""; // init in mounted
+
 
 const RootComponent = {
 
@@ -259,6 +274,14 @@ const RootComponent = {
         }
 
         }
+    },
+    mounted(){
+      quill=new Quill('#editor', {
+          modules: {
+              toolbar: toolbarOptions
+          },
+          theme: 'snow'
+      });
     }
 }
 const app = createApp(RootComponent);
@@ -927,24 +950,8 @@ function currentTabInt(currentTab){
   return option === "edit" ? 6 < currentTab : navIntMap.get(tab) < currentTab;
 }
 
-const toolbarOptions = [
-    [{ 'size': fontSizeArr }],  // custom dropdown
-    [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    [{ 'align': [] }],
-    ['blockquote', 'code-block'],
-    ['link'],
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    ['clean']                                         // remove formatting button
-  ];
-  
-const quill = new Quill('#editor', {
-  modules: {
-    toolbar: toolbarOptions
-  },
-  theme: 'snow'
-});
+
+
 
 quill.on('text-change', () => {
    defineVirtualProductPage.btn_ctl.activate_product_desc_save_btn = true;

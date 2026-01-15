@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>频道设置 | Viber</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/viber/stylesheets/admin.scss">
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container">
+        <div class="channel-head">
+          <img class="channel-avatar" src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/app/viber-app-logo.svg">
+          <div class="channel-head-title">Viber频道设置</div>
+        </div>
+        <div class="channel-setting">
+  
+          <div class="channel-title pb-3">
+            <div class="field-wrp">
+              <div class="label-color field-label">频道名称</div>
+              <div class="inputWrapper">
+                <input v-model="general.channelName" @change="generalHadChange=true" type="text" class="inputDefault" maxlength="10">
+              </div>
+            </div>
+          </div>
+  
+          <div class="channel-desc pb-4">
+            <div class="field-wrp">
+              <div class="label-color field-label">简介</div>
+              <div class="inputWrapper">
+                <div class="inputMaxLength">
+                  <textarea @change="generalHadChange=true" v-model="general.channelDesc" type="text"  maxlength="80" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                  <div class="maxLength">{{ (!general || !general.channelDesc) ? 80 : 80-general.channelDesc.length}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <button @click="modifyChannelGeneralInfoV" :class="{'disabled': !general.channelName || !general.channelDesc || !generalHadChange, 
+          'btn-save': !!general.channelName && !!general.channelDesc && generalHadChange ,
+          'btn-secondary': !general.channelName || !general.channelDesc || !generalHadChange }" v-preventreclick  type="button" class="btn"><div class="btn-file-upload-wrp">保存更改</div></button>
+  
+        </div>
+  
+      </div>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/viber/javascripts/admin.js"></script>
+
+
+
+</body>
+</html>

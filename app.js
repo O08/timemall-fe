@@ -1,11 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+import express from 'express';
+import path from 'path';
+import cookieParser  from 'cookie-parser';
+import logger  from 'morgan';
+import cors from 'cors';
 
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+import parseOneLink from './routes/parselink.js';
+
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 var app = express();
 
@@ -15,12 +22,22 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 
+app.use(cors())
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist'),{extensions: ['html']}));
 
+app.get('/link/parse',async (req,res)=>{
+  try {
+    let linkInfo = await parseOneLink(req.query.url);
+    res.json(linkInfo);
+  } catch (error) {
+    res.status(500).json({error: 'Failed to parse link' });
+  }
 
+});
 
 
 app.get('/',(req,res)=>{
@@ -69,6 +86,14 @@ app.get('/apps/group-chat/:och', (req, res) => {
 
 app.get('/apps/desk/:och', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/apps/desk/your-apps.html")        //设置/ 下访问文件位置
+})
+
+app.get('/viber/hub/:och', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/viber/hub.html")        //设置/ 下访问文件位置
+})
+
+app.get('/viber/post/:id', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/apps/viber/story.html")        //设置/ 下访问文件位置
 })
 
 app.get('/apps/group-chat/admin', (req, res) => {
@@ -156,4 +181,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;

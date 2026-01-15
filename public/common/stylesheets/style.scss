@@ -1426,6 +1426,10 @@ col-container{
 table th{
   vertical-align: middle;
 }
+// modal ui issue fix when upgrade bootstrap
+.modal{
+  --bs-modal-color: none;
+}
 // user online indicator
 .online-indicator{
   bottom: -2px;
@@ -1442,14 +1446,20 @@ table th{
   height: 6px;
   box-sizing: content-box;
 }
-#alertModal .modal-content{
-  padding: 12 24px;
+.alertModal .modal-content {
+  padding: 12px 24px;
   border-radius: 8px;
-  background-color: #f1f1f1;
-  color: #2F2F2F;
+  background-color: #2d2d2d;
+  color: #e0e0e0;
   font-size: 12px;
   word-spacing: .5px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  border: 1px solid  #3d3d3d;
 }
+
 
 /* user icon */
 .brand-avatar {
@@ -1482,6 +1492,14 @@ table th{
 .fullscreen-modal .modal-dialog{
   margin: 0;
   height: 100%;
+}
+
+// emoji picker element
+emoji-picker {
+  --border-radius: 6px;
+  --background: #242526;
+  --input-border-color: #444 ;
+  --input-font-size: 12px;
 }
 
 // nav

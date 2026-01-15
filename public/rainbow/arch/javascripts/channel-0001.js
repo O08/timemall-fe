@@ -13,7 +13,6 @@ import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import {GroupChatPolicyRel} from "/common/javascripts/tm-constant.js";
 
 import axios from "axios";
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
@@ -42,7 +41,6 @@ const RootComponent = {
         channelSort, oaisiChannelList,getChannelDataV,
         timer: null,
         viewerProfile: {},
-        defaultAvatarImage,
         currentOptionMember: "",
         currentOch: "oasis-chat",
         currentOptionMemberProfile: {}

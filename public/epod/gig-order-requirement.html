@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name=”robots” content=”noindex,nofollow”>
-    <meta http-equiv ='content-language' content ='zh-cn'>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
     <title>编辑履约内容 - E-Pod</title>
@@ -457,7 +457,7 @@
                                   </span>
                                 </div>
                                 <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="item.title" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务标题" aria-describedby="addon-wrapping">
-
+                                </textarea>
                               </json-node>
                               <json-node class="d-flex flex-column">
                                 <span>
@@ -481,7 +481,8 @@
                                       </a>
                                     </span>
                                   </div>  
-                                  <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">           
+                                  <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">    
+                                  </textarea>       
                                 </json-node>
                               </json-node>
                               <json-node class="d-flex flex-column">
@@ -507,6 +508,7 @@
                                     </span>
                                   </div>               
                                   <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="metric.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写验收指标" aria-describedby="addon-wrapping">
+                                  </textarea>
                                 </json-node>
                               </json-node>
 

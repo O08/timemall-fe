@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name=”robots” content=”noindex,nofollow”>
-    <meta http-equiv ='content-language' content ='zh-cn'>
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
     <title>API分销数据查询 :-r 带货中心 :-r 班蔚</title>
@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
     <link rel="stylesheet" href="/rainbow/stylesheets/teixcalaanli.scss">
-    <link rel="stylesheet" href="/affiliate/stylesheets/api-marketing.scss">
+    <link rel="stylesheet" href="/affiliate/stylesheets/endpoint-marketing.scss">
 
 </head>
 <body>
@@ -38,18 +38,21 @@
           <div class="nav-plus-studio  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <i class="bi bi-flower1"></i>
+          </div>
                
         </a>
         <a href="/epod/pod-packages-order" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="奇迹工坊">
           <div class="nav-plus-pod  nav-item-default  d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <i class="bi bi-tags"></i>
+          </div>
                
         </a>
         <a href="/mall/gig-economy" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="心选商店">
           <div class="nav-plus-13—street  nav-item-default   d-flex align-items-center justify-content-center mt-5 ms-3">
          
             <i class="bi bi-bag-heart"></i>
+          </div>
                
         </a>
         <a href="/affiliate/dashboard" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="带货中心">
@@ -264,8 +267,8 @@
               <div class="field-content">
                 <div class="form-check ms-2">
                   <input 
-                  :true-value="1"
-                  :false-value="0"
+                  true-value="1"
+                  false-value=""
                   v-preventreclick
                   @change="filterApiMarketTableV"
                    v-model="api_market_pagination.param.blue" class="form-check-input" type="checkbox" value="" id="vip">
@@ -311,8 +314,8 @@
               <div class="field-content">
                 <div class="form-check ms-2">
                   <input 
-                    :true-value="3"
-                    :false-value=""
+                    true-value="3"
+                    false-value=""
                     v-preventreclick
                     @change="filterApiMarketTableV"
                     v-model="api_market_pagination.param.offline"
@@ -588,7 +591,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/affiliate/javascripts/api-marketing.js"></script>
+  <script type="module" src="/affiliate/javascripts/endpoint-marketing.js"></script>
 
 
 </body>

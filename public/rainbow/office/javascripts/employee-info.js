@@ -11,7 +11,6 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 
 import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.js";
 
-import personManDefault from "/common/images/default-person-man.jpg";
 
 import { validateEmailOrPhoneInput } from "/common/javascripts/util.js";
 
@@ -25,6 +24,11 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 let customAlert = new CustomAlertModal();
+
+const personManDefault = new URL(
+  '/common/images/default-person-man.jpg',
+  import.meta.url
+);
 
 const currentEmployeeId= window.location.pathname.split('/').slice(-2).shift();
 const RootComponent = {

@@ -34,6 +34,21 @@ Size.whitelist = fontSizeArr;
 Quill.register(Size, true);
 
 
+const toolbarOptions = [
+  [{ 'size': fontSizeArr }],  // custom dropdown
+  [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  [{ 'align': [] }],
+  ['blockquote', 'code-block'],
+  ['link'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  ['clean']                                         // remove formatting button
+];
+
+var quill = ""; // init in mounted
+
+
 const currentFeedId= window.location.pathname.split('/').pop();
 const currentChannel= window.location.pathname.split('/').at(-2);
 const sandboxEnv= getQueryVariable("sandbox");
@@ -291,6 +306,14 @@ const RootComponent = {
         }
     },
     },
+    mounted(){
+        quill=new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+    },
     updated(){
         
         $(function() {
@@ -316,24 +339,6 @@ const feedPage = app.mount('#app');
 
 window.feedPage = feedPage;
 
-const toolbarOptions = [
-  [{ 'size': fontSizeArr }],  // custom dropdown
-  [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  [{ 'align': [] }],
-  ['blockquote', 'code-block'],
-  ['link'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  ['clean']                                         // remove formatting button
-];
-
-const quill = new Quill('#editor', {
-  modules: {
-    toolbar: toolbarOptions
-  },
-  theme: 'snow'
-});
 
 
 feedPage.fetchFeedInfoV();

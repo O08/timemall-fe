@@ -2,7 +2,6 @@ import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { Ftime,formatCmpctNumber } from "/common/javascripts/util.js";
@@ -25,7 +24,6 @@ const RootComponent = {
             loading: true,
             display: "normal",
 
-            defaultAvatarImage,
             paperDetail: {
                 skills: []
             },

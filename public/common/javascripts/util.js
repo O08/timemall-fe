@@ -220,3 +220,82 @@ export function getDayName(d){
       return xc+"天后";
    }
 }
+
+
+
+export function formatTime(date) {
+    if(!date) return;
+    const now = new Date();
+    const diff = now - new Date(date);
+    
+    const minutes = Math.floor(diff / 60000);
+    if (minutes < 1) return '刚刚';
+    if (minutes < 60) return `${minutes}分钟前`;
+    
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}小时前`;
+    
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days}天前`;
+    
+    return renderDateToDayInChina(date);
+}
+
+
+// 根据文件名和类型获取图标
+export function getFileIcon(fileName) {
+    if(!fileName) return 'fas fa-file';
+    const ext = fileName.split('.').pop().toLowerCase();
+    
+    // 文档类
+    if (['doc', 'docx'].includes(ext)) return 'fas fa-file-word';
+    if (['xls', 'xlsx'].includes(ext)) return 'fas fa-file-excel';
+    if (['ppt', 'pptx'].includes(ext)) return 'fas fa-file-powerpoint';
+    if (['pdf'].includes(ext)) return 'fas fa-file-pdf';
+    
+    // 压缩文件
+    if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return 'fas fa-file-archive';
+    
+    // 代码文件
+    if (['js', 'ts', 'jsx', 'tsx', 'html', 'css', 'scss', 'json', 'xml', 'py', 'java', 'cpp', 'c', 'h'].includes(ext)) {
+        return 'fas fa-file-code';
+    }
+    
+    // 音频
+    if (['mp3', 'wav', 'ogg', 'flac', 'm4a'].includes(ext)) return 'fas fa-file-audio';
+    
+    // 视频
+    if (['mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv'].includes(ext)) return 'fas fa-file-video';
+    
+    // 图片
+    if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'].includes(ext)) return 'fas fa-file-image';
+    
+    // 文本文件
+    if (['txt', 'md', 'log'].includes(ext)) return 'fas fa-file-alt';
+    
+    // 默认
+    return 'fas fa-file';
+}
+
+// 格式化文件大小
+export function formatFileSize(bytes) {
+    if(!bytes) return;
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+// 数字格式化函数
+export function formatNumber(num) {
+    if(num=='0') return num;
+    if(!num) return;
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M+';
+    }
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K+';
+    }
+    return num.toString();
+}

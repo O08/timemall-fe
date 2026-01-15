@@ -1,6 +1,3 @@
-import axios from 'axios';
-
-
 const ImageAdaptiveComponent = {
    data(){
     return {
@@ -11,11 +8,7 @@ const ImageAdaptiveComponent = {
    },
    methods: {
     adaptiveImageUriV(rawAvifUri){
-        var renderUrl= rawAvifUri;
-        if(rawAvifUri&&rawAvifUri.slice(-5)==='.avif'){
-            renderUrl = this.device.supportAvif ? rawAvifUri: rawAvifUri.slice(0,rawAvifUri.length-5);
-        }
-        return renderUrl;
+     return adaptiveImageUri(rawAvifUri,this.device.supportAvif);
     }
   },
    created(){
@@ -25,4 +18,12 @@ const ImageAdaptiveComponent = {
 }
 export {
     ImageAdaptiveComponent
+}
+
+function adaptiveImageUri(rawAvifUri,supportAvif){
+    var renderUrl= rawAvifUri;
+    if(rawAvifUri && typeof rawAvifUri === 'string' && rawAvifUri.slice(-5)==='.avif'){
+        renderUrl = supportAvif ? rawAvifUri: rawAvifUri.slice(0,rawAvifUri.length-5);
+    }
+    return renderUrl;
 }

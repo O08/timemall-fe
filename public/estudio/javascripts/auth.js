@@ -2,8 +2,12 @@ import "/common/javascripts/import-jquery.js";
 import { goLoginPage,goWelcome } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
+// import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
+const defaultAvatarImage = new URL(
+    '/common/icon/panda-kawaii.svg',
+    import.meta.url
+);
 
 //除navigator.onLine属性之外，为了更好地确定网络是否可用，HTML5还定义了两个事件：online和offline。
 //当网络从离线变为在线或者从在线变为离线时，分别触发这两个事件。这两个事件在window对象上触发。

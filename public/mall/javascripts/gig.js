@@ -4,9 +4,6 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import Auth from "/estudio/javascripts/auth.js"
 
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
-
-import defaultCellPreviewImage from '/common/images/default-cell-preview.jpg'
 import {PriceSbu,FromWhere} from "/common/javascripts/tm-constant.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import { getQueryVariable } from "/common/javascripts/util.js";
@@ -14,13 +11,15 @@ import { uploadScienceData,uploadCellDataLayerWhenImpression } from "/common/jav
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 
-
+const defaultCellPreviewImage = new URL(
+  '/common/images/default-cell-preview.jpg',
+  import.meta.url
+);
 
 const RootComponent = {
   data() {
     return {
       currentLocalCity: '',
-      defaultAvatarImage,
       defaultCellPreviewImage,
       input_sbu: '',
       paging: {}, // 分页导航

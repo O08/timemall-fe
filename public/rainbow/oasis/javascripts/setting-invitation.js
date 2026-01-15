@@ -9,9 +9,13 @@ import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
-import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg"
 
 let customAlert = new CustomAlertModal();
+
+const oasisAvatarDefault = new URL(
+    '/rainbow/images/oasis-default-building.jpeg',
+    import.meta.url
+);
 
 const RootComponent = {
     data() {

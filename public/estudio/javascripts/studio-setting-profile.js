@@ -9,9 +9,6 @@ import BrandBasicSetting from "/estudio/javascripts/compoent/BrandBasicSetting.j
 
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
-import defaultExperienceImage from '/common/images/default-experience-1x1.svg';
-import defaultBrandBanner from '/common/images/default-brand-banner-4x3.svg';
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
@@ -24,6 +21,19 @@ import BrandContactSetting from "/estudio/javascripts/compoent/BrandContactSetti
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const defaultAvatarImage = new URL(
+    '/common/icon/panda-kawaii.svg',
+    import.meta.url
+);
+const defaultBrandBanner = new URL(
+    '/common/images/default-brand-banner-4x3.svg',
+    import.meta.url
+);
+const defaultExperienceImage = new URL(
+    '/common/images/default-experience-1x1.svg',
+    import.meta.url
+);
+
 const RootComponent = {
     data() {
         return {
@@ -32,7 +42,6 @@ const RootComponent = {
             rawEditableMillstoneObj: {},
             defaultExperienceImage,
             defaultBrandBanner,
-            defaultAvatarImage,
             btn_ctl: {
                 activate_general_save_btn: false
             },

@@ -60,11 +60,13 @@ const Pagination = {
             this.pageDataSource(info);
         },
         doPaging({current, pages, size}) {
-            if (!current || !pages || !size) return null
+            if (!current || !pages || !size) return null;
 
-            let rg= current + Math.floor(size/2)
-            if(rg<size) rg=size
-            max = Math.min(pages,rg);
+            let rg= current + Math.floor(size/2);
+
+            if(rg<size) rg=size;
+
+            let max = Math.min(pages,rg);
 
             let min= Math.max(current - Math.floor(size/2),1);
 

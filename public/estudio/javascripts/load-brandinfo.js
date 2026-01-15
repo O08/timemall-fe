@@ -1,5 +1,9 @@
 import axios from 'axios';
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
+
+const defaultAvatarImage = new URL(
+    '/common/icon/panda-kawaii.svg',
+    import.meta.url
+);
 
 export default function BrandInfoComponent(params) {
     const {

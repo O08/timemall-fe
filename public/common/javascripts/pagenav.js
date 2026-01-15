@@ -25,6 +25,10 @@ export  function goWelcome(){
 export  function goError(){
     go("/404")
 }
+
+export function goErrorByReplace(){
+    window.location.replace("/404");
+}
 export function goStudioStore(){
     go("/estudio/studio-gig-store")
 }

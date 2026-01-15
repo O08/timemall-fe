@@ -7,7 +7,7 @@ export function copyValueToClipboard(val) {
         // navigator clipboard 向剪贴板写文本
          navigator.clipboard.writeText(val).then(
             () => {
-                customAlert.alert('已复制，快去粘贴吧~')
+                customAlert.alert('已成功复制链接或内容到剪贴板')
             },
             () => {
                 customAlert.alert('有黑魔法，复制失败，尝试再次复制或者其他方式~')
@@ -23,7 +23,7 @@ export function copyValueToClipboard(val) {
         document.body.appendChild(textArea)
         textArea.focus()
         textArea.select()
-        customAlert.alert('已复制，快去粘贴吧~')
+        customAlert.alert('已成功复制链接或内容到剪贴板')
         new Promise((res, rej) => {
             // 执行复制命令并移除文本框
             document.execCommand('copy') ? res() : rej()

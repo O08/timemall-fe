@@ -29,6 +29,19 @@ var Size = Quill.import('attributors/style/size');
 Size.whitelist = fontSizeArr;
 Quill.register(Size, true);
 
+const toolbarOptions = [
+  [{ 'size': fontSizeArr }],  // custom dropdown
+  [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  [{ 'align': [] }],
+  ['blockquote', 'code-block'],
+  ['link'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  ['clean']                                         // remove formatting button
+];
+
+var quill = ""; // init in mounted
 
 
 
@@ -159,6 +172,14 @@ const RootComponent = {
     
     
     },
+    mounted(){
+      quill=new Quill('#editor', {
+          modules: {
+              toolbar: toolbarOptions
+          },
+          theme: 'snow'
+      });
+    },
     updated(){
         
         $(function() {
@@ -189,24 +210,7 @@ feedsboardPage.pageInit(feedsboardPage.feedList_pagination);
 
 feedsboardPage.fetchChannelGiudeInfoV();
 
-const toolbarOptions = [
-  [{ 'size': fontSizeArr }],  // custom dropdown
-  [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  [{ 'align': [] }],
-  ['blockquote', 'code-block'],
-  ['link'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  ['clean']                                         // remove formatting button
-];
 
-const quill = new Quill('#editor', {
-  modules: {
-    toolbar: toolbarOptions
-  },
-  theme: 'snow'
-});
 
 
 async function doPublishNewFeed(dto, coverFile){

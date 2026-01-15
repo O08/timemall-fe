@@ -5,6 +5,7 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Auth from "/estudio/javascripts/auth.js"
 import {refresh} from "/common/javascripts/pagenav.js";
 
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {BillStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
@@ -214,6 +215,8 @@ app.mixin(
         }
     })
 );
+
+app.mixin(DirectiveComponent);
 
 const studioBillPage = app.mount('#app');
 window.cBill= studioBillPage;

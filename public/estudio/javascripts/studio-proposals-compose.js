@@ -51,14 +51,7 @@ const toolbarOptions = [
   [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   ['clean']                                         // remove formatting button
 ];
-const quill = new Quill('#editor', {
-    modules: {
-      toolbar: toolbarOptions
-    },
-    theme: 'snow'
-});
-
-
+var quill = ""; // init in mounted
 
 const RootComponent = {
     data() {
@@ -194,6 +187,14 @@ const RootComponent = {
       transformInputNumberAsPositiveV(e){
         return transformInputNumberAsPositive(e);
       }
+    },
+    mounted(){
+      quill=new Quill('#editor', {
+          modules: {
+              toolbar: toolbarOptions
+          },
+          theme: 'snow'
+      });
     },
     updated(){
         

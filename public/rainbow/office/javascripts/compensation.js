@@ -9,12 +9,16 @@ import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.
 
 import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import oasisAvatarDefault from "/rainbow/images/oasis-default-building.jpeg";
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 let customAlert = new CustomAlertModal();
+
+const oasisAvatarDefault = new URL(
+  '/rainbow/images/oasis-default-building.jpeg',
+  import.meta.url
+);
 
 const currentOasisId = getQueryVariable("oasis_id");
 

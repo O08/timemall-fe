@@ -3,8 +3,7 @@ import { createApp } from "vue";
 import { getQueryVariable } from "/common/javascripts/util.js";
 import Auth from "/estudio/javascripts/auth.js"
 import axios from 'axios';
-import defaultAvatarImage from '/common/icon/panda-kawaii.svg'
-import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
+import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
 import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
@@ -17,7 +16,6 @@ import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 const RootComponent = {
     data() {
         return {
-            defaultAvatarImage,
             workflow: {
                 serviceInfo: {}
             }
@@ -45,7 +43,7 @@ app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     scene: EventFeedScene.POD}));
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
-    return tag.startsWith('content')
+    return tag.startsWith('content') || tag.startsWith('json-node')
 }
 app.mixin(new FriendListCompoent({need_init: true}));
 
