@@ -204,15 +204,18 @@ const RootComponent = {
             return !!this.eidtPlanObj.planName && !!this.eidtPlanObj.price && Number(this.eidtPlanObj.price)>0 && !!this.eidtPlanObj.description && this.btn_ctl.eidtPlanObj_already_change;
         },
         copyValueToClipboardV(plan) {
-
+            const innerUrl=this.getPlanViewUrlV(plan);
+            const content = currentDomain + innerUrl;
+            return copyValueToClipboard(content);
+        },
+        getPlanViewUrlV(plan){
             const userHandle = this.getIdentity().handle; // from auth.js
-            const onePlanContent = currentDomain + "/" + userHandle + "/" + plan.productCode + "/" + plan.id + "/subscription?planType=" + plan.planType + "&mode=";
+            const onePlanContent =  "/" + userHandle + "/" + plan.productCode + "/" + plan.id + "/subscription?planType=" + plan.planType + "&mode=";
             var mode = "hard";
             if (plan.status == '1' || plan.status == '3') {
                 mode = "easy";
             }
-            const content = onePlanContent + mode;
-            return copyValueToClipboard(content);
+            return onePlanContent + mode;
         },
         newPlanObjRemoveOneFeatureV(index) {
             this.newPlanObj.featuresObj.splice(index, 1);

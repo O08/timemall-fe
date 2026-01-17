@@ -401,7 +401,7 @@
                        </td>
                         <td class="col-mps-title">
     
-                          <a :href="'/estudio/studio-mps-action?mps_id='+trans.id">
+                          <a class="tb-url-link" :href="'/estudio/studio-mps-action?mps_id='+trans.id">
                             <span class="ellipsis-1">
                               {{trans.title}}
                             </span>
@@ -488,7 +488,7 @@
                     <tbody>
                       <tr v-for="trans in mps_chain_pagination.records">
                         <td class="col-chain-title-no-option">
-                          <a :href="'/estudio/studio-chain-setting?option=edit&chain_id='+trans.id">
+                          <a class="tb-url-link" :href="'/estudio/studio-chain-setting?option=edit&chain_id='+trans.id">
                             <span class="ellipsis-1">
                               {{trans.title}}
                             </span>

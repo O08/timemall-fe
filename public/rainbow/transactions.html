@@ -22,6 +22,11 @@
       <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
         <div class="sidebarContainer d-flex flex-row">
           <col-nav-main>
+          <div class="back-link-box" onclick="history.back()">
+            <span class="back-link-btn" title="返回">
+              <i class="bi bi-chevron-left"></i>
+            </span>
+          </div>
           <div class="nav-container-wrapper">
             <a href="/rainbow/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落"> 
               <div class="nav-item-default nav-item-active nav-teixcalaanli-active d-flex align-items-center justify-content-center ms-3">
@@ -174,15 +179,10 @@
       </div>
     </header>
         <div class="distribution-container mt-5 mx-3">
-          <div class="btn-go-back d-flex justify-content-center align-items-center mb-2" >
-            <a class="url-link" onclick="goBack()" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="返回">
-              <i class="bi bi-caret-left"></i>
-            </a>
-          </div>
             <div class="d-flex justify-content-center ">
                 <h4>历史交易</h4>
             </div>
-            <table class="table table-dark table-hover tb-fd-wd-fixed align-middle mb-0">
+            <table class="table table-dark table-hover tb-fd-wd-fixed align-middle mb-0 mt-5">
                 <thead>
                     <tr>
                       <th scope="col" class="w-40">流水编号</th>

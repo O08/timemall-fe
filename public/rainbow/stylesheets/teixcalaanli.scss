@@ -204,3 +204,28 @@ col-content::-webkit-scrollbar {
   display: -webkit-box;
   overflow: hidden;
 }
+.back-link-box{
+  height: 5rem;
+  padding-top: 1rem;
+  padding-bottom: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-link-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  z-index: 2;
+}
+.back-link-btn i{
+-webkit-text-stroke: 1.5px;
+}

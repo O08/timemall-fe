@@ -1,8 +1,6 @@
 
 .form-withdraw{
-    margin-top: 10%;
-    max-width: 400px;
-    margin-left: 25%;
+    width: 400px;
 }
 .btn-go-back{
     height: 45px;
@@ -30,11 +28,18 @@
 
 }
 @media (max-width: 576px) {
-    .form-withdraw{
-        margin-left: 10%;
+    .form-box{
+        width: 100%;
     }
-    
+    .form-withdraw{
+       width: 100%;
+    }
+    .add-icon{
+      font-size: 12px;
+    }
+
 }
+    
 .modal-content{
     background-color: #fff;
   }

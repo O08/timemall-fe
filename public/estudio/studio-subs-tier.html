@@ -411,6 +411,8 @@
                                         @click="showEditPlanModalV(plan.id)">编辑套餐</a></li>
                                     <li><a class="dropdown-item" v-preventreclick @click="removePlanV(plan.id)">移除套餐</a>
                                     </li>
+                                    <li><a class="dropdown-item" :href="getPlanViewUrlV(plan)">套餐详情</a>
+                                    </li>
                                   </ul>
                                 </div>
                               </span>

@@ -143,6 +143,9 @@
         <!-- section bubble-->
         <section class="section-bubble-brand-info">
           <div class="brand-cover">
+            <span class="back-link-btn"  onclick="history.back()" title="返回">
+              <i class="bi bi-chevron-left"></i>
+            </span>
             <img :src="adaptiveImageUriV(homeInfo.cover) || defaultBannerImage" @error.once="e => { e.target.src = defaultBannerImage }">
           </div>
           <!-- brand avator -->

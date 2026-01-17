@@ -666,21 +666,13 @@ json-node {
 .url-link{
   text-decoration: none;
   color: white;
-  opacity: .8;
-  -khtml-opacity: .8;
-  -moz-opacity: .8; 
-  -webkit-opacity:  .8; /* WebKit browser e.g. Safari */
-  filter:alpha(opacity=80);
-
 }
 .url-link:hover{
   color: white;
-  opacity: 1;
-  zoom: 1;
-  -khtml-opacity:1;
-  -moz-opacity:1; 
-  filter:alpha(opacity=100);
-  -webkit-opacity: 1; /* WebKit browser e.g. Safari */
+  text-underline-offset: .25em;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: #fff;
 }
 
   /*----------------------------------------------------
@@ -1100,9 +1092,8 @@ col-container{
   color: #000;
 }
 .nav-container-wrapper{
-  height: calc(100% - 100px);
+  height: 100%;
   overflow-y: scroll;
-  padding-top: 2.5rem;
   scrollbar-width: none;
 }
 .nav-container-wrapper::-webkit-scrollbar { 

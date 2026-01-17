@@ -55,7 +55,7 @@ const RootComponent = {
         },
         changeUrlTabV(tab){
             const url = window.location.pathname+"?tab="+tab;
-            history.pushState(null, "", url);
+            history.replaceState(null, "", url);
         },
         loadHomeInfoV(){
             loadHomeInfo();

@@ -27,7 +27,11 @@
       <main>
         <div v-show="payroll.init_finish" class="content-box">
 
-          
+          <div class="go-back-box" title="返回">
+            <span style="cursor: pointer; font-weight: 500; color: #aaa;"  onclick="history.back()">
+              <i class="bi bi-arrow-left" style="-webkit-text-stroke: 1.5px;"></i>
+            </span>
+          </div>
           <div class="salary-title-box"><span>{{payroll.title}}</span></div>
           <section  class="section-service-block section-box box-bg-primary">
             <div class="section-header">

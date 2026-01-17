@@ -3,17 +3,6 @@
 /*----------------------------------------------------
     1. layout
 ------------------------------------------------------*/
-/* mall-app {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  } */
-  // mall-app header{
-  //   height: 150px;
-  //   top: 0;
-  //   background-color: #121212;
-  // }
-
 
   .modal-content{
     background-color: #fff;
@@ -22,19 +11,33 @@
     height: 40px;
   }
 
-  /* mall-app content {
-    display: flex;
-    height: calc(100% - 240px);
-  } */
-
-
 
   mall-app main {
     flex: 1;
     padding-top: 56px;
   }
 
+  .back-link-btn {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
 
+.back-link-btn:hover {
+    background-color: rgba(255, 59, 48, 0.2);
+}
 .mobile-nav-container{
   display: none;
 }
@@ -131,6 +134,7 @@ nav{
 .section-bubble-brand-info  .brand-cover
 {
     width: 100%;
+    position: relative;
 }
 .brand-cover img{
     object-fit: cover;

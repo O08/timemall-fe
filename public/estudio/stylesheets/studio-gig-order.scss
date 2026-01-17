@@ -118,10 +118,13 @@
 }
 td a{
     text-decoration: none;
-    color: white;
+    color: #fff;
 }
 td a:hover{
-    color: #c3bfbf;
+  text-decoration-line: underline;
+  text-decoration-color: #fff;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em;
 }
 table td{
     font-size: 14px;

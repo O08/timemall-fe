@@ -309,7 +309,7 @@
               </li>
               <li class="nav-item">
                 <a href="/rainbow/discovery-commercial-order">
-                  <button class="nav-link"><div class="nav-icon"><i class="bi bi-briefcase"></i></div> <span class="ms-2">商单市场</span> </button>
+                  <button class="nav-link"><div class="nav-icon"><i class="bi bi-file-richtext"></i></div> <span class="ms-2">商单市场</span> </button>
                 </a>
               </li>
             </ul>
@@ -366,7 +366,7 @@
                     <tbody>
                       <tr v-for="trans in mps_list_pagination.records">
                         <td class="col-product-no-option">
-                          <a :href="'/estudio/b2b-order-deliver?paper_id='+trans.id">
+                          <a :href="'/estudio/b2b-order-deliver?paper_id='+trans.id" class="tb-url-link">
                             <span class="ellipsis-1">
                               {{trans.title}}
                             </span>
@@ -447,7 +447,7 @@
                     <tbody>
                       <tr v-for="trans in mps_order_receiving_pagination.records">
                         <td class="col-product-no-option-lg">
-                          <a :href="'/business/paper/'+trans.id">
+                          <a :href="'/business/paper/'+trans.id" class="tb-url-link">
                             <span class="ellipsis-1">
                               {{trans.title}}
                             </span>

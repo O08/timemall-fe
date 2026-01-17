@@ -3,21 +3,62 @@
     "short_name": "班蔚",
     "description": "个性化定制、社交、商务、远程办公、创业为一体的数字职场",
     "start_url": "/",
-    "background_color": "#12121252",
-    "theme_color": "#12121252",
+    "scope": "/",
+    "background_color": "#2f2f2f",
+    "theme_color": "#2f2f2f",
     "orientation": "any",
-    "display": "minimal-ui",
+    "display": "standalone",
+    "lang": "zh-CN",
+    "dir": "ltr",
     "icons": [
         {
             "src": "/common/images/favicon-512x512.png",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
         },
         {
             "src": "/common/images/favicon-maskable-512x512.png",
             "sizes": "512x512",
+            "type": "image/png",
             "purpose": "maskable"
+        },
+        {
+            "src": "/common/images/favicon-512x512.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
         }
     ],
-    "categories": ["商务"]
-
+    "categories": ["商务", "productivity", "social"],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "彩虹部落",
+            "short_name": "部落",
+            "description": "社群与办公空间",
+            "url": "/rainbow/teixcalaanli",
+            "icons": [{ "src": "/common/images/favicon-512x512.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "心选商店",
+            "short_name": "商店",
+            "description": "技能服务市场",
+            "url": "/mall/gig-economy",
+            "icons": [{ "src": "/common/images/favicon-512x512.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "薪动商号",
+            "short_name": "商号",
+            "description": "工作室管理",
+            "url": "/estudio/studio-dashboard",
+            "icons": [{ "src": "/common/images/favicon-512x512.png", "sizes": "192x192" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "launch_handler": {
+        "route_to": "existing-client",
+        "navigate_existing_client": "never"
+    }
 }

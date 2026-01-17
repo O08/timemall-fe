@@ -393,6 +393,7 @@
                                         @click="showEditProductModalV(product)">编辑</a></li>
                                     <li><a class="dropdown-item" v-preventreclick
                                         @click="removeProductV(product.id)">移除</a></li>
+                                    <li><a class="dropdown-item" :href="getProcutViewUrlV(product.productCode,'easy')" >查看</a></li>
                                   </ul>
                                 </div>
                               </span>

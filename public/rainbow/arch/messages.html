@@ -23,6 +23,11 @@
     <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
       <div class="sidebarContainer d-flex flex-row">
         <col-nav-main>
+          <div class="back-link-box" onclick="history.back()">
+            <span class="back-link-btn" title="返回">
+              <i class="bi bi-chevron-left"></i>
+            </span>
+          </div>
           <div class="nav-container-wrapper">
             <a href="/rainbow/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right"
               data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落">
@@ -165,8 +170,8 @@
                   </div>
 
                   <span v-show="currentChatFriendId!=friend.id && friend.unread!=0"
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {{ friend.unread > 100 ? "100+" : friend.unread}}
+                    class="position-absolute start-100 translate-middle badge rounded-pill bg-danger" style="top: 4px;">
+                    {{ friend.unread > 500 ? "500+" : friend.unread}}
                     <span class="visually-hidden">unread messages</span>
                   </span>
                 </div>

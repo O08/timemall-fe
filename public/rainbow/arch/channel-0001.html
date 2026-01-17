@@ -25,116 +25,121 @@
     <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
       <div class="sidebarContainer d-flex flex-row">
         <col-nav-main>
-      <div class="nav-container-wrapper">
-        <a href="/rainbow/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落"> 
-          <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
-            <i class="bi bi-rainbow"></i>
+          <div class="back-link-box" onclick="history.back()">
+            <span class="back-link-btn" title="返回">
+              <i class="bi bi-chevron-left"></i>
+            </span>
           </div>
-        </a>
-        <a href="/messages" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
-          <div class="nav-private nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2">
-            <i class="bi bi-soundwave"></i>             
-          </div>
-        </a>
-        <a :key="oasis.id" v-for="oasis in joinedoases.records"  :href="'/rainbow/oasis/home?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
-          <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
-               :class="{'active': oasis.id==oasisId}">
-            <div class="oasis-avatar-wrapper">
-              <img class="oasis-avatar-tiny" 
-            :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
-            </div>
-          </div>
-        </a>
-
-      </div>
-      
-      <div class="nav-setting">
-        <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
-              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-dark ms-5">
-              <li>
-                <a href="/estudio/studio-setting-profile">
-                  <button class="dropdown-item" type="button">
-                    <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                   </button>
-                </a>
-              </li>
-              <li>
-                  <button @click="logout()" class="dropdown-item" type="button">   
-                    <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
-                  </button>
-              </li>
-              <li>
-                <a href="/mall/delete-account">
-                  <button class="dropdown-item" type="button">
-                    <i class="bi bi-trash3 me-1"></i> 删除账号
-                   </button>
-                </a>
-              </li>
-              
-              <li>
-                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                  <i class="bi bi-flag me-1"></i> 问题反馈
-                </button>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </col-nav-main>
-    <col-nav-sub>
-      <div>
-        <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce" :initiator_role="initiatorRoleV()" :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
-      </div>
-      <div class="nav-sub-container">
-        <div>
-          <div>
-            <fastlinks  :links="fastlinks"/>
-          </div>
-
-          <a  class="nav-link nva-link-default p-2 ms-3 d-flex flex-row align-items-center" :href="'/rainbow/oasis/home?oasis_id=' + oasisId">
-            <i class="bi bi-house"></i>
-              
-        
-            <span>主页</span>  
-          </a>
-          <a class="nav-link p-2 ms-3 nav-sub-link-active d-flex flex-row align-items-center">
-            <i class="bi bi-fan"></i>
-            <span class="link-title">日常</span>  
-          </a>
-          <div v-for="channel in channelSort" 
-             :class="{'channel-active': currentOch==channel}"
-             class="w-100 position-relative sub-channel-box">
-            <a  
-            :class="{
-              'nva-link-default': currentOch!=channel,
-              'nav-sub-link-active ':  currentOch==channel}"
-                class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/rainbow/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
-           
-              <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
-              <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
-
-            </a>
-            <div :class="{'isAdmin': initiatorRoleV()}" class="channel-options">
-              <div class="channel-options-ctl">
-                  <a  :href="getChannelDataV(channel,oaisiChannelList).appAdminUrl + '?och=' + channel" class="option-channel-setting">
-                      <button type="button" class="btn  btn-secondary"><i class="bi bi-gear"></i></button>
-                  </a>
+          <div class="nav-container-wrapper">
+            <a href="/rainbow/teixcalaanli" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="彩虹部落"> 
+              <div class="nav-item-default nav-teixcalaanli d-flex align-items-center justify-content-center ms-3">
+                <i class="bi bi-rainbow"></i>
               </div>
+            </a>
+            <a href="/messages" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信"> 
+              <div class="nav-private nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2">
+                <i class="bi bi-soundwave"></i>             
+              </div>
+            </a>
+            <a :key="oasis.id" v-for="oasis in joinedoases.records"  :href="'/rainbow/oasis/home?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+              <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
+                  :class="{'active': oasis.id==oasisId}">
+                <div class="oasis-avatar-wrapper">
+                  <img class="oasis-avatar-tiny" 
+                :src="adaptiveImageUriV(oasis.avatar) || oasisAvatarDefault" @error="e => { e.target.src = oasisAvatarDefault }">  
+                </div>
+              </div>
+            </a>
+
+          </div>
+      
+          <div class="nav-setting">
+            <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-dark ms-5">
+                  <li>
+                    <a href="/estudio/studio-setting-profile">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                      </button>
+                    </a>
+                  </li>
+                  <li>
+                      <button @click="logout()" class="dropdown-item" type="button">   
+                        <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+                      </button>
+                  </li>
+                  <li>
+                    <a href="/mall/delete-account">
+                      <button class="dropdown-item" type="button">
+                        <i class="bi bi-trash3 me-1"></i> 删除账号
+                      </button>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                      <i class="bi bi-flag me-1"></i> 问题反馈
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
             </div>
           </div>
- 
-          
-          
-        </div>
-        
-        
-      </div>
-    </col-nav-sub>
+        </col-nav-main>
+        <col-nav-sub>
+          <div>
+            <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce" :initiator_role="initiatorRoleV()" :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
+          </div>
+          <div class="nav-sub-container">
+            <div>
+              <div>
+                <fastlinks  :links="fastlinks"/>
+              </div>
+
+              <a  class="nav-link nva-link-default p-2 ms-3 d-flex flex-row align-items-center" :href="'/rainbow/oasis/home?oasis_id=' + oasisId">
+                <i class="bi bi-house"></i>
+                  
+            
+                <span>主页</span>  
+              </a>
+              <a class="nav-link p-2 ms-3 nav-sub-link-active d-flex flex-row align-items-center">
+                <i class="bi bi-fan"></i>
+                <span class="link-title">日常</span>  
+              </a>
+              <div v-for="channel in channelSort" 
+                :class="{'channel-active': currentOch==channel}"
+                class="w-100 position-relative sub-channel-box">
+                <a  
+                :class="{
+                  'nva-link-default': currentOch!=channel,
+                  'nav-sub-link-active ':  currentOch==channel}"
+                    class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/rainbow/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
+              
+                  <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
+                  <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
+
+                </a>
+                <div :class="{'isAdmin': initiatorRoleV()}" class="channel-options">
+                  <div class="channel-options-ctl">
+                      <a target="_blank" :href="getChannelDataV(channel,oaisiChannelList).appAdminUrl + '?och=' + channel" class="option-channel-setting">
+                          <button type="button" class="btn  btn-secondary"><i class="bi bi-gear"></i></button>
+                      </a>
+                  </div>
+                </div>
+              </div>
+    
+              
+              
+            </div>
+            
+            
+          </div>
+        </col-nav-sub>
       </div>
     </div>
     

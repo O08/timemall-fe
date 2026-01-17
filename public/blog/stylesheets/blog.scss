@@ -10,6 +10,18 @@ mall-app {
 mall-app main {
     flex: 1;
 }
+content{
+    background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
+}
+.back-link{
+    font-size: 14px;
+    font-weight: 500;
+    height: 22px;
+    letter-spacing: normal;
+    line-height: 22px;
+    margin-bottom: 24px;
+    cursor: pointer;
+}
 .app-container {
     height: auto;
     flex-direction: column;
@@ -33,7 +45,7 @@ header{
 .content-main,.header-container{
     padding-bottom: 100px;
     --gutterWidth: 24px;
-    --containerWidth: 1100px;
+    --containerWidth: 680px;
     max-width: var(--containerWidth);
     padding: 0 var(--gutterWidth);
     margin-left: auto;
@@ -97,7 +109,7 @@ h3,p{
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 400px;
+    height: 300px;
     object-fit: cover;
 
 }
@@ -306,10 +318,14 @@ h1{
         height: 262px;
     }
     .blog-item-img-container img{
-        height: 242px;
+        height: 200px;
     }
     .content-main, .header-container {
         --gutterWidth: 12px;
+    }
+    .highlight-blog-wrapper, .blog-item-wrapper{
+       padding: 0;
+       margin-bottom: 32px;
     }
     
 }

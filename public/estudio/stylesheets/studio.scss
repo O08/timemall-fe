@@ -36,6 +36,16 @@ a {
   filter:alpha(opacity=100);
   -webkit-opacity: 1; /* WebKit browser e.g. Safari */
 }
+.tb-url-link {
+  color: #fff;
+}
+
+.tb-url-link:hover {
+  text-decoration-line: underline;
+  text-decoration-color: #fff;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em;
+}
 .logo h2 {
     text-decoration: none;
     color: #fff;

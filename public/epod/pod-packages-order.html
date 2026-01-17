@@ -333,7 +333,7 @@
                       <tbody>
                         <tr v-for="item in plan_pagination.records">
                           <td :title="item.cellTitle" class="col-product-no-option">
-                            <a :href="'/epod/packages-order-deliver?id=' + item.orderId">
+                            <a class="tb-url-link" :href="'/epod/packages-order-deliver?id=' + item.orderId">
                               <span class="ellipsis-1">
                                 {{item.cellTitle}}
                               </span>

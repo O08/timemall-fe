@@ -104,9 +104,13 @@ const RootComponent = {
             removeProduct(productId);
         },
         copyValueToClipboardV(productCode) {
-            const userHandle = this.getIdentity().handle; // from auth.js
-            const content = currentDomain + "/" + userHandle + "/" + productCode + "/subscription?mode=hard";
+            const content = currentDomain + this.getProcutViewUrlV(productCode,'hard');
             return copyValueToClipboard(content);
+        },
+        getProcutViewUrlV(productCode,mode){
+            const userHandle = this.getIdentity().handle; // from auth.js
+            const content = "/" + userHandle + "/" + productCode + "/subscription?mode="+mode;
+            return content;
         },
         transformInputTextV(e){
             return transformInputText(e);

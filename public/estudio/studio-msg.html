@@ -283,7 +283,7 @@
                   <tr v-for="notice in eventFeed.records">
                     <td class="col-msg">
                       <div>
-                        <a class="url-link" :href="'/epod/gig-order-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
+                        <a class="tb-url-link" :href="'/epod/gig-order-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
                           <p class="pt-1"><span class="ellipsis-1" style="max-width: calc(100% - 132px);display: -webkit-inline-box; vertical-align: middle; font-weight: bolder;">{{JSON.parse(notice.feed).upDesc}}</span><span>的新消息，点击查看</span></p>
                         </a>
                       </div>
