@@ -1,13 +1,11 @@
 col-nav-main {
   background-color: #141414;
   flex-direction: column;
-  width: 230px;
+  width: 200px;
   height: auto;
   display: flex;
   height: 100vh;
-  padding-left: 24px;
-  padding-right: 12px;
-  padding-top: 32px;
+  padding: 24px 16px;
 }
 .logo h2 {
   text-decoration: none;
@@ -29,7 +27,7 @@ textarea {
 }
 
 .offcanvas-xxl.offcanvas-start {
-  width: 230px;
+  width: 200px;
 }
 
 header {
@@ -56,41 +54,43 @@ header {
 
 col-nav-main .list-group-item {
   background-color: transparent;
-  color: #fff;
+  color: #808080;
   border: none !important;
 }
 
 col-nav-main .list-group-item:last-child,
 col-nav-main .list-group-item:first-child,
 col-nav-main .list-group-item {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  margin-bottom: 2px;
-  border-radius: 4px;
-  padding: 6px 10px;
-  font-size: 16px;
+  padding: 8px 0;
+  margin-bottom: 0;
+  border-radius: 0;
+  font-size: 14px;
   line-height: 20px;
-  font-weight: 500;
+  font-weight: 400;
+  transition: color 0.15s ease;
 }
 
-col-nav-main .list-group-item.active,
-col-nav-main .list-group-item:hover {
-  background-color: hsl(228 calc(1 * 6.024%) 32.549% / 0.6);
+col-nav-main .list-group-item.active {
   color: #fff;
+  background-color: transparent;
+}
+
+col-nav-main .list-group-item:hover {
+  color: #fff;
+  background-color: transparent;
 }
 
 col-nav-main .oasis-avatar {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 2px;
   background-color: #000;
 }
 
-.oasis-head-box{
-  padding-top: 16px;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #2f2f2f;
+.oasis-head-box {
+  margin-bottom: 24px;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .oasis-head {
@@ -99,16 +99,15 @@ col-nav-main .oasis-avatar {
 }
 
 .oasis-head .oasis-title {
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 13px;
+  line-height: 20px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
-  margin-left: 6px;
-  color: hsl(213.75 calc(1 * 8.081%) 61.176% / 1);
+  margin-left: 8px;
+  color: #666;
 }
 
 .feature-title {
@@ -597,13 +596,10 @@ td a:hover {
   background-color: #373b3e52 !important;
 }
 
-col-nav-main .list-group-item {
-  color: #9e9e9e;
-}
-
-col-nav-main .list-group-item:hover {
-  color: #fff;
-  background-color: #4e505899;
+col-nav-main .list-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .fresh-ui .modal-title {

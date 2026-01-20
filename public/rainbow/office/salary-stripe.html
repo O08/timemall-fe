@@ -33,127 +33,129 @@
             </span>
           </div>
           <div class="salary-title-box"><span>{{payroll.title}}</span></div>
-          <section  class="section-service-block section-box box-bg-primary">
-            <div class="section-header">
-              <div>职员信息</div>
-            </div>
+          <section class="section-service-block section-box box-bg-primary employee-section">
             <div class="info-block">
-              <div class="basic-info-box">
-                <div class="employee-avatar-container">
-                  <img :src="adaptiveImageUriV(payroll.employeePhoto) || personManDefault" @error.once="e => { e.target.src = personManDefault }" alt="avatar">
-                </div>
-                <div class="employee-fields">
-
-                  <div class="employee-info-col">
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">姓名：</span>
-                      <span class="employee-info-item__content">{{payroll.employeeName}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">工号：</span>
-                      <span class="employee-info-item__content">{{payroll.employeeNumber}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">UID：</span>
-                      <span class="employee-info-item__content">{{payroll.employeeUid}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">类型：</span>
-                      <span class="employee-info-item__content">{{explianEmployeeGenreV(payroll.genre)}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">状态：</span>
-                      <span class="employee-info-item__content">{{explianEmployeeStatusV(payroll.employeeStatus)}}</span>
-                    </div>
-
-   
-  
+              <div class="employee-profile-card">
+                <!-- 左侧头像卡片 -->
+                <div class="employee-avatar-card">
+                  <div class="avatar-wrapper">
+                    <img :src="adaptiveImageUriV(payroll.employeePhoto) || personManDefault" @error.once="e => { e.target.src = personManDefault }" alt="avatar">
+                    <div class="avatar-status-dot" :class="{'is-active': payroll.employeeStatus == 1}"></div>
                   </div>
-
-                  <div class="employee-info-col d-none-sm">
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">部门：</span>
-                      <span class="employee-info-item__content">{{payroll.department}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">职能：</span>
-                      <span class="employee-info-item__content">{{payroll.role}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">职级：</span>
-                      <span class="employee-info-item__content">{{renderEmployeeFieldV(payroll.level)}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">电话：</span>
-                      <span class="employee-info-item__content">{{renderEmployeeFieldV(payroll.phone)}}</span>
-                    </div>
-                    <div class="employee-info-item">
-                      <span class="employee-info-item__label">邮箱：</span>
-                      <span class="employee-info-item__content">{{renderEmployeeFieldV(payroll.email)}}</span>
-                    </div>
-  
+                  <div class="employee-identity">
+                    <h2 class="employee-name">{{payroll.employeeName}}</h2>
+                    <div class="employee-role">{{payroll.role || '未分配职能'}}</div>
                   </div>
-
+                  <div class="employee-id-info">
+                    <span class="id-item"><i class="bi bi-hash"></i><span>{{payroll.employeeNumber}}</span></span>
+                    <span class="id-item"><i class="bi bi-fingerprint"></i><span>{{payroll.employeeUid}}</span></span>
+                  </div>
                 </div>
                 
-                
+                <!-- 右侧信息分组 -->
+                <div class="employee-info-panels">
+                  <!-- 工作信息 -->
+                  <div class="info-panel">
+                    <div class="panel-header">
+                      <i class="bi bi-briefcase"></i>
+                      <span>工作信息</span>
+                    </div>
+                    <div class="panel-content">
+                      <div class="panel-row">
+                        <span class="row-label">所属部门</span>
+                        <span class="row-value">{{payroll.department || '-'}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">员工类型</span>
+                        <span class="row-value">{{explianEmployeeGenreV(payroll.genre)}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">当前状态</span>
+                        <span class="row-value status-value" :class="{'is-active': payroll.employeeStatus == 1}">
+                          <i class="bi" :class="payroll.employeeStatus == 1 ? 'bi-check-circle-fill' : 'bi-pause-circle'"></i>
+                          {{explianEmployeeStatusV(payroll.employeeStatus)}}
+                        </span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">职级</span>
+                        <span class="row-value">{{renderEmployeeFieldV(payroll.level)}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 联系方式 -->
+                  <div class="info-panel">
+                    <div class="panel-header">
+                      <i class="bi bi-person-lines-fill"></i>
+                      <span>联系方式</span>
+                    </div>
+                    <div class="panel-content">
+                      <div class="panel-row">
+                        <span class="row-label">联系电话</span>
+                        <span class="row-value">{{renderEmployeeFieldV(payroll.phone)}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">电子邮箱</span>
+                        <span class="row-value email-value">{{renderEmployeeFieldV(payroll.email)}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
-          <section  class="section-service-block section-box box-bg-primary">
+          <section class="section-service-block section-box box-bg-primary">
             <div class="section-header">
-              <div>薪资总览</div>
+              <div class="section-header-title">
+                <i class="bi bi-bar-chart-line"></i>
+                <span>薪资总览</span>
+              </div>
             </div>
             <div class="info-block">
               <div class="dashboard-box">
-                <div class="redeem-stats-info">
-                  <div class="stats-info">
-                    <div class="stats-info-title">
-                      <div class="countKey">应发薪资</div>
-                      <div class="countValue">{{payroll.grossPay}}</div>
-                    </div>
+                <div class="salary-stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">应发薪资（元）</span>
+                    <i class="bi bi-piggy-bank stat-icon"></i>
                   </div>
+                  <div class="stat-value">{{payroll.grossPay}}</div>
                 </div>
-  
-  
-                <div class="redeem-stats-info">
-                  <div class="stats-info">
-                    <div class="stats-info-title">
-                      <div class="countKey">应扣薪资</div>
-                      <div class="countValue">{{payroll.deductions}}</div>
-                    </div>
+
+                <div class="salary-stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">应扣薪资（元）</span>
+                    <i class="bi bi-dash-circle stat-icon"></i>
                   </div>
+                  <div class="stat-value">{{payroll.deductions}}</div>
                 </div>
-    
-    
-                <div class="redeem-stats-info">
-                  <div class="stats-info">
-                    <div class="stats-info-title">
-                      <div class="countKey">代扣代缴</div>
-                      <div class="countValue">{{payroll.withholdAndRemitTax}}</div>
-                    </div>
+
+                <div class="salary-stat-card">
+                  <div class="stat-header">
+                    <span class="stat-label">代扣代缴（元）</span>
+                    <i class="bi bi-receipt stat-icon"></i>
                   </div>
+                  <div class="stat-value">{{payroll.withholdAndRemitTax}}</div>
                 </div>
-  
-                <div class="redeem-stats-info">
-                  <div class="stats-info">
-                    <div class="stats-info-title">
-                      <div class="countKey">实发薪资</div>
-                      <div class="countValue">{{payroll.netPay}}</div>
-                    </div>
+
+                <div class="salary-stat-card salary-stat-net">
+                  <div class="stat-header">
+                    <span class="stat-label">实发薪资（元）</span>
+                    <i class="bi bi-credit-card stat-icon"></i>
                   </div>
+                  <div class="stat-value">{{payroll.netPay}}</div>
                 </div>
-      
-          
-          
+
               </div>
             </div>
           </section>
 
           <section v-if="!!payroll.benefit" class="section-service-block section-box box-bg-primary">
             <div class="section-header d-flex justify-content-between">
-              <div>五险一金</div>
+              <div class="section-header-title">
+                <i class="bi bi-shield-check"></i>
+                <span>五险一金</span>
+              </div>
               <button v-if="canEditPayrollV()" @click="showEditEmployeeBenefitModalV" class="btn btn-file-upload bgPrimary">
                 
                 <div class="btn-file-upload-wrp">编辑</div>
@@ -162,218 +164,127 @@
             </div>
             <div class="info-block">
               <div class="table-scroll-box">
-
-                <table class="table table-sm table-dark table-hover align-middle">
+                <table class="benefit-table">
                   <thead>
                     <tr>
-                      <th class="col-employee-name">项目</th>
-                      <th class="col-employee-code">缴纳基数</th>
-                      <th class="col-fee">企业比例</th>
-                      <th class="col-inventory">个人比例</th>
-                      <th class="col-fee">企业缴纳（元）</th>
-                      <th class="col-status">个人缴纳（元）</th>
+                      <th>项目</th>
+                      <th>缴纳基数（元）</th>
+                      <th>企业比例</th>
+                      <th>个人比例</th>
+                      <th>企业缴纳（元）</th>
+                      <th>个人缴纳（元）</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                        养老保险
-                      </td>
-                      <td>
-                       {{payroll.benefit.pensionInsuranceBase}}
-                      </td>
-                      <td>
-                        {{payroll.benefit.pensionInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{payroll.benefit.pensionInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.pensionInsuranceBase,payroll.benefit.pensionInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.pensionInsuranceBase,payroll.benefit.pensionInsuranceEmployeeRate)}}
-                      </td>
+                      <td>养老保险</td>
+                      <td>{{payroll.benefit.pensionInsuranceBase}}</td>
+                      <td>{{payroll.benefit.pensionInsuranceCompanyRate}}%</td>
+                      <td>{{payroll.benefit.pensionInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.pensionInsuranceBase,payroll.benefit.pensionInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.pensionInsuranceBase,payroll.benefit.pensionInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        医疗保险
-                      </td>
-                      <td>
-                        {{payroll.benefit.medicalInsuranceBase}}
-                      </td>
-                      <td>
-                        {{payroll.benefit.medicalInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{payroll.benefit.medicalInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.medicalInsuranceBase,payroll.benefit.medicalInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.medicalInsuranceBase,payroll.benefit.medicalInsuranceEmployeeRate)}}
-                      </td>
+                      <td>医疗保险</td>
+                      <td>{{payroll.benefit.medicalInsuranceBase}}</td>
+                      <td>{{payroll.benefit.medicalInsuranceCompanyRate}}%</td>
+                      <td>{{payroll.benefit.medicalInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.medicalInsuranceBase,payroll.benefit.medicalInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.medicalInsuranceBase,payroll.benefit.medicalInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        失业保险
-                      </td>
-                      <td>
-                        {{payroll.benefit.unemploymentInsuranceBase}}
-                      </td>
-                      <td>
-                        {{payroll.benefit.unemploymentInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{payroll.benefit.unemploymentInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.unemploymentInsuranceBase,payroll.benefit.unemploymentInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.unemploymentInsuranceBase,payroll.benefit.unemploymentInsuranceEmployeeRate)}}
-                      </td>
+                      <td>失业保险</td>
+                      <td>{{payroll.benefit.unemploymentInsuranceBase}}</td>
+                      <td>{{payroll.benefit.unemploymentInsuranceCompanyRate}}%</td>
+                      <td>{{payroll.benefit.unemploymentInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.unemploymentInsuranceBase,payroll.benefit.unemploymentInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.unemploymentInsuranceBase,payroll.benefit.unemploymentInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        工伤保险
-                      </td>
-                      <td>
-                        {{payroll.benefit.occupationalInjuryInsuranceBase}}
-                      </td>
-                      <td>
-                        {{payroll.benefit.occupationalInjuryInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{payroll.benefit.occupationalInjuryInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.occupationalInjuryInsuranceBase,payroll.benefit.occupationalInjuryInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.occupationalInjuryInsuranceBase,payroll.benefit.occupationalInjuryInsuranceEmployeeRate)}}
-                      </td>
+                      <td>工伤保险</td>
+                      <td>{{payroll.benefit.occupationalInjuryInsuranceBase}}</td>
+                      <td>{{payroll.benefit.occupationalInjuryInsuranceCompanyRate}}%</td>
+                      <td>{{payroll.benefit.occupationalInjuryInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.occupationalInjuryInsuranceBase,payroll.benefit.occupationalInjuryInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.occupationalInjuryInsuranceBase,payroll.benefit.occupationalInjuryInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        生育保险
-                      </td>
-                      <td>
-                        {{payroll.benefit.birthInsuranceBase}}
-                      </td>
-                      <td>
-                        {{payroll.benefit.birthInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{payroll.benefit.birthInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.birthInsuranceBase,payroll.benefit.birthInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.birthInsuranceBase,payroll.benefit.birthInsuranceEmployeeRate)}}
-                      </td>
+                      <td>生育保险</td>
+                      <td>{{payroll.benefit.birthInsuranceBase}}</td>
+                      <td>{{payroll.benefit.birthInsuranceCompanyRate}}%</td>
+                      <td>{{payroll.benefit.birthInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.birthInsuranceBase,payroll.benefit.birthInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.birthInsuranceBase,payroll.benefit.birthInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        住房公积金
-                      </td>
-                      <td>
-                        {{payroll.benefit.housingProvidentFundsBase}}
-                      </td>
-                      <td>
-                        {{payroll.benefit.housingProvidentFundsCompanyRate}}%
-                      </td>
-                      <td>
-                        {{payroll.benefit.housingProvidentFundsEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.housingProvidentFundsBase,payroll.benefit.housingProvidentFundsCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(payroll.benefit.housingProvidentFundsBase,payroll.benefit.housingProvidentFundsEmployeeRate)}}
-                      </td>
+                      <td>住房公积金</td>
+                      <td>{{payroll.benefit.housingProvidentFundsBase}}</td>
+                      <td>{{payroll.benefit.housingProvidentFundsCompanyRate}}%</td>
+                      <td>{{payroll.benefit.housingProvidentFundsEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.housingProvidentFundsBase,payroll.benefit.housingProvidentFundsCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(payroll.benefit.housingProvidentFundsBase,payroll.benefit.housingProvidentFundsEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        合计
-                      </td>
-                      <td>
-                       -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        ¥{{calCompanyBenefitExpenseV(payroll.benefit)}}
-                      </td>
-                      <td>
-                        ¥{{payroll.withholdAndRemitTax}}
-                      </td>
+                      <td>合计</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>¥{{calCompanyBenefitExpenseV(payroll.benefit)}}</td>
+                      <td>¥{{payroll.withholdAndRemitTax}}</td>
                     </tr>
-  
                   </tbody>
                 </table>
-
               </div>
             </div>
           </section>
 
           <section v-if="!!payroll.compensation" class="section-service-block section-box box-bg-primary">
             <div class="section-header d-flex justify-content-between">
-              <div>薪资项</div>
+              <div class="section-header-title">
+                <i class="bi bi-list-check"></i>
+                <span>薪资项</span>
+              </div>
               <button v-if="canEditPayrollV()" v-preventreclick @click="showConfigCompensationModalV" class="btn btn-file-upload bgPrimary">
-                
                 <div class="btn-file-upload-wrp">录入</div>
-                
               </button>
-             
             </div>
             <div class="info-block">
               <div class="table-scroll-box">
-
-                <table class="table table-sm table-dark table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-salyar-element-name">名目</th>
-                      <th class="col-salyar-element-amount">金额（元）</th>
-                      <th class="col-fee"></th>
-  
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(compensationItem,index)  in payroll.compensation">
-  
-                      <td>
-                       {{compensationItem.title}}
-                      </td>
-                      <td>
-                        <span>{{compensationItem.direction==1? "+" : "-" }}</span><span>{{compensationItem.amount.toFixed(2)}}</span>
-                      </td>
-                      <td>
-                        <span v-if="canEditPayrollV()"  class="td-more-options">
-                          <span v-preventreclick @click="removeOneCompensationItemV(index)"  class="btn-option-secondary" >
-                            <i class="bi bi-trash"></i>
-                          </span>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
+                <div class="compensation-list">
+                  <div class="compensation-item" v-for="(compensationItem,index) in payroll.compensation">
+                    <div class="compensation-info">
+                      <span class="compensation-title">{{compensationItem.title}}</span>
+                    </div>
+                    <div class="compensation-amount" :class="{'is-deduct': compensationItem.direction != 1}">
+                      <span>{{compensationItem.direction==1 ? '+' : '-'}}</span>
+                      <span>{{compensationItem.amount.toFixed(2)}}</span>
+                    </div>
+                    <button v-if="canEditPayrollV()" v-preventreclick @click="removeOneCompensationItemV(index)" class="compensation-delete">
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
+                  <div class="compensation-empty" v-if="!payroll.compensation || payroll.compensation.length === 0">
+                    暂无薪资项
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
          
-          <section class="section-extra-block  d-flex justify-content-center align-items-center mb-5">
-            <button class="btn btn-save bgPrimaryBlue" v-if="canEditPayrollV()" v-preventreclick @click="showPaymentFocusModalV">快捷打款</button>
-            <button class="btn btn-save bgPrimaryBlue" v-if="payroll.payrollStatus=='2'">已打款</button>
-            <button class="btn btn-save bgPrimaryBlue" v-if="!canEditPayrollV() && payroll.payrollStatus=='1'">待打款</button>
+          <section class="section-extra-block salary-action-box">
+            <button class="btn btn-salary-action btn-action-pay" v-if="canEditPayrollV()" v-preventreclick @click="showPaymentFocusModalV">
+              <i class="bi bi-credit-card"></i>
+              <span>快捷打款</span>
+            </button>
+            <div class="salary-status-badge status-paid" v-if="payroll.payrollStatus=='2'">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>已打款</span>
+            </div>
+            <div class="salary-status-badge status-pending" v-if="!canEditPayrollV() && payroll.payrollStatus=='1'">
+              <i class="bi bi-lightning-charge"></i>
+              <span>待打款</span>
+            </div>
           </section>
 
 
@@ -422,7 +333,7 @@
                     <div class="section-name">养老保险</div>
 
                     <div class="col-md-6">
-                      <label for="employeeBenefit__pensionBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__pensionBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true" v-model="editBenefitObj.pensionInsuranceBase" id="employeeBenefit__pensionBase"  @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control    mb-3" type="text" autocomplete="off">
                     </div>
@@ -442,7 +353,7 @@
                     <div class="section-name">医疗保险</div>
 
                     <div class="col-md-6">
-                      <label for="employeeBenefit__medicalBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__medicalBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true" v-model="editBenefitObj.medicalInsuranceBase" id="employeeBenefit__medicalBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control    mb-3" type="text" autocomplete="off">
                     </div>
@@ -462,7 +373,7 @@
                     <div class="section-name">失业保险</div>
 
                     <div class="col-md-6">
-                      <label for="employeeBenefit__unemploymentBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__unemploymentBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true" v-model="editBenefitObj.unemploymentInsuranceBase" id="employeeBenefit__unemploymentBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control    mb-3" type="text" autocomplete="off">
                     </div>
@@ -482,7 +393,7 @@
                     <div class="section-name">工伤保险</div>
 
                     <div class="col-md-6">
-                      <label for="employeeBenefit__employmentInjuryBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__employmentInjuryBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true" v-model="editBenefitObj.occupationalInjuryInsuranceBase" id="employeeBenefit__employmentInjuryBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control    mb-3" type="text" autocomplete="off">
                     </div>
@@ -502,7 +413,7 @@
                     <div class="section-name">生育保险</div>
 
                     <div class="col-md-6">
-                      <label for="employeeBenefit__birthBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__birthBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true" v-model="editBenefitObj.birthInsuranceBase" id="employeeBenefit__birthBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control    mb-3" type="text" autocomplete="off">
                     </div>
@@ -522,7 +433,7 @@
                     <div class="section-name">住房公积金</div>
 
                     <div class="col-md-6">
-                      <label for="employeeBenefit__housingFundBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__housingFundBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true" v-model="editBenefitObj.housingProvidentFundsBase" id="employeeBenefit__housingFundBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control    mb-3" type="text" autocomplete="off">
                     </div>

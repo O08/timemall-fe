@@ -1,42 +1,48 @@
+/* ========== 薪资总览卡片区域 ========== */
 .dashboard-box {
   display: grid;
   gap: 12px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.redeem-stats-info {
-  background-color: #141414;
-  border-radius: 10px;
-  width: 100%;
-}
-
-.stats-info,
-.stats-trend {
-  display: flex;
-  justify-content: space-between;
+.salary-stat-card {
+  background: #1a1a1a;
+  border-radius: 8px;
   padding: 16px;
-
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #252525;
 }
 
-.countKey {
+.stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #71717a;
+  font-weight: 500;
+}
+
+.stat-icon {
   font-size: 14px;
-  line-height: 1.4;
-  white-space: nowrap;
-  color: #b5b6ba;
+  color: #71717a;
+}
+
+.stat-value {
+  font-size: 20px;
   font-weight: 600;
+  line-height: 1.2;
+  color: #e5e5e5;
+  word-break: break-all;
 }
 
-.countValue {
-  margin-top: 24px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 32px;
-}
-
-.stats-trend {
-  background-color: #141414;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+/* 实发薪资 - 绿色强调 */
+.salary-stat-net .stat-value {
+  color: #f87171;
 }
 
 body {
@@ -59,7 +65,8 @@ pt-app content main {
 }
 
 .box-bg-primary {
-  background-color: #1f1f1f;
+  background-color: #141414;
+  border: 1px solid #1f1f1f;
 }
 
 .content-box {
@@ -70,31 +77,32 @@ pt-app content main {
   padding: 0 var(--gutterWidth);
   margin: 24px auto 96px;
 }
-.salary-title-box{
-  background-color: #2b2b2b;
+/* ========== 标题区域 ========== */
+.salary-title-box {
   height: 48px;
-  padding-left: 12px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fafafa;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background: #161616;
+  border: 1px solid #252525;
 }
-.salary-title-box span{
+.salary-title-box span {
   word-break: break-all;
 }
-.employee-info-item__label{
-  font-weight: 500;
-  min-width: fit-content;
-}
-.employee-fields .employee-info-col:nth-of-type(1){
-  padding-right: 12px;
-}
+
 .section-box {
   min-height: 72px;
   padding-top: 1.3rem;
   padding-bottom: 2rem;
   padding-left: 1.3rem;
   padding-right: 1.3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 20px;
+  border-radius: 12px;
 }
 
 .btn-file-upload {
@@ -103,33 +111,51 @@ pt-app content main {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  background: none;
-  border: none;
-  border-radius: 3px;
-  font-size: 14px;
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 4px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  padding: 2px 16px;
-  color: #fff;
+  padding: 6px 12px;
+  color: #808080;
   min-height: 28px;
+  transition: all 0.15s ease;
 }
 
 .btn-file-upload:hover {
-  background-color: hsl(228 calc(1 * 6.024%) 32.549% / 0.6);
+  background-color: #252525;
+  border-color: #444;
+  color: #e0e0e0;
 }
 
 .bgPrimary {
-  background-color: hsl(234.935 calc(1 * 85.556%) 64.706% / 1);
+  background-color: transparent;
 }
 
 .bgPrimary:hover {
-  background-color: hsl(234.72 calc(1 * 51.44%) 52.353% / 1);
+  background-color: #252525;
 }
 
+/* ========== Section 头部 ========== */
 .section-header {
   padding-bottom: 1rem;
   font-size: 14px;
   font-weight: 500;
+}
+
+.section-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.section-header-title i {
+  font-size: 16px;
+  color: #9ca3af;
 }
 
 .btn-save {
@@ -150,201 +176,615 @@ pt-app content main {
   font-size: 14px;
 }
 
-.bgPrimaryBlue:hover {
-  background-color: hsl(140.308 calc(1 * 60.748%) 20.98% / 1);
-}
+
 
 #focusModal .modal-dialog-scrollable .modal-content {
-  background-clip: unset;
+  background-color: #fff;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
 }
 
-.btn-option-secondary:hover {
-  color: #00ba9d;
+#focusModal .modal-header {
+  padding: 20px 24px 12px;
 }
 
-.btn-option-secondary {
-  background-color: #141414;
+#focusModal .modal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
-.loading .btn-file-upload-wrp {
-  display: none;
+#focusModal .modal-body {
+  padding: 8px 24px 20px;
 }
 
-.loading-content {
-  display: none;
+#focusModal .card-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
 }
 
-.loading .loading-content {
-  display: block;
+#focusModal .modal-footer {
+  padding: 16px 24px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 8px 8px;
 }
 
+#focusModal .modal-btn-ui {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 4px;
+}
 
-.btn-option-secondary {
+#focusModal .btn-secondary {
+  background: transparent;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+#focusModal .btn-secondary:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+  color: #333;
+}
+
+#focusModal .btn-primary {
+  background: #1a1a1a;
+  border: none;
+  color: #fff;
+}
+
+#focusModal .btn-primary:hover {
+  background: #333;
+}
+
+/* ========== configCompensationModal ========== */
+#configCompensationModal .modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+#configCompensationModal .modal-body {
+  padding: 24px;
+}
+
+#configCompensationModal .form-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+#configCompensationModal .form-control,
+#configCompensationModal .form-select {
+  font-size: 13px;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #1a1a1a;
+}
+
+#configCompensationModal .form-control:focus,
+#configCompensationModal .form-select:focus {
+  border-color: #999;
   box-shadow: none;
   outline: none;
 }
 
-.inputDefault {
-  box-sizing: border-box;
-  color: #fff;
-  background-color: #000;
-  border: none;
-  border-radius: 3px;
-  outline: 0;
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  font-size: 14px;
+#configCompensationModal .modal-footer {
+  padding: 16px 24px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 8px 8px;
 }
 
-.table {
-  width: 100%;
-  min-width: 100%;
-  vertical-align: middle;
-}
-
-
-.table td {
-  word-break: break-all;
-}
-tbody tr{
-  height: 42px;
-}
-.basic-info-box {
-  display: flex;
-  gap: 12px;
-  font-size: 14px;
-}
-
-.roleRow {
-  padding: 6px 10px;
+#configCompensationModal .fresh-ui-btn {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 20px;
   border-radius: 4px;
-  margin-bottom: 2px;
-  font-size: 14px;
 }
 
-.roleRow:hover {
-  background-color: #c4c9ce27;
-}
 
-.tb-search-group {
-  min-height: 32px;
-  height: 32px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-block: 4px;
-  padding-inline: 16px 4px;
-  outline: none;
-  border-radius: 5px;
-  color: #c3bfbf;
-  background-color: #212529;
-  border: 1px solid #555;
-
-}
-
-.tb-search-group .input_search {
-  appearance: textfield;
-  all: unset;
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* ========== 职员信息区域 V3 ========== */
+.employee-section {
+  background: #141414;
   border: none;
-  outline: none;
+  overflow: hidden;
+  position: relative;
+  padding: 0 !important;
 }
 
-.tb-search-group:has(.input_search:active, .input_search:focus) {
-  border-color: #aaa;
+.employee-section .info-block {
+  padding: 0;
 }
 
-.employee-avatar-container{
-  width: 125px;
-  height: 150px;
+.employee-profile-card {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  min-height: 200px;
+}
+
+/* 左侧头像区域 */
+.employee-avatar-card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 20px;
+  background: #161616;
   position: relative;
 }
-.employee-fields{
-  width: calc(100% - 137px);
-  flex-flow: wrap;
-  padding-left: 0;
-  display: flex;
+
+.employee-avatar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  background: #252525;
 }
-.employee-avatar-container img{
+
+.avatar-wrapper {
+  position: relative;
+  width: 72px;
+  height: 96px;
+  margin-bottom: 20px;
+}
+
+.avatar-wrapper img {
   width: 100%;
   height: 100%;
+  border-radius: 6px;
   object-fit: cover;
 }
 
-tr td:first-child, tr th:first-child {
-  padding-left: 12px;
+.avatar-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #404040;
+  border: 2px solid #161616;
+  z-index: 2;
 }
-.employee-info-col{
-  width: 50%;
+
+.avatar-status-dot.is-active {
+  background: #22c55e;
 }
-.employee-info-item{
+
+.employee-identity {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.employee-identity .employee-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #f0f0f0;
+  margin: 0 0 6px 0;
+}
+
+.employee-role {
+  font-size: 12px;
+  color: #d4d4d8;
+  font-weight: 500;
+}
+
+.employee-id-info {
   display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 16px;
+  margin-top: 4px;
+  width: 100%;
 }
-.employee-info-item__content{
+
+.id-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #505050;
+  font-family: 'SF Mono', 'JetBrains Mono', monospace;
+  max-width: 100%;
+}
+
+.id-item i {
+  font-size: 10px;
+  color: #404040;
+  flex-shrink: 0;
+}
+
+.id-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
+/* 右侧信息面板 */
+.employee-info-panels {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px;
+  gap: 20px;
+  background: #141414;
+}
+
+.info-panel {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 0 12px 0;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 11px;
+  font-weight: 600;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.panel-header i {
+  font-size: 13px;
+}
+
+.panel-content {
+  padding: 8px 0 0 0;
+}
+
+.panel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.panel-row:last-child {
+  border-bottom: none;
+}
+
+.row-label {
+  font-size: 13px;
+  color: #a1a1aa;
+}
+
+.row-value {
+  font-size: 14px;
+  color: #d4d4d8;
+  font-weight: 500;
+  text-align: right;
   word-break: break-all;
-  word-wrap: break-word;
+  max-width: 65%;
 }
-.table-dark {
-  --bs-table-bg: #1f1f1f;
+
+.row-value.status-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: rgba(82, 82, 91, 0.3);
+  color: #a1a1aa;
 }
-.td-more-options{
-  justify-content: flex-end;
-  padding-right: 12px;
-  display: flex;
+
+.row-value.status-value.is-active {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
 }
-.col-salyar-element-name{
-  width: 56%;
+
+.row-value.status-value i {
+  font-size: 11px;
 }
-.col-salyar-element-amount{
-  width: 20%;
+
+/* ========== 五险一金表格 ========== */
+.benefit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
 }
-.table-scroll-box{
+
+.benefit-table thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #71717a;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #252525;
+  background: transparent;
+}
+
+.benefit-table thead th:not(:first-child) {
+  text-align: right;
+}
+
+.benefit-table tbody td {
+  padding: 14px 16px;
+  color: #b0b0b0;
+  border-bottom: 1px solid #1a1a1a;
+  transition: background-color 0.15s ease;
+}
+
+.benefit-table tbody tr:hover td {
+  background-color: #1a1a1a;
+}
+
+.benefit-table tbody td:first-child {
+  color: #d0d0d0;
+  font-weight: 500;
+}
+
+.benefit-table tbody td:not(:first-child) {
+  text-align: right;
+  font-family: 'SF Mono', 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+
+.benefit-table tbody tr:last-child td {
+  border-bottom: none;
+  padding-top: 16px;
+  font-weight: 600;
+  color: #e0e0e0;
+}
+
+.benefit-table tbody tr:last-child td:first-child {
+  color: #71717a;
+}
+
+.table-scroll-box {
   position: relative;
   width: 100%;
-  z-index: 1;
-  margin: auto;
-  overflow: auto;
-  height: 100%;
-  min-height: 300px;
 }
-.table-scroll-box .table{
-  min-width: 600px;
+
+
+
+
+/* ========== 薪资项列表 ========== */
+.compensation-list {
+  display: flex;
+  flex-direction: column;
 }
+
+.compensation-item {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid #1a1a1a;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.compensation-item:hover {
+  background-color: #1a1a1a;
+}
+
+.compensation-item:last-child {
+  border-bottom: none;
+}
+
+.compensation-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.compensation-title {
+  font-size: 13px;
+  color: #d0d0d0;
+  font-weight: 500;
+}
+
+.compensation-amount {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-right: 16px;
+  margin-left: 16px;
+}
+
+
+.compensation-delete {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #505050;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.compensation-delete:hover {
+  background: #252525;
+  color: #f87171;
+}
+
+.compensation-empty {
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #505050;
+}
+/* ========== 底部操作区域 ========== */
+.salary-action-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+  margin-bottom: 32px;
+}
+
+.btn-salary-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-action-pay {
+  background: #22c55e;
+  color: #fff;
+}
+
+.btn-action-pay:hover {
+  background: #16a34a;
+}
+
+.btn-action-pay i {
+  font-size: 16px;
+}
+
+.salary-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.status-paid {
+  background: #1a1a1a;
+  color: #22c55e;
+  border: 1px solid #252525;
+}
+
+.status-paid i {
+  font-size: 14px;
+}
+
+.status-pending {
+  background: #1a1a1a;
+  color: #f59e0b;
+  border: 1px solid #252525;
+}
+
+.status-pending i {
+  font-size: 14px;
+}
+
+/* ========== 响应式设计 V3 ========== */
+@media (max-width: 1024px) {
+  .employee-profile-card {
+    flex-direction: column;
+  }
+
+  .employee-avatar-card {
+    width: 100%;
+    flex-direction: row;
+    padding: 16px 20px;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .employee-avatar-card::before {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #222;
+  }
+
+  .avatar-wrapper {
+    width: 48px;
+    height: 64px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .employee-identity {
+    text-align: left;
+    margin-bottom: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .employee-identity .employee-name {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .employee-role {
+    font-size: 12px;
+  }
+
+  .employee-id-info {
+    width: unset;
+    padding-top: 0;
+  }
+
+  .employee-info-panels {
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+  }
+
+  .info-panel {
+    flex: 1;
+    padding: 16px 20px;
+    border-right: 1px solid #1f1f1f;
+  }
+
+  .info-panel:last-child {
+    border-right: none;
+  }
+}
+
 @media (max-width: 767px) {
   .section-box {
     padding: .75rem;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    border-radius: 10px;
   }
 
   .content-box {
     --gutterWidth: 12px;
   }
 
-  .inputDefault {
-    font-size: 12px;
-  }
-
   .section-header {
     padding-bottom: 12px;
   }
 
-  .material-item {
-    font-size: 12px;
-  }
-
-  .table td {
-    font-size: 10px;
+  .section-header-title {
+    font-size: 14px;
   }
 
   tr td:first-child,
@@ -352,12 +792,12 @@ tr td:first-child, tr th:first-child {
     padding-left: 4px;
   }
 
-
-  .content-box{
+  .content-box {
     margin: 0;
-    padding: 0;
+    padding: 0 8px;
   }
-  .d-none-sm{
+
+  .d-none-sm {
     display: none;
   }
 
@@ -366,27 +806,134 @@ tr td:first-child, tr th:first-child {
     height: 100%;
     top: 0;
   }
-  .dashboard-box{
+
+  .dashboard-box {
     grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
-  .basic-info-box{
-    flex-direction: column;
-    align-items: center;
+
+  .salary-stat-card {
+    padding: 12px;
+    gap: 8px;
   }
-  .employee-fields{
-    width: 100%;
+
+  .stat-label {
+    font-size: 11px;
   }
-  .employee-info-col{
-    width: 100%;
-    padding-right: 0;
-  }
-  .basic-info-box{
+
+  .stat-icon {
     font-size: 12px;
   }
-  .countValue {
-    margin-top: 8px;
-    font-size: 18px;
-    line-height: 24px;
-}
 
+  .stat-value {
+    font-size: 16px;
+  }
+
+  /* 职员信息移动端 V3 */
+  .employee-section {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .employee-avatar-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 16px;
+    gap: 0;
+  }
+
+  .employee-avatar-card::before {
+    display: block;
+  }
+
+  .avatar-wrapper {
+    width: 52px;
+    height: 70px;
+    margin-bottom: 12px;
+  }
+
+  .employee-identity {
+    text-align: center;
+  }
+
+  .employee-identity .employee-name {
+    font-size: 15px;
+  }
+
+  .employee-role {
+    font-size: 11px;
+  }
+
+  .employee-id-info {
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 4px;
+  }
+
+  .employee-info-panels {
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+
+  .info-panel {
+    border-right: none;
+    border-bottom: 1px solid #1f1f1f;
+  }
+
+  .info-panel:last-child {
+    border-bottom: none;
+  }
+
+  .panel-header {
+    padding-bottom: 10px;
+    font-size: 10px;
+  }
+
+  .panel-row {
+    padding: 10px 0;
+  }
+
+  .row-label {
+    font-size: 12px;
+  }
+
+  .row-value {
+    font-size: 13px;
+  }
+
+  .salary-title-box {
+    height: 44px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+
+  .salary-action-box {
+    padding: 24px 0;
+  }
+
+  .btn-salary-action,
+  .salary-status-badge {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+  .table-scroll-box {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+  
+      &::-webkit-scrollbar {
+        display: none
+      };
+  }
+  .table-scroll-box .benefit-table{
+    min-width: 580px;
+  }
+  .table-scroll-box .compensation-list {
+    width: max-content;
+    min-width: 100%;
+  }
+  .compensation-item{
+    padding: 4px;
+  }
 }

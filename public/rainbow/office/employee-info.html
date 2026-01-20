@@ -32,316 +32,273 @@
               <i class="bi bi-arrow-left" style="-webkit-text-stroke: 1.5px;"></i>
             </span>
           </div>
-          <section class="section-service-block section-box box-bg-primary">
-            <div class="section-header d-flex justify-content-between">
-              <div>基本信息</div>
-              <button v-preventreclick @click="showEditBasicEmployeeModalV" class="btn btn-file-upload bgPrimary">
-                
-                <div class="btn-file-upload-wrp">编辑</div>
-                
-              </button>
-            </div>
+          <section class="section-service-block section-box box-bg-primary employee-section">
             <div class="info-block">
-              <div class="basic-info-box">
-          
-                <div class="employee-info-col">
-                  <div class="employeeInfo__name">
-                    <span>{{employee.employeeName}}</span>
+              <div class="employee-profile-card">
+                <!-- 左侧头像卡片 -->
+                <div class="employee-avatar-card">
+                  <div class="avatar-wrapper">
+                    <img :src="adaptiveImageUriV(employee.photo) || personManDefault" @error.once="e => { e.target.src = personManDefault }" alt="avatar">
+                    <div class="avatar-status-dot" :class="{'is-active': employee.status == 1}"></div>
                   </div>
-                  <div class="employeeInfoField">
-                    <span>{{explianEmployeeGenreV(employee.genre)}}</span>
-                    <span>{{explianEmployeeStatusV(employee.status)}}</span>
-                    <span v-if="!!employee.gender">{{employee.gender}}</span>
-                    <span v-if="!!employee.education">{{employee.education}}</span>
-                    <span v-if="employee.major">{{employee.major}}</span>
+                  <div class="employee-identity">
+                    <h2 class="employee-name">{{employee.employeeName}}</h2>
+                    <div class="employee-role">{{employee.role || '未分配职能'}}</div>
                   </div>
-                  <div class="employeeInfo__remark">
-                    <span>{{employee.remark}}</span>
+                  <div class="employee-id-info">
+                    <span class="id-item"><i class="bi bi-hash"></i><span>{{employee.employeeNumber}}</span></span>
+                  </div>
+                  <button v-preventreclick @click="showEditBasicEmployeeModalV" class="btn btn-edit-profile">
+                    <i class="bi bi-pencil"></i>
+                    <span>编辑资料</span>
+                  </button>
+                </div>
+                
+                <!-- 右侧信息面板 -->
+                <div class="employee-info-panels">
+                  <!-- 工作信息 -->
+                  <div class="info-panel">
+                    <div class="panel-header">
+                      <i class="bi bi-briefcase"></i>
+                      <span>工作信息</span>
+                    </div>
+                    <div class="panel-content">
+                      <div class="panel-row">
+                        <span class="row-label">所属部门</span>
+                        <span class="row-value">{{employee.department || '-'}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">员工类型</span>
+                        <span class="row-value">{{explianEmployeeGenreV(employee.genre)}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">当前状态</span>
+                        <span class="row-value status-value" :class="{'is-active': employee.status == 1}">
+                          <i class="bi" :class="employee.status == 1 ? 'bi-check-circle-fill' : 'bi-pause-circle'"></i>
+                          {{explianEmployeeStatusV(employee.status)}}
+                        </span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">职级</span>
+                        <span class="row-value">{{renderEmployeeFieldV(employee.level)}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">入职时间</span>
+                        <span class="row-value">{{employee.hireDate || '-'}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">办公地点</span>
+                        <span class="row-value">{{employee.officeLocation || '-'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- 个人信息 -->
+                  <div class="info-panel">
+                    <div class="panel-header">
+                      <i class="bi bi-person-lines-fill"></i>
+                      <span>个人信息</span>
+                    </div>
+                    <div class="panel-content">
+                      <div class="panel-row">
+                        <span class="row-label">性别</span>
+                        <span class="row-value">{{employee.gender || '-'}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">出生日期</span>
+                        <span class="row-value">{{renderEmployeeFieldV(employee.birthdate)}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">学历</span>
+                        <span class="row-value ellipsis-value">{{employee.education || '-'}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">专业</span>
+                        <span class="row-value ellipsis-value">{{employee.major || '-'}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">联系电话</span>
+                        <span class="row-value contact-value">{{renderEmployeeFieldV(employee.phone)}}</span>
+                      </div>
+                      <div class="panel-row">
+                        <span class="row-label">电子邮箱</span>
+                        <span class="row-value contact-value">{{renderEmployeeFieldV(employee.email)}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 价值信息 -->
+                  <div class="info-panel">
+                    <div class="panel-header">
+                      <i class="bi bi-graph-up-arrow"></i>
+                      <span>价值信息</span>
+                    </div>
+                    <div class="panel-content">
+                      <div class="panel-row">
+                        <span class="row-label">商业价值（元）</span>
+                        <span v-if="employee.netWorth" class="row-value highlight-value">¥{{renderNetWorthV(employee.netWorth)}}</span>
+                        <span v-else class="row-value highlight-value">待开发</span>
+
+                      </div>
+                      <div class="remark-block" v-if="employee.remark">
+                        <p class="remark-text">{{employee.remark}}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <div class="employee-avatar-container">
-                  <img :src="adaptiveImageUriV(employee.photo) || personManDefault" @error.once="e => { e.target.src = personManDefault }" alt="avatar">
-                </div>
-
               </div>
             </div>
           </section>
 
           <section class="section-service-block section-box box-bg-primary mb-5">
-            <div class="info-block">
-              <div class="basic2-info-box">
-
-                <ul>
-                  <li>工号<strong>{{employee.employeeNumber}}</strong></li>
-                  <li>办公地址<strong>{{employee.officeLocation}}</strong></li>
-                  <li>部门<strong>{{employee.department}}</strong></li>
-                  <li>商业价值（元）<strong>{{renderNetWorthV(employee.netWorth)}}</strong></li>
-                  <li>职能<strong>{{employee.role}}</strong></li>
-                  <li>出生日期<strong>{{renderEmployeeFieldV(employee.birthdate)}}</strong></li>
-                  <li>职级<strong>{{renderEmployeeFieldV(employee.level)}}</strong></li>
-                  <li>入职时间<strong>{{employee.hireDate}}</strong></li>
-                  <li>邮箱<strong>{{renderEmployeeFieldV(employee.email)}}</strong></li>
-                  <li>联系电话<strong>{{renderEmployeeFieldV(employee.phone)}}</strong></li>
-
-
-                </ul>
-
-              </div>
-            </div>
-          </section>
-
-          <section class="section-service-block section-box box-bg-primary mb-5">
             <div class="section-header d-flex justify-content-between">
-              <div>五险一金</div>
+              <div class="section-header-title">
+                <i class="bi bi-shield-check"></i>
+                <span>五险一金</span>
+              </div>
               <button v-preventreclick @click="showEditEmployeeBenefitModalV" class="btn btn-file-upload bgPrimary">
-                
                 <div class="btn-file-upload-wrp">配置</div>
-                
               </button>
             </div>
             <div class="info-block">
               <div class="table-scroll-box">
-
-                <table class="table table-sm table-dark table-hover align-middle">
+                <table class="benefit-table">
                   <thead>
                     <tr>
-                      <th class="col-employee-name">项目</th>
-                      <th class="col-employee-code">缴纳基数</th>
-                      <th class="col-fee">企业比例</th>
-                      <th class="col-inventory">个人比例</th>
-                      <th class="col-fee">企业缴纳（元）</th>
-                      <th class="col-status">个人缴纳（元）</th>
+                      <th>项目</th>
+                      <th>缴纳基数（元）</th>
+                      <th>企业比例</th>
+                      <th>个人比例</th>
+                      <th>企业缴纳（元）</th>
+                      <th>个人缴纳（元）</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                        养老保险
-                      </td>
-                      <td>
-                       {{employeeBenefit.pensionInsuranceBase}}
-                      </td>
-                      <td>
-                        {{employeeBenefit.pensionInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{employeeBenefit.pensionInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.pensionInsuranceBase,employeeBenefit.pensionInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.pensionInsuranceBase,employeeBenefit.pensionInsuranceEmployeeRate)}}
-                      </td>
+                      <td>养老保险</td>
+                      <td>{{employeeBenefit.pensionInsuranceBase}}</td>
+                      <td>{{employeeBenefit.pensionInsuranceCompanyRate}}%</td>
+                      <td>{{employeeBenefit.pensionInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.pensionInsuranceBase,employeeBenefit.pensionInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.pensionInsuranceBase,employeeBenefit.pensionInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        医疗保险
-                      </td>
-                      <td>
-                        {{employeeBenefit.medicalInsuranceBase}}
-                      </td>
-                      <td>
-                        {{employeeBenefit.medicalInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{employeeBenefit.medicalInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.medicalInsuranceBase,employeeBenefit.medicalInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.medicalInsuranceBase,employeeBenefit.medicalInsuranceEmployeeRate)}}
-                      </td>
+                      <td>医疗保险</td>
+                      <td>{{employeeBenefit.medicalInsuranceBase}}</td>
+                      <td>{{employeeBenefit.medicalInsuranceCompanyRate}}%</td>
+                      <td>{{employeeBenefit.medicalInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.medicalInsuranceBase,employeeBenefit.medicalInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.medicalInsuranceBase,employeeBenefit.medicalInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        失业保险
-                      </td>
-                      <td>
-                        {{employeeBenefit.unemploymentInsuranceBase}}
-                      </td>
-                      <td>
-                        {{employeeBenefit.unemploymentInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{employeeBenefit.unemploymentInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.unemploymentInsuranceBase,employeeBenefit.unemploymentInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.unemploymentInsuranceBase,employeeBenefit.unemploymentInsuranceEmployeeRate)}}
-                      </td>
+                      <td>失业保险</td>
+                      <td>{{employeeBenefit.unemploymentInsuranceBase}}</td>
+                      <td>{{employeeBenefit.unemploymentInsuranceCompanyRate}}%</td>
+                      <td>{{employeeBenefit.unemploymentInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.unemploymentInsuranceBase,employeeBenefit.unemploymentInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.unemploymentInsuranceBase,employeeBenefit.unemploymentInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        工伤保险
-                      </td>
-                      <td>
-                        {{employeeBenefit.occupationalInjuryInsuranceBase}}
-                      </td>
-                      <td>
-                        {{employeeBenefit.occupationalInjuryInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{employeeBenefit.occupationalInjuryInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.occupationalInjuryInsuranceBase,employeeBenefit.occupationalInjuryInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.occupationalInjuryInsuranceBase,employeeBenefit.occupationalInjuryInsuranceEmployeeRate)}}
-                      </td>
+                      <td>工伤保险</td>
+                      <td>{{employeeBenefit.occupationalInjuryInsuranceBase}}</td>
+                      <td>{{employeeBenefit.occupationalInjuryInsuranceCompanyRate}}%</td>
+                      <td>{{employeeBenefit.occupationalInjuryInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.occupationalInjuryInsuranceBase,employeeBenefit.occupationalInjuryInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.occupationalInjuryInsuranceBase,employeeBenefit.occupationalInjuryInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        生育保险
-                      </td>
-                      <td>
-                        {{employeeBenefit.birthInsuranceBase}}
-                      </td>
-                      <td>
-                        {{employeeBenefit.birthInsuranceCompanyRate}}%
-                      </td>
-                      <td>
-                        {{employeeBenefit.birthInsuranceEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.birthInsuranceBase,employeeBenefit.birthInsuranceCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.birthInsuranceBase,employeeBenefit.birthInsuranceEmployeeRate)}}
-                      </td>
+                      <td>生育保险</td>
+                      <td>{{employeeBenefit.birthInsuranceBase}}</td>
+                      <td>{{employeeBenefit.birthInsuranceCompanyRate}}%</td>
+                      <td>{{employeeBenefit.birthInsuranceEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.birthInsuranceBase,employeeBenefit.birthInsuranceCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.birthInsuranceBase,employeeBenefit.birthInsuranceEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        住房公积金
-                      </td>
-                      <td>
-                        {{employeeBenefit.housingProvidentFundsBase}}
-                      </td>
-                      <td>
-                        {{employeeBenefit.housingProvidentFundsCompanyRate}}%
-                      </td>
-                      <td>
-                        {{employeeBenefit.housingProvidentFundsEmployeeRate}}%
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.housingProvidentFundsBase,employeeBenefit.housingProvidentFundsCompanyRate)}}
-                      </td>
-                      <td>
-                        ¥{{calBenefitItemV(employeeBenefit.housingProvidentFundsBase,employeeBenefit.housingProvidentFundsEmployeeRate)}}
-                      </td>
+                      <td>住房公积金</td>
+                      <td>{{employeeBenefit.housingProvidentFundsBase}}</td>
+                      <td>{{employeeBenefit.housingProvidentFundsCompanyRate}}%</td>
+                      <td>{{employeeBenefit.housingProvidentFundsEmployeeRate}}%</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.housingProvidentFundsBase,employeeBenefit.housingProvidentFundsCompanyRate)}}</td>
+                      <td>¥{{calBenefitItemV(employeeBenefit.housingProvidentFundsBase,employeeBenefit.housingProvidentFundsEmployeeRate)}}</td>
                     </tr>
                     <tr>
-                      <td>
-                        合计
-                      </td>
-                      <td>
-                       -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        -
-                      </td>
-                      <td>
-                        ¥{{calCompanyBenefitExpenseV(employeeBenefit)}}
-                      </td>
-                      <td>
-                        ¥{{calEmployeeBenefitExpenseV(employeeBenefit)}}
-                      </td>
+                      <td>合计</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>¥{{calCompanyBenefitExpenseV(employeeBenefit)}}</td>
+                      <td>¥{{calEmployeeBenefitExpenseV(employeeBenefit)}}</td>
                     </tr>
-  
                   </tbody>
                 </table>
-
               </div>
             </div>
           </section>
 
           <section class="section-service-block section-box box-bg-primary mb-5">
             <div class="section-header d-flex justify-content-between">
-              <div>薪酬结构</div>
+              <div class="section-header-title">
+                <i class="bi bi-list-check"></i>
+                <span>薪酬结构</span>
+              </div>
               <button v-preventreclick @click="showConfigCompensationModalV" class="btn btn-file-upload bgPrimary">
-                
                 <div class="btn-file-upload-wrp">配置</div>
-                
               </button>
             </div>
             <div class="info-block">
+              <!-- 薪资总览卡片 -->
+              <div class="salary-stat-card">
+                <div class="stat-header">
+                  <span class="stat-label">税前工资（元）</span>
+                  <i class="bi bi-wallet2 stat-icon"></i>
+                </div>
+                <div class="stat-value">¥{{employee.salary || '0.00'}}</div>
+              </div>
 
-              <div class="redeem-stats-info  d-flex align-items-center justify-content-center">
-                <div class="stats-info">
-                  <div class="stats-info-title">
-                    <div class="countKey">税前工资</div>
-                    <div class="countValue">{{employee.salary}}</div>
+              <!-- 薪资项列表 -->
+
+              <div class="table-scroll-box">
+
+                <div class="compensation-list">
+                  <div class="compensation-item" v-for="item in compensationList_pagination.records">
+                    <div class="compensation-info">
+                      <span class="compensation-title">{{item.title}}</span>
+                    </div>
+                    <div class="compensation-amount" :class="{'is-deduct': item.direction != 1}">
+                      <span>{{item.direction==1 ? '+' : '-'}}</span>
+                      <span>{{item.amount}}</span>
+                    </div>
+                  </div>
+                  <div class="compensation-empty" v-if="isEmptyObjV(compensationList_pagination.records)">
+                    暂无其余薪资数据
                   </div>
                 </div>
-              </div>
-              <div v-show="!isEmptyObjV(compensationList_pagination.records)"  class="table-scroll-box mt-4" style="min-height: 100%;">
-
-
-          
-
-                <table class="table table-sm table-dark table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-compensation-title">薪资项</th>
-                      <th class="col-compensation-amount">金额</th>
-                      <th class="col-compensation-status">状态</th>
-                      <th class="col-date">添加时间</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in compensationList_pagination.records">
-  
-                      <td>
-                       {{item.title}}
-                      </td>
-                      <td>
-                        <span>{{item.direction==1? "+" : "-" }}</span><span>{{item.amount}}</span>
-                      </td>
-                      <td>
-                        {{explianCompensationItemStatusV(item.status)}}
-                      </td>
-                      <td>
-                        {{item.createAt.replace(new RegExp('-', 'g'), '/').substr(0,10)}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
                 <nav v-if="!!compensationList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <ul class="pagination pagination-lg pagination-dark border-0">
                     <li class="page-item" @click="pagePre(compensationList_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
+                      <a class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                     </li>
-                    <li class="page-item"  v-for="page in compensationList_pagination.paging.items" :class="{'current-page-active': compensationList_pagination.paging.current == page}" 
-                          @click="pageGo(compensationList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" v-for="page in compensationList_pagination.paging.items" :class="{'current-page-active': compensationList_pagination.paging.current == page}" 
+                        @click="pageGo(compensationList_pagination,page)"><a class="page-link">{{page}}</a></li>
                     <li class="page-item" @click="pageNext(compensationList_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
+                      <a class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                     </li>
                   </ul>
                 </nav>
 
-
               </div>
             </div>
           </section>
 
           <section class="section-service-block section-box box-bg-primary mb-5">
             <div class="section-header d-flex justify-content-between">
-              <div>员工材料</div>
-              <button :class="{'loading': btn_ctl.material_uploading}"  class="btn btn-file-upload bgPrimary">
-                
-                <div class="btn-file-upload-wrp">上传 <input id="employee_material_file" @change="uploadMaterialV($event)"  class="file-input" type="file"  style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+              <div class="section-header-title">
+                <i class="bi bi-folder2-open"></i>
+                <span>员工材料</span>
+              </div>
+              <button :class="{'loading': btn_ctl.material_uploading}" class="btn btn-file-upload bgPrimary">
+                <div class="btn-file-upload-wrp">上传 <input id="employee_material_file" @change="uploadMaterialV($event)" class="file-input" type="file" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
                 <div class="loading-content">
                   <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                   <span role="status">正在上传...</span>
@@ -349,142 +306,84 @@
               </button>
             </div>
             <div class="info-block">
-              <div class="table-scroll-box">
-
-                <table class="table table-sm table-dark table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-material-name">文件</th>
-                      <th class="col-material-size">大小</th>
-                      <th class="col-material-option tb-col-sticky-right"></th>
-  
-                    </tr>
-                  </thead>
-                  <tbody>
-  
-                    <tr v-for="item in materialList_pagination.records">
-                      <td>
-                        <div class="td-content">
-                          <span :title="item.materialName">{{item.materialName}}</span>
-                        </div>
-                      </td>
-                      <td>
-                        {{renderFileSizeV(item.materialSize)}}
-                       </td>
-                      <td class="tb-col-sticky-right">
-                      
-                        <span  class="td-more-options">
-                          <div class="dropdown">
-                            <a class="btn-option-secondary dropdown-toggle" role="button"
-                              data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="bi bi-three-dots"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" v-preventreclick @click="showRenameEmployeeMaterialModalV(item)" >重命名</a></li>
-                              <li><a  target="_blank"  class="dropdown-item download" :download="item.materialName" :href="item.materialUri">下载</a></li>
-                              <li><a class="dropdown-item" v-preventreclick @click="removeOneMaterialV(item.materialId)">移除</a></li>
-                            </ul>
-                          </div>
-                        </span>
-  
-                      </td>
-                    </tr>
-                    
-                    
-  
-                  </tbody>
-                </table>
-                <nav v-if="!!materialList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(materialList_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in materialList_pagination.paging.items" :class="{'current-page-active': materialList_pagination.paging.current == page}" 
-                          @click="pageGo(materialList_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(materialList_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-                <div v-show="isEmptyObjV(materialList_pagination.records)" class="empty-content-block">
-      
-                  未找到相关数据！
-    
+              <div class="material-list">
+                <div class="material-item" v-for="item in materialList_pagination.records">
+                  <div class="material-icon">
+                    <i class="bi bi-file-earmark"></i>
+                  </div>
+                  <div class="material-info">
+                    <span class="material-name" :title="item.materialName">{{item.materialName}}</span>
+                    <span class="material-size">{{renderFileSizeV(item.materialSize)}}</span>
+                  </div>
+                  <div class="material-actions">
+                    <a target="_blank" class="action-btn" :download="item.materialName" :href="item.materialUri" title="下载">
+                      <i class="bi bi-download"></i>
+                    </a>
+                    <button class="action-btn" v-preventreclick @click="showRenameEmployeeMaterialModalV(item)" title="重命名">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="action-btn action-delete" v-preventreclick @click="removeOneMaterialV(item.materialId)" title="移除">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-              
+              <nav v-if="!!materialList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark border-0">
+                  <li class="page-item" @click="pagePre(materialList_pagination)">
+                    <a class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                  </li>
+                  <li class="page-item" v-for="page in materialList_pagination.paging.items" :class="{'current-page-active': materialList_pagination.paging.current == page}" 
+                      @click="pageGo(materialList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(materialList_pagination)">
+                    <a class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                  </li>
+                </ul>
+              </nav>
+              <div v-show="isEmptyObjV(materialList_pagination.records)" class="empty-content-block">
+                <i class="bi bi-inbox"></i>
+                <span>暂无数据</span>
+              </div>
             </div>
           </section>
 
           <section class="section-service-block section-box box-bg-primary mb-5">
             <div class="section-header d-flex justify-content-between">
-              <div>其他</div>
+              <div class="section-header-title">
+                <i class="bi bi-card-list"></i>
+                <span>其他信息</span>
+              </div>
               <button v-preventreclick @click="showNewEmployeeExtraInfoModalV" class="btn btn-file-upload bgPrimary">
-                
                 <div class="btn-file-upload-wrp">录入</div>
-
               </button>
             </div>
             <div class="info-block">
-              <div class="table-scroll-box">
-
-                <table class="table table-sm table-dark table-hover align-middle">
-                  <thead>
-                    <tr>
-                      <th class="col-kv-title">条目</th>
-                      <th class="col-kv-content">内容</th>
-                      <th class="col-kv-option tb-col-sticky-right"></th>
-  
-                    </tr>
-                  </thead>
-                  <tbody>
-  
-                    <tr v-for="item in kvList_pagination.records">
-  
-                      <td>
-                        {{item.title}}
-                      </td>
-                      <td>
-                        {{item.content}}
-                      </td>
-                      <td class="tb-col-sticky-right">
-                        <span class="td-more-options">
-                          <span v-preventreclick @click="removeOnekvPairV(item.id)"  class="btn-option-secondary" >
-                            <i class="bi bi-trash"></i>
-                          </span>
-                        </span>
-                      </td>
-                    </tr>
-                    
-  
-                  </tbody>
-                </table>
-                <nav v-if="!!kvList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                  <ul class="pagination pagination-lg pagination-dark  border-0">
-                    <li class="page-item" @click="pagePre(kvList_pagination)">
-                      <a class="page-link"  aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"  v-for="page in kvList_pagination.paging.items" :class="{'current-page-active': kvList_pagination.paging.current == page}" 
-                          @click="pageGo(kvList_pagination,page)"><a class="page-link">{{page}}</a></li>
-                    <li class="page-item" @click="pageNext(kvList_pagination)">
-                      <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-                <div v-show="isEmptyObjV(kvList_pagination.records)" class="empty-content-block">
-      
-                  未找到相关数据！
-    
+              <div class="kv-list">
+                <div class="kv-item" v-for="item in kvList_pagination.records">
+                  <div class="kv-content">
+                    <span class="kv-title">{{item.title}}</span>
+                    <span class="kv-value">{{item.content}}</span>
+                  </div>
+                  <button class="kv-delete" v-preventreclick @click="removeOnekvPairV(item.id)">
+                    <i class="bi bi-x"></i>
+                  </button>
                 </div>
-
+              </div>
+              <nav v-if="!!kvList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark border-0">
+                  <li class="page-item" @click="pagePre(kvList_pagination)">
+                    <a class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                  </li>
+                  <li class="page-item" v-for="page in kvList_pagination.paging.items" :class="{'current-page-active': kvList_pagination.paging.current == page}" 
+                      @click="pageGo(kvList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" @click="pageNext(kvList_pagination)">
+                    <a class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                  </li>
+                </ul>
+              </nav>
+              <div v-show="isEmptyObjV(kvList_pagination.records)" class="empty-content-block">
+                <i class="bi bi-inbox"></i>
+                <span>暂无数据</span>
               </div>
             </div>
           </section>
@@ -705,7 +604,7 @@
                     <div class="section-name">养老保险</div>
 
                     <div class="col-md-4">
-                      <label for="employeeBenefit__pensionBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__pensionBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.pensionInsuranceBase" id="employeeBenefit__pensionBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control  mb-3" type="text" autocomplete="off">
                     </div>
@@ -725,7 +624,7 @@
                     <div class="section-name">医疗保险</div>
 
                     <div class="col-md-4">
-                      <label for="employeeBenefit__medicalBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__medicalBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.medicalInsuranceBase"  id="employeeBenefit__medicalBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control  mb-3" type="text" autocomplete="off">
                     </div>
@@ -745,7 +644,7 @@
                     <div class="section-name">失业保险</div>
 
                     <div class="col-md-4">
-                      <label for="employeeBenefit__unemploymentBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__unemploymentBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.unemploymentInsuranceBase"  id="employeeBenefit__unemploymentBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control  mb-3" type="text" autocomplete="off">
                     </div>
@@ -765,7 +664,7 @@
                     <div class="section-name">工伤保险</div>
 
                     <div class="col-md-4">
-                      <label for="employeeBenefit__employmentInjuryBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__employmentInjuryBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.occupationalInjuryInsuranceBase" id="employeeBenefit__employmentInjuryBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control  mb-3" type="text" autocomplete="off">
                     </div>
@@ -785,7 +684,7 @@
                     <div class="section-name">生育保险</div>
 
                     <div class="col-md-4">
-                      <label for="employeeBenefit__birthBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__birthBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.birthInsuranceBase" id="employeeBenefit__birthBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control  mb-3" type="text" autocomplete="off">
                     </div>
@@ -805,7 +704,7 @@
                     <div class="section-name">住房公积金</div>
 
                     <div class="col-md-4">
-                      <label for="employeeBenefit__housingFundBase" class="form-label">缴费基数</label>
+                      <label for="employeeBenefit__housingFundBase" class="form-label">缴费基数（元）</label>
                       <input @change="btn_ctl.benefit_obj_already_change=true"  v-model="editEmployeeBenefitObj.housingProvidentFundsBase"  id="employeeBenefit__housingFundBase" @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000"
                         class="form-control  mb-3" type="text" autocomplete="off">
                     </div>
