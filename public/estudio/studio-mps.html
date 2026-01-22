@@ -455,9 +455,9 @@
                     </form>
                   </div>
                   <select v-model="mps_chain_pagination.param.tag" @change="retrieveMpsChainListByTagV" class="form-select ms-3 list-tb-filter-btn custom-select">
-                    <option value="">全部标签</option>
-                    <option value="1">运行中</option>
-                    <option value="2">已休止</option>
+                    <option value="">全部状态</option>
+                    <option value="1">使用中</option>
+                    <option value="2">已废弃</option>
                   </select>
 
                 </div>
@@ -478,7 +478,7 @@
                       <tr>
                         <th class="col-chain-title-no-option">模版集</th>
                         <th class="col-type">
-                          标签
+                          状态
                         </th>
                         <th class="col-fee">正在处理项目数</th>
                         <th class="col-fee">已处理项目数</th>
@@ -536,7 +536,7 @@
               
               <div class="fund-info-container">
                 <div class="mps-fund-tip">
-                  <span class="help-text">功能告知：合约运营账户，当您接受商单服务商的服务交付时，系统从该账户划转资金给服务商。</span>
+                  <span class="help-text">功能告知：商单运营账户，当您接受商单服务商的服务交付时，系统从该账户划转资金给服务商。</span>
                 </div>
                 <div v-if="!!mpsFund" class="fund_info-wrapper">
                   <div class="fund_head">
@@ -592,7 +592,7 @@
                     </div>
                     <div class="row mb-3 mt-3">
                       <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                        模版集 <div class="help-text"> 选择需要使用的合约模版，必填</div>
+                        模版集 <div class="help-text"> 选择需要使用的商单模版，必填</div>
                       </label>
                       <div class="col-sm-8">
                         <div class="input-chain-ctn">
@@ -669,185 +669,190 @@
           </div>
 
           <div class="modal-container">
-            <!-- Modal -->
-            <div class="modal fullscreen-modal fade" id="newFastPaperModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content text-color-dark">
-                  <div class="modal-header">
-                    <h2 class="modal-title fs-5" >派发快捷商单</h2>
-                    <button @click="closeNewFastPaperHandlerV"  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
+            <!-- newFastPaperModal -->
+            <div class="modal define-template-modal" id="newFastPaperModal" data-bs-backdrop="static" tabindex="-1">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
                   <div class="modal-body">
-                    <form onsubmit="return false">
-                      <div class="row mb-3 mt-3">
-                        <label for="inputMpsTitle" class="col-sm-4 col-form-label"> 
-                          项目<div class="help-text"> 项目名称(最大80字符，必填) </div>
-                        </label>
-                        <div class="col-sm-8">
-                          <textarea v-model="newFastPaper.mpsTitle" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
-                        </div>
+
+                    <form class="row g-3" onsubmit="return false">
+                      <div class="section-name">基础信息</div>
+
+                      <div class="col-12">
+                        <label for="fast__inputMpsTitle" class="form-label">项目名称</label>
+                        <input v-model="newFastPaper.mpsTitle" tabindex="-1" id="fast__inputMpsTitle" maxlength="80"
+                          class="form-control mb-3" type="text" autocomplete="off" placeholder="比如：A产品推广项目">
                       </div>
 
-                      <div class="row mb-3 mt-3">
-                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          商单名称 <div class="help-text"> 商单标题，(比如，logo设计，最大80字符，必填) </div>
-                        </label>
-                        <div class="col-sm-8">
-                          <textarea v-model="newFastPaper.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
-                        </div>
+                      <div class="col-12">
+                        <label for="fast__inputTitle" class="form-label">商单名称</label>
+                        <input v-model="newFastPaper.title" tabindex="-1" id="fast__inputTitle" maxlength="80"
+                          class="form-control mb-3" type="text" autocomplete="off" placeholder="比如：logo设计">
                       </div>
-                      <div class="row mb-3 mt-3">
-                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等，必填 </div>
-                        </label>
-                        <div class="col-sm-8">
-                          <textarea maxlength="2000" v-model="newFastPaper.sow" class="form-control" rows="13"  aria-label="With textarea"></textarea>
-                        </div>
+
+                      <div class="col-12">
+                        <label for="fast__inputSow" class="form-label">工作范围</label>
+                        <textarea @input="autoHeightV($event)" v-model="newFastPaper.sow" rows="6" maxlength="2000" class="form-control" id="fast__inputSow" placeholder="任务与需求说明、交付说明、售后条款、tech pack等内容"></textarea>
+                        <small class="text-muted">{{newFastPaper.sow.length}}/2000</small>
                       </div>
-                      <div class="row mb-3 mt-3">
-                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置可以更精确匹配您的服务商 (最大80字符，必填) </div>
+
+                      <div class="section-name">职能与报酬</div>
+
+                      <div class="col-md-6">
+                        <label for="fast__inputPiece" class="form-label">职能
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">如数据分析师、设计、测试等，准确的职能设置可以让系统更精确为您匹配服务商</span>
+                          </div>
                         </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" v-model="newFastPaper.piece" maxlength="80" type="text">
-                        </div>
+                        <input v-model="newFastPaper.piece" tabindex="-1" id="fast__inputPiece" maxlength="80"
+                          class="form-control mb-3" type="text" autocomplete="off" placeholder="">
                       </div>
-                      <div class="row mb-3 mt-3">
-                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元，必填) </div>
+
+                      <div class="col-md-6">
+                        <label for="fast__inputBonus" class="form-label">奖金（元）
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">完成合约时支付给服务商的货币奖励</span>
+                          </div>
                         </label>
-                        <div class="col-sm-8">
-                          <input class="form-control" v-model="newFastPaper.bonus" @input="transformInputNumberV($event)" min="1" max="5000000" step="1"  type="number">
-                        </div>
+                        <input v-model="newFastPaper.bonus" @input="transformInputNumberV($event)" tabindex="-1" id="fast__inputBonus" min="1" max="5000000"
+                          class="form-control mb-3" type="text" autocomplete="off">
                       </div>
-                      <div class="row mb-3 mt-3">
-                        <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                          1级服务商 <div class="help-text"> 指定特定服务商，商单会直接提交给该服务商 </div>
+
+                      <div class="section-name">时间安排</div>
+
+                      <div class="col-md-4">
+                        <label for="fast__inputDeliveryCycle" class="form-label">交付周期（天）
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">告知服务商理想条件下，应在指定的时间内给出最终交付</span>
+                          </div>
                         </label>
-                        <div class="col-sm-8">
-                          <model-select
+                        <input v-model="newFastPaper.deliveryCycle" @input="transformInputNumberV($event)" tabindex="-1" id="fast__inputDeliveryCycle" min="1" max="50000"
+                          class="form-control mb-3" type="text" autocomplete="off">
+                      </div>
+
+                      <div class="col-md-4">
+                        <label for="fast__inputContractValidityPeriod" class="form-label">招商期（天）
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商</span>
+                          </div>
+                        </label>
+                        <input v-model="newFastPaper.contractValidityPeriod" @input="transformInputNumberV($event)" tabindex="-1" id="fast__inputContractValidityPeriod" min="1" max="50000"
+                          class="form-control mb-3" type="text" autocomplete="off">
+                      </div>
+
+                      <div class="col-md-4">
+                        <label for="fast__inputBidElectricity" class="form-label">接单消耗电量
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">服务商接单时需要消耗的电量值</span>
+                          </div>
+                        </label>
+                        <input v-model="newFastPaper.bidElectricity" @input="transformInputNumberV($event)" tabindex="-1" id="fast__inputBidElectricity" min="1" max="50000"
+                          class="form-control mb-3" type="text" autocomplete="off">
+                      </div>
+
+                      <div class="section-name">准入条件</div>
+
+                      <div class="col-md-4">
+                        <label for="fast__inputDifficulty" class="form-label">任务难度
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，需在某个领域的取得卓越成就和非凡的技能</span>
+                          </div>
+                        </label>
+                        <select id="fast__inputDifficulty" v-model="newFastPaper.difficulty" class="form-select">
+                          <option value="easy">初级</option>
+                          <option value="medium">中级</option>
+                          <option value="advanced">高级</option>
+                          <option value="expert">专家</option>
+                          <option value="master">大师</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-4">
+                        <label for="fast__inputLocation" class="form-label">工作地点
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">实际工作地址或常驻办公地</span>
+                          </div>
+                        </label>
+                        <input v-model="newFastPaper.location" tabindex="-1" id="fast__inputLocation" maxlength="8"
+                          class="form-control mb-3" type="text" autocomplete="off">
+                      </div>
+
+                      <div class="col-md-4">
+                        <label for="fast__inputExperience" class="form-label">经验要求（年）
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">最低工作经验或行业资历限制，值为空系统将处理为不限经验</span>
+                          </div>
+                        </label>
+                        <input v-model="newFastPaper.experience" @input="transformInputNumberV($event)" tabindex="-1" id="fast__inputExperience" min="1" max="40"
+                          class="form-control mb-3" type="text" autocomplete="off" placeholder="不限">
+                      </div>
+
+                      <div class="section-name">服务商指定（可选）</div>
+
+                      <div class="col-md-6">
+                        <label class="form-label">1级服务商
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">指定特定服务商，商单会直接提交给该服务商</span>
+                          </div>
+                        </label>
+                        <model-select
+                            class="light-model-select"
                             :options="supplierOptions"
                             v-model="supplierSelectedItem"
                             placeholder="">
-                          </model-select>
-                          
-                        </div>
+                        </model-select>
                       </div>
-                      <div class="row mb-3 mt-3" >
-                        <label for="inputDuration" class="col-sm-4 col-form-label"> 
-                          机遇期 <div class="help-text"> 指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场(单位：天)</div>
+
+                      <div class="col-md-6">
+                        <label for="fast__inputDuration" class="form-label">机遇期（天）
+                          <div class="tm-tooltip">
+                            <i class="bi bi-info-circle"></i>
+                            <span class="tm-tooltiptext">指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场</span>
+                          </div>
                         </label>
-                        <div class="col-sm-8">
-                          <input id="inputDuration" 
-                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.duration" type="number" v-bind:disabled="!supplierSelectedItem">
-                        </div>
+                        <input v-model="newFastPaper.duration" @input="transformInputNumberV($event)" tabindex="-1" id="fast__inputDuration" min="1" max="50000"
+                          class="form-control mb-3" type="text" autocomplete="off" :disabled="!supplierSelectedItem">
                       </div>
-  
-                      <div class="row mb-3 mt-3" >
-                        <label for="inputDeliveryCycle" class="col-sm-4 col-form-label"> 
-                          交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天，必填)</div>
-                        </label>
-                        <div class="col-sm-8">
-                          <input id="inputDeliveryCycle" 
-                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.deliveryCycle" type="number">
-                        </div>
-                      </div>
-  
-                      <div class="row pb-3 mt-3" >
-                        <label for="inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
-                          招商期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天，必填)</div>
-                        </label>
-                        <div class="col-sm-8">
-                          <input id="inputContractValidityPeriod" 
-                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.contractValidityPeriod" type="number">
+
+                      <div class="section-name">技能&资质（可选）</div>
+                      <div class="col-12">
+                        <div class="tags-wrapper">
+                          <div class="tag-content">
+                            <ul>
+                              <li v-for="(tag, index) in newFastPaper.skills" :key="index">
+                                {{ tag }}
+                                <span><i class="bi bi-x" @click="removeNewModalSkillV(index)"></i></span>
+                              </li>
+                              <input id="fast__inputSkills"  maxlength="40" class="form-control" @keyup="deleteContentOrTagFromNewModalSkillV"
+                                @keyup.enter.prevent="addSkillInNewModalV" type="text" spellcheck="false" placeholder="输入后回车添加">
+                            </ul>
+                          </div>
+                          <div class="tag-details">
+                            <p class="help-text">还可添加<span>{{5 - newFastPaper.skills.length}}</span>标签</p>
+                          </div>
                         </div>
                       </div>
 
-                      <div class="row pb-3 mt-3" >
-                        <label class="col-sm-4 col-form-label"> 
-                          任务难度 <div class="help-text">必填。初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，供应商需在某个领域的取得卓越成就和非凡的技能。</div>
-                        </label>
-                        <div class="col-sm-8">
-                          <select class="form-select"  v-model="newFastPaper.difficulty">
-                            <option value="easy">初级</option>
-                            <option value="medium">中级</option>
-                            <option value="advanced">高级</option>
-                            <option value="expert">专家</option>
-                            <option value="master">大师</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row pb-3 mt-3" >
-                        <label class="col-sm-4 col-form-label"> 
-                          工作地点 <div class="help-text">实际工作地址或常驻办公地，必填</div>
-                        </label>
-                        <div class="col-sm-8">
-                          <textarea v-model="newFastPaper.location" class="form-control" maxlength="8" aria-label="With textarea"></textarea>
-                        </div>
-                      </div>
-                      <div class="row pb-3 mt-3" >
-                        <label  class="col-sm-4 col-form-label"> 
-                          经验要求 <div class="help-text">工作经验或行业资历限制，值为空系统将处理为不限经验</div>
-                        </label>
-                        <div class="col-sm-8">
-                          <div class="input-group">
-                            <input  class="form-control" @input="transformInputNumberV($event)" min="1" max="40" step="1"  v-model="newFastPaper.experience" type="number">
-                            <span class="input-group-text">年及以上从业经验</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row pb-3 mt-3" >
-                        <label  class="col-sm-4 col-form-label"> 
-                          接单消耗电量 <div class="help-text">供应商接单需要消耗的电量值，必填</div>
-                        </label>
-                        <div class="col-sm-8">
-                          <input  
-                          class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newFastPaper.bidElectricity" type="number">
-                        </div>
-                      </div>
-  
-                      <div class="row mb-3 mt-3">
-  
-                        <label  class="col-sm-4 col-form-label">
-                          技能&资质
-                          <div class="help-text">
-                            按回车键Enter添加  
-                          </div>
-                        </label>
-                        <div class="col-sm-8">
-                          <div class="tags-wrapper">
-                            <div class="tag-content">
-                              <ul>
-                                <li v-for="(tag, index) in newFastPaper.skills" :key="index" >
-                                  {{ tag }}
-                                  <span>
-                                    <i class="bi bi-x" @click="removeNewModalSkillV(index)"></i>
-                                  </span>
-                                </li>
-                                <input maxlength="40" class="form-control" @keyup="deleteContentOrTagFromNewModalSkillV"
-                                    @keyup.enter.prevent="addSkillInNewModalV"
-                                    type="text" spellcheck="false">
-                              </ul>
-                            </div>
-                            <div class="tag-details">
-                              <p class="help-text">还可添加<span>{{5 - newFastPaper.skills.length}}</span>标签</p>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-  
-  
                     </form>
-                    
+
                   </div>
-                  <div class="modal-footer btn-light">
-                    <button 
-                    :class="{'disabled': !validateNewFastPaperV() , 
-                    'btn-primary': validateNewFastPaperV()  ,
-                    'btn-secondary': !validateNewFastPaperV()  }" 
-                       @click="createOneFastMpsV" type="button"  v-preventreclick class="btn modal-btn-ui">创建商单</button>
+
+                  <div class="modal-footer fresh-ui-modal-footer">
+                    <button type="button" @click="closeNewFastPaperHandlerV" data-bs-dismiss="modal" class="btn btn-outline-secondary fresh-ui-btn">
+                      <div class="contents">取消</div>
+                    </button>
+                    <button v-preventreclick @click="createOneFastMpsV" type="button" :class="{'disabled': !validateNewFastPaperV()}" class="btn btn-primary fresh-ui-btn">创建商单</button>
                   </div>
+
                 </div>
               </div>
             </div>

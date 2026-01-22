@@ -4,6 +4,9 @@ import Auth from "/estudio/javascripts/auth.js";
 import axios from 'axios';
 import { getQueryVariable } from "/common/javascripts/util.js";
 
+import "vue-search-select/dist/VueSearchSelect.css";
+import {ModelSelect}  from 'vue-search-select';
+
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
@@ -12,6 +15,8 @@ import FriendListCompoent from "/common/javascripts/compoent/private-friend-list
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import  StudioApi from "/estudio/javascripts/compoent/StudioApi.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
+
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -41,11 +46,9 @@ const RootComponent = {
                 experience: "",
                 skills: []
             },
-            supplier:{
-                records: []
-            },
-            supplierQ: ""
-
+            supplierQ: "",
+            supplierOptions: [],
+            supplierSelectedItem: ""
         }
 },
   
@@ -76,8 +79,8 @@ const RootComponent = {
                 && !!this.newTemplate.deliveryCycle && !!this.newTemplate.contractValidityPeriod
                 && !!this.newTemplate.difficulty && !!this.newTemplate.location 
                 && !!this.newTemplate.bidElectricity
-                && ((!this.newTemplate.firstSupplier && !this.newTemplate.duration)
-                     || (!!this.newTemplate.firstSupplier && !!this.newTemplate.duration))){
+                && ((!this.supplierSelectedItem && !this.newTemplate.duration)
+                     || (!!this.supplierSelectedItem && !!this.newTemplate.duration))){
 
                 return true;
             }
@@ -89,9 +92,12 @@ const RootComponent = {
                 && !!this.putTemplate.deliveryCycle && !!this.putTemplate.contractValidityPeriod
                 && !!this.putTemplate.difficulty && !!this.putTemplate.location 
                 && !!this.putTemplate.bidElectricity
-                && this.btn_ctl.activate_edit_template_save__btn
-                && ((!this.putTemplate.firstSupplier && !this.putTemplate.duration)
-                     || (!!this.putTemplate.firstSupplier && !!this.putTemplate.duration))){
+                && (
+                    this.btn_ctl.activate_edit_template_save__btn
+                    || this.supplierSelectedItem != this.putTemplate.firstSupplier
+                )
+                && ((!this.supplierSelectedItem && !this.putTemplate.duration)
+                     || (!!this.supplierSelectedItem && !!this.putTemplate.duration))){
 
                 return true;
             }
@@ -100,11 +106,18 @@ const RootComponent = {
         showNewChainTemplateModalV(){
             // load supplier info
             this.supplierQ="";
+            this.supplierSelectedItem="";
             this.fetchFirstSupplierV();
             
             this.newTemplate=generateEmptyTemplate(),
-            $('.iput').val("");
-            $("#newChainTemplateModal").modal("show"); // hide modal
+            document.getElementById('new__inputSkills').value = "";
+            $("#newChainTemplateModal").modal("show");
+            this.$nextTick(() => {
+                const textarea = document.getElementById('new__inputSow');
+                if (textarea) {
+                    this.autoHeightV({ target: textarea });
+                }
+            });
 
         },
         removeTemplateV(id){
@@ -116,12 +129,12 @@ const RootComponent = {
             })
         },
         newMpsTemplateV(){
+            this.newTemplate.firstSupplier=this.supplierSelectedItem;
             newMpsTemplate(this.newTemplate).then(response=>{
                 if(response.data.code==200){
                     $("#newChainTemplateModal").modal("hide"); // hide modal
                     this.findAllTemplateOwnedChainV(); // refresh 
                     this.newTemplate=generateEmptyTemplate(); // reset 
-                    $('.iput').val(""); // reset suplier selector
                 }
                 if(response.data.code!=200){
                     customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
@@ -131,6 +144,7 @@ const RootComponent = {
             });
         },
         putMpsTemplateV(){
+            this.putTemplate.firstSupplier=this.supplierSelectedItem;
             modifyMpsTemplate(this.putTemplate).then(response=>{
                 if(response.data.code==200){
                     this.findAllTemplateOwnedChainV(); // refresh 
@@ -181,7 +195,11 @@ const RootComponent = {
         fetchFirstSupplierV(){
             fetchFirstSupplier(this.supplierQ).then(response=>{
                 if(response.data.code==200){
-                    this.supplier=response.data.supplier;
+                    var supplierArr=[{value:"",text:"选择服务商"}];
+                    response.data.supplier.records.forEach(element => {
+                        supplierArr.push({value: element.id,text: element.brandName});
+                    });
+                    this.supplierOptions=supplierArr;
                 }
             });
         },
@@ -211,42 +229,63 @@ const RootComponent = {
 
             this.putTemplate=JSON.parse(JSON.stringify(this.templateDetail));// deep copy
             this.putTemplate.bonus=Number(this.putTemplate.bonus).toFixed(0);
-            $('#put_iput_supplier').val(this.templateDetail.firstSupplierName);
+            this.supplierSelectedItem=this.putTemplate.firstSupplier;
+            document.getElementById('edit__inputSkills').value = "";
             $("#editChainTemplateModal").modal("show"); // show modal
+            this.$nextTick(() => {
+                const textarea = document.getElementById('edit__inputSow');
+                if (textarea) {
+                    this.autoHeightV({ target: textarea });
+                }
+            });
         },
         transformInputNumberV(event){
-            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
-            var min = Number(event.target.min);
-            var max = Number(event.target.max);
-            event.target.value = transformInputNumber(val, min, max);
-            if(val !== Number(event.target.value)){
-              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+           return transformInputNumberAsPositive(event);
+        },
+        autoHeightV(event){
+            var elem = event.target;
+            elem.style.height = "auto";
+            elem.scrollTop = 0; // 防抖动
+            
+            elem.style.height = elem.scrollHeight + "px";
+            if(elem.scrollHeight==0){
+                elem.style.height=100 + "px";
+            }
+            if(elem.scrollHeight>500){
+                elem.style.height=500 + "px";
             }
         }
     },
     created() {
-       this.findChainInfoV();
-       this.findAllTemplateOwnedChainV();
        this.queryVariableHasChainIdV();
-    }
+    },
+    watch: {
+        'supplierSelectedItem': function(newV, oldV){
+            if(!newV){
+                this.putTemplate.duration="";
+                this.newTemplate.duration="";
+            }
+        }
+    },
 }
 const app = createApp(RootComponent);
-app.mixin(new Auth({need_permission : true}));
+app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
-    scene: EventFeedScene.STUDIO}));
+    scene: EventFeedScene.STUDIO,need_init: false}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
+app.component("model-select",ModelSelect);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
 app.mixin(CodeExplainComponent);
 
-app.mixin(new FriendListCompoent({need_init: true}));
+app.mixin(new FriendListCompoent({need_init: false}));
 app.mixin(
     new Ssecompoent({
         sslSetting:{
-            need_init: true,
+            need_init: false,
             onMessage: (e)=>{
                 chainSettingPage.onMessageHandler(e); //  source: FriendListCompoent
             }
@@ -255,6 +294,14 @@ app.mixin(
 );    
 const chainSettingPage = app.mount('#app');
 window.chainSettingPage = chainSettingPage;
+
+chainSettingPage.userAdapter(); // auth.js
+chainSettingPage.initEventFeedCompoentV();
+chainSettingPage.fetchPrivateFriendV();// FriendListCompoent.js
+chainSettingPage.sseInitV();// Ssecompoent.js
+
+chainSettingPage.findChainInfoV();
+chainSettingPage.findAllTemplateOwnedChainV();
 
 async function updateMpsTemplate(dto){
     const url="/api/v1/web_estudio/brand/mps_chain/new_template";
@@ -379,55 +426,6 @@ function addChainIdToUrl(chainId){
     }
 }
 
-// search selector start
-function showOption() {
-    $('.op-list').toggleClass('hidden');
-    $('.iop').show();
-}
-$(document).on('click', '.iop', function () {
-    $('.op-list').addClass('hidden');
-    var text = $(this).text();
-    $('.iput').val(text);
-    var targetSupplierId=$(this).attr("id");
-    if(chainSettingPage.putTemplate.firstSupplier!=targetSupplierId){
-        chainSettingPage.btn_ctl.activate_edit_template_save__btn=true; // for update
-    }
-    chainSettingPage.newTemplate.firstSupplier=targetSupplierId; // for add
-    chainSettingPage.putTemplate.firstSupplier=targetSupplierId; // for update
-
-
-    if(!chainSettingPage.newTemplate.firstSupplier){
-        chainSettingPage.newTemplate.duration="";
-        chainSettingPage.newTemplate.firstSupplier="";
-        chainSettingPage.newTemplate.firstSupplierName="";
-
-    }
-    if(!chainSettingPage.putTemplate.firstSupplier){
-        chainSettingPage.putTemplate.duration="";
-        chainSettingPage.putTemplate.firstSupplier="";
-        chainSettingPage.putTemplate.firstSupplierName="";
-
-    }
-})
-function search(e) {
-    $('.iop').show();
-    chainSettingPage.supplierQ=e.target.value;
-    chainSettingPage.fetchFirstSupplierV();
-    
-}
-$(document).on("click",function (e) {
-    if ('iput' != e.target.className) {
-        $('.op-list').addClass('hidden');
-    }
-    if ('iput' == e.target.className) {
-        $('.op-list').removeClass('hidden');
-    }
-});
-// search selector end
-
-function transformInputNumber(val,min,max){
-    return val < min ? "" : val > max ? max : val;
-  }
 
   $(function(){
 	$(".tooltip-nav").tooltip();

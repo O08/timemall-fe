@@ -422,7 +422,7 @@
                             <div class="ms-2 chat-btn-container">
                               <div class="img-btn" >
                                 <i class="bi bi-image chat-image-btn"></i>
-                                <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                                <input @change="handleFileChange($event)" type="file"  accept=".jpg,.jpeg,.png,.gif" id="selection_image" class="input-file">
                               </div>
                             </div>
                           </span>
@@ -496,7 +496,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      奖金/元
+                      奖金（元）
                     </div>
                     <div class="detail-item-content">
                       <span>
@@ -526,7 +526,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      交付周期/天
+                      交付周期（天）
                     </div>
                     <div class="detail-item-content">
                       <span>
@@ -536,7 +536,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      招商期/天
+                      招商期（天）
                     </div>
                     <div class="detail-item-content">
                       <span>
@@ -576,7 +576,7 @@
                   </div>
                   <div class="detail-item">
                     <div class="detail-item-head">
-                      接单消耗电力
+                      接单消耗电量
                     </div>
                     <div class="detail-item-content">
                       <span>
@@ -625,8 +625,8 @@
                     </div>
                   </div>
 
-                  <div class="mt-5 pb-5">
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-primary modal-btn-ui">下线</button>
+                  <div class="mt-5 pb-5 mps-actions" >
+                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-dark modal-btn-ui">下线</button>
 
                     <button v-preventreclick v-if="mpmc__paperDetail.tag==='1' || mpmc__paperDetail.tag==='3'" @click="showEditPaperModelV" class="btn btn-dark modal-btn-ui">编辑</button>
 
@@ -683,68 +683,53 @@
   
                   </div>
   
-                  <div class="deliver-record-container">
-                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                      <div v-if="record.tag=='3'" class="d-flex pb-2">
-                        <div>
-                          交付内容：
-                        </div>
-                        <div class="record-filename">
-                          {{record.deliverName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                        </div>
+                  <div v-if="!isEmptyObjectV(mpdc__paperDeliver.records)" class="deliver-record-container">
+                    <div v-for="(record, index) in mpdc__paperDeliver.records" class="deliver-record">
+                      <!-- 交付内容 -->
+                      <div v-if="record.tag=='3'" class="deliver-record-row">
+                        <div class="deliver-record-label">交付内容</div>
+                        <div class="record-filename">{{record.deliverName}}</div>
+                        <a target="_blank" class="download-btn" :download="record.deliverName" :href="record.deliver">
+                          <i class="bi bi-cloud-arrow-down"></i>
+                        </a>
                       </div>
-                      <div v-else class="d-flex pb-2">
-                        
-                          <div>
-                            预览内容：
-                          </div>
-                          <div class="record-filename">
-                            {{record.previewName}}
-                          </div>
-                          <div class="ms-2">
-                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                          </div>
-                     
+                      <!-- 预览内容 -->
+                      <div v-else class="deliver-record-row">
+                        <div class="deliver-record-label">预览内容</div>
+                        <div class="record-filename">{{record.previewName}}</div>
+                        <a target="_blank" class="download-btn" :download="record.previewName" :href="record.preview">
+                          <i class="bi bi-cloud-arrow-down"></i>
+                        </a>
                       </div>
-                      <div class="pb-2">
-                        <span>
-                          状态：
-                          {{paperDeliverTagExplainV(record.tag)}}
-                        </span>
-                        
+                      <!-- 状态 -->
+                      <div class="deliver-record-row">
+                        <div class="deliver-record-label">状态</div>
+                        <div class="deliver-record-value">{{paperDeliverTagExplainV(record.tag)}}</div>
                       </div>
-                      <div class="pb-2">
-                        <span>
-                          提交时间：
-                          {{record.createAt}}
-                        </span>
-                        
+                      <!-- 提交时间 -->
+                      <div class="deliver-record-row">
+                        <div class="deliver-record-label">提交时间</div>
+                        <div class="deliver-record-value">{{record.createAt}}</div>
                       </div>
-                      
-                      <div v-if="!!record.msg" class="d-flex">
-                        <div class="delivery-remark-heading">留言：</div>
+                      <!-- 留言 -->
+                      <div v-if="record.msg" class="deliver-record-row">
                         <div class="delivery-remark-content">
-                          <p class="delivery-remark">
-                            {{record.msg}}
-                          </p>
+                          <p class="delivery-remark">{{record.msg}}</p>
                         </div>
                       </div>
-                      <div v-else class="leave-msg-container py-4" >
-                          <textarea class="textAreaDefault" rows="6" maxlength="600" v-model="record.newMsg"></textarea>
-                          <div class="py-2">
-                            <button 
-                            :class="{'disabled': !record.newMsg, 
-                            'btn-primary': record.newMsg,
-                            'btn-secondary': !record.newMsg}"
-                             v-preventreclick class="btn" @click="leaveMessageV(record)">留言</button>
-                          </div>
+                      <!-- 留言输入 -->
+                      <div  v-if="!record.msg && index==0 && record.tag!=='3'" class="leave-msg-container">
+                        <textarea class="textAreaDefault" rows="4" maxlength="600" v-model="record.newMsg" placeholder="输入留言..."></textarea>
+                        <div class="leave-msg-actions">
+                          <button 
+                            :class="{'disabled': !record.newMsg, 'btn-primary': record.newMsg, 'btn-secondary': !record.newMsg}"
+                            v-preventreclick class="btn leave-msg-btn" @click="leaveMessageV(record)">留言</button>
+                        </div>
                       </div>
-                      <div v-show="record.tag=='1'" class="py-4">
-                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-dark">再次修订</button>
-                        <button v-preventreclick @click="acceptPaperDeliverV(record)" class="btn btn-primary ms-5">接受交付</button>
+                      <!-- 操作按钮 -->
+                      <div v-show="record.tag=='1'" class="deliver-record-actions">
+                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-revision">退回修订</button>
+                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-accept">签收</button>
                       </div>
                     </div>
                   </div>
@@ -771,20 +756,18 @@
           <!-- focus modal -->
           <div class="modal-container">
             <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                  <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                    <h1 class="modal-title fs-5">操作提示</h1>
+                  <div class="modal-header">
+                    <h5 class="modal-title">操作提示</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                    <div class="product-feature">
-                      <p class="card-text">{{focusModal.message}}</p>
-                    </div>
+                  <div class="modal-body">
+                    <p class="focus-message">{{focusModal.message}}</p>
                   </div>
-                  <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                    <button type="button" class="btn btn-secondary modal-btn-ui" data-bs-dismiss="modal">取消</button>
-                    <button v-preventreclick @click="focusModal.confirmHandler" type="button"
-                      class="btn btn-primary modal-btn-ui">继续</button>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                    <button v-preventreclick @click="focusModal.confirmHandler" type="button" class="btn btn-confirm">确定</button>
                   </div>
                 </div>
               </div>
@@ -794,39 +777,48 @@
           <div class="modal-container">
               
             <!-- edit paper  Modal -->
-            <div class="modal fullscreen-modal fade" id="editPaperModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content text-color-dark">
+            <div class="modal fade edit-paper-modal" id="editPaperModal" data-bs-backdrop="static" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5">编辑商单</h1>
-                    <button type="button" @click="closeEditPaperModalHandlerV" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header-content">
+                      <div class="modal-icon edit">
+                        <i class="bi bi-pencil"></i>
+                      </div>
+                      <div class="modal-header-text">
+                        <h5 class="modal-title">编辑商单</h5>
+                      </div>
+                    </div>
+                    <button @click="closeEditPaperModalHandlerV" type="button" class="btn-modal-close" data-bs-dismiss="modal">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
                   </div>
                   <div class="modal-body">
-              
-                    <div class="row mb-3 mt-3">
-                      <label   class="col-sm-4 col-form-label"> 
-                        合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等 </div>
+                    <div class="form-group">
+                      <label class="form-label">
+                        <span>合约内容</span>
                       </label>
-                      <div class="col-sm-8">
-                        <textarea rows="13" @change="btn_ctl.activate_edit_mps_save_btn=true" v-model="mpmc_putPaper.sow" class="form-control" aria-label="With textarea"></textarea>
-                      </div>
+                      <textarea @change="btn_ctl.activate_edit_mps_save_btn=true" v-model="mpmc_putPaper.sow" class="form-input" rows="10" placeholder="请输入合约内容，如工作范围、交付物、Tech Pack 等..."></textarea>
+                      <div class="form-hint">任务与需求说明、交付说明、售后条款、tech pack等内容</div>
                     </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                        奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元) </div>
+                    <div class="form-group">
+                      <label class="form-label">
+                        <span>奖金（元）</span>
                       </label>
-                      <div class="col-sm-8">
-                        <input @input="transformInputNumberV($event)" min="1" max="50000" step="1" @change="btn_ctl.activate_edit_mps_save_btn=true" class="form-control"  v-model="mpmc_putPaper.bonus" type="text">
+                      <div class="bonus-input-wrapper">
+                        <span class="bonus-prefix">￥</span>
+                        <input type="text" @input="transformInputNumberV($event)" @change="btn_ctl.activate_edit_mps_save_btn=true" v-model="mpmc_putPaper.bonus" min="1" max="50000" class="form-input bonus-input" placeholder="0">
                       </div>
+                      <div class="form-hint">完成合约时支付给服务商的货币奖励</div>
                     </div>
-              
                   </div>
-                  <div class="modal-footer btn-light">
+                  <div class="modal-footer">
+                    <button type="button" @click="closeEditPaperModalHandlerV" class="btn-modal-cancel" data-bs-dismiss="modal">取消</button>
                     <button v-preventreclick 
-                    :class="{'disabled': !btn_ctl.activate_edit_mps_save_btn || !validatePutTemplateV(), 
-                    'btn-primary': btn_ctl.activate_edit_mps_save_btn && validatePutTemplateV(),
-                    'btn-secondary': !btn_ctl.activate_edit_mps_save_btn || !validatePutTemplateV()}"
-                      @click="modifyMpsPaperV" type="button"   class="btn modal-btn-ui">提交</button>
+                      :class="{'disabled': !btn_ctl.activate_edit_mps_save_btn || !validatePutTemplateV()}"
+                      @click="modifyMpsPaperV" type="button" class="btn-modal-primary">
+                      <i class="bi bi-check-lg"></i> 保存修改
+                    </button>
                   </div>
                 </div>
               </div>

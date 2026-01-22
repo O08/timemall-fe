@@ -9,14 +9,24 @@
 .section-container{
   background-color:unset;
 }
-.msg-room-panel,.deliver-panel-header{
+.msg-room-panel{
   background-color: #1a1a1a;
 }
 .deliver-panel-header{
-  padding-top: 8px;
+  padding: 24px 32px;
+  margin: 0 -32px 16px;
+  background-color: #161616;
+  border-bottom: 1px solid #2a2a2a;
 }
-.room-msg-panel,.deliver-record-container{
+.room-msg-panel{
   background-color: unset;
+}
+.deliver-record-container{
+  padding: 0 32px;
+  margin: 0 -32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .btn-new-deliver{
   border-radius: 5px 0 0 5px;
@@ -30,25 +40,35 @@
   opacity: 1;
 }
 .deliver-record{
-  padding: 1rem;
-  opacity: .7;
+  padding: 20px 24px;
+  background-color: #1e1e1e;
+  border: 1px solid #252525;
+  border-radius: 12px;
+  color: #a0a0a0;
+  font-size: 14px;
+  line-height: 1.8;
+  transition: all 0.2s ease;
+  transform: translateY(0);
 }
 .deliver-record:hover{
-  opacity: 1;
-}
-.deliver-record{
-  padding: 1rem;
-  border-bottom: 1px solid #efeff046;
-  opacity: .7;
-}
-.deliver-record:hover{
-  opacity: 1;
+  background-color: #252525;
+  border-color: #333;
+  color: #d0d0d0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .deltail-title{
-  padding-top: 16px;
+  padding: 32px 32px 24px;
+  margin: 0 -32px 16px;
   text-align: center;
   word-break: break-all;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #e0e0e0;
+  background-color: #161616;
+  border-bottom: 1px solid #2a2a2a;
 }
 .detail-item{
   display: flex;
@@ -91,12 +111,18 @@
   font-size: 10px;
 }
 .content-block{
-  height: 240px;
+  height: 200px;
   display: flex;
   text-align: center;
   flex-direction: column;
   justify-content: center;
-  background-color: #272727;
+  align-items: center;
+  background-color: #1e1e1e;
+  border: 1px dashed #333;
+  border-radius: 12px;
+  margin: 0 32px;
+  color: #606060;
+  font-size: 14px;
 }
 .btn-container{
   width: 50px;
@@ -118,26 +144,70 @@
   }
 }
 .record-filename{
-  width: 200px;
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   text-overflow: ellipsis;
   text-align: left;
   overflow: hidden;
-  display: inline-block;
+  color: #c0c0c0;
 }
-.delivery-remark-heading{
-  width: 50px;
+.deliver-record-row{
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #252525;
+}
+.deliver-record-row:last-child{
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.deliver-record-label{
+  width: 80px;
+  flex-shrink: 0;
+  color: #707070;
+  font-size: 13px;
+}
+.deliver-record-value{
+  flex: 1;
+  min-width: 0;
+  color: #a0a0a0;
+}
+.download-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-left: 12px;
+  background-color: transparent;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #707070;
+  transition: all 0.15s ease;
+}
+.download-btn:hover{
+  background-color: #252525;
+  border-color: #4cffa9;
+  color: #4cffa9;
+}
+.download-btn i{
+  font-size: 16px;
 }
 .delivery-remark-content{
-  width: calc(100% - 50px);
-
+  flex: 1;
+  min-width: 0;
 }
 .delivery-remark{
   white-space: pre-wrap;
   word-break: break-all;
-  line-height: 1.875;
-    font-size: 14px;
-    min-height: 30px;
+  line-height: 1.6;
+  font-size: 14px;
+  color: #909090;
+  margin: 0;
+  padding: 8px 12px;
+  background-color: #1a1a1a;
+  border-radius: 6px;
 }
 .room-msg-container{
   min-height: 400px;
@@ -171,6 +241,8 @@ body::-webkit-scrollbar {
 .papaer-info-container,.deliver-panel-container{
   height: calc(100vh - 142px);
   overflow-y: auto;
+  background-color: #1a1a1a;
+  padding: 0 32px 32px;
 }
 .opt_item_container {
   text-align: center;

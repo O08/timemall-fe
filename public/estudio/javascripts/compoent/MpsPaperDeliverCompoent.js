@@ -8,6 +8,12 @@ let customAlert = new CustomAlertModal();
 const MpsPaperDeliverCompoent = {
     data() {
         return {
+            focusModal:{
+                message: "",
+                confirmHandler:()=>{
+
+                }
+            },
             mpdc__paperDeliver:{},
             mpdc__current_active_paper: ""
         }
@@ -20,6 +26,9 @@ const MpsPaperDeliverCompoent = {
 
         },
         showAddNewDeliverModalV(){
+            this.delieverOrPreviewFileIsEmpty= true;
+            document.querySelector('#inputPreviewFile').value = null;
+            document.querySelector('#inputDeliverFile').value = null;
             $("#newDeliverModal").modal("show"); // show modal
         },
         fetchPaperDeliverDetailV(paperId){
@@ -81,6 +90,15 @@ const MpsPaperDeliverCompoent = {
             }).catch(error=>{
                 customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
+        },
+        showAcceptDeliverFocusModalV(deliver){
+            this.focusModal.message="接受交付后，将解锁服务商的交付资料，同时，系统从您的商单基金账户中划转款项给服务商，您可点击 「确定」 接受交付"
+            this.focusModal.confirmHandler=()=>{
+                this.acceptPaperDeliverV(deliver);
+                $("#focusModal").modal("hide"); // show modal
+
+            };
+            $("#focusModal").modal("show"); // show modal
         },
         acceptPaperDeliverV(deliver){
             modifyPaperDeliverTag(CommercialPaperDeliverTag.DELIVERED,deliver.deliverId,deliver.paperId).then(response=>{
@@ -168,10 +186,10 @@ function paperDeliverTagExplain(tag){
     var tagDesc="";
     switch(tag){
         case CommercialPaperDeliverTag.CREATED:
-            tagDesc="已提交交付内容";
+            tagDesc="待签收";
             break; 
         case CommercialPaperDeliverTag.REVISION:
-            tagDesc="修订";
+            tagDesc="退回修订";
                 break; 
         case CommercialPaperDeliverTag.DELIVERED:
             tagDesc="已交付";

@@ -267,52 +267,35 @@
 
         <div class="chain-setting-container">
 
-          <form onsubmit="return false">
-            <div class="row mb-3 mt-3">
-              <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                合集名称 <div class="help-text"> 模版集名称(最大80字符) </div>
-              </label>
-              <div class="col-sm-8">
-                <textarea v-model="chain.title" @change="btn_ctl.activate_save_mps_chain__btn=true" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
-              </div>
+          <form onsubmit="return false" class="setting-chain-form">
+            <div class="form-field">
+              <label class="field-label">模版集名称</label>
+              <input v-model="chain.title" @change="btn_ctl.activate_save_mps_chain__btn=true" class="field-input" maxlength="80" type="text" autocomplete="off">
             </div>
-            <div v-if="inEditChainModeV()" class="row mb-3 mt-3">
-              <label for="inputTitle" class="col-sm-4 col-form-label"> 
-                合集状态 <div class="help-text"> 设置模版集状态 </div>
-              </label>
-              <div class="col-sm-8">
-                <select class="form-select" v-model="chain.tag" @change="btn_ctl.activate_save_mps_chain__btn=true">
-                  <option value="1">运行中</option>
-                  <option value="2">休止</option>
-                </select>
-              </div>
+            <div v-if="inEditChainModeV()" class="form-field">
+              <label class="field-label">状态</label>
+              <select class="field-input" v-model="chain.tag" @change="btn_ctl.activate_save_mps_chain__btn=true">
+                <option value="1">使用中</option>
+                <option value="2">已废弃</option>
+              </select>
             </div>
-            <button v-preventreclick
-             @click="saveMpsChainV"
-             :class="{'disabled': !btn_ctl.activate_save_mps_chain__btn || !chain.title, 
-                      'btn-primary': btn_ctl.activate_save_mps_chain__btn && chain.title,
-                      'btn-secondary': !btn_ctl.activate_save_mps_chain__btn || !chain.title}"
-              type="submit" class="btn">保存</button>
+            <div class="form-actions">
+              <button v-preventreclick
+               @click="saveMpsChainV"
+               :class="{'disabled': !btn_ctl.activate_save_mps_chain__btn || !chain.title}"
+                type="submit" class="btn-save" :disabled="!btn_ctl.activate_save_mps_chain__btn || !chain.title">保存</button>
+            </div>
           </form>
+          <section v-show="btn_ctl.activate_show_add_template_model__btn" class="action-bar">
+            <button @click="showNewChainTemplateModalV" type="button" class="btn-add-template">
+              <i class="bi bi-plus"></i>
+              <span>新增商单模版</span>
+            </button>
+          </section>
           <div class="edit-chain-panel">
-            <section class="section-tool-bar">
-              <div class="d-flex tool-bar my-5">
-                <div v-show="btn_ctl.activate_show_add_template_model__btn" class="add-new-role-container" >
-                  <div class="add-new-row">
-                    <button @click="showNewChainTemplateModalV" type="button" class="btn btn-primary me-5">
-                      <i class="bi bi-plus"></i>
-                      新增商单模版
-                    </button>
-                  </div>
-                 
-                </div>
-
-              </div>
-
-            </section>
 
 
-            <div class="mps-panel">
+            <div v-show="!isEmptyObjectV(template.records)"  class="mps-panel">
               <section class="event-wrapper new-order">
                 <div 
                   class="row gx-3 gy-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
@@ -347,126 +330,81 @@
               </section>
             </div>
             <div v-show="!isEmptyObjectV(templateDetail)" class="mps-panel-detail">
-              <h1 class="deltail-title">{{templateDetail.title}}</h1>
-              <h2 class="detail-sow-heading">合约内容</h2>
-              <p class="detail-sow-content">
-                {{templateDetail.sow}}
-              </p>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  职能
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.piece}}
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  奖金/元
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{Number(templateDetail.bonus).toFixed(0)}} 
-                  </span>
-                </div>
-              </div>
-
-              <div  v-if="!!templateDetail.firstSupplierName" class="detail-item">
-                <div class="detail-item-head">
-                  一级服务商
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.firstSupplierName}}
-                  </span>
-                </div>
-              </div>
-              <div  v-if="(!!templateDetail.firstSupplierName) && (!!templateDetail.duration)" class="detail-item">
-                <div class="detail-item-head">
-                  机遇期/天
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.duration}} 
-                  </span>
-                </div>
-              </div>
-
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  交付周期/天
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.deliveryCycle}} 
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  招商期/天
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.contractValidityPeriod}} 
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  经验要求
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{!!templateDetail.experience ? templateDetail.experience + "年及以上从业经验" : "不限"}}
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  接单消耗电量
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.bidElectricity}} 
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  办公地点
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{templateDetail.location}} 
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="detail-item-head">
-                  任务难度
-                </div>
-                <div class="detail-item-content">
-                  <span>
-                    {{explainMpsDifficultyV(templateDetail.difficulty)}} 
-                  </span>
-                </div>
-              </div>
-              <div class="detail-item">
-                <div class="skills-box">
-                  <div class="skill-pill" v-for="skill in templateDetail.skills">
-                    {{skill}}
+              <div class="paper-details-content">
+                <!-- 标题区域 -->
+                <section class="paper-card paper-head-card">
+                  <h4 class="detail-title">{{templateDetail.title}}</h4>
+                  <div class="paper-attention">
+                    <div class="attention-container">
+                      <div class="attention-icon"><i class="bi bi-person-workspace"></i></div>
+                      <span>{{templateDetail.piece}}</span>
+                    </div>
+                    <div class="attention-container">
+                      <div class="attention-icon"><i class="bi bi-geo-alt"></i></div>
+                      <span>{{templateDetail.location}}</span>
+                    </div>
+                    <div class="attention-container">
+                      <div class="attention-icon"><i class="bi bi-lightning-charge"></i></div>
+                      <span>{{templateDetail.bidElectricity}} 电量</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="pt-5 pb-2">
+                </section>
 
-                <button @click="showEditTemplateModelV"  class="btn btn-primary">编辑模版</button>
+                <!-- 工作范围 -->
+                <section class="paper-card">
+                  <div class="paper-description">
+                    <strong class="text-base-sm">工作范围</strong>
+                    <p class="text-body-sm pre-wrap-text">{{templateDetail.sow}}</p>
+                  </div>
+                </section>
 
-                <button v-preventreclick @click="removeTemplateV(templateDetail.id)" class="btn btn-danger mx-5">删除模版</button>
+                <!-- 关键信息 -->
+                <section class="paper-card">
+                  <ul class="paper-keys">
+                    <li class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-gift"></i></div>
+                      <strong>{{Number(templateDetail.bonus).toFixed(0)}} 元奖金</strong>
+                    </li>
+                    <li class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-calendar-check"></i></div>
+                      <strong>{{templateDetail.deliveryCycle}} 天内交付</strong>
+                    </li>
+                    <li class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-megaphone"></i></div>
+                      <strong>招商期 {{templateDetail.contractValidityPeriod}} 天</strong>
+                    </li>
+                    <li class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-clock"></i></div>
+                      <strong>{{!!templateDetail.experience ? templateDetail.experience + "年及以上从业经验" : "经验不限"}}</strong>
+                    </li>
+                    <li v-if="!!templateDetail.firstSupplierName" class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-person-check"></i></div>
+                      <strong>{{templateDetail.firstSupplierName}}</strong>
+                    </li>
+                    <li v-if="(!!templateDetail.firstSupplierName) && (!!templateDetail.duration)" class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-alarm"></i></div>
+                      <strong>机遇期 {{templateDetail.duration}} 天</strong>
+                    </li>
+                    <li class="paper-key-item">
+                      <div class="attention-icon"><i class="bi bi-mortarboard"></i></div>
+                      <strong>{{explainMpsDifficultyV(templateDetail.difficulty)}}</strong>
+                    </li>
+                  </ul>
+                </section>
 
+                <!-- 技能标签 -->
+                <section v-if="templateDetail.skills && templateDetail.skills.length > 0" class="paper-card">
+                  <strong class="text-base-sm">技能要求</strong>
+                  <div class="skill-list">
+                    <div class="skill-item" v-for="skill in templateDetail.skills">{{skill}}</div>
+                  </div>
+                </section>
+
+                <!-- 操作按钮 -->
+                <section class="paper-card paper-actions">
+                  <button @click="showEditTemplateModelV" class="btn btn-primary">编辑模版</button>
+                  <button v-preventreclick @click="removeTemplateV(templateDetail.id)" class="btn btn-outline-danger">删除模版</button>
+                </section>
               </div>
             </div>
             
@@ -479,176 +417,183 @@
       <section class="modals">
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fade" id="newChainTemplateModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h2 class="modal-title fs-5" >新增商单模版</h2>
-                  <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <form onsubmit="return false">
-                    <div class="row mb-3 mt-3">
-                      <label for="new__inputTitle" class="col-sm-4 col-form-label"> 
-                        名称 <div class="help-text"> 商单模版名称(最大80字符，必填) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea id="new__inputTitle" v-model="newTemplate.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="new__inputSow" class="col-sm-4 col-form-label"> 
-                        合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等，必填 </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea maxlength="2000" id="new__inputSow" v-model="newTemplate.sow" class="form-control" rows="13"  aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="new__inputPiece" class="col-sm-4 col-form-label"> 
-                        职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置可以更精确匹配您的服务商 (最大80字符，必填) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="new__inputPiece" class="form-control" v-model="newTemplate.piece" maxlength="80" type="text">
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="new__inputBonus" class="col-sm-4 col-form-label"> 
-                        奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元，必填) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="new__inputBonus" class="form-control" v-model="newTemplate.bonus" @input="transformInputNumberV($event)" min="1" max="5000000" step="1"  type="number">
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="new__inputFirstSupplier" class="col-sm-4 col-form-label"> 
-                        1级服务商 <div class="help-text"> 指定特定服务商，商单会直接提交给该服务商 </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <div>
-                          <input class="iput" placeholder="输入关键词,键入回车搜索" @click="showOptionV()" @keyup.enter.native="searchV($event)">
-                        </div>
-                        <div class="op-list hidden">
-                            <div class="iop">--请选择--</div>
-                            <div v-for="opt in supplier.records" class="iop" :id="opt.id">{{opt.brandName}}</div>
-                        </div>
-                        <!-- <input v-model="newTemplate.firstSupplier" type="text"> -->
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3" >
-                      <label for="new__inputDuration" class="col-sm-4 col-form-label"> 
-                        机遇期 <div class="help-text"> 指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场(单位：天)</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="new__inputDuration" 
-                        class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newTemplate.duration" type="number" v-bind:disabled="!newTemplate.firstSupplier">
-                      </div>
+          <div class="modal define-template-modal" id="newChainTemplateModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-body">
+
+                  <form class="row g-3" onsubmit="return false">
+                    <div class="section-name">基础信息</div>
+
+                    <div class="col-12">
+                      <label for="new__inputTitle" class="form-label">模版名称</label>
+                      <input v-model="newTemplate.title" tabindex="-1" id="new__inputTitle" maxlength="80"
+                        class="form-control mb-3" type="text" autocomplete="off" placeholder="比如：A游戏创作激励">
                     </div>
 
-                    <div class="row mb-3 mt-3" >
-                      <label for="new__inputDeliveryCycle" class="col-sm-4 col-form-label"> 
-                        交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天，必填)</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="new__inputDeliveryCycle" 
-                        class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newTemplate.deliveryCycle" type="number">
-                      </div>
+                    <div class="col-12">
+                      <label for="new__inputSow" class="form-label">工作范围</label>
+                      <textarea  @input="autoHeightV($event)" v-model="newTemplate.sow" rows="6" maxlength="2000" class="form-control" id="new__inputSow" placeholder="任务与需求说明、交付说明、售后条款、tech pack等内容"></textarea>
+                      <small class="text-muted">{{newTemplate.sow.length}}/2000</small>
                     </div>
 
-                    <div class="row pb-3 mt-3" >
-                      <label for="new__inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
-                        招商期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天，必填)</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="new__inputContractValidityPeriod" 
-                        class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newTemplate.contractValidityPeriod" type="number">
-                      </div>
-                    </div>
+                    <div class="section-name">职能与报酬</div>
 
-                    <div class="row pb-3 mt-3" >
-                      <label for="new__inputDifficulty" class="col-sm-4 col-form-label"> 
-                        任务难度 <div class="help-text">必填。初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，供应商需在某个领域的取得卓越成就和非凡的技能。</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <select  id="new__inputDifficulty" class="form-select"  v-model="newTemplate.difficulty">
-                          <option value="easy">初级</option>
-                          <option value="medium">中级</option>
-                          <option value="advanced">高级</option>
-                          <option value="expert">专家</option>
-                          <option value="master">大师</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label for="new__inputLocation" class="col-sm-4 col-form-label"> 
-                        工作地点 <div class="help-text">实际工作地址或常驻办公地，必填</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea id="new__inputLocation" v-model="newTemplate.location" class="form-control" maxlength="8" aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label for="new_inputExperience"  class="col-sm-4 col-form-label"> 
-                        经验要求 <div class="help-text">工作经验或行业资历限制，值为空系统将处理为不限经验</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <div class="input-group">
-                          <input id="new_inputExperience" class="form-control" @input="transformInputNumberV($event)" min="1" max="40" step="1"  v-model="newTemplate.experience" type="number">
-                          <span class="input-group-text">年及以上从业经验</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label for="new__inputBidElectricity" class="col-sm-4 col-form-label"> 
-                        接单消耗电量 <div class="help-text">供应商接单需要消耗的电量值，必填</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="new__inputBidElectricity"  class="form-control" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="newTemplate.bidElectricity" type="number">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3 mt-3">
-
-                      <label  class="col-sm-4 col-form-label">
-                        技能&资质
-                        <div class="help-text">
-                          按回车键Enter添加  
+                    <div class="col-md-6">
+                      <label for="new__inputPiece" class="form-label">职能
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">如数据分析师、设计、测试等，准确的职能设置可以让系统更精确为您匹配服务商</span>
                         </div>
                       </label>
-                      <div class="col-sm-8">
-                        <div class="tags-wrapper">
-                          <div class="tag-content">
-                            <ul>
-                              <li v-for="(tag, index) in newTemplate.skills" :key="index" >
-                                {{ tag }}
-                                <span>
-                                  <i class="bi bi-x" @click="removeNewModalSkillV(index)"></i>
-                                </span>
-                              </li>
-                              <input maxlength="40" class="form-control" @keyup="deleteContentOrTagFromNewModalSkillV"
-                                  @keyup.enter.prevent="addSkillInNewModalV"
-                                  type="text" spellcheck="false">
-                            </ul>
-                          </div>
-                          <div class="tag-details">
-                            <p class="help-text">还可添加<span>{{5 - newTemplate.skills.length}}</span>标签</p>
-                          </div>
-                        </div>
-                      </div>
-
+                      <input v-model="newTemplate.piece" tabindex="-1" id="new__inputPiece" maxlength="80"
+                        class="form-control mb-3" type="text" autocomplete="off" placeholder="">
                     </div>
 
+                    <div class="col-md-6">
+                      <label for="new__inputBonus" class="form-label">奖金（元）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">完成合约时支付给服务商的货币奖励</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.bonus" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputBonus" min="1" max="5000000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">时间安排</div>
+
+                    <div class="col-md-4">
+                      <label for="new__inputDeliveryCycle" class="form-label">交付周期（天）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">告知服务商理想条件下，应在指定的时间内给出最终交付</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.deliveryCycle" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputDeliveryCycle" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="new__inputContractValidityPeriod" class="form-label">招商期（天）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.contractValidityPeriod" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputContractValidityPeriod" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="new__inputBidElectricity" class="form-label">接单消耗电量
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">服务商接单时需要消耗的电量值</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.bidElectricity" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputBidElectricity" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">准入条件</div>
+
+                    <div class="col-md-4">
+                      <label for="new__inputDifficulty" class="form-label">任务难度
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，需在某个领域的取得卓越成就和非凡的技能</span>
+                        </div>
+                      </label>
+                      <select id="new__inputDifficulty" v-model="newTemplate.difficulty" class="form-select">
+                        <option value="easy">初级</option>
+                        <option value="medium">中级</option>
+                        <option value="advanced">高级</option>
+                        <option value="expert">专家</option>
+                        <option value="master">大师</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="new__inputLocation" class="form-label">工作地点
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">实际工作地址或常驻办公地</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.location" tabindex="-1" id="new__inputLocation" maxlength="8"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="new__inputExperience" class="form-label">经验要求（年）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">最低工作经验或行业资历限制，值为空系统将处理为不限经验</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.experience" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputExperience" min="1" max="40"
+                        class="form-control mb-3" type="text" autocomplete="off" placeholder="不限">
+                    </div>
+
+                    <div class="section-name">服务商指定（可选）</div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">1级服务商
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">指定特定服务商，商单会直接提交给该服务商</span>
+                        </div>
+                      </label>
+                      <model-select
+                          class="light-model-select"
+                          :options="supplierOptions"
+                          v-model="supplierSelectedItem"
+                          placeholder="">
+                      </model-select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="new__inputDuration" class="form-label">机遇期（天）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场</span>
+                        </div>
+                      </label>
+                      <input v-model="newTemplate.duration" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputDuration" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off" :disabled="!supplierSelectedItem">
+                    </div>
+
+                    <div class="section-name">技能&资质（可选）</div>
+                    <div class="col-12">
+                      <div class="tags-wrapper">
+                        <div class="tag-content">
+                          <ul>
+                            <li v-for="(tag, index) in newTemplate.skills" :key="index">
+                              {{ tag }}
+                              <span><i class="bi bi-x" @click="removeNewModalSkillV(index)"></i></span>
+                            </li>
+                            <input id="new__inputSkills" maxlength="40" class="form-control" @keyup="deleteContentOrTagFromNewModalSkillV"
+                              @keyup.enter.prevent="addSkillInNewModalV" type="text" spellcheck="false" placeholder="输入后回车添加">
+                          </ul>
+                        </div>
+                        <div class="tag-details">
+                          <p class="help-text">还可添加<span>{{5 - newTemplate.skills.length}}</span>标签</p>
+                        </div>
+                      </div>
+                    </div>
 
                   </form>
-                  
+
                 </div>
-                <div class="modal-footer btn-light">
-                  <button 
-                  :class="{'disabled': !validateNewTemplateV() , 
-                  'btn-primary': validateNewTemplateV()  ,
-                  'btn-secondary': !validateNewTemplateV()  }" 
-                     @click="newMpsTemplateV" type="button"  v-preventreclick class="btn modal-btn-ui">提交</button>
+
+                <div class="modal-footer fresh-ui-modal-footer">
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary fresh-ui-btn">
+                    <div class="contents">取消</div>
+                  </button>
+                  <button v-preventreclick @click="newMpsTemplateV" type="button" :class="{'disabled': !validateNewTemplateV()}" class="btn btn-primary fresh-ui-btn">提交</button>
                 </div>
+
               </div>
             </div>
           </div>
@@ -656,175 +601,183 @@
 
         <div class="modal-container">
           <!-- editChainTemplateModal Modal -->
-          <div class="modal fade" id="editChainTemplateModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h2 class="modal-title fs-5" >编辑商单模版</h2>
-                  <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <form onsubmit="return false">
-                    <div class="row mb-3 mt-3">
-                      <label for="edit__inputTitle" class="col-sm-4 col-form-label"> 
-                        名称 <div class="help-text"> 商单模版名称(最大80字符，必填) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea id="edit__inputTitle" @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.title" class="form-control" maxlength="80" aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="edit__inputSow" class="col-sm-4 col-form-label"> 
-                        合约内容 <div class="help-text"> 设置合约内容，如工作范围,交付物,Tech Pack 等，必填 </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea maxlength="2000" id="edit__inputSow" @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.sow" class="form-control" rows="13"  aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="edit__inputPiece" class="col-sm-4 col-form-label"> 
-                        职能 <div class="help-text"> 合约定位如设计、管理、测试等，准确的职能设置可以更精确匹配您的服务商(最大80字符，必填)  </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="edit__inputPiece" class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.piece" maxlength="80" type="text">
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="edit__inputBonus" class="col-sm-4 col-form-label"> 
-                        奖金 <div class="help-text"> 完成合约时支付给服务商的货币奖励(单位：元，必填) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="edit__inputBonus" class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.bonus" @input="transformInputNumberV($event)" min="1" max="5000000" step="1"  type="text">
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="edit__inputFirstSupplier" class="col-sm-4 col-form-label"> 
-                        1级服务商 <div class="help-text"> 指定特定服务商，商单会直接提交给该服务商 </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <div>
-                          <input id="put_iput_supplier" class="iput" placeholder="输入关键词,键入回车搜索" @click="showOptionV()" @keyup.enter.native="searchV($event)">
-                        </div>
-                        <div class="op-list hidden">
-                            <div class="iop">--请选择--</div>
-                            <div v-for="opt in supplier.records" class="iop" :id="opt.id">{{opt.brandName}}</div>
-                        </div>
-                        <!-- <input v-model="newTemplate.firstSupplier" type="text"> -->
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="edit__inputDuration" class="col-sm-4 col-form-label"> 
-                        机遇期 <div class="help-text"> 指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场(单位：天)</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="edit__inputDuration" class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="putTemplate.duration" type="number" v-bind:disabled="!putTemplate.firstSupplier">
-                      </div>
+          <div class="modal define-template-modal" id="editChainTemplateModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-body">
+
+                  <form class="row g-3" onsubmit="return false">
+                    <div class="section-name">基础信息</div>
+
+                    <div class="col-12">
+                      <label for="edit__inputTitle" class="form-label">模版名称</label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.title" tabindex="-1" id="edit__inputTitle" maxlength="80"
+                        class="form-control mb-3" type="text" autocomplete="off" placeholder="比如：A游戏创作激励">
                     </div>
 
-                    <div class="row mb-3 mt-3" >
-                      <label for="edit__inputDeliveryCycle" class="col-sm-4 col-form-label"> 
-                        交付周期 <div class="help-text"> 告知服务商理想条件下，应在指定的时间内给出最终交付(单位：天，必填)</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="edit__inputDeliveryCycle"
-                        class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="putTemplate.deliveryCycle" type="number">
-                      </div>
+                    <div class="col-12">
+                      <label for="edit__inputSow" class="form-label">工作范围</label>
+                      <textarea  @input="autoHeightV($event)" @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.sow" rows="6" maxlength="2000" class="form-control" id="edit__inputSow" placeholder="任务与需求说明、交付说明、售后条款、tech pack等内容"></textarea>
+                      <small class="text-muted">{{putTemplate.sow.length}}/2000</small>
                     </div>
 
-                    <div class="row pb-3 mt-3" >
-                      <label for="edit__inputContractValidityPeriod" class="col-sm-4 col-form-label"> 
-                        招商期 <div class="help-text"> 设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商(单位：天，必填)</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input  id="edit__inputContractValidityPeriod"
-                        class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="putTemplate.contractValidityPeriod" type="number">
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label class="col-sm-4 col-form-label"> 
-                        任务难度 <div class="help-text">必填。初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，供应商需在某个领域的取得卓越成就和非凡的技能。</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <select class="form-select"  @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.difficulty">
-                          <option value="easy">初级</option>
-                          <option value="medium">中级</option>
-                          <option value="advanced">高级</option>
-                          <option value="expert">专家</option>
-                          <option value="master">大师</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label class="col-sm-4 col-form-label"> 
-                        工作地点 <div class="help-text">实际工作地址或常驻办公地，必填</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea v-model="putTemplate.location" @change="btn_ctl.activate_edit_template_save__btn=true" class="form-control" maxlength="8" aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label  class="col-sm-4 col-form-label"> 
-                        经验要求 <div class="help-text">工作经验或行业资历限制，值为空系统将处理为不限经验</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <div class="input-group">
-                          <input  class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" @input="transformInputNumberV($event)" min="1" max="40" step="1"  v-model="putTemplate.experience" type="number">
-                          <span class="input-group-text">年及以上从业经验</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row pb-3 mt-3" >
-                      <label  class="col-sm-4 col-form-label"> 
-                        接单消耗电量 <div class="help-text">供应商接单需要消耗的电量值，必填</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input  
-                        class="form-control" @change="btn_ctl.activate_edit_template_save__btn=true" @input="transformInputNumberV($event)" min="1" max="50000" step="1"  v-model="putTemplate.bidElectricity" type="number">
-                      </div>
-                    </div>
+                    <div class="section-name">职能与报酬</div>
 
-                    <div class="row mb-3 mt-3">
-
-                      <label  class="col-sm-4 col-form-label">
-                        技能&资质
-                        <div class="help-text">
-                          按回车键Enter添加  
+                    <div class="col-md-6">
+                      <label for="edit__inputPiece" class="form-label">职能
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">如数据分析师、设计、测试等，准确的职能设置可以让系统更精确为您匹配服务商</span>
                         </div>
                       </label>
-                      <div class="col-sm-8">
-                        <div class="tags-wrapper">
-                          <div class="tag-content">
-                            <ul>
-                              <li v-for="(tag, index) in putTemplate.skills" :key="index" >
-                                {{ tag }}
-                                <span>
-                                  <i class="bi bi-x" @click="removeEditModalSkillV(index)"></i>
-                                </span>
-                              </li>
-                              <input maxlength="40" class="form-control" @keyup="deleteContentOrTagFromEditModalSkillV"
-                                  @keyup.enter.prevent="addSkillInEditModalV"
-                                  type="text" spellcheck="false">
-                            </ul>
-                          </div>
-                          <div class="tag-details">
-                            <p class="help-text">还可添加<span>{{5 - putTemplate.skills.length}}</span>标签</p>
-                          </div>
-                        </div>
-                      </div>
-
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.piece" tabindex="-1" id="edit__inputPiece" maxlength="80"
+                        class="form-control mb-3" type="text" autocomplete="off" placeholder="">
                     </div>
 
+                    <div class="col-md-6">
+                      <label for="edit__inputBonus" class="form-label">奖金（元）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">完成合约时支付给服务商的货币奖励</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.bonus" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputBonus" min="1" max="5000000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">时间安排</div>
+
+                    <div class="col-md-4">
+                      <label for="edit__inputDeliveryCycle" class="form-label">交付周期（天）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">告知服务商理想条件下，应在指定的时间内给出最终交付</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.deliveryCycle" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputDeliveryCycle" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="edit__inputContractValidityPeriod" class="form-label">招商期（天）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">设置商单的有效时间，超过有效时间，还未有服务商接单的商单将自动失效，失效的商单不可招商</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.contractValidityPeriod" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputContractValidityPeriod" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="edit__inputBidElectricity" class="form-label">接单消耗电量
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">服务商接单时需要消耗的电量值</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.bidElectricity" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputBidElectricity" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="section-name">准入条件</div>
+
+                    <div class="col-md-4">
+                      <label for="edit__inputDifficulty" class="form-label">任务难度
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">初级：任务或活动相对简单，容易理解和完成；中级：需要一定的经验或技能，但仍然在大多数人的能力范围内；高级：需要更深入的知识、更复杂的策略或更高的专注度；专家级：在特定领域拥有丰富经验和高度专业知识；大师级：最高难度级别，需在某个领域的取得卓越成就和非凡的技能</span>
+                        </div>
+                      </label>
+                      <select @change="btn_ctl.activate_edit_template_save__btn=true" id="edit__inputDifficulty" v-model="putTemplate.difficulty" class="form-select">
+                        <option value="easy">初级</option>
+                        <option value="medium">中级</option>
+                        <option value="advanced">高级</option>
+                        <option value="expert">专家</option>
+                        <option value="master">大师</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="edit__inputLocation" class="form-label">工作地点
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">实际工作地址或常驻办公地</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.location" tabindex="-1" id="edit__inputLocation" maxlength="8"
+                        class="form-control mb-3" type="text" autocomplete="off">
+                    </div>
+
+                    <div class="col-md-4">
+                      <label for="edit__inputExperience" class="form-label">经验要求（年）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">最低工作经验或行业资历限制，值为空系统将处理为不限经验</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.experience" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputExperience" min="1" max="40"
+                        class="form-control mb-3" type="text" autocomplete="off" placeholder="不限">
+                    </div>
+
+                    <div class="section-name">服务商指定（可选）</div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">1级服务商
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">指定特定服务商，商单会直接提交给该服务商</span>
+                        </div>
+                      </label>
+                      <model-select
+                        class="light-model-select"
+                        :options="supplierOptions"
+                        v-model="supplierSelectedItem"
+                        placeholder="">
+                     </model-select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="edit__inputDuration" class="form-label">机遇期（天）
+                        <div class="tm-tooltip">
+                          <i class="bi bi-info-circle"></i>
+                          <span class="tm-tooltiptext">指定1级服务商接单周期，超出该时间间隔1级服务商未接单，商单进入商单市场</span>
+                        </div>
+                      </label>
+                      <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.duration" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputDuration" min="1" max="50000"
+                        class="form-control mb-3" type="text" autocomplete="off" :disabled="!supplierSelectedItem">
+                    </div>
+
+                    <div class="section-name">技能&资质（可选）</div>
+                    <div class="col-12">
+                      <div class="tags-wrapper">
+                        <div class="tag-content">
+                          <ul>
+                            <li v-for="(tag, index) in putTemplate.skills" :key="index">
+                              {{ tag }}
+                              <span><i class="bi bi-x" @click="removeEditModalSkillV(index)"></i></span>
+                            </li>
+                            <input id="edit__inputSkills" maxlength="40" class="form-control" @keyup="deleteContentOrTagFromEditModalSkillV"
+                              @keyup.enter.prevent="addSkillInEditModalV" type="text" spellcheck="false" placeholder="输入后回车添加">
+                          </ul>
+                        </div>
+                        <div class="tag-details">
+                          <p class="help-text">还可添加<span>{{5 - putTemplate.skills.length}}</span>标签</p>
+                        </div>
+                      </div>
+                    </div>
 
                   </form>
-                  
+
                 </div>
-                <div class="modal-footer btn-light">
-                  <button 
-                  :class="{'disabled': !validatePutTemplateV() , 
-                  'btn-primary': validatePutTemplateV()  ,
-                  'btn-secondary': !validatePutTemplateV()  }" 
-                   v-preventreclick @click="putMpsTemplateV" type="button"   class="btn modal-btn-ui">提交</button>
+
+                <div class="modal-footer fresh-ui-modal-footer">
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary fresh-ui-btn">
+                    <div class="contents">取消</div>
+                  </button>
+                  <button v-preventreclick @click="putMpsTemplateV" type="button" :class="{'disabled': !validatePutTemplateV()}" class="btn btn-primary fresh-ui-btn">提交</button>
                 </div>
+
               </div>
             </div>
           </div>

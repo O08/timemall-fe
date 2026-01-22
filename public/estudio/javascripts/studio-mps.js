@@ -118,7 +118,14 @@ const RootComponent = {
             this.supplierSelectedItem="";
             
             this.newFastPaper=generateEmptyFastPaper(),
-            $("#newFastPaperModal").modal("show"); // hide modal
+            document.getElementById('fast__inputSkills').value = "";
+            $("#newFastPaperModal").modal("show");
+            this.$nextTick(() => {
+                const textarea = document.getElementById('fast__inputSow');
+                if (textarea) {
+                    this.autoHeightV({ target: textarea });
+                }
+            });
         },
         showMpsModalV(){
             this.searchV();// load template info
@@ -274,6 +281,19 @@ const RootComponent = {
             event.target.value = transformInputNumber(val, min, max);
             if(val !== Number(event.target.value)){
               event.currentTarget.dispatchEvent(new Event('input')); // update v-model
+            }
+        },
+        autoHeightV(event){
+            var elem = event.target;
+            elem.style.height = "auto";
+            elem.scrollTop = 0; // 防抖动
+            
+            elem.style.height = elem.scrollHeight + "px";
+            if(elem.scrollHeight==0){
+                elem.style.height=100 + "px";
+            }
+            if(elem.scrollHeight>500){
+                elem.style.height=500 + "px";
             }
         }
 
@@ -489,10 +509,10 @@ function explianMpsChainTag(chainTag){
     var chainTagDesc="";
     switch(chainTag){
         case MpsChainTag.PUBLISH:
-            chainTagDesc="运行中";
+            chainTagDesc="使用中";
             break; 
         case MpsChainTag.OFFLINE:
-            chainTagDesc="休止";
+            chainTagDesc="已废弃";
                 break; 
     }
     return chainTagDesc;
