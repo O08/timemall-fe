@@ -7,14 +7,14 @@ header{
 }
 .core-data-block{
     padding: 16px;
-    background-color: #21222D;
+    background-color: #161616;
     border-radius: 10px;
 }
 .core-data-block .heading{
     padding-bottom: 32px;
 }
 .pannel-container{
-    background-color: #171821;
+    background-color: #0f0f0f;
     width: 100%;
     border-radius: 10px;
     padding: 12px;
@@ -36,36 +36,6 @@ header{
     margin-left: 12px;
 }
 
-.accordionMarketingMenu .accordion-button,.accordionMarketingMenu .accordion-header,.marketingMenu{
-    background-color: #141414;
-    border-radius: unset;
-    box-shadow: none;
-    color: #757a81;
-    font-weight: 800;
-   }
-   
-   .accordionMarketingMenu .accordion-item{
-       border: none;
-   }
-   
-   .accordion-button:not(.collapsed)::after {
-       background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
-   }
-     
-   .accordion-button.collapsed::after {
-       background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
-   }
-     
-   .accordion-button span{
-       margin-left: 10px;
-   }
-   .marketingMenu span{
-       margin-left: 16px;
-       font-weight: 400;
-   }
-   .accordionMarketingMenu .accordion-button   {
-    width: 95%;
-}
 .time-span .btn{
     height: 24px;
     /* line-height: 32px; */
@@ -79,6 +49,7 @@ header{
 }
 .data-content{
     height: 72px;
+    padding-top: 6px;
 }
 .empty-content-block{
     width: 100%;
@@ -88,6 +59,9 @@ header{
 }
 table{
     font-size: 12px;
+}
+tbody tr{
+    height: unset;
 }
 .ellipsis-2 {
     -webkit-line-clamp: 2;

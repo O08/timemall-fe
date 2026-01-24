@@ -4,7 +4,7 @@
 }
 .content-block{
     padding: 16px;
-    background-color: #21222D;
+    background-color: #161616;
     border-radius: 10px;
 }
 header{
@@ -69,37 +69,6 @@ table{
 .modal-content{
     background-color: #fff;
   }
-
-  .accordionMarketingMenu .accordion-button,.accordionMarketingMenu .accordion-header,.marketingMenu{
-    background-color: #141414;
-    border-radius: unset;
-    box-shadow: none;
-    color: #757a81;
-    font-weight: 800;
-   }
-   
-   .accordionMarketingMenu .accordion-item{
-       border: none;
-   }
-   .accordion-button span {
-    margin-left: 10px;
-}
-   .marketingMenu span{
-    margin-left: 16px;
-    font-weight: 400;
-}
-.accordionMarketingMenu .accordion-button   {
- width: 95%;
-}
-   
-   .accordion-button:not(.collapsed)::after {
-       background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
-   }
-     
-   .accordion-button.collapsed::after {
-       background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
-   }
-     
 
 
 .tool-tip-form{

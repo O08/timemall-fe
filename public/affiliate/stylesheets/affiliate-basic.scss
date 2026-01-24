@@ -1,0 +1,123 @@
+// Enhanced table-dark styling for better contrast and readability
+.table-dark {
+    --bs-table-color: #ffffff;
+    --bs-table-bg: #161616;
+    --bs-table-border-color: #333333;
+    --bs-table-striped-bg: #252525;
+    --bs-table-striped-color: #ffffff;
+    --bs-table-active-bg: #2d2d2d;
+    --bs-table-active-color: #ffffff;
+    --bs-table-hover-bg: #2a2a2a;
+    --bs-table-hover-color: #ffffff;
+}
+.table-dark thead {
+
+    background: linear-gradient(147deg, #161616 0%, #434343 50%, #161616 100%);
+    position: relative;
+}
+
+.table-dark thead th {
+    background: transparent;
+    color: #ffffff;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+
+.table-dark td {
+    vertical-align: middle;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.accordionMarketingMenu .accordion-button,
+.accordionMarketingMenu .accordion-header,
+.marketingMenu {
+    background-color: #141414;
+    border-radius: unset;
+    box-shadow: none;
+    color: #757a81;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.accordionMarketingMenu .accordion-item {
+    border: none;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+.accordion-button.collapsed::after {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23616161'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+.accordion-button span {
+    margin-left: 10px;
+}
+
+.marketingMenu span {
+    margin-left: 16px;
+    font-weight: 400;
+}
+
+.accordionMarketingMenu .accordion-button {
+    width: 95%;
+}
+
+
+// table page btn ui
+
+.pagination li {
+    list-style: none;
+    margin: 0;
+    background-color: unset;
+    background: unset;
+}
+
+.pagination li a {
+    background: #212529;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #FFF;
+    padding: 6px 14px;
+    text-decoration: none;
+    border-radius: 4px;
+    float: left;
+    font-size: 13px;
+    list-style: none;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.pagination li a:hover {
+    background-color: #5A6363;
+}
+
+.pagination .page-item:first-child .page-link {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.pagination .page-item:last-child .page-link {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.page-item:not(:first-child) .page-link {
+    margin-left: 0;
+}
+
+.current-page-active .page-link,
+.current-page-active .page-link:hover {
+    background-color: #F44336;
+}
