@@ -99,8 +99,8 @@ body {
 
 .leftnav_link_item {
   padding-left: 40px;
-  color: #757a81;
-  font-weight: 500;
+  color: #a0a5aa; /* 稍微亮一点的默认颜色 */
+  font-weight: 600; /* 增加字体权重 */
   font-size: 16px;
   text-decoration: none;
   display: flex;
@@ -108,19 +108,21 @@ body {
   align-items: center;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
-  height: 48px;
-  line-height: 48px;
+  height: 52px; /* 增加高度 */
+  line-height: 52px; /* 相应调整行高 */
+  margin-bottom: 4px; /* 添加底部间距 */
+  transition: all 0.3s ease; /* 添加过渡效果 */
 }
 
 .leftnav_current_item,
 .leftnav_link_item:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .leftnav_link_item i {
-  margin-right: 8px;
-  font-size: 18px;
-  font-weight: 500;
+  margin-right: 12px; /* 增加右边距 */
+  font-size: 20px; /* 增加图标大小 */
+  font-weight: 600;
 }
 
 .module_container {

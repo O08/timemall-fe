@@ -1,6 +1,6 @@
 .dashboard-box,
 .order-list-box {
-    background-color: #373b3e52;
+    background-color: #161616;
     border-radius: 10px;
     padding: 16px;
 }
@@ -17,43 +17,78 @@ a {
 
 .dashboard-box {
     display: grid;
-    gap: 12px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-bottom: 30px;
 }
 
-.redeem-stats-info {
-    background-color: #141414;
-    border-radius: 10px;
-    width: 100%;
+.stats-card {
+    background-color: #0f0f0f;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    border: 1px solid #333;
 }
 
-.stats-info,
-.stats-trend {
+.stats-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.stats-icon {
+    margin-bottom: 16px;
     display: flex;
-    justify-content: space-between;
-    padding: 16px;
-
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
 }
 
-.countKey {
-    font-size: 14px;
-    line-height: 1.4;
-    white-space: nowrap;
-    color: #b5b6ba;
-    font-weight: 600;
+.stats-icon i {
+    font-size: 32px;
+    color: #ffffff;
 }
 
-.countValue {
-    margin-top: 24px;
-    font-size: 24px;
+/* Different colors for each card */
+.stats-card:nth-child(1) .stats-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stats-card:nth-child(2) .stats-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stats-card:nth-child(3) .stats-icon {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stats-card:nth-child(4) .stats-icon {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.stats-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stats-value {
+    font-size: 32px;
     font-weight: 700;
-    line-height: 32px;
+    color: #ffffff;
+    line-height: 1.2;
 }
 
-.stats-trend {
-    background-color: #141414;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+.stats-label {
+    font-size: 14px;
+    color: #b5b6ba;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 

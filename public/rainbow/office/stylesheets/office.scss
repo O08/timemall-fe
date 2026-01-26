@@ -54,7 +54,7 @@ header {
 
 col-nav-main .list-group-item {
   background-color: transparent;
-  color: #808080;
+  color: #757a81;
   border: none !important;
 }
 
@@ -308,7 +308,6 @@ col-nav-main .oasis-avatar {
 
 col-content {
   width: 100%;
-  background-color: #141414;
 }
 
 
@@ -566,11 +565,14 @@ img[alt] {
 }
 .fresh-ui-table {
   margin-bottom: 0;
-  --bs-table-bg: #141414 !important;
+  --bs-table-bg: #1a1a1a !important;
   --bs-table-color: #fff !important;
-  --bs-table-hover-bg: #000 !important;
+  --bs-table-hover-bg: #161616 !important;
   --bs-table-hover-color: #fff !important;
   border-color: #ffffff1a !important;
+}
+.fresh-ui-table>thead{
+  background: linear-gradient(147deg, #161616 0%, #434343 50%, #161616 100%);
 }
 .fresh-ui-table  tbody tr {
   height: 48px;

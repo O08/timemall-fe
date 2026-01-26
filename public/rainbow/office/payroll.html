@@ -74,48 +74,45 @@
           <div class="content-core-box">
 
             <div class="dashboard-box">
-              <div class="redeem-stats-info">
-                <div class="stats-info">
-                  <div class="stats-info-title">
-                    <div class="countKey">员工人数</div>
-                    <div class="countValue">{{renderDashboard(dashboard.employees)}}</div>
-                  </div>
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+                <div class="stats-content">
+                  <div class="stats-value">{{renderDashboard(dashboard.employees)}}</div>
+                  <div class="stats-label">员工人数</div>
                 </div>
               </div>
 
-
-  
-  
-              <div class="redeem-stats-info">
-                <div class="stats-info">
-                  <div class="stats-info-title">
-                    <div class="countKey">待发薪资</div>
-                    <div class="countValue">{{renderDashboard(dashboard.pendingPayments)}}</div>
-                  </div>
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-wallet"></i>
                 </div>
-              </div>
-  
-  
-              <div class="redeem-stats-info">
-                <div class="stats-info">
-                  <div class="stats-info-title">
-                    <div class="countKey">本月支出</div>
-                    <div class="countValue">{{renderDashboard(dashboard.monthlyExpense)}}</div>
-                  </div>
+                <div class="stats-content">
+                  <div class="stats-value">{{renderDashboard(dashboard.pendingPayments)}}</div>
+                  <div class="stats-label">待发薪资（元）</div>
                 </div>
               </div>
 
-              <div class="redeem-stats-info">
-                <div class="stats-info">
-                  <div class="stats-info-title">
-                    <div class="countKey">本月已发放人次</div>
-                    <div class="countValue">{{renderDashboard(dashboard.monthlyPayrolls)}}</div>
-                  </div>
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-bar-chart"></i>
+                </div>
+                <div class="stats-content">
+                  <div class="stats-value">{{renderDashboard(dashboard.monthlyExpense)}}</div>
+                  <div class="stats-label">本月支出（元）</div>
                 </div>
               </div>
-  
-     
-     
+
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-check2-circle"></i>
+                </div>
+                <div class="stats-content">
+                  <div class="stats-value">{{renderDashboard(dashboard.monthlyPayrolls)}}</div>
+                  <div class="stats-label">本月已发放人次</div>
+                </div>
+              </div>
             </div>
   
             <div class="order-list-box mt-4">
