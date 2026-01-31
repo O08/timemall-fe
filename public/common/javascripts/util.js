@@ -94,13 +94,6 @@ export function formatCmpctNumber(number) {
  * @return timeSpanStr  string      转换之后的前台需要的字符串
  */
 export function Ftime (timespan) {
-    var dateTime = new Date(timespan * 1000);
-    var year = dateTime.getFullYear();
-    var month = dateTime.getMonth() + 1;
-    var day = dateTime.getDate();
-    var hour = dateTime.getHours();
-    var minute = dateTime.getMinutes();
-    //当前时间
     var now = Date.parse(new Date());  //typescript转换写法
     var milliseconds = 0;
     var timeSpanStr;
@@ -133,6 +126,39 @@ export function Ftime (timespan) {
     }
     return timeSpanStr;
 }
+/**
+ * 将 Unix 时间戳转换为相对时间字符串
+ * @param {number} timespan Unix 时间戳 (秒)
+ * @returns {string} 格式化后的字符串 (如: "3 分钟前")
+ */
+export function netAge(timespan) {
+    // 获取当前秒级时间戳
+    const now = Math.floor(Date.now() / 1000);
+    const diff = now - timespan;
+
+    // 1分钟内显示刚刚
+    if (diff < 60) return '刚刚';
+
+    // 定义单位及其对应的秒数
+    const units = [
+        { label: '分钟', seconds: 60 },
+        { label: '小时', seconds: 3600 },
+        { label: '天', seconds: 86400 },
+        { label: '个月', seconds: 2592000 }, // 按30天计算
+        { label: '年', seconds: 31104000 }  // 按12个月计算
+    ];
+
+    // 从大到小匹配合适的单位
+    for (let i = units.length - 1; i >= 0; i--) {
+        if (diff >= units[i].seconds) {
+            const value = Math.floor(diff / units[i].seconds);
+            return `${value} ${units[i].label}`;
+        }
+    }
+
+    return '未知';
+}
+
 
 
 const isValidUrl = urlString=> {

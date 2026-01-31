@@ -1,0 +1,161 @@
+/* --- Root Colors --- */
+:root {
+    --border-color: #2d323a;
+    --text-dim: #c4c9ce;
+}
+
+
+/* --- Invite Details Optimization --- */
+.invite-details {
+    display: flex;
+    flex-wrap: wrap;
+    /* Key for long content */
+    gap: 12px 20px;
+    /* Vertical and Horizontal spacing */
+    color: var(--text-dim);
+    margin-top: 12px;
+}
+
+.invite-code {
+    background-color: #121212;
+    border-color: #c4c9ce99;
+    border-radius: 3px;
+    margin-right: 6px;
+    padding: 4px 10px;
+}
+
+.btn-copy {
+    padding: 3px 6px;
+    font-size: 12px;
+
+}
+
+.invite-details-item {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    /* Prevents text from breaking mid-word */
+    font-size: 0.875rem;
+    max-width: 75dvw;
+}
+
+.invite-details-item i {
+    margin-right: 6px;
+    font-size: 1rem;
+    color: #aaa;
+}
+
+
+#createInvitationLinkModal {
+
+    /* Container for the Modal Content */
+    .modal-content.text-color-dark {
+        background-color: #1f1f1f;
+        /* YouTube's primary dark background */
+        color: #f1f1f1;
+        /* Soft white for primary text */
+        border: 1px solid #333;
+        /* Subtle border for separation */
+        border-radius: 12px;
+        /* Modern rounded corners */
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #333;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #333;
+        background-color: #1f1f1f !important;
+    }
+
+    /* Form Grouping */
+    .input-group-container {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Label Styling */
+    .yt-label {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #aaa;
+        /* Muted gray for labels */
+    }
+
+    /* Select & Input Styling */
+    .yt-select {
+        background-color: #0f0f0f;
+        /* Slightly darker than main background */
+        color: #f1f1f1;
+        border: 1px solid #333;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+        appearance: none;
+        /* Removes default browser styling */
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+    }
+
+    .yt-select:focus {
+        border-color: #3ea6ff;
+        /* YouTube Blue focus color */
+        box-shadow: 0 0 0 1px #3ea6ff;
+    }
+
+
+
+}
+
+/* --- Mobile Specific Optimization (under 768px) --- */
+@media (max-width: 767px) {
+    .invite-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    .invite-details {
+        width: 100%;
+        /* On mobile, if items are long, they stack nicely */
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .invite-details-item {
+        background: rgba(255, 255, 255, 0.03);
+        /* Subtle pill background for mobile */
+        padding: 4px 10px;
+        border-radius: 6px;
+    }
+
+    .invite-actions {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .btn-del-link {
+        width: 100%;
+    }
+}
+
+/* --- PC Optimization (768px and up) --- */
+@media (min-width: 768px) {
+
+    /* Add vertical separators between items on PC for clarity */
+    .invite-details-item:not(:last-child)::after {
+        content: "";
+        height: 12px;
+        width: 1px;
+        background: var(--border-color);
+        margin-left: 20px;
+        display: inline-block;
+    }
+}

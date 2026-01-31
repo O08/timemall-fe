@@ -185,10 +185,6 @@ window.settingRolePage = settingRole;
 settingRole.fetchOasisRolesV();
 
 
-async function doFetchOasisRoles(oasisId, q) {
-    const url = "/api/v1/team/oasis/role?q=" + q + "&oasisId=" + oasisId;
-    return await axios.get(url);
-}
 
 async function doCreateOasisRole(dto){
     const url = "/api/v1/team/oasis/role/new";
@@ -303,7 +299,7 @@ async function newOasisRole(appObj){
 }
 async function fetchOasisRoles(oasisId, q) {
 
-    doFetchOasisRoles(oasisId, q).then(response => {
+    OasisApi.doFetchOasisRoles(oasisId, q).then(response => {
         if (response.data.code == 200) {
 
             settingRole.roles = response.data.role;

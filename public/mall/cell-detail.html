@@ -350,8 +350,8 @@
                               <div class="millstone-header d-flex">
                                 <img :src="millstone.icon || defaultExperienceImage" @error.once="e => { e.target.src = defaultExperienceImage }">
                                 <div class="inner-header d-flex flex-column mx-2">
-                                  <span class="fw-semibold lh-lg mb-1">{{millstone.title}}</span>
-                                  <span class="fw-normal">{{millstone.subTitle}}</span>
+                                  <span class="fw-semibold lh-lg mb-1" style="word-break: break-all;">{{millstone.title}}</span>
+                                  <span class="fw-normal" style="word-break: break-all;">{{millstone.subTitle}}</span>
                                   <span class="help-text mb-2 fw-bold font-monospace date-info">{{millstone.start}} - {{ millstone.end ? millstone.end : "现在"}}</span>
                                 </div>
                               </div>
@@ -359,7 +359,7 @@
                             <div class="card-body">
                               <ul class="timeline">
                                 <li v-for="entry in millstone.entries" class="timeline-item mb-2">
-                                  <h5 class="fw-bold mb-0">{{entry.title}}</h5>
+                                  <h5 class="fw-bold mb-0" style="word-break: break-all;">{{entry.title}}</h5>
                                   <p class="opt_item_desc mb-2 fw-bold date-info">{{entry.start}} - {{entry.end ? entry.end : "现在"}}</p>
                                   <p class="opt_item_desc">
                                     {{entry.story}}

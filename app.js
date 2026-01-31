@@ -155,6 +155,10 @@ app.get('/employee/:id/info', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/office/employee-info.html")        //设置/ 下访问文件位置
 })
 
+app.get('/oasis/invite/:code', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/link-join.html")        //设置/ 下访问文件位置
+})
+
 
 
 

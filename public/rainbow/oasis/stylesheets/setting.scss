@@ -65,6 +65,7 @@ col-nav-main .oasis-avatar{
     padding-bottom: 32px;
     display: flex;
     align-items: center;
+    padding-left: 6px;
 }
 .oasis-head .oasis-title{
     font-size: 12px;
@@ -393,33 +394,37 @@ img[alt] {
     box-sizing: border-box;
     color: hsl(210 calc(1*9.091%) 87.059% /1);
 }
-.btn-del-link{
-    user-select: none;
-    background: none;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px;
-    padding: 2px 16px;
-    position: relative;
-    display: flex;
+.btn-del-link {
+    /* Define color as a variable for reuse */
+    --brand-red: hsl(359 87% 60%);
+
+    display: inline-flex; /* Use inline-flex for button-like behavior */
     justify-content: center;
     align-items: center;
-    border-width: 1px;
-    border-style: solid;
+    
     height: 32px;
     min-width: 60px;
-    min-height: 32px;
-    width: auto;
-    cursor: pointer;
-    box-sizing: border-box;
+    padding: 2px 16px;
+    
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1; /* Simpler than 16px */
+    
     color: #fff;
-    border-color: hsl(358.659 calc(1*87.317%) 59.804% /1);
+    background: transparent;
+    border: 1px solid var(--brand-red);
+    border-radius: 3px;
+    
+    cursor: pointer;
+    user-select: none;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease; /* Added for smoothness */
 }
-.btn-del-link:hover{
-    background-color:  hsl(358.659 calc(1*87.317%) 59.804% /1);
+
+.btn-del-link:hover {
+    background-color: var(--brand-red);
 }
+
 .btn-contents{
     margin: 0 auto;
     white-space: nowrap;

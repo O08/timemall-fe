@@ -28,18 +28,31 @@ const RootComponent = {
             if(response.data.code==200){
                this.disableAcceptBtn = true;
                this.disableDelBtn = true;
+               return;
             }
-            if(response.data.code==40030){
-              customAlert.alert("部落已停止招新，加入失败！"); 
-            }
-            if(response.data.code==40032){
-              customAlert.alert("已转为私密部落，加入失败！"); 
-            }
-            if(response.data.code==40033){
-              customAlert.alert("已加入部落，请不要重复操作！"); 
-           }
-            if(response.data.code==40009){
-              customAlert.alert("部落可容纳成员已达最大值，加入失败！"); 
+            const { code, message } = response.data;
+            switch (code) {
+  
+              case 40030:
+                  customAlert.alert("部落已停止招新，加入失败！");
+                  break;
+          
+              case 40032:
+                  customAlert.alert("已转为私密部落，加入失败！");
+                  break;
+          
+              case 40033:
+                  customAlert.alert("已加入部落，请不要重复操作！");
+                  break;
+          
+              case 40009:
+                  customAlert.alert("部落可容纳成员已达最大值，加入失败！");
+                  break;
+          
+              default:
+                  const error = `操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：${message}`;
+                  customAlert.alert(error);
+                  break;
             }
           });
          },

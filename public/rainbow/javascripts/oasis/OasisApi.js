@@ -15,7 +15,8 @@ const OasisApi = {
     fetchFriendListNotInOasis,
     topUptoOasis,
     retrieveOasisFinInfo,
-    fetchFastLinks
+    fetchFastLinks,
+    doFetchOasisRoles
 }
 async function putAnnounce(oasisId,files){
     var fd = new FormData();
@@ -128,4 +129,9 @@ function fetchFastLinks(id){
     const url = "/api/v1/oasis/{id}/fast_link".replace("{id}",id);
     return axios.get(url);
 }
+async function doFetchOasisRoles(oasisId, q) {
+    const url = "/api/v1/team/oasis/role?q=" + q + "&oasisId=" + oasisId;
+    return await axios.get(url);
+}
+
 export default OasisApi;

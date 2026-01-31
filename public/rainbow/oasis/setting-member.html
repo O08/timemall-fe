@@ -37,6 +37,7 @@
               <a :href="'/rainbow/oasis/setting-membership?oasis_id='+oasisId" class="list-group-item">会员套餐</a>
               <a :href="'/rainbow/oasis/setting-fast-link?oasis_id='+oasisId" class="list-group-item ">快速访问</a>
               <a :href="'/rainbow/oasis/setting-invitation?oasis_id='+oasisId" class="list-group-item ">邀请</a>
+              <a :href="'/rainbow/oasis/setting-invitation-link?oasis_id='+oasisId" class="list-group-item">邀请链接</a>
               <a :href="'/rainbow/oasis/setting-change-admin?oasis_id='+oasisId" class="list-group-item">管理权移交</a>
 
 
@@ -114,7 +115,7 @@
                 </div>
 
               </div>
-              <button  v-preventreclick @click="showConfigMemberRoleModalV(member)" class="btn-del-link">
+              <button  v-preventreclick @click="showConfigMemberRoleModalV(member)" class="btn-option-secondary">
                 <div class="btn-contents">
                   配置身份组
                 </div>

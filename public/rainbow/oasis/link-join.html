@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>我的邀请</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/link-join.scss">
+
+
+</head>
+<body>
+  <div id="app" class="app-container" v-cloak>
+    <div v-if="!init_finish">
+      <img class="loading-annimation" src="/common/images/loading.gif" alt="loading annimation">
+    </div>
+    <div v-else="init_finish" class="invitation-container">
+      <div class="invitation-card glass">
+        
+        <!-- 1. Hero Branding Section -->
+        <header class="hero-branding">
+          <div class="logo-stack">
+            <div class="main-group-logo">
+              <img :src="adaptiveImageUriV(invitationInfo.oasisLogo) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }" alt="Community Logo">
+            </div>
+            <div class="inviter-badge">
+              <img :src="adaptiveImageUriV(invitationInfo.inviterAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="Inviter">
+            </div>
+          </div>
+          <div class="brand-info">
+            <h1 class="oasis-title">{{ invitationInfo.oasisName }}</h1>
+            <p class="invite-label"><span>{{ invitationInfo.inviterName }}</span> 邀你加入</p>
+          </div>
+        </header>
+  
+        <!-- 2. Bento Stats Row -->
+        <div class="bento-stats">
+          <div class="stat-box">
+            <span class="val">{{ formatNumberV(invitationInfo.members) }}</span>
+            <span class="lbl">成员</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-box">
+            <span class="val">{{ formatTimeV(invitationInfo.oasisCreateAt) }}</span>
+            <span class="lbl">部落年龄</span>
+          </div>
+        </div>
+  
+        <!-- 3. Community Narrative -->
+        <div class="community-body">
+          <p class="description">{{ invitationInfo.oasisDescription }}</p>
+          <div class="role-info-box">
+            <div class="role-label">授予身份组</div>
+            <div class="reward-pill">
+              <span class="pill-icon">✦</span>
+              <span class="pill-text ellipsis-1 "><strong>{{ invitationInfo.grantedRole }}</strong></span>
+            </div>
+          </div>
+     
+        </div>
+  
+        <!-- 4. Modern CTA -->
+        <footer class="action-footer">
+          <button class="primary-btn" v-preventreclick @click="agreeToJoinOasisV">
+            接受邀请
+          </button>
+          <p v-if="!user_already_login" class="legal">
+            <a href="/login" class="loin-link">
+              <span>后续操作需要授权，请登录/注册账号<i class="bi bi-arrow-right"></i></span>
+            </a>
+          </p>
+        </footer>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/javascripts/oasis/link-join.js"></script>
+</body>
+</html>
