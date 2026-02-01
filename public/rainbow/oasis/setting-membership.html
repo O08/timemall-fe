@@ -192,19 +192,19 @@
                   <div class="col-12">
                     <label for="newTier__tierName" class="form-label">套餐名称</label>
                     <input tabindex="-1" id="newTier__tierName" v-model="newTier.tierName" maxlength="72"
-                      class="form-control  only-show-bottom mb-3" type="text" placeholder="比如，福卡内参" autocomplete="off">
+                      class="inputDefault only-show-bottom mb-3" type="text" placeholder="比如，福卡内参" autocomplete="off">
                   </div>
 
                   <div class="col-md-6">
-                    <label for="newTier__productPrice" class="form-label">每月订阅费用</label>
+                    <label for="newTier__productPrice" class="form-label">每月订阅费用（元）</label>
                     <input tabindex="-1" id="newTier__productPrice" v-model="newTier.price"
                       @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" type="text"
-                      class="form-control  only-show-bottom  mb-3" autocomplete="off">
+                      class="inputDefault only-show-bottom  mb-3" autocomplete="off">
                   </div>
 
                   <div class="col-md-6">
                     <label for="newTier__tierRole" class="form-label">订阅成功授权身份组</label>
-                    <model-select tabindex="-1" id="newTier__tierRole" class="mb-3" :options="roleOptions" placeholder=""
+                    <model-select tabindex="-1" id="newTier__tierRole" class="dark-model-select" :options="roleOptions" placeholder=""
                       v-model="roleSelectedItem">
                     </model-select>
                   </div>
@@ -212,9 +212,15 @@
 
                   <div class="col-12">
                     <label for="newTier__tierDescription" class="form-label">描述</label>
-                    <textarea id="newTier__tierDescription" v-model="newTier.tierDescription"
-                      placeholder="内容摘要或介绍" rows="8" maxlength="199"
-                      class="form-control  only-show-bottom"></textarea>
+                    <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                        <textarea id="newTier__tierDescription" v-model="newTier.tierDescription"  maxlength="200"
+                          rows="3" autocorrect="off" class="inputDefault textAreaDefault" placeholder="内容摘要或介绍" 
+                          style="height: 150px;"></textarea>
+                        <div class="maxLength">{{ (!newTier || !newTier.tierDescription) ? 200 : 200-newTier.tierDescription.length}}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
 

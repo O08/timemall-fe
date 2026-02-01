@@ -203,11 +203,11 @@
               </select>
             </div> 
             <div class="mt-3">
-              <label for="accountDrawable" class="form-label">可取余额</label>
+              <label for="accountDrawable" class="form-label">可取余额（元）</label>
               <input v-model="trans.drawable" type="number" class="form-control disable-input" id="accountDrawable" disabled>
             </div>  
             <div class="mt-3">
-              <label for="transferAmount" class="form-label">转账金额</label>
+              <label for="transferAmount" class="form-label">取出金额（元）</label>
               <input  v-model="trans.amount" @input="transformInputNumberV($event)" min="1" max="50000" step="1" type="number" class="form-control" id="transferAmount">
             </div> 
             <div class="mt-1 help-text">
@@ -247,7 +247,7 @@
   <div class="modal-container">
           
     <!-- Modal -->
-    <div class="modal fade" id="addAccountInfoModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal fade fresh-ui" id="addAccountInfoModal" data-bs-backdrop="static" tabindex="-1">
       <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content text-color-dark">
           <div class="modal-header">
@@ -256,21 +256,17 @@
           </div>
           <div class="modal-body">
             <form>
-              <div class="row mb-3 mt-3">
-                <div class="col-sm-3 col-form-label">
-                  <label for="input[payeeAccount]" class="form-label">登录号</label>
-                </div>
-                <div class="col-sm-9">
-                  <input id="input[payeeAccount]"  v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
-                </div>
+              <div class="mb-3 mt-3">
+                <label for="input[payeeAccount]" class="form-label">登录号</label>
+
+                <input id="input[payeeAccount]"  v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
+
               </div> 
-              <div class="row mb-3">
-                <div class="col-sm-3 col-form-label">
-                  <label for="input[payeeRealName]" class="form-label">姓名</label>
-                </div>
-                <div class="col-sm-9">
-                  <input id="input[payeeRealName]"  v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
-                </div>
+              <div class="mb-3">
+                <label for="input[payeeRealName]" class="form-label">姓名</label>
+
+                <input id="input[payeeRealName]"  v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
+
               </div> 
             </form>
             
@@ -287,7 +283,7 @@
   <div class="modal-container">
           
     <!-- Modal -->
-    <div class="modal fade" id="alipayAccountMangementModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal fade fullscreen-mb-modal fresh-ui" id="alipayAccountMangementModal" data-bs-backdrop="static" tabindex="-1">
       <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content text-color-dark">
           <div class="modal-header">
@@ -295,19 +291,26 @@
             <button type="button" @click="closeAlipayAccountMangementModalHandlerV" id="closeAlipayAccountMangementModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <ul class="list-group list-group-flush">
-              <li v-for="record in alipay.records" class="list-group-item">
-                <div class="form-check d-flex align-items-center ">
-                  <input class="form-check-input"  v-model="alipayDelId" type="radio" name="flexRadioMy"  :value="record.id">
-                  <label class="form-check-label" for="flexRadioMy">
-                    <div class="d-flex flex-column ms-2">
-                      <span>姓名:<span class="ms-1 help-text">{{record.payeeRealName}}</span></span>
-                      <span>登录号:<span class="ms-1 help-text">{{record.payeeAccount}}</span></span>
-                    </div>
+            <ul class="list-group list-group-flush shadow-sm">
+              <li v-for="record in alipay.records" :key="record.id" class="list-group-item">
+                <div class="form-check d-flex align-items-center">
+                  <input 
+                    class="form-check-input" 
+                    v-model="alipayDelId" 
+                    type="radio" 
+                    name="alipayAccounts" 
+                    :id="'radio-' + record.id" 
+                    :value="record.id"
+                  >
+                  <!-- w-100 makes the label fill the row for easier clicking -->
+                  <label class="form-check-label d-flex flex-column ms-3 w-100" :for="'radio-' + record.id">
+                    <span class="fw-bold">姓名: <span class="help-text fw-normal">{{record.payeeRealName}}</span></span>
+                    <span class="fw-bold">登录号: <span class="help-text fw-normal">{{record.payeeAccount}}</span></span>
                   </label>
                 </div>
               </li>
             </ul>
+            
             
           </div>
           <div class="modal-footer btn-light">

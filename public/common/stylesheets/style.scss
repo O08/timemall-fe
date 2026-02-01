@@ -1485,7 +1485,22 @@ table th{
   margin: 0;
   height: 100%;
 }
-
+/* fullscreen modal in mobile */
+@media (max-width: 48rem) {
+  .fullscreen-mb-modal{
+    --bs-modal-width: 100%;
+  
+  }
+  .fullscreen-mb-modal .modal-content{
+    height: 100vh;
+    border: none;
+    border-radius: unset;
+  }
+  .fullscreen-mb-modal .modal-dialog{
+    margin: 0;
+    height: 100%;
+  }
+}
 // emoji picker element
 emoji-picker {
   --border-radius: 6px;

@@ -62,16 +62,15 @@ const  OasisInvitationComponent = {
           
           <div class="search-container">
 
-            <!-- top search -->
-           <top-search class="section-top-serach">
-            <div class="input-group input-normal-search">
-              <input  @keyup.enter.native="getAvailableFriendsWhenInvationV" v-model="oasisFriendsQueryParam.q" class="form-control top-search-input" type="text"
-                placeholder="搜索好友..." aria-label="Search">
-              <button v-preventreclick @click="getAvailableFriendsWhenInvationV" class="btn  input-group-search-btn" type="button">
+          <div>
+            <div class="tb-search">
+              <div class="tb-search-group">
                 <i class="bi bi-search"></i>
-              </button>
+                <input @keyup.enter.native="getAvailableFriendsWhenInvationV" v-model="oasisFriendsQueryParam.q" type="search" class="input_search"
+                  placeholder="搜索好友..." autocomplete="off">
+              </div>
             </div>
-          </top-search>
+          </div>
 
           </div>
            

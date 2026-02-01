@@ -714,6 +714,66 @@ img[alt] {
     font-size: 12px;
 }
 
+
+// dark mode  model select
+
+
+.ui.selection.dropdown.dark-model-select{
+    color: #e0e0e0;
+    background: #000;
+    border: 1px solid #000;
+    .text{
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+    }
+    .menu{
+     background: #111;
+     .item{
+        color: #e0e0e0;
+        border-color: #222;
+        word-break: break-all;
+  
+        &:hover{
+          background-color: #1A1A1A;
+  
+        }
+     }
+    }
+    input.search {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-size: 13px;
+      padding: 10px 14px;
+      transition: all 0.15s;
+  
+      &::placeholder {
+        color: #3a3a3a;
+      }
+  
+      &:focus {
+        border-color: #4A90E2;
+        box-shadow: none;
+        outline: none;
+      }
+  
+      &:disabled {
+        background: #0d0d0d;
+        color: #444;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  .ui.selection.active.dropdown.dark-model-select, .ui.selection.active.dropdown.dark-model-select .menu {
+    border-color: #4A90E2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  }
+  
+
 @media only screen and (min-width: 1400px) {
     header{
         display: none;

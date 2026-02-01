@@ -27,7 +27,59 @@
     color: #3483fa;
 
 }
-@media (max-width: 576px) {
+
+.fresh-ui .modal-footer{
+    background-color: #f7f7f7;
+    border: none;
+}
+#alipayAccountMangementModal {
+
+    .modal-content {
+        max-height: 480px;
+    }
+    /* Container styling */
+.list-group-flush {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+  }
+  
+  /* Row styling with hover effect */
+  .list-group-item {
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    padding: 1rem;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f8f9fa; /* Light gray hover */
+  }
+  
+  /* Selection highlight: Change background when radio is checked */
+  .list-group-item:has(input:checked) {
+    background-color: #e7f1ff; /* Light blue tint */
+    border-left: 4px solid #0d6efd; /* Bootstrap primary blue */
+  }
+  
+  /* Text styling */
+  .help-text {
+    color: #6c757d; /* Muted gray for secondary info */
+    font-size: 0.9rem;
+  }
+  
+  .form-check-label {
+    width: 100%; /* Ensures the entire row is clickable */
+    cursor: pointer;
+  }
+  
+  /* Customizing the radio button color */
+  .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+}
+@media (max-width: 48rem) {
     .form-box{
         width: 100%;
     }
@@ -36,6 +88,19 @@
     }
     .add-icon{
       font-size: 12px;
+    }
+    #alipayAccountMangementModal{
+        .modal-content {
+            max-height: 100%;
+        }
+        .modal-footer .btn{
+            width: 100%;
+        }
+    }
+    #addAccountInfoModal{
+        .modal-footer .btn{
+            width: 100%;
+        }
     }
 
 }
