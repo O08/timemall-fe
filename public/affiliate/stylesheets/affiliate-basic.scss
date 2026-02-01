@@ -74,6 +74,9 @@
 .accordionMarketingMenu .accordion-button {
     width: 95%;
 }
+.sidebarContainer .accordion{
+    --bs-accordion-border-radius: 0;
+}
 
 
 // table page btn ui

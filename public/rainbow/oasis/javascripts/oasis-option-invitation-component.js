@@ -62,15 +62,15 @@ const  OasisInvitationComponent = {
           
           <div class="search-container">
 
-          <div>
-            <div class="tb-search">
-              <div class="tb-search-group">
-                <i class="bi bi-search"></i>
-                <input @keyup.enter.native="getAvailableFriendsWhenInvationV" v-model="oasisFriendsQueryParam.q" type="search" class="input_search"
-                  placeholder="搜索好友..." autocomplete="off">
+            <div>
+              <div class="tb-search">
+                <div class="tb-search-group">
+                  <i class="bi bi-search"></i>
+                  <input @keyup.enter.native="getAvailableFriendsWhenInvationV" v-model="oasisFriendsQueryParam.q" type="search" class="input_search"
+                    placeholder="搜索好友..." autocomplete="off">
+                </div>
               </div>
             </div>
-          </div>
 
           </div>
            

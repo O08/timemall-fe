@@ -39,6 +39,7 @@ body::-webkit-scrollbar {
 .modal-content-shop{
     padding: 0;
     color: #fff;
+    border-color: #000;
 }
 #blueSignIntroModal .modal-content,#topUpIntroModal  .modal-content{
     color: black;
@@ -57,6 +58,43 @@ body::-webkit-scrollbar {
  border: none;
  box-shadow: none;
 }
+
+/* --- Dark Mode Variables --- */
+.dark-mode-intro {
+    --modal-bg: #121212;            /* Material Design dark surface */
+    --modal-header-bg: #1e1e1e;     /* Slightly lighter for depth */
+    --modal-text-primary: #e0e0e0;  /* Soft off-white to reduce glare */
+    --modal-text-secondary: #b0b0b0;/* Muted grey for secondary info */
+    --accent-color: #6ea8fe;        /* Desaturated blue for better contrast */
+    --border-color: #333333;
+}
+
+/* --- Dark Mode Styles --- */
+.dark-mode-intro  .modal-content {
+    background-color: var(--modal-bg);
+    color: var(--modal-text-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow for elevation */
+}
+
+.dark-mode-intro .modal-header {
+    background-color: var(--modal-header-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dark-mode-intro  .modal-title {
+    color: var(--accent-color);
+}
+
+.dark-mode-intro  .modal-body p {
+    color: var(--modal-text-primary);
+}
+
+/* Styling the Close Button for Dark Mode */
+.dark-mode-intro .btn-close {
+    filter: invert(1) grayscale(1) brightness(2); /* Makes the black "X" white */
+}
+
 @media (width <= 576px) {
     pt-app content main {
         padding-bottom: 48px;

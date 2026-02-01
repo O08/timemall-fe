@@ -192,7 +192,8 @@ header{
   padding: 5px 12px;
   width: 100%;
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
 }
 .paper-cta-box{
   align-items: center;

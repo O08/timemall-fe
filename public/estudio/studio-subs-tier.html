@@ -375,7 +375,7 @@
                           <th class="col-chain-title-no-option">商品</th>
                           <th class="col-chain-title-no-option">套餐</th>
                           <th class="col-type">类型</th>
-                          <th class="col-fee">售价</th>
+                          <th class="col-fee">售价(元)</th>
                           <th class="col-type">
                             状态
                           </th>
@@ -389,7 +389,7 @@
                         <tr v-for="plan in subs_plan_pagination.records">
                           <td class="col-option">
 
-                            <div class="d-flex">
+                            <div class="d-flex align-items-center">
 
                               <span @click="copyValueToClipboardV(plan)" class="btn-option-secondary"
                                 data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover"
