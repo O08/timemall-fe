@@ -32,10 +32,18 @@
     background-color: #f7f7f7;
     border: none;
 }
+#addAccountInfoModal{
+  .modal-footer .btn{
+      width: 100%;
+  }
+}
 #alipayAccountMangementModal {
 
     .modal-content {
         max-height: 480px;
+    }
+    .modal-footer .btn{
+      width: 100%;
     }
     /* Container styling */
 .list-group-flush {
@@ -93,14 +101,7 @@
         .modal-content {
             max-height: 100%;
         }
-        .modal-footer .btn{
-            width: 100%;
-        }
-    }
-    #addAccountInfoModal{
-        .modal-footer .btn{
-            width: 100%;
-        }
+       
     }
 
 }
