@@ -498,7 +498,7 @@
       <section class="modals">
         <!-- new plan modal -->
         <div class="modal-container">
-          <div class="modal fullscreen-modal  fade" id="newPlanModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal  fade" id="newPlanModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header  display-dialog-header-bg">
@@ -547,7 +547,7 @@
                       <div class="input-group mb-3">
                         <span class="input-group-text">￥</span>
                         <input id="newPlanObj__tierPrice" @input="transformInputNumberAsPositiveDecimalV($event)"
-                          v-model="newPlanObj.price" class="form-control" min="1" max="500000000" step="1" type="text"
+                          v-model="newPlanObj.price" class="form-control"  max="500000000" step="1" type="text"
                           autocomplete="off">
                         <span class="input-group-text" id="basic-addon2">/月</span>
                       </div>
@@ -572,11 +572,11 @@
                                 <i class="bi bi-three-dots-vertical"></i>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" v-preventreclick
-                                    @click="newPlanObjAddOneFeatureUpV(index)">向上添加</a></li>
-                                <li><a class="dropdown-item" v-preventreclick
-                                    @click="newPlanObjAddOneFeatureBelowV(index)">向下添加</a></li>
-                                <li><a class="dropdown-item" v-preventreclick
+                                <li><a class="dropdown-item py-2" v-preventreclick
+                                    @click="newPlanObjAddOneFeatureUpV(index)">向上插入</a></li>
+                                <li><a class="dropdown-item py-2" v-preventreclick
+                                    @click="newPlanObjAddOneFeatureBelowV(index)">向下插入</a></li>
+                                <li><a class="dropdown-item py-2" v-preventreclick
                                     @click="newPlanObjRemoveOneFeatureV(index)">删除权益</a></li>
                               </ul>
                             </div>
@@ -600,7 +600,7 @@
                         v-model="newPlanObj.trialPeriod" class="form-control" min="1" max="25" step="1" type="text"
                         autocomplete="off">
                     </div>
-                    <div class="mt-3">
+                    <div class="mt-3 mb-5">
                       <label for="newPlanObj__grace_period" class="form-label">宽限期<span class="help-text ms-1"
                           data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover"
                           data-bs-toggle="popover"
@@ -614,10 +614,10 @@
 
 
 
-                    <button :class="{'disabled': !validateNewPlanFormV() , 
-                  'btn-primary': validateNewPlanFormV()  ,
-                  'btn-secondary': !validateNewPlanFormV()  }" type="submit" v-preventreclick @click="createOnePlanV"
-                      class="btn my-5 w-100">提交</button>
+                    <button 
+                     :disabled="!validateNewPlanFormV()" 
+                      type="submit" v-preventreclick @click="createOnePlanV"
+                      class="btn btn-primary submit-btn w-100 mb-4 py-3">提交</button>
 
 
                   </form>
@@ -630,105 +630,144 @@
 
         <!-- edit plan modal -->
         <div class="modal-container">
-          <div class="modal fullscreen-modal  fade" id="editPlanModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal define-tier-modal fade" id="editPlanModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
-                <div class="modal-header  display-dialog-header-bg">
-                  <h1 class="modal-title fs-5">编辑套餐</h1>
+                <div class="modal-header display-dialog-header-bg">
+                  <h1 class="modal-title fs-5 fw-bold">编辑套餐</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-
+        
+                <div class="modal-body border-0 display-dialog-body-bg">
                   <form class="w-100" onsubmit="return false">
-
-                    <div class="mt-3">
-                      <label for="editPlanObj__tierName" class="form-label">套餐名称</label>
-                      <input id="editPlanObj__tierName" @change="btn_ctl.eidtPlanObj_already_change=true"
-                        v-model="eidtPlanObj.planName" class="form-control" maxlength="32" type="text"
-                        autocomplete="off">
-                    </div>
-
-                    <div class="mt-3">
-                      <label for="editPlanObj__tierPrice" class="form-label">售价(元)</label>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">￥</span>
-                        <input id="editPlanObj__tierPrice" @change="btn_ctl.eidtPlanObj_already_change=true" @input="transformInputNumberAsPositiveDecimalV($event)"
-                          v-model="eidtPlanObj.price" class="form-control" min="1" max="500000000" step="1" type="text"
-                          autocomplete="off">
-                        <span class="input-group-text" id="basic-addon2">/月</span>
+                    
+                    <div class="form-section-card mb-4">
+                      <div class="section-label">基本信息</div>
+                      
+                      <div class="mb-3">
+                        <label for="editPlanObj__tierName" class="form-label">套餐名称</label>
+                        <input id="editPlanObj__tierName" @change="btn_ctl.eidtPlanObj_already_change=true"
+                          v-model="eidtPlanObj.planName" class="form-control" maxlength="32" type="text" autocomplete="off" placeholder="例：高级会员">
+                      </div>
+        
+                      <div class="mb-3">
+                        <label for="editPlanObj__tierPrice" class="form-label">售价(元)</label>
+                        <div class="input-group">
+                          <span class="input-group-text">￥</span>
+                          <input id="editPlanObj__tierPrice" @change="btn_ctl.eidtPlanObj_already_change=true"
+                             @input="transformInputNumberAsPositiveDecimalV($event)"
+                              max="500000000"
+                            v-model="eidtPlanObj.price" class="form-control" type="text" autocomplete="off">
+                          <span class="input-group-text">/月</span>
+                        </div>
+                      </div>
+        
+                      <div class="mb-0">
+                        <label for="editPlanObj__tierDesc" class="form-label">套餐描述</label>
+                        <textarea id="editPlanObj__tierDesc" @change="btn_ctl.eidtPlanObj_already_change=true" rows="3"
+                          v-model="eidtPlanObj.description" class="form-control" maxlength="172" placeholder="简述套餐的核心价值..."></textarea>
                       </div>
                     </div>
-                    <div class="mt-3">
-                      <label for="editPlanObj__tierDesc" class="form-label">套餐描述</label>
-                      <textarea id="editPlanObj__tierDesc" @change="btn_ctl.eidtPlanObj_already_change=true" rows="6"
-                        v-model="eidtPlanObj.description" class="form-control" maxlength="172"></textarea>
-                    </div>
-
-                    <div class="mt-3">
-                      <label for="editPlanObj__features" class="form-label">权益</label>
-                      <div class="input-group">
-
-                        <div v-for="(featureItem,index)   in eidtPlanObj.featuresObj"
-                          class="card feature-card w-100 mb-2">
-                          <h5 class="card-header d-flex justify-content-between">
-                            <input maxlength="32" @change="btn_ctl.eidtPlanObj_already_change=true" v-model="featureItem.title"
-                              type="text" class="form-control feature-input" autocomplete="off"
-                              placeholder="权益项（比如 居家保洁服务）">
+        
+                    <div class="form-section-card mb-4">
+                      <div class="section-label">权益配置</div>
+                      
+                      
+                      <!-- Wrapper for the list with Vue Transitions -->
+                      <transition-group name="feature-list" tag="div" class="feature-container">
+                        <div v-for="(featureItem, index) in eidtPlanObj.featuresObj" 
+                            :key="featureItem.id || index" 
+                            class="card feature-card w-100 mb-3 shadow-sm">
+                          
+                          <!-- Header: Seamless Title Input & Action Menu -->
+                          <div class="card-header bg-white d-flex align-items-center py-2 px-3 border-bottom-0">
+                            <input 
+                              v-model="featureItem.title"
+                              maxlength="32" 
+                              class="form-control feature-input-title fw-bold" 
+                              placeholder="权益项（例如：居家保洁服务）"
+                              @change="btn_ctl.eidtPlanObj_already_change=true" autocomplete="off">
+                            
+                            <!-- Action Menu -->
                             <div class="dropdown ms-2">
-                              <button class="btn btn-light dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                              <button class="btn btn-sm btn-light rounded-circle shadow-none" type="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-three-dots-vertical"></i>
                               </button>
-                              <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" v-preventreclick
-                                    @click="editPlanObjAddOneFeatureUpV(index)">向上添加</a></li>
-                                <li><a class="dropdown-item" v-preventreclick
-                                    @click="editPlanObjAddOneFeatureBelowV(index)">向下添加</a></li>
-                                <li><a class="dropdown-item" v-preventreclick
-                                    @click="editPlanObjRemoveOneFeatureV(index)">删除权益</a></li>
+                              <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li>
+                                  <a class="dropdown-item py-2" @click="editPlanObjAddOneFeatureUpV(index)">
+                                    <i class="bi bi-arrow-up-short me-2"></i> 向上插入
+                                  </a>
+                                </li>
+                                <li>
+                                  <a class="dropdown-item py-2" @click="editPlanObjAddOneFeatureBelowV(index)">
+                                    <i class="bi bi-arrow-down-short me-2"></i> 向下插入
+                                  </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                  <a class="dropdown-item py-2 text-danger" @click="editPlanObjRemoveOneFeatureV(index)">
+                                    <i class="bi bi-trash3 me-2"></i> 删除权益
+                                  </a>
+                                </li>
                               </ul>
                             </div>
-                          </h5>
-                          <div class="card-body">
-                            <textarea rows="5" @change="btn_ctl.eidtPlanObj_already_change=true"
-                              v-model="featureItem.description" class="form-control feature-input" maxlength="100"
-                              placeholder="权益说明（比如 每双周对客厅、阳台、厨房、客厅、卧室、厕所清理一次）"></textarea>
+                          </div>
+
+                          <!-- Body: Seamless Description Textarea -->
+                          <div class="card-body pt-0 px-3 pb-3">
+                            <textarea 
+                              v-model="featureItem.description"
+                              rows="3" 
+                              class="form-control feature-input-desc" 
+                              maxlength="100"
+                              placeholder="在此输入详细的权益描述..."
+                              @change="btn_ctl.eidtPlanObj_already_change=true"
+                            ></textarea>
                           </div>
                         </div>
+                      </transition-group>
 
+        
+                      <button @click="addNewEditPlanFeatureV" class="btn new-item-btn" type="button">
+                        <i class="bi bi-plus-circle me-2"></i>添加权益
+                      </button>
+                    </div>
+        
+                    <div class="form-section-card mb-5">
+                      <div class="section-label">试用&续期</div>
+                      <div class="row">
+                        <div class="col-6">
+                          <label for="editPlanObj__trial_period" class="form-label">试用期 (天)</label>
+                          <input @input="transformInputNumberV($event)" 
+                            @change="btn_ctl.eidtPlanObj_already_change=true"
+                            min="1" max="25"
+                            id="editPlanObj__trial_period" v-model="eidtPlanObj.trialPeriod" class="form-control" type="text" autocomplete="off">
+                        </div>
+                        <div class="col-6">
+                          <label for="editPlanObj__grace_period" class="form-label">宽限期 (天)</label>
+                          <input 
+                            @input="transformInputNumberV($event)"
+                            @change="btn_ctl.eidtPlanObj_already_change=true"
+                            min="1" max="25"
+                            id="editPlanObj__grace_period" v-model="eidtPlanObj.gracePeriod" class="form-control" type="text" autocomplete="off">
+                        </div>
                       </div>
-                      <button @click="addNewEditPlanFeatureV" class="btn btn-outline-dark new-item"
-                        type="button">添加权益</button>
                     </div>
-                    <div class="mt-3">
-                      <label for="editPlanObj__trial_period" class="form-label">试用期</label>
-                      <input @input="transformInputNumberV($event)" @change="btn_ctl.eidtPlanObj_already_change=true"
-                        id="editPlanObj__trial_period" v-model="eidtPlanObj.trialPeriod" class="form-control" min="1"
-                        max="25" step="1" type="text" autocomplete="off">
-                    </div>
-                    <div class="mt-3">
-                      <label for="editPlanObj__grace_period" class="form-label">宽限期</label>
-                      <input @input="transformInputNumberV($event)" @change="btn_ctl.eidtPlanObj_already_change=true"
-                        id="editPlanObj__grace_period" v-model="eidtPlanObj.gracePeriod" class="form-control" min="1"
-                        max="25" step="1" type="text" autocomplete="off">
-                    </div>
-
-
-
-
-                    <button :class="{'disabled': !validateEditPlanFormV() , 
-                  'btn-primary': validateEditPlanFormV()  ,
-                  'btn-secondary': !validateEditPlanFormV()  }" type="submit" v-preventreclick @click="changePlanV"
-                      class="btn  my-5 w-100">提交</button>
-
-
+        
+                    <button 
+                      :disabled="!validateEditPlanFormV()"
+                      @click="changePlanV"
+                      v-preventreclick
+                      type="submit" 
+                      class="btn btn-primary submit-btn w-100 mb-4 py-3">提交</button>
+        
                   </form>
-
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </section>
 
     </content>

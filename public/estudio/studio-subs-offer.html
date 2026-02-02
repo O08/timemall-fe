@@ -391,7 +391,7 @@
                           <th class="col-name">限定商品</th>
                           <th class="col-promoCode">兑换码</th>
                           <th class="col-type">
-                            减免金额
+                            减免金额（元）
                           </th>
                           <th class="w-5">折扣(%)</th>
                           <th class="col-type">发放</th>
@@ -514,206 +514,171 @@
       </main>
       <section class="modals">
         <!-- new product modal -->
-        <div class="modal-container">
-          <div class="modal fullscreen-modal  fade" id="newOfferModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header  display-dialog-header-bg">
-                  <h1 class="modal-title fs-5">新增优惠券</h1>
-                </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+        <div class="modal fade modern-coupon-modal" id="newOfferModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content glass-effect">
+              
+              <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-gradient">新增优惠券</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+        
+              <div class="modal-body p-4">
+                <form class="define-offer-form" onsubmit="return false">
+                  
+                  <!-- Name Field -->
+                  <div class="form-group mb-4">
+                    <label for="newOfferObj__offerName" class="form-label fw-semibold">券名称</label>
+                    <textarea id="newOfferObj__offerName" v-model="newOfferObj.name" class="form-control custom-input" maxlength="32" rows="1"></textarea>
+                  </div>
+        
+                  <!-- Description -->
+                  <div class="form-group mb-4">
+                    <label for="newOfferObj__offerDesc" class="form-label fw-semibold">描述</label>
+                    <textarea id="newOfferObj__offerDesc" v-model="newOfferObj.description" class="form-control custom-input" rows="3" maxlength="172"></textarea>
+                  </div>
+        
+                  <!-- Type Selection -->
+                  <div class="form-group mb-4">
+                    <label for="newOfferObj__offerType" class="form-label fw-semibold">类型</label>
+                    <select id="newOfferObj__offerType" v-model="newOfferObj.offerType" class="form-select custom-input">
+                      <option value="pay_quarterly_discount_coupon_sp">季付折扣券</option>
+                      <option value="pay_yearly_discount_coupon_sp">年付折扣券</option>
+                      <option value="first_period_discount_promo_code_sp">首月折扣优惠码</option>
+                      <option value="first_period_cash_promo_code_sp">首期现金减免优惠码</option>
+                      <option value="full_item_discount_promo_code">全店折扣优惠码</option>
+                    </select>
+                  </div>
+        
+                  <!-- Conditional Fields with v-show -->
+                  <div v-show="!!newOfferObj.offerType && newOfferObj.offerType!='full_item_discount_promo_code'" class="form-group mb-4 animate-fade-in">
+                    <label class="form-label fw-semibold">适用商品</label>
+                    <model-select :options="subsProductsOptions" v-model="subsProductsSelectedItem" class="custom-input"></model-select>
+                  </div>
+        
+                  <div class="row g-3">
+                    <div v-show="newOfferObj.offerType=='first_period_cash_promo_code_sp'" class="col-md-6 mb-4">
+                      <label class="form-label fw-semibold">减免金额（元）</label>
+                      <input  @input="transformInputNumberV($event)" type="text" v-model="newOfferObj.discountAmount" class="form-control custom-input"  min="1" max="500000"  placeholder="1.00" autocomplete="off">
+                    </div>
+        
+                    <div v-show="newOfferObj.offerType && newOfferObj.offerType!='first_period_cash_promo_code_sp'" class="col-md-6 mb-4">
+                      <label class="form-label fw-semibold">折扣 (%)</label>
+                      <input  @input="transformInputNumberV($event)" type="text" v-model="newOfferObj.discountPercentage" class="form-control custom-input" min="1" max="99"  placeholder="1-99" autocomplete="off">
+                    </div>
+                  </div>
+        
+                  <div v-show="!['pay_yearly_discount_coupon_sp', 'pay_quarterly_discount_coupon_sp'].includes(newOfferObj.offerType)" class="row g-3">
+                    <div class="col-md-6 mb-4">
+                      <label class="form-label fw-semibold">优惠码</label>
+                      <input @input="transformInputTextV($event)"  type="text" v-model="newOfferObj.promoCode" class="form-control custom-input" maxlength="28" placeholder="如: SAVE20" autocomplete="off">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <label class="form-label fw-semibold">最大发放次数</label>
+                      <input type="text" v-model="newOfferObj.capacity"  @input="transformInputNumberV($event)"  min="1" max="500000" class="form-control custom-input" placeholder="不限" autocomplete="off">
+                    </div>
+                  </div>
 
-                  <form class="w-100" onsubmit="return false">
-
-                    <div class="row mb-3 mt-3">
-                      <label for="newOfferObj__offerName" class="col-sm-4 col-form-label">
-                        券名称 <div class="help-text"> 优惠券名称(必填,最大32字符) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea id="newOfferObj__offerName" v-model="newOfferObj.name" class="form-control"
-                          maxlength="32"></textarea>
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="newOfferObj__offerDesc" class="col-sm-4 col-form-label">
-                        描述 <div class="help-text"> 券信息(必填,最大172字符) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea id="newOfferObj__offerDesc" rows="6" v-model="newOfferObj.description"
-                          class="form-control" maxlength="172"></textarea>
-                      </div>
-                    </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="newOfferObj__offerType" class="col-sm-4 col-form-label">
-                        类型 <div class="help-text"> 优惠券类型</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <select id="newOfferObj__offerType" v-model="newOfferObj.offerType" class="form-select">
-                          <option value="pay_quarterly_discount_coupon_sp">季付折扣券</option>
-                          <option value="pay_yearly_discount_coupon_sp">年付折扣券</option>
-                          <option value="first_period_discount_promo_code_sp">首月折扣优惠码</option>
-                          <option value="first_period_cash_promo_code_sp">首期现金减免优惠码</option>
-                          <option value="full_item_discount_promo_code">全店折扣优惠码</option>
-
-                        </select>
-                      </div>
-                    </div>
-                    <div v-show="!!newOfferObj.offerType && newOfferObj.offerType!='full_item_discount_promo_code'"
-                      class="row mb-3 mt-3">
-                      <label for="newOfferObj__product" class="col-sm-4 col-form-label">
-                        商品 <div class="help-text"> 优惠券或优惠码仅对该商品生效，如需添加商品，可前往【付费订阅】- 【在售商品】添加</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <model-select id="newOfferObj__product" :options="subsProductsOptions"
-                          v-model="subsProductsSelectedItem" placeholder="">
-                        </model-select>
-                      </div>
-                    </div>
-                    <div v-show="!!newOfferObj.offerType && newOfferObj.offerType=='first_period_cash_promo_code_sp'"
-                      class="row mb-3 mt-3">
-                      <label for="newOfferObj__offerDiscountAmount" class="col-sm-4 col-form-label">
-                        减免金额 <div class="help-text"> 让利金额 </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="newOfferObj__offerDiscountAmount" @input="transformInputNumberV($event)"
-                          v-model="newOfferObj.discountAmount" class="form-control" min="1" max="500000" step="1"
-                          type="text" autocomplete="off">
-                      </div>
-                    </div>
-                    <div v-show="newOfferObj.offerType!='first_period_cash_promo_code_sp'" class="row mb-3 mt-3">
-                      <label for="newOfferObj__offerDiscountPercentage" class="col-sm-4 col-form-label">
-                        折扣 <div class="help-text"> 让利折扣</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="newOfferObj__offerDiscountPercentage" @input="transformInputNumberV($event)"
-                          v-model="newOfferObj.discountPercentage" class="form-control" min="1" max="99" step="1"
-                          type="text" autocomplete="off">
-                      </div>
-                    </div>
-                    <div
-                      v-show="!(newOfferObj.offerType=='pay_yearly_discount_coupon_sp' || newOfferObj.offerType=='pay_quarterly_discount_coupon_sp')"
-                      class="row mb-3 mt-3">
-                      <label for="newOfferObj__offerDiscountCode" class="col-sm-4 col-form-label">
-                        优惠码 <div class="help-text"> 促销活动优惠码，客户订阅您的商品时使用您提供的优惠码可享受相应的折扣或减免优惠</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input @input="transformInputTextV($event)"  id="newOfferObj__offerDiscountCode" v-model="newOfferObj.promoCode" class="form-control"
-                          maxlength="28" type="text" autocomplete="off">
-                      </div>
-                    </div>
-                    <div
-                      v-show="!(newOfferObj.offerType=='pay_yearly_discount_coupon_sp' || newOfferObj.offerType=='pay_quarterly_discount_coupon_sp')"
-                      class="row mb-3 mt-3">
-                      <label for="newOfferObj__capacity" class="col-sm-4 col-form-label">
-                        最大发放 <div class="help-text"> 预计发放优惠券总数量</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="newOfferObj__capacity" @input="transformInputNumberV($event)"
-                          v-model="newOfferObj.capacity" class="form-control" type="text" min="1" max="500000"
-                          autocomplete="off">
-                      </div>
-                    </div>
-
-                  </form>
-
-                </div>
-                <div class="modal-footer  btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-
-                  <button :class="{'disabled': !validateAddOfferFormV() , 
-                  'btn-primary': validateAddOfferFormV()  ,
-                  'btn-secondary': !validateAddOfferFormV()  }" v-preventreclick @click="createNewOfferV" class="btn"
-                    type="button">提交</button>
-                </div>
+                  <div class="py-4 d-flex gap-2">
+                    <button @click="createNewOfferV" :disabled="!validateAddOfferFormV()" class="btn btn-primary-custom flex-grow-1 w-100">
+                      提交
+                    </button>
+                  </div>
+        
+                </form>
               </div>
             </div>
           </div>
         </div>
-
+        
         <!-- edit offer modal -->
-        <div class="modal-container">
-          <div class="modal fullscreen-modal  fade" id="editOfferModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header  display-dialog-header-bg">
-                  <h1 class="modal-title fs-5">调整优惠券</h1>
-                </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-
-                  <form class="w-100" onsubmit="return false">
-
-                    <div class="row mb-3 mt-3">
-                      <label for="editOfferObj__offerName" class="col-sm-4 col-form-label">
-                        券名称 <div class="help-text"> 优惠券名称(必填,最大32字符) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea id="editOfferObj__offerName" @change="btn_ctl.eidtOfferObj_already_change=true"
-                          v-model="eidtOfferObj.name" class="form-control" maxlength="32"></textarea>
-                      </div>
+        <div class="modal fade modern-coupon-modal" id="editOfferModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content glass-effect">
+              
+              <!-- Header -->
+              <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-gradient">调整优惠券</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+        
+              <!-- Body -->
+              <div class="modal-body p-4">
+                <form class="define-offer-form" onsubmit="return false">
+                  
+                  <!-- Name Field -->
+                  <div class="form-group mb-4">
+                    <label for="editOfferObj__offerName" class="form-label fw-semibold">券名称</label>
+                    <textarea id="editOfferObj__offerName" 
+                      @change="btn_ctl.eidtOfferObj_already_change=true" 
+                      v-model="eidtOfferObj.name" 
+                      class="form-control custom-input" 
+                      maxlength="32" rows="1"></textarea>
+                  </div>
+        
+                  <!-- Description -->
+                  <div class="form-group mb-4">
+                    <label for="editOfferObj__offerDesc" class="form-label fw-semibold">描述</label>
+                    <textarea id="editOfferObj__offerDesc" 
+                      @change="btn_ctl.eidtOfferObj_already_change=true" 
+                      v-model="eidtOfferObj.description" 
+                      class="form-control custom-input" 
+                      rows="4" maxlength="172"></textarea>
+                  </div>
+        
+                  <!-- Pricing Metrics Row -->
+                  <div class="row g-3">
+                    <!-- Amount (Cash) -->
+                    <div v-show="eidtOfferObj.offerType == 'first_period_cash_promo_code_sp'" class="col-md-6 mb-4 animate-fade-in">
+                      <label for="editOfferObj__offerDiscountAmount" class="form-label fw-semibold">减免金额（元）</label>
+                      <input id="editOfferObj__offerDiscountAmount" 
+                        @input="transformInputNumberV($event)" 
+                        @change="btn_ctl.eidtOfferObj_already_change=true" 
+                        v-model="eidtOfferObj.discountAmount" 
+                        min="1" max="500000"
+                        class="form-control custom-input" type="text" placeholder="1.00" autocomplete="off">
                     </div>
-                    <div class="row mb-3 mt-3">
-                      <label for="editOfferObj__offerDesc" class="col-sm-4 col-form-label">
-                        描述 <div class="help-text"> 券信息(必填,最大172字符) </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea rows="6" id="editOfferObj__offerDesc"
-                          @change="btn_ctl.eidtOfferObj_already_change=true" v-model="eidtOfferObj.description"
-                          class="form-control" maxlength="172"></textarea>
-                      </div>
+        
+                    <!-- Percentage -->
+                    <div v-show="eidtOfferObj.offerType != 'first_period_cash_promo_code_sp'" class="col-md-6 mb-4 animate-fade-in">
+                      <label for="editOfferObj__offerDiscountPercentage" class="form-label fw-semibold">折扣 (%)</label>
+                      <input id="editOfferObj__offerDiscountPercentage" 
+                        @input="transformInputNumberV($event)" 
+                        @change="btn_ctl.eidtOfferObj_already_change=true" 
+                        v-model="eidtOfferObj.discountPercentage" 
+                        min="1" max="99" 
+                        class="form-control custom-input" type="text" placeholder="1-99" autocomplete="off">
                     </div>
-                    <div v-show="!!eidtOfferObj.offerType && eidtOfferObj.offerType=='first_period_cash_promo_code_sp'"
-                      class="row mb-3 mt-3">
-                      <label for="editOfferObj__offerDiscountAmount" class="col-sm-4 col-form-label">
-                        减免金额 <div class="help-text"> 让利金额 </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="editOfferObj__offerDiscountAmount" @input="transformInputNumberV($event)"
-                          @change="btn_ctl.eidtOfferObj_already_change=true" v-model="eidtOfferObj.discountAmount"
-                          class="form-control" min="1" max="500000" step="1" type="text">
-                      </div>
+        
+                    <!-- Capacity (Inventory) -->
+                    <div v-show="!['pay_yearly_discount_coupon_sp', 'pay_quarterly_discount_coupon_sp'].includes(eidtOfferObj.offerType)" 
+                      class="col-md-6 mb-4 animate-fade-in">
+                      <label for="editOfferObj__capacity" class="form-label fw-semibold">最大发放次数</label>
+                      <input id="editOfferObj__capacity" 
+                        @input="transformInputNumberV($event)" 
+                        @change="btn_ctl.eidtOfferObj_already_change=true" 
+                        v-model="eidtOfferObj.capacity" 
+                        min="1" max="500000"
+                        class="form-control custom-input" type="text" placeholder="不限" autocomplete="off">
                     </div>
-                    <div v-show="eidtOfferObj.offerType!='first_period_cash_promo_code_sp'" class="row mb-3 mt-3">
-                      <label for="editOfferObj__offerDiscountPercentage" class="col-sm-4 col-form-label">
-                        折扣 <div class="help-text"> 让利折扣</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="editOfferObj__offerDiscountPercentage" @input="transformInputNumberV($event)"
-                          @change="btn_ctl.eidtOfferObj_already_change=true" v-model="eidtOfferObj.discountPercentage"
-                          class="form-control" min="1" max="99" step="1" type="text">
-                      </div>
-                    </div>
-                    <div
-                      v-show="!(eidtOfferObj.offerType=='pay_yearly_discount_coupon_sp' || eidtOfferObj.offerType=='pay_quarterly_discount_coupon_sp')"
-                      class="row mb-3 mt-3">
-                      <label for="editOfferObj__capacity" class="col-sm-4 col-form-label">
-                        最大发放 <div class="help-text"> 预计发放优惠券总数量</div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input id="editOfferObj__capacity" @input="transformInputNumberV($event)"
-                          @change="btn_ctl.eidtOfferObj_already_change=true" min="1" max="500000" step="1"
-                          v-model="eidtOfferObj.capacity" class="form-control" type="text">
-                      </div>
-                    </div>
+                  </div>
 
-
-
-
-
-                  </form>
-
-                </div>
-                <div class="modal-footer  btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-
-                  <button :class="{'disabled': !validateEditOfferV() , 
-                  'btn-primary': validateEditOfferV()  ,
-                  'btn-secondary': !validateEditOfferV()  }" v-preventreclick @click="changeOfferV" class="btn"
-                    type="button">提交</button>
-                </div>
+                  <!-- Footer -->
+                  <div class="py-4 d-flex gap-2">
+                    <button @click="changeOfferV" 
+                      v-preventreclick
+                      :disabled="!validateEditOfferV()" 
+                      class="btn btn-primary-custom flex-grow-1 w-100">
+                      提交
+                    </button>
+                  </div>
+        
+                </form>
               </div>
             </div>
           </div>
         </div>
+        
       </section>
 
     </content>

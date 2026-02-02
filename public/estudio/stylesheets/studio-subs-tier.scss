@@ -262,9 +262,272 @@ body::-webkit-scrollbar {
   color: #3483fa;
 
 }
+#newPlanModal {
+  .modal-dialog {
+    margin: 12px 12px 12px auto;
+  }
+
+  .modal-dialog-scrollable {
+    height: calc(100% - 24px);
+    max-width: 768px;
+  }
+
+  .modal-content {
+    border-radius: 0;
+    background-color: #fff;
+    /* Light gray background to pop the white cards */
+    border: none;
+    height: 100%;
+  }
+
+  .modal-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  @media (width <=1023.99px) {
+    .modal-dialog-scrollable {
+      max-width: 100%;
+      height: 100%;
+    }
+
+    .modal-dialog {
+      margin: 0;
+    }
+  }
+}
+
+.define-tier-modal {
+  .modal-dialog {
+    margin: 12px 12px 12px auto;
+  }
+
+  .modal-dialog-scrollable {
+    height: calc(100% - 24px);
+    max-width: 768px;
+  }
+
+  .modal-content {
+    border-radius: 0;
+    background-color: #fff;
+    /* Light gray background to pop the white cards */
+    border: none;
+    height: 100%;
+  }
+
+  .modal-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  /* --- Section Grouping Cards --- */
+  .form-section-card {
+    margin-bottom: 1.25rem;
+  }
+
+
+
+  .form-label { color: #8a8a8a; font-size: 14px; }
+  textarea {
+    --scrollbar-color-thumb: #c0c0c0;
+    --scrollbar-color-thumb-hover: #a0a0a0;
+    --scrollbar-color-track: #f5f5f5;
+  }
+  .section-label { 
+    font-weight: 500;
+    font-size: 16px; color: #000; 
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+
+
+  /* --- Dynamic Equity Cards --- */
+  /* 1. Card Container & Layout */
+  .feature-card {
+    border: 2px dashed #d1d5db;
+    border-radius: 10px;
+    background-color: #ffffff;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hover & Focus feedback: Highlights the entire block */
+  .feature-card:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .feature-card:focus-within {
+    border-color: #9ca3af;
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+  }
+
+  /* 2. Header & Action Button Styles */
+  .card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.75rem 1rem;
+  }
+
+  .btn-light.dropdown-toggle {
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    padding: 4px 8px;
+  }
+
+  .btn-light.dropdown-toggle:hover {
+    background: #f8f9fa;
+    color: #212529;
+  }
+
+  /* 3. Seamless Input & Textarea Styling */
+  .feature-input {
+    border: none !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    /* Remove default Bootstrap blue glow */
+    resize: none;
+    /* Disable manual resize for cleaner look */
+  }
+
+  /* Bold Title in Header */
+  .card-header .feature-input {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #2d3748;
+  }
+
+  /* Body description styling */
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-body .feature-input {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #4a5568;
+  }
+
+  .feature-input::placeholder {
+    color: #a0aec0;
+    font-weight: 400;
+  }
+
+  /* 4. List Animations (Requires <TransitionGroup> in HTML) */
+  .list-enter-active,
+  .list-leave-active,
+  .list-move {
+    transition: all 0.4s ease;
+  }
+
+  .list-enter-from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  .list-leave-to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+
+  /* Make sure deleted items don't take up space during exit animation */
+  .list-leave-active {
+    position: absolute;
+    width: 100%;
+  }
+
+
+
+  /* --- Action Buttons --- */
+  .new-item-btn {
+    width: 100%;
+    border: 2px dashed #d1d5db;
+    background: transparent;
+    color: #4b5563;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+/* Standard hover: Darker border and text */
+.new-item-btn:hover {
+  border-color: #9ca3af;
+  color: #1f2937;
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+/* Active state: Slight "press" effect */
+.new-item-btn:active {
+  transform: scale(0.98);
+}
+
+
+
+
+  /* --- Micro-Interactions & Icons --- */
+  .bi-three-dots-vertical {
+    color: #9ca3af;
+  }
+
+  .dropdown-item {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .dropdown-item i {
+    font-size: 1rem;
+  }
+
+  @media (width <=1023.99px) {
+    .modal-dialog-scrollable {
+      max-width: 100%;
+      height: 100%;
+    }
+
+    .modal-dialog {
+      margin: 0;
+    }
+  }
+}
+
+.submit-btn {
+  background-color: #2563eb;
+  border: none;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
 
 @media (max-width: 767px)  {
   .table,.empty-content-block,.main-content-container.full{
     min-width: 1500px;
   }
+}
+
+/* Fix for scrolling behavior on mobile browsers */
+.modal-dialog-scrollable .modal-body {
+  -webkit-overflow-scrolling: touch; 
+  scrollbar-width: none; /* Hide scrollbar for cleaner look */
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+  display: none;
 }
