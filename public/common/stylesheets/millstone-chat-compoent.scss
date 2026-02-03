@@ -41,6 +41,9 @@ body {
 main{
   padding-right: 1.5rem;
 }
+.picmo__header{
+  height: 100%;
+}
 .section-container{
   background-color: lighten($color: #1A1A1A, $amount: 5);;
   border-radius: 5px;
@@ -214,7 +217,7 @@ main{
   position: relative;
 }
 .img-message{
-  margin-bottom: 1rem;
+  margin-bottom: .375rem;
   max-width:  min(100%,460px);
   border-radius: 5px;
   background-color: #2e2e2e9d;
@@ -232,7 +235,7 @@ main{
   max-width: 400px;
   padding: 2rem;
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: .375rem;
 }
 .attachment-message i{
   position:absolute;
