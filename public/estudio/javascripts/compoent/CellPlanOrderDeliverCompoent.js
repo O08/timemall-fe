@@ -43,7 +43,7 @@ const CellPlanOrderDeliverCompoent = {
             $("#repayFocusModal").modal("show"); // show modal
         },
         showAcceptDeliverFocusModalV(deliver){
-            this.focusModal.feed="接受交付后，将解锁服务商的交付资料，同时您的服务款项将打入服务商账户，您可点击 确定 接受交付"
+            this.focusModal.feed="接受交付后，将解锁服务商的交付资料，同时您的服务款项将打入服务商账户，可点击 确定 接受交付"
             this.focusModal.confirmHandler=()=>{
                 this.acceptPaperDeliverV(deliver);
                 $("#focusModal").modal("hide"); // show modal
@@ -51,8 +51,17 @@ const CellPlanOrderDeliverCompoent = {
             };
             $("#focusModal").modal("show"); // show modal
         },
+        showRejectDeliverFocusModalV(deliver){
+            this.focusModal.feed="查看服务商提供的交付预览资料后，有新的修改意见、想法，可点击 确定 退回修订"
+            this.focusModal.confirmHandler=()=>{
+                this.revisionPaperDeliverV(deliver);
+                $("#focusModal").modal("hide"); // show modal
+
+            };
+            $("#focusModal").modal("show"); // show modal
+        },
         showRefundFocusModalV(){
-            this.focusModal.feed="确定要退款？"
+            this.focusModal.feed="提交退款申请后将无法撤回，如服务商的交付质量难以满足要求，点击 确定 无条件退款"
             this.focusModal.confirmHandler=()=>{
                 this.refundV();
                 $("#focusModal").modal("hide"); // show modal
@@ -282,10 +291,10 @@ function paperDeliverTagExplain(tag){
     var tagDesc="";
     switch(tag){
         case CommercialPaperDeliverTag.CREATED:
-            tagDesc="已提交交付内容";
+            tagDesc="待验收";
             break; 
         case CommercialPaperDeliverTag.REVISION:
-            tagDesc="修订";
+            tagDesc="退回修订";
                 break; 
         case CommercialPaperDeliverTag.DELIVERED:
             tagDesc="已交付";

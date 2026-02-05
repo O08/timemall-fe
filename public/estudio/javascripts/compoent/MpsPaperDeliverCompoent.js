@@ -186,7 +186,7 @@ function paperDeliverTagExplain(tag){
     var tagDesc="";
     switch(tag){
         case CommercialPaperDeliverTag.CREATED:
-            tagDesc="待签收";
+            tagDesc="待验收";
             break; 
         case CommercialPaperDeliverTag.REVISION:
             tagDesc="退回修订";

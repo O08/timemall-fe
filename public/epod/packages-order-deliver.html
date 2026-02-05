@@ -344,7 +344,7 @@
                           <div class="ms-2 chat-btn-container">
                             <div class="img-btn" >
                               <i class="bi bi-image chat-image-btn"></i>
-                              <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                              <input @change="handleFileChange($event)" type="file"  accept=".jpg,.jpeg,.png,.gif" id="selection_image" class="input-file">
                             </div>
                           </div>
                         </span>
@@ -359,49 +359,47 @@
             <!-- event tab end -->
             <!-- sow tab begin -->
               <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
-                <div class="plan-info-container pb-5">
+                <div class="plan-info-container">
 
-                  <section class="section-plan-header ps-4 pt-5">
+                  <section class="section-plan-header pt-5">
                     <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
                         <div class="col">
-                            <h3>服务</h3>
-                            <p class="sow-cell-title ms-2">
+                            <div class="plan-field-label mb-2">服务</div>
+                            <p class="sow-cell-title">
                               {{orderDetail.cellTitle}}
                             </p>
                         </div>
       
                         <div class="col">
-                            <h3>服务商</h3>
-                            <div class="d-flex justify-content-start align-items-center mx-2">
-                              <div class="brand-portrait">
+                            <div class="plan-field-label mb-2">服务商</div>
+                            <div class="d-flex justify-content-start align-items-center me-2">
+                              <div class="plan-brand-portrait">
                                 <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                               </div>
-                              <h6 class="sow-brand-name mx-2">{{orderDetail.supplierName}}</h6>
+                              <div class="sow-brand-name mx-2">{{orderDetail.supplierName}}</div>
                           </div>
                         </div>
                     </div>
                 </section>
-                <section class="section-plan-info ps-4">
-                    <div class="which-plan d-flex">
-                      <div class="which-plan-label">
-                        单品套餐:
+                <section class="section-plan-info pb-5">
+                    <div class="which-plan">
+                      <div class="which-plan-type">
+                        {{ explainCellPlanTypeV(orderDetail.planType) }}套餐
                       </div>
-                      <span class="ms-3 plan-type">{{ explainCellPlanTypeV(orderDetail.planType) }}</span>
+                      <div class="plan-content-header">
+                        {{orderDetail.planTitle}}
+                      </div>
                     </div>
                     <div class="plan-content-wrapper pt-3">
-                        <div class="plan-content-header">
-                            <p class="paragraph">
-                              {{orderDetail.planTitle}}
-                            </p>
-                        </div>
-                        <div class="plan-content-info pt-2">
+                      
+                        <div class="plan-content-info">
                           <p class="paragraph">
                             {{orderDetail.planContent}}
                           </p>
                         </div>
                         <div class="plan-content-feature">
-                          <div class="plan-feature-label"> 套餐内容： </div>
-                          <p class="paragraph">
+                          <div class="plan-field-label"> 套餐内容 </div>
+                          <p class="paragraph mt-2">
                             {{orderDetail.feature}}
                           </p>
                         </div>
@@ -473,9 +471,7 @@
                         <div class="opt_item_container d-flex flex-column justify-content-center">
                           <div class="opt_item_head">
                             <button  @click="showRefundFocusModalV"  class="btn btn-outline-primary">
-                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.67606 4.25706C9.60406 1.03806 15.4091 1.26206 19.0761 4.92906C22.9811 8.83406 22.9811 15.1661 19.0761 19.0711C15.1711 22.9761 8.83906 22.9761 4.93406 19.0711C3.73587 17.8742 2.8615 16.3925 2.39306 14.765C1.92462 13.1376 1.87748 11.4177 2.25606 9.76706L2.33306 9.45406L4.26706 9.96406C3.7876 11.7863 3.96675 13.7193 4.77294 15.4224C5.57912 17.1256 6.9606 18.4894 8.67389 19.2737C10.3872 20.058 12.3223 20.2124 14.1383 19.7096C15.9543 19.2069 17.5345 18.0792 18.6005 16.5255C19.6665 14.9717 20.1498 13.0915 19.9653 11.2163C19.7808 9.34109 18.9403 7.59117 17.5919 6.27496C16.2436 4.95875 14.4739 4.16072 12.5947 4.02152C10.7156 3.88232 8.84765 4.41089 7.32006 5.51406L7.10006 5.68006L8.11706 6.69706L3.52106 7.75706L4.58106 3.16106L5.67606 4.25706ZM13.0051 6.00006V8.00006H15.5051V10.0001H10.0051C9.88011 9.99983 9.75961 10.0464 9.66728 10.1306C9.57494 10.2147 9.51747 10.3304 9.50618 10.4549C9.49489 10.5793 9.5306 10.7035 9.60628 10.8029C9.68195 10.9023 9.79211 10.9698 9.91506 10.9921L10.0051 11.0001H14.0051C14.6681 11.0001 15.304 11.2635 15.7728 11.7323C16.2417 12.2011 16.5051 12.837 16.5051 13.5001C16.5051 14.1631 16.2417 14.799 15.7728 15.2678C15.304 15.7367 14.6681 16.0001 14.0051 16.0001H13.0051V18.0001H11.0051V16.0001H8.50506V14.0001H14.0051C14.13 14.0003 14.2505 13.9537 14.3428 13.8695C14.4352 13.7854 14.4926 13.6697 14.5039 13.5452C14.5152 13.4208 14.4795 13.2966 14.4038 13.1972C14.3282 13.0978 14.218 13.0303 14.0951 13.0081L14.0051 13.0001H10.0051C9.34202 13.0001 8.70613 12.7367 8.23729 12.2678C7.76845 11.799 7.50506 11.1631 7.50506 10.5001C7.50506 9.83702 7.76845 9.20113 8.23729 8.73229C8.70613 8.26345 9.34202 8.00006 10.0051 8.00006H11.0051V6.00006H13.0051Z" fill="#949494"/>
-                              </svg> 
+                              <i class="bi bi-repeat"></i>
                             </button>
                           </div>
                             <span class="opt_item_desc">退款</span>
@@ -485,9 +481,7 @@
                           <div class="opt_item_head">
                             <a :href="'/mall/cell-detail?cell_id=' + orderDetail.cellId + '&brand_id=' + orderDetail.supplierBrandId">
                               <button  class="btn btn-outline-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#949494">
-                                  <path d="M446-80q-15 0-30-6t-27-18L103-390q-12-12-17.5-26.5T80-446q0-15 5.5-30t17.5-27l352-353q11-11 26-17.5t31-6.5h287q33 0 56.5 23.5T879-800v287q0 16-6 30.5T856-457L503-104q-12 12-27 18t-30 6Zm0-80 353-354v-286H513L160-446l286 286Zm253-480q25 0 42.5-17.5T759-700q0-25-17.5-42.5T699-760q-25 0-42.5 17.5T639-700q0 25 17.5 42.5T699-640ZM480-480Z"/>
-                                </svg>
+                                <i class="bi bi-tag"></i>
                               </button>
                             </a>
                   
@@ -528,70 +522,98 @@
   
                   </div>
   
-                  <div class="deliver-record-container">
-                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                      <div v-if="record.tag=='3'" class="d-flex">
-                        <div>
-                          交付内容：
-                        </div>
-                        <div class="record-filename">
-                          {{record.deliverName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                        </div>
-                      </div>
-                      <div v-else class="d-flex">
-                        
-                          <div>
-                            预览内容：
+                  <div  v-show="!isEmptyObjectV(mpdc__paperDeliver.records) " class="deliver-record-container">
+                    <div v-for="(record,index) in mpdc__paperDeliver.records"  class="record-card">
+                      <!-- Top Row - Files -->
+                      <div class="files-grid">
+
+                        <!-- Delivery File -->
+                        <div v-if="record.tag=='3'" class="file-section">
+                          <div class="section-label">交付资料</div>
+                          <div class="file-item">
+                            <i data-lucide="file-text" class="file-icon"></i>
+                            <span class="file-name">{{record.deliverName}}</span>
+                            <a  target="_blank" class="download" :download="record.deliverName" :href="record.deliver">
+                              <i data-lucide="download"></i>
+                            </a>
                           </div>
-                          <div class="record-filename">
-                            {{record.previewName}}
+                        </div>
+
+                        <!-- Preview File -->
+                        <div v-else class="file-section">
+                          <div class="section-label">预览资料</div>
+                          <div class="file-item">
+                            <i data-lucide="file-text" class="file-icon"></i>
+                            <span class="file-name"> {{record.previewName}}</span>
+                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview">
+                              <i data-lucide="download"></i>
+                            </a>
                           </div>
-                          <div class="ms-2">
-                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                        </div>
+              
+                
+                      </div>
+              
+                      <!-- Middle Row - Status and Created Time -->
+                      <div class="info-grid" :class="{'border-0 pb-0 mb-0': record.tag!='1' && !record.msg}">
+                        <!-- Status -->
+                        <div class="info-section">
+                          <div class="section-label">状态</div>
+                          <div class="status-container">
+                            <span class="status-badge" :class="{'status-in-review': record.tag=='1', 'status-approved': record.tag=='3', 'status-rejected': record.tag=='2'}">{{paperDeliverTagExplainV(record.tag)}}</span>
                           </div>
-                     
-                      </div>
-                      <div class="py-2">
-                        <span>
-                          状态：
-                          {{paperDeliverTagExplainV(record.tag)}}
-                        </span>
-                        
-                      </div>
-                      <div class="py-2">
-                        <span>
-                          提交时间：
-                          {{record.createAt}}
-                        </span>
-                        
-                      </div>
-                      
-                      <div v-if="!!record.msg" class="d-flex">
-                        <div class="delivery-remark-heading">留言：</div>
-                        <div class="delivery-remark-content">
-                          <p class="delivery-remark">
-                            {{record.msg}}
-                          </p>
+                        </div>
+              
+                        <!-- Created Time -->
+                        <div class="info-section">
+                          <div class="section-label">提交时间</div>
+                          <div class="time-item">
+                            <i data-lucide="clock" class="time-icon"></i>
+                            <span class="time-text">{{record.createAt}}</span>
+                          </div>
                         </div>
                       </div>
-                      <div v-else class="leave-msg-container py-4" >
-                          <textarea class="form-control" rows="6" v-model="record.newMsg"></textarea>
-                          <div class="py-2">
-                            <button 
-                            :class="{'disabled': !record.newMsg, 
-                            'btn-primary': record.newMsg,
-                            'btn-secondary': !record.newMsg}"
-                             v-preventreclick class="btn" @click="leaveMessageV(record)">留言</button>
-                          </div>
+              
+                      <!-- Remark Section -->
+                      <div v-if="!!record.msg"  class="remark-section">
+                        <div class="remark-header">
+                          <div class="section-label">留言</div>
+                        </div>
+                        <div class="remark-content">
+                          {{record.msg}}
+                        </div>
                       </div>
-                      <div v-show="record.tag=='1'" class="py-4">
-                        <button v-preventreclick @click="revisionPaperDeliverV(record)" class="btn btn-dark">再次修订</button>
-                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-primary ms-5">接受交付</button>
+
+                      <div v-if="!record.msg && index==0 && record.tag!=='3'" class="remark-section">
+                        <div class="remark-header">
+                          <div class="section-label">留言</div>
+                          <button :disabled="!record.newMsg" class="btn btn-remark" @click="leaveMessageV(record)">
+                            <i data-lucide="arrow-up"></i>
+                          </button>
+                        </div>
+                        <textarea 
+                          class="remark-input" 
+                          placeholder="在这写下你的意见、想法..." 
+                          rows="3"
+                          v-model="record.newMsg" 
+                          maxlength="600"
+                          id="remark-input-2"
+                        ></textarea>
+                      </div>
+                      <!-- Action Buttons -->
+                      <div v-show="record.tag=='1'" class="action-buttons">
+                        <button v-preventreclick @click="showAcceptDeliverFocusModalV(record)" class="btn btn-accept">
+                          <i data-lucide="check"></i>
+                          <span>接受交付</span>
+                        </button>
+                        <button v-preventreclick @click="showRejectDeliverFocusModalV(record)"  class="btn btn-revision">
+                          <i data-lucide="refresh-cw"></i>
+                          <span>退回修订</span>
+                        </button>
                       </div>
                     </div>
+
+                   
                   </div>
 
                 </div>
@@ -721,17 +743,15 @@
         <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                <h1 class="modal-title fs-5">操作提示</h1>
+              <div class="modal-header">
+                <h1 class="modal-title">操作提示</h1>
               </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                <div class="product-feature">
-                  <p class="card-text">{{focusModal.feed}}</p>
-                </div>
+              <div class="modal-body">
+                <p class="focus-message">{{focusModal.feed}}</p>
               </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">确定</button>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-confirm">确定</button>
               </div>
             </div>
           </div>
@@ -836,6 +856,10 @@
     </div>
 
   </section>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
   <script type="module" src="/epod/javascripts/packages-order-deliver.js"></script>

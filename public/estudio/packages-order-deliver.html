@@ -369,7 +369,7 @@
                           <div class="ms-2 chat-btn-container">
                             <div class="img-btn" >
                               <i class="bi bi-image chat-image-btn"></i>
-                              <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                              <input @change="handleFileChange($event)" type="file"   id="selection_image" accept=".jpg,.jpeg,.png,.gif" class="input-file">
                             </div>
                           </div>
                         </span>
@@ -389,89 +389,83 @@
             <!-- sow tab begin -->
               <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
                 
-                <div class="plan-info-container pb-5">
-
-
-                <section class="section-plan-header ps-4 pt-5">
-                  <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
-                      <div class="col">
-                          <h3>服务</h3>
-                          <p class="ms-2 sow-cell-title">
+                <div class="plan-info-container">
+                  <section class="section-plan-header pt-5">
+                    <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
+                        <div class="col">
+                          <div class="plan-field-label mb-2">服务</div>
+                          <p class="sow-cell-title">
                             {{orderDetail.cellTitle}}
                           </p>
+                        </div>
+      
+                        <div class="col">
+                          <div class="plan-field-label mb-2">服务商</div>
+                          <div class="d-flex justify-content-start align-items-center">
+                              <div class="plan-brand-portrait">
+                                <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                              </div>
+                              <div class="sow-brand-name mx-2">{{orderDetail.supplierName}}</div>
+                          </div>
+                        </div>
+                    </div>
+                  </section>
+                  <section class="section-plan-info pb-5">
+                    <div class="which-plan">
+                      <div class="which-plan-type">
+                        {{ explainCellPlanTypeV(orderDetail.planType) }}套餐
                       </div>
-    
-                      <div class="col">
-                          <h3>服务商</h3>
-                          <div class="d-flex justify-content-start align-items-center mx-2">
-                            <div class="brand-portrait">
-                              <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                            </div>
-                            <h6 class="sow-brand-name mx-2">{{orderDetail.supplierName}}</h6>
+                      <div class="plan-content-header">
+                        {{orderDetail.planTitle}}
+                      </div>
+                    </div>
+                    <div class="plan-content-wrapper pt-3">
+                        <div class="plan-content-info">
+                          <p class="paragraph">
+                            {{orderDetail.planContent}}
+                          </p>
+                        </div>
+                        <div class="plan-content-feature">
+                          <div class="plan-field-label"> 套餐内容 </div>
+                          <p class="paragraph mt-2">
+                            {{orderDetail.feature}}
+                          </p>
+                        </div>
+                        <div class="price py-4">
+                          <i>
+                            ￥
+                          </i>
+                          <ins class="text-decoration-none price-txt">{{orderDetail.price}}</ins>
+                        </div>
+                        <div class="plan-mark">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
+                            <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
+                            <defs>
+                            <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
+                            <stop offset="0.314" stop-color="#FF9800"/>
+                            <stop offset="0.662" stop-color="#FF6D00"/>
+                            <stop offset="0.972" stop-color="#F44336"/>
+                            </radialGradient>
+                            <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
+                            <stop offset="0.214" stop-color="#FFF176"/>
+                            <stop offset="0.328" stop-color="#FFF27D"/>
+                            <stop offset="0.487" stop-color="#FFF48F"/>
+                            <stop offset="0.672" stop-color="#FFF7AD"/>
+                            <stop offset="0.793" stop-color="#FFF9C4"/>
+                            <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
+                            <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
+                            <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
+                            <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
+                            </radialGradient>
+                            </defs>
+                            </svg>
+                            
+                          <span class="ms-2 tag-desc">{{explainCellPlanOrderTagV(orderDetail.tag)}}</span>
                         </div>
                       </div>
-                  </div>
-              </section>
-              <section class="section-plan-info ps-4">
-                <div class="which-plan d-flex">
-                  <div class="which-plan-label">
-                    单品套餐:
-                  </div>
-                  <span class="ms-3 plan-type">{{ explainCellPlanTypeV(orderDetail.planType) }}</span>
-                </div>
-                <div class="plan-content-wrapper pt-3">
-                    <div class="plan-content-header">
-                        <p class="paragraph">
-                          {{orderDetail.planTitle}}
-                        </p>
-                    </div>
-                    <div class="plan-content-info pt-2">
-                      <p class="paragraph">
-                        {{orderDetail.planContent}}
-                      </p>
-                    </div>
-                    <div class="plan-content-feature">
-                      <div class="plan-feature-label"> 套餐内容： </div>
-                      <p class="paragraph">
-                        {{orderDetail.feature}}
-                      </p>
-                    </div>
-                      <div class="price py-4">
-                        <i>
-                          ￥
-                        </i>
-                        <ins class="text-decoration-none price-txt">{{orderDetail.price}}</ins>
-                      </div>
-                      <div class="plan-mark">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
-                          <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
-                          <defs>
-                          <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
-                          <stop offset="0.314" stop-color="#FF9800"/>
-                          <stop offset="0.662" stop-color="#FF6D00"/>
-                          <stop offset="0.972" stop-color="#F44336"/>
-                          </radialGradient>
-                          <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
-                          <stop offset="0.214" stop-color="#FFF176"/>
-                          <stop offset="0.328" stop-color="#FFF27D"/>
-                          <stop offset="0.487" stop-color="#FFF48F"/>
-                          <stop offset="0.672" stop-color="#FFF7AD"/>
-                          <stop offset="0.793" stop-color="#FFF9C4"/>
-                          <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
-                          <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
-                          <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
-                          <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
-                          </radialGradient>
-                          </defs>
-                          </svg>
-                          
-                        <span class="ms-2 tag-desc">{{explainCellPlanOrderTagV(orderDetail.tag)}}</span>
-                      </div>
-                  </div>
 
-              </section>
-
+                  </section>
                 </div>            
 
               </div>
@@ -525,51 +519,65 @@
                       还没有交付记录！
                     </span>
                   </div>
-                  <div class="deliver-record-container">
-                    <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
-                  
-                      <div class="d-flex">
-                        <div>
-                          交付内容：
+                  <div v-show="!isEmptyObjectV(mpdc__paperDeliver.records)" class="deliver-record-container">
+                    <div v-for="record in mpdc__paperDeliver.records" class="record-card">
+                      <!-- Top Row - Files -->
+                      <div class="files-grid">
+
+                        <!-- Delivery File -->
+                        <div  class="file-section">
+                          <div class="section-label">交付资料</div>
+                          <div class="file-item">
+                            <i data-lucide="file-text" class="file-icon"></i>
+                            <span class="file-name">{{record.deliverName}}</span>
+                            <a  target="_blank" class="download" :download="record.deliverName" :href="record.deliver">
+                              <i data-lucide="download"></i>
+                            </a>
+                          </div>
                         </div>
-                        <div class="record-filename">
-                          {{record.deliverName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.deliverName" :href="record.deliver"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                        </div>
-                      </div>
-  
-                      <div class="d-flex">
-                        
-                        <div>
-                          预览内容：
-                        </div>
-                        <div class="record-filename">
-                          {{record.previewName}}
-                        </div>
-                        <div class="ms-2">
-                          <a target="_blank" class="download" :download="record.previewName" :href="record.preview"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                        </div>
-                   
-                      </div>
-  
-                      <div>
-                        <span>交付状态：{{paperDeliverTagExplainV(record.tag)}}</span>
-                      </div>
-                      <div>
-                        <span>提交时间：{{record.createAt}}</span>
-                      </div>
-  
-                      <div class="d-flex">
-                        <div class="delivery-remark-heading">留言：</div>
-                        <div class="delivery-remark-content">
-                          <p class="delivery-remark">
-                            {{record.msg}}
-                          </p>
+
+                        <!-- Preview File -->
+                        <div  class="file-section">
+                          <div class="section-label">预览资料</div>
+                          <div class="file-item">
+                            <i data-lucide="file-text" class="file-icon"></i>
+                            <span class="file-name"> {{record.previewName}}</span>
+                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview">
+                              <i data-lucide="download"></i>
+                            </a>
+                          </div>
                         </div>
                       </div>
-  
+
+                       <!-- Middle Row - Status and Created Time -->
+                       <div class="info-grid" :class="{'border-0 pb-0 mb-0': !record.msg}">
+                        <!-- Status -->
+                        <div class="info-section">
+                          <div class="section-label">状态</div>
+                          <div class="status-container">
+                            <span class="status-badge" :class="{'status-in-review': record.tag=='1', 'status-approved': record.tag=='3', 'status-rejected': record.tag=='2'}">{{paperDeliverTagExplainV(record.tag)}}</span>
+                          </div>
+                        </div>
+              
+                        <!-- Created Time -->
+                        <div class="info-section">
+                          <div class="section-label">提交时间</div>
+                          <div class="time-item">
+                            <i data-lucide="clock" class="time-icon"></i>
+                            <span class="time-text">{{record.createAt}}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Remark Section -->
+                      <div v-if="!!record.msg"  class="remark-section">
+                        <div class="remark-header">
+                          <div class="section-label">留言</div>
+                        </div>
+                        <div class="remark-content">
+                          {{record.msg}}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -607,9 +615,9 @@
                   <form onsubmit="return false">
                     <div class="row mb-3">
                       <label class="col-sm-4 col-form-label">
-                        预览文件
+                        预览资料
                         <div class="help-text">
-                          上传预览文件，采购商通过该文件判断是否接受您的交付内容。(最大20M)                          </div>
+                          上传预览文件，客户通过该文件判断是否接受您的交付资料。(最大20M)                          </div>
                       </label>
                       <div class="col-sm-8">
                         <input type="file" @change="handlePreviewFileUpload" class="form-control form-control-sm" id="inputPreviewFile">
@@ -617,7 +625,7 @@
                     </div>
                     <div class="row mb-3">
                       <label  class="col-sm-4 col-form-label">
-                        交付文件
+                        交付资料
                         <div class="help-text">
                           上传交付文件，最终的交付内容。(最大20M)    
                         </div>
@@ -634,7 +642,7 @@
                   :class="{'disabled': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded , 
                         'btn-primary': !delieverOrPreviewFileIsEmpty && !deliverFileSizeExceeded && !previewFileSizeExceeded,
                         'btn-secondary': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded}"
-                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">交付内容</button>
+                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">提交</button>
                 </div>
               </div>
             </div>
@@ -739,6 +747,10 @@
     </div>
 
   </section>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
   <script type="module" src="/estudio/javascripts/packages-order-deliver.js"></script>
