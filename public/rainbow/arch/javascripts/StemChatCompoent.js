@@ -507,7 +507,7 @@ async function scrollToTopThenLoad(e,chatSetting,pageLoadSetting){
 
   var container = e.currentTarget;
 
-  var canLoadNewRecord =(container.scrollTop<200 && !pageLoadSetting.loading && pageLoadSetting.current<pageLoadSetting.pages);
+  var canLoadNewRecord =(container.scrollTop<300 && !pageLoadSetting.loading && pageLoadSetting.current<pageLoadSetting.pages);
   if (canLoadNewRecord) {
     console.log("start fetch message");
 

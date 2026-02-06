@@ -29,7 +29,7 @@ const RootComponent = {
             frameDoc = frame.contentDocument || frame.contentWindow.document;
             frameDoc.removeChild(frameDoc.documentElement);
 
-            x = document.getElementById('iphone-iframe').contentWindow;
+            var x = document.getElementById('iphone-iframe').contentWindow;
             x.document.open();
             x.document.write(this.htmlcode);
             x.document.close();
@@ -40,7 +40,7 @@ const RootComponent = {
             frameDoc = frame.contentDocument || frame.contentWindow.document;
             frameDoc.removeChild(frameDoc.documentElement);
 
-            x = document.getElementById('pc-iframe').contentWindow;
+            var x = document.getElementById('pc-iframe').contentWindow;
             x.document.open();
             x.document.write(this.htmlcode);
             x.document.close();

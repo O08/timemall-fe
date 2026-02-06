@@ -215,8 +215,8 @@
                     <div class="inputWrapper">
                       <div class="inputMaxLength">
                         <textarea id="newTier__tierDescription" v-model="newTier.tierDescription"  maxlength="200"
-                          rows="3" autocorrect="off" class="inputDefault textAreaDefault" placeholder="内容摘要或介绍" 
-                          style="height: 150px;"></textarea>
+                           autocorrect="off" class="inputDefault textAreaDefault" placeholder="内容摘要或介绍" 
+                          style="min-height: 180px;"></textarea>
                         <div class="maxLength">{{ (!newTier || !newTier.tierDescription) ? 200 : 200-newTier.tierDescription.length}}
                         </div>
                       </div>
@@ -283,19 +283,19 @@
                   <div class="col-12">
                     <label for="editTier__tierName" class="form-label">套餐名称</label>
                     <input tabindex="-1" id="editTier__tierName" v-model="editTier.tierName" maxlength="72"
-                      class="form-control  only-show-bottom mb-3" type="text" placeholder="比如，福卡内参" autocomplete="off">
+                      class="inputDefault  only-show-bottom mb-3" type="text" placeholder="比如，福卡内参" autocomplete="off">
                   </div>
       
                   <div class="col-md-6">
                     <label for="editTier__Price" class="form-label">每月订阅费用</label>
                     <input tabindex="-1" id="editTier__Price" v-model="editTier.price"
                       @input="transformInputNumberAsPositiveDecimalV($event)" max="5000000" type="text"
-                      class="form-control  only-show-bottom  mb-3" autocomplete="off">
+                      class="inputDefault  only-show-bottom  mb-3" autocomplete="off">
                   </div>
       
                   <div class="col-md-6">
                     <label for="editTier__role" class="form-label">订阅成功授权身份组</label>
-                    <model-select tabindex="-1" id="editTier__role" class="mb-3" :options="roleOptions"
+                    <model-select tabindex="-1" id="editTier__role" class="dark-model-select" :options="roleOptions"
                       placeholder="" v-model="roleSelectedItem">
                     </model-select>
                   </div>
@@ -303,9 +303,17 @@
       
                   <div class="col-12">
                     <label for="editTier__tierDescription" class="form-label">描述</label>
-                    <textarea id="editTier__tierDescription" v-model="editTier.tierDescription"
-                      placeholder="内容摘要或介绍" rows="8" maxlength="199"
-                      class="form-control  only-show-bottom"></textarea>
+                    <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                        <textarea id="editTier__tierDescription" v-model="editTier.tierDescription"  maxlength="200"
+                            autocorrect="off" class="inputDefault textAreaDefault" placeholder="内容摘要或介绍" 
+                          style="min-height: 180px;">
+                        </textarea>
+                        <div class="maxLength">
+                          {{ (!editTier || !editTier.tierDescription) ? 200 : 200-editTier.tierDescription.length}}
+                        </div>
+                      </div>
+                    </div>
                   </div>
       
       

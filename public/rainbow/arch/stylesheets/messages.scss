@@ -4,17 +4,18 @@ col-content{
     overflow-x: unset;
 }
 #context-menu {
-    background-color: #060415;
-    box-shadow: 0 0 20px rgba(37, 40, 42, 0.22);
+
     color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
     width: 10em;
-    padding: 0.8em 0.6em;
+    padding: 6px 8px;
     font-size: 1.3rem;
     position: fixed;
     visibility: hidden;
-    min-height: 240px;
-    width: 188px;
-    font-family: "Microsoft YaHei New",微软雅黑,"Microsoft Yahei","Microsoft JhengHei",宋体,"Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    min-height: 40px;
+    background: #242628;
+    border: 1px solid #ffffff14;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px #0006;
    }
    
    .item {

@@ -59,7 +59,7 @@
                 <li>
                   <a href="/">
                     <button class="dropdown-item" type="button">
-                      <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                      <i class="bi bi-house me-2"></i> 主站首页
                      </button>
                   </a>
                 </li>
@@ -410,7 +410,7 @@
                           <div class="ms-2 chat-btn-container">
                             <div class="img-btn" >
                               <i class="bi bi-image chat-image-btn"></i>
-                              <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                              <input @change="handleFileChange($event)" type="file" accept=".jpg,.jpeg,.png,.gif"   id="selection_image" class="input-file">
                             </div>
                           </div>
                         </span>
@@ -454,7 +454,7 @@
                   <div class="row gx-3 gy-3 row-cols-sm-2">
                       <div class="col">
                           <h3>服务</h3>
-                          <p class="ms-2 sow-cell-title">
+                          <p class="sow-cell-title">
                               <a target="_blank" class="url-link" :href="'/mall/cell-detail?cell_id=' + workflow.serviceInfo.cellId + '&brand_id=' + workflow.serviceInfo.brandId">
                                 {{workflow.serviceInfo.title}}
                               </a>
@@ -462,7 +462,7 @@
                       </div>
                       <div class="col">
                           <h3>服务商</h3>
-                          <div class="d-flex justify-content-start align-items-center mx-2">
+                          <div class="d-flex justify-content-start align-items-center">
                               <div class="brand-portrait">
                                 <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
                               </div>

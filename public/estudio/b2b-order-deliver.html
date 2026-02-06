@@ -55,7 +55,7 @@
                 <li>
                   <a href="/">
                     <button class="dropdown-item" type="button">
-                      <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                      <i class="bi bi-house me-2"></i> 主站首页
                      </button>
                   </a>
                 </li>
@@ -638,7 +638,7 @@
                   <div v-for="record in mpdc__paperDeliver.records" class="deliver-record">
                 
                     <div class="deliver-record-row">
-                      <div class="deliver-record-label">交付内容</div>
+                      <div class="deliver-record-label">交付文件</div>
                       <div class="record-filename">{{record.deliverName}}</div>
                       <a target="_blank" class="download-btn" :download="record.deliverName" :href="record.deliver">
                         <i class="bi bi-cloud-arrow-down"></i>
@@ -646,7 +646,7 @@
                     </div>
 
                     <div class="deliver-record-row">
-                      <div class="deliver-record-label">预览内容</div>
+                      <div class="deliver-record-label">预览文件</div>
                       <div class="record-filename">{{record.previewName}}</div>
                       <a target="_blank" class="download-btn" :download="record.previewName" :href="record.preview">
                         <i class="bi bi-cloud-arrow-down"></i>
@@ -704,9 +704,9 @@
                   <form onsubmit="return false">
                     <div class="row mb-3">
                       <label class="col-sm-4 col-form-label">
-                        预览文件
+                        预览资料
                         <div class="help-text">
-                          上传预览文件，采购商通过该文件判断是否接受您的交付内容。(最大20M)                          </div>
+                          上传预览文件，采购商通过该文件判断是否接受您的交付资料。(最大20M)                          </div>
                       </label>
                       <div class="col-sm-8">
                         <input type="file" @change="handlePreviewFileUpload" class="form-control form-control-sm" id="inputPreviewFile">
@@ -714,7 +714,7 @@
                     </div>
                     <div class="row mb-3">
                       <label  class="col-sm-4 col-form-label">
-                        交付文件
+                        交付资料
                         <div class="help-text">
                           上传交付文件，最终的交付内容。(最大20M)    
                         </div>
@@ -731,7 +731,7 @@
                   :class="{'disabled': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded , 
                         'btn-primary': !delieverOrPreviewFileIsEmpty && !deliverFileSizeExceeded && !previewFileSizeExceeded,
                         'btn-secondary': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded}"
-                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">交付内容</button>
+                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">提交</button>
                 </div>
               </div>
             </div>

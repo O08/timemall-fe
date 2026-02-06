@@ -4,10 +4,9 @@ col-content{
     overflow-x: unset;
 }
 #context-menu {
-    background-color: #060415;
-    box-shadow: 0 0 20px rgba(37, 40, 42, 0.22);
-    // color: hsl( 359 calc( 1 *87.3%) 59.8% /1);
-    width: 10em;
+    background: #242628;
+    border: 1px solid #ffffff14;
+    box-shadow: 0 8px 32px #0006;
     padding: 0.8em 0.6em;
     font-size: 1.3rem;
     position: fixed;

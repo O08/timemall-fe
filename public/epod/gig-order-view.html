@@ -53,7 +53,7 @@
               <li>
                 <a href="/">
                   <button class="dropdown-item" type="button">
-                    <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                    <i class="bi bi-house me-2"></i> 主站首页
                    </button>
                 </a>
               </li>
@@ -384,7 +384,7 @@
                           <div class="ms-2 chat-btn-container">
                             <div class="img-btn" >
                               <i class="bi bi-image chat-image-btn"></i>
-                              <input @change="handleFileChange($event)" type="file"   id="selection_image" class="input-file">
+                              <input @change="handleFileChange($event)" type="file" accept=".jpg,.jpeg,.png,.gif"  id="selection_image" class="input-file">
                             </div>
                           </div>
                         </span>
@@ -400,74 +400,77 @@
                 
               </div>
               <div class="tab-pane fade show active" id="stage-tab-pane" role="tabpanel" aria-labelledby="stage-tab" tabindex="0">
-                <section class="section-cell-info ps-4 my-5">
-                  <div class="row gx-3 gy-3 row-cols-sm-2">
-                      <div class="col">
-                          <h3>服务</h3>
-                          <p class="ms-2 sow-cell-title">
-                              <a target="_blank" class="url-link" :href="'/mall/cell-detail?cell_id=' + workflow.serviceInfo.cellId + '&brand_id=' + workflow.serviceInfo.brandId">
-                                {{workflow.serviceInfo.title}}
-                              </a>
-                          </p>
+                <div class="sow-container">
+
+                  <section class="section-cell-info ps-4 my-5">
+                    <div class="row gx-3 gy-3 row-cols-sm-2">
+                        <div class="col">
+                            <h3>服务</h3>
+                            <p class="sow-cell-title">
+                                <a target="_blank" class="url-link" :href="'/mall/cell-detail?cell_id=' + workflow.serviceInfo.cellId + '&brand_id=' + workflow.serviceInfo.brandId">
+                                  {{workflow.serviceInfo.title}}
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col">
+                            <h3>服务商</h3>
+                            <div class="d-flex justify-content-start align-items-center">
+                                <div class="brand-portrait">
+                                  <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                                </div>
+                                <h6 class="sow-brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                  <section class="section-display-header ps-4 my-4">
+                    <div class="d-flex inner-header">
+                      <span>任务集</span>
+                    </div>
+                  </section>
+                  <section class="section-workspace d-flex  px-3 pb-5 px-lg-5 mx-lg-5">
+                      <div class="display-pannel">
+                          <ul class="timeline">
+                            <li :class="{'active': !!workflow.doneStageNo && i >= Number(workflow.doneStageNo)}" v-for="(millstone,i) in workflow.millstones" class="timeline-item pb-3">
+                              <json-node class="json-item-node millstone-title my-0 d-flex align-items-center">
+                                <h5>{{millstone.title}}</h5>
+                              </json-node>
+                              <json-node class="d-flex flex-column">
+                                任务目标:
+                                <json-node v-for="objective in millstone.objective">    
+                                  <span>{{objective.entry}}</span>            
+                                </json-node>
+                              </json-node>
+                              <json-node>
+                                验收标准:
+                                <json-node v-for="metric in millstone.metric">    
+                                  <span>{{metric.entry}}</span>            
+                                </json-node>
+                              </json-node>
+                              <json-node>
+                                结算比例:<span class="ms-2">{{millstone.payRate}}%</span>                            
+                              </json-node>  
+                              <json-node>
+                                开始时间:<span class="ms-2">{{millstone.start}}</span>                             
+                              </json-node>  
+                              <json-node>
+                                结束时间:<span class="ms-2">{{millstone.end}}</span>                            
+                              </json-node>  
+                            </li>
+                            </ul>
                       </div>
-                      <div class="col">
-                          <h3>服务商</h3>
-                          <div class="d-flex justify-content-start align-items-center mx-2">
-                              <div class="brand-portrait">
-                                <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                              </div>
-                              <h6 class="sow-brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
-                          </div>
-                      </div>
+                
+                  </section>
+                  <div class="workspace-pps ps-4 pb-5">
+                    <div>
+                      <span><i class="bi bi-pin-angle me-2"></i>可授权服务商「编辑服务内容」权限，开启协作.</span> 
+                    </div>
+                    <div>
+                      <span><i class="bi bi-pin-angle me-2"></i>特约采用分步交付设计，如果服务商告知你需要在任务启动前收账，可拒绝，推荐任务交付结果满足验收标准再进行付款.账单支付请前往【账单管理】.</span> 
+                    </div>
                   </div>
-              </section>
-            <section class="section-display-header ps-4 my-4">
-              <div class="d-flex inner-header">
-                <span>任务集</span>
-              </div>
-            </section>
-            <section class="section-workspace d-flex  px-3 pb-5 px-lg-5 mx-lg-5">
-                <div class="display-pannel">
-                    <ul class="timeline">
-                      <li :class="{'active': !!workflow.doneStageNo && i >= Number(workflow.doneStageNo)}" v-for="(millstone,i) in workflow.millstones" class="timeline-item pb-3">
-                        <json-node class="json-item-node millstone-title my-0 d-flex align-items-center">
-                          <h5>{{millstone.title}}</h5>
-                        </json-node>
-                        <json-node class="d-flex flex-column">
-                          任务目标:
-                          <json-node v-for="objective in millstone.objective">    
-                            <span>{{objective.entry}}</span>            
-                          </json-node>
-                        </json-node>
-                        <json-node>
-                          验收标准:
-                          <json-node v-for="metric in millstone.metric">    
-                            <span>{{metric.entry}}</span>            
-                          </json-node>
-                        </json-node>
-                        <json-node>
-                          结算比例:<span class="ms-2">{{millstone.payRate}}%</span>                            
-                        </json-node>  
-                        <json-node>
-                          开始时间:<span class="ms-2">{{millstone.start}}</span>                             
-                        </json-node>  
-                        <json-node>
-                          结束时间:<span class="ms-2">{{millstone.end}}</span>                            
-                        </json-node>  
-                      </li>
-                      </ul>
+
                 </div>
-          
-            </section>
-            <div class="workspace-pps ps-4 pb-5">
-              <div>
-                <span><i class="bi bi-pin-angle me-2"></i>可授权服务商「编辑服务内容」权限，开启协作.</span> 
-              </div>
-              <div>
-                <span><i class="bi bi-pin-angle me-2"></i>特约采用分步交付设计，如果服务商告知你需要在任务启动前收账，可拒绝，推荐任务交付结果满足验收标准再进行付款.账单支付请前往【账单管理】.</span> 
-              </div>
-            </div>
-         
               </div>
 
             </div>

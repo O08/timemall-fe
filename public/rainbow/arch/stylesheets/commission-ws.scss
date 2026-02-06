@@ -37,11 +37,10 @@ a {
   font-size: 12px;
 }
 .nav-tabs {
-  padding-bottom: 24px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
-.nav-tabs .nav-item:first-child {
-  margin-left: 0;
-}
+
 .nav-tabs .nav-item {
   margin-left: 12px;
 }
@@ -53,7 +52,9 @@ a {
   height: 30px;
   font-size: 12px;
   border-radius: 5px !important;
-  padding: 6px 12px !important;
+  padding: unset;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 .nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
   background-color: rgb(27, 105, 221);
@@ -835,6 +836,10 @@ padding-left: 1.25rem;
 }
 
 @media (max-width: 576px) {
+
+  .room-msg-panel {
+    height: calc(100vh - 206px);
+  }
 
   .logo h2{
     font-size: 24px;

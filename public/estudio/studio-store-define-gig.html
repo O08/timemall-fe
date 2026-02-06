@@ -54,7 +54,7 @@
               <li>
                 <a href="/">
                   <button class="dropdown-item" type="button">
-                    <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                    <i class="bi bi-house me-2"></i> 主站首页
                    </button>
                 </a>
               </li>
@@ -606,64 +606,34 @@
                 </div>
                 <div class="modal-body px-4">
                   <form onsubmit="return false">
-                    <div class="row mb-3">
-                      <label for="inputTitle" class="col-sm-4 col-form-label">
-                        标题
-                        <div class="help-text">
-                          单品标题。(最大80字符) 
-                        </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea v-model="cofingPlan.title" @change="btn_ctl.put_cell_plan_already_change = true" 
-                        class="form-control" maxlength="80" aria-label="With textarea"></textarea>
-                      </div>
+                   
+                    <div class="mb-3">
+                      <label for="cofingPlanName" class="form-label">单品名称</label>
+                      <input type="text" v-model="cofingPlan.title" @change="btn_ctl.put_cell_plan_already_change = true"  id="cofingPlanName" class="form-control" maxlength="80" autocomplete="off" placeholder="比如： PPT制作">
                     </div>
-                    <div class="row mb-3">
-                      <label for="inputContent" class="col-sm-4 col-form-label">
-                        内容
-                        <div class="help-text">
-                          单品内容。(最大200字符) 
-                        </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea v-model="cofingPlan.content" @change="btn_ctl.put_cell_plan_already_change = true" 
-                        class="form-control" maxlength="200" aria-label="With textarea"></textarea>
-                      </div>
+                    <div class="mb-3">
+                      <label for="cofingPlanDesc" class="form-label">简介</label>
+                      <textarea v-model="cofingPlan.content" @change="btn_ctl.put_cell_plan_already_change = true"  id="cofingPlanDesc" rows="3" class="form-control" maxlength="200" placeholder="比如：汽车、科技行业领域营销PPT制作"></textarea>
                     </div>
-                    <div class="row mb-3">
-                      <label for="inputTitle" class="col-sm-4 col-form-label">
-                        价格
-                        <div class="help-text">
-                          单品服务价格（单位：元）。
-                        </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <input  @change="btn_ctl.put_cell_plan_already_change = true"  type="text" class="form-control" v-model="cofingPlan.price" max="50000000" @input="transformInputNumberV($event)" placeholder="(必填)">
-                      </div>
+
+                    <div class="mb-3">
+                      <label for="cofingPlanPrice" class="form-label">售价（元）</label>
+                      <input @change="btn_ctl.put_cell_plan_already_change = true"  type="text"  v-model="cofingPlan.price"  max="50000000" @input="transformInputNumberV($event)"  id="cofingPlanPrice" class="form-control"  autocomplete="off">
                     </div>
-                    <div class="row mb-3">
-                      <label for="inputTitle" class="col-sm-4 col-form-label">
-                        服务包
-                        <div class="help-text">
-                          单品服务特色、交付物等。(最大600字符)
-                        </div>
-                      </label>
-                      <div class="col-sm-8">
-                        <textarea  @change="btn_ctl.put_cell_plan_already_change = true"  v-model="cofingPlan.feature"
-                        class="form-control" maxlength="600" rows="6" aria-label="With textarea"></textarea>
-                      </div>
-                    </div>
+
+                    <div class="mb-3">
+                      <label for="cofingPlanFeature" class="form-label">权益</label>
+                      <textarea @change="btn_ctl.put_cell_plan_already_change = true"  v-model="cofingPlan.feature" id="cofingPlanFeature" rows="12" class="form-control" maxlength="600" placeholder="比如： 支持最多50张PPT制作；10次改稿机会..."></textarea>
+                    </div>   
                     
-                                      
+                    <button 
+                    :class="{'disabled': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput(), 
+                    'btn-primary': btn_ctl.put_cell_plan_already_change && validatePutCellPlanInput(),
+                    'btn-secondary': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput()}"
+                     v-preventreclick @click="putCellPlanV" type="button" id="btn-save-plan" class="btn my-4 w-100">保存</button>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button 
-                  :class="{'disabled': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput(), 
-                  'btn-primary': btn_ctl.put_cell_plan_already_change && validatePutCellPlanInput(),
-                  'btn-secondary': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput()}"
-                   v-preventreclick @click="putCellPlanV" type="button" id="btn-save-plan" class="btn">保存</button>
-                </div>
+       
 
               </div>
             </div>

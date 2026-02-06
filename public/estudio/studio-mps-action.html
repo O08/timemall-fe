@@ -55,7 +55,7 @@
                 <li>
                   <a href="/">
                     <button class="dropdown-item" type="button">
-                      <img class="forward-icon me-2" src="/common/icon/logo_blv-final-black.png" alt="blv-logo"> 主站首页
+                      <i class="bi bi-house me-2"></i> 主站首页
                      </button>
                   </a>
                 </li>
@@ -687,7 +687,7 @@
                     <div v-for="(record, index) in mpdc__paperDeliver.records" class="deliver-record">
                       <!-- 交付内容 -->
                       <div v-if="record.tag=='3'" class="deliver-record-row">
-                        <div class="deliver-record-label">交付内容</div>
+                        <div class="deliver-record-label">交付文件</div>
                         <div class="record-filename">{{record.deliverName}}</div>
                         <a target="_blank" class="download-btn" :download="record.deliverName" :href="record.deliver">
                           <i class="bi bi-cloud-arrow-down"></i>
@@ -695,7 +695,7 @@
                       </div>
                       <!-- 预览内容 -->
                       <div v-else class="deliver-record-row">
-                        <div class="deliver-record-label">预览内容</div>
+                        <div class="deliver-record-label">预览文件</div>
                         <div class="record-filename">{{record.previewName}}</div>
                         <a target="_blank" class="download-btn" :download="record.previewName" :href="record.preview">
                           <i class="bi bi-cloud-arrow-down"></i>

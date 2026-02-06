@@ -4,7 +4,7 @@
     font-weight: 600;
 }
 .sow-cell-title{
-    width: 400px;
+    max-width: 400px;
     min-height: 30px;
     white-space: pre-wrap;
     word-break: break-all;
@@ -12,7 +12,7 @@
     line-height: 1.875;
   }
   .sow-brand-name{
-    width: 200px;
+    max-width: 300px;
     white-space: nowrap;
     text-overflow: ellipsis;
     text-align: left;
@@ -26,6 +26,8 @@
 
 #millstone-sub-tablist{
     border-bottom: 1px solid #fff3;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
   #millstone-sub-tablist .nav-link {
     font-size: 20px;
@@ -35,6 +37,8 @@
     border-top-left-radius: unset;
     border-top-right-radius: unset;
     font-weight: 800;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
   #millstone-sub-tablist  .nav-link.active{
     color: #fff;
@@ -67,28 +71,38 @@ json-node  span{
   color: #87888c;
   font-size: 12px;
 }
-.room-msg-panel{
-  height: calc(100vh - 303px);
+.main-content-container{
+  min-width: 780px;
+}
+.sow-container{
+  overflow-y: auto;
+}
+/* Fix for scrolling behavior on mobile browsers */
+.sow-container {
+  -webkit-overflow-scrolling: touch; 
+  scrollbar-width: none; /* Hide scrollbar for cleaner look */
+}
+
+.sow-container::-webkit-scrollbar {
+  display: none;
+}
+.room-msg-panel,.sow-container{
+  height: calc(100vh - 230px);
 }
 .room-msg-container {
-  height: calc(100% - 118px);
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  height: calc(100% - 112px);
   position: relative;
   padding: 8px 28px 16px 32px;
-  margin: 12px 4px 12px 0;
   overflow-y: auto;
 }
 
 pt-app content main {
   overflow-x: scroll;
-  padding: 32px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 0;
 }
 
-.main-content-container{
-  min-width: 1000px;
-}
 .timeline .timeline-item:before {
   top: 2px;
 }
@@ -102,13 +116,16 @@ pt-app content main {
       .room-msg-container {
         height: calc(100% - 166px);
       }
+      .room-msg-panel{
+        height: calc(100vh - 283px);
+      }
 }
 @media (max-width: 767px) {
     .timeline {
         padding-left: .5rem;
     }
     .timeline .timeline-item:after {
-        left: -.8rem;
+        left: 0rem;
     }
     .millstone-title h5{
         line-height: 1.665;
@@ -127,9 +144,9 @@ pt-app content main {
 
 @media (width <= 576px) {
   .room-msg-container {
-    height: calc(100% - 206px);
+    height: calc(100% - 176px);
   }
   pt-app content main {
-    padding: 32px 0;
+    padding-top: 32px;
   }
 }
