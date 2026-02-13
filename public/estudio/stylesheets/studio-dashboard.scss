@@ -5,6 +5,9 @@
   display: grid
 ;
 }
+p{
+  margin-bottom: unset;
+}
 
 .earnings-inline-block {
   display: inline-block;
@@ -41,11 +44,16 @@
 .sm-earnings-h-252 {
   height: 252px;
 }
-.data-content{
+.data-content,.others-metric__content{
   font-weight: 700;
-  margin-top: 24px;
   font-size: 24px;
   line-height: 32px;
+}
+.data-content{
+  margin-top: 24px;
+}
+.others-metric__content{
+  margin-top: 4px;
 }
 
 .m-l-16 {
@@ -63,10 +71,42 @@
 .earnings-h-29 {
   height: 29px;
 }
+.earnings-block-blank{
+  border: none;
+  height: 158px;
+  width: 100%;
+}
 .n5N9tUo {
   border-top: 1px solid #4d5154;
 }
-.repeat-buy-box{
+
+.others-metric-container{
+  box-sizing: border-box;
+  grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
+  gap: 24px;
+  display: grid;
+}
+.others-metric-card{
+  padding: 32px;
+  height: 100%;
+  background-color: #373b3e52;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+.others-metric-item{
+  gap: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.others-metric-icon{
+  padding: 0.75rem;
+  border-radius: 4px;
+  background-color: #39393975;
+}
+
+.repeat-buy-box,.others-box{
   display: flex;
   -webkit-box-pack: flex-start;
   -ms-flex-pack: flex-start;
@@ -77,7 +117,7 @@
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   margin-top: 24px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -157,6 +197,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 .earnings-vision-tb{
   padding: 24px;
   border-radius: 4px;
@@ -179,9 +220,7 @@ tr td:first-child, tr th:first-child {
   height: calc(100% - 60px);
   padding-bottom: 1rem;
 }
-.earnings-payments-section,.earnings-available-funds-section,.earnings-earnings-expenses-section{
-  height: 100%;
-}
+
 .btn-refresh {
   color: #fff;
   background-color: unset;
@@ -205,16 +244,23 @@ tr td:first-child, tr th:first-child {
 
 // tablets ipad air mini pro
 @media (min-width: 768px) and  (max-width: 1024px) {
-  .overview-earnings{
+  .overview-earnings,.others-metric-container{
     gap: 2px;
   }
-  .data-content,.repeat-buy-item__content{
+  .data-label{
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .data-content,.repeat-buy-item__content,.others-metric__content{
     font-size: 16px;
     line-height: 24px;
   }
   .data-item-box{
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .others-metric-card{
+    padding: 20px;
   }
   .data-heading,.repeat-buy-item__label{
     margin-bottom: 0;
@@ -225,17 +271,20 @@ tr td:first-child, tr th:first-child {
   .earnings-h-29{
     height: 2px;
   }
+  .earnings-block-blank{
+    height: 108px;
+  }
 }
 
 // moblile
 @media (max-width: 767px) {
-  .overview-earnings{
+  .overview-earnings,.others-metric-container{
     display: block;
   }
   .earnings-inline-block{
     display: block;
   }
-  .earnings-inline-block.m-l-16{
+  .m-l-16{
     margin-left: 0;
     margin-top: 24px;
   }
@@ -273,12 +322,18 @@ tr td:first-child, tr th:first-child {
   .earnings-h-29{
     height: 2px;
   }
-  .data-content,.repeat-buy-item__content{
+  .earnings-block-blank{
+    height: 2px;
+  }
+  .data-content,.repeat-buy-item__content,.others-metric__content{
     font-size: 16px;
     line-height: 24px;
   }
-  .data-item-box{
+  .data-item-box,.others-metric-card{
     padding-left: 24px;
     padding-right: 24px;
+  }
+  .others-box .m-l-16{
+    margin-top: 4px;
   }
 }

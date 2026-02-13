@@ -55,6 +55,11 @@ async function doEstudioRefund(dto){
   return await axios.post(url,dto);
 }
 
+async function fetchBrandCoreMetrics(brandId){
+  const url="/api/open/seller/{id}/statistics".replace("{id}",brandId);
+  return await axios.get(url);
+}
+
 async function virtualProductOrderRefund(orderId,term){
   if(!orderId){
       return;
@@ -88,5 +93,6 @@ Api.getBrandProfile=getBrandProfile;
 Api.sendOrderReceivingEmail=sendOrderReceivingEmail;
 Api.virtualProductOrderRefund=virtualProductOrderRefund;
 Api.subscriptionBillRefund=subscriptionBillRefund;
+Api.fetchBrandCoreMetrics=fetchBrandCoreMetrics;
 
 export {Api}

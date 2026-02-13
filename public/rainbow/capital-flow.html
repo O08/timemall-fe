@@ -290,8 +290,9 @@
             <h1 class="modal-title fs-5" id="alipayAccountMangementModalLabel">支付账号管理</h1>
             <button type="button" @click="closeAlipayAccountMangementModalHandlerV" id="closeAlipayAccountMangementModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <ul class="list-group list-group-flush shadow-sm">
+          <div class="modal-body" style="min-height: 130px;">
+            <div v-show="isEmptyObjV(alipay.records)" >未找到相关数据</div>
+            <ul v-show="!isEmptyObjV(alipay.records)"  class="list-group list-group-flush shadow-sm">
               <li v-for="record in alipay.records" :key="record.id" class="list-group-item">
                 <div class="form-check d-flex align-items-center">
                   <input 
@@ -313,7 +314,7 @@
             
             
           </div>
-          <div class="modal-footer btn-light">
+          <div v-show="!isEmptyObjV(alipay.records)" class="modal-footer btn-light">
             <button @click="delAlipayAccountV" 
             :class="{'disabled': !alipayDelId, 
             'btn-danger': !!alipayDelId ,

@@ -2,7 +2,7 @@ import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js";
 import {goLoginPage} from "/common/javascripts/pagenav.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
+import { getQueryVariable,netAge } from "/common/javascripts/util.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import { uploadCellDataLayerWhenClick,uploadCellDataLayerWhenAppointment,uploadCellDataLayerWhenBuyPlan } from "/common/javascripts/science.js";
 
@@ -17,6 +17,7 @@ import {Api} from "/common/javascripts/common-api.js";
 import {DspReportApi} from "/common/javascripts/dsp-report-api.js";
 
 import  PromotionComponent  from "/mall/javascripts/component/PromotionComponent.js";
+
 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -254,7 +255,8 @@ const RootComponent = {
 const SellerComponent = {
     data() {
         return {
-            brandProfile: {}
+            brandProfile: {},
+            dashboard: {}
         }
     },
     methods: {
@@ -268,10 +270,50 @@ const SellerComponent = {
                     this.brandProfile = response.data.profile;
                 }
             })
-       }
+       },
+       loadBrandCoreMetricsV(){
+            const brandId= getQueryVariable("brand_id");
+            if(!brandId){
+                return;
+            }
+            Api.fetchBrandCoreMetrics(brandId).then(response=>{
+                if(response.data.code == 200 && response.data.stats){
+                    this.dashboard = response.data.stats;
+                }
+            })
+       },
+       formatTimeV(date){
+            if(!date) return "未知";
+            var timespan = (new Date(date)).getTime()/1000;
+            return netAge(timespan);
+       },
+       displayTotalSaleVolumeDataV(_dashboard){
+            var totalBuyers=Number(_dashboard.planTotalBuyers) + Number(_dashboard.cellTotalBuyers) + Number(_dashboard.virtualTotalBuyers);
+            if(!totalBuyers  || totalBuyers==0){
+                return "-";
+            }
+            return totalBuyers;
+
+       },
+       displayRepeatData(data){
+           if(!data || data==0){
+               return "-";
+           }
+           return data;
+       },
+       displayRepeatBuyersRateV(_dashboard){
+           var repeatBuyers=Number(_dashboard.planRepeatBuyers) + Number(_dashboard.virtualRepeatBuyers) + Number(_dashboard.cellRepeatBuyers);
+           var totalBuyers=Number(_dashboard.planTotalBuyers) + Number(_dashboard.cellTotalBuyers) + Number(_dashboard.virtualTotalBuyers);
+           if(!totalBuyers || !repeatBuyers || repeatBuyers==0 || totalBuyers==0){
+               return "-";
+           }
+           var res=100*repeatBuyers/totalBuyers;
+           return res.toFixed(2);
+       },
     },
     created(){
         this.loadBrandInfoV();
+        this.loadBrandCoreMetricsV();
     }
     
 }

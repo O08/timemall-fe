@@ -36,6 +36,7 @@ const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCA
 const RootComponent = {
     data() {
         return {
+          dashboard: {},
           productId: currentProductId,
           brandId: currentBrandId,
           reportOptions: [],
@@ -174,6 +175,39 @@ const RootComponent = {
       validateReportFormV(){
         return !!this.reportForm.caseDesc && !!this.reportForm.fraudType;
       },
+      loadBrandCoreMetricsV(){
+        if(!this.brandId){
+          return;
+        }
+        Api.fetchBrandCoreMetrics(this.brandId).then(response=>{
+            if(response.data.code == 200 && response.data.stats){
+                this.dashboard = response.data.stats;
+            }
+        })
+      },
+      displayTotalSaleVolumeDataV(_dashboard){
+        var totalBuyers=Number(_dashboard.planTotalBuyers) + Number(_dashboard.cellTotalBuyers) + Number(_dashboard.virtualTotalBuyers);
+        if(!totalBuyers  || totalBuyers==0){
+            return "-";
+        }
+        return totalBuyers;
+
+      },
+      displayRepeatData(data){
+          if(!data || data==0){
+              return "-";
+          }
+          return data;
+      },
+      displayRepeatBuyersRateV(_dashboard){
+          var repeatBuyers=Number(_dashboard.planRepeatBuyers) + Number(_dashboard.virtualRepeatBuyers) + Number(_dashboard.cellRepeatBuyers);
+          var totalBuyers=Number(_dashboard.planTotalBuyers) + Number(_dashboard.cellTotalBuyers) + Number(_dashboard.virtualTotalBuyers);
+          if(!totalBuyers || !repeatBuyers || repeatBuyers==0 || totalBuyers==0){
+              return "-";
+          }
+          var res=100*repeatBuyers/totalBuyers;
+          return res.toFixed(2);
+      },
       initReportForm(){
 
         if(!!document.querySelector('#caseMaterialFile') && !!document.querySelector('#caseMaterialFile').value ){
@@ -207,6 +241,8 @@ window.virtualProductPage = virtualProduct;
 virtualProduct.loadBrandInfoV();
 virtualProduct.getProductInfoV();
 virtualProduct.getProductsFromBrandV();
+virtualProduct.loadBrandCoreMetricsV();
+
 virtualProduct.uploadVirtualProductDataLayerClicksV();
 
 async function fetchProduct(productId){

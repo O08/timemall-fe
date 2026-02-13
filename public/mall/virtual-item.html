@@ -326,6 +326,12 @@
             <div class="seller-general">
               <ul>
                 <li>账号类型<strong>{{brandProfile.brandTypeCode=='1' ? '机构' : '个人' }}</strong></li>
+                <li>资信等级<strong>{{displayRepeatData(dashboard.wealthLevel)}}</strong></li>
+                <li>商品销量<strong>{{displayTotalSaleVolumeDataV(dashboard)}}</strong></li>
+                <li>回头客比例 (%)<strong>{{displayRepeatBuyersRateV(dashboard)}}</strong></li>
+                <li>半年内被投诉数量<strong>{{displayRepeatData(dashboard.dspCasesSixMonth)}}</strong></li>
+
+
                 <li>注册于<strong>{{new Date(brandProfile.createAt).getFullYear()}}年{{new Date(brandProfile.createAt).getMonth()+1}}月</strong></li>
                 <li>无偿夜间咨询<strong>{{brandProfile.freeNightCounsellor=='1'? '提供' : '不提供'}}</strong></li>
                 <li>自由合作<strong>{{brandProfile.supportFreeCooperation=='1'? '有意向' : '无意向'}}</strong></li>

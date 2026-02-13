@@ -458,7 +458,7 @@ mall-app {
     -webkit-box-orient: vertical;
     display: -webkit-box;
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 6px;
 }
 .plan-panel-header{
     display: flex;
@@ -672,11 +672,54 @@ mall-app {
 .font-w-500{
   font-weight: 500;
 }
+
+.others-metric-container{
+    box-sizing: border-box;
+    grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr) minmax(0px, 1fr);
+    display: grid;
+  }
+  .others-metric-card{
+    padding: 32px;
+    height: 100%;
+    background-color: #121212;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+  }
+  .others-metric-item{
+    gap: 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .others-metric-icon{
+    padding: 0.75rem;
+    border-radius: 4px;
+    background-color: #39393975;
+  }
+  .data-label{
+    font-weight: 600;
+    color: #b5b6ba;
+    font-size: 14px;
+  }
+  .others-metric__content {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-top: 4px;
+}
 // tablets ipad air mini pro
 @media (min-width: 768px) and  (max-width: 1024px) {
     .sub-nav-container,.content-container{
         padding-left: 24px;
         padding-right: 24px;
+      }
+      .data-label{
+        font-size: 14px;
+        line-height: 22px;
+      }
+      .others-metric-card{
+        padding: 24px;
       }
 }
 
@@ -685,11 +728,32 @@ mall-app {
         font-size: 2.5rem;
     }
 }
-@media (max-width: 576px) {
+@media (max-width: 767px) {
+    mall-app content {
+        height: calc(100vh - 146px);
+    }
+    .others-metric-container{
+        display: block;
+    }
+    .others-metric__content {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .others-metric-card {
+        padding: 12px;
+    }
+
+    .others-box .m-l-16 {
+        margin-top: 4px;
+    }
     .sub-nav-container .nav-link{
-        font-size: 18px;
-        padding-right: 8px;
-        padding-left: 8px;
+        font-size: 14px;
+        padding-right: 6px;
+        padding-left: 6px;
+    }
+    .nav-item{
+        font-size: 14px;
     }
     .opt_item_container{
         width: 72px;
