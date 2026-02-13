@@ -180,9 +180,21 @@ body {
   font-weight: 500;
 }
 
+.login-compoent{
+  background: #242628;
+  border: 1px solid #ffffff14;
+  border-radius: 10px;
+  min-width: 180px;
+  padding: 6px;
+  box-shadow: 0 8px 32px #0006;
+  color: #fff;
+}
+
+
 .login-panel {
   padding: 22px 20px;
   width: 386px;
+
 }
 
 .login-panel .title {
