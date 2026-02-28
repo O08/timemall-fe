@@ -432,7 +432,7 @@
                 <h1 class="modal-title fs-5">查看举报资料</h1>
                 <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg"  style="min-height: 220px;">
                 <form class="w-100" onsubmit="return false">
 
                   <div v-for="item in materialList" class="material-item">
@@ -441,7 +441,7 @@
                     </span>
                     <a target="_blank" class="download" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                   </div>
-                  <div v-if="materialList.length==0" class="d-flex align-items-center justify-content-center p-2">
+                  <div v-if="materialList.length==0" class="d-flex align-items-center justify-content-center p-2 h-100">
                      未找到相关数据
                   </div>
 

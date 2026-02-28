@@ -471,10 +471,22 @@
               </div>
               <div class="modal-body d-flex justify-content-center">
                 <form class="w-100">
+
+                  <div class="mt-3">
+                    <label for="input_consignee" class="form-label">收货人</label>
+                    <input id="input_consignee" v-model="shippingObj.consignee" maxlength="80" class="form-control" type="text">
+                  </div> 
+
+                  <div class="mt-3">
+                    <label for="input_shipping_email" class="form-label">收货邮箱</label>
+                    <input id="input_shipping_email" v-model="shippingObj.shippingEmail"  maxlength="80" class="form-control" type="text">
+                  </div> 
+
+                  <div class="mt-3">
+                    <label for="input_shipping_address" class="form-label">收货地址</label>
+                    <input id="input_shipping_address" v-model="shippingObj.shippingAddress" maxlength="80" class="form-control" type="text">
+                  </div> 
       
-                  <input id="input_consignee" v-model="shippingObj.consignee" maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货人">
-                  <input id="input_shipping_email" v-model="shippingObj.shippingEmail"  maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货邮箱">
-                  <input id="input_shipping_address" v-model="shippingObj.shippingAddress" maxlength="80" class="form-control  only-show-bottom border-color-muted mb-3" type="text" placeholder="收货地址">
 
       
                 </form>

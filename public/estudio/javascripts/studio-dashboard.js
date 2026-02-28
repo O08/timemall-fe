@@ -85,6 +85,15 @@ const RootComponent = {
             }
             return data;
         },
+        secondsToTimeV(seconds){
+
+            const secToTime = (s) => {
+                if (s === null || s === undefined || isNaN(s)) return "00:00:00";
+                return new Date(s * 1000).toISOString().substring(11, 19);
+            };
+              
+            return secToTime(seconds);
+        },
         displayRepeatBuyersRateV(){
             var _dashboard=this.dashboard;
             var repeatBuyers=Number(_dashboard.planRepeatBuyers) + Number(_dashboard.virtualRepeatBuyers) + Number(_dashboard.cellRepeatBuyers);

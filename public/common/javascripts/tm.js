@@ -3,7 +3,7 @@ import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 import "./baidutongji.js";
 
-
+import "./online-time-tongji.js";
 
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields
