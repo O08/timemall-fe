@@ -206,6 +206,16 @@
               </div>
             </div>
 
+
+            <div class="mb-3">
+              <div class="form-check">
+                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.enableMentorship" type="checkbox" class="form-check-input" id="inputEnableMentorship">
+                <label class="form-check-label" for="inputEnableMentorship">
+                  正在收徒
+                </label>
+              </div>
+            </div>
+
             <div class="mb-3">
               <div class="form-check">
                 <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.supportFreeCooperation" type="checkbox" class="form-check-input" id="inputSupportFreeCooperation">
@@ -223,7 +233,6 @@
                 </label>
               </div>
             </div>
-            
 
             <div>
               <div class="form-check">
@@ -248,6 +257,9 @@
                   <p class="partner-name display-one-content">
                     {{partner.brandName}}
                   </p>
+                  <div v-if="partner.mentorHonor" class="brand-bages">
+                    <div class="card-mentor-badge">{{explainMentorshipHonorV(partner.mentorHonor)}}</div>
+                  </div>
                 </div>
               </div>
 
@@ -365,7 +377,7 @@
                           <div class="opt_item_container d-flex flex-column justify-content-center">
                             <div class="opt_item_head">
                               <a :href="'/'+ brandProfile.handle" target="_blank">
-                                <button  class="btn btn-dark  copy-link d-flex justify-content-center">
+                                <button  class="btn btn-dark  copy-link ">
                                   <i class="bi bi-house"></i>
                                 </button>
                               </a>
@@ -391,7 +403,18 @@
                           <div class="opt_item_container d-flex flex-column justify-content-center">
                             <div class="opt_item_head">
                               <a>
-                                <button v-preventreclick  @click="retrieveOasesCreatedV"  data-bs-toggle="modal" data-bs-target="#inviteModal" class="btn btn-dark  copy-link d-flex justify-content-center">
+                                <button v-preventreclick @click="applyMentorV(brandProfile.brandId)"  class="btn btn-dark">
+                                  <i class="bi bi-person-arms-up"></i>
+                                </button>
+                              </a>
+                            </div>
+                            <span class="opt_item_desc">拜师</span>
+                          </div>
+
+                          <div class="opt_item_container d-flex flex-column justify-content-center">
+                            <div class="opt_item_head">
+                              <a>
+                                <button v-preventreclick  @click="retrieveOasesCreatedV"  data-bs-toggle="modal" data-bs-target="#inviteModal" class="btn btn-dark  copy-link">
                                   <i class="bi bi-building-add"></i>
                                 </button>
                               </a>

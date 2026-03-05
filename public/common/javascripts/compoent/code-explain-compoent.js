@@ -1,8 +1,14 @@
-import {OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
    methods: {
+    explainMentorshipStausV(status){
+        return explainMentorshipStaus(status);
+    },
+    explainMentorshipHonorV(honor){
+        return explainMentorshipHonor(honor);
+    },
     explainDspCaseStatusV(status){
         return explainDspCaseStatus(status);
     },
@@ -451,6 +457,45 @@ function explainProductStaus(status){
           break;   
     }
     return statusDesc;
+
+}
+
+function explainMentorshipStaus(status){
+    var statusDesc="未知";
+    switch(status){
+      case MentorshipStatusEnum.APPLICATION:
+        statusDesc="候选中"
+          break;
+      case MentorshipStatusEnum.TRAINING:
+        statusDesc="研习中"
+          break;
+      case MentorshipStatusEnum.GRADUATED:
+        statusDesc="已毕业"
+          break;   
+    }
+    return statusDesc;
+
+}
+
+function explainMentorshipHonor(mentorHonor){
+    if(!mentorHonor) return ;
+
+    var mentorHonorDesc="未知";
+    switch(mentorHonor){
+      case "1":
+        mentorHonorDesc="新晋导师"
+          break;
+      case "2":
+        mentorHonorDesc="星级导师"
+          break;
+      case "3":
+        mentorHonorDesc="王牌导师"
+          break;  
+      case "4":
+        mentorHonorDesc="殿堂导师"
+            break;      
+    }
+    return mentorHonorDesc;
 
 }
 

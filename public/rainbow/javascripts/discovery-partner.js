@@ -2,7 +2,7 @@ import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
-// todo
+import axios from 'axios';
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {FromWhere} from "/common/javascripts/tm-constant.js";
 import { uploadScienceData } from "/common/javascripts/science.js";
@@ -10,6 +10,8 @@ import {getLinkIconUrl,parseLinkUri} from "/common/javascripts/compoent/link-ico
 import {Api} from "/common/javascripts/common-api.js";
 import { parseIpLocationCityInfo } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+
 
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 
@@ -113,6 +115,18 @@ const RootComponent = {
             const details= JSON.stringify(this.talentgrid_pagination.param);
             const fromWhere=FromWhere.TALENT_SEARCH;
             uploadScienceData(snippet,details,fromWhere);
+        },
+        applyMentorV(mentorBrandId){
+            applyMentor(mentorBrandId).then(response=>{
+                if(response.data.code==200){
+                    customAlert.alert("已向导师发送申请，可通过 【奇迹工坊】-【我的导师】查阅申请状态");
+                }
+                if(response.data.code!=200){
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                }
+            }).catch(error=>{
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+            });
         }
     },
     updated(){
@@ -130,6 +144,7 @@ app.mixin(new Auth({need_permission : true}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
 app.mixin(BubbleInviteComponent);
+app.mixin(CodeExplainComponent);
 
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('col-') || tag.startsWith('top-search') 
@@ -159,3 +174,11 @@ function retrieveTalentGrid(){
 function filterTalentGrid(){
     disTalent.reloadPage(disTalent.talentgrid_pagination);
  } 
+
+ async function doApplyMentor(mentorBrandId){
+    const url = "/api/v1/web_epod/brand/{id}/mentor/apply".replace("{id}",mentorBrandId);
+    return await axios.post(url);
+ }
+ async function applyMentor(mentorBrandId){
+    return await doApplyMentor(mentorBrandId);
+ }

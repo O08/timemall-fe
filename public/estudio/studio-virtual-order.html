@@ -253,6 +253,12 @@
                 </div>
                 <span>争端解决</span>
               </a>
+              <a class="nav-link" href="/estudio/studio-mentorship">
+                <div class="nav-icon">
+                  <i class="bi bi-person-arms-up"></i>
+                </div>
+                <span>学员培训</span>
+              </a>
               <a class="nav-link" href="/estudio/studio-shop">
                 <div class="nav-icon">
                   <i class="bi bi-bag"></i>
@@ -385,7 +391,9 @@
                       <td :title="item.refundReason" class="col-reason"><span class="ellipsis-1">{{item.refundReason}}</span></td>
                       <td :title="item.buyerBrandName">
                         <span class="ellipsis-1">
-                          <img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          <a target="_blank" :href="'/messages/' + item.buyerUserId">
+                            <img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
                         </span>
                       </td>
                       <td :title="item.createAt">{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>

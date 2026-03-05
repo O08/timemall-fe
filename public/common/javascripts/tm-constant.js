@@ -253,12 +253,19 @@ var OrderStatusEnum=Object.freeze({
     "REFUNDED": "8" // 已退款
 }); 
 
+
+var MentorshipStatusEnum=Object.freeze({
+    "APPLICATION": "1",  // 申请中
+    "TRAINING": "2", // 培训中
+    "GRADUATED": "3" // 已毕业
+}); 
+
 export {
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,
     CommercialPaperTag,CommercialPaperDeliverTag,MpsTag,MpsType,MpsChainTag,
     EventFeedScene,EventFeedMark,EventFeedCode,
-    OasisMark,CommissionTag,
+    OasisMark,CommissionTag,MentorshipStatusEnum,
     PriceSbu, CellStatus,WorkflowStatus,BillStatus,CodeMappingTypeEnum,EnvWebsite,BrandAccessWay
 } ;

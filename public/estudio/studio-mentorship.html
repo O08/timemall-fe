@@ -7,12 +7,12 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>争端解决 - E-Studio</title>
+    <title>学员培训 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-dsp.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-mentorship.scss">
 
 
 
@@ -249,13 +249,13 @@
                   </div>
                   <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
                 </a>
-                <a class="nav-link active">
+                <a class="nav-link" href="/estudio/studio-dsp">
                   <div class="nav-icon">
                     <i class="bi bi-shield-plus"></i>
                   </div>
                   <span>争端解决</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-mentorship">
+                <a class="nav-link active" href="/estudio/studio-mentorship">
                   <div class="nav-icon">
                     <i class="bi bi-person-arms-up"></i>
                   </div>
@@ -276,7 +276,7 @@
           <div class="main-content-container full">
 
             <div class="page-title mb-5">
-              <h1>争端解决</h1>
+              <h1>学员培训</h1>
             </div>  
   
             <div class="filter-bar">
@@ -284,9 +284,9 @@
                             <!-- top search -->
               <top-search class="section-top-serach">
                 <div class="input-group input-normal-search">
-                  <input @keyup.enter.native="retrieveCaseDataV" v-model="caseList_pagination.param.q"   class="form-control top-search-input" type="text"
+                  <input @keyup.enter.native="retrieveMenteeDataV" v-model="menteeList_pagination.param.q"   class="form-control top-search-input" type="text"
                     placeholder="搜索..." aria-label="Search">
-                  <button v-preventreclick @click="retrieveCaseDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                  <button v-preventreclick @click="retrieveMenteeDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
@@ -304,56 +304,44 @@
                     <li>
                       <a class="dropdown-item">
                         <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterCaseStatus_PENDING">
-                            {{explainDspCaseStatusV("PENDING")}}
+                          <label class="form-check-label" for="filterStatus_APPLICATION">
+                            {{explainMentorshipStausV("1")}}
                           </label>
-                          <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="PENDING" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_PENDING" >
+                          <input @change="retrieveByStatusV"  v-model="menteeList_pagination.param.status"   value="1" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_APPLICATION" >
                         </div>
                       </a>
                     </li>
                     <li>
                       <a class="dropdown-item">
                         <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterCaseStatus_PROCESSING">
-                            {{explainDspCaseStatusV("PROCESSING")}}
+                          <label class="form-check-label" for="filterStatus_TRAINING">
+                            {{explainMentorshipStausV("2")}}
                           </label>
-                          <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="PROCESSING" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_PROCESSING" >
+                          <input @change="retrieveByStatusV"  v-model="menteeList_pagination.param.status"   value="2" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_TRAINING" >
                         </div>
                       </a>
                     </li>
                     <li>
                       <a class="dropdown-item">
                         <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterCaseStatus_COMPLAINT">
-                            {{explainDspCaseStatusV("COMPLAINT")}}
+                          <label class="form-check-label" for="filterStatus_GRADUATED">
+                            {{explainMentorshipStausV("3")}}
                           </label>
-                          <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="COMPLAINT" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_COMPLAINT" >
+                          <input @change="retrieveByStatusV"  v-model="menteeList_pagination.param.status"   value="3" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_GRADUATED" >
                         </div>
                       </a>
                     </li>
                     <li>
                       <a class="dropdown-item">
                         <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterCaseStatus_RESOLVED">
-                            {{explainDspCaseStatusV("RESOLVED")}}
-                          </label>
-                          <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="RESOLVED" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_RESOLVED" >
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item">
-                        <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterCaseStatus_RESOLVED">
+                          <label class="form-check-label" for="filterStatus_ALL">
                             全部
                           </label>
-                          <input @change="retrieveByCaseStatusV"  v-model="caseList_pagination.param.caseStatus"   value="" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_ALL" >
+                          <input @change="retrieveByStatusV"  v-model="menteeList_pagination.param.status"   value="" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_ALL" >
                         </div>
                       </a>
                     </li>
                    
-                    
-      
                   </ul>
                 </div>
   
@@ -368,53 +356,62 @@
                   <table class="table table-sm table-hover align-middle">
                     <thead>       
                       <th class="col-snippet"></th>
-                      <th class="col-snippet">编号</th>
-                      <th class="col-type">举报类型</th>
-                      <th class="col-case-desc">案件描述</th>
-                      <th class="col-scene">被举报物料</th>
+                      <th class="col-people">学员</th>
+                      <th class="col-number">指导期内收入（元）</th>
+                      <th class="col-number">指导期内影响力</th>
+                      <th class="col-number">指导期内消息数</th>
+                      <th class="col-number">近一年消息数</th>
                       <th class="col-status">状态</th>
-                      <th class="col-soulution">处理结论</th>
-                      <th class="col-people text-center">调解员</th>
-                      <th class="col-time">建档日期</th>
+                      <th class="col-time">申请日期</th>
                     </thead>
                     <tbody>
-                      <tr v-for="report in caseList_pagination.records">
+                      <tr v-for="mentee in menteeList_pagination.records">
                         <td>
-                          <span @click="showAddNewMaterialModalV(report.caseNo)" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="上传申诉资料">
-                            <i class="bi bi-cloud-arrow-up"></i>
-                          </span>
-                          <span @click="showViewMaterialModalV(report.caseNo)"  class="option-edit ms-3">
-                            <a tabindex="0" role="button" class="btn-option-secondary" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="查看申诉资料">           
-                              <i class="bi bi-file-earmark"></i>             
-                            </a>
-                          </span>
+                          <div class="tb-options">
+                            <button v-show="mentee.status=='1'"
+                              v-preventreclick   @click="enrollMenteeV(mentee.id)" type="button"  class="btn-option-secondary">
+                              录取
+                            </button>
+                            <button v-show="mentee.status=='2'"
+                              v-preventreclick   @click="graduationGrantedV(mentee.id)" type="button"  class="btn-option-secondary">
+                              准予毕业
+                            </button>
+                            <button   v-preventreclick   @click="removeMenteeV(mentee.id)" type="button"  class="btn-option-secondary">
+                              删除
+                            </button>
+
+                          </div>
                         </td>
-                        <td :title="report.caseNo">{{report.caseNo}}</td>
-                        <td :title="report.fraudTypeDesc"><span class="ellipsis-1">{{report.fraudTypeDesc}}</span></td>
-                        <td :title="report.caseDesc"><span class="ellipsis-1">{{report.caseDesc}}</span></td>
-                        <td :title="report.sceneUrl"><a class="tb-url-link" target="_blank" :href="report.sceneUrl">{{report.scene}}</a></td>
-                        <td :title="explainDspCaseStatusV(report.caseStatus)">{{explainDspCaseStatusV(report.caseStatus)}}</td>
-                        <td :title="report.solution"><span class="ellipsis-1">{{report.solution}}</span></td>
-                        <td :title="report.peacemakerBrandName" class="text-center"><a target="_blank" :href="'/messages/' + report.peacemakerUserId"><img :src="adaptiveImageUriV(report.peacemakerAvatar) || defaultAvatarImage" class="peacemaker-avatar"></a></td>
-                        <td :title="report.createAt">{{report.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
+                        <td :title="mentee.menteeName" class="text-center">
+                          <div class="d-flex align-items-center" style="gap: 4px;">
+                            <a target="_blank" :href="'/messages/' + mentee.menteeUserId"><img :src="adaptiveImageUriV(mentee.menteeAvatar) || defaultAvatarImage" class="peacemaker-avatar"></a>
+                            <span class="ellipsis-1">{{mentee.menteeName}}</span>
+                          </div>
+                        </td>
+                        <td :title="mentee.guidancePeriodEarning">{{mentee.guidancePeriodEarning}}</td>
+                        <td :title="mentee.guidancePeriodInfluencers">{{mentee.guidancePeriodInfluencers}}</td>
+                        <td :title="mentee.guidancePeriodMessages">{{mentee.guidancePeriodMessages}}</td>
+                        <td :title="mentee.pastYearMessages">{{mentee.pastYearMessages}}</td>
+                        <td :title="explainMentorshipStausV(mentee.status)">{{explainMentorshipStausV(mentee.status)}}</td>
+                        <td :title="mentee.createAt">{{mentee.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
                       </tr>
                     </tbody>
                   </table>
-                  <div v-show="caseList_pagination.records.length==0" class="empty-content-block">
+                  <div v-show="menteeList_pagination.records.length==0" class="empty-content-block">
     
                     没有可用的内容！
         
                   </div>
-                  <nav v-if="!!caseList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <nav v-if="!!menteeList_pagination.paging" aria-label="Page navigation">
                     <ul class="pagination pagination-lg pagination-dark  border-0">
-                      <li class="page-item" @click="pagePre(caseList_pagination)">
+                      <li class="page-item" @click="pagePre(menteeList_pagination)">
                         <a class="page-link"  aria-label="Previous">
                           <span aria-hidden="true">&laquo;</span>
                         </a>
                       </li>
-                      <li class="page-item"  v-for="page in caseList_pagination.paging.items" :class="{'current-page-active': caseList_pagination.paging.current == page}" 
-                            @click="pageGo(caseList_pagination,page)"><a class="page-link">{{page}}</a></li>
-                      <li class="page-item" @click="pageNext(caseList_pagination)">
+                      <li class="page-item"  v-for="page in menteeList_pagination.paging.items" :class="{'current-page-active': menteeList_pagination.paging.current == page}" 
+                            @click="pageGo(menteeList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(menteeList_pagination)">
                         <a class="page-link" aria-label="Next">
                           <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -436,56 +433,7 @@
         
       </content>
       <section class="modals">
-        <!-- case material modal -->
-      <div class="modal-container">
-        <div class="modal fade" id="caseMaterialModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header display-dialog-header-bg">
-                <h1 class="modal-title fs-5">申诉资料上传</h1>
-              </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                <form class="w-100" onsubmit="return false">
-                  <input id="caseMaterialFile"  class="form-control" type="file" placeholder="case material">
-                </form>
-              </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button v-preventreclick @click="uploadCaseMaterialV" type="button"  class="btn btn-primary">提交</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- case material view modal -->
-      <div class="modal-container">
-        <div class="modal fade" id="caseMaterialViewModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header display-dialog-header-bg">
-                <h1 class="modal-title fs-5">查看申诉资料</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg" style="min-height: 220px;">
-                <form class="w-100" onsubmit="return false">
-
-                  <div v-for="item in materialList" class="material-item">
-                    <span :title="item.materialName" style="display: contents;">
-                      <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">{{item.materialName}}</span>
-                    </span>
-                    <a target="_blank" class="download" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
-                  </div>
-                  <div v-if="materialList.length==0" class="d-flex align-items-center justify-content-center p-2 h-100">
-                     未找到相关数据
-                  </div>
-
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+       
 
       </section>
   </pt-app>
@@ -524,7 +472,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-dsp.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-mentorship.js"></script>
 
 
 

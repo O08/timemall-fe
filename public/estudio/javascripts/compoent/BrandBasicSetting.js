@@ -55,6 +55,7 @@ const BrandBasicSetting = {
             hiring: false,
             availableForWork: false,
             freeNightCounsellor: false,
+            enableMentorship: false,
             cooperationScope:  "",
             businessScope: "",
 
@@ -98,6 +99,7 @@ const BrandBasicSetting = {
             this.referenceSetting.freeNightCounsellor=profile.freeNightCounsellor=="1" ? true : false;
             this.referenceSetting.pdOasisId=profile.pdOasisId;
             this.referenceSetting.businessScope=profile.businessScope;
+            this.referenceSetting.enableMentorship=profile.enableMentorship=="1" ? true : false;
 
 
 
@@ -116,6 +118,7 @@ const BrandBasicSetting = {
            this.typeOfBusinessSelectedItem=referenceSettingClone.typeOfBusiness;
            this.freeNightCounsellor=referenceSettingClone.freeNightCounsellor;
            this.businessScope=referenceSettingClone.businessScope;
+           this.enableMentorship=referenceSettingClone.enableMentorship;
 
 
 
@@ -136,6 +139,7 @@ const BrandBasicSetting = {
                    || this.referenceSetting.typeOfBusiness!=this.typeOfBusinessSelectedItem
                    || this.referenceSetting.freeNightCounsellor!=this.freeNightCounsellor
                    || this.referenceSetting.businessScope!=this.businessScope
+                   || this.referenceSetting.enableMentorship!=this.enableMentorship
 
                    )
 
@@ -192,7 +196,8 @@ async function modifyBasicSetting(appObj){
         typeOfBusiness: appObj.typeOfBusinessSelectedItem,
         industry: selectedIndustry.length>0 ? selectedIndustry[0].text : "",
         freeNightCounsellor: appObj.freeNightCounsellor ? "1" : "0",
-        businessScope: appObj.businessScope
+        businessScope: appObj.businessScope,
+        enableMentorship: appObj.enableMentorship ? "1" : "0"
     }
     const response = await putBasicSetting(dto);
     var data = await response.json();
