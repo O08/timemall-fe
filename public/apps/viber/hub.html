@@ -10,12 +10,17 @@
   
   <title>记录、分享美好时光 - Viber</title>
   <script src="/common/javascripts/avif-webp.min.js"></script>
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
   <link rel="icon" href="https://www.bluvarri.com/favicon.png">
   <link rel="stylesheet" href="/common/stylesheets/style.scss">
 
   <link rel="stylesheet" href="/apps/viber/stylesheets/hub.scss">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="/apps/viber/stylesheets/post-render-template.scss">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+
 
 </head>
 
@@ -46,16 +51,19 @@
               <input v-model="postList_pagination.param.q" @keyup.enter.native="searchPostListV" type="text" class="search-input" placeholder="搜索..." autocomplete="off">
             </div>
             <!-- 发布按钮 -->
-            <button class="create-post-btn"  v-preventreclick  @click="showCreatePostModalV">
-              <i class="fas fa-plus"></i>
-              <span>发布动态</span>
+            <button class="create-post-btn" title="发动态"  v-preventreclick  @click="showCreatePostModalV">
+              <i class="fas fa-pen-to-square"></i>
+              <!-- <span>发布动态</span> -->
+            </button>
+            <button class="create-post-btn" title="分享漫画"  v-preventreclick @click="showCreateComicPostModalV">
+              <i class="fas fa-meteor"></i>
             </button>
           </div>
         </div>
 
         <!-- 动态列表 -->
         <div class="posts-container" id="postsContainer">
-          <div v-for="(feed,feedIndex) in feedArr" class="post">
+          <div v-for="(feed,feedIndex) in feedArr" class="post" :key="feed.postId" :id="'post-'+feed.postId">
             <div  class="post-header" style="cursor: pointer;">
               <div  v-preventreclick  @click="goStoryPageV(feed.postId)" class="author-box">
                 <img
@@ -163,7 +171,135 @@
 
     <section class="modals">
 
+      <!-- 发布漫画模态框 -->
+      <div class="modal-container">
+        <div class="modal" id="publishComicModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog comic-upload-widget">
 
+            <div  class="comic-upload-view">
+              <div class="upload-container">
+                <h1 class="upload-title">分享漫画作品</h1>
+      
+                <form class="upload-form" onsubmit="return false">
+                  <!-- 基本信息 -->
+                  <div class="form-section">
+                    <div class="form-group">
+                      <label class="form-label">
+                        漫画名 <span class="required">*</span>
+                      </label>
+                      <input  v-model="newComicPostObj.title" maxlength="16" type="text" class="form-input" placeholder="例如：霓虹之夜" required>
+                    </div>
+      
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label class="form-label">
+                          章节号 <span class="required">*</span>
+                        </label>
+                        <input  v-model="newComicPostObj.chapter" maxlength="24" type="text" class="form-input" placeholder="例如：第12话 完美人生系统" required>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">
+                          题材 <span class="required">*</span>
+                        </label>
+                        <input  v-model="newComicPostObj.genre" maxlength="12" type="text" class="form-input" placeholder="例如：科幻 · 悬疑" required>
+                      </div>
+                    </div>
+      
+                    <div class="form-group">
+                      <label class="form-label">动态</label>
+                      <textarea  v-model="newComicPostObj.textMsg" maxlength="200" class="form-textarea" rows="4" placeholder="分享你的想法..."></textarea>
+                    </div>
+                  </div>
+      
+                  <!-- 封面上传 -->
+                  <div class="form-group">
+                    <label class="form-label">
+                      封面图片 <span class="required">*</span>
+                    </label>
+                    <label class="upload-box">
+                      <input id="comicCoverUpload" type="file" accept=".jpg,.jpeg,.png" class="file-input" @change="handleComicCoverUploadV($event)">
+                      <div id="cover-placeholder" class="upload-placeholder">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="17 8 12 3 7 8" />
+                          <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <div class="upload-text">
+                          <p>点击上传封面图片</p>
+                          <p class="upload-hint">支持 JPG、PNG 格式</p>
+                        </div>
+                      </div>
+                      <img v-show="newComicPostObj.cover" id="cover-preview" class="preview-image" :src="newComicPostObj.cover" alt="漫画封面">
+                    </label>
+                  </div>
+
+                  
+                  <div class="form-group">
+                    <label class="form-label">
+                      漫画页面 <span class="required">*</span>
+                      <span id="page-count" class="page-count">{{ newComicPostObj.images.length }}</span>
+                    </label>
+                    
+                    <!-- 使用相同的 Grid 样式包裹拖拽列表和按钮 -->
+                    <div class="pages-grid grid-cols-md-4">
+                      
+                      <!-- 拖拽列表 (仅渲染图片) -->
+                      <drop-list 
+                        :items="newComicPostObj.images" 
+                        @insert="onInsertComicPagesV"
+                        @reorder="onReOrderComicPagesV" 
+                        style="display: contents;">
+                        <template v-slot:item="{ item, index }">
+                          <drag :key="item.pageId" :data="item" class="page-item" :id="item.pageId">
+                            <img :src="item.link" alt="漫画页面" class="page-image">
+                            <div class="page-number">{{ index + 1 }}</div>
+                            <div class="page-delete">
+                              <button class="delete-btn" @click="deleteComicPageV(item.pageId)">
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </drag>
+                        </template>
+                        <template v-slot:feedback="{ item }">
+                          <div class="page-item feedback-ghost" :key="item.pageId">
+                            <img :src="item.link" class="page-image" style="opacity: 0.5;">
+                          </div>
+                        </template>
+                      </drop-list>
+                  
+                      <!--  始终显示的添加按钮 (移出 drop-list 但仍在 grid 内) -->
+                      <label class="add-page-btn">
+                        <input type="file" id="comicPagesUpload" multiple accept=".jpg,.jpeg,.png" class="file-input" @change="handleComicPagesUploadV($event)">
+                        <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <span class="add-page-text">添加页面</span>
+                      </label>
+                    </div>
+                  
+                    <p class="form-hint">支持拖拽图片调整顺序</p>
+                  </div>
+                  
+      
+                  <!-- 提交按钮 -->
+                  <div class="form-actions">
+                    <button type="button" class="btn-cancel"  v-preventreclick  @click="closeCreateComicPostModalV">取消</button>
+                    <button type="submit" class="btn-submit"  v-preventreclick  @click="createComicPostV" :class="{'loading': isPublishingComicPost}" :disabled="isPublishingComicPost || !validateCreateComicPostFormV()">
+                      <div v-if="!isPublishingComicPost">
+                        <span>发布漫画</span>
+                      </div>
+                      <div v-if="isPublishingComicPost">
+                        <i class="fas fa-spinner fa-spin"></i> 发布中...
+                      </div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
       <!-- 发布评论模态框 -->
       <div class="modal-container">
         <div class="modal" id="publishCommentModal" data-bs-backdrop="static" tabindex="-1">
@@ -231,7 +367,7 @@
                     <i class="fas fa-spinner fa-spin"></i>
                     <span>正在解析链接...</span>
                   </div>
-                  <div class="post-audio-widget" v-if="postHasEmbedAudioV(newPostObj)">
+                  <div class="post-audio-widget" v-if="postHasEmbedThirdAudioV(newPostObj) && newPostObj.audios.length==0">
                     <div class="post-audio-preview active" id="audioPreview">
                       <div class="audio-preview-list">
                         <div v-for="(audio,index) in newPostObj.embed.audios" class="audio-preview-container">
@@ -248,7 +384,25 @@
                       </div>
                     </div>
                   </div>
-                  <div class="post-video-widget" v-if="postHasEmbedVideoV(newPostObj)">
+                  <!-- local audio viewer -->
+                  <div class="post-audio-widget" v-if="newPostObj.audios.length>0">
+                    <div class="post-audio-preview active" id="audioPreview">
+                      <div class="audio-preview-list">
+                        <div v-for="(audio,index) in newPostObj.audios" class="audio-preview-container">
+                          <audio class="audio-preview-player" controls>
+                            <source :src="audio.url" :type="audio.contentType">
+                            您的浏览器不支持音频播放。
+                          </audio>
+                          <div class="audio-preview-info">
+                            <button  v-preventreclick  @click="removeUploadedLocalAudioV(index)" class="remove-audio-btn"  title="移除音频">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="post-video-widget" v-if="postHasEmbedVideoV(newPostObj) && newPostObj.videos.length==0">
                     <div v-for="(video,index) in newPostObj.embed.videos" class="post-video-preview">
                       <div class="video-preview-container">
                         <video class="video-preview-player" controls>
@@ -257,6 +411,22 @@
                         </video>
                         <div class="video-preview-controls">
                           <button  v-preventreclick  @click="removeUploadedThirdPartyVideoV(index)" class="remove-video-btn" title="移除视频">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- local video viewer -->
+                  <div class="post-video-widget" v-if="newPostObj.videos.length>0">
+                    <div v-for="(video,index) in newPostObj.videos" class="post-video-preview">
+                      <div class="video-preview-container">
+                        <video class="video-preview-player" controls>
+                          <source :src="video.url" :type="video.contentType">
+                          您的浏览器不支持视频播放。
+                        </video>
+                        <div class="video-preview-controls">
+                          <button  v-preventreclick  @click="removeUploadedLocalVideoV(index)" class="remove-video-btn" title="移除视频">
                             <i class="fas fa-times"></i>
                           </button>
                         </div>
@@ -335,10 +505,19 @@
                   <button  v-preventreclick  @click="openLocalFileBrowserForAttachmentUploadV" id="uploadAttachmentBtn" class="tool-btn" title="添加文件" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAttachment">
                     <i class="fas fa-paperclip"></i>
                   </button>
+                  <button  v-preventreclick  @click="openLocalFileBrowserForVideoUploadV" id="uploadVideoBtn" class="tool-btn" title="添加视频" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalVideo">
+                    <i class="fas fa-video"></i>
+                  </button>
+                  <button  v-preventreclick  @click="openLocalFileBrowserForAudioUploadV" id="uploadVoiceBtn" class="tool-btn" title="添加音频" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAudio">
+                    <i class="fas fa-podcast"></i>
+                  </button>
 
                 </div>
+                <input @change="handleVideoUploadForCreatePostV($event)"  type="file" id="videoUpload"  accept="video/mp4" style="display: none;">
+                <input @change="handleAudioUploadForCreatePostV($event)"  type="file" id="audioUpload"  accept=".mp3, .m4a, .aac, audio/x-m4a, audio/aac"
+                    multiple style="display: none;">
                 <input @change="handleAttachmentUploadForCreatePostV($event)"  type="file" id="attachmentUpload"  multiple style="display: none;">
-                <input @change="handleImageUploadForCreatePostV($event)"  type="file" id="imageUpload" accept=".jpg,.jpeg,.png,.gif" multiple style="display: none;">
+                <input @change="handleImageUploadForCreatePostV($event)"  type="file" id="imageUpload" accept=".jpg,.jpeg,.png" multiple style="display: none;">
                 <button   v-preventreclick  @click="createPostV" class="post-btn" id="publishPostBtn" :class="{'loading': isPublishingPost}" :disabled="isPublishingPost || !hasAnyContentForCreatePostV()">
                   <div v-if="!isPublishingPost">发布</div>
                   <div v-if="isPublishingPost">

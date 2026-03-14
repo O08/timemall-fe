@@ -2,12 +2,12 @@ import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 
 
-
 import { Picker } from 'emoji-picker-element';
 import zh_CN from 'emoji-picker-element/i18n/zh_CN';
 
 import axios from 'axios';
 
+import { Drag, DropList } from "vue-easy-dnd";
 
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import Auth from "/estudio/javascripts/auth.js";
@@ -46,18 +46,28 @@ const AppViberPostEmbedFacetEnum = Object.freeze({
     "THIRD_PARTY_VIDEO": "third_party_video",
     "THIRD_PARTY_AUDIO": "third_party_audio",
     "LINK": "link",
-    "APPLICATION": "application"
+    "APPLICATION": "application",
+    "COMIC": "comic",
+    "LOCAL_AUDIO": "local_audio",
+    "LOCAL_VIDEO": "local_video",
 });
 
 const AppViberFileSceneEnum = Object.freeze({
     "ATTACHMENT": "attachment",
-    "IMAGE": "image"
+    "IMAGE": "image",
+    "COMIC": "comic",
+    "LOCAL_AUDIO": "local_audio",
+    "LOCAL_VIDEO": "local_video"
 });
 
 const RootComponent = {
+    components: {
+        Drag,
+        DropList
+    },
     setup(){
         const { likePostV,cancelLikePostV, sharePostLinkV,publishOneCommentV,fetchUserCtaInfo,muteUser,unmuteUser } = usePostInteract();
-        const { formatContentWithLinksV, postHasEmbedAudioV,postHasEmbedVideoV,postHasEmbedImageV,postHasEmbedAttachmentV,postHasEmbedLinkV } = usePostRenderHelper()
+        const { formatContentWithLinksV, postHasEmbedThirdAudioV,postHasEmbedVideoV,postHasEmbedImageV,postHasEmbedAttachmentV,postHasEmbedLinkV } = usePostRenderHelper()
 
         return {
             likePostV,
@@ -67,7 +77,7 @@ const RootComponent = {
             fetchUserCtaInfo,
             muteUser,
             unmuteUser,
-            formatContentWithLinksV, postHasEmbedAudioV,postHasEmbedVideoV,postHasEmbedImageV,postHasEmbedAttachmentV,postHasEmbedLinkV
+            formatContentWithLinksV, postHasEmbedThirdAudioV,postHasEmbedVideoV,postHasEmbedImageV,postHasEmbedAttachmentV,postHasEmbedLinkV
         }
 
     },
@@ -81,6 +91,7 @@ const RootComponent = {
 
             hasAuth: true,
             isPublishingPost: false,
+            isPublishingComicPost: false,
              
             userCtaInfo: {},
             ctaInfoLoadFinish: false,
@@ -93,7 +104,18 @@ const RootComponent = {
                 textMsg: "",
                 images: [],
                 attachments: [],
+                videos: [],
+                audios: [],
                 linkPreviewLoading: false
+            },
+            newComicPostObj: {
+                textMsg: "",
+                title: "",
+                genre: "",
+                cover: "",
+                chapter: "",
+                images: [],
+                coverRawFile: ""
             },
             mainCommentComposerIsActive: false,
             commentComposerIsActive: false,
@@ -138,12 +160,47 @@ const RootComponent = {
         hasAnyContentForCreatePostV(){
             return doQueryUploadingFacetForCreatePost(this.newPostObj)?.uploadingSomething || this.newPostObj.textMsg;
         },
+        validateCreateComicPostFormV(){
+            return this.newComicPostObj.title && this.newComicPostObj.genre && this.newComicPostObj.chapter 
+               && this.newComicPostObj.cover && this.newComicPostObj.images.length>0;
+        },
         queryUploadingFacetForCreatePostV(){
             return doQueryUploadingFacetForCreatePost(this.newPostObj);
         },
         removeUploadedLocalAttachmentV(index){
             this.newPostObj.attachments.splice(index, 1);
             if(this.newPostObj.attachments?.length==0){
+                this.newPostObj.embed=undefined;
+            }
+        },
+        removeUploadedLocalVideoV(index){
+            const videoToDelete = this.newPostObj.videos[index];
+            if (videoToDelete) {
+                // 2. Critical: Revoke the specific blob URL to free up memory
+                if (videoToDelete.url && videoToDelete.url.startsWith('blob:')) {
+                    URL.revokeObjectURL(videoToDelete.url);
+                }
+        
+                // 3. Remove the item from the array
+                this.newPostObj.videos.splice(index, 1);
+            }
+
+            if(this.newPostObj.videos?.length==0){
+                this.newPostObj.embed=undefined;
+            }
+        },
+        removeUploadedLocalAudioV(index){
+            const audioToDelete = this.newPostObj.audios[index];
+            if (audioToDelete) {
+                // 2. Memory Cleanup: Revoke the local URL to prevent leaks
+                if (audioToDelete.url && audioToDelete.url.startsWith('blob:')) {
+                    URL.revokeObjectURL(audioToDelete.url);
+                }
+        
+                // 3. Remove the specific audio
+                this.newPostObj.audios.splice(index, 1);
+            }
+            if(this.newPostObj.audios?.length==0){
                 this.newPostObj.embed=undefined;
             }
         },
@@ -192,11 +249,38 @@ const RootComponent = {
         openLocalFileBrowserForImageUploadV(){
             document.getElementById('imageUpload').click();
         },
+        openLocalFileBrowserForVideoUploadV(){
+            document.getElementById('videoUpload').click();
+        },
+        openLocalFileBrowserForAudioUploadV(){
+            document.getElementById('audioUpload').click();
+        },
         handleAttachmentUploadForCreatePostV(e){
             handleAttachmentUploadForCreatePost(e);
         },
         handleImageUploadForCreatePostV(e){
             handleImageUploadForCreatePost(e);
+        },
+        handleVideoUploadForCreatePostV(e){
+            handleVideoUploadForCreatePost(e);
+        },
+        handleAudioUploadForCreatePostV(e){
+            handleAudioUploadForCreatePost(e);
+        },
+        handleComicCoverUploadV(e){
+            handleComicCoverUpload(e);
+        },
+        handleComicPagesUploadV(e){
+            handleComicPagesUpload(e);
+        },
+        deleteComicPageV(pageId){
+            this.newComicPostObj.images = this.newComicPostObj.images.filter(img => img.pageId !== pageId);
+        },
+        onReOrderComicPagesV(event){
+            event.apply(this.newComicPostObj.images);
+        },
+        onInsertComicPagesV(event) {
+            this.newComicPostObj.images.splice(event.index, 0, event.data);
         },
         delPostV(postId){
             delPost(postId);
@@ -239,12 +323,16 @@ const RootComponent = {
         },
         async createPostV(){
             this.isPublishingPost=true;
-            await preHanderForPostAttachment(this.newPostObj);
-            await preHanderForPostImage(this.newPostObj);
+            await preHanderForCreatePost(this.newPostObj);
             await createPost(currentChannel,this.newPostObj.textMsg,this.newPostObj.embed).then(response=>{
+                console.log("data:"+ response);
                 if(response.data.code == 200){
-                    this.initPostListV();
+                    afterCompletionForCreatePost(this.newPostObj);
+                    const newFeed = response.data.post;
+                    this.feedArr.unshift(newFeed);
+
                     $("#createPostModal").modal("hide");
+
                 }
                 if(response.data.code==40042){
                     const error="操作失败，可能原因：您已被禁言或已被移出部落";
@@ -257,6 +345,30 @@ const RootComponent = {
                 }
             })
             this.isPublishingPost=false;
+
+        },
+        async createComicPostV(){
+            this.isPublishingComicPost=true;
+            await preHanderForCreateComicPost(this.newComicPostObj);
+            await createPost(currentChannel,this.newComicPostObj.textMsg,this.newComicPostObj.embed).then(response=>{
+                if(response.data.code == 200){
+
+                    const newFeed = response.data.post;
+                    this.feedArr.unshift(newFeed);
+
+                    $("#publishComicModal").modal("hide");
+                }
+                if(response.data.code==40042){
+                    const error="操作失败，可能原因：您已被禁言或已被移出部落";
+                    customAlert.alert(error); 
+                    return
+                }
+                if(response.data.code!=200){
+                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
+                    customAlert.alert(error); 
+                }
+            });
+            this.isPublishingComicPost=false;
 
         },
         detectAndPreviewLinkV(e){
@@ -273,6 +385,30 @@ const RootComponent = {
                 elem.style.height=100 + "px";
             }
         },
+        showCreateComicPostModalV(){
+            const comicCoverInputEl=document.getElementById('comicCoverUpload');
+            const pagesInputEl=document.getElementById('comicPagesUpload');
+            if(comicCoverInputEl) comicCoverInputEl.value=null;
+            if(pagesInputEl) pagesInputEl.value=null;
+
+            this.newComicPostObj= {
+                textMsg: "",
+                title: "",
+                genre: "",
+                cover: "",
+                chapter: "",
+                images: [],
+                coverRawFile: "",
+                embed: {
+                    facet: AppViberPostEmbedFacetEnum.COMIC,
+                    comic: {}
+                }
+            }
+            $("#publishComicModal").modal("show");
+        },
+        closeCreateComicPostModalV(){
+            $("#publishComicModal").modal("hide");
+        },
         showCreatePostModalV() {
             const attachmentInputEl=document.getElementById('attachmentUpload');
             const imageInputEl=document.getElementById('imageUpload');
@@ -283,6 +419,8 @@ const RootComponent = {
                 textMsg: "",
                 images: [],
                 attachments: [],
+                videos: [],
+                audios: [],
                 linkPreviewLoading: false
             }
             this.isPublishingPost=false;
@@ -463,6 +601,45 @@ async function preHanderForPostAttachment(post){
     }
 }
 
+async function preHanderForCreateComicPost(post){
+    if (!post || post.images.length == 0) {
+        return
+    }
+    storyHubPage.newComicPostObj.embed.comic={
+        title: post.title,
+        genre: post.genre,
+        chapter: post.chapter,
+        images: []
+    }
+    for (const img of post.images) {
+        await uploadPostFile(img.rawFile, currentChannel, AppViberFileSceneEnum.IMAGE).then(response => {
+            if (response.data.code == 200) {
+                const imageEmbedItem={
+                    link: response.data.link,
+                    innerUrl: response.data.link,
+                    contentType: img.contentType,
+                    type: 'file',
+                    alt: img.alt,
+                    size: img.size
+                }
+                storyHubPage.newComicPostObj.embed.comic.images.push(imageEmbedItem);
+            }
+        });
+    }
+    await uploadPostFile(post.coverRawFile, currentChannel, AppViberFileSceneEnum.IMAGE).then(response => {
+        if (response.data.code == 200) {
+            storyHubPage.newComicPostObj.embed.comic.cover=response.data.link;
+        }
+    });
+
+}
+
+async function preHanderForCreatePost(post){
+    await preHanderForPostAttachment(post);
+    await preHanderForPostImage(post);
+    await preHanderForPostLocalVideo(post);
+    await preHanderForPostLocalAudio(post);
+}
 async function preHanderForPostImage(post) {
     if (!post || post.images.length == 0 || post.embed?.facet !== AppViberPostEmbedFacetEnum.IMAGE) {
         return
@@ -483,6 +660,171 @@ async function preHanderForPostImage(post) {
             }
         });
     }
+}
+async function preHanderForPostLocalVideo(post){
+    if (!post || post.videos.length == 0 || post.embed?.facet !== AppViberPostEmbedFacetEnum.LOCAL_VIDEO) {
+        return
+    }
+    for (const video of post.videos) {
+        await uploadPostFile(video.rawFile, currentChannel, AppViberFileSceneEnum.LOCAL_VIDEO).then(response => {
+            if (response.data.code == 200) {
+                const videoEmbedItem={
+                    url: response.data.link,
+                    contentType: video.contentType
+                }
+                storyHubPage.newPostObj.embed.videos.push(videoEmbedItem);
+            }
+        });
+    }
+}
+async function preHanderForPostLocalAudio(post){
+    if (!post || post.audios.length == 0 || post.embed?.facet !== AppViberPostEmbedFacetEnum.LOCAL_AUDIO) {
+        return
+    }
+    for (const audio of post.audios) {
+        await uploadPostFile(audio.rawFile, currentChannel, AppViberFileSceneEnum.LOCAL_AUDIO).then(response => {
+            if (response.data.code == 200) {
+                const audioEmbedItem={
+                    url: response.data.link,
+                    contentType: audio.contentType
+                }
+                storyHubPage.newPostObj.embed.audios.push(audioEmbedItem);
+            }
+        });
+    }
+}
+async function afterCompletionForCreatePost(post){
+    await postHanderForPostLocalAudio(post);
+    await postHanderForPostLocalVideo(post);
+}
+
+async function postHanderForPostLocalAudio(post){
+    if (!post || post.audios.length == 0 || post.embed?.facet !== AppViberPostEmbedFacetEnum.LOCAL_AUDIO) {
+        return
+    }
+    for (const audioToDelete of post.audios) {
+         // Memory Cleanup: Revoke the local URL to prevent leaks
+         if (audioToDelete.url && audioToDelete.url.startsWith('blob:')) {
+            URL.revokeObjectURL(audioToDelete.url);
+        }
+    }
+}
+async function postHanderForPostLocalVideo(post){
+    if (!post || post.videos.length == 0 || post.embed?.facet !== AppViberPostEmbedFacetEnum.LOCAL_VIDEO) {
+        return
+    }
+    for (const videoToDelete of post.videos) {
+         // Memory Cleanup: Revoke the local URL to prevent leaks
+         if (videoToDelete.url && videoToDelete.url.startsWith('blob:')) {
+            URL.revokeObjectURL(videoToDelete.url);
+        }
+    }
+}
+
+function handleComicCoverUpload(e){
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) {
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        customAlert.alert('封面图片大小不能超过5MB: ' + file.name);
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+
+            if(!(img.width<4096 && img.height<4096 && img.width*img.height<9437184 )){
+                customAlert.alert("图片单边长度不能超过4096像素,且总像素不能超过9437184: " + file.name);
+                return false;
+            }
+
+            storyHubPage.newComicPostObj.cover = e.target.result;
+            storyHubPage.newComicPostObj.coverRawFile=file;
+
+
+        }
+
+
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+
+}
+
+function handleComicPagesUpload(event){
+    const files = Array.from(event.target.files).filter(file => file.type.startsWith('image/'));
+
+    if (files.length === 0) return;
+    
+    // 限制最夆45个附件
+    const maxPages = 45;
+    const remainingSlots = maxPages - storyHubPage.newComicPostObj.images.length;
+    
+    if (remainingSlots <= 0 || files.length>maxPages || files.length> remainingSlots) {
+        customAlert.alert('最多只能上传' + maxPages + '个漫画页面');
+        return;
+    }
+
+    var idCounter =  storyHubPage.newComicPostObj.images.length;
+
+    
+    files.forEach(file => {
+        if (file.size > 5 * 1024 * 1024) {
+            customAlert.alert('图片大小不能超过5MB: ' + file.name);
+            return;
+        }
+        // 获取当前计数并自增
+        const pageId = 'page-' + idCounter++;
+        const tmpImage={
+            pageId: pageId,
+            alt: file.name,
+            aspectRatio: {
+                height: "",
+                width: ""
+            },
+            contentType: file.type,
+            innerUrl: "",
+            link: "",
+            size: file.size,
+            rawFile: file
+
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+
+
+            img.onload = function() {
+
+                if(!(img.width<4096 && img.height<4096 && img.width*img.height<9437184 )){
+                    customAlert.alert("图片单边长度不能超过4096像素,且总像素不能超过9437184: " + file.name);
+                    return false;
+                }
+                // 这里可以获取图片的宽度和高度
+                tmpImage.aspectRatio={
+                    height: img.height,
+                    width: img.width
+                }
+                tmpImage.link=e.target.result;
+                tmpImage.innerUrl=e.target.result;
+    
+    
+    
+                storyHubPage.newComicPostObj.images.push(tmpImage);
+
+
+
+            }
+
+
+            img.src = e.target.result;
+
+
+        };
+        reader.readAsDataURL(file);
+    });
 }
 
 function handleAttachmentUploadForCreatePost(e){
@@ -633,6 +975,111 @@ function handleImageUploadForCreatePost(e){
     document.getElementById('imageUpload').value = '';
 }
 
+function handleVideoUploadForCreatePost(e){
+    const uploadingFacetInfo= queryUploadingFacetForCreatePost();
+    if(uploadingFacetInfo.uploadingSomething && !uploadingFacetInfo.uploadingLocalVideo){
+        return;
+    }
+
+    if(!storyHubPage.newPostObj.embed) {
+        storyHubPage.newPostObj.embed = {
+            facet: AppViberPostEmbedFacetEnum.LOCAL_VIDEO,
+            videos: []
+        }
+    }
+
+    const files = Array.from(e.target.files);
+    
+    if (files.length === 0) return;
+    
+    // 限制最多1个视频
+    const maxVideos = 1;
+    const remainingSlots = maxVideos - storyHubPage.newPostObj.videos.length;
+    
+    if (remainingSlots <= 0 || files.length>maxVideos) {
+        customAlert.alert('最多只能上传' + maxVideos + '个视频');
+        return;
+    }
+    
+    const filesToProcess = files.slice(0, remainingSlots);
+    
+    filesToProcess.forEach(file => {
+        // 验证文件大小 (最大100MB)
+        if (file.size > 100 * 1024 * 1024) {
+            customAlert.alert('视频大小不能超过100MB: ' + file.name);
+            return;
+        }
+
+        const tmpVideo={
+            url: URL.createObjectURL(file),
+            fileName: file.name,
+            contentType: file.type,
+            size: file.size,
+            rawFile: file
+        }
+        
+        // 添加视频到列表
+        storyHubPage.newPostObj.videos.push(tmpVideo);
+    });
+    
+    
+    // 清空 input 以便重复选择同一文件
+    document.getElementById('videoUpload').value = '';
+}
+
+function handleAudioUploadForCreatePost(e){
+    const uploadingFacetInfo= queryUploadingFacetForCreatePost();
+    if(uploadingFacetInfo.uploadingSomething && !uploadingFacetInfo.uploadingLocalAudio){
+        return;
+    }
+
+    if(!storyHubPage.newPostObj.embed) {
+        storyHubPage.newPostObj.embed = {
+            facet: AppViberPostEmbedFacetEnum.LOCAL_AUDIO,
+            audios: []
+        }
+    }
+
+    const files = Array.from(e.target.files);
+    
+    if (files.length === 0) return;
+    
+    // 限制最多5个音频
+    const maxAudios = 5;
+    const remainingSlots = maxAudios - storyHubPage.newPostObj.audios.length;
+    
+    if (remainingSlots <= 0 || files.length>maxAudios) {
+        customAlert.alert('最多只能上传' + maxAudios + '个音频');
+        return;
+    }
+    
+    const filesToProcess = files.slice(0, remainingSlots);
+    
+    filesToProcess.forEach(file => {
+        // 验证文件大小 (最大100MB)
+        if (file.size > 100 * 1024 * 1024) {
+            customAlert.alert('音频大小不能超过100MB: ' + file.name);
+            return;
+        }
+
+        const tmpAudio={
+            url: URL.createObjectURL(file),
+            fileName: file.name,
+            contentType: file.type,
+            size: file.size,
+            rawFile: file
+
+        }
+        
+        // 添加附件到列表
+        storyHubPage.newPostObj.audios.push(tmpAudio);
+    });
+    
+    
+    // 清空 input 以便重复选择同一文件
+    document.getElementById('audioUpload').value = '';
+}
+
 // 从URL获取域名
 function getDomainFromUrl(url) {
     try {
@@ -652,13 +1099,15 @@ function queryUploadingFacetForCreatePost(){
 function doQueryUploadingFacetForCreatePost(post){
     const uploadingLocalAttachment= post?.attachments?.length>0;
     const uploadingLocalImage=post?.images?.length>0;
+    const uploadingLocalVideo=post?.videos?.length>0;
+    const uploadingLocalAudio=post?.audios?.length>0;
     const uploadingThirdImage=post?.embed?.facet==AppViberPostEmbedFacetEnum.THIRD_PARTY_IMAGE && post?.embed?.images.length>0;
     const uploadingThirdAudio=post?.embed?.facet==AppViberPostEmbedFacetEnum.THIRD_PARTY_AUDIO && post?.embed?.audios.length>0;
     const uploadingThirdVideo=post?.embed?.facet==AppViberPostEmbedFacetEnum.THIRD_PARTY_VIDEO && post?.embed?.videos.length>0;
     const uploadingLink=post?.embed?.facet==AppViberPostEmbedFacetEnum.LINK && post?.embed?.links.length>0;
-    const uploadingSomething=uploadingLocalAttachment || uploadingLocalImage || uploadingThirdImage || uploadingThirdAudio || uploadingThirdVideo || uploadingLink;
+    const uploadingSomething=uploadingLocalVideo || uploadingLocalAudio || uploadingLocalAttachment || uploadingLocalImage || uploadingThirdImage || uploadingThirdAudio || uploadingThirdVideo || uploadingLink;
   
-    return {uploadingSomething,uploadingLocalAttachment,uploadingLocalImage,uploadingThirdImage, uploadingThirdAudio,uploadingThirdVideo,uploadingLink}
+    return {uploadingSomething,uploadingLocalVideo,uploadingLocalAudio,uploadingLocalAttachment,uploadingLocalImage,uploadingThirdImage, uploadingThirdAudio,uploadingThirdVideo,uploadingLink}
   
 }
 
@@ -688,6 +1137,12 @@ async function detectAndPreviewLink(content) {
     
     const uploadingFacetInfo= queryUploadingFacetForCreatePost();
 
+    if(uploadingFacetInfo.uploadingSomething && uploadingFacetInfo.uploadingLocalVideo){
+        return;
+    }
+    if(uploadingFacetInfo.uploadingSomething && uploadingFacetInfo.uploadingLocalAudio){
+        return;
+    }
     if(uploadingFacetInfo.uploadingSomething && uploadingFacetInfo.uploadingLocalImage){
         return;
     }
@@ -996,7 +1451,7 @@ async function uploadPostFile(file,channel,scene){
 async function delPost(postId){
     doDeleteOnePost(postId).then(response=>{
         if(response.data.code == 200){
-            storyHubPage.initPostListV();
+            storyHubPage.feedArr = storyHubPage.feedArr.filter(item => item.postId !== postId);
         }
         if(response.data.code!=200){
             const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;

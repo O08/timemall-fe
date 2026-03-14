@@ -6,7 +6,11 @@ const AppViberPostEmbedFacetEnum = Object.freeze({
   "THIRD_PARTY_VIDEO": "third_party_video",
   "THIRD_PARTY_AUDIO": "third_party_audio",
   "LINK": "link",
-  "APPLICATION": "application"
+  "APPLICATION": "application",
+  "COMIC": "comic",
+  "LOCAL_AUDIO": "local_audio",
+  "LOCAL_VIDEO": "local_video",
+
 });
 
 export function usePostRenderHelper() {
@@ -20,11 +24,17 @@ export function usePostRenderHelper() {
     const formattedContent = content.replace(urlRegex, '<a href="$1" target="_blank" class="content-link">$1</a>');
     return `<div class="post-text">${formattedContent}</div>`;
   }
-  const postHasEmbedAudioV = (post) => {
+  const postHasEmbedComicV=(post)=>{
+    return post?.embed?.facet==AppViberPostEmbedFacetEnum.COMIC;
+  }
+  const postHasEmbedThirdAudioV = (post) => {
     return post?.embed?.facet == AppViberPostEmbedFacetEnum.THIRD_PARTY_AUDIO && post?.embed?.audios.length > 0;
   }
+  const postHasEmbedLocalAudioV = (post) => {
+    return post?.embed?.facet==AppViberPostEmbedFacetEnum.LOCAL_AUDIO && post?.embed?.audios.length > 0;
+  }
   const postHasEmbedVideoV= (post)=>{
-    return post?.embed?.facet==AppViberPostEmbedFacetEnum.THIRD_PARTY_VIDEO && post?.embed?.videos.length>0;
+    return (post?.embed?.facet==AppViberPostEmbedFacetEnum.THIRD_PARTY_VIDEO || post?.embed?.facet==AppViberPostEmbedFacetEnum.LOCAL_VIDEO) && post?.embed?.videos.length>0;
   }
   const postHasEmbedImageV= (post)=>{
     return (post?.embed?.facet==AppViberPostEmbedFacetEnum.IMAGE || 
@@ -44,6 +54,6 @@ export function usePostRenderHelper() {
 
 
 
-  return { formatContentWithLinksV, postHasEmbedAudioV,postHasEmbedVideoV,postHasEmbedImageV,postHasEmbedAttachmentV,postHasEmbedLinkV}
+  return { postHasEmbedThirdAudioV,postHasEmbedLocalAudioV,postHasEmbedComicV,formatContentWithLinksV,postHasEmbedVideoV,postHasEmbedImageV,postHasEmbedAttachmentV,postHasEmbedLinkV}
 
 }
