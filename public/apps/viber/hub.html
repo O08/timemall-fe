@@ -496,19 +496,19 @@
               <div class="modal-footer">
                 <div class="modal-tools">
        
-                  <button  v-preventreclick @click="openLocalFileBrowserForImageUploadV" class="tool-btn" id="uploadImageBtn" title="添加图片" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalImage">
+                  <button  v-preventreclick @click="openLocalFileBrowserV('imageUpload')" class="tool-btn" id="uploadImageBtn" title="添加图片" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalImage">
                     <i class="fas fa-image"></i>
                   </button>
                   <button id="create-post-emoji-trigger" class="tool-btn" title="添加表情">
                     <i class="fas fa-smile"></i>
                   </button>
-                  <button  v-preventreclick  @click="openLocalFileBrowserForAttachmentUploadV" id="uploadAttachmentBtn" class="tool-btn" title="添加文件" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAttachment">
+                  <button  v-preventreclick  @click="openLocalFileBrowserV('attachmentUpload')"  id="uploadAttachmentBtn" class="tool-btn" title="添加文件" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAttachment">
                     <i class="fas fa-paperclip"></i>
                   </button>
-                  <button  v-preventreclick  @click="openLocalFileBrowserForVideoUploadV" id="uploadVideoBtn" class="tool-btn" title="添加视频" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalVideo">
+                  <button  v-preventreclick  @click="openLocalFileBrowserV('videoUpload')"  id="uploadVideoBtn" class="tool-btn" title="添加视频" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalVideo">
                     <i class="fas fa-video"></i>
                   </button>
-                  <button  v-preventreclick  @click="openLocalFileBrowserForAudioUploadV" id="uploadVoiceBtn" class="tool-btn" title="添加音频" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAudio">
+                  <button  v-preventreclick  @click="openLocalFileBrowserV('audioUpload')"  id="uploadVoiceBtn" class="tool-btn" title="添加音频" :disabled="queryUploadingFacetForCreatePostV().uploadingSomething && !queryUploadingFacetForCreatePostV().uploadingLocalAudio">
                     <i class="fas fa-podcast"></i>
                   </button>
 

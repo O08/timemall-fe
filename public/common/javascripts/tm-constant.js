@@ -260,7 +260,29 @@ var MentorshipStatusEnum=Object.freeze({
     "GRADUATED": "3" // 已毕业
 }); 
 
+var AppViberPostEmbedFacetEnum = Object.freeze({
+    "ATTACHMENT": "attachment",
+    "IMAGE": "image",
+    "THIRD_PARTY_IMAGE": "third_party_image",
+    "THIRD_PARTY_VIDEO": "third_party_video",
+    "THIRD_PARTY_AUDIO": "third_party_audio",
+    "LINK": "link",
+    "APPLICATION": "application",
+    "COMIC": "comic",
+    "LOCAL_AUDIO": "local_audio",
+    "LOCAL_VIDEO": "local_video",
+});
+
+var AppViberFileSceneEnum = Object.freeze({
+    "ATTACHMENT": "attachment",
+    "IMAGE": "image",
+    "COMIC": "comic",
+    "LOCAL_AUDIO": "local_audio",
+    "LOCAL_VIDEO": "local_video"
+});
+
 export {
+    AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,

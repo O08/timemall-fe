@@ -193,7 +193,7 @@
   <div class="post-audio-widget" v-if="postHasEmbedLocalAudioV(feed)">
     <div class="post-audios">
       <div v-for="(audio,index) in feed.embed.audios" class="post-audio" :key="`${feed.postId}-${index}`" :class="{'audio-failed': audio.loadFail}">
-        <div  v-intersect="(isVis) => onIntersectAudio(isVis, audio)" class="w-100" style="min-height: 54px;">
+        <div  v-intersect="(isVis) => onIntersectAudio(isVis, audio)" class="d-flex  d-flex align-items-center justify-content-center w-100" style="min-height: 54px;">
 
           <audio v-if="audio.ready && !audio.loadFail" 
             controls 
@@ -239,6 +239,9 @@
         <video v-if="video.ready && !video.loadFail" 
               class="post-video-player" 
               controls 
+              playsinline 
+              :poster="video?.thumbnail?.url" 
+              webkit-playsinline
               controlslist="nodownload" 
               preload="metadata"
               :src="video.url"
@@ -264,7 +267,7 @@
       <div class="comic-cover" @click="openComicReader(feed.embed.comic)">
         <div class="comic-card-content">
           <!-- 封面图片 -->
-          <img loading="lazy" :src="feed.embed.comic.cover"  alt="漫画封面" class="cover-image">
+          <img  v-if="!feed.embed.comic.coverImageLoadFail"  loading="lazy" :src="feed.embed.comic.cover" @error.once="e => { feed.embed.comic.coverImageLoadFail=true }"  alt="漫画封面" class="cover-image">
 
           <!-- 渐变遮罩 - 只在底部 -->
           <div class="gradient-overlay"></div>
