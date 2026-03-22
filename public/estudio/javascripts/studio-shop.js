@@ -25,7 +25,7 @@ const RootComponent = {
             },
             product_electricity: {
                 electricity: "0",
-                tradingName: "200 电量值",
+                tradingName: "200 源能",
                 price: "20"
             }
         }
@@ -108,7 +108,7 @@ async function buyElectricityProduct() {
             fetchProductElectricity();
             shopPage.getDrawableV(); // from topupcompoent.js
             $("#electricityBuyModal").modal("hide");
-            customAlert.alert("电力商品购买成功");
+            customAlert.alert("源能商品购买成功");
 
         }
         if (response.data.code != 200) {

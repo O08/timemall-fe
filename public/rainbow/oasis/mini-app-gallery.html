@@ -165,6 +165,65 @@
 
 
     </col-content>
+
+    <section class="modals">
+      <div class="modal-container">
+              
+        <!--Error  Modal -->
+        <div  class="modal fade" id="errorModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered justify-content-center modal-dialog-scrollable">
+            <div class="modal-content">
+  
+              <div class="modal-header justify-content-center">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                
+                <!--begin::Alert-->
+              <div class="d-flex text-center flex-column alert-info mb-3">
+  
+  
+                <!--begin::Icon-->
+                <i class="bi bi-exclamation-circle text-danger mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <!--end::Icon-->
+  
+                <!--begin::Wrapper-->
+                <div class="text-center">
+                    <!--begin::Title-->
+                    <span class="fw-bold mb-2 modal-head">识别到异常</span>
+                    <!--end::Title-->
+  
+                    <!--begin::Separator-->
+                    <div class="separator separator-dashed border-danger opacity-25 mb-2"></div>
+                    <!--end::Separator-->
+  
+                    <!--begin::Content-->
+                    <div class="font12">
+                        {{error}}
+                    </div>
+                    <!--end::Content-->
+  
+                    <!--begin::Buttons-->
+                    <div class="d-flex justify-content-center flex-wrap pt-5">
+  
+                      <a href="/estudio/studio-shop" target="_blank" class="btn  btn-primary modal-btn-ui  m-3">商城充值</a>
+                      <a href="/mall/contact-us"  target="_blank" class="btn btn-dark modal-btn-ui m-3">寻求支持</a>
+  
+                    </div>
+                    <!--end::Buttons-->
+                </div>
+                <!--end::Wrapper-->
+              </div>
+              <!--end::Alert-->
+  
+              </div>
+              
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     
 
   </micro-app>

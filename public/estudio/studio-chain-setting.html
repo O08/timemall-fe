@@ -351,7 +351,7 @@
                     </div>
                     <div class="attention-container">
                       <div class="attention-icon"><i class="bi bi-lightning-charge"></i></div>
-                      <span>{{templateDetail.bidElectricity}} 电量</span>
+                      <span>{{templateDetail.bidElectricity}} 源能</span>
                     </div>
                   </div>
                 </section>
@@ -492,10 +492,10 @@
                     </div>
 
                     <div class="col-md-4">
-                      <label for="new__inputBidElectricity" class="form-label">接单消耗电量
+                      <label for="new__inputBidElectricity" class="form-label">接单消耗源能
                         <div class="tm-tooltip">
                           <i class="bi bi-info-circle"></i>
-                          <span class="tm-tooltiptext">服务商接单时需要消耗的电量值</span>
+                          <span class="tm-tooltiptext">服务商接单时需要消耗的源能值</span>
                         </div>
                       </label>
                       <input v-model="newTemplate.bidElectricity" @input="transformInputNumberV($event)" tabindex="-1" id="new__inputBidElectricity" min="1" max="50000"
@@ -676,10 +676,10 @@
                     </div>
 
                     <div class="col-md-4">
-                      <label for="edit__inputBidElectricity" class="form-label">接单消耗电量
+                      <label for="edit__inputBidElectricity" class="form-label">接单消耗源能
                         <div class="tm-tooltip">
                           <i class="bi bi-info-circle"></i>
-                          <span class="tm-tooltiptext">服务商接单时需要消耗的电量值</span>
+                          <span class="tm-tooltiptext">服务商接单时需要消耗的源能值</span>
                         </div>
                       </label>
                       <input @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.bidElectricity" @input="transformInputNumberV($event)" tabindex="-1" id="edit__inputBidElectricity" min="1" max="50000"

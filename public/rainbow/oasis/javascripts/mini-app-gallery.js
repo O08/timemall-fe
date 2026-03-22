@@ -19,6 +19,7 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
       return {
+        error: "",
         timer: null,
         viewerProfile: {},
         currentOptionMember: "",
@@ -40,6 +41,18 @@ const RootComponent = {
           if(response.data.code == 200){
             customAlert.alert("添加频道成功，可前往【频道概览】操作和使用！")
           }
+          if (response.data.code == 40007) {
+            $("#errorModal").modal("show");
+            this.error = "源能余额不足，安装失败，每次安装需扣除 1 源能，安装前请确保源能余额充足。";
+            return;
+          }
+          if (response.data.code != 200) {
+            $("#errorModal").modal("show");
+            this.error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+          }
+        }).catch(error=>{
+          $("#errorModal").modal("show"); 
+          this.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error;
         });
       }
     },

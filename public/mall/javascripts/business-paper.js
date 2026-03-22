@@ -21,6 +21,7 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            error:"",
             loading: true,
             display: "normal",
 
@@ -64,12 +65,20 @@ const RootComponent = {
                     $("#orderReceivingSuccessModal").modal("show"); // show success modal
 
                 }
+                if(response.data.code==40007){
+                    $("#errorModal").modal("show"); 
+                    this.error="源能余额不足，接取商单失败。";
+                    return ;
+                }
                 if(response.data.code!=200){
-                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+                    $("#errorModal").modal("show"); 
+                    this.error=response.data.message;
                 }
             }).catch(error=>{
-                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
+                $("#errorModal").modal("show"); 
+                this.error=error;
             });
+
         },
         closeOrderReceivingSuccessModalV(){
             $("#orderReceivingSuccessModal").modal("hide"); // show success modal
