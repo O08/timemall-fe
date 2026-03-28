@@ -173,75 +173,89 @@
       </div>
       <div class="list-title">
         <h3>数字名片</h3>
-        <div class="dropdown">
+        <div class="dropdown filter-component">
           <button type="button" class="btn filter-btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
             <i class="bi bi-filter-circle"></i>
           </button>
-          <form class="dropdown-menu p-4">
+          <form class="dropdown-menu dark-theme p-3">
+            <div class="row g-2 g-md-3  row-cols-2">
 
-            <div class="mb-3">
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.nearby" type="checkbox" class="form-check-input" id="inputNearby">
-                <label class="form-check-label" for="inputNearby">
-                  附近的人
-                </label>
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.nearby" type="checkbox" class="form-check-input" id="inputNearby">
+                  <label class="form-check-label" for="inputNearby">
+                    附近的人
+                  </label>
+                </div>
               </div>
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.hiring" type="checkbox" class="form-check-input" id="inputHiring">
+                  <label class="form-check-label" for="inputHiring">
+                    正在招聘
+                  </label>
+                </div>
+              </div>
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.availableForWork" type="checkbox" class="form-check-input" id="inputWork">
+                  <label class="form-check-label" for="inputWork">
+                    正在求职
+                  </label>
+                </div>
+              </div>
+  
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.enableMentorship" type="checkbox" class="form-check-input" id="inputEnableMentorship">
+                  <label class="form-check-label" for="inputEnableMentorship">
+                    正在收徒
+                  </label>
+                </div>
+              </div>
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.supportFreeCooperation" type="checkbox" class="form-check-input" id="inputSupportFreeCooperation">
+                  <label class="form-check-label" for="inputSupportFreeCooperation">
+                    自由合作
+                  </label>
+                </div>
+              </div>
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.loginInWeek" type="checkbox" class="form-check-input" id="inputWeekActivity">
+                  <label class="form-check-label" for="inputWeekActivity">
+                    一周内活跃
+                  </label>
+                </div>
+              </div>
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.freeNightCounsellor" type="checkbox" class="form-check-input" id="inputFreeNightCounsellor">
+                  <label class="form-check-label" for="inputFreeNightCounsellor">
+                    免费咨询
+                  </label>
+                </div>
+              </div>
+  
+              <div class="filter-item">
+                <div class="form-check">
+                  <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.enableFoodForWork" type="checkbox" class="form-check-input" id="inputFoodForWork">
+                  <label class="form-check-label" for="inputFoodForWork">
+                    以工换食
+                  </label>
+                </div>
+              </div>
+
             </div>
 
-            <div class="mb-3">
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.hiring" type="checkbox" class="form-check-input" id="inputHiring">
-                <label class="form-check-label" for="inputHiring">
-                  正在招聘
-                </label>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.availableForWork" type="checkbox" class="form-check-input" id="inputWork">
-                <label class="form-check-label" for="inputWork">
-                  正在求职
-                </label>
-              </div>
-            </div>
-
-
-            <div class="mb-3">
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.enableMentorship" type="checkbox" class="form-check-input" id="inputEnableMentorship">
-                <label class="form-check-label" for="inputEnableMentorship">
-                  正在收徒
-                </label>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.supportFreeCooperation" type="checkbox" class="form-check-input" id="inputSupportFreeCooperation">
-                <label class="form-check-label" for="inputSupportFreeCooperation">
-                  自由合作
-                </label>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.loginInWeek" type="checkbox" class="form-check-input" id="inputWeekActivity">
-                <label class="form-check-label" for="inputWeekActivity">
-                  一周内活跃
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <div class="form-check">
-                <input v-preventreclick  @change="filterTalentGridV"  true-value="1" false-value="" v-model="talentgrid_pagination.param.freeNightCounsellor" type="checkbox" class="form-check-input" id="inputFreeNightCounsellor">
-                <label class="form-check-label" for="inputFreeNightCounsellor">
-                  免费咨询
-                </label>
-              </div>
-            </div>
+            
 
           </form>
         </div>
@@ -451,10 +465,31 @@
                             <h3>行业</h3>
                             <h4>{{!brandProfile.industry? '无数据' : brandProfile.industry}}</h4>
                           </div>
-                          <div class="archiveDetailCore-keyinfo-item">
-                            <h3>公益服务</h3>
-                            <h4>{{ inNightV() && brandProfile.freeNightCounsellor=='1' ? '提供免费咨询' : '无'}}</h4>
+
+                          <div v-if="brandProfile.freeNightCounsellor === '1' || brandProfile.enableFoodForWork === '1'" class="archiveDetailCore-keyinfo-item archive-services">
+                            <h3 class="section-title">公益服务</h3>
+                            
+                            <div class="service-list">
+                              <!-- Free Night Consultation -->
+                              <div v-if="brandProfile.freeNightCounsellor === '1'" class="service-item">
+                                <i class="icon-moon"></i>
+                                <div class="service-content">
+                                  <span class="label">夜间咨询</span>
+                                  <span class="desc">每日 18:00 ～ 22:00 提供免费咨询</span>
+                                </div>
+                              </div>
+                          
+                              <!-- Food for Work -->
+                              <div v-if="brandProfile.enableFoodForWork === '1'" class="service-item">
+                                <i class="icon-food"></i>
+                                <div class="service-content">
+                                  <span class="label">以工换食</span>
+                                  <span class="desc">支持通过劳动换取食物或餐费</span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
+                          
   
                           <div class="partner-meta-info">
                             <div  class="partner-meta-item">

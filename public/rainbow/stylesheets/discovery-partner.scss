@@ -12,6 +12,51 @@ p{
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+.filter-component{
+
+/* 深色下拉菜单容器 */
+.dropdown-menu.dark-theme {
+  background-color: #1e1e1e; /* 深背景 */
+  border: 1px solid #333;    /* 细微边框线 */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* 增加深度感 */
+  min-width: 260px;
+}
+.dark-theme .form-check{
+  min-height: unset;
+}
+
+/* 文字颜色 */
+.dark-theme .form-check-label {
+  color: #e0e0e0; 
+  cursor: pointer;
+}
+
+/* 复选框样式自定义 (可选) */
+.dark-theme .form-check-input {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+.dark-theme .form-check-input:checked {
+  background-color: #0d6efd; /* 保持品牌色 */
+  border-color: #0d6efd;
+}
+
+
+/* 悬停效果：整行变亮 */
+.dark-theme .filter-item{
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.dark-theme .filter-item:hover {
+  background-color: #2a2a2a;
+}
+
+}
+
 .nav-title h3 {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -469,11 +514,56 @@ header{
 .archiveDetailCore-keyinfo-item h3{
   color: #aaa;
 }
-.archiveDetailCore-keyinfo-item h3,.archiveDetailCore-keyinfo-item h4{
-  font-size: 18px;
+.archiveDetailCore-keyinfo-item h3{
+  font-size: 14px;
+}
+.archiveDetailCore-keyinfo-item.archive-services{
+
+/* Section Title */
+.section-title {
+  margin-bottom: 1.25rem;
+  border-left: 4px solid #7fffd4; /* Blue accent bar */
+  padding-left: 0.75rem;
+}
+
+/* Individual Service Item */
+.service-item {
+  display: flex;
+  align-items: flex-start;
+  padding: .375rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.2s ease;
+}
+
+/* Hover Effect */
+.service-item:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Label/Title of the service */
+.label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Description text */
+.desc {
+  display: block;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
 }
 .archiveDetailCore-keyinfo-item h4{
   font-weight: bold;
+  font-size: 0.95rem;
 }
 .archiveDetail-skills-item{
   background: rgba(255, 255, 255, 0.05);

@@ -517,6 +517,13 @@
                       </label>
                     </div>
                     <div class="toggle-item">
+                      <span class="toggle-label">以工换食<span @click="showExplainModelV(8)" class="help-icon"><i class="bi bi-info-circle"></i></span></span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" v-model="enableFoodForWork">
+                        <span class="toggle-slider"></span>
+                      </label>
+                    </div>
+                    <div class="toggle-item">
                       <span class="toggle-label">夜间咨询<span @click="showExplainModelV(3)" class="help-icon"><i class="bi bi-info-circle"></i></span></span>
                       <label class="toggle-switch">
                         <input type="checkbox" v-model="freeNightCounsellor">

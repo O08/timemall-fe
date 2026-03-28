@@ -17,6 +17,8 @@ const BrandBasicSetting = {
                 {title: "私域社群",content: "通过社群与客户、粉丝高效互动，提升产品力，提升营销力，提升服务力；品牌可前往【彩虹部落】-- 【创建部落】设立新社群"},
                 {title: "经营范围",content: "经营范围是个人或者组织从事商业化相关活动时生产和经营的商品类别、品种及服务项目（支持最大长度 500 字符）"},
                 {title: "真实名称",content: "真实姓名或者真实的机构名称，特殊场景比如管理权移交会使用真实名称进行校验"},
+                {title: "以工换食",content: "雇员给你工作，作为回报，你需要为雇员准备食物或用餐费，建议餐标每人每日不低于 30 RMB，本标识用于义工或慈善场景，默认为关闭状态"},
+
 
             ],
             explain: {},
@@ -56,6 +58,7 @@ const BrandBasicSetting = {
             availableForWork: false,
             freeNightCounsellor: false,
             enableMentorship: false,
+            enableFoodForWork: false,
             cooperationScope:  "",
             businessScope: "",
 
@@ -100,6 +103,8 @@ const BrandBasicSetting = {
             this.referenceSetting.pdOasisId=profile.pdOasisId;
             this.referenceSetting.businessScope=profile.businessScope;
             this.referenceSetting.enableMentorship=profile.enableMentorship=="1" ? true : false;
+            this.referenceSetting.enableFoodForWork=profile.enableFoodForWork=="1" ? true : false;
+
 
 
 
@@ -119,6 +124,7 @@ const BrandBasicSetting = {
            this.freeNightCounsellor=referenceSettingClone.freeNightCounsellor;
            this.businessScope=referenceSettingClone.businessScope;
            this.enableMentorship=referenceSettingClone.enableMentorship;
+           this.enableFoodForWork=referenceSettingClone.enableFoodForWork;
 
 
 
@@ -140,6 +146,7 @@ const BrandBasicSetting = {
                    || this.referenceSetting.freeNightCounsellor!=this.freeNightCounsellor
                    || this.referenceSetting.businessScope!=this.businessScope
                    || this.referenceSetting.enableMentorship!=this.enableMentorship
+                   || this.referenceSetting.enableFoodForWork!=this.enableFoodForWork
 
                    )
 
@@ -197,7 +204,8 @@ async function modifyBasicSetting(appObj){
         industry: selectedIndustry.length>0 ? selectedIndustry[0].text : "",
         freeNightCounsellor: appObj.freeNightCounsellor ? "1" : "0",
         businessScope: appObj.businessScope,
-        enableMentorship: appObj.enableMentorship ? "1" : "0"
+        enableMentorship: appObj.enableMentorship ? "1" : "0",
+        enableFoodForWork: appObj.enableFoodForWork ? "1" : "0"
     }
     const response = await putBasicSetting(dto);
     var data = await response.json();

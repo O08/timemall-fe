@@ -51,7 +51,9 @@ const RootComponent = {
                   availableForWork: '',
                   supportFreeCooperation: '',
                   loginInWeek: '',
-                  nearby: ''
+                  nearby: '',
+                  enableFoodForWork: '',
+                  enableMentorship: ''
                 },
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -165,7 +167,9 @@ function retrieveTalentGrid(){
         availableForWork: '',
         supportFreeCooperation: '',
         loginInWeek: '',
-        nearby: ''
+        nearby: '',
+        enableMentorship: '',
+        enableFoodForWork: ''
       };
 
     disTalent.reloadPage(disTalent.talentgrid_pagination);
