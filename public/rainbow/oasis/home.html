@@ -110,11 +110,6 @@
           
               <span>主页</span>  
             </a>
-            <a class="nav-link  nva-link-default p-2 ms-3  d-flex flex-row align-items-center" :href="'/rainbow/arch/channel-0001?oasis_id='+ oasisId">
-              <i class="bi bi-fan"></i>
-              <span class="link-title">日常</span>  
-            </a>
-
             <div v-for="channel in channelSort" 
              :class="{'channel-active': currentOch==channel}"
              class="w-100 position-relative sub-channel-box">

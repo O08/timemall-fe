@@ -1,6 +1,8 @@
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import axios from 'axios';
+import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
@@ -65,17 +67,11 @@ export function usePostInteract() {
         }
     }
 
-    const muteUser = async (channel,userId)=>{
-        return await doMuteOneUser(channel,userId);
-    }
+    const muteUser = OasisApi.muteUser;
 
-    const unmuteUser = async (channel,userId)=>{
-        return await doUnmuteOneUser(channel,userId)
-    }
+    const unmuteUser = OasisApi.unmuteUser;
 
-    const fetchUserCtaInfo = async (oasisId,userId)=>{
-        return doFetchUserCtaInfo(oasisId,userId);
-    }
+    const fetchUserCtaInfo = OasisApi.fetchUserCtaInfo;
 
     const  copyCommentContentV = async(textMsg)=>{
         copyValueToClipboard(textMsg);
@@ -119,18 +115,4 @@ async function doPublishOneComment(dto){
     return await axios.post(url,dto);
 }
 
-async function doFetchUserCtaInfo(oasisId,userId){
-    const url="/api/v1/app/oasis/{oasis_id}/user/{user_id}/cta_info".replace("{oasis_id}",oasisId).replace("{user_id}",userId);
-    return await axios.get(url);
-}
-
-async function doMuteOneUser(channel,userId){
-    const url="/api/v1/app/viber/{channel}/user/{id}/mute".replace("{channel}",channel).replace("{id}",userId);
-    return await axios.put(url,{})
-}
-
-async function doUnmuteOneUser(channel,userId){
-    const url="/api/v1/app/oasis/{channel}/user/{id}/unmute".replace("{channel}",channel).replace("{id}",userId);
-    return await axios.put(url,{})
-}
 

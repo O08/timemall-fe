@@ -43,7 +43,7 @@
                 </div>
                 <div v-if="!!record.quoteAuthor" class="quote-msg-author">
                   <div>
-                    <span contenteditable="false" class="mention-role-secondary me-1"><a href="http://zurb.com" target="_blank" title="getstarted+joachim@zurb.com">@{{record.quoteAuthor}}</a></span>
+                    <span contenteditable="false" class="mention-role-secondary me-1"><a href="#">@{{record.quoteAuthor}}</a></span>
                   </div>
                 </div>
                 <div v-if="record.quoteMsgType === 'text'" class="quote-text-msg-wrp">
@@ -119,6 +119,14 @@
                               </button>
                             </a>
                           </li>
+                          <li>
+                            <a :href="'/rainbow/discovery-partner/'+ record.authorBrandId" target="_blank" class="dropdown-item">
+                              <button class="btn btn-danger  w-100">
+                                <i class="bi bi-person-badge"></i>
+                                <span class="ms-2">用户资料</span>
+                              </button>
+                            </a>
+                          </li>
 
                         </ul>
                       </div>
@@ -161,7 +169,7 @@
 					<p @input="autoHeightV($event)" id="twemoji-picker" class="chat-input" placeholder="在这输入消息..."></p>
           <div id="quote-message-box" v-show="!!quoteMsg.id" :title="quoteMsg.id" class="quote-message-box">
             <div class="quote-content">
-              <span contenteditable="false" class="mention-role-secondary me-1"><a href="http://zurb.com" target="_blank" title="getstarted+joachim@zurb.com">@{{quoteMsg.author}} </a></span>
+              <span contenteditable="false" class="mention-role-secondary me-1"><a href="#">@{{quoteMsg.author}} </a></span>
               <span  v-if="quoteMsg.msgType === 'text'" v-html="formatMessageV(JSON.parse(quoteMsg.msg).content)"></span>
               <span  v-if="quoteMsg.msgType === 'image'" class="quote-image" >
                 <a target="_blank" :href="'/mall/preview?uri='+JSON.parse(quoteMsg.msg).uri" rel="noopener noreferrer">

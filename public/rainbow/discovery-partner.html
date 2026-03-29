@@ -18,7 +18,8 @@
 </head>
 <body class="xxl-hiden-menu">
   <micro-app class="d-flex flex-row" id="app" v-cloak>
-    <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+
+    <div v-if="!isLoading && !queryBid" class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
       <div class="sidebarContainer d-flex flex-row">
         <col-nav-main>
         <div class="back-link-box" onclick="history.back()">
@@ -135,7 +136,7 @@
       </div>
     </div>
     
-    <col-content>
+    <col-content v-show="!isLoading && !queryBid">
       <header>
         <div class="d-flex justify-content-between p-3 text-white">
           <div class="d-flex align-items-center logo">
@@ -367,7 +368,7 @@
 
 
         <!-- preview partner info start -->
-        <div class="modal fade" id="partnerInfoPreviewModal" tabindex="-1" aria-labelledby="partnerInfoPreviewModalLabel" aria-modal="true" role="dialog">
+        <div class="modal" id="partnerInfoPreviewModal" :class="{'fade': !queryBid}" tabindex="-1" aria-labelledby="partnerInfoPreviewModalLabel" aria-modal="true" role="dialog">
           <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
               <div class="modal-body">

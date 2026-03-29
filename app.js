@@ -159,6 +159,10 @@ app.get('/oasis/invite/:code', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/oasis/link-join.html")        //设置/ 下访问文件位置
 })
 
+app.get('/rainbow/discovery-partner/:bid', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/discovery-partner.html")        //设置/ 下访问文件位置
+})
+
 
 
 

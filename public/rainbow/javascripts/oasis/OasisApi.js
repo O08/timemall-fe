@@ -16,7 +16,10 @@ const OasisApi = {
     topUptoOasis,
     retrieveOasisFinInfo,
     fetchFastLinks,
-    doFetchOasisRoles
+    doFetchOasisRoles,
+    muteUser,
+    unmuteUser,
+    fetchUserCtaInfo
 }
 async function putAnnounce(oasisId,files){
     var fd = new FormData();
@@ -132,6 +135,34 @@ function fetchFastLinks(id){
 async function doFetchOasisRoles(oasisId, q) {
     const url = "/api/v1/team/oasis/role?q=" + q + "&oasisId=" + oasisId;
     return await axios.get(url);
+}
+
+async function doFetchUserCtaInfo(oasisId,userId){
+    const url="/api/v1/app/oasis/{oasis_id}/user/{user_id}/cta_info".replace("{oasis_id}",oasisId).replace("{user_id}",userId);
+    return await axios.get(url);
+}
+
+async function doMuteOneUser(channel,userId){
+    const url="/api/v1/app/oasis/{channel}/user/{id}/mute".replace("{channel}",channel).replace("{id}",userId);
+    return await axios.put(url,{})
+}
+
+async function doUnmuteOneUser(channel,userId){
+    const url="/api/v1/app/oasis/{channel}/user/{id}/unmute".replace("{channel}",channel).replace("{id}",userId);
+    return await axios.put(url,{})
+}
+
+
+const muteUser = async (channel,userId)=>{
+    return await doMuteOneUser(channel,userId);
+}
+
+const unmuteUser = async (channel,userId)=>{
+    return await doUnmuteOneUser(channel,userId)
+}
+
+const fetchUserCtaInfo = async (oasisId,userId)=>{
+    return doFetchUserCtaInfo(oasisId,userId);
 }
 
 export default OasisApi;

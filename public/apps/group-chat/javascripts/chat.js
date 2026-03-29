@@ -142,7 +142,7 @@ ce.addEventListener('paste', function (e) {
 
 function remoteSearch(text, cb) {
     var URL = "/api/v1/app/group_chat/channel/{id}/member".replace("{id}",currentOch );
-    xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {

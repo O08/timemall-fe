@@ -18,9 +18,14 @@ import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteCompo
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const lastSegment=window.location.pathname.split('/').pop();
+const queryBid = lastSegment === 'discovery-partner' ? null : lastSegment ;
+
 const RootComponent = {
     data() {
         return {
+            isLoading: true,
+            queryBid: queryBid,
             brandProfile: {},
             typeOfBusinessOptions: [
                 { value: "0", text: "非商业主体" },
@@ -92,6 +97,8 @@ const RootComponent = {
             return getLinkIconUrl(url);
           },
         showPartnerInfoPreviewModalV(brandId){
+            if(!brandId) return; 
+            this.resetListUrlToBrand(brandId);
             Api.getBrandProfile(brandId).then(response=>{
                 if(response.data.code == 200){
                     this.brandProfile = response.data.profile;
@@ -103,7 +110,20 @@ const RootComponent = {
             });
         },
         closePartnerInfoPreviewModalV(){
+            this.resetBrandUrlToList();
             $("#partnerInfoPreviewModal").modal("hide");
+        },
+        resetBrandUrlToList() {
+            const targetUrl = '/rainbow/discovery-partner';
+            window.history.replaceState(null, "", targetUrl);
+            this.queryBid = null; // Update Vue state so sidebar/list reappears
+        },
+        resetListUrlToBrand(brandId) {
+            if(this.queryBid){
+                return
+            }
+            const targetUrl = '/rainbow/discovery-partner/'+brandId;
+            window.history.replaceState(null, "", targetUrl);
         },
         retrieveTalentGridV(){
             retrieveTalentGrid();
@@ -136,6 +156,22 @@ const RootComponent = {
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
+    },
+    async mounted() {
+        try {
+            // 1. Initialize the main list
+            await this.pageInit(this.talentgrid_pagination);
+    
+            // 2. If bid exists, fetch the detail as well
+            if (this.queryBid) {
+                await this.showPartnerInfoPreviewModalV(this.queryBid);
+            }
+        } catch (error) {
+            console.error("Initialization failed", error);
+        } finally {
+            // 3. Data is loaded, hide the loading screen
+            this.isLoading = false;
+        }
     }
 }
 
@@ -155,8 +191,6 @@ const disTalent = app.mount('#app');
 
 window.disTalent = disTalent;
 
-// init
-disTalent.pageInit(disTalent.talentgrid_pagination);
 
 function retrieveTalentGrid(){
     const tmpq = disTalent.talentgrid_pagination.param.q;
