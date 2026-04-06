@@ -1,15 +1,13 @@
 import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
-import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js"
+import OasisAnnounceInterfaceComponent from "/rainbow/javascripts/compoent/OasisAnnounceInterfaceComponent.js"
 
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 
-import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
 import axios from "axios";
@@ -20,11 +18,11 @@ import { getDayName } from "/common/javascripts/util.js";
 import { CustomAlertModal } from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
-const currentOasisId = getQueryVariable("oasis_id");
-const currentOch=getQueryVariable('och');
 
-const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
 
+const [currentOasisHandle,] = segments;
 
 
 const RootComponent = {
@@ -37,9 +35,7 @@ const RootComponent = {
       return {
         init_finish: false,
         currentCardType: "monthly",
-        currentOasisId,
-        currentOch,
-        channelSort: channelSort, oaisiChannelList: oaisiChannelList,getChannelDataV: getChannelDataV,
+        currentOch: '',
         appViewUrl: "",
         tier: [],
         newOrderObj:{
@@ -61,8 +57,9 @@ const RootComponent = {
         handleUnfollowSuccessEventV(){
             this.loadJoinedOases(); // sub nav component.js
         },
-        loadMembershipTeirInfoV(){
-            loadMembershipTeirInfo(currentOasisId).then(response=>{
+        loadMembershipTeirInfoV(oasisId){
+            if(!oasisId) return;
+            loadMembershipTeirInfo(oasisId).then(response=>{
                 if(response.data.code == 200){
                     
                     this.tier=response.data.tier;
@@ -89,8 +86,8 @@ const RootComponent = {
         subscribeNowV(){
             subscribeTier(this.newOrderObj).then(response=>{
                 if(response.data.code == 200){
-                    this.loadMembershipTeirInfoV();
-                    this.refreshChannelListV();
+                    this.loadMembershipTeirInfoV(this.oasisId);
+                    this.refreshChannelListV(); // from announce componetent
                     this.closeOrderTierFocusModalV();
                 }
                 if(response.data.code==40007){
@@ -116,13 +113,8 @@ const RootComponent = {
         },
         getDayNameV(dateStr){
             return getDayName(dateStr);
-        },
-        refreshChannelListV(){
-            const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
-            this.channelSort=channelSort;
-            this.oaisiChannelList=oaisiChannelList,
-            this.getChannelDataV=getChannelDataV;
         }
+      
         
     },
     updated(){
@@ -140,7 +132,7 @@ const RootComponent = {
 
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true,need_init: false}));
-app.mixin(OasisAnnounceComponent);
+app.mixin(OasisAnnounceInterfaceComponent);
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
@@ -155,10 +147,8 @@ const membershipPage = app.mount('#app');
 window.oasisMembershipPage = membershipPage;
 
 membershipPage.userAdapter(); // auth.js init
-membershipPage.loadAnnounceV(); // oasis announce component .js init
 membershipPage.loadSubNav() // sub nav component .js init 
-membershipPage.loadFastLink() // announce  component .js init 
-membershipPage.loadMembershipTeirInfoV();
+membershipPage.loadAnnounceAndFastLinkAndChannelListUseHandleV(currentOasisHandle,membershipPage.loadMembershipTeirInfoV);
 
 async function fetchMembershipTeirInfo(oasisId){
     const url="/api/v1/team/membership/selling_tier/query?oasisId="+oasisId;

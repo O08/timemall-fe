@@ -26,7 +26,7 @@
           <nav>
             <div class="oasis-head-box">
               <div class="oasis-head">
-                <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+                <a :href="'/'+oasisHandle">
                   <img  class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
                 </a>
                 <div class="oasis-title-box">
@@ -36,10 +36,10 @@
             </div>
    
             <div class="list-group list-group-flush">
-                <a :href="'/rainbow/office/department?oasis_id='+oasisId" class="list-group-item active">部门配置</a>
-                <a :href="'/rainbow/office/compensation?oasis_id='+oasisId" class="list-group-item">薪酬配置</a>
-                <a :href="'/rainbow/office/employee?oasis_id='+oasisId" class="list-group-item  ">员工档案</a>
-                <a :href="'/rainbow/office/payroll?oasis_id='+oasisId" class="list-group-item ">薪资发放</a>
+                <a :href="'/'+oasisHandle+'/back-office/department'" class="list-group-item active">部门配置</a>
+                <a :href="'/'+oasisHandle+'/back-office/compensation'"  class="list-group-item">薪酬配置</a>
+                <a :href="'/'+oasisHandle+'/back-office/employee'"  class="list-group-item  ">员工档案</a>
+                <a :href="'/'+oasisHandle+'/back-office/payroll'" class="list-group-item ">薪资发放</a>
             </div>
           </nav>
        </col-nav-main>

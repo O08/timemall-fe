@@ -4,11 +4,9 @@ import { createApp } from "vue";
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
-import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js"
-import { getQueryVariable } from "/common/javascripts/util.js";
+import OasisAnnounceInterfaceComponent from "/rainbow/javascripts/compoent/OasisAnnounceInterfaceComponent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
-import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js';
 
@@ -20,9 +18,12 @@ import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 
 let customAlert = new CustomAlertModal();
-const currentOasisId = getQueryVariable("oasis_id");
 
-const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
+
 
 const RootComponent = {
     components: {
@@ -31,7 +32,6 @@ const RootComponent = {
     data() {
 
         return {
-            channelSort, oaisiChannelList,getChannelDataV,
             currentOch: "oasis-home",
             q: "",
             order: {
@@ -51,8 +51,9 @@ const RootComponent = {
         handleUnfollowSuccessEventV(){
             this.loadJoinedOases(); // sub nav component.js
         },
-        loadOrdersV(){
-            loadOrders(this.q).then(response=>{
+        loadOrdersV(oasisId){
+            if(!this.oasisId) this.oasisId=oasisId;
+            loadOrders(this.q,this.oasisId).then(response=>{
                 if(response.data.code == 200){
                     this.order = response.data.order;
                 }
@@ -125,7 +126,7 @@ const RootComponent = {
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
-app.mixin(OasisAnnounceComponent);
+app.mixin(OasisAnnounceInterfaceComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
 app.mixin(CodeExplainComponent);
@@ -136,11 +137,9 @@ const teamOasisMembershipOrderPage = app.mount('#app');
 
 window.teamOasisMembershipOrderPage = teamOasisMembershipOrderPage;
 // init 
-teamOasisMembershipOrderPage.loadOrdersV();
 teamOasisMembershipOrderPage.userAdapter(); // auth.js init
-teamOasisMembershipOrderPage.loadAnnounceV(); // oasis announce component .js init
 teamOasisMembershipOrderPage.loadSubNav() // sub nav component .js init 
-teamOasisMembershipOrderPage.loadFastLink() // announce  component .js init 
+teamOasisMembershipOrderPage.loadAnnounceAndFastLinkAndChannelListUseHandleV(currentOasisHandle,teamOasisMembershipOrderPage.loadOrdersV)
 
 async function getOrder(oasisId,q){
     const url="/api/v1/team/membership/open_order/list?current=1&size=100&oasisId=" + oasisId+"&q="+q;
@@ -160,7 +159,6 @@ async function refund(dto){
 async function findOrderInfo(orderId){
     return await fetchOrderInfo(orderId);
   }
-function loadOrders(q){
-    const oasisId = getQueryVariable("oasis_id");
+function loadOrders(q,oasisId){
     return getOrder(oasisId,q);
 }

@@ -155,7 +155,7 @@ app.get('/employee/:id/info', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/office/employee-info.html")        //设置/ 下访问文件位置
 })
 
-app.get('/oasis/invite/:code', (req, res) => {
+app.get('/:hd/invite/:code', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/oasis/link-join.html")        //设置/ 下访问文件位置
 })
 
@@ -163,13 +163,85 @@ app.get('/rainbow/discovery-partner/:bid', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/discovery-partner.html")        //设置/ 下访问文件位置
 })
 
+app.get('/:hd/channel/:chn', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/mini.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/membership', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/membership.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/commission', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/commission.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/metrics', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/value-journey.html")        //设置/ 下访问文件位置
+})
 
+app.get('/:hd/contributes', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/transparent.html")        //设置/ 下访问文件位置
+})
 
+app.get('/:hd/membership-order', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/membership-order.html")        //设置/ 下访问文件位置
+})
 
+app.get('/:hd/task/:id', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/arch/commission-ws.html")        //设置/ 下访问文件位置
+})
+
+app.get('/:hd/apps', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/mini-app-gallery.html")        //设置/ 下访问文件位置
+})
+
+app.get('/:hd/back-office/department', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/office/department.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/back-office/compensation', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/office/compensation.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/back-office/employee', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/office/employee.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/back-office/payroll', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/office/payroll.html")        //设置/ 下访问文件位置
+})
+
+app.get('/:hd/channels', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/mini-assistant.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting.html")        //设置/ 下访问文件位置
+})
+
+app.get('/:hd/setting-role', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-role.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-member', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-member.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-membership', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-membership.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-invitation', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-invitation.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-invitation-link', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-invitation-link.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-fast-link', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-fast-link.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-change-admin', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-change-admin.html")        //设置/ 下访问文件位置
+})
 
 // match @abc @bcdddd,for brand handle mapping
-app.get( /^\/@/, (req, res) => {
+app.get( /.*@blv\.bi$/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置
+})
+
+// match @blv.hub suffix for oasis handle mapping
+app.get( /.*@blv\.hub$/, (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/home.html")        //设置/ 下访问文件位置
 })
 
 

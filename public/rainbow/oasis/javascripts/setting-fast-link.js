@@ -4,7 +4,6 @@ import Auth from "/estudio/javascripts/auth.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -13,6 +12,12 @@ import axios from "axios";
 import { isValidHttpUrlNeedScheme } from "/common/javascripts/util.js";
 
 let customAlert = new CustomAlertModal();
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
+
 
 const oasisAvatarDefault = new URL(
     '/rainbow/images/oasis-default-building.jpeg',
@@ -25,6 +30,7 @@ const RootComponent = {
         tempLogoFile: "",
         oasisAvatarDefault,
         oasisId: "",
+        oasisHandle: "",
         announce: {},
         links: [],
         editLink:{
@@ -47,8 +53,7 @@ const RootComponent = {
             newFastLink(this);
         },
         fetchFastLinkV(){
-            const id  =  getQueryVariable("oasis_id");
-            OasisApi.fetchFastLinks(id).then(response=>{
+            OasisApi.fetchFastLinks(this.oasisId).then(response=>{
                 if(response.data.code==200){
                    
                  this.links = response.data.link;
@@ -89,21 +94,6 @@ const RootComponent = {
             }
             $("#focusModal").modal("show"); // show modal
           },
-        loadAnnounceV(){
-            const oasisId =  getQueryVariable("oasis_id");
-            if(!oasisId){
-                window.location.href="/rainbow/teixcalaanli";
-                return ;
-            }
-            OasisApi.loadAnnounce(oasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.announce = response.data.announce;
-                    if(!this.announce || this.announce.initiator!=this.getIdentity().brandId){
-                        window.location.href="/rainbow/teixcalaanli";
-                    }
-                }
-            })
-        },
         formatDateV(datestr) {
             var date = new Date(datestr);
             var year = date.getFullYear();
@@ -118,12 +108,25 @@ const RootComponent = {
             return `${year}年${month}月${day}日`;
         
       
+        },
+        async initPageDataV(){
+            const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+            if(response.data.code == 200){
+                this.announce = response.data.announce;
+          
+                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                    window.location.href = "/rainbow/teixcalaanli";
+                }
+
+                this.oasisId = this.announce.id;
+                this.oasisHandle= this.announce.handle;
+                this.fetchFastLinkV();
+    
+            }
         }
         
     },
     created(){
-        this.loadAnnounceV();
-        this.oasisId =  getQueryVariable("oasis_id");
     },
     updated(){
         
@@ -155,7 +158,7 @@ const settingFastLink = app.mount('#app');
 window.settingFastLinkPage = settingFastLink;
 
 // init
-settingFastLink.fetchFastLinkV();
+settingFastLink.initPageDataV();
 
 async function doDeleteFastLink(id){
     const url = "/api/v1/oasis/fast_link/{id}/del".replace("{id}",id);
@@ -225,7 +228,7 @@ function resetNewFastLinkModel(){
             title: "",
             linkLogoFileUrl: "",
             linkDetail: "",
-            oasisId: getQueryVariable("oasis_id")
+            oasisId: settingFastLink.oasisId
     };
     document.getElementById("file_logo").value=null;
     settingFastLink.tempLogoFile = "";

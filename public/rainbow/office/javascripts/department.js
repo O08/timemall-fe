@@ -8,7 +8,6 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
-import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -18,7 +17,11 @@ const oasisAvatarDefault = new URL(
     import.meta.url
 );
 
-const currentOasisId = getQueryVariable("oasis_id");
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,,] = segments;
 
 let customAlert = new CustomAlertModal();
 const RootComponent = {
@@ -28,14 +31,15 @@ const RootComponent = {
             editDepartmentModal_already_change: false
         },
         oasisAvatarDefault,
-        oasisId: currentOasisId,
+        oasisId: "",
+        oasisHandle: "",
         announce: {},
         employeeOptions: [],
         leaderSelectedItem: "",
         newDepartmentObj: {
             title: "",
             description: "",
-            oasisId: currentOasisId
+            oasisId: ""
         },
         editDepartmentObj: {
             departmentId: "",
@@ -53,7 +57,10 @@ const RootComponent = {
           paging: {},
           param: {
               q: '',
-              oasisId: currentOasisId
+              oasisId: ""
+          },
+          paramHandler: (info)=>{
+            info.param.oasisId = this.oasisId;
           },
           responesHandler: (response)=>{
               if(response.code == 200){
@@ -70,21 +77,6 @@ const RootComponent = {
       }
     },
     methods: {
-        loadAnnounceV() {
-            const oasisId = getQueryVariable("oasis_id");
-            if (!oasisId) {
-                window.location.href = "/rainbow/teixcalaanli";
-                return;
-            }
-            OasisApi.loadAnnounce(oasisId).then(response => {
-                if (response.data.code == 200) {
-                    this.announce = response.data.announce;
-                    if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
-                        window.location.href = "/rainbow/teixcalaanli";
-                    }
-                }
-            })
-        },
         searchDepartmentV(){
             this.departmentList_pagination.current=1;
             this.reloadPage(this.departmentList_pagination);
@@ -104,7 +96,7 @@ const RootComponent = {
             this.newDepartmentObj={
                 title: "",
                 description: "",
-                oasisId: currentOasisId
+                oasisId: this.oasisId
             }
             $("#newDepartmentModal").modal("show");
         },
@@ -128,6 +120,23 @@ const RootComponent = {
         },
         closeEditDepartmentModalV(){
             $("#editDepartmentModal").modal("hide");
+        },
+        async initPageDataV(){
+            const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+            if(response.data.code == 200){
+                this.announce = response.data.announce;
+          
+                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                    window.location.href = "/rainbow/teixcalaanli";
+                }
+    
+                this.oasisId = this.announce.id;
+                this.oasisHandle= this.announce.handle;
+    
+                this.pageInit(this.departmentList_pagination);
+                this.loadEmployeeListV();
+    
+            }
         }
 
     },
@@ -151,10 +160,7 @@ window.officeDepartmentPage = officeDepartment;
 
 // init
 officeDepartment.userAdapter(); // auth.js
-officeDepartment.loadAnnounceV();
-officeDepartment.pageInit(officeDepartment.departmentList_pagination);
-officeDepartment.loadEmployeeListV();
-
+officeDepartment.initPageDataV();
 
 async function doEstablishDepartment(dto) {
     const url = "/api/v1/team/office/department/create";
@@ -202,7 +208,7 @@ async function changeDepartment(dto){
     });
 }
 async function loadEmployeeList(appObj){
-    const response = await fetchEmployeeList(currentOasisId);
+    const response = await fetchEmployeeList(appObj.oasisId);
     var data = await response.json();
     if(data.code==200){
        var employeeArr=[{value:"",text:"请选择员工"}];

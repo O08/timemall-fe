@@ -152,12 +152,25 @@ col-nav-main .oasis-avatar{
 }
 .inputDefault{
     padding: 10px;
-    height: 40px;
+    height: unset;
     font-size: 16px;
     box-sizing: border-box;
     width: 100%;
     border-radius: 3px;
     color: #fff;
+    background-color: #000;
+    border: none;
+    outline: 0;
+}
+.inputDefaultText{
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: unset;
+    font-size: 16px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    color: #6d757a;
     background-color: #000;
     border: none;
     outline: 0;

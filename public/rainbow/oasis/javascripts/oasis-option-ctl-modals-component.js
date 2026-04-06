@@ -52,7 +52,7 @@ const OasisOptionModalsComponent = {
         }
     },
     template: `
-    <oasis-invitation ref="oasisinvitationModal" :oasis_id="oasisId"/>
+    <oasis-invitation ref="oasisinvitationModal" :oasis_announce="oasis_announce"  :oasis_id="oasisId"/>
     <oasis-sponsor ref="oasisSponsorModal" :oasis_id="oasisId"/>
     <oasis-collect-account  ref="oasisCollectAccountModal" :oasis_id="oasisId" :current_user_brand_id="brand_id" />
     <oasis-join @unfollow-success="$emit('unfollow-success')"  @follow-success="$emit('follow-success')" ref="oasisJoinModal" :oasis_announce="oasis_announce" :oasis_id="oasisId" :current_user_brand_id="brand_id" />

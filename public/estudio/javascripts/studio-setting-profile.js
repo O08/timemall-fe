@@ -33,6 +33,7 @@ const defaultExperienceImage = new URL(
     '/common/images/default-experience-1x1.svg',
     import.meta.url
 );
+const brandHandleSuffix="@blv.bi";
 
 const RootComponent = {
     data() {
@@ -251,7 +252,7 @@ function loadBrandProfile(){
         settingProfilePage.identity.brand = profile.brand;
         settingProfilePage.identity.title = profile.title;
         settingProfilePage.identity.location = profile.location;
-        settingProfilePage.identity.handle=profile.handle.substr(1);
+        settingProfilePage.identity.handle=profile.handle.replace(brandHandleSuffix,"");
         settingProfilePage.identity.pdOasisId=profile.pdOasisId;
         settingProfilePage.pdOasisSelectedItem=profile.pdOasisId;
 
@@ -291,7 +292,7 @@ function setBrandBasicInfo(){
     }
     
     var dto = JSON.parse(JSON.stringify(settingProfilePage.identity));
-    dto.handle="@"+dto.handle;
+    dto.handle=dto.handle+brandHandleSuffix;
     // set pdOasisiId
     dto.pdOasisId=settingProfilePage.pdOasisSelectedItem;
     if(!!settingProfilePage.pdOasisSelectedItem){
@@ -547,7 +548,7 @@ function closeExperienceDescModal(){
 }
 
 function  transformInputText(e){
-    var val = e.target.value.replace(/[^\a-\z\A-\Z0-9\_]/g,'');// type int
+    var val = e.target.value.replace(/[^\a-\z\A-\Z0-9\.]/g,'');// type int
     const needUpdate = (val !== e.target.value);
     if(needUpdate){
         e.target.value=val;

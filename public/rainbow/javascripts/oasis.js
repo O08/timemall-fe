@@ -2,18 +2,16 @@ import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
-import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js"
+import OasisAnnounceInterfaceComponent from "/rainbow/javascripts/compoent/OasisAnnounceInterfaceComponent.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
-import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
+import { getQueryVariable } from "/common/javascripts/util.js";
 
 
-const currentOasisId = getQueryVariable("oasis_id");
-
-const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+const currentOasisHandle = window.location.pathname.split('/').pop();
+const currentOasisId=getQueryVariable("oasis_id");
 
 const RootComponent = {
     components: {
@@ -21,9 +19,7 @@ const RootComponent = {
     },
     data() {
         return {
-            currentOch: "oasis-home",
-            channelSort, oaisiChannelList,getChannelDataV,
-            
+            currentOch: "oasis-home",            
         }
     },
     methods: {
@@ -50,7 +46,7 @@ const RootComponent = {
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
-app.mixin(OasisAnnounceComponent);
+app.mixin(OasisAnnounceInterfaceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
@@ -64,6 +60,5 @@ window.teamOasis = teamOasis;
 
 // init 
 teamOasis.userAdapter(); // auth.js init
-teamOasis.loadAnnounceV(); // oasis announce component .js init
 teamOasis.loadSubNav() // sub nav component .js init 
-teamOasis.loadFastLink() // announce  component .js init 
+teamOasis.loadAnnounceAndFastLinkAndChannelListUseHandleOrOasisIdV(currentOasisHandle,currentOasisId) // OasisAnnounceUsingHandleComponent  .js init 

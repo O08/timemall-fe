@@ -1,9 +1,12 @@
 import axios from "axios";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import {CommercialPaperDeliverTag} from "/common/javascripts/tm-constant.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,, currentCommissionId] = segments;
 
 const CommissionWSDeliverCompoent = {
     data() {
@@ -46,8 +49,7 @@ const CommissionWSDeliverCompoent = {
             $("#newDeliverModal").modal("show"); // show modal
         },
         fetchPaperDeliverDetailV(){
-            const commissionId=getQueryVariable("id");
-            doFetchPaperDeliverDetail(commissionId).then(response=>{
+            doFetchPaperDeliverDetail(currentCommissionId).then(response=>{
                 if(response.data.code==200){
                     this.mpdc__paperDeliver=response.data.deliver;
                 }
@@ -85,7 +87,7 @@ const CommissionWSDeliverCompoent = {
         },
         revisionPaperDeliverV(deliver){
             if(!deliver.commissionId){
-                deliver.commissionId=getQueryVariable("id");
+                deliver.commissionId=currentCommissionId;
             }
            modifyPaperDeliverTag(CommercialPaperDeliverTag.REVISION,deliver.deliverId,deliver.commissionId).then(response=>{
                 if(response.data.code==200){
@@ -101,7 +103,7 @@ const CommissionWSDeliverCompoent = {
         },
         acceptPaperDeliverV(deliver){
             if(!deliver.commissionId){
-                deliver.commissionId=getQueryVariable("id");
+                deliver.commissionId=currentCommissionId;
             }
             summitCommission(deliver.commissionId, deliver.deliverId).then(response=>{
                 if(response.data.code==200){
@@ -177,11 +179,11 @@ function modifyPaperDeliverTag(tag,deliverId,commissionId){
 }
 function deliverPaper(){
 
-    const commissionId=getQueryVariable("id");
+
     const preview= $('#inputPreviewFile')[0].files[0];
     const deliver= $('#inputDeliverFile')[0].files[0];
 
-    return doDeliver(commissionId,preview,deliver);
+    return doDeliver(currentCommissionId,preview,deliver);
 }
 
 function doFetchPaperDeliverDetail(commissionId){

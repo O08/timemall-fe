@@ -2,11 +2,9 @@ import "/common/javascripts/import-jquery.js";
 import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js";
 import axios from 'axios';
-import { getQueryVariable } from "/common/javascripts/util.js";
 
 
 
-import {CellPlanOrderTag} from "/common/javascripts/tm-constant.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import CommissionWSDeliverCompoent from "/rainbow/arch/javascripts/CommissionWSDeliverCompoent.js";
@@ -19,7 +17,12 @@ import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
-const chatChannel=getQueryVariable("id");
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,, chatChannel] = segments;
+
+const commissionId=chatChannel;
 
 const RootComponent = {
     data() {
@@ -39,20 +42,6 @@ const RootComponent = {
         }
     },
     methods: {
-        tagCellPlanOrderAsDeliveringV(){
-            const orderId=getQueryVariable("id");
-            tagCellPlanOrder(orderId,CellPlanOrderTag.DELIVERING).then(response=>{
-                if(response.data.code==200){
-                   this.findPlanDetailV();
-                }
-                if(response.data.code!=200){
-                    const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
-                    customAlert.alert(error);
-                }
-            }).catch(error=>{
-                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
-            });
-        },
         findCommissionDetailV(){
             findCommissionDetail().then(response=>{
                 if(response.data.code==200){
@@ -116,7 +105,6 @@ const RootComponent = {
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-// app.mixin(new BrandInfoComponent({need_init: true}));
 
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
@@ -158,19 +146,9 @@ async function fetchCommissionDetail(commissionId){
     const url="/api/v1/team/commission_ws/{id}/detail".replace("{id}",commissionId);
     return await axios.get(url);
 }
-async function doTagCellPlanOrder(orderId,dto){
-    const url="/api/v1/web_estudio/cell/plan_order/{id}/tag".replace("{id}",orderId);
-    return await axios.put(url,dto);
-}
-function tagCellPlanOrder(orderId,tag){
-    const dto={
-        tag: tag
-    }
-    return doTagCellPlanOrder(orderId,dto);
-}
+
 function findCommissionDetail(){
-    const id=getQueryVariable("id");
-    return fetchCommissionDetail(id);
+     return fetchCommissionDetail(commissionId);
 }
 
 $(function(){

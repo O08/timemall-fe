@@ -12,6 +12,20 @@ const OasisOptionCtlComponent = {
           currentUserBrandId: this.brand_id
         }
     },
+    computed: {
+      subscribeMembershipUrl() {
+          return "/" + this.oasis_announce.handle+ "/membership";
+      },
+      channelAssistantUrl() {
+        return "/" + this.oasis_announce.handle+ "/channels";
+      },
+      officeUrl(){
+        return "/" + this.oasis_announce.handle+ "/back-office/department";
+      },
+      settingUrl(){
+        return "/" + this.oasis_announce.handle+ "/setting";
+      },
+    },
     methods: {
       inOasisV(){
         return inOasisB(this.joinedoasis,this.oasisId);
@@ -68,7 +82,7 @@ const OasisOptionCtlComponent = {
       <ul class="dropdown-menu">
 
         <li>
-          <a  class="dropdown-item"  :href="'/rainbow/oasis/membership?oasis_id='+oasisId">
+          <a  class="dropdown-item"  :href="subscribeMembershipUrl">
             <button type="button" class="btn  oasis-option">
             <i class="bi bi-cart me-1"></i> 订阅会员
             </button>
@@ -88,7 +102,7 @@ const OasisOptionCtlComponent = {
         </a>
     </li>
     <li v-if="initiatorRoleV()">
-      <a  class="dropdown-item" :href="'/rainbow/oasis/mini-assistant?oasis_id='+oasisId">
+      <a  class="dropdown-item" :href="channelAssistantUrl">
         <button type="button" class="btn oasis-option">
           <i class="bi bi-flask me-1"></i> 频道助手
         </button>
@@ -109,7 +123,7 @@ const OasisOptionCtlComponent = {
       </a>
     </li>
     <li v-if="initiatorRoleV()">
-      <a  class="dropdown-item"  :href="'/rainbow/oasis/setting?oasis_id='+oasisId">
+      <a  class="dropdown-item"  :href="settingUrl">
         <button type="button" class="btn  oasis-option">
           <i class="bi bi-gear me-1"></i> 部落设置
         </button>
@@ -123,7 +137,7 @@ const OasisOptionCtlComponent = {
       </a>
     </li>
     <li v-if="initiatorRoleV()">
-      <a  class="dropdown-item" :href="'/rainbow/office/department?oasis_id='+oasisId">
+      <a  class="dropdown-item" :href="officeUrl">
         <button  type="button" class="btn oasis-option">
           <i class="bi bi-diagram-3 me-1"></i> 后勤服务
         </button>

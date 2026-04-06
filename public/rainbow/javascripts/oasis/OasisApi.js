@@ -8,6 +8,8 @@ const OasisApi = {
     getAListOfInvitedOases,
     getAListOfJoinedOases,
     loadAnnounce,
+    loadAnnounceUsingHandle,
+    loadAnnounceUsingId,
     oasisSetting,
     putAvatar,
     putAnnounce,
@@ -43,8 +45,13 @@ async function getAListOfJoinedOases(brandId){
     const url ="/api/v1/team/joinedOases?brandId="+brandId;
     return axios.get(url);
 }
-async function getAnnounce(oasisId){
-    const url = "/api/v1/team/oasis/announce/{oasis_id}".replace("{oasis_id}",oasisId);
+async function getAnnounce(oasisId,oasisHandle,solution){
+    const dto ={
+        solution: solution,
+        oasisId: oasisId,
+        oasisHandle: oasisHandle
+    }
+    const url = "/api/v1/team/oasis/announce?"  + new URLSearchParams(dto).toString();
     return await axios.get(url);
 }
 async function oasisSetting(dto){
@@ -101,7 +108,13 @@ function inviteBrand(brandId,oasisId){
     return inviteBrandToOasis(dto);
 }
 function loadAnnounce(oasisId){
-    return getAnnounce(oasisId);
+    return getAnnounce(oasisId,'','1');
+}
+async function loadAnnounceUsingId(oasisId){
+    return getAnnounce(oasisId,'','1');
+}
+async function loadAnnounceUsingHandle(handle){
+    return getAnnounce('',handle,'2');
 }
  function fetchchannelList(oasisId){
     const channelSort = ref([])

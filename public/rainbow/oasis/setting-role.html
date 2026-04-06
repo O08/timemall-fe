@@ -27,21 +27,21 @@
         <col-nav-main>
           <nav>
             <div class="oasis-head">
-              <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+              <a :href="'/'+oasisHandle">
                 <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault"
                   @error.once="e => { e.target.src = oasisAvatarDefault }">
               </a>
               <div class="oasis-title">{{announce.title}}</div>
             </div>
             <div class="list-group list-group-flush">
-              <a :href="'/rainbow/oasis/setting?oasis_id='+oasisId" class="list-group-item">基础设置</a>
+              <a :href="'/'+oasisHandle+'/setting'" class="list-group-item">基础设置</a>
               <a href="#" class="list-group-item active">身份组</a>
-              <a :href="'/rainbow/oasis/setting-member?oasis_id='+oasisId" class="list-group-item">成员管理</a>
-              <a :href="'/rainbow/oasis/setting-membership?oasis_id='+oasisId" class="list-group-item">会员套餐</a>
-              <a :href="'/rainbow/oasis/setting-fast-link?oasis_id='+oasisId" class="list-group-item ">快速访问</a>
-              <a :href="'/rainbow/oasis/setting-invitation?oasis_id='+oasisId" class="list-group-item ">邀请</a>
-              <a :href="'/rainbow/oasis/setting-invitation-link?oasis_id='+oasisId" class="list-group-item">邀请链接</a>
-              <a :href="'/rainbow/oasis/setting-change-admin?oasis_id='+oasisId" class="list-group-item">管理权移交</a>
+              <a :href="'/'+oasisHandle+'/setting-member'" class="list-group-item">成员管理</a>
+              <a :href="'/'+oasisHandle+'/setting-membership'" class="list-group-item">会员套餐</a>
+              <a :href="'/'+oasisHandle+'/setting-fast-link'"  class="list-group-item ">快速访问</a>
+              <a :href="'/'+oasisHandle+'/setting-invitation'" class="list-group-item ">邀请</a>
+              <a :href="'/'+oasisHandle+'/setting-invitation-link'"  class="list-group-item">邀请链接</a>
+              <a :href="'/'+oasisHandle+'/setting-change-admin'"  class="list-group-item">管理权移交</a>
 
             </div>
           </nav>
@@ -179,7 +179,7 @@
       <!-- focus modal -->
       <div class="modal-container">
         <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable" style="max-width: 18rem;">
             <div class="modal-content">
               <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
                 <h1 class="modal-title fs-5">操作提示</h1>

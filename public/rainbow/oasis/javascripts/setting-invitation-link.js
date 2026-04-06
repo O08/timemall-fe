@@ -7,7 +7,6 @@ import Pagination  from "/common/javascripts/pagination-vue.js";
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
@@ -20,12 +19,12 @@ const oasisAvatarDefault = new URL(
     '/rainbow/images/oasis-default-building.jpeg',
     import.meta.url
 );
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
 
-const currentOasisId= getQueryVariable("oasis_id");
-if(!currentOasisId){
-    window.location.href="/rainbow/teixcalaanli";
-    return ;
-}
+const [currentOasisHandle,] = segments;
+
+
 
 const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
 
@@ -41,6 +40,7 @@ const RootComponent = {
         },
         oasisAvatarDefault,
         oasisId: "",
+        oasisHandle: "",
         announce: {},
         linkList_pagination: {
             url: "/api/v1/oasis/setting/invitation_link/query",
@@ -52,7 +52,10 @@ const RootComponent = {
             records: [],
             paging: {},
             param: {
-                oasisId: currentOasisId,
+                oasisId: "",
+            },
+            paramHandler: (info)=>{
+                info.param.oasisId = this.oasisId;
             },
             responesHandler: (response)=>{
                 if(response.code == 200){
@@ -85,7 +88,7 @@ const RootComponent = {
         },
 
         copyInvitationLinkToClipboardV(invitationCode){
-            const copyContent=currentDomain+"/oasis/invite/"+invitationCode;
+            const copyContent=currentDomain + "/" + this.oasisHandle + "/invite/"+invitationCode;
             copyValueToClipboard(copyContent);
         },
 
@@ -111,11 +114,11 @@ const RootComponent = {
 
            // q is blank, query all role
            let q='';
-           OasisApi.doFetchOasisRoles(currentOasisId, q).then(response => {
+           OasisApi.doFetchOasisRoles(this.oasisId, q).then(response => {
                 if (response.data.code == 200) {
         
                     this.roles = response.data.role?.filter(e=>e.roleCode!='admin');
-                    resetCreateInvitationLinkModel();
+                    resetCreateInvitationLinkModel(this.oasisId);
 
                     $("#createInvitationLinkModal").modal("show"); 
                 
@@ -129,26 +132,29 @@ const RootComponent = {
             });
 
         },
-        loadAnnounceV(){
-         
-            OasisApi.loadAnnounce(currentOasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.announce = response.data.announce;
-                    if(!this.announce || this.announce.initiator!=this.getIdentity().brandId){
-                        window.location.href="/rainbow/teixcalaanli";
-                    }
-                }
-            })
-        },
         renderExpireTimeV(dateStr){
             const expired= new Date(dateStr)  < new Date();
             return expired ? '已失效' : dateStr.replace(new RegExp('-', 'g'), '/');
+        },
+        async initPageDataV(){
+            const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+            if(response.data.code == 200){
+                this.announce = response.data.announce;
+          
+                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                    window.location.href = "/rainbow/teixcalaanli";
+                }
+
+                this.oasisId = this.announce.id;
+                this.oasisHandle= this.announce.handle;
+                this.pageInit(this.linkList_pagination);
+    
+            }
         }
         
     },
     created(){
-        this.loadAnnounceV();
-        this.oasisId =  getQueryVariable("oasis_id");
+
     }
 }
 
@@ -165,7 +171,7 @@ const settingInvitationLink = app.mount('#app');
 window.settingInvitationLinkPage = settingInvitationLink;
 
 // init
-settingInvitationLink.pageInit(settingInvitationLink.linkList_pagination);
+settingInvitationLink.initPageDataV();
 
 async function doDeleteOneLink(id){
     const url = "/api/v1/oasis/setting/invitation_link/{id}/del".replace("{id}",id);
@@ -186,12 +192,12 @@ async function newInvitationLink(link){
 
 }
 
-function resetCreateInvitationLinkModel(){
+function resetCreateInvitationLinkModel(oasisId){
 
     const publicRole=settingInvitationLink.roles?.filter(e=>e.roleCode=='public');
 
     settingInvitationLink.newInvitationLinkObj={
-        oasisId: currentOasisId,
+        oasisId: oasisId,
         maxUses: "1",
         grantedOasisRoleId: publicRole?.[0]?.id,
         expireTime: "1h"

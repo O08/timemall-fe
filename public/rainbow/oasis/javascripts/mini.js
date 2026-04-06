@@ -1,22 +1,22 @@
 import "/common/javascripts/import-jquery.js";
-import { createApp,watch } from "vue";
+import { createApp } from "vue";
 import Auth from "/estudio/javascripts/auth.js"
-import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js"
+import OasisAnnounceInterfaceComponent from "/rainbow/javascripts/compoent/OasisAnnounceInterfaceComponent.js"
 
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 
-import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
 
-const currentOasisId = getQueryVariable("oasis_id");
-const currentOch=getQueryVariable('och');
 
-const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,, currentOch] = segments;
+
 
 
 
@@ -28,11 +28,23 @@ const RootComponent = {
 
 
       return {
-        currentOasisId,
+        isLoadingMiniApp: true,
         currentOch,
-        channelSort, oaisiChannelList,getChannelDataV,
         appViewUrl: ""
       }
+    },
+    watch: {
+        oaisiChannelList: {
+            async handler(newList) {
+                if (newList && newList.length > 0) {
+                    const channelMetaInfo = this.getChannelDataV(currentOch, newList);
+                    document.title = channelMetaInfo.channelName;
+                    this.appViewUrl = channelMetaInfo.appViewUrl + currentOch;
+                }
+            },
+            deep: true, // Necessary if the array content changes but the reference doesn't
+            immediate: true // Optional: run immediately on load
+        }
     },
     methods: {
         handleJoinSuccessEventV(){
@@ -57,7 +69,7 @@ const RootComponent = {
 
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true,need_init: false}));
-app.mixin(OasisAnnounceComponent);
+app.mixin(OasisAnnounceInterfaceComponent);
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
@@ -72,16 +84,7 @@ const mini = app.mount('#app');
 window.oasisGroupMsgPage = mini;
 
 mini.userAdapter(); // auth.js init
-mini.loadAnnounceV(); // oasis announce component .js init
-mini.loadSubNav() // sub nav component .js init 
-mini.loadFastLink() // announce  component .js init 
-
-watch(oaisiChannelList, async (newQuestion, oldQuestion) => {
-    if (!!oaisiChannelList) {
-        const channelMetaInfo=getChannelDataV(currentOch,oaisiChannelList.value);
-        document.title = channelMetaInfo.channelName;
-        mini.appViewUrl = channelMetaInfo.appViewUrl+ currentOch;
-    }
-  })
+mini.loadSubNav(); // sub nav component .js init 
+mini.loadAnnounceAndFastLinkAndChannelListUseHandleV(currentOasisHandle);
 
 

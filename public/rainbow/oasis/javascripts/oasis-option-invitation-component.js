@@ -6,16 +6,23 @@ let customAlert = new CustomAlertModal();
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 
 const  OasisInvitationComponent = {
-  props: ['oasis_id'],
+  props: ['oasis_id','oasis_announce'],
   data () {
       return{
         oasisAvailableFriendsForInvation: [],
         oasisFriendsQueryParam:{
             q: "",
             oasisId: this.oasis_id
-        },
-        oasisUrl: EnvWebsite.PROD+"/rainbow/oasis/home?oasis_id=" + this.oasis_id
+        }
       }
+  },
+  computed: {
+    oasisHandleUrl() {
+        // Add a check to prevent errors before the data arrives
+        return this.oasis_announce?.handle 
+            ? EnvWebsite.PROD + "/" + this.oasis_announce.handle 
+            : "";
+    }
   },
   methods: {
     getAvailableFriendsWhenInvationV(){
@@ -37,7 +44,7 @@ const  OasisInvitationComponent = {
   },
   copyOasisInvitationLinkToClipboardV(){
 
-    const content =  this.oasisUrl;
+    const content =  this.oasisHandleUrl;
     copyValueToClipboard(content);
 
   },
@@ -99,7 +106,7 @@ const  OasisInvitationComponent = {
               <div class="invite-link-wrp">
                 <div class="link-content-block">
                   <input type="text" class="input-link"
-                  :value="oasisUrl" disabled>
+                  :value="oasisHandleUrl" disabled>
                 </div>
                 <div>
                   <button 

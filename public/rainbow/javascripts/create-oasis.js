@@ -183,14 +183,9 @@ async function markOasis(form){
     return await axios.put(url,form);
 }
 
-async function getAnnounce(oasisId){
-    const url = "/api/v1/team/oasis/announce/{oasis_id}".replace("{oasis_id}",oasisId);
-    return await axios.get(url);
-}
-
 function recoverOasisInfo(oasisId,_that){
   
-    getAnnounce(oasisId).then(response=>{
+    OasisApi.loadAnnounce(oasisId).then(response=>{
         if(response.data.code==200){
             createOasisPage.base.title = response.data.announce.title;
             createOasisPage.base.subTitle = response.data.announce.subTitle;

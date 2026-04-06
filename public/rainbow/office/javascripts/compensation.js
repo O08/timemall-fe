@@ -7,7 +7,6 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.js";
 
-import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
@@ -20,7 +19,11 @@ const oasisAvatarDefault = new URL(
   import.meta.url
 );
 
-const currentOasisId = getQueryVariable("oasis_id");
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,,] = segments;
 
 const RootComponent = {
     data() {
@@ -31,7 +34,7 @@ const RootComponent = {
           title: "",
           amount: "",
           description: "",
-          oasisId: currentOasisId,
+          oasisId: "",
           direction: "1"
         },
         editCompensationObjRaw: {},
@@ -42,7 +45,8 @@ const RootComponent = {
           id: "",
           status: ""
         },
-        oasisId: currentOasisId,
+        oasisId: "",
+        oasisHandle: "",
         salaryElementList_pagination: {
           url: "/api/v1/team/office/compensation/query",
           size: 10,
@@ -55,8 +59,11 @@ const RootComponent = {
               q: '',
               status: '',
               direction: '',
-              oasisId: currentOasisId
+              oasisId: ""
           },
+          paramHandler: (info)=>{
+            info.param.oasisId = this.oasisId;
+         },
           responesHandler: (response)=>{
               if(response.code == 200){
                   this.salaryElementList_pagination.size = response.compensation.size;
@@ -90,21 +97,6 @@ const RootComponent = {
 
         return false;
       },
-      loadAnnounceV() {
-        const oasisId = getQueryVariable("oasis_id");
-        if (!oasisId) {
-            window.location.href = "/rainbow/teixcalaanli";
-            return;
-        }
-        OasisApi.loadAnnounce(oasisId).then(response => {
-            if (response.data.code == 200) {
-                this.announce = response.data.announce;
-                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
-                    window.location.href = "/rainbow/teixcalaanli";
-                }
-            }
-        })
-      },
       searchV(){
         this.salaryElementList_pagination.current=1;
         this.salaryElementList_pagination.param.status="";
@@ -129,7 +121,7 @@ const RootComponent = {
           title: "",
           amount: "",
           description: "",
-          oasisId: currentOasisId,
+          oasisId: this.oasisId,
           direction: "1"
         };
 
@@ -187,7 +179,23 @@ const RootComponent = {
       },
       transformInputNumberAsPositiveDecimalV(e){
         return transformInputNumberAsPositiveDecimal(e);
-     },
+      },
+      async initPageDataV(){
+        const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+        if(response.data.code == 200){
+            this.announce = response.data.announce;
+      
+            if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                window.location.href = "/rainbow/teixcalaanli";
+            }
+
+            this.oasisId = this.announce.id;
+            this.oasisHandle= this.announce.handle;
+
+            this.pageInit(this.salaryElementList_pagination);
+
+        }
+      }
 
     },
     created(){
@@ -207,8 +215,7 @@ const officeCompensation = app.mount('#app');
 window.officeCompensationPage = officeCompensation;
 
 // init
-officeCompensation.loadAnnounceV();
-officeCompensation.pageInit(officeCompensation.salaryElementList_pagination);
+officeCompensation.initPageDataV();
 
 
 

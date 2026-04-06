@@ -3,14 +3,12 @@ import { createApp } from "vue";
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
-import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js"
+import OasisAnnounceInterfaceComponent from "/rainbow/javascripts/compoent/OasisAnnounceInterfaceComponent.js"
 import Pagination  from "/common/javascripts/pagination-vue.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import {CommissionTag} from "/common/javascripts/tm-constant.js";
-import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
 import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
@@ -18,9 +16,11 @@ import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
-const currentOasisId = getQueryVariable("oasis_id");
 
-const {channelSort, oaisiChannelList ,getChannelDataV} =  OasisApi.fetchchannelList(currentOasisId);
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
 
 const RootComponent = {
     components: {
@@ -40,7 +40,6 @@ const RootComponent = {
             },
 
             currentOch: "oasis-home",
-            channelSort, oaisiChannelList,getChannelDataV,
             commissionForm: {
               title: "",
               bonus: "",
@@ -80,7 +79,7 @@ const RootComponent = {
                     worker: ""
                 },
                 paramHandler: (info)=>{
-                    info.param.oasisId = currentOasisId;
+                    info.param.oasisId = this.oasisId;
                  },
                 responesHandler: (response)=>{
                     if(response.code == 200){
@@ -276,6 +275,10 @@ const RootComponent = {
         },
         transformInputNumberV(event){
            return transformInputNumberAsPositive(event);
+        },
+        commissionListInitV(oasisId){
+            if(!this.oasisId) this.oasisId = oasisId;
+            this.pageInit(this.commissionTb_pagination);
         }
     },
     updated(){
@@ -292,7 +295,7 @@ let app =  createApp(RootComponent);
 app.mixin(Pagination);
 app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(TeicallaanliSubNavComponent);
-app.mixin(OasisAnnounceComponent);
+app.mixin(OasisAnnounceInterfaceComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(CodeExplainComponent);
@@ -304,11 +307,10 @@ const teamCommission = app.mount('#app');
 
 window.teamCommission = teamCommission;
 // init 
-teamCommission.pageInit(teamCommission.commissionTb_pagination);
 teamCommission.userAdapter(); // auth.js init
-teamCommission.loadAnnounceV(); // oasis announce component .js init
 teamCommission.loadSubNav() // sub nav component .js init 
-teamCommission.loadFastLink() // announce  component .js init 
+teamCommission.loadAnnounceAndFastLinkAndChannelListUseHandleV(currentOasisHandle,teamCommission.commissionListInitV)
+
 async function newCommission(dto){
   const url ="/api/v1/team/commission";
   return axios.put(url,dto);
@@ -359,9 +361,8 @@ function examineTask(commissionId,tag){
     return doExamineTask(dto);
 }
 function addCommission(){
-    const oasisId = getQueryVariable("oasis_id");
     const dto ={
-        oasisId: oasisId,
+        oasisId: teamCommission.oasisId,
         title: teamCommission.commissionForm.title,
         bonus: teamCommission.commissionForm.bonus,
         sow: teamCommission.commissionForm.sow
@@ -385,10 +386,9 @@ function deleteCommission(id){
 }
 
 function receiveCommission(commissionId){
-    const oasisId = getQueryVariable("oasis_id");
     const brandId =  teamCommission.getIdentity().brandId; // Auth.getIdentity();
     const dto = {
-        oasisId: oasisId,
+        oasisId: teamCommission.oasisId,
         commissionId: commissionId,
         brandId: brandId
     }
@@ -428,6 +428,3 @@ function sortCommission(sort){
     teamCommission.commissionTb_pagination.current=1;
     teamCommission.reloadPage(teamCommission.commissionTb_pagination);
 } 
-function transformInputNumber(val,min,max){
-    return val < min ? "" : val > max ? max : val;
-  }

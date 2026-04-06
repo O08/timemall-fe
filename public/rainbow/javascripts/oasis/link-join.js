@@ -68,7 +68,7 @@ const RootComponent = {
                 const { code, message } = response.data;
                 switch (code) {
                     case 200:
-                        window.location.href = `/rainbow/oasis/home?oasis_id=${this.invitationInfo.oasisId}`;
+                        window.location.href = `/${this.invitationInfo.oasisHandle}`;
                         break;
                 
                     case 40030:

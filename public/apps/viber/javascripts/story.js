@@ -218,10 +218,7 @@ const RootComponent = {
         handleBackNavigationV(){
             // 如果有历史记录且不是直接打开的页面，则返回上一页
             if (window.history.length > 1 && document.referrer) {
-                // rainbow/oasis/mini?och=e085697a288049eda24f2ba1c1cd59fd&oasis_id=f24dfc75535c42a99a00081c6619a2d1
-                const vbChannelUrl= '/rainbow/oasis/mini?och=' + this.post.channel + '&oasis_id=' + this.post.oasisId;
-                window.location.href = vbChannelUrl;
-
+                window.history.back();
             } else {
                 // 否则跳转到首页
                 const nextUrl= this.post?.oasisId ? ('/rainbow/oasis/home?oasis_id=' + this.post.oasisId) : '/';

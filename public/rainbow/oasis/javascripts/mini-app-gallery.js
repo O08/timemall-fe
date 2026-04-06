@@ -3,7 +3,7 @@ import { createApp } from "vue";
 import axios from 'axios';
 
 import Auth from "/estudio/javascripts/auth.js";
-import OasisAnnounceComponent from "/rainbow/javascripts/compoent/OasisAnnounceComponent.js";
+import OasisAnnounceInterfaceComponent from "/rainbow/javascripts/compoent/OasisAnnounceInterfaceComponent.js"
 
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 
@@ -14,6 +14,12 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 let customAlert = new CustomAlertModal();
+
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
 
 
 const RootComponent = {
@@ -73,7 +79,7 @@ const RootComponent = {
 
 let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
-app.mixin(OasisAnnounceComponent);
+app.mixin(OasisAnnounceInterfaceComponent);
 app.mixin(TeicallaanliSubNavComponent);
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
@@ -87,7 +93,7 @@ const miniApp = app.mount('#app');
 
 window.miniAppPage = miniApp;
 
-miniApp.loadAnnounceV(); // oasis announce component .js init
+miniApp.loadAnnounceUseExternalOasisHandleV(currentOasisHandle); // oasis announce component .js init
 miniApp.loadSubNav() // sub nav component .js init 
 
 async function fetchAppList(){

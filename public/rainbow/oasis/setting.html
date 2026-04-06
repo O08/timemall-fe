@@ -23,20 +23,20 @@
         <col-nav-main>
         <nav>
           <div class="oasis-head">
-            <a :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+            <a :href="'/'+oasisHandle">
               <img  class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
             </a>
             <div class="oasis-title">{{announce.title}}</div>
           </div>
           <div class="list-group list-group-flush">
             <a href="#" class="list-group-item  active">基础设置</a>
-            <a :href="'/rainbow/oasis/setting-role?oasis_id='+oasisId" class="list-group-item">身份组</a>
-            <a :href="'/rainbow/oasis/setting-member?oasis_id='+oasisId" class="list-group-item">成员管理</a>
-            <a :href="'/rainbow/oasis/setting-membership?oasis_id='+oasisId" class="list-group-item">会员套餐</a>
-            <a :href="'/rainbow/oasis/setting-fast-link?oasis_id='+oasisId" class="list-group-item ">快速访问</a>
-            <a :href="'/rainbow/oasis/setting-invitation?oasis_id='+oasisId" class="list-group-item ">邀请</a>
-            <a :href="'/rainbow/oasis/setting-invitation-link?oasis_id='+oasisId" class="list-group-item">邀请链接</a>
-            <a :href="'/rainbow/oasis/setting-change-admin?oasis_id='+oasisId" class="list-group-item">管理权移交</a>
+            <a :href="'/'+oasisHandle+'/setting-role'" class="list-group-item">身份组</a>
+            <a :href="'/'+oasisHandle+'/setting-member'" class="list-group-item">成员管理</a>
+            <a :href="'/'+oasisHandle+'/setting-membership'" class="list-group-item">会员套餐</a>
+            <a :href="'/'+oasisHandle+'/setting-fast-link'" class="list-group-item ">快速访问</a>
+            <a :href="'/'+oasisHandle+'/setting-invitation'" class="list-group-item ">邀请</a>
+            <a :href="'/'+oasisHandle+'/setting-invitation-link'" class="list-group-item">邀请链接</a>
+            <a :href="'/'+oasisHandle+'/setting-change-admin'" class="list-group-item">管理权移交</a>
           </div>
         </nav>
       </col-nav-main>
@@ -96,15 +96,27 @@
           <div class="section-container">
             <div class="section_divider">
               <div class="label-color field-label">简介</div>
-                <div class="inputWrapper">
-                  <div class="inputMaxLength">
-                    <textarea v-model="putAnnounce.subTitle" type="text"  maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
-                    <div class="maxLength">{{ (!putAnnounce || !putAnnounce.subTitle) ? 200 : 200-putAnnounce.subTitle.length}}</div>
+              <div class="inputWrapper">
+                <div class="inputMaxLength">
+                  <textarea v-model="putAnnounce.subTitle" type="text" maxlength="200" rows="3" autocorrect="off"
+                    class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                  <div class="maxLength">{{ (!putAnnounce || !putAnnounce.subTitle) ? 200 : 200-putAnnounce.subTitle.length}}
                   </div>
                 </div>
               </div>
-  
             </div>
+          </div>
+
+          <div class="section-container">
+            <div class="section_divider">
+              <div class="label-color field-label">部落标识</div>
+              <div class="inputWrapper  flex-row">
+                <input v-model="putAnnounce.handle"   @input="transformInputTextV($event)" type="text" class="inputDefault" maxlength="32" placeholder="如 xiaomi.ai">
+                <div class="inputDefaultText">@blv.hub</div>
+              </div>
+              <div class="help-text marginTop8">由字母、数字、点组成的简单的身份字符串，更容易分享和传播，你可通过 https://bluvarri.com/标识@blv.hub 直接访问相应的部落主页，支持最大长度为32，未经许可，不要使用他人的商标数据，产生恶劣影响的将冻结相关账号</div>
+            </div>
+          </div>  
   
           <div class="section-container">
             <div class="section_divider">

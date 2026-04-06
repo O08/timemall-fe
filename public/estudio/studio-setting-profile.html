@@ -372,8 +372,8 @@
                       <span @click="showExplainModelV(4)" class="help-icon"><i class="bi bi-info-circle"></i></span>
                     </label>
                     <div class="input-group">
-                      <span class="input-group-text">@</span>
-                      <input type="text" @input="transformInputTextV($event)" id="input-identity-handle" maxlength="39" @change="btn_ctl.activate_general_save_btn = true" class="form-control" v-model="identity.handle" placeholder="唯一标识符" autocomplete="off">
+                      <input type="text" @input="transformInputTextV($event)" id="input-identity-handle" maxlength="32" @change="btn_ctl.activate_general_save_btn = true" class="form-control" v-model="identity.handle" placeholder="唯一标识符" autocomplete="off">
+                      <span class="input-group-text">@blv.bi</span>
                     </div>
                   </div>
                   

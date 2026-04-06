@@ -6,7 +6,6 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 
 import Pagination  from "/common/javascripts/pagination-vue.js";
 
-import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
@@ -16,6 +15,11 @@ import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 let customAlert = new CustomAlertModal();
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,,] = segments;
 
 const personManDefault = new URL(
   '/common/images/default-person-man.jpg',
@@ -28,7 +32,6 @@ const oasisAvatarDefault = new URL(
 );
 
 
-const currentOasisId = getQueryVariable("oasis_id");
 const RootComponent = {
     data() {
       return {
@@ -42,17 +45,18 @@ const RootComponent = {
         oasisAvatarDefault,
         oasisEmployeeQueryParam: "",
         announce: {},
-        oasisId: currentOasisId,
+        oasisId: "",
+        oasisHandle: "",
         payOneEmployeeTitle: "",
         batchGeneratePayrollObj:{
           title: "",
-          oasisId: currentOasisId,
+          oasisId: "",
           employeeStatus: "1"
         },
         perkPayrollObj: {
           title: "",
           employeeStatus: "1",
-          oasisId: currentOasisId,
+          oasisId: "",
           grossAmount: "",
           deduction: "",
           withholdAndRemitTax: ""
@@ -77,7 +81,10 @@ const RootComponent = {
           param: {
               q: '',
               status: '',
-              oasisId: currentOasisId
+              oasisId: ''
+          },
+          paramHandler: (info)=>{
+            info.param.oasisId = this.oasisId;
           },
           responesHandler: (response)=>{
               if(response.code == 200){
@@ -103,21 +110,6 @@ const RootComponent = {
           return false;
         }
         return true;
-      },
-      loadAnnounceV() {
-        const oasisId = getQueryVariable("oasis_id");
-        if (!oasisId) {
-            window.location.href = "/rainbow/teixcalaanli";
-            return;
-        }
-        OasisApi.loadAnnounce(oasisId).then(response => {
-            if (response.data.code == 200) {
-                this.announce = response.data.announce;
-                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
-                    window.location.href = "/rainbow/teixcalaanli";
-                }
-            }
-        })
       },
       loadDashboardV(){
         loadDashboard();
@@ -212,7 +204,7 @@ const RootComponent = {
       showPayGeneralModalV(){
         this.batchGeneratePayrollObj={
           title: "",
-          oasisId: currentOasisId,
+          oasisId: this.oasisId,
           employeeStatus: "1"
         }
         $("#payGeneralModal").modal("show");
@@ -230,7 +222,7 @@ const RootComponent = {
         this.perkPayrollObj={
           title: "",
           employeeStatus: "1",
-          oasisId: currentOasisId,
+          oasisId: this.oasisId,
           grossAmount: "",
           deduction: "",
           withholdAndRemitTax: ""
@@ -258,6 +250,23 @@ const RootComponent = {
       },
       renderTableDateV(dateStr){
         return !dateStr ? "": dateStr.replace(new RegExp('-', 'g'), '/');
+      },
+      async initPageDataV(){
+        const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+        if(response.data.code == 200){
+            this.announce = response.data.announce;
+      
+            if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                window.location.href = "/rainbow/teixcalaanli";
+            }
+
+            this.oasisId = this.announce.id;
+            this.oasisHandle= this.announce.handle;
+
+            this.pageInit(this.payrollList_pagination);
+            this.loadDashboardV();
+
+        }
       }
 
     },
@@ -278,9 +287,8 @@ const officePayroll = app.mount('#app');
 window.officePayrollPage = officePayroll;
 
 // init
-officePayroll.loadAnnounceV();
-officePayroll.pageInit(officePayroll.payrollList_pagination);
-officePayroll.loadDashboardV();
+officePayroll.userAdapter();
+officePayroll.initPageDataV();
 
 
 async function doFetchPayrollDashboard(oasisId){
@@ -344,7 +352,7 @@ async function generateOnePayroll(employee,payOneEmployeeTitle){
     });
 }
 async function loadEmployeeList(oasisEmployeeQueryParam){
-  const response = await fetchEmployeeList(currentOasisId,oasisEmployeeQueryParam);
+  const response = await fetchEmployeeList(officePayroll.oasisId,oasisEmployeeQueryParam);
   var data = await response.json();
   if(data.code==200){
      officePayroll.employeeList=data.employee.records;
@@ -380,7 +388,7 @@ async function generatePayrollByEmployeeStatus(param){
 }
 
 async function loadDashboard(){
-    doFetchPayrollDashboard(currentOasisId).then(response=>{
+    doFetchPayrollDashboard(officePayroll.oasisId).then(response=>{
       if (response.data.code == 200) {
         officePayroll.dashboard=response.data.dashboard;
         if(!officePayroll.dashboard){

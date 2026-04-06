@@ -23,6 +23,8 @@ const defaultCellPreviewImage = new URL(
     import.meta.url
 );
 
+const brandHandleSuffix="@blv.bi";
+
 const RootComponent = {
     data() {
         return {
@@ -139,7 +141,7 @@ async function loadBrandGuide(){
          accessWay=BrandAccessWay.RAW;
          param=brandId;
     }
-    if(urlParam.startsWith("@")){
+    if(urlParam.endsWith(brandHandleSuffix)){
         accessWay=BrandAccessWay.HANDLE;
     }
     const dto={

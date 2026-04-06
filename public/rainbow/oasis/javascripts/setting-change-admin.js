@@ -5,12 +5,16 @@ import axios from "axios";
 import Auth from "/estudio/javascripts/auth.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 
 
 let customAlert = new CustomAlertModal();
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
 
 const oasisAvatarDefault = new URL(
     '/rainbow/images/oasis-default-building.jpeg',
@@ -23,6 +27,7 @@ const RootComponent = {
         init_finish: false,
         oasisAvatarDefault,
         oasisId: "",
+        oasisHandle: "",
         announce: {},
         members:[],
         q: "",
@@ -49,22 +54,7 @@ const RootComponent = {
 
         },
         changeManagerV(){
-            changeManager(this.oasisId,this.changeAdminModalObj);
-        },
-        loadAnnounceV(){
-            const oasisId =  getQueryVariable("oasis_id");
-            if(!oasisId){
-                window.location.href="/rainbow/teixcalaanli";
-                return ;
-            }
-            OasisApi.loadAnnounce(oasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.announce = response.data.announce;
-                    if(!this.announce || this.announce.initiator!=this.getIdentity().brandId){
-                        window.location.href="/rainbow/teixcalaanli";
-                    }
-                }
-            })
+            changeManager(this.oasisId,this.oasisHandle,this.changeAdminModalObj);
         },
         formatDateV(datestr) {
             var date = new Date(datestr);
@@ -80,12 +70,26 @@ const RootComponent = {
             return `${year}年${month}月${day}日`;
         
       
+        },
+        async initPageDataV(){
+            const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+            if(response.data.code == 200){
+                this.announce = response.data.announce;
+          
+                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                    window.location.href = "/rainbow/teixcalaanli";
+                }
+
+                this.oasisId = this.announce.id;
+                this.oasisHandle= this.announce.handle;
+
+                this.fetchOasisMemberV();
+            }
         }
         
     },
     created(){
-        this.loadAnnounceV();
-        this.oasisId =  getQueryVariable("oasis_id");
+
     },
     updated(){
         
@@ -114,7 +118,7 @@ const settingChangeManager = app.mount('#app');
 window.settingChangeManagerPage = settingChangeManager;
 
 // init
-settingChangeManager.fetchOasisMemberV()
+settingChangeManager.initPageDataV()
 
 async function doFetchOasisMember(oasisId,q){
     const url = "/api/v1/team/oasis/member/query?current=1&size=100&q=" + q + "&oasisId=" + oasisId;
@@ -125,7 +129,7 @@ async function doChangeOasisAdmin(dto){
     const url = "/api/v1/team/oasis/manager/change";
     return await axios.put(url,dto);
 }
-async function changeManager(oasisId,changeAdminModalObj){
+async function changeManager(oasisId,oasisHandle,changeAdminModalObj){
    const dto={
     oasisId: oasisId,
     newManagerBrandId: changeAdminModalObj.newManagerBrandId,
@@ -133,7 +137,7 @@ async function changeManager(oasisId,changeAdminModalObj){
    }
    doChangeOasisAdmin(dto).then(response=>{
         if(response.data.code==200){
-            window.location.href="/rainbow/oasis/home?oasis_id="+oasisId;
+            window.location.href='/'+oasisHandle;
         }
         if(response.data.code!=200){
             const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;

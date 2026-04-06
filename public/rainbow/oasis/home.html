@@ -43,7 +43,7 @@
                 <i class="bi bi-soundwave"></i>             
               </div>
             </a>
-            <a :key="oasis.id" v-for="oasis in joinedoases.records"  :href="'/rainbow/oasis/home?oasis_id='+oasis.id" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
+            <a :key="oasis.id" v-for="oasis in joinedoases.records"  :href="'/'+oasis.handle" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" :data-bs-content="oasis.title">
               <div class="nav-item-default  d-flex align-items-center justify-content-center   ms-3 mt-2"
                    :class="{'active': oasis.id==oasisId}">
                 <div class="oasis-avatar-wrapper">
@@ -94,7 +94,7 @@
           </div>
         </col-nav-main>
         <col-nav-sub>
-          <div>
+          <div v-if="oasisId">
             <oasisoptions  @unfollow-success="handleUnfollowSuccessEventV" @follow-success="handleJoinSuccessEventV"  ref="oasisinvitationModal"  :joinedoasis="joinedoases" :oasis_announce="announce"  :oasis_id="oasisId"  :brand_id="getIdentity().brandId"/>
           </div>
         <div class="nav-sub-container">
@@ -117,7 +117,7 @@
             :class="{
               'nva-link-default': currentOch!=channel,
               'nav-sub-link-active ':  currentOch==channel}"
-                class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/rainbow/oasis/mini?och='+getChannelDataV(channel,oaisiChannelList).oasisChannelId + '&oasis_id=' + oasisId">
+                class="nav-link   p-2 ms-3  d-flex flex-row align-items-center" :href="'/' + oasisHandle + '/channel/' + getChannelDataV(channel,oaisiChannelList).oasisChannelId">
            
               <img :src="getChannelDataV(channel,oaisiChannelList).appLogo" alt="logo">
               <span class="link-title">{{getChannelDataV(channel,oaisiChannelList).channelName}}</span>  
@@ -162,15 +162,15 @@
       <div class="oasis-nav-tabs">
         <div class="nav-tabs-inner">
           <nav class="tabs-list">
-            <a class="tab-item active"  :href="'/rainbow/oasis/home?oasis_id='+oasisId">
+            <a class="tab-item active"  :href="'/'+oasisHandle">
               <i class="bi bi-megaphone"></i>
               <span>公告</span>
             </a>
-            <a class="tab-item" :href="'/rainbow/oasis/commission?oasis_id='+oasisId">
+            <a class="tab-item" :href="'/'+oasisHandle+'/commission'">
               <i class="bi bi-stickies"></i>
               <span>委托</span>
             </a>
-            <a class="tab-item" :href="'/rainbow/oasis/value-journey?oasis_id='+oasisId">
+            <a class="tab-item" :href="'/'+oasisHandle+'/metrics'">
               <i class="bi bi-activity"></i>
               <span>数据</span>
             </a>

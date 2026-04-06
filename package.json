@@ -10,7 +10,7 @@
     "build-watch": "parcel watch './public/**/*.html' --public-url / --dist-dir dist/",
     "start-watch": "nodemon ./bin/www.mjs",
     "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
-    "build": "parcel build './public/**/*.html'",
+    "build": "parcel build './public/**/*.html' --no-source-maps",
     "start": "npm run build && node ./bin/www.mjs"
   },
   "dependencies": {

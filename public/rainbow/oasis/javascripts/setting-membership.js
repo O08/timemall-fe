@@ -4,7 +4,6 @@ import axios from "axios";
 import Auth from "/estudio/javascripts/auth.js"
 import { ImageAdaptiveComponent } from '/common/javascripts/compoent/image-adatpive-compoent.js';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import { transformInputNumberAsPositiveDecimal,transformInputNumberAsPositive } from "/common/javascripts/util.js";
 import {ProductStatus} from "/common/javascripts/tm-constant.js";
@@ -16,6 +15,11 @@ import {ModelSelect}  from 'vue-search-select';
 
 import { CustomAlertModal } from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
+
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
 
 const oasisAvatarDefault = new URL(
     '/rainbow/images/oasis-default-building.jpeg',
@@ -31,6 +35,7 @@ const RootComponent = {
             init_finish: false,
             oasisAvatarDefault,
             oasisId: "",
+            oasisHandle: "",
             announce: {},
             tiers: [],
 
@@ -202,21 +207,6 @@ const RootComponent = {
         configPermissionV(channel){
             configPermission(this.configRoleChannelModalObj.roleId,channel);
         },
-        loadAnnounceV() {
-            const oasisId = getQueryVariable("oasis_id");
-            if (!oasisId) {
-                window.location.href = "/rainbow/teixcalaanli";
-                return;
-            }
-            OasisApi.loadAnnounce(oasisId).then(response => {
-                if (response.data.code == 200) {
-                    this.announce = response.data.announce;
-                    if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
-                        window.location.href = "/rainbow/teixcalaanli";
-                    }
-                }
-            })
-        },
 
         transformInputNumberAsPositiveDecimalV(e){
            return transformInputNumberAsPositiveDecimal(e);
@@ -260,11 +250,26 @@ const RootComponent = {
             tierThumbnailFileUrl: "",
           }
         },
+        async initPageDataV(){
+            const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+            if(response.data.code == 200){
+                this.announce = response.data.announce;
+          
+                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                    window.location.href = "/rainbow/teixcalaanli";
+                }
+
+                this.oasisId = this.announce.id;
+                this.oasisHandle= this.announce.handle;
+
+                this.fetchOasisMembershipTiersV();
+                this.fetchOasisRolesV();
+
+            }
+        }
 
     },
     created() {
-        this.loadAnnounceV();
-        this.oasisId = getQueryVariable("oasis_id");
     },
     updated() {
 
@@ -295,8 +300,7 @@ window.settingMembershipPage = settingMembership;
 
 // init
 settingMembership.userAdapter(); // auth.js
-settingMembership.fetchOasisMembershipTiersV();
-settingMembership.fetchOasisRolesV();
+settingMembership.initPageDataV();
 
 async function doFetchOasisMembershipTier(oasisId) {
     const url = "/api/v1/team/membership/tier/query?oasisId=" + oasisId;

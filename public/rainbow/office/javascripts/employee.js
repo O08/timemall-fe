@@ -7,7 +7,6 @@ import Auth from "/estudio/javascripts/auth.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import Pagination  from "/common/javascripts/pagination-vue.js";
 
-import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 import { transformInputNumberAsPositiveDecimal } from "/common/javascripts/util.js";
@@ -22,14 +21,19 @@ const oasisAvatarDefault = new URL(
   import.meta.url
 );
 
-const currentOasisId = getQueryVariable("oasis_id");
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,,] = segments;
+
 
 const RootComponent = {
     data() {
       return {
         oasisAvatarDefault,
         announce: {},
-        oasisId: currentOasisId,
+        oasisId: "",
+        oasisHandle: "",
         departmentOptions: [],
         departmentSelectedItem: "",
         newEmployeeObj: initNewEmployeeModal(),
@@ -45,7 +49,10 @@ const RootComponent = {
               q: '',
               status: '',
               genre: '',
-              oasisId: currentOasisId
+              oasisId: ''
+          },
+          paramHandler: (info)=>{
+            info.param.oasisId = this.oasisId;
           },
           responesHandler: (response)=>{
               if(response.code == 200){
@@ -74,21 +81,6 @@ const RootComponent = {
           return false
         }
         return true;
-      },
-      loadAnnounceV() {
-        const oasisId = getQueryVariable("oasis_id");
-        if (!oasisId) {
-            window.location.href = "/rainbow/teixcalaanli";
-            return;
-        }
-        OasisApi.loadAnnounce(oasisId).then(response => {
-            if (response.data.code == 200) {
-                this.announce = response.data.announce;
-                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
-                    window.location.href = "/rainbow/teixcalaanli";
-                }
-            }
-        })
       },
       searchEmployeeListV(){
         this.employeeList_pagination.current=1;
@@ -170,6 +162,23 @@ const RootComponent = {
       },
       transformInputTextV(e){
           return transformInputText(e);
+      },
+      async initPageDataV(){
+          const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+          if(response.data.code == 200){
+              this.announce = response.data.announce;
+        
+              if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                  window.location.href = "/rainbow/teixcalaanli";
+              }
+  
+              this.oasisId = this.announce.id;
+              this.oasisHandle= this.announce.handle;
+  
+              this.pageInit(this.employeeList_pagination);
+              this.loadDepartmentListV();
+  
+          }
       }
 
     },
@@ -193,9 +202,7 @@ window.officeEmployeePage = officeEmployee;
 
 // init
 officeEmployee.userAdapter(); // auth.js
-officeEmployee.loadAnnounceV();
-officeEmployee.pageInit(officeEmployee.employeeList_pagination);
-officeEmployee.loadDepartmentListV();
+officeEmployee.initPageDataV();
 
 async function fetchDepartmentList(oasisId){
   const url="/api/v1/team/office/department/query?size=200&current=1&oasisId="+oasisId;
@@ -221,7 +228,7 @@ async function addOneEmployee(employee){
 }
 
 async function loadDepartmentList(appObj){
-  const response = await fetchDepartmentList(currentOasisId);
+  const response = await fetchDepartmentList(appObj.oasisId);
   var data = await response.json();
   if(data.code==200){
      var departmentArr=[];

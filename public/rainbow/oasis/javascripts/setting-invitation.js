@@ -4,7 +4,6 @@ import Auth from "/estudio/javascripts/auth.js"
 
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
-import { getQueryVariable } from "/common/javascripts/util.js";
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -16,12 +15,17 @@ const oasisAvatarDefault = new URL(
     '/rainbow/images/oasis-default-building.jpeg',
     import.meta.url
 );
+const pathname = window.location.pathname; 
+const segments = pathname.split('/').filter(Boolean); // filter(Boolean) removes empty strings from leading/trailing slashes
+
+const [currentOasisHandle,] = segments;
 
 const RootComponent = {
     data() {
       return {
         oasisAvatarDefault,
         oasisId: "",
+        oasisHandle: "",
         announce: {},
         putAnnounce: {}
       }
@@ -45,31 +49,29 @@ const RootComponent = {
                 }
             });
         },
-        loadAnnounceV(){
-            const oasisId =  getQueryVariable("oasis_id");
-            if(!oasisId){
-                window.location.href="/rainbow/teixcalaanli";
-                return ;
-            }
-            OasisApi.loadAnnounce(oasisId).then(response=>{
-                if(response.data.code == 200){
-                    this.announce = response.data.announce;
-                    if(!this.announce || this.announce.initiator!=this.getIdentity().brandId){
-                        window.location.href="/rainbow/teixcalaanli";
-                    }
-                    this.putAnnounce=JSON.parse(JSON.stringify(this.announce));
-                }
-            })
-        },
         settingAlreadyChangeV(){
-            return this.announce.title!=this.putAnnounce.title || this.announce.subTitle!=this.putAnnounce.subTitle || this.announce.risk!=this.putAnnounce.risk
+            return  this.announce.handle!=this.putAnnounce.handle  || this.announce.title!=this.putAnnounce.title || this.announce.subTitle!=this.putAnnounce.subTitle || this.announce.risk!=this.putAnnounce.risk
              || this.announce.canAddMember!=this.putAnnounce.canAddMember || this.announce.forPrivate!=this.putAnnounce.forPrivate || this.announce.privateCode!=this.putAnnounce.privateCode;
+        },
+        async loadAnnounceV(){
+            const response = await OasisApi.loadAnnounceUsingHandle(currentOasisHandle);
+            if(response.data.code == 200){
+                this.announce = response.data.announce;
+          
+                if (!this.announce || this.announce.initiator != this.getIdentity().brandId) {
+                    window.location.href = "/rainbow/teixcalaanli";
+                }
+
+                this.putAnnounce=JSON.parse(JSON.stringify(this.announce));
+
+                this.oasisId = this.announce.id;
+                this.oasisHandle= this.announce.handle;
+
+            }
         }
         
     },
     created(){
-        this.loadAnnounceV();
-        this.oasisId =  getQueryVariable("oasis_id");
     },
     updated(){
         
@@ -98,6 +100,8 @@ app.config.compilerOptions.isCustomElement = (tag) => {
 }
 
 const settingInvitation = app.mount('#app');
+
+settingInvitation.loadAnnounceV();
 
 window.oasisSettingInvitationPage = settingInvitation;
 
@@ -134,7 +138,8 @@ function saveSetting(announce){
         privateCode: announce.privateCode,
         risk: announce.risk,
         subTitle: announce.subTitle,
-        title: announce.title
+        title: announce.title,
+        handle: announce.handle
     }
    return OasisApi.oasisSetting(dto);
 }
