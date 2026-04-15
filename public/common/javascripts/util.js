@@ -73,6 +73,33 @@ export function transformInputNumberAsPositiveDecimal(e){
       e.currentTarget.dispatchEvent(new Event('input')); // update v-model
     }
 }
+export function transformInputNumberAsRangePositiveDecimal(e){
+
+    var rawVal=e.target.value;
+
+    var val = e.target.value.match(/\d+(\.\d{0,2})?/) ? e.target.value.match(/\d+(\.\d{0,2})?/)[0] : '';// type positve number
+    const valChanged=rawVal!=val;
+
+    var min = Number(e.target.min);
+    var max = Number(e.target.max);
+    e.target.value = transformInputNumberRangeDecimal(val,min, max);
+    const firstCodeIsZero= e.data=='0' && !e.target.value;
+    const supportCodes = ["0", "1", "2","3","4","5","6","7","8","9","."];
+    const inputCodeValid = !!e.data && !supportCodes.includes(e.data);
+    const isDoubleDotHandle=val.includes('.') && e.data=='.';
+
+    const needUpdate = firstCodeIsZero || valChanged || (Number(val) != Number(e.target.value)) || inputCodeValid || isDoubleDotHandle;
+
+
+    if(needUpdate){
+      e.currentTarget.dispatchEvent(new Event('input')); // update v-model
+    }
+}
+
+function transformInputNumberRangeDecimal(val,min,max){
+    if(Number(val) < Number(min)) return "";
+    return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val.endsWith(".0") ? val : Number(val);
+}
 
 function transformInputNumberDecimal(val,max){
     return  Number(val) > Number(max) ? max : val.split('').pop() === '.' || !val || val.endsWith(".0") ? val : Number(val);
@@ -193,22 +220,16 @@ export function validateEmailOrPhoneInput(input) {
   return combinedRegex.test(input);
 }
 
-export function renderDateInChina(dateStr){
-    if(!dateStr){
-        return ""
-    }
-       
-    var targetDate =new Date(dateStr);
-    const year=targetDate.getFullYear();
-    const month=targetDate.getMonth()+1;
-    const day=targetDate.getDate();
-    const hour=targetDate.getHours();
-    const minute=targetDate.getMinutes();
+const formatter = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric', month: 'long', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', hour12: false
+});
 
-    return `${year}年${month}月${day}日 ${hour}:${minute}`;
-
+export function renderDateInChina(dateStr) {
+    if (!dateStr) return "";
+    return formatter.format(new Date(dateStr));
 }
-
 export function renderDateToDayInChina(dateStr){
     if(!dateStr){
         return ""

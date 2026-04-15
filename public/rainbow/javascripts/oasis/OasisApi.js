@@ -21,7 +21,9 @@ const OasisApi = {
     doFetchOasisRoles,
     muteUser,
     unmuteUser,
-    fetchUserCtaInfo
+    fetchUserCtaInfo,
+    retrieveBrandFinInfo,
+    loadOasisLatestPeriodEquitySummary
 }
 async function putAnnounce(oasisId,files){
     var fd = new FormData();
@@ -72,10 +74,12 @@ async function getOasisFinInfo(oasisId){
     const url="/api/v1/team/oasis_finance_board?oasisId=" + oasisId;
     return await axios.get(url);
 }
-
-async function retrieveOasisFinInfo(oasisId){
-    return getOasisFinInfo(oasisId);
+async function getBrandFinInfo(){
+    const url= "/api/v1/team/finance_board";
+    return await axios.get(url);
 }
+  
+
 
 
 function fetchFriendListNotInOasis(q,oasisId){
@@ -140,6 +144,7 @@ function followOasis(oasisId,privateCode){
 
 }
 
+
 function fetchFastLinks(id){
 
     const url = "/api/v1/oasis/{id}/fast_link".replace("{id}",id);
@@ -164,6 +169,24 @@ async function doUnmuteOneUser(channel,userId){
     const url="/api/v1/app/oasis/{channel}/user/{id}/unmute".replace("{channel}",channel).replace("{id}",userId);
     return await axios.put(url,{})
 }
+
+async function doFetchOasisLatestPeriodEquitySummary(oasisId){
+    const url = "/api/v1/team/oasis/{id}/equity/latest_period/summary".replace("{id}",oasisId);
+    return await axios.get(url);
+}
+
+function retrieveBrandFinInfo(){
+    return getBrandFinInfo();
+  }
+
+async function retrieveOasisFinInfo(oasisId){
+    return getOasisFinInfo(oasisId);
+}
+
+async function loadOasisLatestPeriodEquitySummary(oasisId){
+    return await doFetchOasisLatestPeriodEquitySummary(oasisId);
+}
+
 
 
 const muteUser = async (channel,userId)=>{

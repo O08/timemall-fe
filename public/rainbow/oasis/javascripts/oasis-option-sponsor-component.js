@@ -43,7 +43,7 @@ const  OasisOptionSponsorComponent = {
         });
     },
     retrieveBrandFinInfoV(){
-      retrieveBrandFinInfo().then(response=>{
+      OasisApi.retrieveBrandFinInfo().then(response=>{
           if(response.data.code == 200){
               this.brandAccount.drawable = response.data.billboard.drawable;
           }
@@ -103,14 +103,7 @@ function closeTopUpOasisModel(){
   $("#topUpToOasisModal").modal("hide");
 }
 
-async function getBrandFinInfo(){
-  const url= "/api/v1/team/finance_board";
-  return await axios.get(url);
-}
 
-function retrieveBrandFinInfo(){
-  return getBrandFinInfo();
-}
 async function showOasisSponsorModal(retrieveOasisFinInfoV,retrieveBrandFinInfoV){
   await retrieveOasisFinInfoV();
   await retrieveBrandFinInfoV();

@@ -281,8 +281,18 @@ var AppViberFileSceneEnum = Object.freeze({
     "LOCAL_VIDEO": "local_video"
 });
 
+var OasisEquityOrderStatusEnum = Object.freeze({
+    "HOLDING": "1",
+    "REDEEMED": "2",
+    "WRITE_OFF": "3",
+    "BUY_PENDING": "4",
+    "REDEEM_PENDING": "5",
+    "WRITE_OFF_PENDING": "6"
+});
+
+
 export {
-    AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,
+    AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,OasisEquityOrderStatusEnum,
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
     EmailNoticeEnum,RefundSceneEnum,CellPlanOrderTag,CellPlanType,SseEventBusScene,GroupChatPolicyRel,FromWhere,DataLayerCellEvent,

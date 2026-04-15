@@ -1,4 +1,4 @@
-import {MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -56,6 +56,9 @@ const CodeExplainComponent = {
     },
     explainMembershipOrderStatusV(status){
         return explainMembershipOrderStatus(status);
+    },
+    explainOasisEquityOrderStausV(status){
+      return explainOasisEquityOrderStaus(status);
     }
    }
 }
@@ -476,6 +479,33 @@ function explainMentorshipStaus(status){
     return statusDesc;
 
 }
+
+function explainOasisEquityOrderStaus(status){
+    var statusDesc="未知";
+    switch(status){
+      case OasisEquityOrderStatusEnum.HOLDING:
+        statusDesc="待回收"
+          break;
+      case OasisEquityOrderStatusEnum.REDEEMED:
+        statusDesc="已注销"
+          break;
+      case OasisEquityOrderStatusEnum.WRITE_OFF:
+        statusDesc="已核销"
+          break;   
+      case OasisEquityOrderStatusEnum.BUY_PENDING:
+      statusDesc="正在支付"
+          break;
+      case OasisEquityOrderStatusEnum.REDEEM_PENDING:
+      statusDesc="正在回收"
+          break;
+      case OasisEquityOrderStatusEnum.WRITE_OFF_PENDING:
+      statusDesc="正在兑换"
+          break;  
+    }
+    return statusDesc;
+
+}
+
 
 function explainMentorshipHonor(mentorHonor){
     if(!mentorHonor) return ;

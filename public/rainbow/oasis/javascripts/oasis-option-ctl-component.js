@@ -25,6 +25,9 @@ const OasisOptionCtlComponent = {
       settingUrl(){
         return "/" + this.oasis_announce.handle+ "/setting";
       },
+      equityUrl(){
+        return "/" + this.oasis_announce.handle+ "/equity";
+      }
     },
     methods: {
       inOasisV(){
@@ -95,6 +98,13 @@ const OasisOptionCtlComponent = {
       </button>
       </a>
     </li>
+    <li>
+      <a  class="dropdown-item"  :href="equityUrl">
+        <button type="button" class="btn  oasis-option">
+        <i class="bi bi-moon-stars me-1"></i> 权益赞助
+        </button>
+      </a>
+    </li>
     <li><a class="dropdown-item">
       <button @click="showCollectAccountModalV" v-preventreclick   type="button" class="btn  oasis-option" >
         <i class="bi bi-coin me-1"></i> 每日收账
@@ -104,7 +114,7 @@ const OasisOptionCtlComponent = {
     <li v-if="initiatorRoleV()">
       <a  class="dropdown-item" :href="channelAssistantUrl">
         <button type="button" class="btn oasis-option">
-          <i class="bi bi-flask me-1"></i> 频道助手
+          <i class="bi bi-wrench-adjustable-circle me-1"></i> 频道助手
         </button>
       </a>
     </li>

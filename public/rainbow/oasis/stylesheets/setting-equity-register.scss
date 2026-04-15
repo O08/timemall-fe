@@ -1,0 +1,737 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.header-content h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 8px;
+}
+
+.header-content p {
+    color: #c4c9ce;
+    font-size: 14px;
+}
+
+.issue-btn {
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    color: white;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s;
+}
+
+.issue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(59, 130, 246, 0.5);
+}
+
+
+.balance-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.balance-amount {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+
+.balance-desc {
+    color: #c4c9ce;
+    font-size: 14px;
+    position: relative;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.custom-tooltip {
+    position: absolute;
+    background: #1e293b;
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    min-width: 200px;
+    z-index: 10;
+}
+
+.tooltip-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #334155;
+}
+
+.tooltip-month {
+    font-weight: 700;
+    color: #e2e8f0;
+}
+
+.tooltip-balance {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 0.5rem;
+}
+
+
+
+
+.card {
+    background: linear-gradient(15deg, #212121, #141414);
+    border: 2px solid #232428;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.chart-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.chart-header svg {
+    width: 20px;
+    height: 20px;
+}
+
+.chart-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.chart-desc {
+    color: #c4c9ce;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.chart-container {
+    background: #1212129d;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.line-chart-blank{
+    background: #1212129d;
+    height: 100%;
+    color: #c4c9ce;
+    display: flex;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
+.equity-pie-chart {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.pie-chart-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pie-element {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pie-element-rect {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.pie-element-label {
+    color: #c4c9ce;
+    font-size: 14px;
+    min-width: 50px;
+}
+
+.pie-element-content {
+    color: #f8fafc;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* 简化的折线图（使用SVG） */
+.line-chart {
+    width: 100%;
+    height: 100%;
+}
+
+/* 表格 */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: #141414;
+    border-bottom: 2px solid #334155;
+}
+
+th {
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #c4c9ce;
+}
+
+tbody tr {
+    border-bottom: 1px solid #334155;
+    background: linear-gradient(45deg, #21212110, #1414149d);
+}
+
+tbody tr:hover {
+    background: #33415510;
+}
+
+td {
+    padding: 16px;
+    color: #f8fafc;
+}
+
+.empty-state {
+    height: 300px;
+    text-align: center;
+}
+
+.empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+}
+
+.empty-content i {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.empty-content p {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+
+.period-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.period-number {
+    font-size: 24px;
+    font-weight: 800;
+    color: #f8fafc;
+}
+
+.period-label {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge.active {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.multiplier {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.progress-cell {
+    min-width: 120px;
+}
+
+.progress-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f8fafc;
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #333;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.5s ease;
+}
+
+.progress-fill.sales {
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+.progress-fill.sales.full {
+    background: linear-gradient(90deg, #f43f5e, #ec4899);
+}
+
+.progress-fill.repurchase {
+    background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.form-cta-container {
+    display: flex;
+    gap: 12px;
+    border: none;
+
+    .button {
+        cursor: pointer;
+        border: none;
+        border-radius: 8px;
+        flex: 1;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all .3s;
+    }
+
+    .button-cancel {
+        background: #334155;
+        color: #cbd5e1;
+    }
+
+    .button-cancel:hover {
+        background: #475569;
+    }
+
+    .button-confirm {
+        background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        color: white;
+    }
+
+    .button-confirm:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+        transform: translateY(-1px);
+    }
+
+    .button-confirm:disabled {
+        background: #475569;
+        color: #c4c9ce;
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+#issueEquityModal {
+
+    /* 模态框样式增强 */
+    .modal-content {
+        background: linear-gradient(15deg, #212121, #141414);
+        border: 2px solid #232428;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+        border-bottom: 2px solid #475569;
+        padding: 1.5rem;
+    }
+
+    .modal-title {
+        color: #f8fafc;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .modal-footer {
+        border-top: 2px solid #475569;
+        padding: 1.5rem;
+    }
+
+    /* 自定义滚动条 */
+    .modal-body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .modal-body::-webkit-scrollbar-track {
+        background: #0f172a;
+        border-radius: 4px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 4px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+    }
+
+    /* 输入框样式 */
+    .form-control {
+        background-color: #000;
+        border: 2px solid #232428;
+        color: #f1f5f9;
+        font-weight: 600;
+        font-size: 1.125rem;
+        height: 48px;
+    }
+
+    .form-control:focus {
+        border-color: #3b82f6;
+        color: #f1f5f9;
+        box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+    }
+
+    /* 标签样式 */
+    .form-label {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #f1f5f9;
+        margin-bottom: 0.75rem;
+    }
+
+    .form-label i {
+        margin-right: 0.5rem;
+        font-size: 1.25rem;
+    }
+
+    /* 发行总额卡片 */
+    .total-amount-card {
+        background: linear-gradient(15deg, #2e2e2e, #141414);
+        border-color: #232428;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .total-amount-value {
+        font-size: 2.5rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0.5rem 0;
+    }
+
+
+
+    .slider-container {
+        margin: 24px 0;
+        position: relative;
+    }
+
+    .slider {
+        width: 100%;
+        height: 8px;
+        -webkit-appearance: none;
+        appearance: none;
+        background: #0f172a;
+        border-radius: 999px;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .slider:before {
+        content: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .slider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .slider-marks {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        font-size: 12px;
+        color: #64748b;
+    }
+
+
+
+    /* 赎回倍数显示 */
+    .multiplier-display {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* 快捷按钮 */
+    .multiplier-btn {
+        padding: 12px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #232428;
+        background: #121212;
+        color: #cbd5e1;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .multiplier-btn:hover {
+        background: rgba(51, 65, 85, 0.5);
+    }
+
+    .multiplier-btn.active {
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    /* 资金状态卡片 */
+    .funding-status {
+        border-radius: 12px;
+        padding: 1rem;
+        border: 2px solid;
+    }
+
+    .funding-status.sufficient {
+        background: linear-gradient(135deg, #2e2e2e, #141414);
+        border-color: #232428;
+        color: #aaa;
+
+    }
+
+    .funding-status .icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+    }
+
+
+
+
+
+
+
+    /* 输入框图标 */
+    .input-group-text {
+        background-color: #000;
+        border: 2px solid #232428;
+        color: #c4c9ce;
+        font-weight: 600;
+    }
+
+    /* 提示文本 */
+    .form-text {
+        color: #c4c9ce;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    /* 关闭按钮 */
+    .btn-close {
+        --bs-btn-close-bg: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23fff%22%20class%3D%22bi%20bi-x-circle%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2015A7%207%200%201%201%208%201a7%207%200%200%201%200%2014m0%201A8%208%200%201%200%208%200a8%208%200%200%200%200%2016%22%2F%3E%3Cpath%20d%3D%22M4.646%204.646a.5.5%200%200%201%20.708%200L8%207.293l2.646-2.647a.5.5%200%200%201%20.708.708L8.707%208l2.647%202.646a.5.5%200%200%201-.708.708L8%208.707l-2.646%202.647a.5.5%200%200%201-.708-.708L7.293%208%204.646%205.354a.5.5%200%200%201%200-.708%22%2F%3E%3C%2Fsvg%3E);
+        background-color: #343434;
+    }
+
+    .btn-close:hover {
+        opacity: .7;
+    }
+
+    /* 隐藏数字输入框箭头 */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}
+
+@media (max-width: 48rem) {
+    .header-content h1 {
+        font-size: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+
+    .issue-btn {
+        width: 100%;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .balance-amount {
+        font-size: 36px;
+    }
+
+    .chart-container {
+        min-height: unset;
+        gap: 8px;
+        padding: 8px;
+        min-height: 200px;
+    }
+
+    .equity-pie-chart {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+
+    .pie-chart-header {
+        gap: 4px;
+    }
+
+    .pie-element {
+        gap: 4px;
+    }
+
+    .pie-element-rect {
+        width: 12px;
+        height: 12px;
+    }
+
+    .pie-element-label {
+        font-size: 10px;
+        min-width: 40px;
+    }
+
+    .pie-element-content {
+        font-size: 10px;
+    }
+
+
+    .custom-tooltip {
+        padding: 8px;
+        min-width: 100px;
+        z-index: 10;
+    }
+
+    .tooltip-header {
+        gap: 0.25rem;
+        padding-bottom: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+
+    .tooltip-balance {
+        font-size: 12px;
+        margin-bottom: 0.25rem;
+    }
+
+    .card {
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+    #issueEquityModal .modal-body {
+        max-height: unset;
+    }
+
+    #issueEquityModal .modal-header,
+    #issueEquityModal .modal-body {
+        padding: 1rem;
+    }
+
+    #issueEquityModal .modal-content {
+        border-radius: 0px;
+    }
+}

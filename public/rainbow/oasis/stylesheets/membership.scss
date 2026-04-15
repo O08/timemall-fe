@@ -199,8 +199,43 @@
   overflow-y: scroll;
 }
 #focusModal .modal-content {
-  color: #000;
-  background-color: #fff;
+  background: linear-gradient(135deg, #2f2f2f, #141414);
+  border: 2px solid #333;
+  color: #f8fafc;
+
+  .btn-cancel {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    border-radius: 8px;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    transition: all 0.15s;
+
+    &:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+  }
+
+  .btn-confirm {
+    flex: 1;
+    background: linear-gradient(135deg, #9373ee 0%, #7c5fd9 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    transition: all 0.15s;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  }
 }
 
 #focusModal .bi-exclamation-circle {

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>权益回馈</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/rainbow/oasis/stylesheets/setting.scss">
+    <link rel="stylesheet" href="/rainbow/oasis/stylesheets/setting-equity-write-off.scss">
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head">
+              <a :href="'/'+oasisHandle">
+                <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+              </a>
+              <div class="oasis-title">{{announce.title}}</div>
+            </div>
+            <div class="list-group list-group-flush">
+              <a :href="'/'+oasisHandle+'/setting'" class="list-group-item">基础设置</a>
+              <a :href="'/'+oasisHandle+'/setting-role'" class="list-group-item">身份组</a>
+              <a :href="'/'+oasisHandle+'/setting-member'" class="list-group-item">成员管理</a>
+              <a :href="'/'+oasisHandle+'/setting-membership'" class="list-group-item">会员套餐</a>
+              <a :href="'/'+oasisHandle+'/setting-equity-register'" class="list-group-item">权益注册</a>
+              <a :href="'/'+oasisHandle+'/setting-equity-write-off'" class="list-group-item active">权益回馈</a>
+              <a :href="'/'+oasisHandle+'/setting-fast-link'" class="list-group-item ">快速访问</a>
+              <a :href="'/'+oasisHandle+'/setting-invitation'" class="list-group-item ">邀请</a>
+              <a :href="'/'+oasisHandle+'/setting-invitation-link'" class="list-group-item">邀请链接</a>
+              <a :href="'/'+oasisHandle+'/setting-change-admin'" class="list-group-item">管理权移交</a>
+            </div>
+          </nav>
+        </col-nav-main>
+
+      </div>
+      
+
+      <col-content>
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+                </svg>
+                <div class="align-middle">
+                  <h2 class="my-0">部落设置</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+        
+        <div class="content-container">
+
+          <div class="equity-container">
+            <!-- 页面标题 -->
+            <div class="header">
+              <h1>权益赞助记录</h1>
+              <p>为回馈成员的支持与赞助，可通过权益回收功能分享社区发展成果</p>
+            </div>
+          
+            <!-- 统计卡片 -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hand-coins-icon lucide-hand-coins"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>
+                  </div>
+                  <div class="stat-label">本期获得赞助</div>
+                </div>
+                <div class="stat-value">{{displayFee(oassisLatestEquitySummary?.sponsorshipFee)}}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-coins-icon lucide-coins"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48"/><path d="M15 6h1v4"/><path d="m6.134 14.768.866-.5 2 3.464"/><circle cx="16" cy="8" r="6"/></svg>
+                  </div>
+                  <div class="stat-label">本期回收已支出资金</div>
+                </div>
+                <div class="stat-value">{{displayFee(oassisLatestEquitySummary?.redemptionFee)}}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-japanese-yen-icon lucide-badge-japanese-yen"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 8 3 3v7"/><path d="m12 11 3-3"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+                  </div>
+                  <div class="stat-label">本期核销已支出资金</div>
+                </div>
+                <div class="stat-value">{{displayFee(oassisLatestEquitySummary?.writeOffFee)}}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-fading-icon lucide-clock-fading"><path d="M12 2a10 10 0 0 1 7.38 16.75"/><path d="M12 6v6l4 2"/><path d="M2.5 8.875a10 10 0 0 0-.5 3"/><path d="M2.83 16a10 10 0 0 0 2.43 3.4"/><path d="M4.636 5.235a10 10 0 0 1 .891-.857"/><path d="M8.644 21.42a10 10 0 0 0 7.631-.38"/></svg>
+                  </div>
+                  <div class="stat-label">权益期数</div>
+                </div>
+                <div class="stat-value">{{oassisLatestEquitySummary?.period ? oassisLatestEquitySummary?.period +'期' : '--'}}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-recycle-icon lucide-recycle"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></svg>
+                  </div>
+                  <div class="stat-label">待回收权益</div>
+                </div>
+                <div class="stat-value">{{oassisLatestEquitySummary?.sold ? (oassisLatestEquitySummary?.sold - oassisLatestEquitySummary?.writeOff - oassisLatestEquitySummary?.redemption ) +'份' : '--'}}</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+                  </div>
+                  <div class="stat-label">本期参与成员</div>
+                </div>
+                <div class="stat-value">{{oassisLatestEquitySummary?.totalSponsor ? oassisLatestEquitySummary?.totalSponsor +'人' : '--'}}</div>
+              </div>
+            </div>
+          
+            <!-- 筛选搜索 -->
+            <div class="card">
+              <div class="filter-grid">
+                <input  @keyup.enter.native="retrieveOrderV" v-model="order_pagination.param.q" type="text" class="filter-input" placeholder="搜索...">
+                <select @change="filterOrderV"  v-model="order_pagination.param.status"  class="filter-select">
+                  <option value="">全部类型</option>
+                  <option value="1">待回收</option>
+                  <option value="2">已注销</option>
+                  <option value="3">已核销</option>
+                </select>
+                <select @change="filterOrderV"   v-model="order_pagination.param.period" class="filter-select">
+                  <option value="">全部期数</option>
+                  <option 
+                    v-for="n in (oassisLatestEquitySummary?.period || 0)" 
+                    :key="n" 
+                    :value="oassisLatestEquitySummary.period - n + 1"
+                  >
+                    第 {{ oassisLatestEquitySummary.period - n + 1 }} 期
+                  </option>
+
+                </select>
+              </div>
+              <div class="result-text">
+                找到 <span class="result-count">{{order_pagination.records.length}}</span> 条记录
+              </div>
+            </div>
+          
+            <!-- 交易列表 -->
+            <div class="card table-responsive">
+              <table  style=" min-width: 100%; width: max-content;">
+                <thead>
+                  <tr>
+                    <th style="text-align: center;"></th>
+                    <th>赞助人</th>
+                    <th>类型</th>
+                    <th style="text-align: right;">赞助金额</th>
+                    <th style="text-align: right;">回馈金额</th>
+                    <th style="text-align: center;">期数</th>
+                    <th style="text-align: center;">份数</th>
+                    <th style="text-align: center;">倍数</th>
+                    <th>赞助日期</th>
+                    <th>注销日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-if="order_pagination.records.length > 0" v-for="order in order_pagination.records">
+                    <td style="text-align: center;" >
+                      <span v-if="order.status!='1'" style="color: #64748b; font-size: 14px;">-</span>
+                      <button v-else class="repurchase-btn" @click="showWriteOffEquityModalV(order)">
+                        回收
+                      </button>
+                    </td>
+                    <td>
+                      <div class="user-cell">
+                        <div class="avatar">
+                          <img :src="adaptiveImageUriV(order.sponsorAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="avatar">
+                        </div>
+                        <span style="font-weight: 600;">{{order.sponsorName}}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge" :class="{'purchase': order.status=='1','repurchased': order.status=='2','convert': order.status=='3','pending': ['4', '5', '6'].includes(order.status)}">
+                        {{explainOasisEquityOrderStausV(order.status)}}
+                      </span>
+                    </td>
+                    <td style="text-align: right; color: #60a5fa; font-weight: 700; font-size: 18px;">¥{{Number(order.donationAmount)}}</td>
+                    <td style="text-align: right; color: #f97316; font-weight: 700; font-size: 18px;">¥{{Number(order.redemptionAmount)}}</td>
+                    <td style="text-align: center;">
+                      <span class="period-badge">第 {{order.period}} 期</span>
+                    </td>
+                    <td style="text-align: center; font-weight: 600;">{{order.shares}} 份</td>
+                    <td style="text-align: center;">
+                      <span class="multiplier-badge">{{order.earningYield}}x</span>
+                    </td>
+                    <td style="color: #64748b; font-size: 14px;">{{renderDateInChinaV(order.createAt)}}</td>
+                    <td style="color: #64748b; font-size: 14px;">{{order?.settlementDate ? renderDateInChinaV(order?.settlementDate) : '-'}}</td>
+            
+                  </tr>
+                  <tr v-else>
+                    <td colspan="10" class="empty-state">
+                      <div class="empty-content">
+                        <i class="bi bi-inbox"></i> 
+                        <p>暂无记录</p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <nav v-if="!!order_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" v-preventreclick @click="pagePre(order_pagination)">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item" v-for="page in order_pagination.paging.items"
+                    :class="{'current-page-active': order_pagination.paging.current == page}" v-preventreclick
+                    @click="pageGo(order_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" v-preventreclick @click="pageNext(order_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          
+
+        </div>
+
+      
+      </col-content>
+    </main>
+    <section class="modals">
+
+      <!-- 赎回确认对话框 -->
+      <div class="modal" data-bs-backdrop="static" tabindex="-1" id="writeOffEquityModal">
+        <div class="modal-lg modal-dialog modal-dialog-scrollable modal-dialog-centered mobile-full-screen-modal">
+
+          <div class="modal-content">
+            <h2 class="modal-title">回收权益</h2>
+            <p class="modal-subtitle">请确认以下权益的回收信息，此操作不可撤销。</p>
+        
+            <div class="info-card">
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">赞助人</span>
+                  <span class="info-value">{{writeOffPendingOrder.sponsorName}}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">交易ID</span>
+                  <span class="info-value" style="font-family: monospace;">{{writeOffPendingOrder.orderId}}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">权益期数</span>
+                  <span class="info-value">第 {{writeOffPendingOrder.period}} 期</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">份数</span>
+                  <span class="info-value">{{writeOffPendingOrder.shares}} 份</span>
+                </div>
+              </div>
+            </div>
+        
+            <div class="highlight-card">
+              <div class="highlight-section">
+                <div class="highlight-label">赞助金额</div>
+                <div class="highlight-value" id="modalInput">¥{{writeOffPendingOrder.donationAmount}}</div>
+              </div>
+              <div class="highlight-section" style="border: none; padding-bottom: 0; margin-bottom: 0;">
+                <div class="highlight-label">回收消耗资金</div>
+                <div class="highlight-value highlight-big" id="modalOutput">¥{{(Number(writeOffPendingOrder.donationAmount) * Number(writeOffPendingOrder.earningYield)).toFixed(2)}}</div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px;">
+                  <span style="color: #f97316; font-size: 14px;">回收倍数</span>
+                  <span class="multiplier-badge" id="modalMultiplier">{{writeOffPendingOrder.earningYield}}x</span>
+                </div>
+              </div>
+            </div>
+        
+            <div class="warning-box">
+              <div class="warning-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+              </div>
+              <div>
+                <div class="warning-title">重要提示</div>
+                <div class="warning-text">回收操作将立即处理，回收成功，相关权益转为注销状态，资金将在1-3个工作日内到账。</div>
+              </div>
+            </div>
+        
+            <div class="modal-footer">
+              <button class="button button-cancel" @click="closeWriteOffEquityModalV">取消</button>
+              <button v-preventreclick   @click="redeemEquityOrderV" class="button button-confirm">确认回收</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      
+    </section>
+    
+  </micro-app>
+
+  
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/oasis/javascripts/setting-equity-write-off.js"></script>
+</body>
+</html>

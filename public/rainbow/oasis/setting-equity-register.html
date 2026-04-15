@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>权益注册</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/rainbow/oasis/stylesheets/setting.scss">
+    <link rel="stylesheet" href="/rainbow/oasis/stylesheets/setting-equity-register.scss">
+
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <main class="d-flex flex-row">
+
+      <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="mcSidebar" aria-labelledby="mcSidebarOffcanvasLabel">
+
+        <col-nav-main>
+          <nav>
+            <div class="oasis-head">
+              <a :href="'/'+oasisHandle">
+                <img class="oasis-avatar" :src="adaptiveImageUriV(announce.avatar) || oasisAvatarDefault" @error.once="e => { e.target.src = oasisAvatarDefault }">
+              </a>
+              <div class="oasis-title">{{announce.title}}</div>
+            </div>
+            <div class="list-group list-group-flush">
+              <a :href="'/'+oasisHandle+'/setting'" class="list-group-item">基础设置</a>
+              <a :href="'/'+oasisHandle+'/setting-role'" class="list-group-item">身份组</a>
+              <a :href="'/'+oasisHandle+'/setting-member'" class="list-group-item">成员管理</a>
+              <a :href="'/'+oasisHandle+'/setting-membership'" class="list-group-item">会员套餐</a>
+              <a :href="'/'+oasisHandle+'/setting-equity-register'" class="list-group-item active">权益注册</a>
+              <a :href="'/'+oasisHandle+'/setting-equity-write-off'" class="list-group-item">权益回馈</a>
+              <a :href="'/'+oasisHandle+'/setting-fast-link'" class="list-group-item ">快速访问</a>
+              <a :href="'/'+oasisHandle+'/setting-invitation'" class="list-group-item ">邀请</a>
+              <a :href="'/'+oasisHandle+'/setting-invitation-link'" class="list-group-item">邀请链接</a>
+              <a :href="'/'+oasisHandle+'/setting-change-admin'" class="list-group-item">管理权移交</a>
+
+
+            </div>
+          </nav>
+        </col-nav-main>
+
+      </div>
+      
+
+      <col-content>
+        <header>
+          <div class="d-flex justify-content-between p-3 text-white">
+            <div class="d-flex align-items-center logo">
+              <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.0119 2.1026V2.99675C11.0119 12.754 14.6637 21.1467 20.2322 24.2517V24.835C14.6636 27.9401 11.0118 36.3327 11.0118 46.0901V46.9843H38.4545V46.0901C38.4545 36.2755 34.7408 27.8802 29.1205 24.826V24.2607C34.7404 21.2062 38.4545 12.8108 38.4545 2.99666V2.1026H11.0116H11.0119ZM12.8242 3.89081H36.6423C36.4053 13.1209 32.5518 20.6889 27.8436 22.9267L27.3322 23.1691V25.9206L27.8437 26.1627C32.5516 28.4006 36.4049 35.9664 36.6423 45.1958H12.8242C13.0593 36.0181 16.8557 28.4403 21.5212 26.1568L22.0237 25.9116V23.1751L21.5212 22.9299C16.8559 20.6464 13.0592 13.0686 12.8242 3.89091V3.89081ZM33.2718 12.1332C27.7586 14.7947 21.3542 14.7976 16.2785 12.5251C17.681 17.3969 20.4719 20.8644 23.7554 21.4375C23.6022 21.6398 23.5192 21.8866 23.519 22.1403C23.519 22.7873 24.0443 23.3127 24.6914 23.3127C25.3385 23.3127 25.8638 22.7873 25.8638 22.1403C25.8638 21.88 25.777 21.641 25.6335 21.4465C29.0239 20.8838 31.9009 17.2289 33.2718 12.1333V12.1332ZM24.6914 24.7513C24.0443 24.7513 23.519 25.2765 23.519 25.9237C23.519 26.5708 24.0443 27.096 24.6914 27.096C25.3385 27.096 25.8638 26.5708 25.8638 25.9237C25.8638 25.2765 25.3385 24.7513 24.6914 24.7513ZM24.6914 28.5105C24.0443 28.5105 23.519 29.0359 23.519 29.6829C23.519 30.3301 24.0443 30.8553 24.6914 30.8553C25.3385 30.8553 25.8638 30.3301 25.8638 29.6829C25.8638 29.0359 25.3385 28.5105 24.6914 28.5105ZM24.6914 32.294C24.0443 32.294 23.519 32.8192 23.519 33.4663C23.519 34.1133 24.0443 34.6387 24.6914 34.6387C25.3385 34.6387 25.8638 34.1133 25.8638 33.4663C25.8638 32.8192 25.3385 32.294 24.6914 32.294ZM24.7034 36.1131C22.4821 36.1399 20.2828 38.5794 17.4478 43.3536H32.0904C29.1693 38.4725 26.9246 36.0863 24.7034 36.1131Z" fill="#3887FE"></path>
+                </svg>
+                <div class="align-middle">
+                  <h2 class="my-0">部落设置</h2>
+                </div>
+              </a>
+            </div>
+            <div class="toggle-nav">
+              <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mcSidebar" aria-controls="bdSidebar" aria-label="Toggle mcSidebar navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+        
+        <div class="content-container">
+
+
+          <div class="equity-container">
+            <!-- 页面标题 -->
+            <div class="header">
+              <div class="header-content">
+                <h1>权益注册中心</h1>
+                <p>获取支持者赞助，让成员与社区一同成长</p>
+              </div>
+              <button @click="showIssueEquityModalV" class="issue-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                <span>注册新权益</span>
+              </button>
+            </div>
+          
+            <!-- 社群资金池 -->
+            <div class="card" style="margin-bottom: 24px;">
+              <div class="balance-header">
+                <span>部落余额</span>
+              </div>
+              <div class="balance-amount">
+                ¥{{oasisAccount.drawable}}
+              </div>
+              <div class="balance-desc">发行须知：第一期到第五期的权益最大注册额度依次为100，500，1000，5000，100000； 从第六期开始，统一额度为一百万； 每一期注册份数最少为10份，发行的权益全部售罄并且全部结算（包括注销、核销）后才可启动新一期权益的注册；权益为获取铁杆粉丝赞助、打赏、支持工具，禁止以投资、收益、承诺回报等宣传口径诱导支持者购买权益，一经查实，将依据相关法律法规处理。</div>
+            </div>
+          
+            <!-- 图表区域 -->
+            <div class="charts-grid">
+              <!-- 资金趋势 -->
+              <div class="card">
+                <div class="chart-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #60a5fa;">
+                    <path d="M3 3v18h18" />
+                    <path d="M18 17l-4-4-4 4-5-5" />
+                  </svg>
+                  <h2>余额趋势</h2>
+                </div>
+                <div class="chart-desc">部落资金池实时水位，作为设定回收价格的参考</div>
+                <div class="chart-container" v-if="trendChart && trendChart.length > 0" style="position: relative;">
+                  <svg viewBox="0 0 600 240" class="line-chart">
+                    <defs>
+                      <pattern id="grid" width="100" height="48" patternUnits="userSpaceOnUse">
+                        <path d="M 100 0 L 0 0 0 48" fill="none" stroke="#334155" stroke-width="0.5" />
+                      </pattern>
+                      <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#6366f1" />
+                      </linearGradient>
+                    </defs>
+                
+                    <!-- 背景网格 -->
+                    <rect width="600" height="240" fill="url(#grid)" />
+                
+                    <!-- 折线 -->
+                    <polyline 
+                      :points="pointString" 
+                      fill="none" 
+                      stroke="url(#lineGradient)" 
+                      stroke-width="3" 
+                      style="stroke: #3b82f6;"
+                      stroke-linejoin="round"
+                    />
+                
+                    <!-- 数据点和月份标签 -->
+                    <g v-for="(point, index) in mappedPoints" :key="index"
+                      @touchstart.passive="showTooltip($event, point)"
+                      @mouseenter="showTooltip($event, point)" 
+                      @mouseleave="hideTooltip">
+                      <circle :cx="point.x" :cy="point.y" r="5" fill="#3b82f6" stroke="white" stroke-width="2" />
+                      <!-- 隐形热区：半径设为 20px 左右，方便手指触摸 -->
+                      <circle :cx="point.x" :cy="point.y" r="25" fill="transparent" style="cursor: pointer;" />
+
+                      <text :x="point.x" y="225" text-anchor="middle" fill="#64748b" font-size="12">
+                        {{ point.reportMonth }}月
+                      </text>
+                   
+                    </g>
+                  </svg>
+
+
+                  <div v-if="tooltip.visible"  id="chartjs-tooltip" class="custom-tooltip"
+                  :style="{ left: tooltip.x + 'px', top: tooltip.y + 'px' }">
+                    <div class="tooltip-header">
+                      <i class="bi bi-calendar3 text-primary"></i>
+                      <span class="tooltip-month">{{ tooltip.data.reportMonth }}月</span>
+                    </div>
+                    <div class="small mb-1" style="color: #c4c9ce;">部落余额</div>
+                    <div class="tooltip-balance">¥{{ tooltip.data.balance }}</div>
+                  </div>
+                  
+
+
+
+                </div>
+                <!-- 加载状态占位 -->
+                <div v-else class="line-chart-blank p-5">
+                  --
+                </div>
+
+              </div>
+          
+              <!-- 赎回分析 -->
+              <div class="card">
+                <div class="chart-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #10b981;">
+                    <path d="M3 3v18h18" />
+                    <path d="M18 8v9" />
+                    <path d="M14 10v7" />
+                    <path d="M10 12v5" />
+                    <path d="M6 14v3" />
+                  </svg>
+                  <h2>回收分析</h2>
+                </div>
+                <div class="chart-desc">最新一期权益回收比例直观展示</div>
+                <div class="chart-container">
+                  <!-- 饼图（CSS实现） -->
+                  <div
+                     class="equity-pie-chart"
+                    :style="{background: pieStyle}">
+                    <div style="position: absolute; inset: 25%; background: #0f172a; border-radius: 50%;"></div>
+                  </div>
+                  <!-- 图例 -->
+                  <div class="pie-chart-header">
+
+                    <div class="pie-element" v-for="item in pieData" :key="item.label">
+                      <div class="pie-element-rect" :style="{  background: item.color }"></div>
+                      <div class="pie-element-label">{{ item.label }}</div>
+                      <div class="pie-element-content">{{ Number(item.percentage) }}%</div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          
+            <!-- 发行历史 -->
+            <div class="card table-responsive">
+              <div class="chart-header" style="margin-bottom: 20px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #fb923c;">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+                <h2>注册记录</h2>
+              </div>
+              <table style=" min-width: 100%; width: max-content;">
+                <thead>
+                  <tr>
+                    <th>期数</th>
+                    <th>额度</th>
+                    <th>倍数</th>
+                    <th>赞助进度</th>
+                    <th>回收进度</th>
+                    <th>状态</th>
+                    <th>注册日期</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-if="period_pagination.records.length > 0" v-for="period in period_pagination.records">
+                    <td>
+                      <div class="period-cell">
+                        <span class="period-number">{{period.period}}</span>
+                        <span class="period-label">期</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div style="font-weight: 600;">{{displayTbCredit(period)}}</div>
+                      <div style="font-size: 12px; color: #64748b;">单价 ¥{{Number(period.price)}}</div>
+                    </td>
+                    <td>
+                      <div class="multiplier">
+                        <span style="font-weight: 700;">{{period.earningYield}}x</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="progress-cell">
+                        <div class="progress-text">{{periodSoldProgress(period)}}%</div>
+                        <div class="progress-bar">
+                          <div class="progress-fill sales" :style="{width: periodSoldProgress(period)+'%' }"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="progress-cell">
+                        <div class="progress-text">{{writeOffProgress(period)}}%</div>
+                        <div class="progress-bar">
+                          <div class="progress-fill repurchase" :style="{width: writeOffProgress(period) + '%' }"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge" :class="{'active': period.status=='1','success': period.status=='0'}">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                          style="width: 12px; height: 12px;">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M12 6v6l4 2" />
+                        </svg>
+                        {{period.status=='1' ? '进行中' :'已结束'}}
+                      </span>
+                    </td>
+                    <td style="color: #64748b; font-size: 14px;">{{renderDateToDayInChinaV(period.createAt)}}</td>
+                  </tr>
+
+                  <tr v-else>
+                    <td colspan="7" class="empty-state">
+                      <div class="empty-content">
+                        <i class="bi bi-inbox"></i> 
+                        <p>暂无记录</p>
+                      </div>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+              <nav v-if="!!period_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                <ul class="pagination pagination-lg pagination-dark  border-0">
+                  <li class="page-item" v-preventreclick @click="pagePre(period_pagination)">
+                    <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item" v-for="page in period_pagination.paging.items"
+                    :class="{'current-page-active': period_pagination.paging.current == page}" v-preventreclick
+                    @click="pageGo(period_pagination,page)"><a class="page-link">{{page}}</a></li>
+                  <li class="page-item" v-preventreclick @click="pageNext(period_pagination)">
+                    <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+
+          
+
+        </div>
+
+      
+      </col-content>
+    </main>
+    <section class="modals">
+
+      <!-- 发布新权益模态框 -->
+      <div class="modal fade" id="issueEquityModal" tabindex="-1" aria-labelledby="issueEquityModalLabel" aria-hidden="true">
+        <div class="modal-lg modal-dialog modal-dialog-scrollable modal-dialog-centered mobile-full-screen-modal">
+          <div class="modal-content">
+            
+            <!-- 模态框头部 -->
+            <div class="modal-header" style="border-bottom: none;">
+              <div>
+                <h1 class="modal-title fs-4 fw-bold mb-1" id="issueEquityModalLabel">
+                  注册新权益
+                </h1>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+              <form id="issueEquityForm">
+                
+                <!-- 1. 发行单价 -->
+                <div class="mb-4">
+                  <label for="pricePerShare" class="form-label">
+                    权益单价
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">¥</span>
+                    <input 
+                      v-model="newPeriod.price"
+                      type="text" 
+                      @input="transformInputNumberAsRangePositiveDecimalV($event)"
+                      class="form-control" 
+                      id="pricePerShare" 
+                      min="1"
+                      max="100"
+                      autocomplete="off"
+                    >
+                    <span class="input-group-text">每份</span>
+                  </div>
+                </div>
+
+                <!-- 2. 发行份数 -->
+                <div class="mb-4">
+                  <label for="totalShares" class="form-label">
+                    注册份数
+                  </label>
+                  <div class="input-group">
+                    <input 
+                      v-model="newPeriod.shares"
+                      type="text" 
+                      @input="transformInputNumberAsPositiveV($event)"
+                      class="form-control" 
+                      id="totalShares" 
+                      min="1"
+                      max="100000"
+                      autocomplete="off"
+                    >
+                    <span class="input-group-text">份</span>
+                  </div>
+                </div>
+
+                <!-- 3. 发行总额展示 -->
+                <div class="mb-4">
+                  <div class="total-amount-card">
+                    <p  style="color: #c4c9ce;" class="small mb-2">注册额度</p>
+                    <div id="totalAmount" class="total-amount-value">{{totalCredit}}</div>
+                  </div>
+                </div>
+
+                <!-- 4. 赎回倍数 -->
+                <div class="mb-4">
+                  <label class="form-label">
+                    回馈倍数
+                  </label>
+                  
+                  <!-- 倍数显示 -->
+                  <div class="mb-3">
+                    <span id="multiplierDisplay" class="multiplier-display">{{newPeriod.earningYield}}x</span>
+                  </div>
+
+                  <div class="slider-container">
+                    <input      
+                     :style="sliderBackground"
+                     v-model="newPeriod.earningYield" type="range" min="1" max="5" step="0.01" class="slider" id="slider">
+                    <div class="slider-marks">
+                      <span>1.0x</span>
+                      <span>5.0x</span>
+                    </div>
+                  </div>
+
+
+
+                  <!-- 快捷按钮 -->
+                  <div class="row g-2">
+                    <div class="col"><button :class="{'active': newPeriod.earningYield=='1'}" type="button" class="multiplier-btn w-100" @click="setMultiplierV(1)">1x</button></div>
+                    <div class="col"><button :class="{'active': newPeriod.earningYield=='2'}" type="button" class="multiplier-btn w-100" @click="setMultiplierV(2)">2x</button></div>
+                    <div class="col"><button :class="{'active': newPeriod.earningYield=='3'}" type="button" class="multiplier-btn w-100" @click="setMultiplierV(3)">3x</button></div>
+                    <div class="col"><button :class="{'active': newPeriod.earningYield=='4'}" type="button" class="multiplier-btn w-100" @click="setMultiplierV(4)">4x</button></div>
+                    <div class="col"><button :class="{'active': newPeriod.earningYield=='5'}" type="button" class="multiplier-btn w-100" @click="setMultiplierV(5)">5x</button></div>
+                  </div>
+                </div>
+
+                <!-- 5. 资金锚定说明 -->
+                <div id="fundingStatus" class="funding-status sufficient" style="margin-bottom: 16px;">
+                  <div class="d-flex align-items-start">
+                    <div class="icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                      </svg>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h6 id="fundingTitle" class="fw-bold mb-2">特别提示</h6>
+                      <p class="mb-0 small">
+                        通过权益功能，获取成员赞助、支持，合理设置回馈倍数，使用回收权益功能给予帮助过部落的赞助人相应的激励；权益注销的方式有兑换与回收，兑换倍率统一为0.13X
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-cta-container">
+                  <button type="button" class="button button-cancel" data-bs-dismiss="modal">取消</button>
+                  <button :disabled="!newPeriod.price || !newPeriod.shares" type="button" id="submitBtn" class="button button-confirm" v-preventreclick  @click="registerPeriodV">
+                    确认注册
+                  </button>
+                </div>
+
+
+              </form>
+            </div>
+
+      
+
+          </div>
+        </div>
+      </div>
+      
+    </section>
+    
+  </micro-app>
+
+  
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/rainbow/oasis/javascripts/setting-equity-register.js"></script>
+</body>
+</html>

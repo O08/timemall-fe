@@ -234,6 +234,16 @@ app.get('/:hd/setting-change-admin', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-change-admin.html")        //设置/ 下访问文件位置
 })
 
+app.get('/:hd/equity', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/equity.html")        //设置/ 下访问文件位置
+})
+app.get('/:hd/setting-equity-register', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-equity-register.html")        //设置/ 下访问文件位置
+})
+
+app.get('/:hd/setting-equity-write-off', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-equity-write-off.html")        //设置/ 下访问文件位置
+})
 // match @abc @bcdddd,for brand handle mapping
 app.get( /.*@blv\.bi$/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置
