@@ -4,22 +4,36 @@ import {goHome} from "/common/javascripts/pagenav.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
-async function doLoadAuthenticationInfo(code,state){
-    const url="/api/v1/web_mall/do_wechat_qrCode_sign_in?code="+code + "&state=" + state;
+async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState){
+    const url="/api/v1/web_mall/do_wechat_qrCode_sign_in?wx_code="+code + "&wx_state=" + state;
+    if(isThirdAuth === "1"){
+        url += "&redirect_uri=" + encodeURIComponent(thirdRedirectUri) + 
+        "&state=" + encodeURIComponent(thirdState || ''); 
+    }
+
     return await fetch(url);
   }
   async function loadAuthenticationInfo(){
 
     const code = getQueryVariable("code");
     const state = getQueryVariable("state");
+    const isThirdAuth = getQueryVariable("third_auth");
+    const thirdRedirectUri = getQueryVariable("third_redirect_uri");
+    const thirdState = getQueryVariable("third_state");
     if(!code || !state){
         customAlert.alert("警告：请停止非法操作");
     }
     const toPage=getQueryVariable("to_page");
-    const response =  await doLoadAuthenticationInfo(code,state);
+    const response =  await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState);
     var data = await response.json();
 
     if(data.code == 200){
+        // 清除所有缓存数据
+        localStorage.clear();
+        if (data.data && data.data.oauthRedirect) {
+            window.location.href = data.data.oauthRedirect;
+            return;
+        }
         // to login success handler
         // 清除所有缓存数据
         localStorage.clear();

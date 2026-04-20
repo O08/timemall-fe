@@ -7,6 +7,8 @@ import { validateEmailOrPhoneInput } from "/common/javascripts/util.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
+
 function validatedUserName(){
   const emailOrPhone = document.getElementById("identifierId").value;
   const flag = validateEmailOrPhoneInput(emailOrPhone);
@@ -79,10 +81,17 @@ function doLogin(){
 
   var emailOrPhone = $('#identifierId').val();
   var password = $('#identifierPassword').val();
-
+  const urlParams = new URLSearchParams(window.location.search);
+  const redirect_uri = urlParams.get('redirect_uri');
+  const state = urlParams.get('state');
   var formData = {
     username: emailOrPhone,
     password: password
+  }
+  // If OAuth 2 params exist, add them to the form data
+  if (redirect_uri) {
+    formData.redirect_uri = redirect_uri;
+    formData.state = state;
   }
 
   $.post('/api/v1/web_mall/email_or_phone_sign_in',formData, function(data) {
@@ -109,11 +118,17 @@ function doLogin(){
 
     // USER_ACCOUNT_DISABLE(2005, "账号不可用")
 
-         if(data.code === 200){
+        if(data.code === 200){
           // to login success handler
           // 清除所有缓存数据
           localStorage.clear();
-          nextPageWhenLoginSuccess();
+          if (data.data && data.data.oauthRedirect) {
+            // Redirect back to the AI or other platform
+            window.location.href = data.data.oauthRedirect;
+          } else {
+            // Normal  login flow
+            nextPageWhenLoginSuccess();
+          }
         }
         if(data.code === 503){
           customAlert.alert('芜湖,系统裂开了！请稍后重试！')
@@ -154,10 +169,23 @@ userHandler();
 
 $(".wechat-login").on("click", function (e) {
 
-  // get redirect url when login success
-  const blv_uri_for_success=encodeURIComponent(document.referrer);
-  var wechatLoginPageRedirectUrl=  encodeURIComponent(EnvWebsite.PROD_WWW+"/mall/wechat-login-redirect?to_page="+blv_uri_for_success);
-  var wechatLoginPageUri = EnvWebsite.PROD_WX_QRCONNECT_URI+"?appid=" + EnvWebsite.PROD_WX_APPID + "&redirect_uri=" + wechatLoginPageRedirectUrl + "&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect";
+  const urlParams = new URLSearchParams(window.location.search);
+  const oauth2_redirect = urlParams.get('redirect_uri');
+  const oauth2_state = urlParams.get('state');
+
+  // get redirect blv url when login success
+  const blv_uri_for_success = encodeURIComponent(document.referrer);
+  if (oauth2_redirect) {
+    blv_uri_for_success="";
+  }
+  // Append Third platform context to  internal redirect URL
+  var internalRedirect = currentDomain + "/mall/wechat-login-redirect?to_page=" + blv_uri_for_success;
+  if (oauth2_redirect) {
+    internalRedirect += "&third_auth=1&third_redirect_uri=" + encodeURIComponent(oauth2_redirect) + "&third_state=" + encodeURIComponent(oauth2_state || '');
+  }
+
+  var wechatLoginPageRedirectUrl = encodeURIComponent(internalRedirect);
+  var wechatLoginPageUri = EnvWebsite.PROD_WX_QRCONNECT_URI + "?appid=" + EnvWebsite.PROD_WX_APPID + "&redirect_uri=" + wechatLoginPageRedirectUrl + "&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect";
 
   window.open(wechatLoginPageUri, '_blank');
 
