@@ -174,7 +174,7 @@ $(".wechat-login").on("click", function (e) {
   const oauth2_state = urlParams.get('state');
 
   // get redirect blv url when login success
-  const blv_uri_for_success = encodeURIComponent(document.referrer);
+  var blv_uri_for_success = encodeURIComponent(document.referrer);
   if (oauth2_redirect) {
     blv_uri_for_success="";
   }

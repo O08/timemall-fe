@@ -5,13 +5,17 @@ import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
 async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState){
-    const url="/api/v1/web_mall/do_wechat_qrCode_sign_in?wx_code="+code + "&wx_state=" + state;
-    if(isThirdAuth === "1"){
-        url += "&redirect_uri=" + encodeURIComponent(thirdRedirectUri) + 
-        "&state=" + encodeURIComponent(thirdState || ''); 
+    const params = new URLSearchParams({
+        wx_code: code,
+        wx_state: state
+    });
+
+    if (isThirdAuth === "1") {
+        params.append("redirect_uri", thirdRedirectUri);
+        params.append("state", thirdState || '');
     }
 
-    return await fetch(url);
+    return await fetch(`/api/v1/web_mall/do_wechat_qrCode_sign_in?${params.toString()}`);
   }
   async function loadAuthenticationInfo(){
 
@@ -22,6 +26,7 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
     const thirdState = getQueryVariable("third_state");
     if(!code || !state){
         customAlert.alert("警告：请停止非法操作");
+        return; 
     }
     const toPage=getQueryVariable("to_page");
     const response =  await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState);
@@ -35,15 +40,13 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
             return;
         }
         // to login success handler
-        // 清除所有缓存数据
-        localStorage.clear();
         var isEmptyPage= !toPage;
 
         var isAuthPage = !!toPage ? (toPage.search("login") > 0 || toPage.search("signup")>0 || toPage.search("login.html") > 0 || toPage.search("signup.html")>0) : false;
 
 
         
-        var isThirdSite= (!!toPage && !isAuthPage) ? (new URL(toPage).hostname.search("bluvarri.com") == -1) : false;
+        var isThirdSite= (!!toPage && !isAuthPage) ? (new URL(toPage,window.location.origin).hostname.search("bluvarri.com") == -1) : false;
 
         if(isEmptyPage || isAuthPage  || isThirdSite){
             goHome();
