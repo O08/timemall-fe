@@ -141,7 +141,7 @@ const RootComponent = {
         applyMentorV(mentorBrandId){
             applyMentor(mentorBrandId).then(response=>{
                 if(response.data.code==200){
-                    customAlert.alert("已向导师发送申请，可通过 【奇迹工坊】-【我的导师】查阅申请状态");
+                    customAlert.alert("已向导师发送申请，可通过 【个人中心】-【我的导师】查阅申请状态");
                 }
                 if(response.data.code!=200){
                     customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
