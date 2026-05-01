@@ -9,7 +9,7 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import Pagination  from "/common/javascripts/pagination-vue.js";
 import StemChatCompoent from "/rainbow/arch/javascripts/StemChatCompoent.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import RtmCompoent from "/common/javascripts/blv-rtm.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();

@@ -6,7 +6,6 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { getSecondsBetween } from "/common/javascripts/util.js";
 import  PrivateApi from "/rainbow/arch/javascripts/PrivateApi.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {SseEventBusScene} from "/common/javascripts/tm-constant.js";
 import StemChatCompoent from "/rainbow/arch/javascripts/StemChatCompoent.js";
@@ -121,7 +120,6 @@ let app =  createApp(RootComponent);
 app.mixin(new Auth({need_permission : true}));
 app.mixin(ImageAdaptiveComponent);
 app.mixin(DirectiveComponent);
-app.mixin(RtmCompoent);
 app.mixin(new StemChatCompoent({
     chatSetting: {
         fetchMessageUrl: "/api/v1/ms/private/{friend}/event".replace("{friend}",chatChannel),
@@ -160,7 +158,6 @@ const privateChatApp = app.mount('#app');
 window.privateChatAppPage = privateChatApp;
 
 privateChatApp.initMessageRecordV(); // stemchatcomponent.js
-privateChatApp.joinRoomInitV(); // rtm.js
 
 
 function sseEventBusPrivateSeceneHandler(data){
