@@ -62,7 +62,7 @@ function resetCount(){
       $(".qrcode").attr("disabled", true);
 
       // 请求服务器发送验证码
-      $.post('/api/v1/web_mall/signup/qrcode',{ emailOrPhone: $("#identifierId").val()}, function(data) {
+      $.post('/api/v1/web_mall/signup/send_qrcode',{ emailOrPhone: $("#identifierId").val()}, function(data) {
 
         if(data.code!=200){
           resetCount();
