@@ -11,7 +11,7 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import  CellPlanOrderChatCompoent from "/estudio/javascripts/compoent/CellPlanOrderChatCompoent.js";
 import CellPlanOrderDeliverCompoent from "/estudio/javascripts/compoent/CellPlanOrderDeliverCompoent.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import RtmCompoent from "/common/javascripts/blv-rtm.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";

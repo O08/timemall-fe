@@ -264,16 +264,16 @@
               <tbody>
                 <tr v-for="notice in eventFeed.records">
                   <td class="col-msg">
-                    <div class="ellipsis-1">
-                      <a class="tb-url-link" :href="'/epod/gig-order-view?workflow_id='+ JSON.parse(notice.feed).workFlowId">
-                        <p class="pt-1"><b>{{JSON.parse(notice.feed).upDesc}}</b>的新消息，点击查看</p>
+                    <div>
+                      <a class="tb-url-link" :href="generateLinkV(JSON.parse(notice.feed))">
+                        <p class="pt-1"><span class="ellipsis-1" style="max-width: calc(100% - 132px);display: -webkit-inline-box; vertical-align: middle; font-weight: bolder;">{{JSON.parse(notice.feed).upDesc}}</span><span>的新消息，点击查看</span></p>
                       </a>
                     </div>
                   </td>
-                  <td> 
+                  <td class="col-addTime"> 
                     {{notice.createAt.replace(new RegExp('-', 'g'), '/')}}
                   </td>
-                  <td>履约消息</td>
+                  <td class="col-type">{{explainMsgTypeV(JSON.parse(notice.feed).biz)}}</td>
                 </tr>
               </tbody>
             </table>

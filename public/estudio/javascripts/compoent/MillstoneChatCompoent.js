@@ -7,7 +7,7 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
-
+const currentRTMChannel=getQueryVariable("workflow_id"); 
 const MillstoneChatCompoent = {
   data(){
     return {
@@ -31,7 +31,7 @@ const MillstoneChatCompoent = {
       rawBigfile: {},
       accept: "png,gif,jpg,jpeg",
       rtcSetting: {
-        channel: getQueryVariable("workflow_id"),
+        channel: "millstone_chat_" + currentRTMChannel,
         channelMessageFallback: ()=>{
             this.retrieveMessageV();
             // update event feed mark

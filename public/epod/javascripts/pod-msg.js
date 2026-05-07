@@ -10,6 +10,23 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 const RootComponent = {
+    data() {
+        return {
+        }
+    },
+    methods: {
+
+        explainMsgTypeV(biz){
+            if(biz=='millstone') return "特约消息";
+            if(biz=='plan') return "单品消息";
+            return "未知业务";
+        },
+        generateLinkV(feed){
+            if(feed.biz=="millstone") return "/epod/gig-order-view?workflow_id=" + feed.workFlowId;
+            if(feed.biz=="plan") return "/epod/packages-order-deliver?id=" + feed.workFlowId;
+        }
+         
+    }
 }
 const app = createApp(RootComponent);
 app.mixin(Pagination);

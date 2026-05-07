@@ -8,6 +8,7 @@ import { getQueryVariable } from "/common/javascripts/util.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const currentRTMChannel=getQueryVariable("id"); 
 const CellPlanOrderChatCompoent = {
   data(){
     return {
@@ -31,11 +32,10 @@ const CellPlanOrderChatCompoent = {
       rawBigfile: {},
       accept: "png,gif,jpg,jpeg",
       rtcSetting: {
-        channel: getQueryVariable("id"),
+        channel: "plan_chat_"+ currentRTMChannel,
         channelMessageFallback: ()=>{
             this.retrieveMessageV();
-            // update event feed mark
-            // this.updateEventFeedMarkAsProcessedV();
+            this.updateEventFeedMarkAsProcessedUseBizIdV(currentRTMChannel);
           }
         }
        
@@ -55,7 +55,9 @@ const CellPlanOrderChatCompoent = {
           document.querySelector(".chat-input").style.height=32 + "px";
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
-        //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
+          const serviceInfo={supplierUserId: this.orderDetail.supplierUserId,consumerUserId: this.orderDetail.consumerUserId};
+          this.sendEventFeedMessageNoticeV(serviceInfo,currentRTMChannel,"plan"); // notice  user that have new message arrival
+
         }
       }).catch(err=>{
         customAlert.alert("系统异常，请检查网络或者重新发送！")
@@ -74,9 +76,10 @@ const CellPlanOrderChatCompoent = {
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
+          const serviceInfo={supplierUserId: this.orderDetail.supplierUserId,consumerUserId: this.orderDetail.consumerUserId};
+          this.sendEventFeedMessageNoticeV(serviceInfo,currentRTMChannel,"plan"); // notice  user that have new message arrival
           this.resetFileInput();
           $("#imagePreviewModal").modal("hide"); // show modal
-        //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
 
         }
       }).catch(err=>{
@@ -89,8 +92,9 @@ const CellPlanOrderChatCompoent = {
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
+          const serviceInfo={supplierUserId: this.orderDetail.supplierUserId,consumerUserId: this.orderDetail.consumerUserId};
+          this.sendEventFeedMessageNoticeV(serviceInfo,currentRTMChannel,"plan"); // notice  user that have new message arrival
           this.resetBigFileInput();
-        //   this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,orderId); // notice  user that have new message arrival
           $("#sendBigFileModal").modal("hide"); // show modal
         }
       }).catch(err=>{
@@ -250,6 +254,7 @@ const CellPlanOrderChatCompoent = {
   },
   created(){
     this.retrieveMessageV();
+    this.updateEventFeedMarkAsProcessedUseBizIdV(currentRTMChannel);
 
 },
  updated(){

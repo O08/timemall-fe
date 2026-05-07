@@ -8,7 +8,7 @@ import axios from 'axios';
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import CommissionWSDeliverCompoent from "/rainbow/arch/javascripts/CommissionWSDeliverCompoent.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import RtmCompoent from "/common/javascripts/blv-rtm.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 import DefaultChatCompoent from "/rainbow/arch/javascripts/DefaultChatCompoent.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"

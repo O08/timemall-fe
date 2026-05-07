@@ -6,7 +6,7 @@ import axios from 'axios';
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import RtmCompoent from "/common/javascripts/blv-rtm.js";
 import {EventFeedScene} from "/common/javascripts/tm-constant.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 

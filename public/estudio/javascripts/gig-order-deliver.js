@@ -10,7 +10,7 @@ import 'jquery-ui/ui/i18n/datepicker-zh-CN.js';
 import {WorkflowStatus,EventFeedScene} from "/common/javascripts/tm-constant.js";
 import axios from 'axios';
 import  MillstoneChatCompoent from "/estudio/javascripts/compoent/MillstoneChatCompoent.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import RtmCompoent from "/common/javascripts/blv-rtm.js";
 import { DirectiveComponent,autoHeight } from "/common/javascripts/custom-directives.js";
 import EventFeed from "/common/javascripts/compoent/event-feed-compoent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 

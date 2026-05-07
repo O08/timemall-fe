@@ -367,83 +367,85 @@
               <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
                 <div class="plan-info-container">
 
-                  <section class="section-plan-header pt-5">
-                    <div class="row gx-3 gy-3 row-cols-sm-2 row-cols-1 ">
-                        <div class="col">
-                            <div class="plan-field-label mb-2">服务</div>
-                            <p class="sow-cell-title">
-                              {{orderDetail.cellTitle}}
-                            </p>
+                   <!-- Service Header -->
+                   <div class="mb-3 mb-sm-4">
+                    <div class="service-header">
+                      <!-- Service -->
+                      <div class="service-row">
+                        <span class="label-text">服务</span>
+                        <h1 class="service-title flex-grow-1">{{orderDetail.cellTitle}}</h1>
+                      </div>
+                  
+                      <!-- Service Provider -->
+                      <div class="provider-row">
+                        <span class="label-text">服务商</span>
+                        <div class="d-flex align-items-center gap-2 gap-sm-3 flex-grow-1">
+                          <div class="provider-avatar">
+                            <div class="plan-brand-portrait">
+                              <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                            </div>
+                          </div>
+                          <span class="provider-name">{{orderDetail.supplierName}}</span>
                         </div>
-      
-                        <div class="col">
-                            <div class="plan-field-label mb-2">服务商</div>
-                            <div class="d-flex justify-content-start align-items-center me-2">
-                              <div class="plan-brand-portrait">
-                                <img class="brand-avator" :src="adaptiveImageUriV(orderDetail.supplierAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                              </div>
-                              <div class="sow-brand-name mx-2">{{orderDetail.supplierName}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Service Package Card -->
+                  <div class="package-card-wrapper">
+                    <!-- Glow Effect (hidden on mobile) -->
+                    <div class="glow-effect d-none d-sm-block"></div>
+                  
+                    <div class="package-card">
+                      <!-- Card Header -->
+                      <div class="package-header">
+                        <div class="header-glow"></div>
+                  
+                        <div style="position: relative;">
+                          <div class="package-badge">
+                            <span class="pulse-dot"></span>
+                            <span class="small" style="color: #60A5FA;">{{ explainCellPlanTypeV(orderDetail.planType) }}套餐</span>
+                          </div>
+                  
+                          <h3 class="package-title"> {{orderDetail.planTitle}}</h3>
+                  
+                          <p class="package-description mb-0"> {{orderDetail.planContent}}</p>
+                        </div>
+                      </div>
+                  
+                      <!-- Card Body -->
+                      <div class="package-body">
+                        <!-- Package Contents -->
+                        <div class="mb-3 mb-sm-4">
+                          <h4 class="section-title">套餐内容</h4>
+                          <div class="content-box">
+                            <p class="content-text">
+                              {{orderDetail.feature}}
+                            </p>
                           </div>
                         </div>
-                    </div>
-                </section>
-                <section class="section-plan-info pb-5">
-                    <div class="which-plan">
-                      <div class="which-plan-type">
-                        {{ explainCellPlanTypeV(orderDetail.planType) }}套餐
+                  
+                        <!-- Price and Payment -->
+                        <div class="divider"></div>
+                        <div
+                          class="align-items-center align-items-start d-flex flex-row gap-3 justify-content-between">
+                          <div>
+                            <div class="price-label">套餐价格</div>
+                            <div class="price-amount">¥ {{orderDetail.price}}</div>
+                          </div>
+                          <div class="payment-badge">
+                            <i class="bi bi-fire payment-icon"></i>
+                            <span class="payment-text">{{explainCellPlanOrderTagV(orderDetail.tag)}}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div class="plan-content-header">
-                        {{orderDetail.planTitle}}
-                      </div>
                     </div>
-                    <div class="plan-content-wrapper pt-3">
-                      
-                        <div class="plan-content-info">
-                          <p class="paragraph">
-                            {{orderDetail.planContent}}
-                          </p>
-                        </div>
-                        <div class="plan-content-feature">
-                          <div class="plan-field-label"> 套餐内容 </div>
-                          <p class="paragraph mt-2">
-                            {{orderDetail.feature}}
-                          </p>
-                        </div>
-                        <div class="price py-4">
-                          <i>
-                            ￥
-                          </i>
-                          <ins class="text-decoration-none price-txt">{{orderDetail.price}}</ins>
-                        </div>
-                        <div class="plan-mark">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.66745 7.63686C6.56057 8.77686 6.48557 10.7944 7.1587 11.6531C7.1587 11.6531 6.84182 9.43686 9.68245 6.65623C10.8262 5.53686 11.0906 4.01436 10.6912 2.87248C10.4643 2.22561 10.0499 1.69123 9.68995 1.31811C9.47995 1.09873 9.6412 0.736856 9.94682 0.749981C11.7956 0.832481 14.7918 1.34623 16.0649 4.54123C16.6237 5.94373 16.6649 7.39311 16.3987 8.86686C16.2299 9.80811 15.6299 11.9006 16.9987 12.1575C17.9756 12.3412 18.4481 11.565 18.6599 11.0062C18.7481 10.7737 19.0537 10.7156 19.2187 10.9012C20.8687 12.7781 21.0093 14.9887 20.6681 16.8919C20.0081 20.5706 16.2824 23.2481 12.5812 23.2481C7.95745 23.2481 4.27682 20.6025 3.32245 15.8137C2.93807 13.8806 3.13307 10.0556 6.11432 7.35561C6.33557 7.15311 6.69745 7.33311 6.66745 7.63686Z" fill="url(#paint0_radial_20123_1202)"/>
-                            <path d="M14.2705 14.5163C12.5661 12.3225 13.3293 9.8194 13.7474 8.8219C13.8036 8.69065 13.6536 8.5669 13.5355 8.64752C12.8024 9.14627 11.3005 10.32 10.6011 11.9719C9.65426 14.205 9.72176 15.2981 10.2824 16.6331C10.6199 17.4375 10.228 17.6081 10.0311 17.6381C9.83988 17.6681 9.66363 17.5406 9.52301 17.4075C9.11846 17.0191 8.83017 16.5257 8.69051 15.9825C8.66051 15.8663 8.50863 15.8344 8.43926 15.93C7.91426 16.6556 7.64238 17.82 7.62926 18.6431C7.58801 21.1875 9.68988 23.25 12.2324 23.25C15.4368 23.25 17.7711 19.7063 15.9299 16.7438C15.3955 15.8813 14.893 15.3169 14.2705 14.5163Z" fill="url(#paint1_radial_20123_1202)"/>
-                            <defs>
-                            <radialGradient id="paint0_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(11.6654 23.3064) rotate(-179.751) scale(13.2352 21.7163)">
-                            <stop offset="0.314" stop-color="#FF9800"/>
-                            <stop offset="0.662" stop-color="#FF6D00"/>
-                            <stop offset="0.972" stop-color="#F44336"/>
-                            </radialGradient>
-                            <radialGradient id="paint1_radial_20123_1202" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12.4086 10.136) rotate(90.5787) scale(13.8481 10.4217)">
-                            <stop offset="0.214" stop-color="#FFF176"/>
-                            <stop offset="0.328" stop-color="#FFF27D"/>
-                            <stop offset="0.487" stop-color="#FFF48F"/>
-                            <stop offset="0.672" stop-color="#FFF7AD"/>
-                            <stop offset="0.793" stop-color="#FFF9C4"/>
-                            <stop offset="0.822" stop-color="#FFF8BD" stop-opacity="0.804"/>
-                            <stop offset="0.863" stop-color="#FFF6AB" stop-opacity="0.529"/>
-                            <stop offset="0.91" stop-color="#FFF38D" stop-opacity="0.209"/>
-                            <stop offset="0.941" stop-color="#FFF176" stop-opacity="0"/>
-                            </radialGradient>
-                            </defs>
-                            </svg>
-                            
-                          <span class="ms-2 tag-desc">{{explainCellPlanOrderTagV(orderDetail.tag)}}</span>
-                        </div>
-                    </div>
+                  </div>
 
-                </section>
+                  <div class="empty-box w-100" style="height: 140px;"></div>
+
+
+                 
 
                 </div>
                 

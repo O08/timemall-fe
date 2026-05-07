@@ -52,6 +52,9 @@ export default function EventFeed(params) {
             const millstoneId = getQueryVariable("workflow_id");
             return updateEventFeedMarkAsProcessed(scene,millstoneId);
            },
+           updateEventFeedMarkAsProcessedUseBizIdV(bizId){
+            return updateEventFeedMarkAsProcessed(scene,bizId);
+           },
            updateEventFeedMarkAsProcessedGenernalV(scene,bizId){
             return updateEventFeedMarkAsProcessed(scene,bizId);
            },

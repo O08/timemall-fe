@@ -18,13 +18,15 @@ const RootComponent = {
         explainMsgTypeV(biz){
             if(biz=='mps_to_supplier') return "商单采购商消息";
             if(biz=='mps_to_purchaser') return "商单服务商消息";
-            if(biz=='millstone') return "履约消息";
+            if(biz=='millstone') return "特约消息";
+            if(biz=='plan') return "单品消息";
             return "未知业务";
         },
         generateLinkV(feed){
             if(feed.biz=="millstone") return "/estudio/gig-order-deliver?option=view&workflow_id=" + feed.workFlowId;
             if(feed.biz=="mps_to_purchaser") return "/estudio/studio-mps-action?id=" + feed.workFlowId;
             if(feed.biz=="mps_to_supplier") return "/estudio/b2b-order-deliver?paper_id=" + feed.workFlowId;
+            if(feed.biz=="plan") return "/estudio/packages-order-deliver?id=" + feed.workFlowId;
         }
          
     }
