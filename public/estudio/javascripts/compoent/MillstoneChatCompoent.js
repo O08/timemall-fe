@@ -55,7 +55,7 @@ const MillstoneChatCompoent = {
           document.querySelector(".chat-input").style.height=32 + "px";
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
-          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
+          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId,"millstone"); // notice  user that have new message arrival
         }
       }).catch(err=>{
         customAlert.alert("系统异常，请检查网络或者重新发送！")
@@ -77,7 +77,7 @@ const MillstoneChatCompoent = {
           this.retrieveMessageV(); // fetch message
           this.resetFileInput();
           $("#imagePreviewModal").modal("hide"); // show modal
-          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
+          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId,"millstone"); // notice  user that have new message arrival
 
         }
       }).catch(err=>{
@@ -92,7 +92,7 @@ const MillstoneChatCompoent = {
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
           this.resetBigFileInput();
-          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId); // notice  user that have new message arrival
+          this.sendEventFeedMessageNoticeV(this.workflow.serviceInfo,millstoneId,"millstone"); // notice  user that have new message arrival
           $("#sendBigFileModal").modal("hide"); // show modal
         }
       }).catch(err=>{

@@ -1031,3 +1031,12 @@ file upload
 .dropdown-dark .dropdown-item.item-danger:hover{
   background: rgba(248,113,113,0.1);
 }
+
+.dot-info {
+  vertical-align: super;
+  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  background-color: #4cffa9 !important;
+}

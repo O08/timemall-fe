@@ -5,15 +5,16 @@ import messages from 'emojibase-data/zh/messages.json';
 
 import { getQueryVariable } from "/common/javascripts/util.js";
 
+import {EventFeedScene} from "/common/javascripts/tm-constant.js";
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
+const currentRTMChannel=getQueryVariable("id"); 
 const MpsPaperChatCompoent = {
   data(){
     return {
-      urlMpsId:"",
-      haveNewMpsMsgRoomIds:[],
-       currentRTMChannel: "",
+       currentRTMChannel: currentRTMChannel,
        eventObj:{},
        // image file 
        errors: [],
@@ -33,72 +34,21 @@ const MpsPaperChatCompoent = {
       bigfile: {fileName: ""},
       rawBigfile: {},
       accept: "png,gif,jpg,jpeg",
+      rtcSetting: {
+        channel: "mps_chat_"+currentRTMChannel,
+        channelMessageFallback: ()=>{
+            this.retrieveMessageV();
+            this.updateEventFeedMarkAsProcessedGenernalV(EventFeedScene.STUDIO,currentRTMChannel);
+        }
+      }
 
        
       }
   },
   methods: {
-    joinMpsRoomsV(){
-
-      //  public room
-      var mpsId =getQueryVariable("mps_id");
-
-      var rooms=[];
-      // paper room
-      this.mpmc__paperList.records.forEach(element => {
-        rooms.push(element.id);
-      });
-
-      rooms.push(mpsId);
-      this.joinRoomsV(mpsId,rooms,(room)=>{
-        // if in current session ,fetch info
-        if(this.currentRTMChannel==room){
-          this.retrieveMessageV();
-          // update room msg as read
-          this.putMsgHelperV();
-        }
-
-        // fetch have new msg 
-
-        this.fetchHaveNewMpsMsgRoomV();
 
 
-
-      });
-
-    },
-    putMsgHelperV(){
-      putMsgHelper(this.currentRTMChannel);
-    },
-    broadCastChannelHaveNewMsgV(){
-      const mpsId = getQueryVariable("mps_id");
-     return this.haveNewMpsMsgRoomIds.filter(e=>{return e===mpsId}).length>0
-  },
-  paperChannelHaveNewMsgV(paperId){
-      return this.haveNewMpsMsgRoomIds.filter(e=>{return e===paperId}).length>0
-  },
-  fetchHaveNewMpsMsgRoomV(){
-      fetchHaveNewMpsMsgRoom(this.mpmc__paperList).then(response=>{
-          if(response.data.code==200){
-              this.haveNewMpsMsgRoomIds=response.data.ids.records;
-          }
-      });
-  },
-
-    changePaperChannelV(paperId){
-
-       this.currentRTMChannel = paperId;
-       this.changeRoomV(paperId);
-       this.retrieveMessageV();
-       this.putMsgHelperV(); // mark msg as read
-    },
-    changeChannelToBroadCastV(){
-        this.currentRTMChannel = getQueryVariable("mps_id");
-        this.changeRoomV(getQueryVariable("mps_id"));
-
-        this.retrieveMessageV();
-        this.putMsgHelperV(); // mark msg as read
-    },
+  
     sendTextMessageV(){
       const targetId = this.currentRTMChannel;
       const msg = document.querySelector(".chat-input").value
@@ -112,6 +62,10 @@ const MpsPaperChatCompoent = {
           document.querySelector(".chat-input").style.height=32 + "px";
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
+          if(this.mpmc__paperDetail?.supplierUserId){
+            this.sendEventFeedMessageNoticeUseSceneV(EventFeedScene.POD,{supplierUserId: this.mpmc__paperDetail.supplierUserId,consumerUserId: this.getIdentity().userId},currentRTMChannel,"mps_to_supplier"); // notice  user that have new message arrival
+          }
+
         }
       }).catch(err=>{
         customAlert.alert("系统异常，请检查网络或者重新发送！")
@@ -131,6 +85,9 @@ const MpsPaperChatCompoent = {
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
+          if(this.mpmc__paperDetail?.supplierUserId){
+            this.sendEventFeedMessageNoticeUseSceneV(EventFeedScene.POD,{supplierUserId: this.mpmc__paperDetail.supplierUserId,consumerUserId: this.getIdentity().userId},currentRTMChannel,"mps_to_supplier"); // notice  user that have new message arrival
+          }
           this.resetFileInput();
           $("#imagePreviewModal").modal("hide"); // hide modal
 
@@ -146,6 +103,9 @@ const MpsPaperChatCompoent = {
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
           this.retrieveMessageV(); // fetch message
+          if(this.mpmc__paperDetail?.supplierUserId){
+            this.sendEventFeedMessageNoticeUseSceneV(EventFeedScene.POD,{supplierUserId: this.mpmc__paperDetail.supplierUserId,consumerUserId: this.getIdentity().userId},currentRTMChannel,"mps_to_supplier"); // notice  user that have new message arrival
+          }
           this.resetBigFileInput();
           $("#sendBigFileModal").modal("hide"); // hide modal
         }
@@ -305,9 +265,9 @@ const MpsPaperChatCompoent = {
 
   },
   created(){
-    this.currentRTMChannel = getQueryVariable("mps_id"); // defautl channel is p 2 p
-    this.urlMpsId= getQueryVariable("mps_id"); 
     this.retrieveMessageV();
+    this.joinRoomInitV(); // rtm.js
+    this.updateEventFeedMarkAsProcessedGenernalV(EventFeedScene.STUDIO,currentRTMChannel);
  },
  updated(){
     if(document.getElementById("event-tab").ariaSelected=='true'){
@@ -333,26 +293,6 @@ async function storeMillstoneAttachment(targetId, form){
   return await axios.put(url,form);
 }
 
-async function doFetchHaveNewMpsMsgRoom(rooms){
-  const url="/api/v1/ms/mps_msg/has_new_msg?rooms="+rooms;
-  return await axios.get(url);
-}
-async function doPutMsgHelper(dto){
-  const url="/api/v1/ms/mps_msg/read";
-  return await axios.put(url,dto);
-}
-function putMsgHelper(targetId){
-  const dto={
-    targetId: targetId
-  }
-  return doPutMsgHelper(dto);
-}
-function fetchHaveNewMpsMsgRoom(mpmc__paperList){
-   const publicChannel=getQueryVariable("mps_id");
-   const paperChannel=mpmc__paperList.records.map(e=>{return e.id}).join(',')
-   const rooms=publicChannel+","+paperChannel;
- return  doFetchHaveNewMpsMsgRoom(rooms);
-}
 
 function retrieveMessage(targetId){
   return getMessageEvent(targetId);

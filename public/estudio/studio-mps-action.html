@@ -277,7 +277,10 @@
           <div class="main-content-container">
             <div class="nav-tabs-container">
               <ul class="nav nav-tabs" id="tob-tablist" role="tablist">
-                <li class="nav-item" role="presentation">
+                <li class="align-items-center d-flex nav-item btn-back-link" onclick="history.back()">
+                  <i class="bi bi-chevron-left" style="-webkit-text-stroke: 1.5px;"></i>
+                </li>
+                <li class="nav-item" role="presentation" style="margin-left: 4px;">
                   <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">
                     <i class="bi bi-briefcase"></i>
                     服务内容
@@ -301,58 +304,7 @@
             <div class="tab-content">
               <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
 
-                <div class="chat-container d-flex">
-
-                  <div class="msg-room-panel">
-                    <section class="event-wrapper">
-  
-                      <div  class="row gx-3 gy-3  row-cols-1">
-  
-                        <div class="col">
-                          <div  v-preventreclick  @click="changeChannelToBroadCastV" class="record-container">
-
-                            
-                            <div class="opt_item_head">
-                              <button 
-                                :class="{
-                                  'channel_active': currentRTMChannel===urlMpsId
-                                }"
-                                class="btn btn-outline-primary">
-                                <i class="bi bi-people-fill"></i>     
-                              </button>
-                              <sup v-if="broadCastChannelHaveNewMsgV()" class="disabled dot-info"></sup>
-                            </div>
-
-                            <span class="paper-head">公共</span>                         
-                          </div>
-                        </div>
-                        <div class="col" v-for="record in mpmc__paperList.records">
-                          <div  v-preventreclick  @click="changePaperChannelV(record.id)" class="record-container" >
-
-
-                            <div class="opt_item_head">
-                              <button 
-                                :class="{
-                                  'channel_active': currentRTMChannel===record.id
-                                }"
-                                class="btn btn-outline-primary">
-                                <i class="bi bi-person-fill"></i>    
-                              </button>
-                              <sup v-if="paperChannelHaveNewMsgV()" class="disabled dot-info"></sup>
-                            </div>
-                            <div class="paper-head-wrapper">
-                              <div class="paper-head">{{record.piece}}</div> 
-                              <div class="text-center" :style="{color: paperProgressColorV(record.tag)}">:::: {{record.id.substring(0,3)}} ::::</div>
-                            </div>
-  
-                        </div>
-  
-                      </div>
-                      
-                      
-                    </section>
-                  </div>
-
+                <div class="chat-container">
                   <!-- room msg pannle start -->
                   <div class="room-msg-panel">
                     <div class="room-msg-container">
@@ -452,197 +404,179 @@
                 <div class="paper-info-container">
 
 
-                <div class="mps-panel">
-                  <section class="event-wrapper">
-                    <div  class="row gx-3 gy-3  row-cols-5 row-cols-lg-5 row-cols-xl-6 row-cols-xxl-6">
-                      
-                      <div  v-for="record in mpmc__paperList.records" class="col">
-
-                        <div v-preventreclick @click="findPaperDetailV(record.id)" class="record-container">
-                          <div class="event-icon new-order">
-                            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <circle v-show="!(mpmc__paperDetail.paperId===record.id)" cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
-                              <rect v-show="mpmc__paperDetail.paperId===record.id"  rx="10" ry="10" width="100" height="100" fill="#4CFFA9" fill-opacity="0.7" />
-                              <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
-                              <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>                          
-                          </div>
-                          <div class="paper-head-wrapper">
-                            <div class="paper-head">{{record.piece}}</div> 
-                            <div class="text-center" :style="{color: paperProgressColorV(record.tag)}">:::: {{record.id.substring(0,3)}} ::::</div>
-                          </div>
-                        </div>
-
+                  <div v-show="!isEmptyObjectV(mpmc__paperDetail)" class="mps-panel-detail">
+                    <h1 class="deltail-title">{{mpmc__paperDetail.title}}</h1>
+                    <h2 class="detail-sow-heading">合约内容</h2>
+                    <p class="detail-sow-content">
+                      {{mpmc__paperDetail.sow}}
+                    </p>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        职能
                       </div>
-
-                    </div>
-                    
-                  </section>
-                </div>
-                <div v-show="isEmptyObjectV(mpmc__paperDetail)" class="content-block">
-
-                  点击商单查看商单明细！
-
-                </div>
-                <div v-show="!isEmptyObjectV(mpmc__paperDetail)" class="mps-panel-detail">
-                  <h1 class="deltail-title">{{mpmc__paperDetail.title}}</h1>
-                  <h2 class="detail-sow-heading">合约内容</h2>
-                  <p class="detail-sow-content">
-                    {{mpmc__paperDetail.sow}}
-                  </p>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      职能
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.piece}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      奖金（元）
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.bonus}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      采购商
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.purchaser}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      服务商
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.supplier}}<a v-if="!!mpmc__paperDetail.supplier" :href="'/messages/' + mpmc__paperDetail.supplierUserId" class="visit-brand-link ms-3" target="_blank"><span>私信服务商</span></a>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      交付周期（天）
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.deliveryCycle}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      招商期（天）
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.contractValidityPeriod}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      创单时间
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.createAt}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      状态
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{ (mpmc__paperDetail.tag==='2' && paperAlreadyInvalidV() )? '已失效' : explainPaperTagV(mpmc__paperDetail.tag)}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      经验要求
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{!!mpmc__paperDetail.experience ? mpmc__paperDetail.experience + "年及以上" : "不限"}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      接单消耗源能
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.bidElectricity}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      办公地点
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{mpmc__paperDetail.location}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      任务难度
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{explainMpsDifficultyV(mpmc__paperDetail.difficulty)}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      商单链接
-                    </div>
-                    <div class="detail-item-content">
-                      <div class="paper-link">
-                        <span>{{getPaperLinkV(mpmc__paperDetail.paperId)}}</span> 
-                        <span class="ms-2" @click="copyValueToClipboardV(mpmc__paperDetail.paperId)">
-                          <i class="bi bi-copy"></i>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.piece}}
                         </span>
                       </div>
                     </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="skills-box">
-                      <div class="skill-pill" v-for="skill in mpmc__paperDetail.skills">
-                        {{skill}}
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        奖金（元）
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.bonus}}
+                        </span>
                       </div>
                     </div>
+                    
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        交付周期（天）
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.deliveryCycle}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        招商期（天）
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.contractValidityPeriod}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        状态
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{ (mpmc__paperDetail.tag==='2' && paperAlreadyInvalidV() )? '已失效' : explainPaperTagV(mpmc__paperDetail.tag)}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        经验要求
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{!!mpmc__paperDetail.experience ? mpmc__paperDetail.experience + "年及以上" : "不限"}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        接单消耗源能
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.bidElectricity}} 
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        办公地点
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.location}} 
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        任务难度
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{explainMpsDifficultyV(mpmc__paperDetail.difficulty)}} 
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        商单链接
+                      </div>
+                      <div class="detail-item-content">
+                        <div class="paper-link">
+                          <input class="link__content" :value="getPaperLinkV(mpmc__paperDetail.paperId)" disabled>
+                          <span class="ms-2" @click="copyValueToClipboardV(mpmc__paperDetail.paperId)">
+                            <i class="bi bi-copy"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        采购商
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.purchaser}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        发单时间
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{renderDateInChinaV(mpmc__paperDetail.createAt)}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        接单时间
+                      </div>
+                      <div class="detail-item-content">
+                        <span>
+                          {{mpmc__paperDetail.bidAt ? renderDateInChinaV(mpmc__paperDetail.bidAt) : "-" }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="detail-item-head">
+                        服务商
+                      </div>
+                      <div class="detail-item-content">
+                        <div>
+                          <span>
+                            {{mpmc__paperDetail.supplier}}
+                          </span>
+                        </div>
+                        <a v-if="!!mpmc__paperDetail.supplier" :href="'/messages/' + mpmc__paperDetail.supplierUserId" class="visit-brand-link" target="_blank"><span>私信服务商</span></a>
+                      </div>
+                    </div>
+                    <div class="detail-item">
+                      <div class="skills-box">
+                        <div class="skill-pill" v-for="skill in mpmc__paperDetail.skills">
+                          {{skill}}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mt-5 pb-5 mps-actions" >
+                      <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-dark modal-btn-ui">下线</button>
+
+                      <button v-preventreclick v-if="mpmc__paperDetail.tag==='1' || mpmc__paperDetail.tag==='3'" @click="showEditPaperModelV" class="btn btn-dark modal-btn-ui">编辑</button>
+
+
+                      <button v-preventreclick v-if="mpmc__paperDetail.tag==='3'" @click="onlineMpsPaperV(mpmc__paperDetail.paperId)" class="btn btn-primary modal-btn-ui ms-5">上线</button>
+
+                      <button v-preventreclick v-if="mpmc__paperDetail.tag==='5' && canRefindSupplierV(mpmc__paperDetail.bidAt)" @click="showRefindSupplierConfrimModelV" class="btn btn-danger modal-btn-ui">重新招商</button>
+
+                    </div>
                   </div>
-
-                  <div class="mt-5 pb-5 mps-actions" >
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='2'" @click="offLineMpsPaperV(mpmc__paperDetail.paperId)"  class="btn btn-dark modal-btn-ui">下线</button>
-
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='1' || mpmc__paperDetail.tag==='3'" @click="showEditPaperModelV" class="btn btn-dark modal-btn-ui">编辑</button>
-
-
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='3'" @click="onlineMpsPaperV(mpmc__paperDetail.paperId)" class="btn btn-primary modal-btn-ui ms-5">上线</button>
-
-                    <button v-preventreclick v-if="mpmc__paperDetail.tag==='5' && canRefindSupplierV(mpmc__paperDetail.bidAt)" @click="showRefindSupplierConfrimModelV" class="btn btn-danger modal-btn-ui">重新招商</button>
-
-                  </div>
-                </div>
 
                 </div>
 
@@ -653,37 +587,7 @@
 
                 <div class="deliver-panel-container">
 
-                  <div class="deliver-panel-header">
-                    <section class="event-wrapper new-order">
-                      <div  class="row gx-3 gy-3  row-cols-5 row-cols-lg-5 row-cols-xl-6 row-cols-xxl-6">
-                        <div v-for="record in mpmc__paperList.records" class="col">
-                         
-                          <div v-preventreclick @click="fetchPaperDeliverDetailV(record.id)" class="record-container">
-                            <div class="event-icon new-order">
-                              <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle v-show="!(mpdc__current_active_paper===record.id)" cx="50" cy="50" r="50" fill="#4CFFA9" fill-opacity="0.7"/>
-                                <rect v-show="mpdc__current_active_paper===record.id"  rx="10" ry="10" width="100" height="100" fill="#4CFFA9" fill-opacity="0.7" />
-                                <path d="M59.05 33H64C64.5304 33 65.0391 33.2107 65.4142 33.5858C65.7893 33.9609 66 34.4696 66 35V68C66 68.5304 65.7893 69.0391 65.4142 69.4142C65.0391 69.7893 64.5304 70 64 70H36C35.4696 70 34.9609 69.7893 34.5858 69.4142C34.2107 69.0391 34 68.5304 34 68V35C34 34.4696 34.2107 33.9609 34.5858 33.5858C34.9609 33.2107 35.4696 33 36 33H43V36H57V33H59.05Z" stroke="#FAF7F7" stroke-width="4" stroke-linejoin="round"/>
-                                <path d="M53 45L45 53.001H55.004L47 61.001M43 30H57V36H43V30Z" stroke="#FAF7F7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                              </svg>                          
-                            </div>
-                            <div class="paper-head-wrapper">
-                              <div class="paper-head">{{record.piece}}</div> 
-                              <div class="text-center" :style="{color: paperProgressColorV(record.tag)}">:::: {{record.id.substring(0,3)}} ::::</div>
-                            </div>
-                          </div>
-  
-                        </div>
-                      </div>
-                      
-                    </section>
-                  </div>
-                  <div v-show="isEmptyObjectV(mpdc__paperDeliver) " class="content-block">
-  
-                    点击商单查看交付内容！
-  
-                  </div>
-                  <div v-show="(!isEmptyObjectV(mpdc__paperDeliver)) && isEmptyObjectV(mpdc__paperDeliver.records) " class="content-block">
+                  <div v-show="isEmptyObjectV(mpdc__paperDeliver.records) " class="content-block">
   
                     还没有交付记录！
   

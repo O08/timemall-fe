@@ -12,7 +12,7 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import  TobChatCompoent from "/estudio/javascripts/compoent/TobChatCompoent.js";
 import MpsPaperDeliverCompoent from "/estudio/javascripts/compoent/MpsPaperDeliverCompoent.js";
-import RtmCompoent from "/estudio/javascripts/compoent/rtm.js";
+import RtmCompoent from "/common/javascripts/blv-rtm.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
@@ -34,8 +34,6 @@ const RootComponent = {
             findPaperDetail().then(response=>{
                 if(response.data.code==200){
                     this.paperDetail=response.data.detail;
-                    this.fetchHaveNewMpsMsgRoomV();
-                    this.joinMpsRoomsV();
                 }
             });
         },
@@ -113,7 +111,7 @@ app.mixin(
     
 const tobActionPage = app.mount('#app');
 window.cTobActionPage = tobActionPage;
-tobActionPage.joinRoomInitV(); // rtm.js
+
 
 async function fetchPaperDetail(paperId){
     const url="/api/public/commercial_paper/{id}/detail".replace("{id}",paperId);

@@ -42,12 +42,18 @@ export default function EventFeed(params) {
                  })
             }
            },
-           sendEventFeedMessageNoticeV(serviceInfo,workFlowId){
-            return sendEventFeedMessageNotice(scene,serviceInfo,workFlowId);
+           sendEventFeedMessageNoticeV(serviceInfo,workFlowId,biz){
+            return sendEventFeedMessageNotice(scene,serviceInfo,workFlowId,biz);
+           },
+           sendEventFeedMessageNoticeUseSceneV(scene,serviceInfo,workFlowId,biz){
+            return sendEventFeedMessageNotice(scene,serviceInfo,workFlowId,biz);
            },
            updateEventFeedMarkAsProcessedV(){
             const millstoneId = getQueryVariable("workflow_id");
             return updateEventFeedMarkAsProcessed(scene,millstoneId);
+           },
+           updateEventFeedMarkAsProcessedGenernalV(scene,bizId){
+            return updateEventFeedMarkAsProcessed(scene,bizId);
            },
            initEventFeedCompoentV(){
             this.fetchCreatedEventFeedSignalV();
@@ -108,19 +114,21 @@ function updateEventFeedMarkAsProcessed(scene,workFlowId){
     }
     return eventFeedTrigger(dto);
 }
-function sendEventFeedMessageNotice(scene,serviceInfo,workflowId){
+function sendEventFeedMessageNotice(scene,serviceInfo,workflowId,biz){
     let appendix="";
    if(scene === EventFeedScene.POD){
     appendix={
         workFlowId: workflowId,
-        down: serviceInfo.supplierUserId
+        down: serviceInfo.supplierUserId,
+        biz: biz
     }
     sendStudioMessageNoticeTrigger(JSON.stringify(appendix));
    }
    if(scene === EventFeedScene.STUDIO){
     appendix={
         workFlowId: workflowId,
-        down: serviceInfo.consumerUserId
+        down: serviceInfo.consumerUserId,
+        biz: biz
     }
     sendPodMessageNoticeTrigger(JSON.stringify(appendix));
    }

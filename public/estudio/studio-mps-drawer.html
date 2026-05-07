@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +7,13 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>消息通知 - E-Studio</title>
+    <title>商单管理 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-msg.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-mps-drawer.scss">
+
 
 
 </head>
@@ -131,9 +132,11 @@
                     </a>
                   </li>
   
-
+                 
+  
                 </div>
-
+                
+  
   
               </ul>
             </div>
@@ -222,7 +225,7 @@
                   </div>
                   <span>智能提案</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-mps">
+                <a class="nav-link active" href="/estudio/studio-mps">
                   <div class="nav-icon">
                     <i class="bi bi-columns"></i>
                   </div>
@@ -240,7 +243,7 @@
                   </div>
                   <span>营销活动</span>
                 </a>
-                <a class="nav-link active">
+                <a class="nav-link" href="/estudio/studio-msg">
                   <div class="nav-icon">
                     <i class="bi bi-bell"></i>
                   </div>
@@ -269,52 +272,182 @@
           </div>
         </aside>
         <main>
-          <div class="page-title">
-            <h1>消息通知</h1>
-          </div>  
-              
-          <div class="table-responsive">
+          <div class="main-content-container">
 
-            <div class="table-wrp">
-
-              <table class="table table-sm  table-hover align-middle">
-                <thead>
-                  <tr>
-                    <th class="col-msg">消息内容</th>
-                    <th class="col-addTime">接收时间</th>
-                    <th class="col-type">类别</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="notice in eventFeed.records">
-                    <td class="col-msg">
-                      <div>
-                        <a class="tb-url-link" :href="generateLinkV(JSON.parse(notice.feed))">
-                          <p class="pt-1"><span class="ellipsis-1" style="max-width: calc(100% - 132px);display: -webkit-inline-box; vertical-align: middle; font-weight: bolder;">{{JSON.parse(notice.feed).upDesc}}</span><span>的新消息，点击查看</span></p>
-                        </a>
-                      </div>
-                    </td>
-                    <td class="col-addTime"> 
-                      {{notice.createAt.replace(new RegExp('-', 'g'), '/')}}
-                    </td>
-                    <td class="col-type">{{explainMsgTypeV(JSON.parse(notice.feed).biz)}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div v-show="eventFeed.records.length==0 && envent_feed_page_init_load_finish" class="empty-content-block">
-    
-                没有可用的内容！
-    
+            <!-- Dashboard Stats -->
+            <div class="dashboard-card mb-4">
+              <div class="row g-0">
+                <div class="col-6 col-md-3 stat-card border-end border-divider">
+                  <div class="ds__label mb-2">总计</div>
+                  <div class="ds__content mb-1" id="totalOrders">{{dashboard.totalOrders}}</div>
+                  <div class="ds__desc">全部商单</div>
+                </div>
+                <div class="col-6 col-md-3 stat-card  border-md-end border-divider">
+                  <div class="ds__label  mb-2">交付中</div>
+                  <div class="ds__content mb-1"  id="activeOrders">{{dashboard.deliverings}}</div>
+                  <div class="ds__desc"><span id="pendingOrders">{{dashboard.seekingSuppliers}}</span> 个招商中</div>
+                </div>
+                <div class="col-6 col-md-3 stat-card  border-end border-divider">
+                  <div class="ds__label  mb-2">已完成</div>
+                  <div class="ds__content mb-1"  id="completedOrders">{{dashboard.finished}}</div>
+                  <div class="ds__desc">已交付商单</div>
+                </div>
+                <div class="col-6 col-md-3 stat-card">
+                  <div class="ds__label mb-2">已发奖金</div>
+                  <div class="ds__content mb-1"  id="totalBonus">¥{{dashboard.expense}}</div>
+                  <div class="ds__desc">已交付商单发放资金</div>
+                </div>
               </div>
-
             </div>
-            
-          </div>
-      
-          <div class="empty-box"></div>
 
-          
+            <!-- Search and Filters -->
+            <div class="mb-4 search-widget">
+              <div class="row g-3 mb-3">
+                <div class="col-12 col-md-6">
+                  <div class="position-relative">
+                    <i class="bi bi-search position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                    <input @keyup.enter.native="retrieveMpsPaperDataV" v-model="mps_paper_list_pagination.param.q" type="text" class="form-control ps-5" id="searchInput" placeholder="搜索...">
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="position-relative">
+                    <select @change="retrieveMpsPaperByFilterV" v-model="mps_paper_list_pagination.param.tag"  class="form-select" id="functionFilter">
+                      <option value="">所有状态</option>
+                      <option value="5">{{explainPaperTagV('5')}}</option>
+                      <option value="2">{{explainPaperTagV('2')}}</option>
+                      <option value="3">{{explainPaperTagV('3')}}</option>
+                      <option value="4">{{explainPaperTagV('4')}}</option>
+                      <option value="1">{{explainPaperTagV('1')}}</option>
+                    </select>
+                    <i class="bi bi-funnel position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+                      style="pointer-events: none;"></i>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="position-relative">
+                    <select @change="retrieveMpsPaperByFilterV" v-model="mps_paper_list_pagination.param.difficulty"  class="form-select" id="difficultyFilter">
+                      <option value="">所有难度</option>
+                      <option value="easy">{{explainMpsDifficultyV('easy')}}</option>
+                      <option value="medium">{{explainMpsDifficultyV('medium')}}</option>
+                      <option value="advanced">{{explainMpsDifficultyV('advanced')}}</option>
+                      <option value="expert">{{explainMpsDifficultyV('expert')}}</option>
+                      <option value="master">{{explainMpsDifficultyV('master')}}</option>
+                    </select>
+                    <i class="bi bi-funnel position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+                      style="pointer-events: none;"></i>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Active Filters -->
+              <div id="activeFilters" class="d-none">
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                  <span class="small text-secondary">当前筛选:</span>
+                  <div id="filterTags" class="d-flex flex-wrap gap-2"></div>
+                  <button class="btn btn-link btn-sm text-secondary text-decoration-underline p-0"
+                    id="clearAllFilters">清除全部</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container mb-4">
+              <div class="table-responsive">
+                <table class="table table-sm table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-title">商单</th>
+                      <th class="col-brand">服务商</th>
+                      <th class="col-text" style="width: 100px;">奖金</th>
+                      <th class="col-text" style="width: 100px;">任务难度</th>
+                      <th style="width: 100px;">职能</th>
+                      <th class="col-text" style="width: 100px;">状态</th>
+                      <th class="col-time"
+                        style="width: 100px;">接单时间</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                    <tr v-for="paper in mps_paper_list_pagination.records">
+                      <td class="col-title">
+                        <div>
+                          <a class="tb-url-link" :href="'/estudio/studio-mps-action?id='+paper.id">
+                            <span class="ellipsis-1">
+                              {{paper.title}}
+                            </span>
+                          </a>
+                        </div>
+                      </td>
+                      <td class="col-brand">
+                        <div v-if="paper.supplier " class="d-flex align-items-center" style="gap: 4px;">
+                          <a target="_blank" :href="'/messages/' + paper.supplierUserId"><img :src="adaptiveImageUriV(paper.supplierAvatar) || defaultAvatarImage" class="peacemaker-avatar"></a>
+                          <span class="ellipsis-1">{{paper.supplier}}</span>
+                        </div>
+                        <div style="color: rgb(100, 116, 139);" v-else>-</div>
+                      </td>
+                      <td>
+                        <span   style="color: rgb(249, 115, 22);  font-weight: 700;">¥{{paper.bonus}}</span>
+                      </td>
+                      <td>
+                        <div style="color: rgb(96, 165, 250); font-weight: 700;">{{explainMpsDifficultyV(paper.difficulty)}} </div>
+                      </td>
+                      <td>
+                        <div style="color: rgb(96, 165, 250); font-weight: 700;">
+                          <span class="ellipsis-1" style="width: 80px;">{{paper.piece}}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge" :class="{'badge-active': paper.tag=='5','badge-completed': paper.tag=='4','badge-pending': (paper.tag=='2' && !paperAlreadyInvalidV(paper))}">
+                          {{ (paper.tag==='2' && paperAlreadyInvalidV(paper) )? '已失效' : explainPaperTagV(paper.tag)}}
+                        </span>
+                      </td>
+      
+                      <td>
+                        <span style="color: rgb(100, 116, 139);">{{paper?.bidAt ? renderDateInChinaV(paper?.bidAt) : '-'}}</span>
+                      </td>
+
+                    </tr>
+                    <tr v-show="mps_paper_list_pagination.records.length==0">
+                      <td colspan="7" class="p-0">
+                        <div class="d-flex justify-content-center align-items-center" style="min-height: 374px;">
+                          <div class="empty-box-wrp text-center">
+                            <div class="empty-icon">
+                              <i class="bi bi-file-text fs-2 text-muted"></i>
+                            </div>
+                            <h5 class="mb-2 text-secondary">未找到商单</h5>
+                            <p class="small text-muted">没有符合当前筛选条件的商单，请尝试调整筛选条件。</p>
+                          </div>
+                        </div>
+                      </td>                      
+                    </tr>
+                  </tbody>
+                </table>
+                <nav v-if="!!mps_paper_list_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(mps_paper_list_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in mps_paper_list_pagination.paging.items" :class="{'current-page-active': mps_paper_list_pagination.paging.current == page}" 
+                          @click="pageGo(mps_paper_list_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(mps_paper_list_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
+
+        
+            <div class="empty-box"></div>
+          </div>
         </main>
+        <section class="modals">
+
+        </section>
         
       </content>
       <footer></footer>
@@ -354,7 +487,10 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-msg.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-mps-drawer.js"></script>
+
+
+
 
 
 </body>

@@ -279,6 +279,9 @@
             
             <div class="nav-tabs-container">
               <ul class="nav nav-tabs" id="tob-tablist" role="tablist">
+                <li class="align-items-center d-flex nav-item btn-back-link" onclick="history.back()">
+                  <i class="bi bi-chevron-left" style="-webkit-text-stroke: 1.5px;"></i>
+                </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="sow-tab" data-bs-toggle="tab" data-bs-target="#sow-tab-pane" type="button" role="tab" aria-controls="sow-tab-pane" aria-selected="true">
                     <i class="bi bi-briefcase"></i>
@@ -303,58 +306,9 @@
             <div class="tab-content">
               <div class="tab-pane fade" id="event-tab-pane" role="tabpanel" aria-labelledby="event-tab" tabindex="0">
 
-                <div class="chat-container d-flex">
+                <div class="chat-container">
 
-                  <div class="msg-room-panel">
-                    <section class="event-wrapper">
-                      <div  class="row gx-3 gy-3  row-cols-1">
-                        
-                        <div class="col">
-                          <div  v-preventreclick  @click="changeChannelToDefaultV" class="record-container">
-                            
-
-                            <div class="opt_item_head">
-                              <button 
-                                :class="{
-                                  'channel_active': currentRTMChannel===paperDetail.paperId
-                                }"
-                                class="btn btn-outline-primary">
-                                <i class="bi bi-person-fill"></i>    
-                              </button>
-                              <sup v-if="paperChannelHaveNewMsgV()" class="disabled dot-info"></sup>
-                            </div>
-
-                            <span class="paper-head">
-                              {{paperDetail.piece}}
-                            </span>
-                            
-                          </div>
-                        </div>
-                        
-                        <div class="col">
-                          <div  v-preventreclick  @click="changeChannelToBroadCastV()" class="record-container">
-                            <div class="opt_item_head">
-                              <button 
-                                :class="{
-                                  'channel_active': currentRTMChannel===paperDetail.mpsId
-                                }"
-                                class="btn btn-outline-primary">
-                                <i class="bi bi-people-fill"></i>     
-                              </button>
-                              <sup v-if="broadCastChannelHaveNewMsgV()" class="disabled dot-info"></sup>
-                            </div>
-                            <span class="paper-head">公共</span>  
-                          </div>
-
-                        </div>
-                        
-                        
-
-                      </div>
-                      
-                      
-                    </section>
-                  </div>
+                 
 
                   <!-- room msg pannle start -->
                   <div class="room-msg-panel">
