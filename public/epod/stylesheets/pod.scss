@@ -1040,3 +1040,18 @@ file upload
   display: inline-block;
   background-color: #4cffa9 !important;
 }
+
+/* fullscreen modal */
+.fullscreen-modal{
+  --bs-modal-width: 100%;
+
+}
+.fullscreen-modal .modal-content{
+  height: 100vh;
+  border: none;
+  border-radius: unset;
+}
+.fullscreen-modal .modal-dialog{
+  margin: 0;
+  height: 100%;
+}

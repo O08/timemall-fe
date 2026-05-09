@@ -7,7 +7,7 @@
     <meta http-equiv ="content-language" content ="zh-cn">
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>编辑履约内容 - E-Pod</title>
+    <title>特约工作空间 - E-Pod</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
@@ -253,7 +253,7 @@
             <!-- tablist -->
           <div class="nav-tabs-container">
 
-            <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
+            <ul class="nav nav-tabs border-0" id="millstone-tab" role="tablist">
               <li class="nav-item" role="presentation">
                 <a class="text-decoration-none" href="/epod/pod-gig-order?tab=workflow">
                   <button class="nav-link" id="workflow-tab" data-bs-toggle="tab" data-bs-target="#workflow-tab-pane" type="button" role="tab" aria-controls="workflow-tab-pane" aria-selected="true">需求池</button>
@@ -308,11 +308,11 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="stage-tab" data-bs-toggle="tab" data-bs-target="#stage-tab-pane" type="button" role="tab" aria-controls="stage-tab-pane" aria-selected="true">
                     <i class="bi bi-briefcase"></i>
-                    编辑服务内容
+                    服务内容
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="true">
+                  <button class="nav-link" id="event-tab" data-bs-toggle="tab" data-bs-target="#event-tab-pane" type="button" role="tab" aria-controls="event-tab-pane" aria-selected="false">
                     <i class="bi bi-chat-dots"></i>
                     沟通
                   </button>
@@ -409,159 +409,219 @@
                 
               </div>
               <div class="tab-pane fade show active" id="stage-tab-pane" role="tabpanel" aria-labelledby="stage-tab" tabindex="0">
-                <div class="sow-container">
-
-                  <section class="section-cell-info  ps-4 my-5">
-                    <div class="row gx-3 gy-3 row-cols-sm-2 ">
-                        <div class="col">
-                            <h3>服务</h3>
-                            <p class="sow-cell-title">
-                                {{workflow.serviceInfo.title}}
-                            </p>
+                <div v-show="init_finish" class="gig-order-info-container">
+                  <!-- Service Info -->
+                  <div class="card card-custom my-3 mb-md-4">
+                    <div class="card-body p-3 p-md-4 pt-0">
+                      <div class="row g-3 g-md-4">
+                        <div class="col-12 col-sm-6">
+                          <div class="info-box rounded-3 p-3">
+                            <p class=" small mb-2 fw-medium" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                              服务商</p>
+                            <p class="small fw-semibold text-white mb-0">{{workflow.serviceInfo.brand}}</p>
+                          </div>
                         </div>
-                        <div class="col">
-                            <h3>服务商</h3>
-                            <div class="d-flex justify-content-start align-items-center me-2">
-                                <div class="brand-portrait">
-                                  <img class="brand-avator" :src="adaptiveImageUriV(workflow.serviceInfo.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-                                </div>
-                                <h6 class="sow-brand-name mx-2">{{workflow.serviceInfo.brand}}</h6>
-                            </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="info-box rounded-3 p-3">
+                            <p class=" small mb-2 fw-medium" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                              服务名称</p>
+                            <p class="small fw-semibold text-white mb-0">{{workflow.serviceInfo.title}}</p>
+                          </div>
                         </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="info-box rounded-3 p-3">
+                            <p class="small mb-2 fw-medium" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                              合同编号</p>
+                            <p class="small fw-semibold text-white mb-0">{{bizId}}</p>
+                          </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                          <div class="info-box rounded-3 p-3">
+                            <p class="small mb-2 fw-medium" style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                              服务周期</p>
+                            <p class="small fw-semibold text-white mb-0">{{workflow.serviceInfo.minStartDate}} - {{workflow.serviceInfo.maxEndDate}}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                </section>
-                  <section class="section-tool-bar ps-4 mb-5">
-                    <div class="d-flex tool-bar mt-5">
-                      <span>
-                        <button v-preventreclick  @click="newMillstoneV" type="button" id="btn-save-workflow" class="btn btn-outline-light">
-                          <i class="bi bi-plus"></i>
-                          <span>添加任务</span>
+                  </div>
+                  <!-- Task List -->
+                  <div class="card card-custom mb-3 mb-md-4">
+                    <div class="card-header card-header-custom p-3 p-md-4 pb-2 pb-md-3">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="card-title small fw-semibold text-white mb-0">任务清单</h5>
+                        <button v-if="workflow.mark=='1'"  v-preventreclick @click="showEditTaskModalV" class="btn btn-tasks-edit">
+                          <i class="bi bi-pencil-square"></i>
+                          <span class="ms-2 d-none d-sm-inline">编辑</span>
                         </button>
-                      </span>
-                      <span class="ms-5">
-                        
-                        <button v-preventreclick  @click="replaceWorkflowV" type="button" id="btn-save-workflow" class="btn btn-outline-primary">
-                          <i class="bi bi-check-lg"></i>
-                          保存任务集
-                          <sup 
-                          :class="{'disabled': !btn_ctl.activate_general_save_btn, 
-                                  'dot-red': btn_ctl.activate_general_save_btn}"
-                          class="dot"></sup>
-                        </button>
-                      </span>
+                      </div>
+                    </div>
+                    <div class="card-body p-3 p-md-4 pt-0">
+
+                      <div v-if="!workflow.millstones || workflow.millstones.length==0" class="align-items-center d-flex justify-content-center" style="min-height: 200px;">
+                        <div class="empty-box-wrp text-center">
+                          <div class="empty-icon"><i class="bi bi-file-text fs-2"></i></div>
+                          <h5 class="mb-2">暂无任务</h5>
+                          <p class="small">任务列表空空如也~</p>
+                        </div>
+                      </div>
+                      <!-- Task 1  start -->
+                      <div v-for="(millstone,i) in workflow.millstones" class="task-card rounded-3 overflow-hidden mb-3">
+                        <div class="p-3 p-md-4">
+                          <div class="d-flex align-items-center gap-2 gap-md-3">
+                            <div :class="{'status-completed': !!workflow.doneStageNo && i >= Number(workflow.doneStageNo)}"  class="status-icon  p-2 flex-shrink-0">
+                              <div v-if="!!workflow.doneStageNo && i >= Number(workflow.doneStageNo)" style="color:  #fff;">
+                                {{String(workflow.millstones.length - i).padStart(2, '0')}} 
+                              </div>
+                              <div v-else style="color:  #a3a3a3;">
+                                {{String(workflow.millstones.length - i).padStart(2, '0')}} 
+                              </div>
+                            </div>
+                            <div class="flex-grow-1">
+                              <p class="small word-break-all fw-semibold text-white mb-0 lh-sm">{{millstone.title}}</p>
+                            </div>
+                          </div>
+                  
+                          <div class="row g-2 g-md-3 mt-2 mt-md-3">
+                            <div class="col-12 col-sm-4">
+                              <div class="time-box-start rounded-3 px-2 px-md-3 py-2 py-md-3">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                  <i class="bi bi-calendar text-blue-400" style="font-size: 0.75rem;"></i>
+                                  <span class="text-blue-300 text-uppercase fw-medium"
+                                    style="font-size: 0.625rem; letter-spacing: 0.05em; opacity: 0.7;">开始时间</span>
+                                </div>
+                                <p class="small fw-semibold text-white mb-0">{{millstone.start}}</p>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                              <div class="time-box-end rounded-3 px-2 px-md-3 py-2 py-md-3">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                  <i class="bi bi-clock text-blue-400" style="font-size: 0.75rem;"></i>
+                                  <span class="text-blue-300  text-uppercase fw-medium"
+                                    style="font-size: 0.625rem; letter-spacing: 0.05em; opacity: 0.7;">结束时间</span>
+                                </div>
+                                <p class="small fw-semibold text-white mb-0">{{millstone.end}}</p>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                              <div class="time-box-settlement rounded-3 px-2 px-md-3 py-2 py-md-3">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                  <i class="bi bi-percent text-blue-400" style="font-size: 0.75rem;"></i>
+                                  <span class="text-blue-300 text-uppercase fw-medium"
+                                    style="font-size: 0.625rem; letter-spacing: 0.05em; opacity: 0.7;">结算比例</span>
+                                </div>
+                                <p class="small fw-semibold text-white mb-0">{{millstone.payRate}}%</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                  
+                        <div class="gradient-divider"></div>
+                  
+                        <div class="task-details p-3 p-md-4">
+                          <div class="mb-3 mb-md-4">
+                            <h6 class="small fw-bold text-blue-300 mb-3 text-uppercase d-flex align-items-center gap-2"
+                              style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                              <span class="section-marker marker-blue"></span>
+                              任务目标
+                            </h6>
+                            <ul class="list-unstyled mb-0">
+                              <li v-for="objective in millstone.objective" class="small text-secondary mb-2 d-flex gap-2">
+                                <span class="text-blue-400 flex-shrink-0">▸</span>
+                                <span class="word-break-all">{{objective.entry}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                  
+                          <div class="gradient-divider mb-3 mb-md-4"></div>
+                  
+                          <div>
+                            <h6 class="small fw-bold text-emerald-300 mb-3 text-uppercase d-flex align-items-center gap-2"
+                              style="font-size: 0.75rem; letter-spacing: 0.05em;">
+                              <span class="section-marker marker-emerald"></span>
+                              验收标准
+                            </h6>
+                            <ul class="list-unstyled mb-0">
+                              <li v-for="metric in millstone.metric" class="small text-secondary mb-2 d-flex gap-2">
+                                <span class="text-emerald-400 flex-shrink-0">✓</span>
+                                <span class="word-break-all">{{metric.entry}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                       <!-- Task 1 end -->
+                  
                       
                     </div>
-                  </section>
-                  <section class="section-workspace">
-                      <div class="edit-pannel">
-                          <ul class="timeline">
-                              <li v-for="(item,mIndex) in workflow.millstones" class="timeline-item">
-                                <json-node class="json-item-node millstone-title d-flex flex-row">
-                                  <div class="pt-2">
-                                    <span v-preventreclick  @click="removeMillstoneV(mIndex)" class="option-remove me-2">
-                                      <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="删除任务">           
-                                        <i class="bi bi-dash-circle"></i>
-                                      </a>
-                                    </span>
-                                  </div>
-                                  <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="item.title" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务标题" aria-describedby="addon-wrapping">
-                                  </textarea>
-                                </json-node>
-                                <json-node class="d-flex flex-column">
-                                  <span>
-                                    目标
-                                    <span v-preventreclick  @click="newObjToFirstV(mIndex)" class="item-setting-plus">
-                                      <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务目标">           
-                                        <i class="bi bi-plus"></i>
-                                      </a>
-                                    </span>
-                                  </span>
-                                  <json-node v-for="(obj,objIndex) in item.objective" class="json-item-node d-flex flex-row">  
-                                    <div class="item-setting mx-1 my-1">
-                                      <span v-preventreclick  @click="newObjAfterV(mIndex,objIndex)" class="item-setting-plus">
-                                        <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务目标">           
-                                          <i class="bi bi-plus"></i>
-                                        </a>
-                                      </span>
-                                      <span v-preventreclick  @click="removeObjV(mIndex,objIndex)" class="item-setting-x">
-                                        <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除任务目标">           
-                                          <i class="bi bi-dash"></i>
-                                        </a>
-                                      </span>
-                                    </div>  
-                                    <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写任务中需要实现的目标" aria-describedby="addon-wrapping">    
-                                    </textarea>       
-                                  </json-node>
-                                </json-node>
-                                <json-node class="d-flex flex-column">
-                                  <span>
-                                    关键结果
-                                    <span v-preventreclick  @click="newMetricToFirstV(mIndex)" class="item-setting-plus">
-                                      <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务验收指标">           
-                                        <i class="bi bi-plus"></i>
-                                      </a>
-                                    </span>
-                                  </span>
-                                  <json-node v-for="(metric,metricIndex) in item.metric" class="json-item-node d-flex flex-row"> 
-                                    <div class="item-setting mx-1 my-1">
-                                      <span v-preventreclick  @click="newMetricAfterV(mIndex,metricIndex)" class="item-setting-plus">
-                                        <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="添加任务验收指标">           
-                                          <i class="bi bi-plus"></i>
-                                        </a>
-                                      </span>
-                                      <span  v-preventreclick  @click="removeMetric(mIndex,metricIndex)" class="item-setting-x">
-                                        <a data-bs-custom-class="custom-popover" data-bs-placement="left" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="移除任务验收指标">           
-                                          <i class="bi bi-dash"></i>
-                                        </a>
-                                      </span>
-                                    </div>               
-                                    <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="metric.entry" class="form-control millstone-input-box" maxlength="100" placeholder="填写验收指标" aria-describedby="addon-wrapping">
-                                    </textarea>
-                                  </json-node>
-                                </json-node>
-  
-                                <json-node class="d-flex align-items-center">
-                                  <span>
-                                    结算比例(%) 
-                                    <a data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="完成该任务结算比例，假设订单200，结算比例 20 ，任务完成时结算金额为200 * 0.2 = 40">           
-                                      <i class="bi bi-info-circle"></i>           
-                                    </a>
-                                  </span> 
-                                  <span>
-                                    <input @change="btn_ctl.activate_general_save_btn = true"  
-                                    @input="transformInputNumberV($event)"
-                                     min="1" max="100" step="1"
-                              type="text" v-model="item.payRate" class="form-control millstone-input-box ms-2" placeholder="填写完成任务时结算比例" aria-describedby="addon-wrapping">                                </span>
-                                </json-node>  
-  
-                                <json-node class="d-flex align-items-center">
-                                  <span>开始时间</span> 
-                                  <span>
-                                    <input data-olddate="" @input="userInputDatePickerHandlerV($event)" @change="btn_ctl.activate_general_save_btn = true" type="text"   v-model="item.start"  class="form-control millstone-input-box datepicker ms-2"  placeholder="填写任务开始时间"  autocomplete="off"> 
-                                  </span>
-                                </json-node>  
-  
-                                <json-node class="d-flex align-items-center pb-5">
-                                  <span>结束时间</span> 
-                                  <span>
-                                    <input data-olddate="" @input="userInputDatePickerHandlerV($event)" @change="btn_ctl.activate_general_save_btn = true" type="text"   v-model="item.end"  class="form-control millstone-input-box datepicker ms-2"  placeholder="填写任务结束时间"  autocomplete="off">
-                                  </span>
-                                </json-node>  
-                              </li>
-                              
-                            </ul>
-                      </div>
-                  </section>
-                  <div class="workspace-pps ps-4 pb-5">
-                    <div>
-                      <span><i class="bi bi-pin-angle me-2"></i>可授权服务商「编辑服务内容」权限，开启协作.</span> 
+
+                  </div>
+
+                  <!-- Rules Check Results -->
+                  <div class="card card-custom mb-3 mb-md-4">
+                    <div class="card-header card-header-custom p-3 p-md-4 pb-2 pb-md-3">
+                      <h5 class="card-title small fw-semibold text-white mb-0">规则检查结果</h5>
                     </div>
-                    <div>
-                      <span><i class="bi bi-pin-angle me-2"></i>特约采用分步交付设计，如果服务商告知你需要在任务启动前收账，可拒绝，推荐任务交付结果满足验收标准再进行付款.账单支付请前往【账单管理】.</span> 
+                    <div class="card-body p-3 p-md-4 pt-0">
+                      <div class="mb-3 mb-md-4">
+                
+                        <div v-if="!ruleCheckResults || ruleCheckResults.length == 0" class="align-items-center d-flex justify-content-center" style="min-height: 200px;">
+                          <div class="empty-box-wrp text-center">
+                            <div class="empty-icon"><i class="bi bi-shield-check fs-2"></i></div>
+                            <h5 class="mb-2">暂无风险提示</h5>
+                            <p class="small">所有配置符合系统逻辑规则~</p>
+                          </div>
+                        </div>
+                        <div v-for="res in ruleCheckResults" class="check-item rounded-3 p-3 p-md-4 mb-2 mb-md-3 d-flex align-items-start gap-3 gap-md-4">
+                          <div class="check-icon p-2 rounded-3 flex-shrink-0">
+                            <i class="bi bi-info-circle"></i>
+                          </div>
+                          <div class="flex-grow-1">
+                            <p class="small fw-semibold text-white mb-1">{{res.label}}</p>
+                            <p class="small text-secondary mb-0 lh-base">
+                              {{res.desc}}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                                   
+                  <!-- Additional Info -->
+                  <div class="card card-custom mb-3 mb-md-4">
+                    <div class="card-header card-header-custom p-3 p-md-4 pb-2 pb-md-3">
+                      <h5 class="card-title small fw-semibold text-white mb-0">履约说明</h5>
+                    </div>
+                    <div class="card-body p-3 p-md-4 pt-0">
+                      <div class="small text-white lh-base">
+                   
+                        <ul class="list-unstyled small notes-box p-3 p-md-4 rounded-3 mb-0">
+                          <li class="text-secondary mb-2 mb-md-3 d-flex align-items-center gap-2">
+                            <span class="text-blue-400 flex-shrink-0">▸</span>
+                            <span>为提高交付效率，可通过【个人中心-消息通知】随时接收特约消息</span>
+                          </li>
+                          <li class="text-secondary mb-2 mb-md-3 d-flex align-items-center gap-2">
+                            <span class="text-blue-400 flex-shrink-0">▸</span>
+                            <span>平内置多种通讯服务，您可通过【私信】、【部落】或外部联系方式与服务商沟通、交流</span>
+                          </li>
+                          <li class="text-secondary mb-2 mb-md-3 d-flex align-items-center gap-2">
+                            <span class="text-blue-400 flex-shrink-0">▸</span>
+                            <span>任务内容高度定制，可授权服务商「编辑服务内容」权限，开启协作，共同定制任务清单</span>
+                          </li>
+                          <li class="text-secondary mb-2 mb-md-3 d-flex align-items-center gap-2">
+                            <span class="text-blue-400 flex-shrink-0">▸</span>
+                            <span>特约采用分步交付设计，任务交付顺序依据编号从小到大，如果服务商告知你需要在任务启动前收账，可拒绝；推荐任务交付结果满足验收标准再进行付款；账单支付请前往【个人中心-账单管理】</span>
+                          </li>
+
+                        </ul>
+                      </div>
                     </div>
                   </div>
 
                 </div>
+
               </div>
             </div>
           </div>
@@ -572,6 +632,172 @@
     </content>
     <footer></footer>
     <section class="modals">
+      <!-- Edit Task Modal -->
+      <div class="modal-container">
+        <div class="modal fullscreen-modal fade" id="editTaskModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content card card-custom">
+
+              <div class="modal-header card-header card-header-custom p-4  p-md-3 w-100">
+                <div class="align-items-center d-flex justify-content-between  w-100">
+                  <h5 class="card-title fw-semibold mb-0 small text-white">任务清单</h5>
+                  <button class="btn btn-primary-custom btn-sm shadow" v-preventreclick @click="newMillstoneV">
+                    <i class="bi bi-plus" style="font-size:.875rem"></i>
+                    <span class="hide-mobile ms-2">添加任务</span>
+                    <span class="d-sm-none ms-2">添加</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="modal-body card-body p-3 p-md-4 pt-0">
+
+                <div id="tasks-container" style="height: 100%;">
+                  <div v-if="!editWorkflow.millstones || editWorkflow.millstones.length==0" class="align-items-center d-flex justify-content-center" style="height: 100%;">
+                    <div class="empty-box-wrp text-center">
+                      <div class="empty-icon"><i class="bi bi-file-text fs-2"></i></div>
+                      <h5 class="mb-2">暂无任务</h5>
+                      <p class="small">任务列表空空如也，点击【添加任务】按钮添加</p>
+                    </div>
+                  </div>
+                  <div v-else v-for="(item,mIndex) in editWorkflow.millstones"  class="task-card rounded-3 overflow-hidden mb-3 mb-md-4">
+                    <!-- Task Header -->
+                    <div class="task-header p-3 p-md-4">
+                      <div class="task-no mb-3">
+                        <span class="d-flex align-items-center justify-content-center rounded-circle fw-bold"
+                          style="
+                            width: 22px; 
+                            height: 22px; 
+                            font-size: 0.7rem; 
+                            background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); 
+                            border: 1px solid rgba(255,255,255,0.2); 
+                            color: rgba(255,255,255,0.8);
+                            box-shadow: 0 0 8px rgba(0,0,0,0.3);
+                            letter-spacing: -0.5px;
+                          ">
+                          {{ String(editWorkflow.millstones.length - mIndex).padStart(2, '0') }}
+                        </span>
+                      </div>
+                      <div class="d-flex align-items-start gap-2 gap-md-3">
+                        <div class="flex-grow-1">
+                          <label class="form-label form-label-custom mb-2">
+                            任务名称
+                          </label>
+                          <input   name="task-title" @change="btn_ctl.activate_general_save_btn = true"  maxlength="100" v-model="item.title" type="text" class="form-control form-control-dark fw-semibold" placeholder="输入任务名称" autocomplete="off">
+                        </div>
+                        <button class="btn btn-ghost btn-delete btn-sm p-2 flex-shrink-0" style="margin-top: 28px;"
+                          v-preventreclick  @click="removeMillstoneV(mIndex)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+      
+                    <div class="gradient-divider"></div>
+      
+                    <!-- Task Details -->
+                    <div class="p-3 p-md-4">
+                      <!-- Time and Settlement -->
+                      <div class="row g-3 g-md-3 mb-3 mb-md-4">
+                        <div class="col-12 col-sm-4">
+                          <label class="form-label form-label-custom d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-calendar text-blue-400"></i>
+                            开始时间
+                          </label>
+                          <input name="task-start" @change="btn_ctl.activate_general_save_btn = true"  data-olddate="" @input="userInputDatePickerHandlerV($event)" v-model="item.start" type="text" class="datepicker form-control form-control-dark" placeholder="填写任务开始时间" autocomplete="off">
+                        </div>
+                        <div class="col-12 col-sm-4">
+                          <label class="form-label form-label-custom d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-clock text-purple-400"></i>
+                            结束时间
+                          </label>
+                          <input name="task-end" @change="btn_ctl.activate_general_save_btn = true"  data-olddate="" @input="userInputDatePickerHandlerV($event)" v-model="item.end" type="text" class="datepicker form-control form-control-dark" placeholder="填写任务结束时间" autocomplete="off">
+                        </div>
+                        <div class="col-12 col-sm-4">
+                          <label class="form-label form-label-custom d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-percent text-emerald-400"></i>
+                            结算比例
+                            <a data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="完成该任务结算比例，假设订单200，结算比例 20 ，任务完成时结算金额为200 * 0.2 = 40">           
+                              <i class="bi bi-info-circle"></i>           
+                            </a>
+                          </label>
+                          <div class="percent-input-wrapper">
+                            <input name="task-payrate" @change="btn_ctl.activate_general_save_btn = true"  @input=transformInputNumberV($event) min="1" max="100"  v-model="item.payRate"  type="text" class="form-control form-control-dark"  placeholder="填写完成任务时结算比例" style="padding-right: 32px;" autocomplete="off">
+                            <span class="percent-symbol">%</span>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <div class="gradient-divider mb-3 mb-md-4"></div>
+      
+                      <!-- Task Goals -->
+                      <div class="mb-3 mb-md-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                          <label class="form-label form-label-custom text-blue-300 d-flex align-items-center gap-2 mb-0">
+                            <i class="bi bi-bullseye"></i>
+                            任务目标
+                          </label>
+                          <button class="btn btn-ghost btn-add-goal btn-sm px-2 px-md-3" v-preventreclick @click="newObjAfterV(mIndex,objIndex)" >
+                            <i class="bi bi-plus me-1"></i>
+                            <span class="hide-mobile">添加目标</span>
+                            <span class="d-sm-none">添加</span>
+                          </button>
+                        </div>
+                        <div>
+      
+                          <div  v-for="(obj,objIndex) in item.objective" class="d-flex gap-2 mb-2 mb-md-3">
+                            <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight v-model="obj.entry" maxlength="100" class="form-control form-control-dark flex-grow-1"  placeholder="填写任务中需要实现的目标"></textarea>
+                            <button class="btn btn-ghost btn-delete btn-sm p-2 flex-shrink-0" v-preventreclick @click="removeObjV(mIndex,objIndex)">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
+
+                        </div>
+                      </div>
+      
+                      <div class="gradient-divider mb-3 mb-md-4"></div>
+      
+                      <!-- Acceptance Criteria -->
+                      <div>
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                          <label class="form-label form-label-custom text-emerald-300 d-flex align-items-center gap-2 mb-0">
+                            <i class="bi bi-check-square"></i>
+                            验收标准
+                          </label>
+                          <button class="btn btn-ghost btn-add-criteria btn-sm px-2 px-md-3" v-preventreclick @click="newMetricToFirstV(mIndex)">
+                            <i class="bi bi-plus me-1"></i>
+                            <span class="hide-mobile">添加标准</span>
+                            <span class="d-sm-none">添加</span>
+                          </button>
+                        </div>
+                        <div>
+      
+                          <div v-for="(metric,metricIndex) in item.metric" class="d-flex gap-2 mb-2 mb-md-3">
+                            <textarea @change="btn_ctl.activate_general_save_btn = true"  v-autoheight maxlength="100" v-model="metric.entry"  class="form-control form-control-dark flex-grow-1"  placeholder="填写验收指标"></textarea>
+                            <button class="btn btn-ghost btn-delete btn-sm p-2 flex-shrink-0" v-preventreclick @click="removeMetric(mIndex,metricIndex)">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </div>
+      
+      
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="gradient-divider"></div>
+              <div class="modal-footer  border-0 p-4  p-md-3">
+                <button @click="closeEditTaskModalV" type="button" class="btn btn-outline-secondary fresh-ui-btn">
+                  <div class="contents">取消</div>
+                </button>
+                <button  v-preventreclick @click="replaceWorkflowV"  :class="{'disabled': !btn_ctl.activate_general_save_btn }" type="button" class="btn btn-primary fresh-ui-btn">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <div class="modal-container">
         <!-- Modal -->
         <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1">

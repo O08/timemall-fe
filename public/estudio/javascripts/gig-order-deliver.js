@@ -20,45 +20,62 @@ import {getDaysBetween}from "/common/javascripts/util.js";
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
 
+const currentWorkflowId = getQueryVariable("workflow_id");
+
+
 let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            bizId: currentWorkflowId,
+            init_finish: false,
             ruleCheckResults: [],
             url_var_option: "",
             workflow: {
                 serviceInfo: {}
             },
+            editWorkflow: {},
             btn_ctl:{
                 activate_general_save_btn: false
             }
         }
     },
     methods: {
+        showEditTaskModalV(){
+            this.editWorkflow=JSON.parse(JSON.stringify(this.workflow));
+            $("#editTaskModal").modal("show");
+            this.btn_ctl.activate_general_save_btn = false;
+        },
+        closeEditTaskModalV(){
+            $("#editTaskModal").modal("hide");
+        },
         newMillstoneV(){
             const m = this.emptyMillstone();
-            this.workflow.millstones.unshift(m)
+            this.editWorkflow.millstones.unshift(m);
           },
           removeMillstoneV(mIndex){
-             this.workflow.millstones.splice(mIndex,1);
+             this.editWorkflow.millstones.splice(mIndex,1);
+             this.btn_ctl.activate_general_save_btn = true;
           },
           newObjToFirstV(mIndex){
-             this.workflow.millstones[mIndex].objective.unshift({});
+             this.editWorkflow.millstones[mIndex].objective.unshift({});
           },
           newObjAfterV(mIndex,objIndex){
-             this.workflow.millstones[mIndex].objective.splice(objIndex + 1,0,{});
+             this.editWorkflow.millstones[mIndex].objective.splice(objIndex + 1,0,{});
           },
           removeObjV(mIndex,objIndex){
-             this.workflow.millstones[mIndex].objective.splice(objIndex,1);
+             this.editWorkflow.millstones[mIndex].objective.splice(objIndex,1);
+             this.btn_ctl.activate_general_save_btn = true;
           },
           newMetricToFirstV(mIndex){
-             this.workflow.millstones[mIndex].metric.unshift({});
+             this.editWorkflow.millstones[mIndex].metric.unshift({});
           },
           newMetricAfterV(mIndex,metricIndex){
-             this.workflow.millstones[mIndex].metric.splice(metricIndex + 1,0,{});
+             this.editWorkflow.millstones[mIndex].metric.splice(metricIndex + 1,0,{});
           },
           removeMetric(mIndex,metricIndex){
-             this.workflow.millstones[mIndex].metric.splice(metricIndex,1);
+             this.editWorkflow.millstones[mIndex].metric.splice(metricIndex,1);
+             this.btn_ctl.activate_general_save_btn = true;
           },
           replaceWorkflowV(){
              replaceWorkflow();
@@ -160,7 +177,7 @@ window.cMillstoneAudit= millstoneAuditPage;
 millstoneAuditPage.joinRoomInitV(); // rtm.js
 async function saveWorkflow(workflowId){
     const url = "/api/v1/web_epod/millstone/workflow/{workflow_id}".replace("{workflow_id}",workflowId);
-    return axios.put(url,{workflow: millstoneAuditPage.workflow});
+    return axios.put(url,{workflow: millstoneAuditPage.editWorkflow});
 }
 
 async function getSingleWorkflow(workflowId){
@@ -175,21 +192,23 @@ async function markMillstone(workflowId,code){
 }
 
 function loadWorkflowInfo(){
-    const workflowId = getQueryVariable("workflow_id"); // todo 
-    getSingleWorkflow(workflowId).then(response=>{
+    getSingleWorkflow(currentWorkflowId).then(response=>{
         if(response.data.code == 200){
             millstoneAuditPage.workflow = response.data.workflow;
             if(!millstoneAuditPage.workflow.millstones){
                 millstoneAuditPage.workflow.millstones=[];
             }
             ruleCheck(response.data.workflow);
-         }
+        }
+        millstoneAuditPage.init_finish=true;
+    }).catch(error=>{
+        millstoneAuditPage.init_finish=true;
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
     });
 }
 
 function approvedWorkflow(){
-    const workflowId = getQueryVariable("workflow_id"); // todo 
-    markMillstone(workflowId,WorkflowStatus.Audited).then(response=>{
+    markMillstone(currentWorkflowId,WorkflowStatus.Audited).then(response=>{
         if(response.data.code == 200){
             goViewOption();
             millstoneAuditPage.workflow.mark=WorkflowStatus.Audited;
@@ -203,8 +222,7 @@ function approvedWorkflow(){
     });
 }
 function rejectWorkflow(){
-    const workflowId = getQueryVariable("workflow_id"); // todo 
-    markMillstone(workflowId,WorkflowStatus.InQueue).then(response=>{
+    markMillstone(currentWorkflowId,WorkflowStatus.InQueue).then(response=>{
         if(response.data.code == 200){
             goViewOption();
             millstoneAuditPage.workflow.mark=WorkflowStatus.InQueue;
@@ -272,48 +290,74 @@ function ruleCheck(workflow){
   // rest millstoneAuditPage.ruleCheckResults
   millstoneAuditPage.ruleCheckResults=[];
   if(inOneDayRule){
-    millstoneAuditPage.ruleCheckResults.push("存在任务施工周期小于一天。");
+    millstoneAuditPage.ruleCheckResults.push({ label: "识别到紧急任务", desc:"存在任务施工周期小于一天。"});
   }
-  millstoneAuditPage.ruleCheckResults.push("结算比例求和为" + payRateSumRule + "%。");
-  millstoneAuditPage.ruleCheckResults.push("完成全部任务预估时间" + workCyclRule + "天。");
-  millstoneAuditPage.ruleCheckResults.push("任务入场时间:" + entryDateRule + "。");
-  millstoneAuditPage.ruleCheckResults.push("第一个任务结算比例为" + FirstPayRateRule + "%。");
+  millstoneAuditPage.ruleCheckResults.push({ label: "结算比例核查", desc: "结算比例求和为" + payRateSumRule + "%"});
+  millstoneAuditPage.ruleCheckResults.push({ label: "任务排期指引", desc:"完成全部任务预估时间" + workCyclRule + "天"});
+  millstoneAuditPage.ruleCheckResults.push({ label: "开工日期",desc:"任务入场时间为" + entryDateRule });
+  millstoneAuditPage.ruleCheckResults.push({ label: "首次结算核查",desc:"第一个任务结算比例为" + FirstPayRateRule + "%" });
 
+  generateScheduleInfo(minStartDate,maxEndDate);
 
+}
+
+function generateScheduleInfo(minStartDate,maxEndDate){
+    const formatDate = (dateStr) => {
+        const d = new Date(dateStr);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}.${m}.${day}`;
+      };
+      
+      millstoneAuditPage.workflow.serviceInfo.minStartDate = formatDate(minStartDate);
+      millstoneAuditPage.workflow.serviceInfo.maxEndDate = formatDate(maxEndDate);
+      
 
 }
 
 function replaceWorkflow(){
     // validate data
-    const id= getQueryVariable("workflow_id");// workflow id
-    if(!id || millstoneAuditPage.workflow.millstones.length==0){
+    if(!currentWorkflowId || millstoneAuditPage.editWorkflow.millstones.length==0){
         return;
     }
-    if(millstoneAuditPage.workflow.millstones.filter(e=> (  $.isEmptyObject(e.objective[0])  || $.isEmptyObject(e.metric[0]) )).length>0){
+    if(millstoneAuditPage.editWorkflow.millstones.length>=100){
+        customAlert.alert("任务超限，最多支持99个任务，请检查.");
+        return;
+    }
+    if(millstoneAuditPage.editWorkflow.millstones.filter(e => {
+        // 检查 objective：数组为空，或者内部存在任何一个空对象
+        const objectiveInvalid = !e.objective || e.objective.length === 0 || e.objective.some(item => $.isEmptyObject(item?.entry));
+        
+        // 检查 metric：数组为空，或者内部存在任何一个空对象
+        const metricInvalid = !e.metric || e.metric.length === 0 || e.metric.some(item => $.isEmptyObject(item?.entry));
+        
+        return objectiveInvalid || metricInvalid;
+    }).length > 0){
         customAlert.alert("有任务未填写完整，请检查.");
         return;
     }
-    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.title).length>0){
+    if(millstoneAuditPage.editWorkflow.millstones.filter(e=>!e.title).length>0){
         customAlert.alert("存在任务标题未填写，请检查.");
         return;
     }
-    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.payRate).length>0){
+    if(millstoneAuditPage.editWorkflow.millstones.filter(e=>!e.payRate).length>0){
         customAlert.alert("有任务结算比率未填写，请检查.");
         return;
     }
-    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.start).length>0){
+    if(millstoneAuditPage.editWorkflow.millstones.filter(e=>!e.start).length>0){
         customAlert.alert("有任务开始时间未填写，请检查.");
         return;
     }
-    if(millstoneAuditPage.workflow.millstones.filter(e=>!e.end).length>0){
+    if(millstoneAuditPage.editWorkflow.millstones.filter(e=>!e.end).length>0){
         customAlert.alert("有任务结束时间未填写，请检查.");
         return;
     }
-    if(millstoneAuditPage.workflow.millstones.filter(e=>new Date(e.start) > new Date(e.end)).length>0){
+    if(millstoneAuditPage.editWorkflow.millstones.filter(e=>new Date(e.start) > new Date(e.end)).length>0){
         customAlert.alert("有任务【开始日期】大于【结束日期】，请检查.");
         return;
     }
-    const totalPayRate= millstoneAuditPage.workflow.millstones.reduce(
+    const totalPayRate= millstoneAuditPage.editWorkflow.millstones.reduce(
         (accumulator, currentValue) => accumulator + Number(currentValue.payRate),
         0,
     );
@@ -322,10 +366,12 @@ function replaceWorkflow(){
         return;
     }
 
-    saveWorkflow(id).then(response=>{
+    saveWorkflow(currentWorkflowId).then(response=>{
         if(response.data.code==200){
+            millstoneAuditPage.workflow=JSON.parse(JSON.stringify(millstoneAuditPage.editWorkflow))
             ruleCheck(millstoneAuditPage.workflow);
             millstoneAuditPage.btn_ctl.activate_general_save_btn = false;
+            millstoneAuditPage.closeEditTaskModalV();
         }
         if(response.data.code!=200){
             customAlert.alert("操作失败，请检查网络、权限、查阅异常信息或联系技术支持。异常信息："+response.data.message);

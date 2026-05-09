@@ -22,7 +22,7 @@ const RootComponent = {
             return "未知业务";
         },
         generateLinkV(feed){
-            if(feed.biz=="millstone") return "/epod/gig-order-view?workflow_id=" + feed.workFlowId;
+            if(feed.biz=="millstone") return "/epod/gig-order-requirement?workflow_id=" + feed.workFlowId;
             if(feed.biz=="plan") return "/epod/packages-order-deliver?id=" + feed.workFlowId;
         }
          
