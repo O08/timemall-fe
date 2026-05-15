@@ -20,6 +20,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.disable('x-powered-by');
+
 app.use(logger('dev'));
 
 app.use(cors())
