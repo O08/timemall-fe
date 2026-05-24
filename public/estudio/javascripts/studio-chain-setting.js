@@ -197,7 +197,7 @@ const RootComponent = {
                 if(response.data.code==200){
                     var supplierArr=[{value:"",text:"选择服务商"}];
                     response.data.supplier.records.forEach(element => {
-                        supplierArr.push({value: element.id,text: element.brandName});
+                        supplierArr.push({value: element.supplierBrandId,text: element.supplierName});
                     });
                     this.supplierOptions=supplierArr;
                 }

@@ -6,7 +6,7 @@ const StudioApi = {
 }
 
 async function doFetchFirstSupplier(q){
-    const url="/api/v1/web_estudio/mps_chain/supplier?q="+q;
+    const url="/api/v1/web_estudio/brand/supplier/query?size=200&current=1&status=ACTIVE&q="+q;
     return await axios.get(url);
 }
 

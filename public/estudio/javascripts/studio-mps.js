@@ -532,7 +532,7 @@ function transformInputNumber(val,min,max){
         if(response.data.code==200){
             var suplierArr=[{value:"",text:"请选择"}];
             response.data.supplier.records.forEach(element => {
-             suplierArr.push({value: element.id,text: element.brandName});
+             suplierArr.push({value: element.supplierBrandId,text: element.supplierName});
             });
             appObj.supplierOptions=suplierArr;
          }

@@ -1,4 +1,7 @@
-import {OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag} from "/common/javascripts/tm-constant.js";
+import {
+    SupplierLevelEnum,SupplierStatusEnum,
+    OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag
+} from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
 
@@ -59,6 +62,15 @@ const CodeExplainComponent = {
     },
     explainOasisEquityOrderStausV(status){
       return explainOasisEquityOrderStaus(status);
+    },
+    explainSwitchEnumV(code){
+        return explainSwitchEnum(code);
+    },
+    explainSupplierLevelV(level){
+      return explainSupplierLevel(level);
+    },
+    explainSupplierStatusV(status){
+      return explainSupplierStatus(status);
     }
    }
 }
@@ -526,6 +538,58 @@ function explainMentorshipHonor(mentorHonor){
             break;      
     }
     return mentorHonorDesc;
+
+}
+
+function explainSwitchEnum(code){
+    var codeDesc = "未知";
+    switch(code){
+
+        case "0":
+            codeDesc="否";
+            break; 
+        case "1":
+            codeDesc="是";
+            break; 
+    }
+    return codeDesc;
+}
+function explainSupplierStatus(status){
+    var statusDesc="未知";
+    switch(status){
+      case SupplierStatusEnum.ACTIVE:
+        statusDesc="正常"
+          break;
+      case SupplierStatusEnum.BLACKLISTED:
+        statusDesc="拉黑"
+          break;
+      case SupplierStatusEnum.TERMINATED:
+        statusDesc="淘汰"
+          break;   
+      case SupplierStatusEnum.FROZEN:
+        statusDesc="冻结"
+          break;   
+    }
+    return statusDesc;
+
+}
+function explainSupplierLevel(level){
+  var levelDesc="未知";
+  switch(level){
+    case SupplierLevelEnum.STRATEGIC:
+      levelDesc="战略型"
+        break;
+    case SupplierLevelEnum.LEVERAGE:
+      levelDesc="杠杆型"
+        break;
+    case SupplierLevelEnum.BOTTLENECK:
+      levelDesc="瓶颈型"
+        break;   
+    case SupplierLevelEnum.ROUTINE:
+      levelDesc="常规型"
+        break;   
+  }
+  return levelDesc;
 
 }
 

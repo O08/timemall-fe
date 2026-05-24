@@ -102,13 +102,19 @@ async function getBrandContact(brandId)
 }
 
 
-function findBrandContactInfo(brandId){
-    getBrandContact(brandId).then(response=>{
-     if(response.data.code==200){
-        pTransaction.contact = response.data.contact;
-     }
+function findBrandContactInfo(brandId) {
+    getBrandContact(brandId).then(response => {
+        if (response.data.code == 200) {
+            transactionPage.contact = response.data.contact;
+        }
+        if (response.data.code != 200) {
+            const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+            customAlert.alert(error);
+        }
+    }).catch(error => {
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
     });
- }
+}
  
  
  function showContactInfo(brandId){

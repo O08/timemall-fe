@@ -290,8 +290,22 @@ var OasisEquityOrderStatusEnum = Object.freeze({
     "WRITE_OFF_PENDING": "6"
 });
 
+var SupplierLevelEnum = Object.freeze({
+    "STRATEGIC": "STRATEGIC",
+    "LEVERAGE": "LEVERAGE",
+    "BOTTLENECK": "BOTTLENECK",
+    "ROUTINE": "ROUTINE"
+});
+var SupplierStatusEnum = Object.freeze({
+    "ACTIVE": "ACTIVE",
+    "BLACKLISTED": "BLACKLISTED",
+    "TERMINATED": "TERMINATED",
+    "FROZEN": "FROZEN"
+});
+
 
 export {
+    SupplierLevelEnum,SupplierStatusEnum,
     AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,OasisEquityOrderStatusEnum,
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,
