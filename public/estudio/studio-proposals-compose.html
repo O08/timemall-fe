@@ -291,7 +291,7 @@
                   <div class="d-flex">
 
                     <span>
-                      <a target="_blank" class="download" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                      <a target="_blank" class="download" :download="item.materialName" :href="downLoadFileUriV(item.materialName,item.materialUrl)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                     </span>
                     <span  v-if="getIdentity().brandId==proposalGeneral.sellerBrandId"  class="option-edit ms-2">
                       <div class="dropdown">

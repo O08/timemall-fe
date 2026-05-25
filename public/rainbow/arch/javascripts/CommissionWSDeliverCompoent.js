@@ -123,7 +123,10 @@ const CommissionWSDeliverCompoent = {
         },
         taskInConfirmIngV(){
           return   this.mpdc__paperDeliver.records.filter(e=>e.tag==CommercialPaperDeliverTag.CREATED).length>0;
-        }
+        },
+        downLoadFileUriV(fileName,uri){
+            return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+        },
     }
 
 }

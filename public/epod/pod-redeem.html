@@ -643,7 +643,7 @@
                     <span style="display: contents;">
                       <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">交付文件</span>
                     </span>
-                    <a target="_blank" class="download" :download="orderDetail.orderNo + '-' + orderDetail.productName+ '-兑换订单交付资料'" :href="orderDetail.deliveryMaterial"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                    <a target="_blank" class="download" :download="orderDetail.orderNo + '-' + orderDetail.productName+ '-兑换订单交付资料'" :href="downLoadFileUriV(orderDetail.orderNo + '-' + orderDetail.productName+ '-兑换订单交付资料',orderDetail.deliveryMaterial)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
 
                   </div>
                 </div>

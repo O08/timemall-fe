@@ -265,6 +265,9 @@ const RootComponent = {
         removeRandomShippingMerchandiseV(id){
           removeRandomShippingMerchandise(id);
         },
+        downLoadFileUriV(fileName,uri){
+          return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+        },
         searchMerchandiseV(){
          if(!this.randomMerchandiseQueryParam){
           this.randomMerchandise= this.randomMerchandiseQueryItems;

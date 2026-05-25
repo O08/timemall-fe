@@ -445,7 +445,7 @@
                     <span :title="item.materialName" style="display: contents;">
                       <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">{{item.materialName}}</span>
                     </span>
-                    <a target="_blank" class="download" :download="item.materialName" :href="item.materialUrl"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                    <a target="_blank" class="download" :download="item.materialName" :href="downLoadFileUriV(item.materialName,item.materialUrl)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                   </div>
                   <div v-if="materialList.length==0" class="d-flex align-items-center justify-content-center p-2 h-100">
                      未找到相关数据

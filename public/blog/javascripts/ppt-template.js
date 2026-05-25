@@ -35,6 +35,10 @@ const RootComponent = {
     methods: {
         retrievePptTemplateGridV(){
             retrievePptTemplateGrid();
+        },
+        downloadTemplateUriV(template){
+            const downloadName=template.title+'PPT模版';
+            return template.downloadUri+"&download=true&downloadName="+encodeURIComponent(downloadName);
         }
     },
     updated() {

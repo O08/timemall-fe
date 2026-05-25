@@ -122,6 +122,9 @@ const MpsPaperDeliverCompoent = {
         },
         paperDeliverTagExplainV(tag){
            return paperDeliverTagExplain(tag);
+        },
+        downLoadFileUriV(fileName,uri){
+            return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
         }
     }
 

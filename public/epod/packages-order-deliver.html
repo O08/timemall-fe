@@ -541,7 +541,7 @@
                           <div class="file-item">
                             <i data-lucide="file-text" class="file-icon"></i>
                             <span class="file-name">{{record.deliverName}}</span>
-                            <a  target="_blank" class="download" :download="record.deliverName" :href="record.deliver">
+                            <a  target="_blank" class="download" :download="record.deliverName" :href="downLoadFileUriV(record.deliverName,record.deliver)">
                               <i data-lucide="download"></i>
                             </a>
                           </div>
@@ -553,7 +553,7 @@
                           <div class="file-item">
                             <i data-lucide="file-text" class="file-icon"></i>
                             <span class="file-name"> {{record.previewName}}</span>
-                            <a target="_blank" class="download" :download="record.previewName" :href="record.preview">
+                            <a target="_blank" class="download" :download="record.previewName" :href="downLoadFileUriV(record.previewName,record.preview)">
                               <i data-lucide="download"></i>
                             </a>
                           </div>

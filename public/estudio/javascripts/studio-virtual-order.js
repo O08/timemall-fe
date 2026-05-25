@@ -182,7 +182,10 @@ const RootComponent = {
         },
         retrieveMpsPaperListByTagV(){
             retrieveMpsPaperListByTag();
-        }
+        },
+        downLoadFileUriV(fileName,uri){
+          return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+        },
     },
     updated(){
         $('[data-popper-reference-hidden]').remove();

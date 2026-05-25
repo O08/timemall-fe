@@ -263,7 +263,7 @@
                       <span style="display: contents;">
                         <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">最新交付文件</span>
                       </span>
-                      <a target="_blank" class="download" :download="changeOrderPackObj.orderNo + '-' + changeOrderPackObj.productName + '-兑换订单交付资料'" :href="changeOrderPackObj.deliveryMaterial"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                      <a target="_blank" class="download" :download="changeOrderPackObj.orderNo + '-' + changeOrderPackObj.productName + '-兑换订单交付资料'" :href="downLoadFileUriV(changeOrderPackObj.orderNo + '-' + changeOrderPackObj.productName + '-兑换订单交付资料',changeOrderPackObj.deliveryMaterial)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
   
                     </div>
                   </div> 

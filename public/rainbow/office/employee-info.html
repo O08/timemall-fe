@@ -316,7 +316,7 @@
                     <span class="material-size">{{renderFileSizeV(item.materialSize)}}</span>
                   </div>
                   <div class="material-actions">
-                    <a target="_blank" class="action-btn" :download="item.materialName" :href="item.materialUri" title="下载">
+                    <a target="_blank" class="action-btn" :download="item.materialName" :href="downLoadFileUriV(item.materialName,item.materialUri)" title="下载">
                       <i class="bi bi-download"></i>
                     </a>
                     <button class="action-btn" v-preventreclick @click="showRenameEmployeeMaterialModalV(item)" title="重命名">

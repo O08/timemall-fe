@@ -123,7 +123,7 @@
   const downloadFileDirect=(url, filename)=> {
     const attachmentName=!filename ? "viber-attachment" : filename;
     const a = document.createElement('a');
-    a.href = url;
+    a.href = url+"&download=true&downloadName="+encodeURIComponent(attachmentName);
     a.download = attachmentName;
     a.style.display = 'none';
     document.body.appendChild(a);

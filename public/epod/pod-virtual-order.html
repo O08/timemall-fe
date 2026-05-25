@@ -710,7 +710,7 @@
                       <span style="display: contents;">
                         <i style="color: chocolate;" class="bi bi-file-earmark-fill"></i> <span class="ms-2 ellipsis-1">交付资料</span>
                       </span>
-                      <a target="_blank" class="download" :download="deliverMaterial.productName + '-交付资料'" :href="deliverMaterial.deliverAttachment"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                      <a target="_blank" class="download" :download="deliverMaterial.productName + '-交付资料'" :href="downLoadFileUriV(deliverMaterial.productName + '-交付资料',deliverMaterial.deliverAttachment)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                     </div>
                   </div>
 

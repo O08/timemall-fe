@@ -388,13 +388,13 @@
                         </div>
                       </div>
                       <div class="record-content">
-                        <a target="_blank" class="file-row" :download="record.deliverName" :href="record.deliver">
+                        <a target="_blank" class="file-row" :download="record.deliverName" :href="downLoadFileUriV(record.deliverName,record.deliver)">
                           <i class="bi bi-file-earmark"></i>
                           <span class="file-label">交付文件</span>
                           <span class="file-name">{{record.deliverName}}</span>
                           <i class="bi bi-download"></i>
                         </a>
-                        <a target="_blank" class="file-row preview" :download="record.previewName" :href="record.preview">
+                        <a target="_blank" class="file-row preview" :download="record.previewName" :href="downLoadFileUriV(record.previewName,record.preview)">
                           <i class="bi bi-file-earmark"></i>
                           <span class="file-label">预览文件</span>
                           <span class="file-name">{{record.previewName}}</span>
@@ -421,13 +421,13 @@
                       </div>
                     </div>
                     <div class="record-content">
-                      <a v-if="record.tag=='3'" target="_blank" class="file-row" :download="record.deliverName" :href="record.deliver">
+                      <a v-if="record.tag=='3'" target="_blank" class="file-row" :download="record.deliverName" :href="downLoadFileUriV(record.deliverName,record.deliver)">
                         <i class="bi bi-file-earmark"></i>
                         <span class="file-label">交付文件</span>
                         <span class="file-name">{{record.deliverName}}</span>
                         <i class="bi bi-download"></i>
                       </a>
-                      <a v-else target="_blank" class="file-row preview" :download="record.previewName" :href="record.preview">
+                      <a v-else target="_blank" class="file-row preview" :download="record.previewName" :href="downLoadFileUriV(record.previewName,record.preview)">
                         <i class="bi bi-file-earmark"></i>
                         <span class="file-label">预览文件</span>
                         <span class="file-name">{{record.previewName}}</span>
@@ -456,13 +456,13 @@
                         </div>
                       </div>
                       <div class="record-content">
-                        <a v-if="record.tag=='3'" target="_blank" class="file-row" :download="record.deliverName" :href="record.deliver">
+                        <a v-if="record.tag=='3'" target="_blank" class="file-row" :download="record.deliverName" :href="downLoadFileUriV(record.deliverName,record.deliver)">
                           <i class="bi bi-file-earmark"></i>
                           <span class="file-label">交付文件</span>
                           <span class="file-name">{{record.deliverName}}</span>
                           <i class="bi bi-download"></i>
                         </a>
-                        <a v-else target="_blank" class="file-row preview" :download="record.previewName" :href="record.preview">
+                        <a v-else target="_blank" class="file-row preview" :download="record.previewName" :href="downLoadFileUriV(record.previewName,record.preview)">
                           <i class="bi bi-file-earmark"></i>
                           <span class="file-label">预览文件</span>
                           <span class="file-name">{{record.previewName}}</span>

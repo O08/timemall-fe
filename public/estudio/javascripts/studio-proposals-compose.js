@@ -186,6 +186,9 @@ const RootComponent = {
       },
       transformInputNumberAsPositiveV(e){
         return transformInputNumberAsPositive(e);
+      },
+      downLoadFileUriV(fileName,uri){
+        return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
       }
     },
     mounted(){

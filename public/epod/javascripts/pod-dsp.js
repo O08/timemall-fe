@@ -84,6 +84,9 @@ const RootComponent = {
 
             }
         })
+      },
+      downLoadFileUriV(fileName,uri){
+        return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
       }
     },
     updated(){

@@ -605,7 +605,7 @@
                       <div v-if="record.tag=='3'" class="deliver-record-row">
                         <div class="deliver-record-label">交付文件</div>
                         <div class="record-filename">{{record.deliverName}}</div>
-                        <a target="_blank" class="download-btn" :download="record.deliverName" :href="record.deliver">
+                        <a target="_blank" class="download-btn" :download="record.deliverName" :href="downLoadFileUriV(record.deliverName,record.deliver)">
                           <i class="bi bi-cloud-arrow-down"></i>
                         </a>
                       </div>
@@ -613,7 +613,7 @@
                       <div v-else class="deliver-record-row">
                         <div class="deliver-record-label">预览文件</div>
                         <div class="record-filename">{{record.previewName}}</div>
-                        <a target="_blank" class="download-btn" :download="record.previewName" :href="record.preview">
+                        <a target="_blank" class="download-btn" :download="record.previewName" :href="downLoadFileUriV(record.previewName,record.preview)">
                           <i class="bi bi-cloud-arrow-down"></i>
                         </a>
                       </div>

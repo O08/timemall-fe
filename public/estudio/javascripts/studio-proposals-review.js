@@ -91,6 +91,9 @@ const RootComponent = {
                 signProposal()
             }
             $("#focusModal").modal("show"); // show modal
+        },
+        downLoadFileUriV(fileName,uri){
+            return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
         }
     },
     created() {

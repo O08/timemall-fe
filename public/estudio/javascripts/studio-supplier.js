@@ -191,7 +191,10 @@ const RootComponent = {
       },
       transformInputNumberAsPositiveV(e){
         return transformInputNumberAsPositive(e);
-      }
+      },
+      ndaFileDownloadUriV(supplier){
+       return supplier.ndaFileUri+"&download=true&downloadName=nda_"+ encodeURIComponent(supplier.supplierName);
+      },
 
         
 

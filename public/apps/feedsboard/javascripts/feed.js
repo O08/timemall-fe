@@ -304,7 +304,10 @@ const RootComponent = {
         if(elem.scrollHeight>128){
             elem.style.height=128 + "px";
         }
-    },
+      },
+      downLoadFileUriV(fileName,uri){
+        return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+      },
     },
     mounted(){
         quill=new Quill('#editor', {

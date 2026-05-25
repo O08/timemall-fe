@@ -203,7 +203,10 @@ const RootComponent = {
     },
     renderDateToDayInChinaV(dateStr){
         return renderDateToDayInChina(dateStr);
-    }
+    },
+    downLoadFileUriV(fileName,uri){
+      return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+    },
   }
 }
 

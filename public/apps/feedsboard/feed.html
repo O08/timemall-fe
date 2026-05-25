@@ -154,7 +154,7 @@
               </div>
               <div class="attachment-option">
                 <div class="attachment-option__cta download">
-                  <a target="_blank" class="download" :download="attachmentRow.fileName" :href="attachmentRow.fileUri"><i class="bi bi-download"></i></a>
+                  <a target="_blank" class="download" :download="attachmentRow.fileName"  :href="downLoadFileUriV(attachmentRow.fileName,attachmentRow.fileUri)"><i class="bi bi-download"></i></a>
                 </div>
                 <div  v-if="isFeedAuthorRoleV()"  v-preventreclick  @click="deleteAttachmentV(attachmentRow.id)" class="attachment-option__cta trash"><i class="bi bi-trash"></i></div>
   

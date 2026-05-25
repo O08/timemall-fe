@@ -1106,3 +1106,82 @@ file upload
 .btn-blv-primary:focus {
   box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.4) !important;
 }
+.alertModal {
+  position: fixed;
+  top: -140px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2200;
+  width: 100%;
+  padding: 0 16px; 
+
+  // 带有物理回弹感的精细向下滑落动画曲线
+  transition: top 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+
+  @media (min-width: 481px) {
+    max-width: 440px; // 维持您原本设定的标准宽度
+
+    &.is-show {
+      top: 24px; // 距离顶部留出舒适的空隙
+      pointer-events: auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+    padding: 0 12px; 
+
+    &.is-show {
+      top: 12px; 
+      pointer-events: auto;
+    }
+  }
+
+  /* ------------------ 内部子模块（多端通用） ------------------ */
+
+  .custom-notify-body {
+    background-color: #2b2d31 !important;
+    border: 1px solid #3f4248 !important;
+    border-radius: 6px;
+    color: #f2f3f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.5;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+    padding: 12px 36px 12px 16px; // 右侧留出 36px 绝对定位空间防遮挡
+    word-break: break-all;
+    position: relative;
+
+    @media (max-width: 480px) {
+      font-size: 13px;
+      padding: 10px 32px 10px 14px; // 手机端内边距微调，减少臃肿感
+    }
+  }
+
+  .custom-notify-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #949ba4;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 480px) {
+      top: 8px;
+      right: 8px;
+      padding: 6px;
+    }
+  }
+}
+  
+  
+  

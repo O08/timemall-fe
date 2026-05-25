@@ -397,6 +397,9 @@ const RootComponent = {
           return "-";
         }
         return formatCmpctNumber(netWorth);
+      },
+      downLoadFileUriV(fileName,uri){
+        return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
       }
 
 

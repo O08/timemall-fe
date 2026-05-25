@@ -554,7 +554,7 @@
                               </span>
                               <div class="material-option">
                                 <span v-preventreclick @click="changeDeliverAttachmenttriggerV" class="material-option__btn me-2">变更附件</span>
-                                <a target="_blank" class="material-option__btn" :download="product.productName+'-交付资料'" :href="product.deliverAttachment">下载</a>
+                                <a target="_blank" class="material-option__btn" :download="product.productName+'-交付资料'" :href="downLoadFileUriV(product.productName+'-交付资料',product.deliverAttachment)">下载</a>
                               </div>
                             </div>
 
