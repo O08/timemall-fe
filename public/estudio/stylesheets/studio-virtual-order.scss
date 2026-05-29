@@ -80,41 +80,8 @@
 .cell-plan-order-list-header{
     min-width: 400px;
   }
-  .sub-tabs-header{
-    padding-bottom: 32px;
-  }
-  .sub-tabs-header .nav-tabs .nav-link.active,  .sub-tabs-header .nav-tabs .nav-link{
-    background-color: unset;
-    border: none !important;
+  
 
-  }
-.sub-tabs-header .nav-link{
-    color: #c3bfbf;
-    font-size: 20px;
-    font-weight: bold;
-}
-.sub-tabs-header .nav-link.active {
-    color: whitesmoke;
-}
-.sub-tabs-header .nav-tabs .nav-link:hover{
-  color: #fff;
-}
-#bubble-tab{
-  border-bottom: 1px #dddddd solid;
-  position: relative;
-}
-#bubble-tab li.pointer {
-  position: absolute;
-  z-index: 1;
-  width: 0;
-  height: 0;
-  left: 40px;
-  bottom: 0;
-  margin: 0;
-  border-bottom: 10px solid #dddddd;
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
-}
 td a{
     text-decoration: none;
     color: white;
@@ -177,23 +144,135 @@ body::-webkit-scrollbar {
 .option-edit .dropdown-toggle::after{
   content: unset;
 }
-.material-item{
-  padding: .25rem;
-  padding-right: 2rem;
-  position: relative;
-  display: flex;
-}
-.material-item a{
-  position: absolute;
-  right: 8px;
-  text-decoration: none;
-}
-.material-item a:hover {
-  color: #00ba9d;
-}
-.material-item{
-  background-color: #e3e5e7;
-}
-#deliverMaterialViewModal .modal-content,#orderRefundModal .modal-content,#orderManagementModal .modal-content{
- max-height: 400px;
-}
+
+#deliverMaterialViewModal {
+  .modal-content {
+    background-color: #313338 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px !important;
+    max-height: 400px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248 !important;
+    padding: 16px 24px !important;
+  }
+
+  .attachmement-head {
+    color: #b5bac1 !important;
+    font-weight: 600;
+    font-size: 13px;
+    text-uppercase: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+
+    i {
+      color: #949ba4;
+    }
+  }
+
+  .deliver-note-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #dbdee1;
+    background-color: #2b2d31;
+    border-radius: 6px;
+    user-select: text;
+  }
+
+  .material-item-card {
+    background-color: #1e1f22 !important;
+    border: 1px solid #3f4248 !important;
+    border-radius: 6px;
+    color: #dbdee1;
+    font-size: 13.5px;
+    line-height: 1.5;
+    font-family: Consolas, Monaco, monospace;
+  }
+
+  .material-item-row {
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 10px 14px;
+    transition: background-color 0.15s ease;
+    cursor: default;
+
+    // 鼠标悬浮：平滑切出次级亮灰底色
+    &:hover {
+      background-color: #2b2d31 !important;
+
+      .bi-file-earmark-fill {
+        color: #f39c12 !important; // 联动图标变亮
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .bi-file-earmark-fill {
+    color: #e67e22 !important;
+    transition: color 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .ellipsis-1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #dbdee1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+
+    @media (max-width: 576px) {
+      max-width: 180px;
+    }
+  }
+
+  .download {
+    color: #5865f2 !important;
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+
+    &:hover {
+      color: #ffffff !important;
+      background-color: #35373c;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .modal-dialog-scrollable {
+    .modal-body {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding: 24px !important;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #2b2d31;
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #1a1b1e;
+        border-radius: 4px;
+      }
+
+      @media (max-width: 576px) {
+        padding: 16px !important;
+      }
+    }
+  }
+}  

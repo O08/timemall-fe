@@ -264,147 +264,148 @@
 
         <div class="main-content-container full">
 
-          <div class="page-title mb-5">
-            <h1>付费订阅</h1>
+          <div class="page-header-monolith">
+            
+            <div class="title-wrapper">
+              <span class="title-anchor"></span>
+              <h1 class="main-heading">付费订阅</h1>
+            </div>
+
+            <p class="header-description">
+              查看和管理服务的订阅周期、续费频率等信息。
+            </p>
+
+            <div class="header-divider"></div>
           </div>
 
-
-          <!-- top search -->
           <div class="filter-bar">
 
             <top-search class="section-top-serach">
               <div class="input-group input-normal-search">
-                <input @keyup.enter.native="searchV" v-model="subscription_pagination.param.q"
-                  class="form-control top-search-input" type="text" placeholder="搜索..." aria-label="Search">
-                <button v-preventreclick @click="searchV" class="btn btn-outline-secondary input-group-search-btn"
-                  type="button">
+                <input 
+                  @keyup.enter="searchV" 
+                  v-model="subscription_pagination.param.q"
+                  class="top-search-input" 
+                  type="text" 
+                  placeholder="搜索..." 
+                  aria-label="Search"
+                  autocomplete="off"
+                >
+                <button v-preventreclick @click="searchV" class="input-group-search-btn" type="button">
                   <i class="bi bi-search"></i>
                 </button>
               </div>
             </top-search>
-
+          
             <div class="filter-item tagsContainer">
-
               <div class="dropdown">
-                <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
+                
+                <button 
+                  class="btn-dropdown dropdown-toggle" 
+                  type="button" 
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   状态
-                </a>
-
-                <ul class="dropdown-menu">
-
-
+                </button>
+          
+                <ul class="dropdown-menu border-0">
+          
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag2">
-                          {{explainSubscriptionStatusV("active")}}
-                        </label>
-                        <input id="filteTag2" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="active" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag2">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("active") }}</span>
+                        <input id="filteTag2" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="active" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+                  
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag3">
-                          {{explainSubscriptionStatusV("trialing")}}
-                        </label>
-                        <input id="filteTag3" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="trialing" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag3">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("trialing") }}</span>
+                        <input id="filteTag3" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="trialing" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+                  
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag4">
-                          {{explainSubscriptionStatusV("incomplete")}}
-                        </label>
-                        <input id="filteTag4" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="incomplete" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag4">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("incomplete") }}</span>
+                        <input id="filteTag4" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="incomplete" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+                  
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag5">
-                          {{explainSubscriptionStatusV("unpaid")}}
-                        </label>
-                        <input id="filteTag5" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="unpaid" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag5">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("unpaid") }}</span>
+                        <input id="filteTag5" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="unpaid" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+                  
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag6">
-                          {{explainSubscriptionStatusV("incomplete_expired")}}
-                        </label>
-                        <input id="filteTag6" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="incomplete_expired" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag6">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("incomplete_expired") }}</span>
+                        <input id="filteTag6" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="incomplete_expired" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+                  
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag7">
-                          {{explainSubscriptionStatusV("canceled")}}
-                        </label>
-                        <input id="filteTag7" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="canceled" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag7">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("canceled") }}</span>
+                        <input id="filteTag7" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="canceled" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+                  
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTag8">
-                          {{explainSubscriptionStatusV("closed")}}
-                        </label>
-                        <input id="filteTag8" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="closed" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTag8">
+                        <span class="form-check-label">{{ explainSubscriptionStatusV("closed") }}</span>
+                        <input id="filteTag8" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="closed" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
-
-
+          
+                  <li><hr class="dropdown-divider my-1 opacity-10" style="border-color: #4e5058;"></li>
+          
                   <li>
-                    <a class="dropdown-item">
-                      <div class="form-check form-check-reverse">
-                        <label class="form-check-label" for="filteTagAll">
-                          全部
-                        </label>
-                        <input id="filteTagAll" @change="filterByStatusV" v-model="subscription_pagination.param.tag"
-                          value="" class="form-check-input" name="filteTag" type="radio">
-                      </div>
-                    </a>
+                    <div class="dropdown-item">
+                      <label class="form-check-reverse" for="filteTagAll">
+                        <span class="form-check-label">全部</span>
+                        <input id="filteTagAll" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="" class="form-check-input" name="filteTag" type="radio">
+                      </label>
+                    </div>
                   </li>
+          
                 </ul>
               </div>
-
             </div>
-
+          
           </div>
+          
 
           <div class="data-tb-container pt-2">
             <div class="table-responsive">
               <div class="table-wrp">
-                <table class="table table-sm table-hover align-middle">
+                <table class="table table-sm table-hover table-borderless align-middle">
                   <thead>
                     <th class="col-option"></th>
                     <th class="col-product">商品</th>
-                    <th class="col-product">套餐</th>
+                    <th class="col-tier">套餐</th>
+                    <th class="col-status">状态</th>
                     <th class="col-status">缴费频率</th>
                     <th class="col-time">订阅起始日</th>
                     <th class="col-time">订阅结束日</th>
-                    <th class="col-status">状态</th>
                     <th class="col-people text-center">商家</th>
-                    <th class="col-people text-center">备注</th>
+                    <th class="col-remark">备注</th>
 
                   </thead>
                   <tbody>
@@ -431,7 +432,7 @@
                                 <li
                                   v-if="subscription.status=='active'|| subscription.status=='trialing' || subscription.status=='unpaid'">
                                   <a class="dropdown-item" v-preventreclick
-                                    @click="showCancelFocusModalV(subscription)">取消订阅</a></li>
+                                    @click="showCancelFocusModalV(subscription)">退订</a></li>
                                 <li><a class="dropdown-item" :href="'/messages/' + subscription.sellerUserId">联系商家</a>
                                 </li>
                                 <li><a class="dropdown-item" v-preventreclick
@@ -447,29 +448,39 @@
                       <td :title="subscription.productName"><span class="ellipsis-1">{{subscription.productName}}</span>
                       </td>
                       <td :title="subscription.planName"><span class="ellipsis-1">{{subscription.planName}}</span></td>
+                      <td :title="explainSubscriptionStatusV(subscription.status)"><span
+                        class="ellipsis-1">{{explainSubscriptionStatusV(subscription.status)}}</span></td>
                       <td :title="explainSubsBillCalendarV(subscription.billCalendar)"><span
                           class="ellipsis-1">{{explainSubsBillCalendarV(subscription.billCalendar)}}</span></td>
-                      <td :title="subscription.startsAt">{{!subscription.startsAt ? "" :
+                      <td :title="subscription.startsAt" class="tb-text-secondary">{{!subscription.startsAt ? "" :
                         subscription.startsAt.replace(new RegExp('-', 'g'), '/')}}</td>
-                      <td :title="subscription.endsAt">{{!subscription.endsAt ? "" : subscription.endsAt.replace(new
+                      <td :title="subscription.endsAt" class="tb-text-secondary">{{!subscription.endsAt ? "" : subscription.endsAt.replace(new
                         RegExp('-', 'g'), '/')}}</td>
-                      <td :title="explainSubscriptionStatusV(subscription.status)"><span
-                          class="ellipsis-1">{{explainSubscriptionStatusV(subscription.status)}}</span></td>
                       <td :title="subscription.sellerBrandName" class="text-center"><a class="dropdown-item"
                           :href="'/messages/' + subscription.sellerUserId"><img
                             :src="adaptiveImageUriV(subscription.sellerAvatar) || defaultAvatarImage"
                             class="peacemaker-avatar"></a></td>
-                      <td :title="subscription.remark" style="font-size: smaller;">{{subscription.remark}}</td>
+                      <td :title="subscription.remark" style="font-size: smaller;" class="tb-text-remark">{{subscription.remark ? subscription.remark : "-"}}</td>
                     </tr>
                   </tbody>
 
                 </table>
 
-                <div v-show="subscription_pagination.records.length==0" class="empty-content-block">
 
-                  没有可用的内容！
-
+                <div v-show="subscription_pagination.records.length==0" class="tb-empty-data-wrapper">
+          
+                  <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
+                    <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
+                    <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
+                  </svg>
+        
+                  <h4 class="empty-primary-title">未找到订阅记录</h4>
+                  
+                  <p class="empty-secondary-desc">
+                    当前未检索到任何相关的付费订阅服务，切换上方的状态过滤器或尝试<strong>调整关键词再搜索</strong>。
+                  </p>
                 </div>
+
                 <nav v-if="!!subscription_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
                   <ul class="pagination pagination-lg pagination-dark  border-0">
                     <li class="page-item" @click="pagePre(subscription_pagination)">
@@ -502,47 +513,41 @@
     <section class="modals">
 
       <div class="modal-container">
-        <!-- repay focus modal -->
         <div class="modal-container">
-          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <!--begin::Alert-->
-                <div class="d-flex text-center flex-column alert-info mb-5">
-
-
-                  <!--begin::Icon-->
-                  <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span
-                      class="path3"></span></i>
-                  <!--end::Icon-->
-
-                  <!--begin::Wrapper-->
-                  <div class="text-center">
-                    <!--begin::Title-->
-                    <span class="fw-bold mb-2 modal-head">操作提示</span>
-                    <!--end::Title-->
-
-                    <!--begin::Separator-->
-                    <div class="separator separator-dashed border-dark opacity-25 mb-2"></div>
-                    <!--end::Separator-->
-
-                    <!--begin::Content-->
-                    <div class="font12">
-                      {{focusModal.message}}
-                    </div>
-                    <!--end::Content-->
-
-                    <!--begin::Buttons-->
-                    <div class="d-flex justify-content-center flex-wrap pt-5">
-
-                      <a href="#" @click="closFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">撤回操作</a>
-                      <a href="#" v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">帮我取消</a>
-                    </div>
-                    <!--end::Buttons-->
+         
+          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1" ref="focusModalRef">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 400px;">
+              <div class="modal-content border-0">
+                
+                <div class="modal-body p-4 text-center">
+                  
+                  <div class="warning-icon-wrapper mb-3 mt-2">
+                    <svg xmlns="http://w3.org" width="56" height="56" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+                    </svg>
                   </div>
-                  <!--end::Wrapper-->
+        
+                  <span class="fw-bold mb-1 modal-head-custom d-block">操作提示</span>
+        
+                  <div class="divider-line-immersive"></div>
+        
+                  <div class="font12-custom">
+                    {{ focusModal.message }}
+                  </div>
+        
                 </div>
-                <!--end::Alert-->
+        
+                <div class="modal-footer modal-footer-immersive">
+                  <button type="button" @click="closFocusModalV" class="btn btn-action-cancel">
+                    再想想
+                  </button>
+                  
+                  <button type="button" v-preventreclick @click="focusModal.confirmHandler" class="btn btn-action-submit">
+                    确认退订
+                  </button>
+                </div>
+        
               </div>
             </div>
           </div>
@@ -551,34 +556,48 @@
 
         <!-- plan  view modal -->
         <div class="modal-container">
-          <div class="modal fade" id="planViewModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header  display-dialog-header-bg">
-                  <div class="product-info">
-                    <div class="brand-avatar">
-                      <img :src="adaptiveImageUriV(viewPlanObj.sellerAvatar)  || defaultAvatarImage">
+          <div class="modal fade" id="planViewModal" data-bs-backdrop="static" tabindex="-1" ref="planViewModalRef">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 440px;">
+              <div class="modal-content border-0">
+                
+                <div class="modal-header modal-header-hero">
+                  <div class="seller-profile">
+                    <div class="brand-avatar-glow">
+                      <img :src="adaptiveImageUriV(viewPlanObj.sellerAvatar) || defaultAvatarImage" alt="Seller">
                     </div>
-                    <div class="ellipsis-1">{{viewPlanObj.sellerName}}</div>
+                    <span class="seller-name">{{ viewPlanObj.sellerName }}</span>
                   </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  
+                  <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close">
+                    <svg xmlns="http://w3.org" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                  </button>
                 </div>
-                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-
-                  <div class="plan-box">
-
-                    <div class="plan-box__name">{{viewPlanObj.planName}}</div>
-                    <div class="plan-box__description">{{viewPlanObj.description}}</div>
-                    <div class="plan-price-box"><span class="plan-price">¥{{viewPlanObj.price}}</span>/月</div>
-                    <div class="features">
-                      <div v-for="feature in viewPlanObj.features" class="features_item">{{feature.title}}</div>
+        
+                <div class="modal-body modal-body-immersive">
+                  
+                  <h2 class="plan-hero-title">{{ viewPlanObj.planName }}</h2>
+                  
+                  <p class="plan-hero-desc">{{ viewPlanObj.description }}</p>
+                  
+                  <div class="content-price-well">
+                    <span class="price-num">¥{{ viewPlanObj.price }}</span>/月
+                  </div>
+                  
+                  <div class="features-vertical-flow">
+                    <div v-for="(feature, idx) in viewPlanObj.features" :key="idx" class="feature-flow-row">
+                      <i class="bi bi-check-circle-fill"></i>
+                      <p class="feature-flow-text">{{ feature.title }}</p>
                     </div>
                   </div>
-
+        
                 </div>
+        
               </div>
             </div>
           </div>
+
         </div>
 
         <!-- report Modal -->

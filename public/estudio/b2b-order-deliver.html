@@ -84,14 +84,14 @@
                 <li>
                   <a href="/epod/pod-packages-order">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-tags me-2"></i> 个人中心
+                      <i class="blv bii-personnal me-2"></i>个人中心
                      </button>
                   </a>
                 </li>
                 <li v-if="!!getIdentity().hiLinkUrl">
                   <a :href="getIdentity().hiLinkUrl">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                      <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                      </button>
                   </a>
                 </li>
@@ -705,63 +705,97 @@
         </div>
 
         <div class="modal-container">
-          <!-- Modal -->
-          <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5">预览</h1>
-                  <button @click="resetFileInput" type="button" id="closeImagePreviewModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <div v-if="errors.length == 0" class="image-upload-container">
-                    <img id="imagePreview" :src="file.url" >
+          <!-- 图片预览 Modal 弹窗 -->
+          <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1" ref="imagePreviewModalRef">
+            <div class="modal-dialog modal-dialog-centered"> 
+              <div class="modal-content border-0">
+                
+                <!-- Central Body Window: Standard padding adjustments -->
+                <div class="modal-body p-3 pb-2">
+                  
+                  <!-- Condition A: WeChat-Inspired Organic Image Contraction Grid -->
+                  <div v-if="errors.length === 0" class="gallery-preview-zone">
+                    <img id="imagePreview" :src="file.url" alt="Dynamic Adaptive Stream">
                   </div>
-                  <div v-if="errors.length > 0">
-                    <div>文件不符合要求，提示信息：</div>
-                    <div v-for="error in errors">
-                      <span>{{error}}</span>
+                  
+                  <!-- Condition B: Standard System Verification Error Prompt -->
+                  <div v-if="errors.length > 0" class="w-100 py-1">
+                    <div style="font-size: 13px; color: #949ba4;" class="mb-2 fw-medium">文件不符合要求，提示信息：</div>
+                    <div class="error-terminal p-3">
+                      <div v-for="(error, index) in errors" :key="index" class="mb-1 text-start">
+                        [!] {{ error }}
+                      </div>
                     </div>
                   </div>
+          
                 </div>
-                <div class="modal-footer btn-light">
-                  <button @click="sendImageMessageV"
-                  :class="{'disabled': errors.length > 0, 
-                        'btn-primary': errors.length == 0,
-                        'btn-secondary': errors.length > 0}"
-                   v-preventreclick type="button" class="btn btn-primary">选中</button>
+          
+                <!-- Footer Control Panel Layer -->
+                <div class="modal-footer d-flex justify-content-between align-items-center">
+                  <button @click="resetFileInput" type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">
+                    取消
+                  </button>
+                  <button 
+                    @click="sendImageMessageV" 
+                    v-preventreclick 
+                    type="button"
+                    class="btn btn-action-submit"
+                    :disabled="!errors || errors.length > 0"
+                  >
+                    确认发送
+                  </button>
                 </div>
+          
               </div>
             </div>
           </div>
         </div>
-
+  
         <div class="modal-container">
-          <!-- Modal -->
-          <div class="modal fade" id="sendBigFileModal" data-bs-backdrop="static" tabindex="-1">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-dark">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5">文件信息</h1>
-                  <button @click="resetBigFileInput" type="button" id="closeSendFileModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- File Info Preview Modal -->
+          <div class="modal fade" id="sendBigFileModal" data-bs-backdrop="static" tabindex="-1" ref="sendBigFileModalRef">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 460px;">
+              <div class="modal-content border-0">
+                
+                <div class="modal-header modal-header-immersive justify-content-between align-items-center">
+                  <h1 class="modal-title">文件信息</h1>
+                  <button @click="resetBigFileInput" type="button" id="closeSendFileModal" class="btn-close btn-close-white d-flex align-items-center justify-content-center" data-bs-dismiss="modal" aria-label="Close">
+                  </button>
                 </div>
-                <div class="modal-body d-flex justify-content-center">
-                  <div v-if="errors.length == 0" class="file-info-container">
-                    选中文件: {{bigfile.fileName}}
-                  </div>
-                  <div v-if="errors.length > 0">
-                    <div>文件不符合要求，提示信息：</div>
-                    <div v-for="error in errors">
-                      <span>{{error}}</span>
+  
+                <div class="modal-body px-4 py-2">
+                  
+                  <div v-if="errors.length == 0" class="file-info-container-card gap-3">
+                    <i class="bi bi-file-earmark-zip-fill"></i>
+                    <div class="min-w-0 flex-grow-1">
+                      <div style="font-size: 11px; color: #949ba4; font-weight: 700; text-uppercase: uppercase; letter-spacing: 0.5px;" class="mb-0.5">已选中文件</div>
+                      <div class="file-name-text-highlight">{{ bigfile.fileName }}</div>
                     </div>
                   </div>
+                  
+                  <div v-if="errors.length > 0" class="w-100 py-1">
+                    <div class="error-summary-label mb-2">文件不符合要求，提示信息：</div>
+                    <div class="error-terminal-box p-3">
+                      <div v-for="(error, index) in errors" :key="index" class="mb-1 text-start">
+                        [!] {{ error }}
+                      </div>
+                    </div>
+                  </div>
+  
                 </div>
-                <div class="modal-footer btn-light">
-                  <button @click="sendAttachmentV"
-                  :class="{'disabled': errors.length > 0, 
-                        'btn-primary': errors.length == 0,
-                        'btn-secondary': errors.length > 0}"
-                   v-preventreclick type="button" class="btn btn-primary">发送</button>
+  
+                <div class="modal-footer modal-footer-minimal d-flex justify-content-between align-items-center">
+                  <button @click="resetBigFileInput" type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">
+                    取消
+                  </button>
+                  <button 
+                    @click="sendAttachmentV" 
+                    v-preventreclick 
+                    type="button"
+                    class="btn btn-action-submit"
+                    :disabled="!errors || errors.length > 0">
+                    确认发送
+                  </button>
                 </div>
               </div>
             </div>

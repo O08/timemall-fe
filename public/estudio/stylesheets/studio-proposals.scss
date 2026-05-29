@@ -198,7 +198,40 @@ line-height: normal;
 .col-fee{
   width: 8%;
 }
-.modal .form-select{
-  outline: 0;
-  box-shadow: none;
+
+
+#proposalManagementModal {
+  .modal-content {
+      background-color: #313338 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #f2f3f5;
+      border-radius: 8px !important;
+  }
+  .modal-header{
+      border-color: #3f4248;
+  }
+
+  .form-label {
+      color: #b5bac1 !important;
+      font-weight: 600;
+      font-size: 12px;
+      text-uppercase: uppercase;
+      letter-spacing: 0.5px;
+  }
+
+  .form-select{
+    background-color: #1e1f22 !important; // 嵌入式深黑底
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    color: #dbdee1 !important;
+    font-size: 14px;
+    padding: 10px 14px !important;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-select:focus{
+    border-color: #5865f2 !important;
+    box-shadow: none !important;
+  }
+
 }

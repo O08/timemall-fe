@@ -28,6 +28,7 @@ const BubbleInviteComponent = {
             OasisApi.inviteBrand(brandId,this.checkedOasisId).then(response=>{
                 if(response.data.code==200){
                     this.checkedOasisId=""; // 复位
+                    this.searchOasesQ="";
                     customAlert.alert("已发送邀请");
                     $("#inviteModal").modal("hide");
                 }
@@ -35,6 +36,7 @@ const BubbleInviteComponent = {
         },
         closeInviteModalThenOpenPartnerInfoPreviewModalV(){
             this.checkedOasisId=""; // 复位
+            this.searchOasesQ="";
             $("#inviteModal").modal("hide");
             $("#partnerInfoPreviewModal").modal("show");
         },
@@ -43,6 +45,7 @@ const BubbleInviteComponent = {
             OasisApi.inviteBrand(brandId,this.checkedOasisId).then(response=>{
                 if(response.data.code==200){
                     this.checkedOasisId=""; // 复位
+                    this.searchOasesQ="";
                     customAlert.alert("已发送邀请");
                     this.closeInviteModalThenOpenPartnerInfoPreviewModalV();
                 }
@@ -53,6 +56,7 @@ const BubbleInviteComponent = {
             OasisApi.inviteBrand(brandId,this.checkedOasisId).then(response=>{
                 if(response.data.code==200){
                     this.checkedOasisId=""; // 复位
+                    this.searchOasesQ="";
                     customAlert.alert("已发送邀请");
                     $("#inviteModal").modal("hide");
 

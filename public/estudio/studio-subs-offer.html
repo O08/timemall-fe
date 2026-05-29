@@ -90,14 +90,14 @@
               <li>
                 <a href="/epod/pod-packages-order">
                   <button class="dropdown-item" type="button">
-                    <i class="bi bi-tags me-2"></i> 个人中心
+                    <i class="blv bii-personnal me-2"></i>个人中心
                   </button>
                 </a>
               </li>
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button">
-                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                   </button>
                 </a>
               </li>
@@ -526,13 +526,13 @@
       </main>
       <section class="modals">
         <!-- new product modal -->
-        <div class="modal fade modern-coupon-modal" id="newOfferModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="newOfferModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content glass-effect">
               
               <div class="modal-header border-0 pb-0">
                 <h5 class="modal-title fw-bold text-gradient">新增优惠券</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
         
               <div class="modal-body p-4">
@@ -565,7 +565,7 @@
                   <!-- Conditional Fields with v-show -->
                   <div v-show="!!newOfferObj.offerType && newOfferObj.offerType!='full_item_discount_promo_code'" class="form-group mb-4 animate-fade-in">
                     <label class="form-label fw-semibold">适用商品</label>
-                    <model-select :options="subsProductsOptions" v-model="subsProductsSelectedItem" class="custom-input"></model-select>
+                    <model-select :options="subsProductsOptions" v-model="subsProductsSelectedItem" class="custom-input dark-model-select"></model-select>
                   </div>
         
                   <div class="row g-3">
@@ -592,7 +592,7 @@
                   </div>
 
                   <div class="py-4 d-flex gap-2">
-                    <button @click="createNewOfferV" :disabled="!validateAddOfferFormV()" class="btn btn-primary-custom flex-grow-1 w-100">
+                    <button @click="createNewOfferV" :disabled="!validateAddOfferFormV()" class="btn btn-action-submit flex-grow-1 w-100">
                       提交
                     </button>
                   </div>
@@ -604,14 +604,14 @@
         </div>
         
         <!-- edit offer modal -->
-        <div class="modal fade modern-coupon-modal" id="editOfferModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade  dcModal" id="editOfferModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content glass-effect">
               
               <!-- Header -->
               <div class="modal-header border-0 pb-0">
                 <h5 class="modal-title fw-bold text-gradient">调整优惠券</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
         
               <!-- Body -->
@@ -680,7 +680,7 @@
                     <button @click="changeOfferV" 
                       v-preventreclick
                       :disabled="!validateEditOfferV()" 
-                      class="btn btn-primary-custom flex-grow-1 w-100">
+                      class="btn  btn-action-submit w-100">
                       提交
                     </button>
                   </div>

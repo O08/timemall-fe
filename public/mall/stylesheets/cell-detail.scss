@@ -175,6 +175,7 @@ mall-app {
 .cell-title{
     font-size: 24px;
     font-weight: bold;
+    word-break: break-all;
 }
 .cell-content-item
 {
@@ -869,13 +870,50 @@ mall-app {
   }
 
 }
-#focusModal .modal-content{
-    background-color: #fff;
-    color: black;
+#focusModal .modal-content {
+  background: linear-gradient(135deg, #2f2f2f, #141414);
+  border: 2px solid #333;
+  color: #f8fafc;
+
+  
 }
-#focusModal .bi-exclamation-circle{
-    font-size: 72px;
-    padding-top: 32px;
+.btn-cancel {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 8px;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 16px;
+  transition: all 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+  }
+}
+
+.btn-confirm {
+  flex: 1;
+  background: linear-gradient(135deg, #9373ee 0%, #7c5fd9 100%);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 16px;
+  transition: all 0.15s;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+}
+
+#focusModal .bi-exclamation-circle {
+  font-size: 72px;
+  padding-top: 32px;
 }
 .separator.separator-dashed {
     border-bottom-style: dashed;
@@ -897,7 +935,8 @@ mall-app {
     font-size: 16px;
     border-radius: 5px;
     border: none;
-    background-color: #fff;
+    background: linear-gradient(135deg, #2f2f2f, #141414) ;
+    color: #f2f3f5;
 }
 #goTopUpModal .modal-header{
     background: #47c9a2;
@@ -914,7 +953,6 @@ mall-app {
     position: absolute;
     top: 15px;
     right: 15px;
-    color: #fff;
     text-shadow: none;
     opacity: 0.5;
 }
@@ -927,14 +965,15 @@ mall-app {
     margin: -4px 0 0 -4px;
 }
 #goTopUpModal .modal-body{
-    color: #121212;
+    color: #f2f3f5;
 }
 #goTopUpModal p{
     font-size: 12px;
 }
 #errorModal .modal-content{
-    background-color: #fff;
-    color: #121212;
+  background: linear-gradient(135deg, #2f2f2f, #141414);
+  border: 2px solid #333;
+  color: #f8fafc;
 }
 .border-danger {
     --bs-border-opacity: 1;

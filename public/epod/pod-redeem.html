@@ -264,8 +264,18 @@
 
         <div class="main-content-container full">
 
-          <div class="page-title mb-5">
-            <h1>兑换记录</h1>
+          <div class="page-header-monolith">
+            
+            <div class="title-wrapper">
+              <span class="title-anchor"></span>
+              <h1 class="main-heading">兑换记录</h1>
+            </div>
+
+            <p class="header-description">
+              查阅在部落兑换的商品、服务，配置收货地址等信息。
+            </p>
+
+            <div class="header-divider"></div>
           </div>
 
 
@@ -371,16 +381,16 @@
           <div class="data-tb-container pt-2">
             <div class="table-responsive">
               <div class="table-wrp">
-                <table class="table table-sm table-hover align-middle">
+                <table class="table table-sm table-borderless table-hover align-middle">
                   <thead>
                     <th class="col-option"></th>
                     <th class="col-product">商品</th>
                     <th class="col-quantity">数量</th>
+                    <th class="col-status">状态</th>
                     <th class="col-shipping">发货方式</th>
                     <th class="col-person">收货人</th>
                     <th class="col-address">收货地址</th>
                     <th class="col-email">收货邮箱</th>
-                    <th class="col-status">状态</th>
                   </thead>
                   <tbody>
                     <tr v-for="order in orderList_pagination.records">
@@ -408,31 +418,45 @@
          
                       <td>
                         <div class="tb-product-info">
-                          <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail">
+                          
+                          <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail" alt="Product">
+                          
                           <div class="productInfo__name">
-                            <span v-if="order.refunded=='1'" class="blue-light">退款成功</span>
-                            <span style="word-break: break-all;">
-                              {{order.productName}}
+                            <span v-if="order.refunded == '1'" class="blue-light">退款成功</span>
+                            
+                            <span class="product-title-core" :title="order.productName">
+                              {{ order.productName }}
                             </span>
                           </div>
+                      
                         </div>
                       </td>
+                      
                       <td>{{order.quantity}}</td>
-                      <td>{{explainAppRedeemShippingTypeV(order.shippingType)}}</td>
-                      <td><span style="word-break: break-all;">{{order.consignee}}</span></td>
-                      <td><span style="word-break: break-all;">{{order.shippingAddress}}</span></td>
-                      <td><span style="word-break: break-all;">{{order.shippingEmail}}</span></td>
                       <td>{{explainAppRedeemOrderStatusV(order.status)}}</td>
+                      <td>{{explainAppRedeemShippingTypeV(order.shippingType)}}</td>
+                      <td><span class="tb-text-secondary" style="word-break: break-all;">{{order.consignee}}</span></td>
+                      <td><span class="tb-text-secondary" style="word-break: break-all;">{{order.shippingAddress}}</span></td>
+                      <td><span class="tb-text-secondary" style="word-break: break-all;">{{order.shippingEmail}}</span></td>
                         
                     </tr>
                   </tbody>
 
                 </table>
 
-                <div v-show="orderList_pagination.records.length==0" class="empty-content-block">
 
-                  没有可用的内容！
-
+                <div v-show="orderList_pagination.records.length==0" class="tb-empty-data-wrapper">
+          
+                  <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
+                    <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
+                    <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
+                  </svg>
+        
+                  <h4 class="empty-primary-title">未找到兑换记录</h4>
+                  
+                  <p class="empty-secondary-desc">
+                    当前未检索到任何相关记录，切换上方的状态过滤器或尝试<strong>调整关键词再搜索</strong>。
+                  </p>
                 </div>
 
                 <nav v-if="!!orderList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
@@ -469,7 +493,7 @@
 
       <div class="modal-container">
         <!-- Modal -->
-        <div class="modal fade" id="editShippingInfoModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="editShippingInfoModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
@@ -499,9 +523,9 @@
       
               </div>
               <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">取消</button>
                 <button :class="{'disabled': !validateEditShippingInfoFormAlereadyChangeV() }"  v-preventreclick  type="button"  @click="changeShippingInfoV"
-                  class="btn btn-primary">更新</button>
+                  class="btn btn-action-submit">更新</button>
               </div>
             </div>
           </div>
@@ -517,7 +541,7 @@
             <div class="modal-content text-color-dark">
               <div class="modal-header">
                 <h1 class="modal-title fs-5">商品卡</h1>
-                <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button  type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div class="product-info-box">
@@ -529,7 +553,7 @@
                     <div class="product-core">
                       <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{productProfile.price}}</span></div>
 
-                      <div style="font-weight: 500; word-break: break-all;">{{productProfile.productName}}</div>
+                      <div style="font-weight: 600; word-break: break-all; font-size: 18px;">{{productProfile.productName}}</div>
                     </div>
 
                   </div>
@@ -544,7 +568,7 @@
                   </div>
                   <div class="product-reminder_term product-section">
                     <div class="setction-title">温馨提示</div>
-                    <div class="shipping_term-content" style="word-break: break-all; white-space: pre-wrap; font-size: 14px;">
+                    <div class="shipping_term-content" style="word-break: break-all; white-space: pre-wrap; font-size: 12px;">
                      {{productProfile.warmReminder}}
                     </div>
   
@@ -590,11 +614,11 @@
             <div class="modal-content text-color-dark">
               <div class="modal-header">
                 <div class="w-100">
-                  <div class="d-flex">
+                  <div class="d-flex align-items-center">
                     <h1 class="modal-title fs-5">订单#{{orderDetail.orderNo}}</h1>
-                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button  type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="small-info">
+                  <div class="small-info mt-2">
                     <span class="order-status">{{explainAppRedeemOrderStatusV(orderDetail.status)}}</span>
                     <span class="ms-2">{{renderDateInChinaV(orderDetail.createAt)}}</span>
                   </div>
@@ -606,10 +630,10 @@
                     <img :src="adaptiveImageUriV(orderDetail.sellerAvatar) || defaultAvatarImage">
                   </div>
                   <div class="buyer-name mt-2">{{orderDetail.sellerName}}</div>
-                  <div class="buyer-contact-info">
+                  <div class="buyer-contact-info mt-2">
 
                     <a :href="'/messages/'+orderDetail.sellerUserId">
-                      <div class="contact-item btn-cta-primary">
+                      <div class="contact-item btn-action-submit">
                         联系商家
                       </div>
                     </a>
@@ -628,7 +652,7 @@
                    
                     <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.productPrice}}</span></div>
 
-                    <div style="font-weight: 500; word-break: break-all;">{{orderDetail.productName}}</div>
+                    <div style="font-weight: 600; word-break: break-all; font-size: 18px;">{{orderDetail.productName}}</div>
 
                   </div>
                 </div>
@@ -649,13 +673,13 @@
                 </div>
                 <div class="total-info">
                   <div class="d-flex justify-content-between">
-                    <span>购买数量</span>
+                    <span style="font-weight: 600;">购买数量</span>
                     <span>{{orderDetail.quantity}}</span>
                   </div>
                 </div>
                 <div class="total-info" style="border: none;">
-                  <div class="d-flex justify-content-between">
-                    <span>合计：</span>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span style="font-weight: 600;">合计：</span>
                     <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.total}}</span></div>
 
                   </div>

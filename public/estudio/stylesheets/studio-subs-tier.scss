@@ -220,15 +220,14 @@ body::-webkit-scrollbar {
 }
 
 .new-item {
-  color: #000;
-  border-color: #c4c9ce;
+  color: #fff;
   font-size: 12px;
+  background-color: #5865f2;
+  border: none;
 }
 
 .new-item:hover {
-  color: #fff;
-  border-color: #5865f2;
-  background-color: #5865f2;
+  background-color: #4752c4;
 }
 
 .feature-input {
@@ -273,16 +272,146 @@ body::-webkit-scrollbar {
   }
 
   .modal-content {
+    background-color: #313338 !important; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
     border-radius: 0;
-    background-color: #fff;
-    /* Light gray background to pop the white cards */
     border: none;
     height: 100%;
+}
+.modal-header{
+    border-color: #3f4248;
+}
+
+.form-label {
+    color: #b5bac1 !important;
+    font-weight: 600;
+    font-size: 12px;
+    text-uppercase: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control,
+.form-select {
+    background-color: #1e1f22 !important; // 嵌入式深黑底
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    color: #dbdee1 !important;
+    font-size: 14px;
+    padding: 10px 14px !important;
+    transition: border-color 0.2s ease;
+}
+
+.form-control{
+  &::placeholder {
+    color: #72767d !important;
+    opacity: 1; // 强制解除某些浏览器默认的淡化半透明滤镜
+    font-size: 13.5px; // 占位符字号微调窄一点点，使其更具辅助感
   }
 
+  &::-webkit-input-placeholder {
+    color: #72767d !important;
+    font-size: 13.5px;
+  }
+
+  &::-moz-placeholder {
+    color: #72767d !important;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: #72767d !important;
+  }
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #5865f2 !important;
+    box-shadow: none !important;
+}
+
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b5bac1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.input-group-text {
+  background-color: #2b2d31 !important; // 略微浮起的灰色拼接块
+  border: 1px solid transparent !important;
+  color: #b5bac1 !important;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 14px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.feature-card {
+  border: 2px dashed #4e5058;
+  border-radius: 10px;
+  background-color: #2b2d31;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.feature-card:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card:focus-within {
+  border-color: #9ca3af;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+.feature-card-options{
+  .btn-action-trigger {
+    color: #b5bac1;
+    background-color: #1e1f22;
+    border: none !important;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    box-shadow: none !important;
+
+    &:hover, &.show {
+      background-color: #35373c;
+      color: #f2f3f5;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: #111214 !important; 
+    border: 1px solid #1f2023 !important; 
+    border-radius: 4px !important;
+    padding: 4px !important;
+    min-width: 140px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.36) !important;
+  }
+
+  .dropdown-item {
+    color: #dbdee1 !important;
+    font-size: 13.5px;
+    padding: 6px 12px !important;
+    border-radius: 3px !important;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    cursor: pointer;
+
+    &:hover:not(.item-danger) {
+      background-color: #4752c4 !important;
+      color: #ffffff !important;
+    }
+
+    // 🌟 危险操作分流：删除权益（在悬浮时变成警示红）
+    &.item-danger {
+      color: #f23f43 !important;
+      
+      &:hover {
+        background-color: #da373c !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+
   .modal-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
     padding: 1.25rem 1.5rem;
   }
 
@@ -300,6 +429,7 @@ body::-webkit-scrollbar {
       margin: 0;
     }
   }
+
 }
 
 .define-tier-modal {
@@ -313,16 +443,130 @@ body::-webkit-scrollbar {
   }
 
   .modal-content {
+    background-color: #313338 !important; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
     border-radius: 0;
-    background-color: #fff;
-    /* Light gray background to pop the white cards */
     border: none;
     height: 100%;
+}
+.modal-header{
+    border-color: #3f4248;
+}
+
+.form-label {
+    color: #b5bac1 !important;
+    font-weight: 600;
+    font-size: 12px;
+    text-uppercase: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-control,
+.form-select {
+    background-color: #1e1f22 !important; // 嵌入式深黑底
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    color: #dbdee1 !important;
+    font-size: 14px;
+    padding: 10px 14px !important;
+    transition: border-color 0.2s ease;
+}
+
+.form-control{
+  &::placeholder {
+    color: #72767d !important;
+    opacity: 1; // 强制解除某些浏览器默认的淡化半透明滤镜
+    font-size: 13.5px; // 占位符字号微调窄一点点，使其更具辅助感
   }
 
+  &::-webkit-input-placeholder {
+    color: #72767d !important;
+    font-size: 13.5px;
+  }
+
+  &::-moz-placeholder {
+    color: #72767d !important;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: #72767d !important;
+  }
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #5865f2 !important;
+    box-shadow: none !important;
+}
+
+
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b5bac1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+.input-group-text {
+  background-color: #2b2d31 !important; // 略微浮起的灰色拼接块
+  border: 1px solid transparent !important;
+  color: #b5bac1 !important;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 14px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
+}
+
+.feature-card-options{
+  .btn-action-trigger {
+    color: #b5bac1;
+    background-color: #1e1f22;
+    border: none !important;
+    transition: background-color 0.2s, color 0.2s;
+    box-shadow: none !important;
+  
+    &:hover, &.show {
+      background-color: #35373c;
+      color: #f2f3f5;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: #111214 !important; 
+    border: 1px solid #1f2023 !important; 
+    border-radius: 4px !important;
+    padding: 4px !important;
+    min-width: 140px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.36) !important;
+  }
+
+  .dropdown-item {
+    color: #dbdee1 !important;
+    font-size: 13.5px;
+    padding: 6px 12px !important;
+    border-radius: 3px !important;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    cursor: pointer;
+
+    &:hover:not(.item-danger) {
+      background-color: #4752c4 !important;
+      color: #ffffff !important;
+    }
+
+    // 🌟 危险操作分流：删除权益（在悬浮时变成警示红）
+    &.item-danger {
+      color: #f23f43 !important;
+      
+      &:hover {
+        background-color: #da373c !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+
+
   .modal-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
     padding: 1.25rem 1.5rem;
   }
 
@@ -335,33 +579,23 @@ body::-webkit-scrollbar {
     margin-bottom: 1.25rem;
   }
 
-
-
-  .form-label { color: #8a8a8a; font-size: 14px; }
-  textarea {
-    --scrollbar-color-thumb: #c0c0c0;
-    --scrollbar-color-thumb-hover: #a0a0a0;
-    --scrollbar-color-track: #f5f5f5;
-  }
   .section-label { 
     font-weight: 500;
-    font-size: 16px; color: #000; 
+    font-size: 16px; color: #fff; 
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
 
 
 
-  /* --- Dynamic Equity Cards --- */
-  /* 1. Card Container & Layout */
+
   .feature-card {
-    border: 2px dashed #d1d5db;
+    border: 2px dashed #4e5058;
     border-radius: 10px;
-    background-color: #ffffff;
+    background-color: #2b2d31;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Hover & Focus feedback: Highlights the entire block */
   .feature-card:hover {
     border-color: #9ca3af;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -372,125 +606,39 @@ body::-webkit-scrollbar {
     box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
   }
 
-  /* 2. Header & Action Button Styles */
   .card-header {
     background-color: transparent !important;
     border-bottom: 1px solid #f0f0f0;
     padding: 0.75rem 1rem;
   }
 
-  .btn-light.dropdown-toggle {
-    background: transparent;
-    border: none;
-    color: #6c757d;
-    padding: 4px 8px;
-  }
-
-  .btn-light.dropdown-toggle:hover {
-    background: #f8f9fa;
-    color: #212529;
-  }
-
-  /* 3. Seamless Input & Textarea Styling */
-  .feature-input {
-    border: none !important;
-    padding: 0 !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-    /* Remove default Bootstrap blue glow */
-    resize: none;
-    /* Disable manual resize for cleaner look */
-  }
-
-  /* Bold Title in Header */
-  .card-header .feature-input {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #2d3748;
-  }
 
   /* Body description styling */
   .card-body {
     padding: 1rem;
   }
 
-  .card-body .feature-input {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #4a5568;
-  }
-
-  .feature-input::placeholder {
-    color: #a0aec0;
-    font-weight: 400;
-  }
-
-  /* 4. List Animations (Requires <TransitionGroup> in HTML) */
-  .list-enter-active,
-  .list-leave-active,
-  .list-move {
-    transition: all 0.4s ease;
-  }
-
-  .list-enter-from {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-
-  .list-leave-to {
-    opacity: 0;
-    transform: scale(0.9) translateY(-20px);
-  }
-
-  /* Make sure deleted items don't take up space during exit animation */
-  .list-leave-active {
-    position: absolute;
-    width: 100%;
-  }
 
 
 
-  /* --- Action Buttons --- */
+
   .new-item-btn {
     width: 100%;
-    border: 2px dashed #d1d5db;
+    border: 2px dashed #4e5058;
     background: transparent;
-    color: #4b5563;
+    color: #c3bfbf;
     padding: 0.75rem;
     border-radius: 8px;
     font-weight: 500;
     transition: all 0.2s;
   }
 
-/* Standard hover: Darker border and text */
-.new-item-btn:hover {
-  border-color: #9ca3af;
-  color: #1f2937;
-  background-color: #f9fafb;
-  cursor: pointer;
-}
 
-/* Active state: Slight "press" effect */
-.new-item-btn:active {
-  transform: scale(0.98);
-}
-
-
-
-
-  /* --- Micro-Interactions & Icons --- */
   .bi-three-dots-vertical {
     color: #9ca3af;
   }
 
-  .dropdown-item {
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-  }
 
-  .dropdown-item i {
-    font-size: 1rem;
-  }
 
   @media (width <=1023.99px) {
     .modal-dialog-scrollable {
@@ -530,4 +678,61 @@ body::-webkit-scrollbar {
 
 .modal-dialog-scrollable .modal-body::-webkit-scrollbar {
   display: none;
+}
+
+
+// dark mode  model select
+.ui.selection.dropdown.dark-model-select{
+  color: #e0e0e0;
+  background: #1e1f22;
+  border: 1px solid #222;
+  .text{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  .menu{
+   background: #1e1f22;
+   .item{
+      color: #e0e0e0;
+      border-color: #222;
+      word-break: break-all;
+
+      &:hover{
+        background-color: #1A1A1A;
+
+      }
+   }
+  }
+  input.search {
+    background: #1e1f22;
+    border: 1px solid #222;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 13px;
+    padding: 10px 14px;
+    transition: all 0.15s;
+
+    &::placeholder {
+      color: #3a3a3a;
+    }
+
+    &:focus {
+      border-color: #5865f2 !important;
+      box-shadow: none !important;
+      outline: none;
+    }
+
+    &:disabled {
+      background: #0d0d0d;
+      color: #444;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.ui.selection.active.dropdown.dark-model-select, .ui.selection.active.dropdown.dark-model-select .menu {
+  border-color: #5865f2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }

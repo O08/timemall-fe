@@ -19,6 +19,7 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+          selectedFileName: "",
           materialList: [],
           caseList_pagination: {
             url: "/api/v1/team/dsp_case/list",
@@ -58,7 +59,23 @@ const RootComponent = {
         showAddNewMaterialModalV(caseNO){
             this.addingCaseNo = caseNO;
             document.querySelector('#caseMaterialFile').value = null;
+            this.selectedFileName="";
             $("#caseMaterialModal").modal("show"); // show modal
+        },
+        handleFileChange(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+      
+            const file = files[0];
+            
+            const maxSize = 50 * 1024 * 1024;
+            if (file.size > maxSize) {
+              customAlert.alert("上传资料体积过大，请控制在 50MB 以内！");
+              event.target.value = '';
+              return;
+            }
+      
+            this.selectedFileName = file.name;
         },
         uploadCaseMaterialV(){
           if(!document.querySelector('#caseMaterialFile') || !document.querySelector('#caseMaterialFile').value ){

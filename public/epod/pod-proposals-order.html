@@ -248,9 +248,19 @@
 
         <div class="main-content-container full">
 
-          <div class="page-title">
-            <h1>履约中心</h1>
-          </div>  
+          <div class="page-header-monolith">
+            
+            <div class="title-wrapper">
+              <span class="title-anchor"></span>
+              <h1 class="main-heading">履约中心</h1>
+            </div>
+  
+            <p class="header-description">
+              实时跟踪已购商品、服务的交付情况。
+            </p>
+  
+            <div class="header-divider"></div>
+          </div> 
           <div class="data-tag">服务类型</div>
           <!-- first tablist -->
           <div class="first-nav-tabs-container">
@@ -362,10 +372,10 @@
           <div class="data-tb-container pt-2">
             <div class="table-responsive">
               <div class="table-wrp">
-                <table class="table table-sm table-hover align-middle">
+                <table class="table table-sm table-borderless table-hover align-middle">
                   <thead>
-                    <th class="col-case-desc">项目</th>
                     <th class="col-snippet">编号</th>
+                    <th class="col-case-desc">项目</th>
                     <th class="col-fee">费用</th>
                     <th class="col-date">开始时间</th>
                     <th class="col-date">结束时间</th>
@@ -375,24 +385,30 @@
                   </thead>
                   <tbody>
                     <tr v-for="order in proposalOrder_pagination.records">
-                      
-                      <td :title="order.projectName"><a class="tb-url-link" target="_blank" :href="'/proposal/'+ order.projectNo"><span class="ellipsis-1">{{order.projectName}}</span></a> </td>
                       <td :title="order.projectNo"><span class="ellipsis-1">{{order.projectNo}}</span></td>
+                      <td :title="order.projectName"><a class="tb-url-link" target="_blank" :href="'/proposal/'+ order.projectNo"><span class="ellipsis-1">{{order.projectName}}</span></a> </td>
                       <td :title="order.total">{{order.total}}</td>
                       <td :title="order.projectStarts"><span class="ellipsis-1">{{order.projectStarts}}</span></td>
                       <td :title="order.projectEnds"><span class="ellipsis-1">{{order.projectEnds}}</span></td>
                       <td :title="explainProposalProjectStatusV(order.projectStatus)">{{explainProposalProjectStatusV(order.projectStatus)}}</td>
                       <td :title="order.sellerName" class="text-center"><a class="dropdown-item" :href="'/messages/' + order.sellerUserId"><img :src="adaptiveImageUriV(order.sellerAvatar) || defaultAvatarImage" class="peacemaker-avatar"></a></td>
-                      <td :title="order.createAt">{{order.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
+                      <td :title="order.createAt" class="tb-text-secondary">{{order.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
                     </tr>
                   </tbody>
                   
                 </table>
-  
-                <div v-show="proposalOrder_pagination.records.length==0" class="empty-content-block">
-    
-                  没有可用的内容！
-      
+                <div v-show="proposalOrder_pagination.records.length==0" class="tb-empty-data-wrapper">
+          
+                  <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
+                    <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
+                    <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
+                  </svg>
+        
+                  <h4 class="empty-primary-title">未找到订单</h4>
+                  
+                  <p class="empty-secondary-desc">
+                    当前未检索到任何相关记录，切换上方的状态过滤器或尝试<strong>调整关键词再搜索</strong>。
+                  </p>
                 </div>
                 <nav v-if="!!proposalOrder_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
                   <ul class="pagination pagination-lg pagination-dark  border-0">

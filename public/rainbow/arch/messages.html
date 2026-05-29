@@ -49,7 +49,7 @@
             </a>
             <a href="/epod/pod-packages-order" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="个人中心">
               <div class="nav-plus-pod  nav-item-default  d-flex align-items-center justify-content-center mt-5 ms-3">
-                <i class="bi bi-tags"></i>
+                <i class="blv bii-personnal"></i>
               </div>
                    
             </a>
@@ -399,16 +399,29 @@
                       </label>
                     </div>
                   </li>
+                  <div v-if="displayOases.length==0" class="empty-friend-state d-flex flex-column align-items-center justify-content-center p-4 text-center">
+                
+                    <svg style="margin-bottom: 12px;" xmlns="http://w3.org" width="48" height="48" fill="currentColor" class="bi bi-search-geo" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11.5 6.5a5 5 0 1 1-10 0 5 5 0 0 1 10 0m-1.13 4.584a6 6 0 1 1 .707-.707l3.777 3.777a.5.5 0 1 1-.707.707z"/>
+                    </svg>
+                    
+                    <div class="empty-search-title mb-2">未找到相关的数据</div>
+                    
+                    <div class="empty-search-desc">
+                      没有找到匹配的部落。请检查拼写是否正确，或尝试<strong>调整关键词再搜索</strong>。
+                    </div>
+                  </div>
                 </ul>
               </div>
               
             </div>
-            <div class="modal-footer btn-light">
+            <div class="modal-footer d-flex justify-content-between">
+              <button type="button" data-bs-dismiss="modal" class="btn btn-action-cancel">
+                <div class="contents">关闭</div>
+              </button>
               <button @click="inviteBrandForPrivateFriendPageV" 
-              :class="{'disabled': !checkedOasisId  , 
-              'btn-primary': !!checkedOasisId  ,
-              'btn-secondary': !checkedOasisId }"
-               v-preventreclick  type="button"  class="btn">发出邀请</button>
+              :class="{'disabled': !checkedOasisId}"
+               v-preventreclick  type="button"  class="btn btn-action-submit">发出邀请</button>
             </div>
           </div>
         </div>
@@ -416,63 +429,97 @@
     </div>
 
       <div class="modal-container">
-        <!-- Modal -->
-        <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">预览</h1>
-                <button @click="resetFileInput" type="button" id="closeImagePreviewModal" class="btn-close"
-                  data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body d-flex justify-content-center">
-                <div v-if="errors.length == 0" class="image-upload-container">
-                  <img id="imagePreview" :src="file.url">
+        <!-- 图片预览 Modal 弹窗 -->
+        <div class="modal fade" id="imagePreviewModal" data-bs-backdrop="static" tabindex="-1" ref="imagePreviewModalRef">
+          <div class="modal-dialog modal-dialog-centered"> 
+            <div class="modal-content border-0">
+              
+              <!-- Central Body Window: Standard padding adjustments -->
+              <div class="modal-body p-3 pb-2">
+                
+                <!-- Condition A: WeChat-Inspired Organic Image Contraction Grid -->
+                <div v-if="errors.length === 0" class="gallery-preview-zone">
+                  <img id="imagePreview" :src="file.url" alt="Dynamic Adaptive Stream">
                 </div>
-                <div v-if="errors.length > 0">
-                  <div>文件不符合要求，提示信息：</div>
-                  <div v-for="error in errors">
-                    <span>{{error}}</span>
+                
+                <!-- Condition B: Standard System Verification Error Prompt -->
+                <div v-if="errors.length > 0" class="w-100 py-1">
+                  <div style="font-size: 13px; color: #949ba4;" class="mb-2 fw-medium">文件不符合要求，提示信息：</div>
+                  <div class="error-terminal p-3">
+                    <div v-for="(error, index) in errors" :key="index" class="mb-1 text-start">
+                      [!] {{ error }}
+                    </div>
                   </div>
                 </div>
+        
               </div>
-              <div class="modal-footer btn-light">
-                <button @click="sendImageMessageV" :class="{'disabled': errors.length > 0, 
-                      'btn-primary': errors.length == 0,
-                      'btn-secondary': errors.length > 0}" v-preventreclick type="button"
-                  class="btn btn-primary">选中</button>
+        
+              <!-- Footer Control Panel Layer -->
+              <div class="modal-footer d-flex justify-content-between align-items-center">
+                <button @click="resetFileInput" type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">
+                  取消
+                </button>
+                <button 
+                  @click="sendImageMessageV" 
+                  v-preventreclick 
+                  type="button"
+                  class="btn btn-action-submit"
+                  :disabled="!errors || errors.length > 0"
+                >
+                  确认发送
+                </button>
               </div>
+        
             </div>
           </div>
         </div>
       </div>
 
       <div class="modal-container">
-        <!-- Modal -->
-        <div class="modal fade" id="sendBigFileModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5">文件信息</h1>
-                <button @click="resetBigFileInput" type="button" id="closeSendFileModal" class="btn-close"
-                  data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- File Info Preview Modal -->
+        <div class="modal fade" id="sendBigFileModal" data-bs-backdrop="static" tabindex="-1" ref="sendBigFileModalRef">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 460px;">
+            <div class="modal-content border-0">
+              
+              <div class="modal-header modal-header-immersive justify-content-between align-items-center">
+                <h1 class="modal-title">文件信息</h1>
+                <button @click="resetBigFileInput" type="button" id="closeSendFileModal" class="btn-close btn-close-white d-flex align-items-center justify-content-center" data-bs-dismiss="modal" aria-label="Close">
+                </button>
               </div>
-              <div class="modal-body d-flex justify-content-center">
-                <div v-if="errors.length == 0" class="file-info-container">
-                  选中文件: {{bigfile.fileName}}
-                </div>
-                <div v-if="errors.length > 0">
-                  <div>文件不符合要求，提示信息：</div>
-                  <div v-for="error in errors">
-                    <span>{{error}}</span>
+
+              <div class="modal-body px-4 py-2">
+                
+                <div v-if="errors.length == 0" class="file-info-container-card gap-3">
+                  <i class="bi bi-file-earmark-zip-fill"></i>
+                  <div class="min-w-0 flex-grow-1">
+                    <div style="font-size: 11px; color: #949ba4; font-weight: 700; text-uppercase: uppercase; letter-spacing: 0.5px;" class="mb-0.5">已选中文件</div>
+                    <div class="file-name-text-highlight">{{ bigfile.fileName }}</div>
                   </div>
                 </div>
+                
+                <div v-if="errors.length > 0" class="w-100 py-1">
+                  <div class="error-summary-label mb-2">文件不符合要求，提示信息：</div>
+                  <div class="error-terminal-box p-3">
+                    <div v-for="(error, index) in errors" :key="index" class="mb-1 text-start">
+                      [!] {{ error }}
+                    </div>
+                  </div>
+                </div>
+
               </div>
-              <div class="modal-footer btn-light">
-                <button @click="sendAttachmentV" :class="{'disabled': errors.length > 0, 
-                      'btn-primary': errors.length == 0,
-                      'btn-secondary': errors.length > 0}" v-preventreclick type="button"
-                  class="btn btn-primary">发送</button>
+
+              <div class="modal-footer modal-footer-minimal d-flex justify-content-between align-items-center">
+                <button @click="resetBigFileInput" type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">
+                  取消
+                </button>
+                <button 
+                  @click="sendAttachmentV" 
+                  v-preventreclick 
+                  type="button"
+                  class="btn btn-action-submit"
+                  :disabled="!errors || errors.length > 0">
+                  确认发送
+                </button>
               </div>
             </div>
           </div>

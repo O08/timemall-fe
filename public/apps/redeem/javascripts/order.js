@@ -145,6 +145,7 @@ const RootComponent = {
       });
     },
     showRefundModalV(order) {
+      this.refundObj.orderNo=order.orderNo;
       this.refundObj.orderId=order.orderId;
       this.refundObj.term="";
       $("#orderRefundModal").modal("show"); // show modal
@@ -177,8 +178,9 @@ const RootComponent = {
         }
       });
     },
-    showOrderMaintenanceModalV(orderId) {
-      this.orderMaintenanceObj.orderId= orderId;
+    showOrderMaintenanceModalV(order) {
+      this.orderMaintenanceObj.orderId= order.orderId;
+      this.orderMaintenanceObj.orderNo= order.orderNo;
       this.orderMaintenanceObj.status="";
       $("#orderManagementModal").modal("show"); // show modal
     },

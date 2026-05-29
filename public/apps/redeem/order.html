@@ -170,7 +170,7 @@
                                 <ul class="dropdown-menu">
     
                                   <li v-if="order.alreadyPay=='1' && order.refunded!='1'"><a class="dropdown-item" v-preventreclick @click="showRefundModalV(order)">订单退款</a></li>
-                                  <li><a class="dropdown-item" v-preventreclick @click="showOrderMaintenanceModalV(order.orderId)">订单管理</a></li>
+                                  <li><a class="dropdown-item" v-preventreclick @click="showOrderMaintenanceModalV(order)">订单管理</a></li>
                                   <li><a class="dropdown-item" v-preventreclick @click="showChangeOrderPackModalV(order)">发货管理</a></li>
                                 </ul>
                               </div>
@@ -180,13 +180,17 @@
                         </td>
                         <td>
                           <div class="tb-product-info">
-                            <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail">
+                            
+                            <img :src="adaptiveImageUriV(order.productThumbnail)" class="productInfo__thumbnail" alt="Product">
+                            
                             <div class="productInfo__name">
-                              <span v-if="order.refunded=='1'" class="blue-light">退款成功</span>
-                              <span style="word-break: break-all;">
-                                {{order.productName}}
+                              <span v-if="order.refunded == '1'" class="blue-light">退款成功</span>
+                              
+                              <span class="product-title-core" :title="order.productName">
+                                {{ order.productName }}
                               </span>
                             </div>
+                        
                           </div>
                         </td>
                         <td>{{order.quantity}}</td>
@@ -233,12 +237,12 @@
 
        <!-- order pack management modal -->
        <div class="modal-container">
-        <div class="modal fade fresh-ui" id="changeOrderPackModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="changeOrderPackModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content  text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title">发货管理</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5">发货管理</h1>
+                <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center border-0">
 
@@ -273,7 +277,7 @@
                   <button 
                     :class="{'disabled': !changeOrderPackObj.deliveryNote || !btn_ctl.changeOrderPackObj_already_change}"
                     v-preventreclick @click="changeOrderPackV"
-                  type="submit"  class="btn btn-primary mt-5 w-100">提交</button>
+                  type="submit"  class="btn btn-action-submit mt-5 w-100">提交</button>
 
                   
                 </form>
@@ -287,18 +291,22 @@
 
       <!-- order management modal -->
       <div class="modal-container">
-        <div class="modal fade fresh-ui" id="orderManagementModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="orderManagementModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title">订单管理</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5">订单管理</h1>
+                <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center border-0">
 
                 <form class="w-100" onsubmit="return false">
   
-
+                  <div class="mt-3">
+                    <label for="input_refund_transNo" class="form-label">订单号</label>
+                    <input id="input_refund_transNo" v-model="orderMaintenanceObj.orderNo" type="text"
+                      class="form-control" disabled>
+                  </div>
                 
                   <div class="mt-3">
                     <label for="order_status_setting" class="form-label">设置当前订单状态</label>
@@ -316,7 +324,7 @@
                   <button 
                   :class="{'disabled': !orderMaintenanceObj.status}"
                     v-preventreclick @click="changeOrderStatusV"
-                  type="submit"  class="btn btn-primary mt-5 w-100">提交</button>
+                  type="submit"  class="btn btn-action-submit mt-5 w-100">提交</button>
 
                   
                 </form>
@@ -329,23 +337,27 @@
 
       <!--  refund  modal -->
       <div class="modal-container">
-        <div class="modal fade fresh-ui" id="orderRefundModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="orderRefundModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title">订单退款</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5">订单退款</h1>
+                <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center border-0">
                 <form class="w-100" onsubmit="return false">
-
+                  <div class="mt-3">
+                    <label for="input_refund_transNo" class="form-label">订单号</label>
+                    <input id="input_refund_transNo" v-model="refundObj.orderNo" type="text"
+                      class="form-control" disabled>
+                  </div>
                   <div class="mt-3">
                     <label for="input_refund_term" class="form-label">填写“我支持退款”进行退款授权</label>
                     <input id="input_refund_term" v-model="refundObj.term"  maxlength="5" type="text" class="form-control" placeholder="我支持退款">
                   </div> 
                   <button 
                   :class="{'disabled': !refundObj.term}"
-                  type="submit" v-preventreclick @click="refundV" class="btn btn-primary mt-5 w-100">提交</button>
+                  type="submit" v-preventreclick @click="refundV" class="btn btn-action-submit mt-5 w-100">提交</button>
 
                 </form>
               </div>
@@ -362,11 +374,11 @@
             <div class="modal-content text-color-dark">
               <div class="modal-header">
                 <div class="w-100">
-                  <div class="d-flex">
+                  <div class="d-flex align-items-center">
                     <h1 class="modal-title fs-5">订单-{{orderDetail.orderNo}}</h1>
-                    <button  type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button  type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="small-info">
+                  <div class="small-info mt-2">
                     <span class="order-status">{{explainAppRedeemOrderStatusV(orderDetail.status)}}</span>
                     <span class="ms-2">{{renderDateInChinaV(orderDetail.createAt)}}</span>
                   </div>
@@ -378,10 +390,10 @@
                     <img :src="adaptiveImageUriV(orderDetail.buyerAvatar) || defaultAvatarImage">
                   </div>
                   <div class="buyer-name mt-2">{{orderDetail.buyerName}}</div>
-                  <div class="buyer-contact-info">
+                  <div class="buyer-contact-info mt-2">
 
                     <a target="_blank" :href="'/messages/'+orderDetail.buyerUserId"> 
-                      <div class="contact-item btn-cta-primary">
+                      <div class="contact-item btn-action-submit">
                         联系买家
                       </div>
                     </a>
@@ -416,13 +428,13 @@
                 </div>
                 <div class="total-info">
                   <div class="d-flex justify-content-between">
-                    <span>购买数量</span>
+                    <span style="font-weight: 600;">购买数量</span>
                     <span>{{orderDetail.quantity}}</span>
                   </div>
                 </div>
                 <div class="total-info" style="border: none;">
                   <div class="d-flex justify-content-between">
-                    <span>合计：</span>
+                    <span style="font-weight: 600;">合计：</span>
                     <div class="price-wrapper"><span class="price-unit">¥</span><span class="price-value">{{orderDetail.total}}</span></div>
 
                   </div>

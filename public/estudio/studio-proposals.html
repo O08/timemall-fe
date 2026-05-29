@@ -87,14 +87,14 @@
               <li>
                 <a href="/epod/pod-packages-order">
                   <button class="dropdown-item" type="button">
-                    <i class="bi bi-tags me-2"></i> 个人中心
+                    <i class="blv bii-personnal me-2"></i>个人中心
                   </button>
                 </a>
               </li>
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button">
-                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                   </button>
                 </a>
               </li>
@@ -486,7 +486,7 @@
             <div class="modal-content">
               <div class="modal-header  display-dialog-header-bg">
                 <h1 class="modal-title fs-5">提案管理</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
 
@@ -502,12 +502,7 @@
                     </select>  
                   </div> 
                   
-                  <button 
-                  :class="{'disabled': !proposalMaintenanceObj.projectStatus, 
-                  'btn-primary': !!proposalMaintenanceObj.projectStatus,
-                  'btn-secondary': !proposalMaintenanceObj.projectStatus}"
-                    v-preventreclick @click="maintenanceProposalV" 
-                  type="submit"  class="btn  mt-5 w-100">提交</button>
+                  <button :disabled="!proposalMaintenanceObj.projectStatus"  v-preventreclick @click="maintenanceProposalV"  type="submit"  class="btn  btn-action-submit mt-5 w-100">提交</button>
 
                   
                 </form>

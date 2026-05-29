@@ -31,7 +31,9 @@ const RootComponent = {
             supplier:{
                 records: []
             },
-            mpsFund: {},
+            mpsFund: {
+                drawable: ""
+            },
             mpsTopUpAmount: "",
             mps_list_pagination:{
                 url: "/api/v1/web_estudio/brand/mps",
@@ -159,13 +161,18 @@ const RootComponent = {
             }
           })
         },
+        showTopupModalV(){
+         
+            this.error="";
+            this.mpsTopUpAmount = "";
+            $("#topUpFundModal").modal("show"); 
+        },
         topUpMpsFundV(){
             topUpMpsFundB(this.mpsFund.id,this.mpsTopUpAmount).then(response=>{
                 if(response.data.code==200){
-                    $("#topUpFundModal").modal("hide"); // hide modal
                     this.findMpsFundInfoV();
-                    this.mpsTopUpAmount = ""; // reset modal
-                    this.error="";
+                    $("#topUpFundModal").modal("hide"); // hide modal
+                    customAlert.alert("资金转入成功，商单基金已实时同步！");
                 }
                 if(response.data.code!=200){
                     this.error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
@@ -307,6 +314,18 @@ const RootComponent = {
             // Enable popovers 
             $('[data-bs-toggle="popover"]').popover();
         });
+    },
+    computed: {
+        validateTopupForm(){
+            var amount = parseFloat(this.mpsTopUpAmount);
+            var maxDrawable = parseFloat(this.mpsFund.drawable);
+
+            if (isNaN(amount) || amount <= 0 || isNaN(maxDrawable)) {
+                return false; 
+            }
+
+            return amount <= maxDrawable;
+        },
     },
     watch: {
         'supplierSelectedItem': function(newV, oldV){

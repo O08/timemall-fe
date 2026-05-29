@@ -80,14 +80,14 @@
               <li>
                 <a href="/epod/pod-packages-order">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-tags me-2"></i> 个人中心
+                    <i class="blv bii-personnal me-2"></i>个人中心
                   </button>
                 </a>
               </li>
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                    </button>
                 </a>
               </li>
@@ -446,7 +446,7 @@
                     <div class="col-12">
                       <label for="new__inputSow" class="form-label">工作范围</label>
                       <textarea  @input="autoHeightV($event)" v-model="newTemplate.sow" rows="6" maxlength="2000" class="form-control" id="new__inputSow" placeholder="任务与需求说明、交付说明、售后条款、tech pack等内容"></textarea>
-                      <small class="text-muted">{{newTemplate.sow.length}}/2000</small>
+                      <small class="help-text">{{newTemplate.sow.length}}/2000</small>
                     </div>
 
                     <div class="section-name">职能与报酬</div>
@@ -558,7 +558,7 @@
                         </div>
                       </label>
                       <model-select
-                          class="light-model-select"
+                          class="dark-model-select"
                           :options="supplierOptions"
                           v-model="supplierSelectedItem"
                           placeholder="">
@@ -599,11 +599,11 @@
 
                 </div>
 
-                <div class="modal-footer fresh-ui-modal-footer">
-                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary fresh-ui-btn">
+                <div class="modal-footer d-flex justify-content-between">
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary">
                     <div class="contents">取消</div>
                   </button>
-                  <button v-preventreclick @click="newMpsTemplateV" type="button" :class="{'disabled': !validateNewTemplateV()}" class="btn btn-primary fresh-ui-btn">提交</button>
+                  <button v-preventreclick @click="newMpsTemplateV" type="button" :class="{'disabled': !validateNewTemplateV()}" class="btn btn-action-submit">提交</button>
                 </div>
 
               </div>
@@ -630,7 +630,7 @@
                     <div class="col-12">
                       <label for="edit__inputSow" class="form-label">工作范围</label>
                       <textarea  @input="autoHeightV($event)" @change="btn_ctl.activate_edit_template_save__btn=true" v-model="putTemplate.sow" rows="6" maxlength="2000" class="form-control" id="edit__inputSow" placeholder="任务与需求说明、交付说明、售后条款、tech pack等内容"></textarea>
-                      <small class="text-muted">{{putTemplate.sow.length}}/2000</small>
+                      <small class="help-text">{{putTemplate.sow.length}}/2000</small>
                     </div>
 
                     <div class="section-name">职能与报酬</div>
@@ -742,7 +742,7 @@
                         </div>
                       </label>
                       <model-select
-                        class="light-model-select"
+                        class="dark-model-select"
                         :options="supplierOptions"
                         v-model="supplierSelectedItem"
                         placeholder="">
@@ -783,11 +783,11 @@
 
                 </div>
 
-                <div class="modal-footer fresh-ui-modal-footer">
-                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary fresh-ui-btn">
+                <div class="modal-footer d-flex justify-content-between">
+                  <button type="button" data-bs-dismiss="modal" class="btn btn-outline-secondary">
                     <div class="contents">取消</div>
                   </button>
-                  <button v-preventreclick @click="putMpsTemplateV" type="button" :class="{'disabled': !validatePutTemplateV()}" class="btn btn-primary fresh-ui-btn">提交</button>
+                  <button v-preventreclick @click="putMpsTemplateV" type="button" :class="{'disabled': !validatePutTemplateV()}" class="btn btn-action-submit">提交</button>
                 </div>
 
               </div>

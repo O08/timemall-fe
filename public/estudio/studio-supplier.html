@@ -87,14 +87,14 @@
               <li>
                 <a href="/epod/pod-packages-order">
                   <button class="dropdown-item" type="button">
-                    <i class="bi bi-tags me-2"></i> 个人中心
+                    <i class="blv bii-personnal me-2"></i>个人中心
                   </button>
                 </a>
               </li>
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button">
-                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                   </button>
                 </a>
               </li>
@@ -554,7 +554,7 @@
       </div>
 
       <!-- contactModal -->
-      <div>
+      <div class="modal-container">
         <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" style="max-width: 460px; border-radius: 8px;">
             <div class="modal-content border-0 p-lg-3">

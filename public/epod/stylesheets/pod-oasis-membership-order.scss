@@ -1,162 +1,208 @@
-.input-normal-search {
-  width: 35%;
-  min-width: 260px;
-  left: 0;
-}
-
 a {
   text-decoration: none;
   color: unset;
 }
 
-.top-search-input {
-  background: transparent;
-  margin: 0;
-  padding: 7px 8px;
-  font-size: 14px;
-  color: #fff;
-  border: 1px solid #6c757d;
-}
-
-.top-search-input::placeholder {
-  color: #bbb;
-}
-
-.top-search-input:focus {
-  border: 1px solid #6c757d;
-  box-shadow: none;
-  outline: none;
-  background: transparent;
-  caret-color: #fff;
-  color: #fff;
-
-}
-
-
 .filter-bar {
-  flex-wrap: nowrap;
-  column-gap: .5rem;
-  display: flex;
-  -moz-column-gap: .5rem;
-}
-
-.filter-bar .filter-item {
-  flex-grow: 1;
-}
-
-
-.btn-dropdown {
-  cursor: pointer;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  margin-right: 4px;
-  margin-bottom: 4px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-  transition: none .1s ease;
-  color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
-  font-size: 14px;
-  font-weight: 500;
-  outline: 0;
-
   display: flex;
   align-items: center;
-  gap: 4px;
-  height: 32px;
-  background-color: hsl(240 calc(1 * 4%) 4.902% / 1);
-  padding: 8px 8px 8px 12px;
-  border-radius: 4px;
-  border: 1px solid #6c757d;
-  min-height: 38px;
-
-}
-
-.tagsContainer .dropdown-menu {
-  --bs-dropdown-min-width: 12rem;
-  background-color: hsl(0 calc(1 * 0%) 0.784% / 1);
-  box-shadow: none;
-  color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
-  border: 1px solid #fff3;
-
-}
-
-.tagsContainer .form-check-reverse {
-  text-align: unset;
-  display: inherit;
-  vertical-align: middle;
-  line-height: normal;
-}
-
-.tagsContainer .dropdown-item {
-  padding: 6px 8px;
-  color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
-  box-sizing: border-box;
-  min-height: 32px;
-  margin: 2px 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  cursor: pointer;
-
-}
-
-.tagsContainer .dropdown-item:hover {
-  background-color: #2d2c2ce6;
-}
-
-.separator {
-  box-sizing: border-box;
-  margin: 4px;
-  border-bottom: 1px solid hsl(228 calc(1 * 6.024%) 32.549% / 0.48);
-}
-
-.groupLabel {
-  font-weight: 800 !important;
-  font-size: 12px !important;
-}
-
-.groupLabel:hover {
-  background-color: unset !important;
-}
-
-.tagsContainer .form-check-input:checked {
-  background-color: #248045;
-  border-color: #248045;
-
-}
-
-.tagsContainer .form-check-input {
-  background-color: transparent;
-  outline: unset;
-  box-shadow: none;
-  border-width: 2px;
-}
-
-.only-show-bottom {
-  border: none;
-  border-bottom: 1px solid #61666D;
-  border-radius: 0;
-  box-shadow: none;
-  outline: none;
-  padding-left: 0;
-}
-
-.only-show-bottom:focus {
-  outline: none;
-  color: #61666D;
-  box-shadow: none;
-  border-color: #61666D;
-}
-
-.tagsContainer {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.tagsContainer .form-check-label {
+  gap: 12px;
   width: 100%;
+  margin-bottom: 20px;
+
+  .section-top-serach {
+    display: block;
+    width: 260px;
+
+
+    .input-normal-search {
+      display: flex;
+      align-items: center;
+      background-color: #1e1f22 !important;
+      border: 1px solid #3f4248 !important;
+      border-radius: 4px !important;
+      height: 42px !important;
+      padding: 0 4px 0 0 !important;
+      transition: border-color 0.15s ease-in-out;
+
+      &:focus-within {
+        border-color: #5865f2 !important;
+
+        .input-group-search-btn {
+          color: #5865f2 !important;
+        }
+      }
+
+      .top-search-input {
+        flex-grow: 1;
+        background: transparent !important; // 剥离原生白底
+        border: none !important; // 剥离原生硬边框
+        color: #dbdee1 !important; // 高对比度标准前景色
+        font-size: 13.5px;
+        height: 100% !important;
+        padding: 0 12px !important;
+        outline: none !important;
+        box-shadow: none !important;
+
+        &::placeholder {
+          color: #72767d !important;
+          opacity: 1 !important;
+        }
+      }
+
+      .input-group-search-btn {
+        background: transparent !important;
+        border: none !important;
+        color: #949ba4; // 内敛次要灰
+        padding: 0 10px !important;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease;
+        box-shadow: none !important;
+
+        &:hover {
+          color: #ffffff !important;
+        }
+      }
+    }
+  }
+
+  .tagsContainer {
+
+    .btn-dropdown {
+      height: 42px !important;
+      min-width: 110px;
+      background-color: #1e1f22 !important;
+      border: 1px solid #3f4248 !important;
+      border-radius: 4px !important;
+      color: #dbdee1 !important;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 0 32px 0 14px !important;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none !important;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 14px;
+        top: 52%;
+        transform: translateY(-50%);
+        border-top: 4px solid #b5bac1;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+        border-bottom: 0;
+        transition: transform 0.15s ease;
+      }
+
+      &:hover,
+      &.show {
+        border-color: #5865f2 !important;
+        background-color: #111214 !important; // 悬浮时微亮
+      }
+
+      &.show::after {
+        transform: translateY(-50%) rotate(180deg); // 展开时箭头丝滑颠倒
+      }
+    }
+
+    .dropdown-menu {
+      background-color: #111214 !important; // 极深黑
+      border: 1px solid #1f2023 !important; // 极细暗线框
+      border-radius: 4px !important;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important; // 悬浮投影
+      padding: 4px !important;
+      margin-top: 6px !important;
+      min-width: 180px;
+      max-height: 320px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+        background: transparent !important;
+      }
+
+      scrollbar-width: none !important;
+
+      -ms-overflow-style: none !important;
+
+      li {
+        width: 100%;
+      }
+    }
+
+    .dropdown-item {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+
+      &:hover {
+        background-color: #4752c4 !important;
+
+        .form-check-input {
+          background-color: transparent !important;
+        }
+
+      }
+    }
+
+    .form-check-reverse {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px !important;
+      margin: 0 !important;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.1s ease;
+
+      &:hover {
+        background-color: #4752c4 !important;
+
+        .form-check-label {
+          color: #ffffff !important;
+        }
+
+        .form-check-input {
+          border-color: #ffffff !important;
+        }
+      }
+
+      .form-check-label {
+        color: #dbdee1 !important;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 0 !important;
+        order: 1; // 强制排在左边
+      }
+
+      .form-check-input {
+        background-color: #1e1f22 !important;
+        border: 1px solid #4e5058 !important;
+        width: 14px;
+        height: 14px;
+        margin: 0 !important;
+        cursor: pointer;
+        order: 2; // 强制排在右边
+        box-shadow: none !important;
+        transition: border-color 0.1s, background-color 0.1s;
+
+        &:checked {
+          background-color: #5865f2 !important; // 激活品牌紫
+          border-color: #5865f2 !important;
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 20 20'%3e%3ccircle cx='10' cy='10' r='6' fill='%23fff'/%3e%3c/svg%3e") !important;
+        }
+      }
+    }
+  }
 }
 
 .peacemaker-avatar {
@@ -174,7 +220,7 @@ a {
 
 
 .col-tier {
-  width: 25%;
+  width: 35%;
 }
 
 .col-total,
@@ -188,7 +234,9 @@ a {
   width: 5%;
 }
 
-.col-type,
+.col-type{
+  width: 5%;
+}
 .col-time {
   width: 15%;
 }

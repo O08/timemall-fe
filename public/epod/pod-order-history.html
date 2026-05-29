@@ -244,23 +244,35 @@
         </div>
       </aside>
       <main>
-        <div class="page-title  mb-5">
-          <h1>历史预约</h1>
-        </div>  
-        <top-search class="section-top-serach">
-          <div class="input-group input-normal-search">
-            <input @keyup.enter.native="retrieveTransV" v-model="transpagination.param.q"   class="form-control top-search-input" type="text"
-              placeholder="搜索..." aria-label="Search">
-            <button v-preventreclick @click="retrieveTransV" class="btn btn-outline-secondary input-group-search-btn" type="button">
-              <i class="bi bi-search"></i>
-            </button>
+        <div class="page-header-monolith">
+            
+          <div class="title-wrapper">
+            <span class="title-anchor"></span>
+            <h1 class="main-heading">历史预约</h1>
           </div>
-        </top-search>
+
+          <p class="header-description">
+            查阅预约记录、商家的联系方式等信息。
+          </p>
+
+          <div class="header-divider"></div>
+        </div> 
+        <div class="filter-bar">
+          <top-search class="section-top-serach">
+            <div class="input-group input-normal-search">
+              <input @keyup.enter.native="retrieveTransV" v-model="transpagination.param.q"   class="form-control top-search-input" type="text"
+                placeholder="搜索..." aria-label="Search">
+              <button v-preventreclick @click="retrieveTransV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </top-search>
+        </div>
         <div class="table-responsive pt-2">
 
           <div class="table-wrp">
 
-            <table class="table table-sm  table-hover align-middle">
+            <table class="table table-sm table-borderless table-hover align-middle">
               <thead>
                 <tr>
                   <th scope="col"></th>
@@ -299,14 +311,22 @@
                       {{trans.supplier}}
                     </span>
                   </td>
-                  <td :title="trans.added">{{trans.added.replace(new RegExp('-', 'g'), '/')}}</td>
+                  <td class="tb-text-secondary" :title="trans.added">{{trans.added.replace(new RegExp('-', 'g'), '/')}}</td>
                 </tr>
               </tbody>
             </table>
-            <div v-show="isEmptyObjV(transpagination.records)" class="empty-content-block">
+            <div v-show="transpagination.records.length==0" class="tb-empty-data-wrapper">
+          
+              <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
+                <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
+                <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
+              </svg>
     
-              没有可用的内容！
-    
+              <h4 class="empty-primary-title">未找到预约记录</h4>
+              
+              <p class="empty-secondary-desc">
+                当前未检索到任何相关记录，尝试<strong>调整关键词再搜索</strong>。
+              </p>
             </div>
             <nav v-if="!!transpagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
@@ -334,54 +354,57 @@
         
       </main>
       <section class="modals">
+        <!-- contactModal -->
         <div class="modal-container">
-          <!-- Modal -->
-          <div class="modal fade" id="displayModal" tabindex="-1">
-            <div class="modal-dialog  display-dialog-wrapper modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content text-color-gray">
-                <div class="modal-header display-dialog-header-bg">
-                  <h1 class="modal-title fs-5" id="displayModalLabel">商家联系方式</h1>
-                  <button type="button" id="closeDisplayModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body display-dialog-body-bg d-flex justify-content-center">
-                   <!-- contact info -->
+          <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 460px; border-radius: 8px;">
+              <div class="modal-content border-0 p-lg-3">
                 
-                    <section class="section-contact-info w-100">
-
-                      <form onsubmit="return false">
-                        <div class="row mb-3">
-                          <label for="inputPhone" class="col-sm-4 col-form-label">
-                            电话
-                          </label>
-                          <div class="col-sm-8">
-                            <input :value="contact.phone" type="text" maxlength="50" class="form-control" id="input-contact-phone" disabled>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label for="inputEmail" class="col-sm-4 col-form-label">
-                            邮箱
-                          </label>
-                          <div class="col-sm-8">
-                            <input  :value="contact.email" type="email" maxlength="255" class="form-control" id="input-contact-email" disabled>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-form-label col-sm-4 pt-0">
-                            微信二维码
-                          </label>
-                          <div class="col-sm-8">
-                            <div class="wechatQr-upload-container dropzone-wrapper">
-                              <img  id="lastestWechatQr"  :src="contact.wechat">
-
-                            </div>
-                            
-                          </div>
-                        </div>                        
-                      </form>
-
-                      
-                    </section>
+                <!-- 头部 -->
+                <div class="modal-header border-0 pb-2 position-relative">
+                  <h5 class="modal-title fw-bold fs-5">商家联系方式</h5>
+                  <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                 </div>
+
+                <!-- 中部表单内容 -->
+                <div class="modal-body py-3">
+                  
+                  <!-- 电话排版 -->
+                  <div class="row align-items-center mb-3">
+                    <div class="col-3 text-label">电话</div>
+                    <div class="col-9">
+                      <div class="info-block p-2 px-3 fw-medium">{{!contact.phone ? '无数据' : contact.phone}}</div>
+                    </div>
+                  </div>
+
+                  <!-- 邮箱排版 -->
+                  <div class="row align-items-center mb-3">
+                    <div class="col-3 text-label">邮箱</div>
+                    <div class="col-9">
+                      <div class="info-block p-2 px-3 fw-medium">{{!contact.email ? '无数据' : contact.email}}</div>
+                    </div>
+                  </div>
+
+                  <!-- 微信二维码排版 -->
+                  <div class="row align-items-start mb-2">
+                    <div class="col-3 text-label pt-1">微信二维码</div>
+                    <div class="col-9">
+                      <!-- 虚线二维码容器 -->
+                      <div class="qr-placeholder d-flex align-items-center justify-content-center flex-column position-relative">
+                        <img v-if="contact.wechat"   :src="contact.wechat">
+                        <!-- 这里可以放入 <img> 标签，目前使用占位图标和文字 -->
+                        <svg v-if="!contact.wechat" xmlns="http://w3.org" width="28" height="28" fill="#4e5058" class="bi bi-qr-code mb-2" viewBox="0 0 16 16">
+                          <path d="M2 2h2v2H2zM1 3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm1 7h2v2H2zm-1 1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm10-9h2v2h-2zm-1 1a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm-4 2h1v1H7zM6 6h1v1H6zm2-1h1v1H8zm-3 2h1v1H5zm-3 3h1v1H2zm0 2h1v1H2zm3-2h1v1H5zm1 2h1v1H6zm1-3h1v1H7zm1 1h1v1H8zm3-2h1v1h-1zm-1 2h1v1h-1zm3-2h1v1h-1zm-1 2h1v1h-1z"/>
+                        </svg>
+                        <span v-if="!contact.wechat"  class="small text-secondary" style="font-size: 11px; color: #4e5058 !important;">暂无图片</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+    
+
               </div>
             </div>
           </div>

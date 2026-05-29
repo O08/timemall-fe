@@ -235,7 +235,8 @@ const TobChatCompoent = {
       {        
         emojiData: emojiData,
         messages: messages,
-        locale: 'zh'
+        locale: 'zh',
+        theme: 'dark' 
       },
       {
         referenceElement: document.querySelector("#selection-outer"),

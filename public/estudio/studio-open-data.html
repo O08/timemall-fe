@@ -83,14 +83,14 @@
               <li>
                 <a href="/epod/pod-packages-order">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-tags me-2"></i> 个人中心
+                    <i class="blv bii-personnal me-2"></i>个人中心
                    </button>
                 </a>
               </li>
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                    </button>
                 </a>
               </li>
@@ -454,106 +454,112 @@
 
       <!-- full view data modal -->
       <div class="modal-container">
-        <div class="modal fade" id="fullViewDataModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
-                <h1 class="modal-title fs-5">数据预览</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
+        <div class="modal fade" id="fullViewDataModal" data-bs-backdrop="static" tabindex="-1" ref="fullViewDataModalRef">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content border-0">
+              
+              <div class="modal-header border-0 position-relative">
+                <h1 class="modal-title fw-bold fs-5 text-white">数据预览</h1>
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none; font-size: 12px;"></button>
               </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
-                <form>
-                  <div class="mt-3">
-                    <label for="t1" class="form-label">摘要</label>
-                    <textarea :value="fullViewData.snippet" type="text" class="form-control" disabled id="t1" rows="3">
-                    </textarea>
-                  </div> 
-                  <div class="detail-meaning-container">
-                    <div v-if="fullViewData.fromWhere==='user_need_story'">
-                      <div class="mt-3">
-                        <label for="user_need_story_detail" class="form-label">明细</label>
-                        <textarea id="user_need_story_detail" :value="fullViewData.details" type="text" class="form-control" disabled rows="10">
-                        </textarea>
-                      </div>
-                    </div>
-                    <div v-else-if="fullViewData.fromWhere==='plan_search' || fullViewData.fromWhere==='virtual_product_search'">
-                      <div class="mt-3">
-                        <label for="talent_search_detail_q" class="form-label">查询词</label>
-                        <input id="talent_search_detail_q" :value="fullViewData.details.q" type="text" class="form-control" disabled>
-                      </div>
-                      <div class="mt-3">
-                        <label for="plan_search_detail_budgetMin" class="form-label">最小预算</label>
-                        <input id="plan_search_detail_budgetMin" :value="fullViewData.details.budgetMin" type="text" class="form-control" disabled>
-                      </div>
-                      <div class="mt-3">
-                        <label for="plan_search_detail_budgetMax" class="form-label">最大预算</label>
-                        <input id="plan_search_detail_budgetMax" :value="fullViewData.details.budgetMax" type="text" class="form-control" disabled>
-                      </div>
 
-                    </div>
-                    <div v-else-if="fullViewData.fromWhere==='cell_search'">
-                      <div class="mt-3">
-                        <label for="talent_search_detail_q" class="form-label">查询词</label>
-                        <input id="talent_search_detail_q" :value="fullViewData.details.q" type="text" class="form-control" disabled>
+              <div class="modal-body">
+                <form @submit.prevent>
+                  <div class="row g-3">
+                    
+                    <div class="col-12">
+                      <label class="form-label">摘要</label>
+                      <textarea :value="fullViewData.snippet" class="form-control" disabled rows="3"></textarea>
+                    </div> 
+                
+                    
+                    <template v-if="fullViewData.fromWhere==='user_need_story'">
+                      <div class="col-12">
+                        <label class="form-label">明细</label>
+                        <textarea :value="fullViewData.details" class="form-control" disabled rows="6"></textarea>
                       </div>
-                      <div class="mt-3">
-                        <label for="cell_search_detail_budgetMin" class="form-label">最小预算</label>
-                        <input id="cell_search_detail_budgetMin" :value="fullViewData.details.budgetMin" type="text" class="form-control" disabled>
+                    </template>
+                
+                    <template v-else-if="fullViewData.fromWhere==='plan_search' || fullViewData.fromWhere==='virtual_product_search'">
+                      <div class="col-12">
+                        <label class="form-label">查询词</label>
+                        <input :value="fullViewData.details.q" type="text" class="form-control" disabled>
                       </div>
-                      <div class="mt-3">
-                        <label for="cell_search_detail_budgetMax" class="form-label">最大预算</label>
-                        <input id="cell_search_detail_budgetMax" :value="fullViewData.details.budgetMax" type="text" class="form-control" disabled>
+                      <div class="col-md-6">
+                        <label class="form-label">最小预算</label>
+                        <input :value="fullViewData.details.budgetMin" type="text" class="form-control" disabled>
                       </div>
-                      <div class="mt-3">
-                        <label for="cell_search_detail_sbu" class="form-label">标准付费单元</label>
-                        <input id="cell_search_detail_sbu" :value="fullViewData.details.sbu" type="text" class="form-control" disabled>
+                      <div class="col-md-6">
+                        <label class="form-label">最大预算</label>
+                        <input :value="fullViewData.details.budgetMax" type="text" class="form-control" disabled>
                       </div>
-
-                    </div>
-                    <div v-else-if="fullViewData.fromWhere==='oasis_search'">
-                      <div class="mt-3">
-                        <label for="oasis_search_detail_q" class="form-label">查询词</label>
-                        <input id="oasis_search_detail_q" :value="fullViewData.details.q" type="text" class="form-control" disabled>
+                    </template>
+                
+                    <template v-else-if="fullViewData.fromWhere==='cell_search'">
+                      <div class="col-md-6">
+                        <label class="form-label">查询词</label>
+                        <input :value="fullViewData.details.q" type="text" class="form-control" disabled>
                       </div>
-
-                    </div>
-                    <div v-else-if="fullViewData.fromWhere==='talent_search'">
-                      <div class="mt-3">
-                        <label for="talent_search_detail_q" class="form-label">查询词</label>
-                        <input id="talent_search_detail_q" :value="fullViewData.details.q" type="text" class="form-control" disabled>
+                      <div class="col-md-6">
+                        <label class="form-label">标准付费单元</label>
+                        <input :value="fullViewData.details.sbu" type="text" class="form-control" disabled>
                       </div>
-
-                    </div>
-                    <div v-else-if="fullViewData.fromWhere==='business_paper_search'">
-                      <div class="mt-3">
-                        <label for="business_paper_search_detail_q" class="form-label">查询词</label>
-                        <input id="business_paper_search_detail_q" :value="fullViewData.details.q" type="text" class="form-control" disabled>
+                      <div class="col-md-6">
+                        <label class="form-label">最小预算</label>
+                        <input :value="fullViewData.details.budgetMin" type="text" class="form-control" disabled>
                       </div>
-
-                    </div>
-                    <div v-else>
-                      <div class="mt-3">
-                        <label for="other_detail" class="form-label">明细</label>
-                        <textarea id="other_detail" :value="fullViewData.details" type="text" class="form-control" disabled rows="10">
-                        </textarea>
+                      <div class="col-md-6">
+                        <label class="form-label">最大预算</label>
+                        <input :value="fullViewData.details.budgetMax" type="text" class="form-control" disabled>
                       </div>
-                    </div>
+                    </template>
+                
+                    <template v-else-if="fullViewData.fromWhere==='oasis_search'">
+                      <div class="col-12">
+                        <label class="form-label">查询词</label>
+                        <input :value="fullViewData.details.q" type="text" class="form-control" disabled>
+                      </div>
+                    </template>
+                
+                    <template v-else-if="fullViewData.fromWhere==='talent_search'">
+                      <div class="col-12">
+                        <label class="form-label">查询词</label>
+                        <input :value="fullViewData.details.q" type="text" class="form-control" disabled>
+                      </div>
+                    </template>
+                
+                    <template v-else-if="fullViewData.fromWhere==='business_paper_search'">
+                      <div class="col-12">
+                        <label class="form-label">查询词</label>
+                        <input :value="fullViewData.details.q" type="text" class="form-control" disabled>
+                      </div>
+                    </template>
+                
+                    <template v-else>
+                      <div class="col-12">
+                        <label class="form-label">明细</label>
+                        <textarea :value="fullViewData.details" class="form-control" disabled rows="6"></textarea>
+                      </div>
+                    </template>
+                
+                    <div class="col-md-6">
+                      <label class="form-label">采集时间</label>
+                      <input :value="fullViewData.createAt" type="text" class="form-control" disabled>
+                    </div> 
+                
+                    <div class="col-md-6">
+                      <label class="form-label">数据来源</label>
+                      <input :value="explainOpenDataFromWhereV(fullViewData.fromWhere)" type="text" class="form-control" disabled>
+                    </div> 
                 
                   </div>
-                  <div class="mt-3">
-                    <label for="t3" class="form-label">采集时间</label>
-                    <input id="t3" :value="fullViewData.createAt" type="text" class="form-control" disabled>
-                  </div> 
-                  <div class="mt-3 pb-5">
-                    <label for="t4" class="form-label">数据来源</label>
-                    <input id="t4" :value="explainOpenDataFromWhereV(fullViewData.fromWhere)" type="text" class="form-control" disabled>
-                  </div> 
-                </form>
+                </form>                
               </div>
+
             </div>
           </div>
         </div>
+
       </div>
 
     </section>

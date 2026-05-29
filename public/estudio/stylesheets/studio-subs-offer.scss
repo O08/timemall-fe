@@ -227,55 +227,13 @@ body::-webkit-scrollbar {
   color: #555;
 }
 
-/* Glassmorphism & Modal Styling */
-.modern-coupon-modal .glass-effect {
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-height: 680px;
-}
 
 .text-gradient {
-  background: linear-gradient(45deg, #2b5876, #4e4376);
+  background: linear-gradient(45deg, #5865f2 0%, #23a55a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-
-/* Custom Buttons */
-.btn-primary-custom {
-  background: linear-gradient(45deg, #4e4376, #2b5876);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 12px;
-  font-weight: 600;
-}
-
-.btn-primary-custom:disabled {
-  background: #cbd5e0;
-  cursor: not-allowed;
-}
-.btn-primary-custom:hover:not(:disabled) {
-  background-position: right center; /* Shifts the gradient colors */
-  color: white;
-  transform: translateY(-2px); /* Lift effect */
-  box-shadow: 0 8px 20px rgba(78, 67, 118, 0.3); /* Stronger glow */
-}
-
-.btn-light-custom {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  color: #475569;
-  font-weight: 600;
-}
-.btn-light-custom:hover{
-  background-color: #f1f5f9; /* Slightly darker grey */
-  border-color: #cbd5e1;
-  color: #1e293b; /* Darker text for contrast */
-  transform: translateY(-2px); /* Lift effect */
-
-}
 
 /* Animation for v-show */
 .animate-fade-in {
@@ -287,28 +245,7 @@ body::-webkit-scrollbar {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile-specific refinements */
-@media (max-width: 576px) {
-  .modern-coupon-modal .modal-dialog {
-    margin: 0.5rem; /* Small margin on mobile */
-    align-items: flex-end; /* Optional: slides up from bottom */
-  }
 
-  .modern-coupon-modal .modal-content {
-    max-height: 90vh; /* Don't cover 100% to keep context */
-  }
-
-  /* Increase touch targets for inputs */
-  .custom-input {
-    font-size: 16px !important; /* Prevents iOS auto-zoom on focus */
-    padding: 14px; 
-  }
-
-  .btn-primary-custom, .btn-light-custom {
-    padding: 14px 10px; /* Thicker buttons for thumbs */
-    font-size: 0.95rem;
-  }
-}
 
 /* Fix for scrolling behavior on mobile browsers */
 .modal-dialog-scrollable .modal-body {
@@ -318,4 +255,62 @@ body::-webkit-scrollbar {
 
 .modal-dialog-scrollable .modal-body::-webkit-scrollbar {
   display: none;
+}
+
+// dark mode  model select
+
+
+.ui.selection.dropdown.dark-model-select{
+  color: #e0e0e0;
+  background: #1e1f22;
+  border: 1px solid #222;
+  .text{
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+  .menu{
+   background: #1e1f22;
+   .item{
+      color: #e0e0e0;
+      border-color: #222;
+      word-break: break-all;
+
+      &:hover{
+        background-color: #1A1A1A;
+
+      }
+   }
+  }
+  input.search {
+    background: #1e1f22;
+    border: 1px solid #222;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 13px;
+    padding: 10px 14px;
+    transition: all 0.15s;
+
+    &::placeholder {
+      color: #3a3a3a;
+    }
+
+    &:focus {
+      border-color: #5865f2 !important;
+      box-shadow: none !important;
+      outline: none;
+    }
+
+    &:disabled {
+      background: #0d0d0d;
+      color: #444;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.ui.selection.active.dropdown.dark-model-select, .ui.selection.active.dropdown.dark-model-select .menu {
+  border-color: #5865f2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }

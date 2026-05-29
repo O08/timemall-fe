@@ -85,7 +85,7 @@
                 <li>
                   <a href="/epod/pod-packages-order">
                     <button class="dropdown-item" type="button" >
-                      <i class="bi bi-tags me-2"></i> 个人中心
+                      <i class="blv bii-personnal me-2"></i>个人中心
                      </button>
                   </a>
                 </li>
@@ -259,7 +259,7 @@
                     <i>￥</i>
                     <ins class="text-decoration-none">{{ !bill.quantity ? bill.price : (bill.quantity * bill.price).toFixed(2)}}</ins>
                   </div>
-                  <button type="button" v-preventreclick @click="showOrderVirtualProductFocusModalV" class="btn btn-primary">购买商品</button>
+                  <button type="button" v-preventreclick @click="showOrderVirtualProductFocusModalV" class="btn btn-action-submit">购买商品</button>
                 </div>
 
 
@@ -442,7 +442,7 @@
             <div class="modal-content">
 
               <div class="modal-header justify-content-center">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body text-center">
                 
@@ -471,10 +471,14 @@
                     <!--end::Content-->
 
                     <!--begin::Buttons-->
-                    <div class="d-flex justify-content-center flex-wrap pt-5">
+                    <div class="d-flex justify-content-between align-items-center pt-5">
+                      <div>
+                        <a href="/estudio/studio-shop" target="_blank" class="btn  btn-cancel">商城充值</a>
+                      </div>
+                      <div>
+                        <a href="/mall/contact-us"  target="_blank" class="btn btn-confirm">寻求支持</a>
+                      </div>
 
-                      <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">商城充值</a>
-                      <a href="/mall/contact-us"  target="_blank" class="btn btn-dark m-3">寻求支持</a>
 
                     </div>
                     <!--end::Buttons-->
@@ -501,15 +505,19 @@
 
               <div class="modal-header justify-content-center">
                 <i class="bi bi-check-circle"></i>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body text-center">
                 <div class="modal-head my-3">下单成功!</div>	
                 <p>哇喔，成功下单，继续享受愉快的旅程，追寻更多发现吧！</p>
-                <div class="d-flex justify-content-center flex-wrap pt-2">
+                <div class="d-flex justify-content-between align-items-center pt-5">
+                  <div>
+                    <a href="/estudio/studio-shop" target="_blank" class="btn  btn-cancel">前往商城充值</a>
+                  </div>
+                  <div>
+                    <a href="/epod/pod-virtual-order"  class="btn btn-confirm">查看订单</a>
+                  </div>
 
-                  <a href="/estudio/studio-shop" target="_blank" class="btn  btn-outline-dark  m-3">前往商城充值</a>
-                  <a href="/epod/pod-virtual-order"  class="btn btn-dark m-3">查看订单</a>
                 </div>
               </div>
               
@@ -529,7 +537,7 @@
 
 
                 <!--begin::Icon-->
-                <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <i class="bi bi-exclamation-circle mb-2"></span><span class="path2"></span><span class="path3"></span></i>
                 <!--end::Icon-->
 
                 <!--begin::Wrapper-->
@@ -549,10 +557,14 @@
                     <!--end::Content-->
 
                     <!--begin::Buttons-->
-                    <div class="d-flex justify-content-center flex-wrap pt-5">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap pt-5">
 
-                        <a href="#" @click="closeOrderVirtualProductFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">取消操作</a>
-                        <a href="#"  v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">继续支付</a>
+                        <div>
+                          <a  @click="closeOrderVirtualProductFocusModalV" class="btn  btn-cancel m-3">取消操作</a>
+                        </div>
+                        <div>
+                          <a  v-preventreclick @click="focusModal.confirmHandler" class="btn btn-confirm">继续支付</a>
+                        </div>
                     </div>
                     <!--end::Buttons-->
                 </div>

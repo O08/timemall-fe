@@ -201,3 +201,46 @@ body::-webkit-scrollbar {
 .main-content-container {
   min-width: 1000px;
 }
+
+
+
+.btn-custom-finance {
+    background-color: #5865f2 !important; 
+    color: #ffffff !important;
+    border: none !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 18px !important; 
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  
+    .finance-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }
+  
+    &:hover:not(:disabled) {
+      background-color: #4752c4 !important;
+  
+      .finance-icon {
+        transform: scale(1.08);
+      }
+    }
+  
+    &:active:not(:disabled) {
+      background-color: #3c45a5 !important;
+      transform: scale(0.98); 
+    }
+  
+    &:disabled, &.disabled {
+      background-color: #5865f2 !important;
+      opacity: 0.4 !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+      pointer-events: none;
+    }
+  }
+  

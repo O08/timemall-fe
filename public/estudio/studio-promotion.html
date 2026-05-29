@@ -82,14 +82,14 @@
               <li>
                 <a href="/epod/pod-packages-order">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-tags me-2"></i> 个人中心
+                    <i class="blv bii-personnal me-2"></i>个人中心
                    </button>
                 </a>
               </li>
               <li v-if="!!getIdentity().hiLinkUrl">
                 <a :href="getIdentity().hiLinkUrl">
                   <button class="dropdown-item" type="button" >
-                    <i class="bi bi-pin-map me-2"></i> {{getIdentity().hiLinkName}}
+                    <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
                    </button>
                 </a>
               </li>
@@ -440,12 +440,12 @@
       <section class="modals">
          <!-- set up credit point modal -->
           <div class="modal-container">
-            <div class="modal fade" id="setupCreditPointModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal fade dcModal" id="setupCreditPointModal" data-bs-backdrop="static" tabindex="-1">
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="setupCreditPointModalLabel">设置用户体验金</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <form>
@@ -460,9 +460,7 @@
                           <option value="2">关闭</option>
                         </select>
                       </div>
-                      <button  v-preventreclick :class="{'disabled': !validatePromotionSetupV() , 
-                      'btn-primary': validatePromotionSetupV(),
-                      'btn-secondary': !validatePromotionSetupV()}"  @click="refreshPromotionSetupV"  type="submit" class="btn mt-5 w-100">更新</button>
+                      <button  v-preventreclick :disabled="!validatePromotionSetupV()"  @click="refreshPromotionSetupV"  type="submit" class="btn btn-action-submit mt-5 w-100">更新</button>
                     </form>
                   </div>
                 </div>
@@ -472,12 +470,12 @@
 
           <!-- set early bird  modal -->
           <div class="modal-container">
-            <div class="modal fade" id="setupEarlyBirdModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal fade dcModal" id="setupEarlyBirdModal" data-bs-backdrop="static" tabindex="-1">
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="setupEarlyBirdModalLabel">设置尝鲜折扣券</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <form>
@@ -492,9 +490,7 @@
                           <option value="2">关闭</option>
                         </select>
                       </div>
-                      <button  v-preventreclick :class="{'disabled': !validatePromotionSetupV() , 
-                      'btn-primary': validatePromotionSetupV(),
-                      'btn-secondary': !validatePromotionSetupV()}"   @click="refreshPromotionSetupV"  type="submit" class="btn mt-5 w-100">更新</button>
+                      <button  v-preventreclick :disabled="!validatePromotionSetupV()"    @click="refreshPromotionSetupV"  type="submit" class="btn btn-action-submit mt-5 w-100">更新</button>
                     </form>
                   </div>
                 </div>
@@ -504,12 +500,12 @@
 
           <!-- set repurchase  modal -->
           <div class="modal-container">
-            <div class="modal fade" id="setupRepurchaseModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal fade dcModal" id="setupRepurchaseModal" data-bs-backdrop="static" tabindex="-1">
               <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content text-color-dark">
                   <div class="modal-header">
                     <h1 class="modal-title fs-5" id="setupRepurchaseModalLabel">设置复购折扣券</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <form>
@@ -524,9 +520,7 @@
                           <option value="2">关闭</option>
                         </select>
                       </div>
-                      <button  v-preventreclick :class="{'disabled': !validatePromotionSetupV() , 
-                      'btn-primary': validatePromotionSetupV(),
-                      'btn-secondary': !validatePromotionSetupV()}"   @click="refreshPromotionSetupV" type="submit" class="btn  mt-5 w-100">更新</button>
+                      <button  v-preventreclick :disabled="!validatePromotionSetupV()"  @click="refreshPromotionSetupV" type="submit" class="btn btn-action-submit mt-5 w-100">更新</button>
                     </form>
                   </div>
                 </div>

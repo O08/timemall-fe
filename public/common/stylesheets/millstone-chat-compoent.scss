@@ -9,8 +9,8 @@ body {
   --number-bg: #6895A3;
   --message-box-1: #fff;
   --message-box-2: #1a233b;
-  --chat-input: #060415;
-  --border-light: #8187a2;
+  --chat-input: #111;
+  --border-light: #3f4248;
   --info-box-color-1: #004dfc;
   --info-box-color-2: #00ba9d;
   --info-box-color-3: #715fc2;
@@ -131,11 +131,6 @@ main{
   padding-left: 1.5rem;
   padding-top: .5rem;
 }
-// .event-wrapper{
-//   padding-top: 1rem;
-//   padding-bottom: 1rem;
-
-// }
 .event-title{
   font-size: 14px;
 }
@@ -337,10 +332,7 @@ font-weight: normal;
 word-break: break-all;
 color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
 }
-#imagePreviewModal .image-upload-container,#imagePreviewModal  img{
-width: 300px;
-height: auto;
-}
+
 .msg_option{
 display: none;
 }
@@ -354,40 +346,360 @@ display: block;
 border-radius: 0;
 }
 
-#imagePreviewModal .modal-content, #sendBigFileModal .modal-content{
-  color: #61666d;
-  word-spacing: .5px;
-  background-color: #1a1a1a;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #6d757a;
-  padding: 0;
-}
-#imagePreviewModal .btn-close ,#sendBigFileModal .btn-close {
-  color: #fff;
-  background-color: #343434;
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  outline: none;
-  box-shadow: none;
-  --bs-btn-close-bg: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%23fff%22%20class%3D%22bi%20bi-x-circle%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20d%3D%22M8%2015A7%207%200%201%201%208%201a7%207%200%200%201%200%2014m0%201A8%208%200%201%200%208%200a8%208%200%200%200%200%2016%22%2F%3E%3Cpath%20d%3D%22M4.646%204.646a.5.5%200%200%201%20.708%200L8%207.293l2.646-2.647a.5.5%200%200%201%20.708.708L8.707%208l2.647%202.646a.5.5%200%200%201-.708.708L8%208.707l-2.646%202.647a.5.5%200%200%201-.708-.708L7.293%208%204.646%205.354a.5.5%200%200%201%200-.708%22%2F%3E%3C%2Fsvg%3E");
-}
-
-#imagePreviewModal .modal-header, #sendBigFileModal .modal-header {
-  border-color: #2f2f2f;
-}
-
-#imagePreviewModal .modal-footer,#sendBigFileModal .modal-footer {
-  background-color: #4e50584d;
-  border: none;
-}
 .msg_option{
   position: absolute;
   top: 0;
   right: 0;
 }
+
+
+#imagePreviewModal {
+
+  .modal-dialog {
+      max-width: 480px !important;
+      transition: max-width 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .modal-content {
+      background-color: #313338 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #f2f3f5;
+      border-radius: 8px !important;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55) !important;
+      overflow: hidden;
+      border: 1px solid #1f2023 !important;
+  }
+  .modal-footer{
+    border: none;
+  }
+
+  .gallery-preview-zone {
+      width: 100%;
+      background-color: #1e1f22 !important;
+      border: 1px solid #2b2d31;
+      border-radius: 6px;
+
+      padding: 12px !important;
+
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 140px;
+      max-height: 440px;
+      overflow: hidden;
+      transition: height 0.2s ease-in-out;
+
+      img {
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          max-height: 416px;
+
+          object-fit: contain;
+          border-radius: 4px;
+          transition: transform 0.2s ease-out;
+
+          image-rendering: -webkit-optimize-contrast;
+
+          &:hover {
+              transform: scale(1.01);
+          }
+      }
+  }
+
+  .error-terminal {
+      background-color: #1e1f22 !important;
+      border: 1px solid #da373c !important;
+      border-radius: 4px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+      color: #f23f43;
+      word-break: break-all;
+      max-height: 180px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+          width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+          background: #1e1f22;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          background: #2b2d31;
+          border-radius: 4px;
+      }
+  }
+
+
+}
+
+
+
+
+
+#sendBigFileModal {
+
+  .modal-content {
+      background-color: #313338 !important; // 🌟 Converted for total application color unity
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #f2f3f5;
+      border-radius: 12px !important;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6) !important;
+      overflow: hidden;
+  }
+
+  .modal-header-immersive {
+      padding: 24px 24px 12px 24px !important;
+      border: none !important;
+
+      .modal-title {
+          font-size: 16px;
+          font-weight: 600;
+          letter-spacing: 0.3px;
+          color: #ffffff;
+      }
+  }
+
+  .btn-close {
+      background: none !important;
+      border: none !important;
+      color: #949ba4;
+      cursor: pointer;
+      padding: 6px;
+      transition: color 0.15s ease, transform 0.1s ease;
+
+      &:hover {
+          color: #ffffff;
+          transform: scale(1.05);
+      }
+  }
+
+  .file-info-container-card {
+      background-color: #1e1f22 !important;
+      border: 1px solid #3f4248 !important;
+      border-radius: 6px;
+      padding: 20px 16px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .bi-file-earmark-zip-fill {
+          color: #e67e22 !important;
+          font-size: 24px;
+          flex-shrink: 0;
+      }
+
+      .file-name-text-highlight {
+          font-size: 14px;
+          font-weight: 500;
+          color: #dbdee1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          user-select: all;
+      }
+  }
+
+  .error-summary-label {
+      color: #b5bac1 !important;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+  }
+
+  .error-terminal-box {
+      background-color: #1e1f22;
+      border: 1px solid #da373c;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+      color: #f23f43;
+      word-break: break-all;
+      max-height: 200px;
+      overflow-y: auto;
+  }
+
+  .modal-footer-minimal {
+      border: none !important;
+      padding: 16px 24px 24px 24px !important;
+      background-color: transparent !important;
+  }
+
+
+}
+
+
+
+.picmo__popupContainer,
+.picmo__picker {
+background-color: #313338 !important; 
+border: 1px solid #1f2023 !important; 
+border-radius: 6px !important;
+box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6) !important; 
+color: #dbdee1 !important;
+
+--bg-color: #313338 !important;
+--border-color: #1f2023 !important;
+--text-color: #dbdee1 !important;
+--search-icon-color: #72767d;
+}
+
+.picmo__picker {
+.picmo__categoryTabs {
+  background-color: #313338 !important; // 保持主色一致
+  border-bottom: 1px solid #1f2023 !important;
+  
+  .picmo__categoryTab[data-active="true"] {
+    color: #5865f2 !important;
+  }
+}
+
+.picmo__searchContainer {
+  background-color: #313338 !important;
+  padding: 10px 12px !important;
+  display: flex;
+  align-items: center;
+}
+
+.picmo__searchField {
+  background-color: #1e1f22 !important;
+  border: 1px solid #3f4248 !important;
+  color: #dbdee1 !important;
+  border-radius: 4px !important;
+
+  &:focus {
+    border-color: #5865f2 !important;
+  }
+
+
+  &::placeholder {
+      color: #72767d !important;
+    }
+  
+    &::-webkit-input-placeholder {
+      color: #72767d !important;
+    }
+  
+    &::-moz-placeholder {
+      color: #72767d !important;
+    }
+}
+
+
+.picmo__emojisContainer {
+  background-color: #313338 !important;
+  
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-track { background: #313338; }
+  &::-webkit-scrollbar-thumb { background: #1e1f22; border-radius: 4px; }
+}
+
+.picmo__emojiButton {
+  transition: background-color 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: #2b2d31 !important; 
+    border-radius: 4px;
+    transform: scale(1.08); 
+  }
+}
+
+.picmo__previewContainer {
+  background-color: #1e1f22 !important; 
+  border-top: 1px solid #1f2023 !important;
+  
+  .picmo__previewName {
+    color: #ffffff !important;
+  }
+}
+}
+
+
+/* ==========================================================================
+ 将分类大标题（.picmo__categoryName）汉化
+ ========================================================================== */
+
+ .picmo__picker {
+  background-color: #313338 !important;
+
+  .picmo__categoryName {
+    color: #949ba4 !important; 
+    font-size: 12px !important;
+    font-weight: 700;
+    text-uppercase: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    
+    // 改用 Flexbox 布局，让左侧 SVG 图标和右侧中文完美垂直居中对齐
+    display: flex !important;
+    align-items: center;
+    gap: 8px; 
+
+    visibility: hidden;
+
+    .picmo__icon, svg {
+      visibility: visible !important;
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+      display: inline-block;
+    }
+
+    &::before {
+      visibility: visible !important; 
+      font-size: 12px !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: inline-block;
+    }
+
+
+    &[data-category="smileys-emotion"]::before {
+      content: "表情与情感" !important;
+    }
+
+    &[data-category="people-body"]::before {
+      content: "人物与身体" !important;
+    }
+
+    &[data-category="animals-nature"]::before {
+      content: "动物与自然" !important;
+    }
+
+    &[data-category="food-drink"]::before {
+      content: "食物与饮料" !important;
+    }
+
+    &[data-category="travel-places"]::before {
+      content: "旅游与地点" !important;
+    }
+
+    &[data-category="activities"]::before {
+      content: "活动" !important;
+    }
+
+    &[data-category="objects"]::before {
+      content: "物品" !important;
+    }
+
+    &[data-category="symbols"]::before {
+      content: "符号" !important;
+    }
+
+    &[data-category="flags"]::before {
+      content: "旗帜" !important;
+    }
+
+    &[data-category="recents"]::before,
+    &[data-category="frequently-used"]::before {
+      content: "最近使用" !important;
+    }
+  }
+}
+
+
 @media (max-width: 576px) {
 .chat-action-wrapper{
   display: block;

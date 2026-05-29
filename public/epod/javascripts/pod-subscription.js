@@ -93,7 +93,7 @@ const RootComponent = {
         $("#focusModal").modal("hide"); 
       },
       showCancelFocusModalV(subscription){
-        this.focusModal.message="即将为您取消套餐："+subscription.planName;
+        this.focusModal.message="即将为您退订套餐："+subscription.planName;
         this.focusModal.confirmHandler=()=>{
           cancelSubscription(subscription.subscriptionId)
          }

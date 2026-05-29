@@ -25,20 +25,6 @@
 
 }
 
-.material-item{
-  padding: .25rem;
-  padding-right: 2rem;
-  position: relative;
-  display: flex;
-}
-.material-item a{
-    position: absolute;
-    right: 8px;
-    text-decoration: none;
-}
-.material-item:hover{
-    background-color: #e3e5e7;
-}
 .filter-bar{
   flex-wrap: nowrap;
   column-gap: .5rem;
@@ -198,3 +184,164 @@ line-height: normal;
 .main-content-container {
   min-width: 1000px;
 }
+
+#caseMaterialModal {
+
+  // 1. 弹窗主体深色背景
+  .modal-content {
+    background-color: #313338 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px !important;
+  }
+
+  // 2. 核心：点击浏览面板（隐藏原生的 input 框，改用实体凹陷面板）
+  .click-zone-custom {
+    border: 1px solid #4e5058 !important;
+    border-radius: 6px;
+    background-color: #1e1f22; // 嵌入式深黑底色
+    min-height: 150px;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #2b2d31;
+      border-color: #5865f2 !important; // 悬浮时切换品牌紫高亮
+    }
+
+    &:active {
+      background-color: #232428;
+      transform: scale(0.99); // 物理按下微弱反馈
+    }
+  }
+
+  // 上传状态图标与文字
+  .upload-icon {
+    color: #b5bac1;
+    transition: color 0.15s ease;
+  }
+
+  .click-zone-custom:hover .upload-icon {
+    color: #5865f2;
+  }
+
+  .upload-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #dbdee1;
+  }
+
+  .upload-text-secondary {
+    font-size: 12px;
+    color: #949ba4;
+  }
+
+
+  .modal-footer {
+    background-color: #2b2d31 !important; // 选用独立的次级深灰卡片底
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+
+
+}
+#caseMaterialViewModal{
+
+  .modal-content {
+    background-color: #313338 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px !important;
+    max-height: 400px;
+  }
+  .modal-header{
+    border-color: #3f4248;
+  }
+  .material-item {
+    background-color: transparent; // 默认透明
+    border-radius: 4px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    transition: background-color 0.15s ease;
+    cursor: default;
+
+    &:hover {
+      background-color: #2b2d31 !important;
+      
+      .bi-file-earmark-fill {
+        color: #f39c12 !important; // 柔和的亮桔色
+        transform: scale(1.05);
+      }
+    }
+
+    @media (max-width: 576px) {
+      padding: 8px 10px;
+    }
+  }
+
+  .bi-file-earmark-fill {
+    color: #e67e22 !important; // 选用低饱和度的暗桔色，高档内敛
+    transition: color 0.15s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .ellipsis-1 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #dbdee1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 320px; // PC 端保护宽度
+    user-select: all; // 科学人机交互：允许开发或运营双击一键复制文件名
+
+    @media (max-width: 576px) {
+      font-size: 13.5px;
+      max-width: 180px; // 手机端自适应缩窄
+    }
+  }
+
+  .download {
+    color: #5865f2 !important; // 初始为 Discord 经典品牌紫
+    padding: 6px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+
+    .content-download-icon {
+      font-size: 18px;
+    }
+
+    &:hover {
+      color: #ffffff !important;
+      background-color: #35373c;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .empty-search-state {
+    min-height: 160px;
+    background-color: #2b2d31; // 内凹卡片
+    border: 1px dashed #4e5058;
+    border-radius: 6px;
+    color: #949ba4;
+    font-size: 14px;
+
+    .empty-search-icon {
+      color: #4e5058;
+      margin-bottom: 10px;
+    }
+  }
+
+}
+  

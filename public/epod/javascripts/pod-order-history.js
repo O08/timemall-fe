@@ -119,7 +119,7 @@ function findBrandContactInfo(brandId) {
  
  function showContactInfo(brandId){
      findBrandContactInfo(brandId);
-     $("#displayModal").modal("show");
+     $("#contactModal").modal("show");
  }
 
   // Enable popovers 

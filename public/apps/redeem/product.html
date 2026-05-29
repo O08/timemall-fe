@@ -182,13 +182,17 @@
                             <i class="bi bi-caret-down-fill"></i>
                           </span>
                         </td>
-
                         <td>
                           <div class="tb-product-info">
-                            <img :src="adaptiveImageUriV(product.thumbnail)" class="product-thumbnail">
+                            
+                            <img :src="adaptiveImageUriV(product.thumbnail)" class="productInfo__thumbnail" alt="Product">
+                            
                             <div class="productInfo__name">
-                              {{product.productName}}
+                              <span class="product-title-core" :title="product.productName">
+                                {{ product.productName }}
+                              </span>
                             </div>
+                        
                           </div>
                         </td>
                         <td>
@@ -281,7 +285,7 @@
 
                   <div class="col-md-6">
                     <label for="newProduct__productGenre" class="form-label">品类</label>
-                    <model-select tabindex="-1" id="newProduct__productGenre" class="mb-3" :options="genreOptions" placeholder=""
+                    <model-select tabindex="-1" id="newProduct__productGenre" class="dark-model-select mb-3" :options="genreOptions" placeholder=""
                       v-model="genreSelectedItem">
                     </model-select>
                   </div>
@@ -391,7 +395,7 @@
                     </div>
                     <div class="title-col">
                       <div class="help-text">主图建议使用至少 99x99 大小的图片。</div>
-                      <button type="button" class="btn-file-upload">
+                      <button type="button" class="btn-file-upload bgPrimary">
                         <div class="btn-file-upload-wrp">上传主图<input id="file_thumbnail"
                             @change="previewNewProductThumbnailV" class="file-input" type="file" tabindex="-1"
                             multiple="" accept=".jpg,.jpeg,.png,.gif"
@@ -406,15 +410,15 @@
 
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-between align-items-center">
 
                 <button v-preventreclick @click="closeNewProductModalV" type="button"
-                  class="btn btn-outline-secondary fresh-ui-btn">
+                  class="btn btn-action-cancel">
                   <div class="contents">取消</div>
                 </button>
 
                 <button :class="{'disabled': !validateNewProductFormV()}" v-preventreclick @click="createProductV"
-                  type="button" class="btn btn-primary fresh-ui-btn">添加</button>
+                  type="button" class="btn btn-action-submit">添加</button>
 
               </div>
 
@@ -449,7 +453,7 @@
 
                   <div class="col-md-6">
                     <label for="editProduct__productGenre" class="form-label">品类</label>
-                    <model-select id="editProduct__productGenre" class="mb-3" :options="genreOptions" placeholder=""
+                    <model-select id="editProduct__productGenre" class="dark-model-select mb-3" :options="genreOptions" placeholder=""
                       v-model="genreSelectedItem">
                     </model-select>
                   </div>
@@ -550,17 +554,8 @@
                     </div>
                     <div class="title-col">
                       <div class="help-text">主图建议使用至少 99x99 大小的图片。</div>
-                      <!-- <button :class="{'disabled': !btn_ctl.open_material_upload,'loading': btn_ctl.material_uploading}"  class="btn btn-file-upload bgPrimary">
-                
-                        <div class="btn-file-upload-wrp">上传 <input @change="uploadProposalMaterialV($event,'seller')" class="file-input" type="file"  style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
-                        <div class="loading-content">
-                          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                          <span role="status">正在上传...</span>
-                        </div>
-        
-                      </button> -->
 
-                      <button :class="{'loading': btn_ctl.material_uploading}" type="button" class="btn-file-upload">
+                      <button :class="{'loading': btn_ctl.material_uploading}" type="button" class="btn-file-upload bgPrimary">
                         <div class="btn-file-upload-wrp">替换主图 <input id="edit_file_thumbnail" @change="previewEditProductThumbnailV" tabindex="-1" class="file-input" type="file"  multiple="" accept=".jpg,.jpeg,.png,.gif" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
                         <div class="loading-content">
                           <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -574,15 +569,15 @@
 
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-between align-items-center">
 
                 <button v-preventreclick @click="closeEditProductModalV" type="button"
-                  class="btn btn-outline-secondary fresh-ui-btn">
+                  class="btn btn-action-cancel">
                   <div class="contents">取消</div>
                 </button>
 
                 <button :class="{'disabled': !validateEditProductFormCanSaveV()}" v-preventreclick @click="editProductV"
-                  type="button" class="btn btn-primary fresh-ui-btn">提交</button>
+                  type="button" class="btn btn-action-submit">提交</button>
 
               </div>
 
@@ -597,12 +592,12 @@
       <!-- genre modal start -->
       <div class="modal-container">
 
-        <div class="modal fresh-ui fade" id="addProductGenreModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal fade" id="addProductGenreModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title">添加品类</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5">添加品类</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
@@ -616,11 +611,11 @@
                 </form>
 
               </div>
-              <div class="modal-footer btn-light">
+              <div class="modal-footer border-0 d-flex justify-content-between align-items-center">
                 <button v-preventreclick @click="closeCreateGenreModalV" type="button"
-                  class="btn btn-outline-secondary fresh-ui-btn">取消</button>
+                  class="btn btn-action-cancel">取消</button>
                 <button :class="{'disabled': !newGenre.genreName}" v-preventreclick @click="createGenreV" type="button"
-                  class="btn btn-primary fresh-ui-btn">提交</button>
+                  class="btn btn-action-submit">提交</button>
               </div>
             </div>
           </div>
@@ -630,52 +625,71 @@
       <!-- genre management Modal -->
       <div class="modal-container">
 
-        <div class="modal fresh-ui fade" id="generMangementModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark" style="height: 460px;">
-              <div class="modal-header">
-                <h1 class="modal-title">品类管理</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal fade" id="generMangementModal" data-bs-backdrop="static" tabindex="-1" ref="generMangementModalRef">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0">
+              
+              <div class="modal-header border-0">
+                <h1 class="modal-title fs-5">品类管理</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
+        
               <div class="modal-body">
-                <div v-if="genres.length==0">
-                  <div style="font-size: 14px;">未找到相关结果，商家可点击「操作」-「添加品类」进行创建</div>
+                
+                <div v-if="genres.length === 0" class="empty-state-card">
+                  未找到相关结果，商家可点击「操作」-「添加品类」进行创建
                 </div>
-                <ul class="list-group list-group-flush">
-                  <li v-for="(genre, index)  in genres" class="list-group-item" style="font-size: 13px;">
-                    <div class="genre-item">
-                      <span>{{genre.genreName}}</span>
-                      <span class="more-option-menu">
-                        <span v-preventreclick @click="showEditProductGenreModalV(genre)"
-                          class="btn-option-outline-secondary" data-bs-custom-class="custom-popover"
-                          data-bs-placement="top" data-bs-trigger="hover" data-bs-toggle="popover"
-                          data-bs-content="重命名品类">
+        
+                <ul v-else class="list-group list-group-flush">
+                  <li v-for="(genre, index) in genres" :key="genre.genreId || index" class="list-group-item-custom">
+                    <div class="genre-item-layout">
+                      
+                      <span class="genre-title" :title="genre.genreName">{{ genre.genreName }}</span>
+                      
+                      <div class="action-buttons-group">
+                        
+                        <button 
+                          type="button"
+                          class="btn-action-trigger" 
+                          v-preventreclick 
+                          @click="showEditProductGenreModalV(genre)"
+                          title="重命名品类"
+                        >
                           <i class="bi bi-pencil-square"></i>
-                        </span>
-
-
-                        <span class="option-edit ms-2" class="btn-option-secondary">
-                          <div class="dropdown">
-                            <a class="btn-option-outline-secondary dropdown-toggle" role="button"
-                              data-bs-toggle="dropdown" aria-expanded="false">
-                              <i class="bi bi-three-dots"></i>
-                            </a>
-
-                            <ul class="dropdown-menu">
-                              <li v-if="index>0"><a class="dropdown-item" v-preventreclick
-                                  @click="changeGenreSortV(genre.genreId,'up')">上移</a></li>
-                              <li v-if="(genres.length -1) >index"><a class="dropdown-item" v-preventreclick
-                                  @click="changeGenreSortV(genre.genreId,'down')">下移</a></li>
-                              <li><a class="dropdown-item" v-preventreclick @click="delGenreV(genre.genreId)">删除</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </span>
-                      </span>
+                        </button>
+        
+                        <div class="dropdown">
+                          <button 
+                            class="btn-action-trigger dropdown-toggle-no-caret" 
+                            type="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false"
+                          >
+                            <i class="bi bi-three-dots"></i>
+                          </button>
+        
+                          <ul class="dropdown-menu border-0">
+                            <li v-if="index > 0">
+                              <div class="dropdown-item" v-preventreclick @click="changeGenreSortV(genre.genreId, 'up')">上移</div>
+                            </li>
+                            <li v-if="(genres.length - 1) > index">
+                              <div class="dropdown-item" v-preventreclick @click="changeGenreSortV(genre.genreId, 'down')">下移</div>
+                            </li>
+                            <li v-if="genres.length > 1"><hr class="dropdown-divider my-1 opacity-10" style="border-color: #262626;"></li>
+                            <li>
+                              <div class="dropdown-item text-danger" v-preventreclick @click="delGenreV(genre.genreId)">删除</div>
+                            </li>
+                          </ul>
+                        </div>
+        
+                      </div>
+                      
                     </div>
-                  </li>
+                  </div>
                 </ul>
+        
               </div>
+        
             </div>
           </div>
         </div>
@@ -684,13 +698,12 @@
       <!-- genre edit modal start -->
       <div class="modal-container">
 
-        <div class="modal fresh-ui  fade" id="editProductGenreModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal  fade" id="editProductGenreModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
-                <h1 class="modal-title">重命名品类</h1>
-                <button v-preventreclick @click="closeEditGenreModalV" type="button" class="btn-close"
-                  data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5">重命名品类</h1>
+                <button v-preventreclick @click="closeEditGenreModalV" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
@@ -706,12 +719,12 @@
                 </form>
 
               </div>
-              <div class="modal-footer btn-light">
+              <div class="modal-footer border-0 d-flex align-items-center justify-content-between">
                 <button v-preventreclick @click="closeEditGenreModalV" type="button"
-                  class="btn btn-outline-secondary fresh-ui-btn">取消</button>
+                  class="btn btn-action-cancel">取消</button>
                 <button :class="{'disabled': !editGenre.genreName || !btn_ctl.editGenreModal_already_change}"
                   v-preventreclick @click="changeGenreNameV" type="button"
-                  class="btn btn-primary fresh-ui-btn">提交</button>
+                  class="btn btn-action-submit">提交</button>
               </div>
             </div>
           </div>
