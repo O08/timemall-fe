@@ -452,15 +452,8 @@ col-content {
   align-items: center;
 }
 
-.modal-content {
-  color: #61666d;
-  word-spacing: .5px;
-  background-color: #1a1a1a;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #6d757a;
-}
+
 .modal-footer {
-  background-color: #4e50584d;
   border: none;
 }
 .element_icon_preview_box{
@@ -479,6 +472,7 @@ col-content {
   box-shadow: none;
   color: #dbdee1;
   background-color: #020202;
+  padding: 6px;
 }
 .dropdown-item {
   color: #dbdee1;
@@ -490,9 +484,10 @@ col-content {
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
+  border-radius: 4px;
 }
 .dropdown-item:hover{
-  background-color: #2d2c2ce6;
+  background-color: #4752c4;
   color: unset;
 }
 .dropdown-item:active ,.dropdown-item:focus{

@@ -338,12 +338,12 @@
 
        <!-- service list pannel start -->
       <div class="content-block mt-5">
-        <div class="heading d-flex align-items-center">
+        <div class="heading d-flex align-items-center justify-content-between">
           <div>
             渠道列表
           </div> 
-          <button @click="showAddChannelModalV" class="btn btn-outline-primary ms-5" type="button">
-            <i class="bi bi-plus-circle-fill"></i> 添加新渠道
+          <button @click="showAddChannelModalV" class="btn btn-action-submit ms-5" type="button">
+            <i class="bi bi-plus-circle-fill"></i> 新设渠道
           </button>
 
         </div>
@@ -366,7 +366,7 @@
               <tbody>
                 <tr v-for="item in chn_pagination.records">
                   <th class="col-options">
-                    <button @click="showEditChannelModalV(item)" class="btn btn-outline-primary" type="button">
+                    <button @click="showEditChannelModalV(item)" class="btn btn-primary" type="button">
                       <i class="bi bi-pencil-square"></i>
                       重命名
                     </button>
@@ -432,33 +432,27 @@
       <div class="modal-container">
           
         <!-- add channel Modal -->
-        <div class="modal fade" id="addChannelModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="addChannelModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addChannelModalLabel">添加新渠道</h1>
-                <button  type="button" id="closeAddChannelModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button  type="button" id="closeAddChannelModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
-                  <div class="row mb-3 mt-3">
-                    <div class="col-sm-3 col-form-label">
-                      <label for="input[channelName]" class="form-label">渠道名称</label>
-                    </div>
-                    <div class="col-sm-9">
-                      <input v-model="channelName_add" id="input[channelName]"  type="text" maxlength="80" class="form-control">
-                    </div>
+                  <div class="mb-3 mt-3">
+                    <label for="input[channelName]" class="form-label">渠道名称</label>
+                    <input v-model="channelName_add" id="input[channelName]"  type="text" maxlength="80" class="form-control">
                   </div> 
                 </form>
                 
               </div>
-              <div class="modal-footer btn-light">
+              <div class="modal-footer">
                 <button 
-                :class="{'disabled': !channelName_add, 
-                'btn-primary': !!channelName_add,
-                'btn-secondary': !channelName_add}"
+                :class="{'disabled': !channelName_add}"
                 v-preventreclick
-                @click="addChannelV" type="button"  class="btn">添加</button>
+                @click="addChannelV" type="button"  class="btn btn-action-submit w-100">添加</button>
               </div>
             </div>
           </div>
@@ -466,33 +460,29 @@
       </div>
 
       <!-- edit channel Modal -->
-      <div class="modal fade" id="editChannelModal" data-bs-backdrop="static" tabindex="-1">
+      <div class="modal fade dcModal" id="editChannelModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content text-color-dark">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="editChannelModalLabel">渠道重命名</h1>
-              <button  type="button" id="closeEditChannelModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button  type="button" id="closeEditChannelModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form>
-                <div class="row mb-3 mt-3">
-                  <div class="col-sm-3 col-form-label">
-                    <label for="input[channelName-edit]" class="form-label">渠道名称</label>
-                  </div>
-                  <div class="col-sm-9">
-                    <input v-model="editChannel.channelName" id="input[channelName-edit]"  type="text" maxlength="80" class="form-control">
-                  </div>
+                <div class="mb-3 mt-3">
+                  <label for="input[channelName-edit]" class="form-label">渠道名称</label>
+
+                  <input v-model="editChannel.channelName" id="input[channelName-edit]"  type="text" maxlength="80" class="form-control">
+
                 </div> 
               </form>
               
             </div>
             <div class="modal-footer btn-light">
               <button 
-              :class="{'disabled': !editChannel.channelName, 
-              'btn-primary': !!editChannel.channelName,
-              'btn-secondary': !editChannel.channelName}"
+              :class="{'disabled': !editChannel.channelName}"
               v-preventreclick
-               @click="renameChannelNameV" type="button"  class="btn">修改</button>
+               @click="renameChannelNameV" type="button"  class="btn btn-action-submit w-100">修改</button>
             </div>
           </div>
         </div>

@@ -22,11 +22,17 @@ micro-app{
      position: relative;
      z-index: 1;
      overflow: hidden;
-     border: 1px solid #e3e5e7;
-     background-color: #fff;
+     background-color: #141414;
+     border: 1px solid #3f4248 ;
      opacity: .9;
      transition: background-color .3s;
      border-radius: 4px;
+     &:focus-within {
+        border-color: #4e5058; 
+        .nav-search-btn {
+          color: #4e5058;
+        }
+    }
  }
  
  .nav-search-content {
@@ -69,7 +75,7 @@ micro-app{
      height: 32px;
      border: none;
      border-radius: 6px;
-     color: #18191C;
+     color: #3f4248;
      line-height: 32px;
      cursor: pointer;
      transition: background-color .3s;

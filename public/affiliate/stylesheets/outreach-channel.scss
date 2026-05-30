@@ -165,6 +165,9 @@ table .btn{
     display: flex;
     align-items: center;
 }
+.dcModal .modal-header {
+    border-bottom: 1px solid #3f4248 !important;
+}
 @media (max-width: 1199.98px){
     table{
         min-width: 1000px;

@@ -179,35 +179,55 @@
       </div>
     </header>
         <div class="distribution-container mt-5 mx-3">
-            <div class="d-flex justify-content-center ">
-                <h4>历史交易</h4>
+            <div class="page-header-monolith">
+            
+              <div class="title-wrapper">
+                <span class="title-anchor"></span>
+                <h1 class="main-heading">历史交易</h1>
+              </div>
+    
+              <p class="header-description">
+                实时查阅每一笔支出、收入信息。
+              </p>
+    
+              <div class="header-divider"></div>
             </div>
-            <table class="table table-dark table-hover tb-fd-wd-fixed align-middle mb-0 mt-5">
+            <table class="table table-borderless table-dark table-hover tb-fd-wd-fixed align-middle mb-0 mt-5">
                 <thead>
                     <tr>
                       <th scope="col" class="w-40">流水编号</th>
                       <th scope="col" class="w-25">场景</th>
-                      <th scope="col" class="w-20">金额</th>
-                      <th scope="col" class="w-15">时间</th>
+                      <th scope="col" class="w-20">金额（元）</th>
+                      <th scope="col" class="w-15">交易日期</th>
                     </tr>
                   </thead>
                 <tbody>
                   <tr v-for="record in trans_pagination.records">
                     <td>{{record.transNumber}}</td>
                     <td>{{record.transTypeDesc}}</td>
-                    <td>
+                    <td :class="{'in_money': record.direction =='1'  }" class="font-mono">
                         {{  (record.direction =='1' ? "+" : "-") + record.amount}}
                     </td>
-                    <td>
-                      {{record.createAt}}                    </td>
+                    <td class="tb-text-secondary">
+                      {{renderDateInChinaV(record.createAt)}}                   
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <div v-show="isEmptyObjV(trans_pagination.records)" class="empty-content-block">
-
-                没有可用的内容！
-    
+              <div v-show="trans_pagination.records.length==0" class="tb-empty-data-wrapper">
+          
+                <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
+                  <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
+                  <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
+                </svg>
+      
+                <h4 class="empty-primary-title">未找到交易记录</h4>
+                
+                <p class="empty-secondary-desc">
+                  当前未检索到任何相关的交易流水。
+                </p>
               </div>
+
               <nav v-if="!!trans_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
                 <ul class="pagination pagination-lg pagination-dark  border-0 mb-0">
                   <li class="page-item" @click="pagePre(trans_pagination)">

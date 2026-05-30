@@ -57,9 +57,7 @@ body{
     color: #fff;
 
 }
-.modal-content{
-    background-color: #fff;
-}
+
 .btn-close:focus{
     box-shadow: none;
 }
@@ -71,10 +69,25 @@ body{
 #pcPreviewModal .modal-content{
     border: none;
     height: 100%;
+    background-color: #1a1a1a;
     border-radius: 0 !important;
+    .modal-header{
+        border-color: #3f4248;
+    }
 }
 
 #mobilePreviewModal .modal-content{
    width: 400px;
+   background-color: #1a1a1a;
+   .modal-header{
+      border-color: #3f4248;
+   }
+   .modal-body {
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; 
+    &::-webkit-scrollbar{
+      display: none; 
+    }
+   }
 }
 

@@ -5,6 +5,8 @@ import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {transformInputNumberAsPositive } from "/common/javascripts/util.js";
+
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -36,7 +38,7 @@ const RootComponent = {
             retrieveAlipayAccounts().then(response=>{
                 if(response.data.code == 200){
                     this.alipay = response.data.alipay;
-                  }
+                }
             });
         },
         withdrawV(){
@@ -86,13 +88,7 @@ const RootComponent = {
             });
         },
         transformInputNumberV(event){
-            var val = Number(event.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
-            var min = Number(event.target.min);
-            var max = Number(event.target.max);
-            event.target.value = transformInputNumber(val, min, max);
-            if(val !== Number(event.target.value)){
-              event.currentTarget.dispatchEvent(new Event('input')); // update v-model
-            }
+            return transformInputNumberAsPositive(event);
         }
       },
       updated(){
@@ -174,7 +170,3 @@ function closeAddAccountModel(){
         payeeRealName: ""
     };
 }
-
-function transformInputNumber(val,min,max){
-    return val < min ? "" : val > max ? max : val;
-  }

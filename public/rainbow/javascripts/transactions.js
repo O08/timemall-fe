@@ -5,6 +5,7 @@ import Auth from "/estudio/javascripts/auth.js"
 import TeicallaanliSubNavComponent from "/rainbow/javascripts/compoent/TeicallaanliSubNavComponent.js"
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 import Pagination  from "/common/javascripts/pagination-vue.js";
+import { renderDateInChina } from "/common/javascripts/util.js";
 
 const RootComponent = {
     data() {
@@ -17,7 +18,7 @@ const RootComponent = {
           pages: 0,
           records: [],
           param: {
-
+            q: ""
           },
           paging: {},
           responesHandler: (response)=>{
@@ -35,6 +36,10 @@ const RootComponent = {
       }
     },
     methods: {
+      renderDateInChinaV(dateStr){
+        return renderDateInChina(dateStr);
+     },
+
 
     },
     updated(){

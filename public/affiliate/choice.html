@@ -542,18 +542,18 @@
       <div class="modal-container">
           
         <!-- add entry Modal -->
-        <div class="modal fade" id="addEntryModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="addEntryModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
+            <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addEntryModalLabel">添加新分销</h1>
-                <button  type="button" id="closeAddEntryModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button  type="button" id="closeAddEntryModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
                   <div class="row pb-3 pt-3">
                     <div class="col-sm-6">
-                      <label  class="col-form-label d-flex"> 
+                      <label  class="form-label d-flex"> 
                         渠道 
                         <div class="tm-tooltip ms-2">
                           <i class="bi bi-question-circle"></i>
@@ -563,6 +563,7 @@
                     </div>
                     <div class="col-sm-6">
                       <model-select
+                        class="dark-model-select"
                         :options="channelOptions"
           
                         placeholder=""
@@ -575,7 +576,7 @@
                   </div> 
                   <div class="row pb-3 pt-3">
                     <div class="col-sm-6">
-                      <label  class="col-form-label d-flex"> 
+                      <label  class="form-label d-flex"> 
                         商品 
                       </label>
                     </div>
@@ -601,13 +602,11 @@
                 </form>
                 
               </div>
-              <div class="modal-footer btn-light">
+              <div class="modal-footer">
                 <button 
-                :class="{'disabled': !channelSelectedItem, 
-                'btn-primary': !!channelSelectedItem,
-                'btn-secondary': !channelSelectedItem}"
+                :class="{'disabled': !channelSelectedItem}"
                  v-preventreclick
-                 @click="addLinkMarketingV" type="button"  class="btn">添加</button>
+                 @click="addLinkMarketingV" type="button"  class="btn btn-action-submit w-100">添加</button>
               </div>
             </div>
           </div>

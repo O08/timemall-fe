@@ -176,20 +176,20 @@
     <section class="modals">
       <!-- focus modal -->
       <div class="modal-container">
-        <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+        <div class="modal fade dcModal" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable justify-content-center">
+            <div class="modal-content" style="max-width: 280px;">
+              <div class="modal-header d-flex justify-content-center border-0">
                 <h1 class="modal-title fs-5">操作提示</h1>
               </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+              <div class="modal-body d-flex justify-content-center border-0">
                 <div class="product-feature">
-                  <p class="card-text">{{focusModal.message}}</p>
+                  <p class="card-text" style="font-size: 12px;">{{focusModal.message}}</p>
                 </div>
               </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">继续</button>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0">
+                <button type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-action-submit">继续</button>
               </div>
             </div>
           </div>
@@ -198,20 +198,25 @@
 
       <!-- new app modal -->
       <div class="modal-container">
-        <div class="modal fade" id="newAppModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="newAppModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content text-color-dark">
+            <div class="modal-content">
               
               <div class="modal-body">
                 <form onsubmit="return false">
 
-                <input v-model="newAppObj.title" maxlength="32" class="inputDefault  form-control-lg only-show-bottom mb-3" type="text" placeholder="链接名称">
- 
-                <input v-model="newAppObj.preface" maxlength="68" class="inputDefault   only-show-bottom preface mb-3" type="text" placeholder="简介" >
-
-
-                <input v-model="newAppObj.linkUrl" maxlength="460" class="inputDefault   only-show-bottom preface mb-3" type="text" placeholder="链接" >
-
+                  <div class="mb-3">
+                    <label for="input[newAppObjTitle]" class="form-label">链接名称</label>
+                    <input id="input[newAppObjTitle]" v-model="newAppObj.title" maxlength="32" class="form-control" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input[newAppObjPreface]" class="form-label">简介</label>
+                    <input id="input[newAppObjPreface]" v-model="newAppObj.preface" maxlength="68" class="form-control" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input[newAppObjLinkUrl]" class="form-label">链接</label>
+                    <input id="input[newAppObjLinkUrl]" v-model="newAppObj.linkUrl" maxlength="460" class="form-control" type="text">
+                  </div>
 
                 <div class="oasis-avatar-container">
                   <div class="element_icon_preview_box">
@@ -219,7 +224,7 @@
                   </div>
                   <div class="title-col">
                     <div class="help-text label-color">图标建议使用至少 99x99 大小的图片。</div>
-                    <button type="button"  class="btn-file-upload"><div class="btn-file-upload-wrp">上传图片<input id="file_icon"  @change="previewElementIconFileV($event)" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 0px;"></div>
+                    <button type="button"  class="btn-file-upload mt-2"><div class="btn-file-upload-wrp">上传图片<input id="file_icon"  @change="previewElementIconFileV($event)" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 0px;"></div>
                     </button>
                   </div>
                 </div>
@@ -227,13 +232,13 @@
                 </form>
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-between align-items-center">
 
-                <button v-preventreclick @click="closeNewAppModalV" type="button" class="btn-reset">
+                <button v-preventreclick @click="closeNewAppModalV" type="button" class="btn-action-cancel">
                   <div class="contents">退出编辑</div>
                 </button>
 
-                <button :class="{'btn btn-secondary disabled': !validateNewAppFormV()}" v-preventreclick @click="newAppV" type="button" class="btn-save bgPrimaryBlue">添加</button>
+                <button :class="{'disabled': !validateNewAppFormV()}" v-preventreclick @click="newAppV" type="button" class="btn-action-submit">添加</button>
 
               </div>
 
@@ -247,29 +252,35 @@
 
       <!-- edit app modal -->
       <div class="modal-container">
-        <div class="modal fade" id="editAppModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="editAppModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered">
             <div class="modal-content text-color-dark">
               
               <div class="modal-body">
                 <form onsubmit="return false">
 
-                <input @change="btn_ctl.edit_app_modal_change=true" v-model="editAppObj.title" maxlength="32" class="inputDefault  form-control-lg only-show-bottom mb-3" type="text" placeholder="链接名称">
- 
-                <input @change="btn_ctl.edit_app_modal_change=true" v-model="editAppObj.preface" maxlength="68" class="inputDefault   only-show-bottom preface mb-3" type="text" placeholder="简介" >
-
-                <input @change="btn_ctl.edit_app_modal_change=true" v-model="editAppObj.linkUrl" maxlength="460" class="inputDefault   only-show-bottom preface mb-3" type="text" placeholder="链接" >
-
+                  <div class="mb-3">
+                    <label for="input[editAppObjTitle]" class="form-label">链接名称</label>
+                    <input id="input[editAppObjTitle]" @change="btn_ctl.edit_app_modal_change=true" v-model="editAppObj.title" maxlength="32" class="form-control" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input[editAppObjPreface]" class="form-label">简介</label>
+                    <input id="input[editAppObjPreface]" @change="btn_ctl.edit_app_modal_change=true" v-model="editAppObj.preface" maxlength="68" class="form-control" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input[editAppObjLinkUrl]" class="form-label">链接</label>
+                    <input id="input[editAppObjLinkUrl]" @change="btn_ctl.edit_app_modal_change=true" v-model="editAppObj.linkUrl" maxlength="460" class="form-control" type="text">
+                  </div>
                 </form>
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-between align-items-center">
 
-                <button v-preventreclick @click="closeEditAppModalV" type="button" class="btn-reset">
+                <button v-preventreclick @click="closeEditAppModalV" type="button" class="btn-action-cancel">
                   <div class="contents">退出编辑</div>
                 </button>
 
-                <button :class="{'btn btn-secondary disabled': !validateEditAppFormV()}" v-preventreclick @click="editAppV" type="button" class="btn-save bgPrimaryBlue">保存更改</button>
+                <button :class="{'disabled': !validateEditAppFormV()}" v-preventreclick @click="editAppV" type="button" class="btn-action-submit">保存更改</button>
 
               </div>
 
@@ -283,29 +294,30 @@
 
       <!-- new topic modal -->
       <div class="modal-container">
-        <div class="modal fade" id="newTopicModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="newTopicModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content text-color-dark">
+            <div class="modal-content">
               
               <div class="modal-body">
                 <form onsubmit="return false">
-
-                <input v-model="newTopicObj.title" maxlength="32" class="inputDefault  form-control-lg only-show-bottom mb-3" type="text" placeholder="主题名称">
- 
-                <input v-model="newTopicObj.preface" maxlength="38" class="inputDefault   only-show-bottom preface mb-3" type="text" placeholder="主题简介" >
-
-              
-               
+                  <div class="mb-3">
+                    <label for="input[newTopicObjTitle]" class="form-label">主题名称</label>
+                    <input id="input[newTopicObjTitle]" v-model="newTopicObj.title" maxlength="32" class="form-control" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input[newTopicObjPreface]" class="form-label">主题简介</label>
+                    <input id="input[newTopicObjPreface]" v-model="newTopicObj.preface" maxlength="38" class="form-control" type="text">
+                  </div>
                 </form>
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex align-items-center justify-content-between">
 
-                <button v-preventreclick @click="closeNewTopicModalV" type="button" class="btn-reset">
+                <button v-preventreclick @click="closeNewTopicModalV" type="button" class="btn-action-cancel">
                   <div class="contents">退出编辑</div>
                 </button>
 
-                <button :class="{'btn btn-secondary disabled': !validateNewTopicFormV()}" v-preventreclick @click="newTopicV" type="button" class="btn-save bgPrimaryBlue">创建</button>
+                <button :class="{'disabled': !validateNewTopicFormV()}" v-preventreclick @click="newTopicV" type="button" class="btn-action-submit">创建</button>
 
               </div>
 
@@ -319,29 +331,31 @@
 
       <!-- edit topic modal -->
       <div class="modal-container">
-        <div class="modal fade" id="editTopicModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="editTopicModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered">
-            <div class="modal-content text-color-dark">
+            <div class="modal-content">
               
               <div class="modal-body">
                 <form onsubmit="return false">
 
-                <input @change="btn_ctl.edit_topic_modal_change=true" v-model="editTopicObj.title" maxlength="32" class="inputDefault  form-control-lg only-show-bottom mb-3" type="text" placeholder="主题名称">
- 
-                <input @change="btn_ctl.edit_topic_modal_change=true" v-model="editTopicObj.preface" maxlength="38" class="inputDefault   only-show-bottom preface mb-3" type="text" placeholder="主题简介" >
-
-
-               
+                  <div class="mb-3">
+                    <label for="input[editTopicObjTitle]" class="form-label">主题名称</label>
+                    <input id="input[editTopicObjTitle]" @change="btn_ctl.edit_topic_modal_change=true" v-model="editTopicObj.title" maxlength="32" class="inputDefault  form-control-lg only-show-bottom mb-3" type="text">
+                  </div>
+                  <div class="mb-3">
+                    <label for="input[editTopicObjPreface]" class="form-label">主题简介</label>
+                    <input id="input[editTopicObjPreface]" @change="btn_ctl.edit_topic_modal_change=true" v-model="editTopicObj.preface" maxlength="38" class="inputDefault   only-show-bottom preface mb-3" type="text">
+                  </div>
                 </form>
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex align-items-center justify-content-between">
 
-                <button v-preventreclick @click="closeEditTopicModalV" type="button" class="btn-reset">
+                <button v-preventreclick @click="closeEditTopicModalV" type="button" class="btn-action-cancel">
                   <div class="contents">退出编辑</div>
                 </button>
 
-                <button :class="{'btn btn-secondary disabled': !validateEditTopicFormV()}" v-preventreclick @click="editTopicV" type="button" class="btn-save bgPrimaryBlue">保存更改</button>
+                <button :class="{'disabled': !validateEditTopicFormV()}" v-preventreclick @click="editTopicV" type="button" class="btn-action-submit">保存更改</button>
 
               </div>
 

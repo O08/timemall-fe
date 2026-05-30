@@ -29,9 +29,19 @@
       <div @scroll="scrollToTopThenLoadV($event)" class="room-msg-container">
 
 
-      <div v-show="eventObj.records.length == 0" class="not-found-resource">
-        <i class="bi bi-envelope-exclamation"></i>
-      </div>
+        <div v-show="eventObj.records.length == 0" class="not-found-resource unique-nebula">
+          <div class="orb-container">
+            <div class="blur-orb orb-deep-blue"></div>
+            <div class="blur-orb orb-glacier"></div>
+            <div class="blur-orb orb-cosmic"></div>
+          </div>
+          
+          <div class="nebula-content">
+            <span class="status-badge">0 MESSAGES</span>
+            <h2 class="nebula-title">暂无动态</h2>
+            <p class="nebula-desc">沙发已就位，就差你了！发送第一条消息开始聊天吧～</p>
+          </div>
+        </div>
 
         <div v-for="record in eventObj.records" class="event-date">
           <section  class="event-wrapper new-order">

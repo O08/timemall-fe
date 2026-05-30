@@ -196,20 +196,22 @@ table .btn{
 .product-name a:hover{
     color: #f89898 !important;
 }
+#addEntryModal   .modal-header {
+    border-bottom: 1px solid #3f4248 !important;
+}
 #addEntryModal .modal-body{
     min-height: 300px;
 }
 #addEntryModal  .productInfo{
  padding: 8px;
- border: 1px solid rgba(34, 36, 38, 0.15);
  width: 100%;
  border-radius: 5px;
+ background-color: #2b2d31;
 }
-#addEntryModal  .product-price span{
-  color: black;
-}
+
 #addEntryModal  .product-name{
 font-size: 12px;
+word-break: break-all;
 }
 .account-age-select{
     width: 110px;

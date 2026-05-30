@@ -211,15 +211,15 @@
 
          <!-- focus modal -->
          <div class="modal-container">
-          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal fade dcModal" id="focusModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <!--begin::Alert-->
-              <div class="d-flex text-center flex-column alert-info mb-5">
+              <div class="d-flex text-center flex-column alert-info mb-5 px-3">
 
 
                 <!--begin::Icon-->
-                <i class="bi bi-exclamation-circle text-dark mb-2"></span><span class="path2"></span><span class="path3"></span></i>
+                <i class="bi bi-exclamation-circle  mb-2"></span><span class="path2"></span><span class="path3"></span></i>
                 <!--end::Icon-->
 
                 <!--begin::Wrapper-->
@@ -244,10 +244,14 @@
                     <!--end::Content-->
 
                     <!--begin::Buttons-->
-                    <div class="d-flex justify-content-center flex-wrap pt-5">
+                    <div class="d-flex justify-content-center justify-content-between pt-5 px-3">
+                      <div>
+                        <a  v-preventreclick @click="closeOrderProductFocusModalV" class="btn-action-cancel">取消操作</a>
+                      </div>
+                      <div>
+                        <a  v-preventreclick @click="focusModal.confirmHandler" class="btn-action-submit">确认兑换</a>
+                      </div>
 
-                        <a  v-preventreclick @click="closeOrderProductFocusModalV" class="btn  btn-outline-dark btn-active-danger m-3">取消操作</a>
-                        <a  v-preventreclick @click="focusModal.confirmHandler" class="btn btn-dark m-3">确认兑换</a>
                     </div>
                     <!--end::Buttons-->
                 </div>

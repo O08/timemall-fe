@@ -339,11 +339,11 @@
 
        <!-- service list pannel start -->
       <div class="content-block mt-5">
-        <div class="heading d-flex align-items-center">
+        <div class="heading d-flex align-items-center justify-content-between">
           <div>
             链接列表
           </div> 
-          <button @click="showAddLinkModalV" class="btn btn-outline-primary ms-5" type="button">
+          <button @click="showAddLinkModalV" class="btn btn-action-submit ms-5" type="button">
             <i class="bi bi-plus-circle-fill"></i> 添加新链接
           </button>
 
@@ -365,7 +365,7 @@
               <tbody>
                 <tr v-for="item in link_pagination.records">
                   <th class="col-options">
-                    <button @click="showEditLinkModalV(item)" class="btn btn-outline-primary" type="button">
+                    <button @click="showEditLinkModalV(item)" class="btn btn-primary" type="button">
                       <i class="bi bi-pencil-square"></i>
                       重命名
                     </button>
@@ -430,47 +430,40 @@
       <div class="modal-container">
           
         <!-- add link Modal -->
-        <div class="modal fade" id="addLinkModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="addLinkModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="addLinkModalModalLabel">添加新链接</h1>
-                <button  type="button" id="closeAddLinkModalModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button  type="button" id="closeAddLinkModalModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
-                  <div class="row mb-3 mt-3">
-                    <div class="col-sm-3 col-form-label">
-                      <label for="input[linkName]" class="form-label">链接名称</label>
-                    </div>
-                    <div class="col-sm-9">
-                      <input v-model="addLinkObj.linkName" id="input[linkName]"  type="text" maxlength="80" class="form-control">
-                    </div>
-                  </div> 
-                  <div class="row mb-3 mt-3">
-                    <div class="col-sm-3 col-form-label">
-                      <label for="input[trackCode]" class="form-label">
-                        监测码
-                        <a data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="监测码是由字母、数字、_组成的简单的字符串，用于追踪你的推广情况。支持最大长度为32">
-                          <i class="bi bi-question-circle"></i>
-                        </a>
+                  <div class="mb-3 mt-3">
+                    <label for="input[linkName]" class="form-label">链接名称</label>
 
-                      </label>
-                    </div>
-                    <div class="col-sm-9">
-                      <input @input="transformInputTextV($event)"  v-model="addLinkObj.trackCode" id="input[trackCode]"  type="text" maxlength="32" class="form-control">
-                    </div>
+                    <input v-model="addLinkObj.linkName" id="input[linkName]"  type="text" maxlength="80" class="form-control">
+
+                  </div> 
+                  <div class="mb-3 mt-3">
+                    <label for="input[trackCode]" class="form-label">
+                      监测码
+                      <a data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="监测码是由字母、数字、_组成的简单的字符串，用于追踪你的推广情况。支持最大长度为32">
+                        <i class="bi bi-question-circle"></i>
+                      </a>
+
+                    </label>
+                    <input @input="transformInputTextV($event)"  v-model="addLinkObj.trackCode" id="input[trackCode]"  type="text" maxlength="32" class="form-control">
+
                   </div> 
                 </form>
                 
               </div>
               <div class="modal-footer btn-light">
                 <button 
-                :class="{'disabled': !addLinkObj.linkName || !addLinkObj.trackCode, 
-                'btn-primary': !!addLinkObj.linkName  && addLinkObj.trackCode ,
-                'btn-secondary': !addLinkObj.linkName || !addLinkObj.trackCode}"
+                :class="{'disabled': !addLinkObj.linkName || !addLinkObj.trackCode}"
                 v-preventreclick
-                @click="addLinkV" type="button"  class="btn">添加</button>
+                @click="addLinkV" type="button"  class="btn btn-action-submit w-100">添加</button>
               </div>
             </div>
           </div>
@@ -478,33 +471,29 @@
       </div>
 
       <!-- edit link Modal -->
-      <div class="modal fade" id="editLinkModal" data-bs-backdrop="static" tabindex="-1">
+      <div class="modal fade dcModal" id="editLinkModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content text-color-dark">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="editLinkModalLabel">链接重命名</h1>
-              <button  type="button" id="closeEditLinkModalModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button  type="button" id="closeEditLinkModalModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form>
-                <div class="row mb-3 mt-3">
-                  <div class="col-sm-3 col-form-label">
-                    <label for="input[linkName-edit]" class="form-label">链接名称</label>
-                  </div>
-                  <div class="col-sm-9">
-                    <input v-model="editLinkObj.linkName" id="input[linkName-edit]"  type="text" maxlength="80" class="form-control">
-                  </div>
+                <div class="mb-3 mt-3">
+                  <label for="input[linkName-edit]" class="form-label">链接名称</label>
+
+                  <input v-model="editLinkObj.linkName" id="input[linkName-edit]"  type="text" maxlength="80" class="form-control">
+
                 </div> 
               </form>
               
             </div>
             <div class="modal-footer btn-light">
               <button 
-              :class="{'disabled': !editLinkObj.linkName, 
-              'btn-primary': !!editLinkObj.linkName,
-              'btn-secondary': !editLinkObj.linkName}"
+              :class="{'disabled': !editLinkObj.linkName}"
               v-preventreclick
-               @click="renameLinkNameV" type="button"  class="btn">修改</button>
+               @click="renameLinkNameV" type="button"  class="btn btn-action-submit w-100">修改</button>
             </div>
           </div>
         </div>

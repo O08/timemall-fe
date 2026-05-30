@@ -411,20 +411,20 @@
     <section class="modals">
       <!-- focus modal -->
       <div class="modal-container">
-        <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1">
-          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header d-flex justify-content-center border-0 display-dialog-header-bg">
+        <div class="modal fade dcModal" id="focusModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable justify-content-center">
+            <div class="modal-content" style="max-width: 280px;">
+              <div class="modal-header d-flex justify-content-center border-0">
                 <h1 class="modal-title fs-5">操作提示</h1>
               </div>
-              <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+              <div class="modal-body d-flex justify-content-center border-0">
                 <div class="product-feature">
-                  <p class="card-text">{{focusModal.message}}</p>
+                  <p class="card-text" style="font-size: 12px;">{{focusModal.message}}</p>
                 </div>
               </div>
-              <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn btn-primary">继续</button>
+              <div class="modal-footer btn-light d-flex justify-content-between border-0">
+                <button type="button" class="btn-action-cancel" data-bs-dismiss="modal">取消</button>
+                <button v-preventreclick @click="focusModal.confirmHandler"  type="button"  class="btn-action-submit">继续</button>
               </div>
             </div>
           </div>
@@ -435,22 +435,31 @@
 
       <!-- new card Modal -->
       <div class="modal-container">
-        <div class="modal fade" id="newCardModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="newCardModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered ">
             <div class="modal-content">
               <div class="modal-body">
                 <form onsubmit="return false">
-                  <input v-model="newCard.title" maxlength="32" class="form-control form-control-lg only-show-bottom mb-3" type="text" placeholder="标题">
+                  <div class="mb-3">
+                    <label for="input[title]" class="form-label">标题</label>
+                    <input id="input[title]" v-model="newCard.title" maxlength="32" class="form-control" type="text">
+                  </div> 
+                  <div class="mb-3">
+                    <label for="input[subtitle]" class="form-label">描述</label>
+                    <input id="input[subtitle]" v-model="newCard.subtitle" maxlength="38" class="form-control" type="text">
+                  </div> 
+                  <div class="mb-3">
+                    <label for="input[linkUrl]" class="form-label">链接</label>
+                    <input id="input[linkUrl]" v-model="newCard.linkUrl" maxlength="499" class="form-control" type="text" placeholder="https://yourlink.com" >
+                  </div> 
  
-                  <input v-model="newCard.subtitle" maxlength="38" class="form-control  only-show-bottom  mb-3" type="text" placeholder="描述" >
-                  <input v-model="newCard.linkUrl" maxlength="499" class="form-control  only-show-bottom  mb-3" type="text" placeholder="链接(https://yourlink.com)" >
                   <div class="oasis-avatar-container">
                     <div id="link-cover-preview-box" class="link-cover-box">
                       <img v-show="!!newCard.linkCoverFileUrl" :src="newCard.linkCoverFileUrl">
                     </div>
                     <div class="title-col">
                       <div class="help-text label-color">封面建议使用至少 99x99 大小的图片。</div>
-                      <button type="button" class="btn-file-upload">
+                      <button type="button" class="btn-file-upload mt-2">
                         <div class="btn-file-upload-wrp">上传图片<input id="file_thumbnail" @change="previewFeedThumbnailV" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
                       </button>
                     </div>
@@ -464,13 +473,13 @@
 
               </div>
 
-              <div class="modal-footer">
+              <div class="modal-footer d-flex justify-content-between align-items-center">
 
-                <button v-preventreclick @click="closeNewCardModalV" type="button" class="btn-reset">
+                <button v-preventreclick @click="closeNewCardModalV" type="button" class="btn-action-cancel">
                   <div class="contents">全部清除</div>
                 </button>
 
-                <button  :class="{'btn btn-secondary disabled': !validatedPostFormV()}" v-preventreclick @click="newCardV" type="button" class="btn-save bgPrimaryBlue">发表</button>
+                <button  :class="{'disabled': !validatedPostFormV()}" v-preventreclick @click="newCardV" type="button" class="btn-action-submit">发表</button>
 
               </div>
 

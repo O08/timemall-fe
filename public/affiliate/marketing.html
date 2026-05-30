@@ -475,13 +475,13 @@
 
        <!-- service list pannel start -->
       <div class="content-block mt-5">
-        <div class="heading d-flex align-items-center">
+        <div class="heading d-flex align-items-center justify-content-between">
           <div>
             通用分销数据
           </div> 
           <a href="/affiliate/choice">
-            <button class="btn btn-outline-primary ms-5" type="button">
-              <i class="bi bi-forward"></i> 前往橱窗添加分销
+            <button class="btn btn-action-submit ms-5" type="button">
+              添加分销 <i class="bi bi-box-arrow-up-right"></i>
             </button>
           </a>
         </div>
@@ -579,9 +579,9 @@
 
       <div class="modal-container">
           <!-- remove link  Modal -->
-        <div class="modal fade" id="removeEntryModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal fade dcModal" id="removeEntryModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
+            <div class="modal-content">
               
               <!--begin::Alert-->
               <div class="d-flex text-center flex-column px-5 mb-5">
@@ -610,8 +610,8 @@
                     <!--begin::Buttons-->
                     <div class="d-flex justify-content-center flex-wrap pt-5">
 
-                        <a href="#" @click="closeRemoveLinkModalV" class="btn  btn-outline-danger btn-active-danger m-3">取消操作</a>
-                        <a href="#" v-preventreclick @click="removeLinkItemV" class="btn btn-danger m-3">继续移除</a>
+                        <a  @click="closeRemoveLinkModalV" class="btn  btn-action-cancel m-3">取消操作</a>
+                        <a  v-preventreclick @click="removeLinkItemV" class="btn btn-action-remove m-3">继续移除</a>
                     </div>
                     <!--end::Buttons-->
                 </div>
@@ -625,12 +625,12 @@
       </div>
       
       <!-- share  Modal -->
-      <div class="modal fade" id="shareModal" data-bs-backdrop="static" tabindex="-1">
+      <div class="modal fade dcModal" id="shareModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content text-color-dark">
+          <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="shareModalLabel">推广</h1>
-              <button  type="button" id="closeShareModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button  type="button" id="closeShareModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div class="text-center recommend-share-box">
@@ -668,6 +668,7 @@
                   <div class="title">嵌入渠道</div>
                   <div class="addr-wrp border-none select-w">
                     <model-select
+                        class="dark-model-select"
                         :options="channelOptions"
                         placeholder=""
                         v-model="channelSelectedItem"

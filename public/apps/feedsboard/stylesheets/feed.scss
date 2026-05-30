@@ -118,30 +118,45 @@ a{
     padding-bottom: 50px;
 }
 
-.btn-open-studio{
-    background-color: white;
-    color: black;
-    border-radius: 24px;
+.btn-cta{
+    display: inline-flex;
     align-items: center;
-    display: flex;
     justify-content: center;
-    max-width: 144px;
-    height: 32px;
-    font-size: 12px;
+    gap: 8px;
+    padding: 8px 16px;
+    font-family: 'gg sans', 'Noto Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
 
 }
-.btn-get-starPlan{
-    border-color: #fff;
-    border-radius: 24px;
-    margin-left: 12px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    max-width: 144px;
-    height: 32px;
-    font-size: 12px;
-
-}
+.btn-cta-main {
+    background-color: #5865F2;
+    color: #FFFFFF;
+  }
+  .btn-cta-main:hover {
+    background-color: #4752C4;
+  }
+  .btn-cta-main:active {
+    background-color: #3C45A5;
+  }
+  
+  .btn-cta-second {
+    background-color: transparent;
+    color: #B5BAC1;
+    border: 1px solid #4E5058;
+  }
+  .btn-cta-second:hover {
+    background-color: rgba(78, 80, 88, 0.3);
+    color: #DBDEE1; 
+    border-color: #6C6E77;
+  }
+  .btn-cta-second:active {
+    background-color: rgba(78, 80, 88, 0.6);
+  }
 
 .comment_list h2{
     position: relative;
@@ -702,8 +717,9 @@ div,button{
 }
 
 .rich_media_tool_bar .dropdown-menu{
-     min-width: 136px;
+     min-width: 156px;
     background-color: #2f2f2f;
+    padding: 6px;
 }
 .rich_media_tool_bar .dropdown-toggle{
     box-shadow: none;
@@ -720,7 +736,8 @@ div,button{
 }
 .rich_media_tool_bar .del_post {
   padding: .25rem 1.25rem ;
-  
+  border-radius: 4px;
+
 }
 .comment_message_contents{
     white-space: pre-wrap;

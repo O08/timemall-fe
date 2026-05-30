@@ -191,8 +191,12 @@
         <div class="form-box pt-5">
 
           <form class="form-withdraw" onsubmit="return false">
-            <div>
-              <label for="exampleFormControlInput1" class="form-label">支付宝支付账号
+            <div class="mt-3">
+              <label for="accountDrawable" class="form-label">可取余额（元）</label>
+              <input v-model="trans.drawable" type="number" class="form-control disable-input" style="color: rgb(96, 165, 250); font-weight: 600;" id="accountDrawable" disabled>
+            </div>  
+            <div class="mt-3">
+              <label for="exampleFormControlInput1" class="form-label">支付宝账号
                 <button type="button" class="btn btn-primary add-icon" data-bs-toggle="modal" data-bs-target="#addAccountInfoModal">
                   <i class="bi bi-plus-circle-fill ms-2"></i>
                 </button>
@@ -203,12 +207,8 @@
               </select>
             </div> 
             <div class="mt-3">
-              <label for="accountDrawable" class="form-label">可取余额（元）</label>
-              <input v-model="trans.drawable" type="number" class="form-control disable-input" id="accountDrawable" disabled>
-            </div>  
-            <div class="mt-3">
               <label for="transferAmount" class="form-label">取出金额（元）</label>
-              <input  v-model="trans.amount" @input="transformInputNumberV($event)" min="1" max="50000" step="1" type="number" class="form-control" id="transferAmount">
+              <input style="color: #d55f6f; font-weight: 600;" v-model="trans.amount" @input="transformInputNumberV($event)" min="1" max="50000" step="1" type="text" class="form-control" id="transferAmount">
             </div> 
             <div class="mt-1 help-text">
               <div class="row">
@@ -217,7 +217,7 @@
                 </div>
                 <div class="col-5 d-flex justify-content-end">
                   <button type="button" class="btn btn-primary add-icon" data-bs-toggle="modal" data-bs-target="#alipayAccountMangementModal">
-                    <span>支付账号管理</span>
+                    <span style="font-size: 12px;">支付账号管理</span>
                   </button>
                 </div>
               </div>
@@ -225,10 +225,8 @@
             </div>         
             <div class="mt-5">
               <button  @click="withdrawV" v-preventreclick 
-              :class="{'disabled': !trans.id || !trans.amount || (trans.drawable < trans.amount) , 
-                          'btn-primary': !!trans.id && !!trans.amount && (trans.drawable >= trans.amount) ,
-                          'btn-secondary': !trans.id || !trans.amount || (trans.drawable < trans.amount) }"
-              type="submit" class="btn form-control mb-3">确认转出</button>
+              :class="{'disabled': !trans.id || !trans.amount || (trans.drawable < trans.amount) }"
+              type="submit" class="btn btn-action-submit w-100">确认转出</button>
             </div>                    
           </form>
 
@@ -247,54 +245,59 @@
   <div class="modal-container">
           
     <!-- Modal -->
-    <div class="modal fade fresh-ui" id="addAccountInfoModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal fade dcModal" id="addAccountInfoModal" data-bs-backdrop="static" tabindex="-1">
       <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content text-color-dark">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="addAccountInfoModalLabel">添加支付宝账号</h1>
-            <button @click="closeAddAccountModelV" type="button" id="closeAddAccountInfoModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button @click="closeAddAccountModelV" type="button" id="closeAddAccountInfoModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form>
               <div class="mb-3 mt-3">
-                <label for="input[payeeAccount]" class="form-label">登录号</label>
+                <label for="input[payeeAccount]" class="form-label">支付宝账号</label>
 
-                <input id="input[payeeAccount]"  v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control">
+                <input id="input[payeeAccount]"  v-model="alipayAccount.payeeAccount" type="text" maxlength="255" class="form-control" placeholder="邮箱/手机号">
 
               </div> 
               <div class="mb-3">
-                <label for="input[payeeRealName]" class="form-label">姓名</label>
+                <label for="input[payeeRealName]" class="form-label">真实名称</label>
 
-                <input id="input[payeeRealName]"  v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" >
+                <input id="input[payeeRealName]"  v-model="alipayAccount.payeeRealName" type="text" maxlength="255" class="form-control" placeholder="姓名/主体名称" >
 
               </div> 
             </form>
             
           </div>
-          <div class="modal-footer btn-light">
-            <button @click="newAlipayAccountV" :class="{'disabled': !alipayAccount.payeeAccount || !alipayAccount.payeeRealName, 
-            'btn-primary': !!alipayAccount.payeeAccount || !!alipayAccount.payeeRealName ,
-            'btn-secondary': !alipayAccount.payeeAccount || !alipayAccount.payeeRealName }" v-preventreclick  type="button"  class="btn">添加</button>
+          <div class="modal-footer border-0">
+            <button @click="newAlipayAccountV" :class="{'disabled': !alipayAccount.payeeAccount || !alipayAccount.payeeRealName }" v-preventreclick  type="button"  class="btn btn-action-submit w-100">添加</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="modal-container">
+    <!-- Alipay Account Management Dashboard Modal -->
+    <div class="modal fade fullscreen-mb-modal dcModal" id="alipayAccountMangementModal" data-bs-backdrop="static" tabindex="-1" ref="alipayAccountMangementModalRef">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 440px;">
+        <div class="modal-content border-0">
           
-    <!-- Modal -->
-    <div class="modal fade fullscreen-mb-modal fresh-ui" id="alipayAccountMangementModal" data-bs-backdrop="static" tabindex="-1">
-      <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content text-color-dark">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="alipayAccountMangementModalLabel">支付账号管理</h1>
-            <button type="button" @click="closeAlipayAccountMangementModalHandlerV" id="closeAlipayAccountMangementModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- Modal Title Header -->
+          <div class="modal-header border-0">
+            <h1 class="modal-title" id="alipayAccountMangementModalLabel">支付账号管理</h1>
           </div>
-          <div class="modal-body" style="min-height: 130px;">
-            <div v-show="isEmptyObjV(alipay.records)" >未找到相关数据</div>
-            <ul v-show="!isEmptyObjV(alipay.records)"  class="list-group list-group-flush shadow-sm">
-              <li v-for="record in alipay.records" :key="record.id" class="list-group-item">
-                <div class="form-check d-flex align-items-center">
+
+          <div class="modal-body">
+            
+            <div v-show="isEmptyObjV(alipay.records)" class="financial-empty-well">
+              未找到相关数据，请先绑定您的结算账户。
+            </div>
+
+            <ul v-show="!isEmptyObjV(alipay.records)" class="list-group list-group-flush">
+              <li v-for="record in alipay.records" :key="record.id" class="account-item-row">
+                
+                <label class="account-check-capture" :for="'radio-' + record.id">
+                  
                   <input 
                     class="form-check-input" 
                     v-model="alipayDelId" 
@@ -303,26 +306,37 @@
                     :id="'radio-' + record.id" 
                     :value="record.id"
                   >
-                  <!-- w-100 makes the label fill the row for easier clicking -->
-                  <label class="form-check-label d-flex flex-column ms-3 w-100" :for="'radio-' + record.id">
-                    <span class="fw-bold">姓名: <span class="help-text fw-normal">{{record.payeeRealName}}</span></span>
-                    <span class="fw-bold">登录号: <span class="help-text fw-normal">{{record.payeeAccount}}</span></span>
-                  </label>
-                </div>
+                  
+                  <div class="account-meta-deck">
+                    <span class="meta-line ellipsis-1">姓名: <span class="field-value-highlight">{{ record.payeeRealName }}</span></span>
+                    <span class="meta-line ellipsis-1">登录号: <span class="field-value-highlight">{{ record.payeeAccount }}</span></span>
+                  </div>
+                  
+                </label>
+
               </li>
             </ul>
             
+          </div>
+
+          <div  class="modal-footer modal-footer-minimal">
+            <button type="button" class="btn btn-action-cancel" data-bs-dismiss="modal" @click="closeAlipayAccountMangementModalHandlerV">取消</button>
             
+            <button 
+              @click="delAlipayAccountV" 
+              v-preventreclick  
+              type="button"  
+              class="btn btn-action-remove"
+              :class="{'disabled': !alipayDelId }">
+              确认删除
+            </button>
           </div>
-          <div v-show="!isEmptyObjV(alipay.records)" class="modal-footer btn-light">
-            <button @click="delAlipayAccountV" 
-            :class="{'disabled': !alipayDelId, 
-            'btn-danger': !!alipayDelId ,
-            'btn-secondary': !alipayDelId }" v-preventreclick  type="button"  class="btn">删除</button>
-          </div>
+
         </div>
       </div>
     </div>
+
+
   </div>
 </section>
   </micro-app>

@@ -73,10 +73,10 @@
       <div class="modal-container">
         <div class="modal fade" id="mobilePreviewModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content text-color-dark">
+            <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title fs-5">手机预览</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <div  class="mobile-iframe-container d-flex align-items-center justify-content-center">
@@ -94,10 +94,10 @@
              <div class="modal-container">
                 <div class="modal fade" id="pcPreviewModal" data-bs-backdrop="static" tabindex="-1">
                   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content text-color-dark">
+                    <div class="modal-content">
                       <div class="modal-header">
                         <h1 class="modal-title fs-5">电脑预览</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body d-flex align-items-center justify-content-center">
                         <iframe id="pc-iframe" class="pc-imac-frame"></iframe>
@@ -111,38 +111,28 @@
               <div class="modal-container">
           
                 <!-- Modal -->
-                <div class="modal fade" id="settingAppInfoModal" data-bs-backdrop="static" tabindex="-1">
+                <div class="modal fade dcModal" id="settingAppInfoModal" data-bs-backdrop="static" tabindex="-1">
                   <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content text-color-dark">
+                    <div class="modal-content">
                       <div class="modal-header">
                         <h1 class="modal-title fs-5">通用设置</h1>
-                        <button  type="button" id="closeSettingAppInfoModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button  type="button" id="closeSettingAppInfoModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         <form>
-                          <div class="row mb-3 mt-3">
-                            <div class="col-sm-3 col-form-label">
-                              <label for="input[channelName]" class="form-label">频道名称</label>
-                            </div>
-                            <div class="col-sm-9">
-                              <input id="input[channelName]" @change="generalHadChange=true" v-model="general.channelName" type="text" maxlength="30" class="form-control">
-                            </div>
+                          <div class="mb-3">
+                            <label for="input[channelName]" class="form-label">频道名称</label>
+                            <input id="input[channelName]" @change="generalHadChange=true" v-model="general.channelName" type="text" maxlength="30" class="form-control">
                           </div> 
-                          <div class="row mb-3">
-                            <div class="col-sm-3 col-form-label">
-                              <label for="input[channelDesc]" class="form-label">频道简介</label>
-                            </div>
-                            <div class="col-sm-9">
-                              <input id="input[channelDesc]" @change="generalHadChange=true"  v-model="general.channelDesc" type="text" maxlength="80" class="form-control" >
-                            </div>
+                          <div class="mb-3">
+                            <label for="input[channelDesc]" class="form-label">频道简介</label>
+                            <input id="input[channelDesc]" @change="generalHadChange=true"  v-model="general.channelDesc" type="text" maxlength="80" class="form-control">
                           </div> 
                         </form>
                         
                       </div>
-                      <div class="modal-footer btn-light">
-                        <button @click="modifyChannelGeneralInfoV" :class="{'disabled': !general.channelName || !general.channelDesc || !generalHadChange, 
-                        'btn-primary': !!general.channelName && !!general.channelDesc && generalHadChange ,
-                        'btn-secondary': !general.channelName || !general.channelDesc || !generalHadChange }" v-preventreclick  type="button"  class="btn">更新</button>
+                      <div class="modal-footer border-0">
+                        <button @click="modifyChannelGeneralInfoV" :class="{'disabled': !general.channelName || !general.channelDesc || !generalHadChange}" v-preventreclick  type="button"  class="btn-action-submit w-100">更新</button>
                       </div>
                     </div>
                   </div>

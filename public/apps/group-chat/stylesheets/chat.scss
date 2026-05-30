@@ -295,4 +295,146 @@ micro-app{
         width: unset;
     }
   }
-
+  .not-found-resource.unique-nebula {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    background-color: transparent;
+    overflow: hidden; 
+    box-sizing: border-box;
+    padding: 0 20px;
+  
+    .orb-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; 
+      z-index: 1;
+  
+      .blur-orb {
+        position: absolute;
+        width: 240px; 
+        height: 240px;
+        border-radius: 50%;
+        filter: blur(80px);
+        mix-blend-mode: screen;
+        will-change: transform; 
+  
+        @media (max-width: 768px) {
+          width: 160px;
+          height: 160px;
+          filter: blur(50px);
+        }
+      }
+  
+      .orb-deep-blue {
+        top: 5%;
+        left: 15%;
+        background-color: #1e293b; 
+        opacity: 0.25;
+        animation: floatOrbit 14s infinite alternate ease-in-out;
+      }
+  
+      .orb-glacier {
+        bottom: 10%;
+        right: 20%;
+        background-color: #38bdf8; 
+        opacity: 0.05; 
+        animation: floatOrbit 20s infinite alternate-reverse ease-in-out;
+  
+        @media (max-width: 768px) {
+          bottom: 15%;
+          right: 10%;
+        }
+      }
+  
+      .orb-cosmic {
+        top: 35%;
+        left: 45%;
+        background-color: #e2e8f0; 
+        opacity: 0.03; 
+        animation: floatOrbit 16s infinite alternate ease-in-out;
+      }
+    }
+  
+    .nebula-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+      animation: textFadeIn 0.4s ease-out;
+      will-change: transform, opacity;
+  
+      @media (max-width: 768px) {
+        max-width: 290px; 
+      }
+  
+      .status-badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.03); 
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 3px 10px;
+        border-radius: 4px;
+        letter-spacing: 0.15em;
+        margin-bottom: 20px;
+  
+        @media (max-width: 768px) {
+          margin-bottom: 14px;
+          font-size: 0.65rem;
+        }
+      }
+  
+      .nebula-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #ffffff;
+        margin: 0 0 12px 0;
+        letter-spacing: 0.03em;
+  
+        @media (max-width: 768px) {
+          font-size: 1.35rem;
+          margin-bottom: 8px;
+        }
+      }
+  
+      .nebula-desc {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #949ba4; 
+        margin: 0;
+        letter-spacing: 0.02em;
+  
+        @media (max-width: 768px) {
+          font-size: 0.8rem;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+  
+  @keyframes floatOrbit {
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(40px, -30px, 0) scale(1.15); }
+    100% { transform: translate3d(-20px, 50px, 0) scale(0.9); }
+  }
+  
+  @keyframes textFadeIn {
+    from { opacity: 0; transform: translate3d(0, 6px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  
+  
+  
+  
+  
+  

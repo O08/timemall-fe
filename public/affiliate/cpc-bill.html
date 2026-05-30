@@ -331,14 +331,14 @@
               <tbody>
                 <tr v-for="item in link_pagination.records">
                   <th class="col-options">
+                    <a :href="'/affiliate/cpc-achievement?batch='+item.batch" target="_blank">
+                      <button  class="btn btn-primary me-3" type="button">
+                        查看明细
+                      </button>
+                    </a>
                     <a :href="'/messages/'+item.adminCustomerId">
                       <button  class="btn btn-outline-primary" type="button">
                         联系账务
-                      </button>
-                    </a>
-                    <a :href="'/affiliate/cpc-achievement?batch='+item.batch" target="_blank">
-                      <button  class="btn btn-outline-primary ms-3" type="button">
-                        查看明细
                       </button>
                     </a>
                   </th>
