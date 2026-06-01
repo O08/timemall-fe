@@ -72,179 +72,185 @@
           </div>
         </div>
         <main>
-            <div class="alert-list">
+            <div class="main-content-container">
+
+              <div class="alert-list">
                 <div class="alert" style="background-color: #1a1a1aff;">
                   <div class="alert-text">
                     <div>店铺销售的商品需符合相关法律法规要求，具体规则请参考：<a href="/mall/legal" target="_blank">法律声明</a></div>
                   </div>
                 </div>
-            </div>
-
-            <div class="d-flex pt-5">
-              <div class="w-100">
-                <div class="d-flex justify-content-between align-items-center spacer-section">
-                  <div class="flex-fill mb-6 mb-md-0">
-                    <h1 class="pr-md-6 ">货架</h1>
-                  </div>
-
-                  <div class="btn-wrp">
-                    <button v-preventreclick  @click="showNewProductModalV" class="btn-action-submit">
-                      <div class="btn-content"><i class="bi bi-plus me-1"></i> 上架商品 </div>
-                    </button>
-                  </div>
-
-                </div>
               </div>
-            </div>
-
-            <div class="products-box">
-
-              <div class="product-wrapper">
-                <div class="product-header">
-                  <div class="filter-bar">
-                    <div class="filter-item filter-item__search">
-
-                      <div class="input-normal-search">
-                        <div class="nav-search-btn"><i class="bi bi-search"></i></div>
-                        <div class="nav-search-content">
-                          <input v-model="feedList_pagination.param.q" @keyup.enter.native="filterFeedListV" class="nav-search-input" type="text" autocomplete="off" maxlength="100" x-webkit-speech="" x-webkit-grammar="builtin:translate" placeholder="搜索商品">
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="filter-item tagsContainer">
-
-                      <div class="dropdown">
-                        <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="bi bi-arrow-down-up me-1"></i>排序
-                        </a>
-                      
-                        <ul class="dropdown-menu">
-                          <li>
-                            <a class="dropdown-item">
-                              <div class="form-check form-check-reverse">
-                                <label class="form-check-label" for="sortHot">
-                                  商品热度
-                                </label>
-                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"  value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item">
-                              <div class="form-check form-check-reverse">
-                                <label class="form-check-label" for="sortCreateTime">
-                                  上架日期
-                                </label>
-                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item">
-                              <div class="form-check form-check-reverse">
-                                <label class="form-check-label" for="sortModifyTime">
-                                  编辑时间
-                                </label>
-                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="4" class="form-check-input" name="sortRadios" type="radio"  id="sortModifyTime" >
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item">
-                              <div class="form-check form-check-reverse">
-                                <label class="form-check-label" for="sortPirce">
-                                  商品价格
-                                </label>
-                                <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="3" class="form-check-input" name="sortRadios" type="radio"  id="sortPirce" >
-                              </div>
-                            </a>
-                          </li>
-                          
             
-                        </ul>
-                      </div>
-
+              <div class="d-flex pt-5">
+                <div class="w-100">
+                  <div class="d-flex justify-content-between align-items-center spacer-section">
+                    <div class="flex-fill mb-6 mb-md-0">
+                      <h1 class="pr-md-6 ">商品列表</h1>
                     </div>
-
+              
+                    <div class="btn-wrp">
+                      <button v-preventreclick  @click="showNewProductModalV" class="btn-action-submit">
+                        <div class="btn-content"><i class="bi bi-plus me-1"></i> 上架商品 </div>
+                      </button>
+                    </div>
+              
                   </div>
                 </div>
-
-                <div class="product-body">
-                  <div class="table-responsive">
-                    <div class="table-wrp">
-
-                      <table class="table table-spacing-lg table-hover align-middle">
-                        <thead>
-                          <tr>
-                            <th class="col-product-name">{{feedList_pagination.total}} 个商品</th>
-                            <th class="col-product-price">价格</th>
-                            <th class="col-product-clicks">点击量</th>
-                            <th class="col-product-time">上架日期</th>
-                            <th class="col-product-option"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="product in feedList_pagination.records">
-                            <th>
-                              <div class="d-flex align-items-center">
-                                <a  target="_blank" :href="product.linkUrl">
-                                  <div class="product-thumnail">
-                                    <div style="height: 100%;">
-                                      <img :src="adaptiveImageUriV(product.coverUrl)"> 
-                                    </div>
-                                  </div>
-                                 </a>
-                                 <div class="ms-3 d-block text-truncate product-name">
-                                  <a target="_blank" :href="product.linkUrl"> {{product.title}} </a>
-                                 </div>
-                              </div>
-                            </th>
-                            <td><span  class="product-price">￥{{product.price}}</span></td>
-                            <td class="tb-text-secondary">{{product.views}}</td>
-                            <td class="tb-text-secondary">{{product.createAt}}</td>
-                            <td>
-                              <button v-preventreclick  @click="showEditProductModalV(product)" class="btn btn-primary" type="button"> 编辑 </button>
-                              <button v-preventreclick  @click="showDeleteFocusModalV(product.id)"  class="btn btn-outline-danger ms-2" type="button">移出 </button>
-                            </td>
-                          </tr>
-  
-                        </tbody>
-  
-                      </table>
-
-                      <div v-show="feedList_pagination.records.length == 0" class="not-found-resource">
-                        <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
-                        <h4>未找到结果</h4>
+              </div>
+              
+              <div class="products-box">
+              
+                <div class="filter-bar">
+                  <div class="filter-item filter-item__search">
+              
+                    <div class="input-normal-search">
+                      <div class="nav-search-btn"><i class="bi bi-search"></i></div>
+                      <div class="nav-search-content">
+                        <input v-model="feedList_pagination.param.q" @keyup.enter.native="filterFeedListV" class="nav-search-input" type="text" autocomplete="off" maxlength="100" x-webkit-speech="" x-webkit-grammar="builtin:translate" placeholder="搜索商品">
                       </div>
-  
-                      <nav v-if="!!feedList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
-                        <ul class="pagination pagination-lg pagination-dark  border-0 mb-0">
-                          <li class="page-item" @click="pagePre(feedList_pagination)">
-                            <a class="page-link" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                            </a>
-                          </li>
-                          <li class="page-item" v-for="page in feedList_pagination.paging.items"
-                            :class="{'current-page-active': feedList_pagination.paging.current == page}"
-                            @click="pageGo(feedList_pagination,page)"><a class="page-link">{{page}}</a></li>
-                          <li class="page-item" @click="pageNext(feedList_pagination)">
-                            <a class="page-link" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-
                     </div>
+              
+                  </div>
+                  <div class="filter-item tagsContainer">
+              
+                    <div class="dropdown">
+                      <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-arrow-down-up me-1"></i>排序
+                      </a>
                     
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a class="dropdown-item">
+                            <div class="form-check form-check-reverse">
+                              <label class="form-check-label" for="sortHot">
+                                商品热度
+                              </label>
+                              <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"  value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item">
+                            <div class="form-check form-check-reverse">
+                              <label class="form-check-label" for="sortCreateTime">
+                                上架日期
+                              </label>
+                              <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item">
+                            <div class="form-check form-check-reverse">
+                              <label class="form-check-label" for="sortModifyTime">
+                                编辑时间
+                              </label>
+                              <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="4" class="form-check-input" name="sortRadios" type="radio"  id="sortModifyTime" >
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item">
+                            <div class="form-check form-check-reverse">
+                              <label class="form-check-label" for="sortPirce">
+                                商品价格
+                              </label>
+                              <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="3" class="form-check-input" name="sortRadios" type="radio"  id="sortPirce" >
+                            </div>
+                          </a>
+                        </li>
+                        
+              
+                      </ul>
+                    </div>
+              
                   </div>
+              
                 </div>
-
+              
+                <div class="table-responsive">
+                  <div class="table-wrp">
+              
+                    <table class="table table-spacing-lg table-hover align-middle">
+                      <thead>
+                        <tr>
+                          <th class="col-product-name" style="border-top-left-radius: 8px;">{{feedList_pagination.total}} 个商品</th>
+                          <th class="col-product-price">价格</th>
+                          <th class="col-product-clicks">点击量</th>
+                          <th class="col-product-time">上架日期</th>
+                          <th class="col-product-option" style="border-top-right-radius: 8px;"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="product in feedList_pagination.records">
+                          <th>
+                            <div class="d-flex align-items-center">
+                              <a  target="_blank" :href="product.linkUrl">
+                                <div class="product-thumnail">
+                                  <div style="height: 100%;">
+                                    <img :src="adaptiveImageUriV(product.coverUrl)"> 
+                                  </div>
+                                </div>
+                              </a>
+                              <div class="ms-3 d-block text-truncate product-name">
+                                <a target="_blank" :href="product.linkUrl"> {{product.title}} </a>
+                              </div>
+                            </div>
+                          </th>
+                          <td><span  class="product-price">￥{{product.price}}</span></td>
+                          <td class="tb-text-secondary">{{product.views}}</td>
+                          <td class="tb-text-secondary">{{product.createAt}}</td>
+                          <td class="text-end">
+                            <button v-preventreclick  @click="showEditProductModalV(product)" class="btn btn-primary" type="button"> 编辑 </button>
+                            <button v-preventreclick  @click="showDeleteFocusModalV(product.id)"  class="btn btn-outline-danger ms-2" type="button">移出 </button>
+                          </td>
+                        </tr>
+              
+                      </tbody>
+              
+                    </table>
+              
+              
+                    <div v-show="feedList_pagination.records.length==0" class="tb-empty-data-wrapper">
+              
+                      <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
+                        <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
+                        <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+              
+                      <h4 class="empty-primary-title">未找到商品</h4>
+                      
+                      <p class="empty-secondary-desc">
+                        当前未检索到任何相关的商品，调整上方的状态过滤器或点击【上架商品】按钮配置商品。
+                      </p>
+                    </div>
+              
+                    <nav v-if="!!feedList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                      <ul class="pagination pagination-lg pagination-dark  border-0 mb-0">
+                        <li class="page-item" @click="pagePre(feedList_pagination)">
+                          <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="page-item" v-for="page in feedList_pagination.paging.items"
+                          :class="{'current-page-active': feedList_pagination.paging.current == page}"
+                          @click="pageGo(feedList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                        <li class="page-item" @click="pageNext(feedList_pagination)">
+                          <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+              
+                  </div>
+                  
+                </div>
+              
               </div>
 
             </div>
-
         </main>
     </div>
     <section class="modals">

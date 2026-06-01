@@ -1687,6 +1687,14 @@ emoji-picker {
   display: -webkit-box;
   overflow: hidden;
 }
+.ellipsis-2 {
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
 
   // bastrap issue fix
   .table-responsive .dropdown,
