@@ -133,6 +133,7 @@ micro-app{
     background-color: hsl(0 calc(1 * 0%) 0.784% / 1);
     box-shadow: none;
     color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
+    padding-bottom: 0px;
   
   }
   .tagsContainer .form-check-reverse{
@@ -143,7 +144,7 @@ micro-app{
   }
   
   .tagsContainer .dropdown-item{
-    padding: 6px 8px;
+    padding: 6px 12px;
     color: hsl(210 calc(1 * 9.091%) 87.059% / 1);
     box-sizing: border-box;
     min-height: 32px;
@@ -335,4 +336,112 @@ micro-app{
   text-decoration-color: #00aafc;
   text-decoration-style: dashed;
   text-underline-offset: 0.25em;
+}
+.item-meta__brand{
+  .item-meta__brandAvatar{
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .item-meta__brandName{
+    font-size: 14px;
+    color: #949ba4;
+    font-weight: 500;
+  }
+}
+.modal-footer {
+  border: none;
+}
+.modal-header{
+  border-bottom: 1px solid #fff3;
+}
+
+
+.btn-file-upload{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: none;
+  border: 1px solid hsl(228 calc(1 * 6.024%) 32.549% / 1);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 16px;
+  color: #fff;
+  min-height: 38px;
+}
+.btn-file-upload:hover{
+  background-color: hsl(228 calc(1 * 6.024%) 32.549% / 0.6) ;
+}
+.link-cover-box{
+  background-color: #000;
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 101 / 79;
+  border-radius: 4px;
+}
+.link-cover-box img{
+  background-color: #000;
+  box-sizing: border-box;
+  object-fit: cover;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.product-thumnail-container{
+  flex-direction: row;
+  align-items: stretch;
+  display: flex;
+  gap: 20px;
+}
+
+.box-header{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  z-index: 1;
+}
+.col:hover .box-header{
+display: block;
+}
+.btn-action-bar {
+  cursor: pointer;
+  color: #b5bac1;
+  border-radius: 0;
+  outline: none;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 4px;
+  width: 100%;
+  font-size: 14px;
+  display: flex
+;
+  position: relative;
+}
+
+.box-action{
+  background-color: #4e5058;
+  width: 26px;
+}
+
+.btn-action-bar:hover {
+  color: #9373ee;
+  background-color: #2f2f2f;
 }

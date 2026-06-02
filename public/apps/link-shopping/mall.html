@@ -30,7 +30,12 @@
                   x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="搜索商品" >
               </div>
               <div class="btn-wrp">
-                <button  v-preventreclick @click="retrieveFeedListV" class="btn-tm-primary">
+                <button v-if="memberCanPost" v-preventreclick @click="showNewProductModalV" class="btn-tm-primary">
+                  <div class="btn-content">
+                      我要售卖
+                  </div>
+                </button>
+                <button v-else v-preventreclick @click="retrieveFeedListV" class="btn-tm-primary">
                   <div class="btn-content">
                       搜索
                   </div>
@@ -82,6 +87,16 @@
                     </div>
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortModifyTime">
+                        编辑时间
+                      </label>
+                      <input @change="retrieveFeedListV"  v-model="feedList_pagination.param.sort"   value="4" class="form-check-input" name="sortRadios" type="radio"  id="sortModifyTime" >
+                    </div>
+                  </a>
+                </li>
                 
   
               </ul>
@@ -99,12 +114,34 @@
               <div class="item-box">
                 <div class="item-cover-container">
 
+                  <div class="box-header">
+                    <div class="box-action">
+                      <button v-preventreclick  @click="copyFeedLinkUrlV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="复制链接">
+                        <i class="bi bi-copy"></i>
+                      </button>
+                      <button v-preventreclick @click="openLinkV(card.linkUrl)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="查看商品">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                      </button>
+                      <button v-if="isSellerV(card.sellerBrandId)" v-preventreclick @click="showEditProductModalV(card)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="编辑商品">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                      <button v-if="canRemovePostV(card)"  v-preventreclick  @click="removeProductV(card.id)" type="button" class="btn btn-action-bar" data-bs-custom-class="custom-popover" data-bs-placement="right" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="移除内容">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                  </div>
+
                   <a @click="captueItemDataV(card.id)" :href="card.linkUrl" target="_blank">
                     <img :src="adaptiveImageUriV(card.coverUrl)">
                   </a>
                 </div>
                 <div class="item-meta">
-
+                  <div class="item-meta__brand d-flex align-items-center gap-2 mb-2">
+                    <div class="item-meta__brandAvatar">
+                      <img :src="adaptiveImageUriV(card.sellerAvatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"  alt="商家头像">
+                    </div>
+                    <span class="item-meta__brandName ellipsis-1">{{card.sellerName}}</span>
+                  </div>
                   <div class="item-title product-name"><a @click="captueItemDataV(card.id)" :href="card.linkUrl" target="_blank">{{card.title}}</a></div>
                   <div class="price-wrapper">
                     <span class="price-unit">¥</span>
@@ -136,6 +173,98 @@
 
         </main>
     </div>
+    <section class="modals">
+
+       <!-- new product Modal start -->
+       <div class="modal-container">
+         <div class="modal fade dcModal" id="newProductModal" data-bs-backdrop="static" tabindex="-1">
+           <div class="modal-dialog  modal-dialog-centered ">
+             <div class="modal-content">
+               <div class="modal-body">
+                 <form onsubmit="return false">
+                   <div class="mb-3">
+                     <label for="input[newProductName]" class="form-label">商品名称</label>
+                     <input id="input[newProductName]" v-model="newProduct.title" maxlength="32" class="form-control" type="text">
+                   </div>
+                   <div class="mb-3">
+                     <label for="input[newProductPrice]" class="form-label">价格</label>
+                     <input id="input[newProductPrice]" v-model="newProduct.price" @input="transformInputNumberAsPositiveDecimalV($event)"  max="500000000" step=".1" type="text" class="form-control">
+                   </div>
+                   <div class="mb-3">
+                     <label for="input[newProductLink]" class="form-label">链接</label>
+                     <input v-model="newProduct.linkUrl" maxlength="499" class="form-control" type="text" placeholder="商品链接(https://yourlink.com)" >
+                   </div>
+
+                   <div class="product-thumnail-container">
+                     <div id="link-cover-preview-box" class="link-cover-box">
+                       <img v-show="!!newProduct.linkCoverFileUrl" :src="newProduct.linkCoverFileUrl">
+                     </div>
+                     <div class="title-col">
+                       <div class="help-text label-color">封面建议使用至少 99x99 大小的图片。</div>
+                       <button type="button" class="btn-file-upload mt-2">
+                         <div class="btn-file-upload-wrp">上传图片<input id="file_thumbnail"  @change="previewFeedThumbnailV" class="file-input" type="file" tabindex="-1" multiple="" accept=".jpg,.jpeg,.png,.gif" style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
+                       </button>
+                     </div>
+                   </div>
+               
+                 </form>
+
+               </div>
+
+               <div class="modal-footer d-flex justify-content-between align-items-center">
+
+                 <button v-preventreclick @click="closeNewProductModalV" type="button" class="btn-action-cancel">
+                   <div class="contents">取消</div>
+                 </button>
+
+                 <button  :class="{'disabled': !validatedPostFormV()}" v-preventreclick @click="newProductV" type="button" class="btn btn-action-submit">发布</button>
+
+               </div>
+
+
+
+             </div>
+           </div>
+         </div>
+       </div>
+       <!-- new product Modal end -->
+
+       <!-- edit product Modal start -->
+       <div class="modal-container">
+         <div class="modal fade dcModal" id="editProductModal" data-bs-backdrop="static" tabindex="-1">
+           <div class="modal-dialog  modal-dialog-centered ">
+             <div class="modal-content">
+               <div class="modal-body">
+                 <form onsubmit="return false">
+                   <div class="mb-3">
+                     <label for="input[editProductName]" class="form-label">商品名称</label>
+                     <input id="input[editProductName]" @change="editProductModalHadChange=true;" v-model="editProduct.title" maxlength="32" class="form-control" type="text">
+                   </div>
+                   <div class="mb-3">
+                     <label for="input[editProductPrice]" class="form-label">价格</label>
+                     <input id="input[editProductPrice]" @change="editProductModalHadChange=true;"  v-model="editProduct.price" @input="transformInputNumberAsPositiveDecimalV($event)"  max="500000000" step=".1" type="text"  class="form-control">
+                   </div>
+                 </form>
+
+               </div>
+
+               <div class="modal-footer d-flex justify-content-between align-items-center">
+
+                 <button v-preventreclick @click="closeEditProductModalV" type="button" class="btn-action-cancel">
+                   <div class="contents">取消</div>
+                 </button>
+
+                 <button  :class="{'disabled': !validatedEditPostFormV()}" v-preventreclick @click="editProductV" type="button" class="btn-action-submit">更新</button>
+
+               </div>
+
+             </div>
+           </div>
+         </div>
+       </div>
+       <!-- edit product Modal end -->
+
+   </section>
   </micro-app>
 
 <script type="module" src="/common/javascripts/tm.js"></script>

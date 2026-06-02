@@ -537,3 +537,53 @@ h1{
 .current-page-active .page-link:hover {
   background-color: #F44336;
 }
+
+ /* Toggle Switch */
+ .toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+.toggle-label-group { flex: 1; }
+.toggle-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #f2f3f5;
+  line-height: 1.375;
+}
+.toggle-desc {
+  font-size: 13px;
+  color: #b5bac1;
+  margin-top: 2px;
+  line-height: 1.375;
+}
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #72767d;
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+.toggle-switch input:checked + .toggle-slider { background-color: #23a559; }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }

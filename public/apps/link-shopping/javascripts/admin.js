@@ -22,7 +22,10 @@ const RootComponent = {
             historyGeneral: {},
             general: {
                 channelName: "",
-                channelDesc: ""
+                channelDesc: "",
+                guide: {
+                    enableMemberPost: ""
+                }
             },
             newProduct:{
                 linkUrl: "",
@@ -169,16 +172,22 @@ const RootComponent = {
             const och=getQueryVariable("och");
             AppApi.fetchChannelGeneralInfo(och).then(response=>{
                 if(response.data.code == 200){
-                    this.historyGeneral= !response.data.channel ? {} : response.data.channel;
+                    const result=response.data.channel;
+                    var guide= {enableMemberPost: "0"}
+                    if(result && result.guide) {
+                        guide = JSON.parse(result.guide);
+                    } 
+                     this.historyGeneral = !result ? {guide} : { channelName: result.channelName, channelDesc: result.channelDesc,guide: guide};
+                   
                     var title = !response.data.channel ? "" : response.data.channel.channelName;
                     document.title = title + " | 链接商店后台";
                 }
             });
         },
-        modifyChannelGeneralInfoV(){
+        modifyLinkShopChannelInfoV(){
             const och=getQueryVariable("och");
 
-            modifyChannelGeneralInfo(och,this.general.channelName,this.general.channelDesc).then(response=>{
+            modifyLinkShopChannelInfo(och,this.general.channelName,this.general.channelDesc, this.general.guide.enableMemberPost).then(response=>{
                 if(response.data.code == 200){
                     this.historyGeneral=JSON.parse(JSON.stringify(this.general));
                     $("#settingAppInfoModal").modal("hide");
@@ -213,6 +222,9 @@ const RootComponent = {
         validatedEditPostFormV(){
             return !!this.editProduct.title && !!this.editProduct.price && Number(this.editProduct.price)>0 && this.editProductModalHadChange;
 
+        },
+        isSellerV(sellerBrandId){
+            return sellerBrandId==this.getIdentity().brandId;
         }
     },
     updated(){
@@ -240,7 +252,7 @@ linkShopping.pageInit(linkShopping.feedList_pagination);
 
 
 async function doModifyChannelGeneralInfo(dto){
-    const url="/api/v1/team/oasis/channel/general";
+    const url="/api/v1/app/link_shopping/channel/setting";
     return await axios.put(url,dto);
 }
 async function doPublishNewProduct(dto){
@@ -279,11 +291,12 @@ async function deleteProductBO(id){
 async function publishNewProduct(appObj){
     return await doPublishNewProduct(appObj.newProduct)
 }
-async function modifyChannelGeneralInfo(och,channelName,channelDesc){
+async function modifyLinkShopChannelInfo(och,channelName,channelDesc,enableMemberPost){
     const dto={
-        oasisChannelId: och,
+        channelId: och,
         channelName,
-        channelDesc
+        channelDesc,
+        enableMemberPost
     }
     return doModifyChannelGeneralInfo(dto);
 }
