@@ -191,7 +191,7 @@ function transformInputNumber(val,min,max){
 }
 function changeUrlQueryvariable(q){
   
-  let url = "/mall/virtual?q="+ q;
+  let url = "/mall/virtual-economy?q="+ q;
   history.pushState(null, "", url);
   
 }

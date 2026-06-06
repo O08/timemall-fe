@@ -7,12 +7,12 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>营销活动 - E-Studio</title>
+    <title>委托任务 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-promotion.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-commission.scss">
 
 
 
@@ -225,7 +225,7 @@
                   </div>
                   <span>智能提案</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-commission">
+                <a class="nav-link active" href="/estudio/studio-commission">
                   <div class="nav-icon">
                     <i class="bi bi-stickies"></i>
                   </div>
@@ -243,12 +243,12 @@
                   </div>
                   <span>付费订阅</span>
                 </a>
-                <a class="nav-link active" >
-                    <div class="nav-icon">
-                      <i class="bi bi-gift"></i>
-                    </div>
-                    <span>营销活动</span>
-                  </a>
+                <a class="nav-link" href="/estudio/studio-promotion">
+                  <div class="nav-icon">
+                    <i class="bi bi-gift"></i>
+                  </div>
+                  <span>营销活动</span>
+                </a>
                 <a class="nav-link" href="/estudio/studio-msg">
                   <div class="nav-icon">
                     <i class="bi bi-bell"></i>
@@ -284,255 +284,154 @@
           </div>
         </aside>
         <main>
-          <div class="page-title-container">
 
-            <div class="page-title">
-              <h1>营销活动</h1>
-            </div>
+          <div class="main-content-container full">
 
-            <section class="section-coupon-list">
+            <div class="page-title mb-5">
+              <h1>委托任务</h1>
+            </div>  
+  
+            <div class="filter-bar">
 
-              <div v-if="init_finish && isEmptyObjectV(promotion)">
-                <div class="pt-5">
-                  <span>你还未激活营销活动功能</span>
-                </div>
-                <div class="py-3">
-                  <button v-preventreclick @click="initPromotionInfoV"  type="button" class="btn btn-primary" >
-                    点击激活
+              <a href="/rainbow/discovery-commission">
+                <button  class="btn btn-blv-primary d-inline-flex align-items-center"><i class="bi bi-plus"></i> 接取任务</button>
+              </a>
+
+              <top-search class="section-top-serach">
+                <div class="input-group input-normal-search">
+                  <input @keyup.enter.native="retrieveTaskDataV" v-model="taskList_pagination.param.q"   class="form-control top-search-input" type="text"
+                    placeholder="搜索..." aria-label="Search">
+                  <button v-preventreclick @click="retrieveTaskDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                    <i class="bi bi-search"></i>
                   </button>
                 </div>
-              </div>
-
-              <div v-if="!isEmptyObjectV(promotion)" class="row g-3 row-cols-1  row-cols-md-1 row-cols-lg-2 row-cols-xl-3">
-
-                <!-- col start -->
-
-                <div class="col">
-
-                  <div class="card border-0 coupon coupon-card-body-bg">
-
-                    <div class="card-body px-0 py-0">
-                      <div class="coupon-img-wrapper text-center">
-                          <img src="/common/images/coupon-credit-n.svg">
-                       </div>
-                       <p class="coupon-title">用户体验金</p>
-                       <div class="coupon-rule">
-                          <p class="label">活动规则</p>
-                          <ul>
-                            <li>
-                              客户购买你店铺内商品时享受的抵扣金额，每个客户只能申领一次
-                            </li>
-                            <li>该优惠可与【复购折扣券】和【尝鲜折扣券】一起使用，优先使用抵扣金</li>
-                            <li>店铺客户申领之后可享受<span class="hi-contrast-txt">{{ promotion.creditPoint }}元</span>抵扣额度</li>
-                          </ul>
-                       </div>
-                       <div class="coupon-info">
-                          <p class="label">活动信息</p>
-                          <ul>
-                            <li>
-                              <span v-if="promotion.creditPointTag=='1'">活动进行中</span>
-                              <span v-if="promotion.creditPointTag=='2'">活动未开启</span>
-                            </li>
-                            <li>已发放 {{promotion.creditPointCnt}} 人次</li>
-                          </ul>
-                       </div>
-                       <div class="pt-2">
-                        <button @click="showSetupCreditPointModalV"  type="button"  class="btn btn-outline-dark edit-coupon">活动设置</button>
-                       </div>
-                    </div>
-
-                  </div>
-
-                </div>
-                <!-- col end -->
-
-                <!-- col start -->
-
-                <div class="col">
-
-                  <div class="card border-0 coupon coupon-card-body-bg">
-
-                    <div class="card-body px-0 py-0">
-                      <div class="coupon-img-wrapper text-center">
-                          <img src="/common/images/coupon-early-bird-n.svg">
-                       </div>
-                       <p class="coupon-title">尝鲜折扣券</p>
-                       <div class="coupon-rule">
-                        <p class="label">活动规则</p>
-                        <ul>
-                          <li>
-                            客户购买你店铺内新商品时享受的优惠折扣，店内任何商品，只要是客户第一次购买，均享受尝鲜优惠
-                          </li>
-                          <li>该优惠可与【复购折扣券】和【用户体验金】一起使用，优先使用抵扣金</li>
-                          <li>店铺客户申领之后可享受<span class="hi-contrast-txt">{{ promotion.earlyBirdDiscount }}%</span>折扣优惠</li>
-                        </ul>
-                       </div>
-
-                       <div class="coupon-info">
-                          <p class="label">活动信息</p>
-                          <ul>
-                            <li>
-                              <span v-if="promotion.earlyBirdDiscountTag=='1'">活动进行中</span>
-                              <span v-if="promotion.earlyBirdDiscountTag=='2'">活动未开启</span>
-                            </li>
-                            <li>已发放 {{promotion.earlyBirdDiscountCnt}} 人次</li>
-                          </ul>
-                       </div>
-                       <div class="pt-2">
-                        <button  @click="showSetupEarlyBirdModalV" type="button"  class="btn btn-outline-dark edit-coupon">活动设置</button>
-                       </div>
-
-
-                    </div>
-
-                  </div>
-
-                </div>
-                <!-- col end -->
-
-                <!-- col start -->
-                <div class="col">
-
-                  <div class="card border-0 coupon coupon-card-body-bg">
-
-                    <div class="card-body px-0 py-0">
-                      <div class="coupon-img-wrapper text-center">
-                          <img src="/common/images/coupon-resale-discount-n.svg">
-                       </div>
-                       <p class="coupon-title">复购折扣券</p>
-                       <div class="coupon-rule">
-                          <p class="label">活动规则</p>
-                          <ul>
-                            <li>客户再次购买你店铺内商品时享受的优惠折扣</li>
-                            <li>该优惠可与【尝鲜折扣券】和【用户体验金】一起使用，优先使用抵扣金</li>
-                            <li>店客户申领之后可享受<span class="hi-contrast-txt">{{ promotion.repurchaseDiscount }}%</span>折扣优惠</li>
-                          </ul>
-                       </div>
-
-
-                       <div class="coupon-info">
-                          <p class="label">活动信息</p>
-                          <ul>
-                            <li>
-                              <span v-if="promotion.repurchaseDiscountTag=='1'">活动进行中</span>
-                              <span v-if="promotion.repurchaseDiscountTag=='2'">活动未开启</span>
-                            </li>
-                            <li>已发放 {{promotion.repurchaseDiscountCnt}} 人次</li>
-                          </ul>
+              </top-search>
+  
+              <div class="filter-item tagsContainer">
+  
+                <div class="dropdown">
+                  <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    状态
+                  </a>
+                
+                  <ul class="dropdown-menu">
+    
+                    <li>
+                      <a class="dropdown-item">
+                        <div class="form-check form-check-reverse">
+                          <label class="form-check-label" for="filterStatus_Item_1">
+                            {{explainOasisCommissionTagV("2")}}
+                          </label>
+                          <input @change="retrieveByStatusV"  v-model="taskList_pagination.param.tag"   value="2" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_Item_1" >
                         </div>
-
-                        <div class="pt-2">
-                          <button @click="showSetupRepurchaseModalV" type="button"  class="btn btn-outline-dark edit-coupon">活动设置</button>
-                         </div>
-
-                    </div>
-
-                  </div>
-
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item">
+                        <div class="form-check form-check-reverse">
+                          <label class="form-check-label" for="filterStatus_Item_2">
+                            {{explainOasisCommissionTagV("4")}}
+                          </label>
+                          <input @change="retrieveByStatusV"  v-model="taskList_pagination.param.tag"   value="4" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_Item_2" >
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item">
+                        <div class="form-check form-check-reverse">
+                          <label class="form-check-label" for="filterStatus_ALL">
+                            全部
+                          </label>
+                          <input @change="retrieveByStatusV"  v-model="taskList_pagination.param.tag"   value="" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_ALL" >
+                        </div>
+                      </a>
+                    </li>
+                   
+                  </ul>
                 </div>
-                <!-- col end -->
-
+  
               </div>
+  
+            </div>
+  
+  
+            <div class="data-tb-container pt-2">
+              <div class="table-responsive">
+                <div class="table-wrp">
+                  <table class="table table-sm table-hover align-middle">
+                    <thead>    
+                      <th class="col-oasis">部落</th>   
+                      <th class="col-task">任务</th>
+                      <th class="col-number">佣金</th>
+                      <th class="col-number">状态</th>
+                      <th class="col-time">接取时间</th>
+                      <th class="col-time">截止日期</th>
+                    </thead>
+                    <tbody>
+                      <tr v-for="task in taskList_pagination.records">
+                        <td :title="task.taskName" class="text-center">
+                          <a :href="'/'+task.oasisHandle" class="tb-url-link">
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                              <img :src="adaptiveImageUriV(task.oasisAvatar) || oasisAvatarDefault" 
+                                 @error="e => { e.target.src = oasisAvatarDefault }"
+                               class="peacemaker-avatar">
+                              <span class="ellipsis-1 ms-1">{{task.oasisName}}</span>
+                            </div>
+                          </a>
+                        </td>
+                        <td :title="task.title">
+                          <a :href="'/'+task.oasisHandle+'/task/' + task.id" class="tb-url-link">
+                            <span class="ellipsis-1">
+                              {{task.title}}
+                            </span>
+                          </a>
+                        </td>
+                        <td :title="task.bonus">
+                          {{task.bonus}}
+                         </td>
+                        <td :title="explainOasisCommissionTagV(task.tag)">{{explainOasisCommissionTagV(task.tag)}}</td>
+                        <td :title="renderDateInChinaV(task.signAt)">{{renderDateInChinaV(task.signAt)}}</td>
+                        <td :title="renderDateInChinaV(task.signAt,task.deliveryCycle)">{{renderDateInChinaV(task.signAt,task.deliveryCycle)}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-show="taskList_pagination.records.length==0" class="empty-content-block">
+    
+                    没有可用的内容！
+        
+                  </div>
+                  <nav v-if="!!taskList_pagination.paging" aria-label="Page navigation">
+                    <ul class="pagination pagination-lg pagination-dark  border-0">
+                      <li class="page-item" @click="pagePre(taskList_pagination)">
+                        <a class="page-link"  aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li class="page-item"  v-for="page in taskList_pagination.paging.items" :class="{'current-page-active': taskList_pagination.paging.current == page}" 
+                            @click="pageGo(taskList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(taskList_pagination)">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+  
+  
+                </div>
+              </div>
+            </div>
 
-            </section>
-              
           </div>
+
           <div class="empty-box"></div>
 
+        
         </main>
         
       </content>
-
       <section class="modals">
-         <!-- set up credit point modal -->
-          <div class="modal-container">
-            <div class="modal fade dcModal" id="setupCreditPointModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content text-color-dark">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="setupCreditPointModalLabel">设置用户体验金</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mt-3">
-                        <label for="input_credit_point" class="form-label">体验金额</label>
-                        <input  @input="transformInputNumberAsPositiveV($event)" v-model="updatePromotionObj.creditPoint" id="input_credit_point"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请输入发给用户的体验抵扣金额">
-                      </div> 
-                      <div class="input-group mt-3">
-                        <label class="input-group-text" for="credit_tag">活动状态</label>
-                        <select v-model="updatePromotionObj.creditPointTag" class="form-select" id="credit_tag">
-                          <option value="1">启用</option>
-                          <option value="2">关闭</option>
-                        </select>
-                      </div>
-                      <button  v-preventreclick :disabled="!validatePromotionSetupV()"  @click="refreshPromotionSetupV"  type="submit" class="btn btn-action-submit mt-5 w-100">更新</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- set early bird  modal -->
-          <div class="modal-container">
-            <div class="modal fade dcModal" id="setupEarlyBirdModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content text-color-dark">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="setupEarlyBirdModalLabel">设置尝鲜折扣券</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mt-3">
-                        <label for="input_early_bird_discount" class="form-label">尝鲜优惠折扣</label>
-                        <input @input="transformInputNumberAsPositiveV($event)"  v-model="updatePromotionObj.earlyBirdDiscount" id="input_early_bird_discount"  min="1" max="99" step="1" type="text" class="form-control" placeholder="请输入发给用户的尝鲜折扣">
-                      </div> 
-                      <div class="input-group mt-3">
-                        <label class="input-group-text" for="early_bird_tag">活动状态</label>
-                        <select  v-model="updatePromotionObj.earlyBirdDiscountTag" class="form-select" id="early_bird_tag">
-                          <option value="1">启用</option>
-                          <option value="2">关闭</option>
-                        </select>
-                      </div>
-                      <button  v-preventreclick :disabled="!validatePromotionSetupV()"    @click="refreshPromotionSetupV"  type="submit" class="btn btn-action-submit mt-5 w-100">更新</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- set repurchase  modal -->
-          <div class="modal-container">
-            <div class="modal fade dcModal" id="setupRepurchaseModal" data-bs-backdrop="static" tabindex="-1">
-              <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content text-color-dark">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="setupRepurchaseModalLabel">设置复购折扣券</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mt-3">
-                        <label for="input_repurchase_discount" class="form-label">复购优惠折扣</label>
-                        <input @input="transformInputNumberAsPositiveV($event)" v-model="updatePromotionObj.repurchaseDiscount" id="input_repurchase_discount"  min="1" max="99" step="1" type="text" class="form-control" placeholder="请输入发给用户复购时使用的折扣">
-                      </div> 
-                      <div class="input-group mt-3">
-                        <label class="input-group-text" for="repurchase_discount_tag">活动状态</label>
-                        <select  v-model="updatePromotionObj.repurchaseDiscountTag" class="form-select" id="repurchase_discount_tag">
-                          <option value="1">启用</option>
-                          <option value="2">关闭</option>
-                        </select>
-                      </div>
-                      <button  v-preventreclick :disabled="!validatePromotionSetupV()"  @click="refreshPromotionSetupV" type="submit" class="btn btn-action-submit mt-5 w-100">更新</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+       
 
       </section>
   </pt-app>
@@ -571,7 +470,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-promotion.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-commission.js"></script>
 
 
 

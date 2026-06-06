@@ -83,6 +83,9 @@ header{
   border-radius: 10px;
   margin-top: 10px;
   position: relative;
+  span{
+    margin-bottom: 12px;
+  }
 }
 
 .Search-Button-Placeholder{
@@ -190,7 +193,7 @@ header{
 .not-found-resource{
   border-radius: 10px;
   padding: 16px;
-  height: 400px;
+  height: 520px;
   display: flex;
   justify-content: center;
   align-items: center;

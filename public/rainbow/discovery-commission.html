@@ -7,14 +7,14 @@
     <meta http-equiv ="content-language" content ="zh-cn">
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>探索部落，寻找社区或者组织</title>
-    <meta name="description" content="来部落，与好基友一起给虚空上色">
+    <title>接取共创任务，分享共创成果～</title>
+    <meta name="description" content="佣金任务受共创协议制约，每一份奉献，都将有收益">
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
 
     <link rel="stylesheet" href="/common/stylesheets/style.scss">
-    <link rel="stylesheet" href="/rainbow/stylesheets/discovery-oasis.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/discovery-commission.scss">
 </head>
 <body class="xxl-hiden-menu">
   <micro-app class="d-flex flex-row" id="app" v-cloak>
@@ -119,7 +119,7 @@
           <h3>探索</h3>
         </div>
         <div class="nav-sub-container mt-3 px-3">
-          <a href="/rainbow/discovery-oasis" class="nav-link nav-link-active p-2">
+          <a href="/rainbow/discovery-oasis" class="nav-link nva-link-default p-2">
             <i class="bi bi-globe-asia-australia"></i>
             <span>探秘部落</span>  
           </a>
@@ -131,7 +131,7 @@
             <i class="bi bi-file-richtext"></i>
             <span>接取商单</span>  
           </a>
-          <a href="/rainbow/discovery-commission" class="nav-link  nva-link-default  p-2">
+          <a href="/rainbow/discovery-commission" class="nav-link  nav-link-active p-2">
             <i class="bi bi-stickies"></i>
             <span>共创任务</span>  
           </a>
@@ -162,11 +162,13 @@
       </div>
     </header>
       <div class="team-banner-container d-flex align-items-center justify-content-center flex-column">
-          <h3>发现有趣的部落</h3>
-          <span>体验多彩生活方式！</span>
+        <div class="starry-background" id="starryBg"></div>
+
+          <h3>共创有价值之物</h3>
+          <span>分享运营成果！</span>
           <top-search class="section-top-serach">
             <div class="search">
-              <input type="text" @keyup.enter.native="retrieveOasisGridV" v-model="oasisgrid_pagination.param.q" class="form-control Search-Button-Placeholder" placeholder="探秘部落...">
+              <input type="text" @keyup.enter.native="retrieveOasisGridV" v-model="taskgrid_pagination.param.q" class="form-control Search-Button-Placeholder" placeholder="任务/部落相关关键词">
               <div class="Search-Icon-Container d-flex align-items-center ms-n5"> 
                 <svg width="20" height="20" class="Search-Icon" viewBox="0 0 20 20">
                   <path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="#616161" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -176,41 +178,151 @@
           </top-search>
       </div>
       <div class="list-title">
-        <h3>特色部落</h3>
+        <h3>委托任务</h3>
       </div>
       <section class="section-team-grid">
-        <div  class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
-          <div v-for="oasis in oasisgrid_pagination.records" class="col">
-            <div class="team-card-container  px-2">
-              <a :href="'/' + oasis.handle" class="text-decoration-none" style="color: unset;">
-    
-              <!-- <img class="card-img-top mt-3" src="/rainbow/images/discovery-oasis-banner.jpg"> -->
-              <img :src="adaptiveImageUriV(oasis.avatar) || defaultOasisPreviewImage" class="card-img-top mt-2" alt="..." @error.once="e => { e.target.src = defaultOasisPreviewImage }">
+        <div  class="task-list-container">
 
-              <div class="card-body">
-                <div class="oasis-title-wrapper">
-                  <h6 class="mt-2">{{oasis.title}}</h6>
-                </div>
-                <div class="oasis-intro-wrapper">
-                  <p class="help-text">{{oasis.subTitle}}</p>
-                </div>
+
+          <div  @click="showAcceptTaskModalV(task)"  v-for="task in taskgrid_pagination.records" class="task-card">
+            <div class="task-head">
+              <div class="task-head-content">
+                  <h3 class="task-title" style="flex: 1; min-width: 0;">{{task.title}}</h3>
+                  <div class="commission text-highlight-danger">¥{{task.bonus}}</div>
               </div>
-              </a>
             </div>
-            
+            <div>
+              <p class="task-description" id="desc1">{{task.sow}}</p>
+            </div>
+            <div class="organization-section">
+              <div class="org-header">
+                <img :src="adaptiveImageUriV(task.oasisAvatar)  || defaultOasisPreviewImage" @error.once="e => { e.target.src = defaultOasisPreviewImage }"
+                  class="org-logo">
+                <div class="org-name">{{task.oasisName}}</div>
+              </div>
+              <div class="org-stats">
+                {{task.oasisMembers}} 成员 · 余额 ¥{{task.oasisBalance}}
+              </div>
+
+            </div>
+            <div class="task-footer">
+              <div class="footer-left">
+                <span class="time-ago">发布于 {{formatTimeV(task.createAt)}}</span>
+                <spa class="time-ago">,</span>
+                <span class="task-ddl">
+                  {{task.deliveryCycle}} 天内交付
+                </span>
+              </div>
+            </div>
           </div>
-          <div v-if="oasisgrid_pagination.records.length==0" class="not-found-resource">
+          
+          <div v-if="taskgrid_pagination.records.length==0" class="not-found-resource">
             <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
             <h4>未找到结果</h4>
             <p>试试搜索别的吧。</p>
           </div>
 
+          <div  v-if="taskgrid_pagination.paging && taskgrid_pagination.paging.items.length>1 " class="pagination-box">
+            <nav aria-label="Page navigation" class="millstone-pagination">
+              <ul class="p-pagination">
+                <li class="page-item" @click="pagePre(taskgrid_pagination)">
+                  <a class="page-link" aria-label="Previous">&lt; 上一页</a>
+                </li>
+                
+                <li v-for="page in taskgrid_pagination.paging.items"
+                    :key="page"
+                    class="page-item" 
+                    :class="{'active': taskgrid_pagination.paging.current == page}"
+                    @click="pageGo(taskgrid_pagination, page)">
+                  <a class="page-link">{{ page }}</a>
+                </li>
+                
+                <li class="page-item" @click="pageNext(taskgrid_pagination)">
+                  <a class="page-link" aria-label="Next">下一页 &gt;</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          
         </div>
       </section>
      
 
 
     </col-content>
+    <section class="modals">
+      <div class="modal fade" id="acceptTaskModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog-top-right">
+          <div class="modal-content  border-0">
+            
+            <div class="modal-header px-4 py-3">
+              <h5 class="modal-title fw-bold fs-6">确认接受任务</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+              
+              <div class="mb-4">
+                <div class="dark-theme-label mb-2">任务名称</div>
+                <h4 style="word-break: break-all;" class="fw-bold fs-5 text-white  m-0">{{viewTaskObj.title}}</h4>
+              </div>
+              
+              <div class="row g-3 mb-4">
+                <div class="col-6">
+                  <div class="dark-theme-card">
+                    <div class="dark-theme-label mb-1">任务佣金</div>
+                    <span class="bonus fw-bold text-highlight-danger">¥ {{viewTaskObj.bonus}}</span>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="dark-theme-card">
+                    <div class="dark-theme-label mb-1">发布时间</div>
+                    <span class="published-time fw-bold text-white d-block mt-1">{{renderDateToDayInChinaV(viewTaskObj.createAt)}}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <div class="dark-theme-label mb-2">发布机构</div>
+                <div class="d-flex align-items-center dark-theme-card">
+                  <img  :src="adaptiveImageUriV(viewTaskObj.oasisAvatar)  || defaultOasisPreviewImage" @error.once="e => { e.target.src = defaultOasisPreviewImage }"
+                       alt="机构头像" 
+                       class="rounded-circle me-3" 
+                       style="width: 40px; height: 40px; object-fit: cover; border: 2px solid #3f4248;">
+                  <div>
+                    <h6  class="mb-0 fw-bold text-white ellipsis-1 small">{{viewTaskObj.oasisName}}</h6>
+                    <small class="text-muted-dark" style="font-size: 11px;">{{viewTaskObj.oasisMembers}} 成员 · 余额 ¥{{viewTaskObj.oasisBalance}}
+                    </small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="dark-theme-label mb-2">任务说明</div>
+                <div class="d-flex align-items-center dark-theme-card">
+                 <p style="word-break: break-all; white-space: pre-wrap;">{{viewTaskObj.sow}}</p>
+                </div>
+              </div>
+              
+              <div class="d-flex align-items-start mb-0 p-3 rounded-2" style="background-color: #1e1f22; border-left: 4px solid #f0b232;">
+                <i class="bi bi-exclamation-triangle-fill me-2 mt-0.5" style="color: #f0b232;"></i>
+                <div style="font-size: 13px; line-height: 1.5;">
+                  <strong class="d-block mb-1 text-white" style="font-weight: 600;">温馨提示</strong>
+                  <span class="text-muted-dark">获取的佣金可前往发布任务的部落，通过【每日收账】兑现。注意，委托任务功能主要用于鼓励参与共创活动的用户一起打造、运营与奉献产品，共同分享运营成果，如果部落商业化失败，可能会导致您无法兑现在相应部落的佣金。委托任务受共创协议保护，社群运营方在存续期间，在班蔚平台或外部取得的任何形式的收益均优先偿还共创者的奉献。</span>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="modal-footer border-0 d-flex align-items-center justify-content-between">
+              <button type="button" class="btn btn-action-secondary px-4 py-2 small" data-bs-dismiss="modal">取消</button>
+              <button  v-preventreclick @click="receiveCommissionV(viewTaskObj.id)" type="button" class="btn btn-action-primary px-4 py-2 rounded-1 fw-semibold small">确认接受</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
   </micro-app>
   <section class="feedback_offcanvas" id="section_feedback_offcanvas">
 
@@ -247,7 +359,42 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/rainbow/javascripts/discovery-oasis.js"></script>
+  <script type="module" src="/rainbow/javascripts/discovery-commission.js"></script>
+  <script>
+    // 生成星空
+    function generateStars() {
+            const container = document.getElementById('starryBg');
+            const starCount = 100;
+            const colors = ['#ffffff', '#e0f2ff', '#ddd6fe', '#fce7f3'];
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                const size = Math.random() * 2 + 1;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * 3;
+                const duration = Math.random() * 2 + 2;
+
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = left + '%';
+                star.style.top = top + '%';
+                star.style.backgroundColor = color;
+                star.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + color;
+                star.style.animationDelay = delay + 's';
+                star.style.animationDuration = duration + 's';
+
+                container.appendChild(star);
+            }
+        }
+          // 页面加载完成后生成星空
+          document.addEventListener('DOMContentLoaded', function() {
+            generateStars();
+        });
+</script>
 
 
 </body>

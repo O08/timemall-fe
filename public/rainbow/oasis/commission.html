@@ -406,13 +406,21 @@
               </div>
               <div class="form-group">
                 <label class="form-label">
-                  <span>佣金</span>
+                  <span>佣金（元）</span>
                 </label>
                 <div class="bonus-input-wrapper">
-                  <span class="bonus-prefix">¥</span>
                   <input type="text" @input="transformInputNumberV($event)" v-model="commissionForm.bonus" min="1" max="50000" class="form-input bonus-input">
                 </div>
                 <div class="form-hint">建议设置合理的佣金以吸引优质服务商</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  <span>交付周期（天）</span>
+                </label>
+                <div class="bonus-input-wrapper">
+                  <input type="text" @input="transformInputNumberV($event)" v-model="commissionForm.deliveryCycle" min="1" max="30" class="form-input bonus-input">
+                </div>
+                <div class="form-hint">设置服务商接取任务后需在指定的时间内完成交付</div>
               </div>
               <div class="form-group">
                 <label class="form-label">
@@ -462,6 +470,10 @@
                   <span class="info-label">佣金</span>
                   <span class="info-value bonus">¥{{auditingCommission.bonus}}</span>
                 </div>
+                <div class="info-row">
+                  <span class="info-label">交付周期</span>
+                  <span class="info-value bonus">{{auditingCommission.deliveryCycle}} 天</span>
+                </div>
                 <div class="info-row vertical">
                   <span class="info-label">摘要</span>
                   <div class="info-value sow">{{auditingCommission.sow}}</div>
@@ -506,6 +518,10 @@
                 <div class="info-row">
                   <span class="info-label">佣金</span>
                   <span class="info-value bonus">¥{{viewCommission.bonus}}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">交付周期</span>
+                  <span class="info-value bonus">{{viewCommission.deliveryCycle}} 天</span>
                 </div>
                 <div class="info-row vertical">
                   <span class="info-label">摘要</span>

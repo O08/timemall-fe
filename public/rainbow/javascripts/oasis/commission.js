@@ -43,12 +43,14 @@ const RootComponent = {
             commissionForm: {
               title: "",
               bonus: "",
-              sow: ""
+              sow: "",
+              deliveryCycle: ""
             },
             auditingCommission: {
                 title: "",
                 bonus: "",
                 sow: "",
+                deliveryCycle: "",
                 id: ""
             },
             editingCommission: {
@@ -61,6 +63,7 @@ const RootComponent = {
                 title: "",
                 bonus: "",
                 sow: "",
+                deliveryCycle: "",
                 id: ""
             },
             commissionTb_pagination: {
@@ -202,7 +205,8 @@ const RootComponent = {
             this.commissionForm={
                 title: "",
                 bonus: "",
-                sow: ""
+                sow: "",
+                deliveryCycle: ""
             };
         },
         openAuditTaskModalV(record){
@@ -210,6 +214,7 @@ const RootComponent = {
                 title: record.title,
                 bonus: record.bonus,
                 sow: record.sow,
+                deliveryCycle: record.deliveryCycle,
                 id: record.id
             };
 
@@ -247,6 +252,7 @@ const RootComponent = {
                 title: record.title,
                 bonus: record.bonus,
                 sow: record.sow,
+                deliveryCycle: record.deliveryCycle,
                 id: record.id
             };
 
@@ -257,12 +263,13 @@ const RootComponent = {
                 title: "",
                 bonus: "",
                 sow: "",
+                deliveryCycle: "",
                 id: ""
             };
             $("#acceptTaskModal").modal("hide");
         },
         validitateCommissionFormV(){
-            if(!!this.commissionForm.title && !!this.commissionForm.bonus && !!this.commissionForm.sow){
+            if(!!this.commissionForm.title && !!this.commissionForm.bonus && !!this.commissionForm.sow && !!this.commissionForm.deliveryCycle ){
                 return true;
             }
             return false;
@@ -365,7 +372,8 @@ function addCommission(){
         oasisId: teamCommission.oasisId,
         title: teamCommission.commissionForm.title,
         bonus: teamCommission.commissionForm.bonus,
-        sow: teamCommission.commissionForm.sow
+        sow: teamCommission.commissionForm.sow,
+        deliveryCycle: teamCommission.commissionForm.deliveryCycle
     }
     return newCommission(dto);
 }

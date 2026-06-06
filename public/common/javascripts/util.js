@@ -226,9 +226,17 @@ const formatter = new Intl.DateTimeFormat('zh-CN', {
     hour: '2-digit', minute: '2-digit', hour12: false
 });
 
-export function renderDateInChina(dateStr) {
+export function renderDateInChina(dateStr, daysOffset = 0) {
     if (!dateStr) return "";
-    return formatter.format(new Date(dateStr));
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return ""; 
+
+    const offset = parseInt(daysOffset, 10);
+
+    if (!isNaN(offset) && offset !== 0) {
+        date.setDate(date.getDate() + offset);
+    }
+    return formatter.format(date);
 }
 export function renderDateToDayInChina(dateStr){
     if(!dateStr){

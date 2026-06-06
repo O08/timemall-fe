@@ -130,6 +130,10 @@
             <i class="bi bi-file-richtext"></i>
             <span>接取商单</span>  
           </a>
+          <a href="/rainbow/discovery-commission" class="nav-link  nva-link-default  p-2">
+            <i class="bi bi-stickies"></i>
+            <span>共创任务</span>  
+          </a>
         </div>
       </col-nav-sub>
       </div>
@@ -173,7 +177,7 @@
       <div class="list-title">
         <h3>待接商单</h3>
       </div>
-      <section class="section-team-grid pb-5">
+      <section class="section-team-grid">
         <div  class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-3">
           <div v-for="paper in papergrid_pagination.records" class="col">
             <div v-preventreclick class="team-card-container px-3 pb-1" @click="showCommericalOrderPreviewModalV(paper.id)">
