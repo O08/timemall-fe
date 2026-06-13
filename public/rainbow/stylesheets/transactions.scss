@@ -1,5 +1,9 @@
 .distribution-container {
     overflow-x: scroll;
+    scrollbar-width: none;
+    &::-webkit-scrollbar{
+      display: none
+    };
 }
 .btn-go-back{
     height: 45px;
