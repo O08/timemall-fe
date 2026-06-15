@@ -29,20 +29,92 @@ const backgroundArr = [
   "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466"
 ];
 
+// 自定义图片工具
+const linkImageIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi ql-fill bi-image" viewBox="0 0 16 16">
+<path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+<path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
+</svg>`;
+
+const ImageFormat = Quill.import('formats/image');
+
+class CustomInlineStyleImage extends ImageFormat {
+  static create(value) {
+    const node = super.create(value);
+
+
+    node.setAttribute('alt','paper image');
+    node.setAttribute('style', 'display:block; max-width:100%; height:auto; margin:1.2rem auto 1.2rem 0; border-radius:6px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.06));');
+
+    const absoluteSafePlaceholder = 'data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22180%22%3E%3Crect%20width%3D%22300%22%20height%3D%22180%22%20fill%3D%22rgba%28128%2C128%2C128%2C0.08%29%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2214%22%20fill%3D%22%23888888%22%3E%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5%3C%2Ftext%3E%3C%2Fsvg%3E';
+    node.setAttribute('onerror', `this.onerror=null; this.src='${absoluteSafePlaceholder}'; this.style.maxWidth='200px'; this.style.opacity='0.6';`);
+    return node;
+  }
+}
+Quill.register(CustomInlineStyleImage, true);
+
+// 自定义嵌入视频工具
+const embedVideoIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi ql-fill bi-film" viewBox="0 0 16 16">
+<path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z"/>
+</svg>`;
+
+const BlockEmbed = Quill.import('blots/block/embed');
+
+class EmbedVideoBlot extends BlockEmbed {
+  static create(value) {
+    const div = document.createElement('div');
+    div.innerHTML = value.trim();
+    const iframeNode = div.querySelector('iframe');
+    
+    // 默认兜底样式（16:9 横屏）
+    let finalStyle = 'display:block; max-width:100%; width:100%; aspect-ratio:16/9; margin:1.5rem auto; border-radius:8px; background-color:#000; border:none;';
+
+    if (iframeNode) {
+      // 核心智能化逻辑：提取原始代码中的 width 和 height 数值
+      const rawWidth = parseInt(iframeNode.getAttribute('width'));
+      const rawHeight = parseInt(iframeNode.getAttribute('height'));
+
+      // 如果成功提取到了宽高数值，且高度大于宽度，则铁证如山：这是一条 9:16 的竖屏视频
+      if (!isNaN(rawWidth) && !isNaN(rawHeight) && rawHeight > rawWidth) {
+        // 为竖屏视频量身定制样式：
+        // 强制比例设为 9/16
+        // 必须限制它的最大宽度（推荐 340px 左右），否则竖屏视频铺满 100% 屏幕宽度会占据好几屏高度，严重撑破网页！
+        finalStyle = 'display:block; max-width:340px; width:100%; aspect-ratio:9/16; margin:1.5rem auto; border-radius:8px; background-color:#000; border:none;';
+      }
+
+      // 注入计算后的最优样式
+      iframeNode.setAttribute('style', finalStyle);
+      
+      return iframeNode;
+    } else {
+      // 直连降级兜底
+      const fallback = document.createElement('iframe');
+      fallback.setAttribute('src', value);
+      fallback.setAttribute('style', finalStyle);
+      fallback.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-forms');
+      return fallback;
+    }
+  }
+
+  static html(node) { return node.outerHTML; }
+  static value(node) { return node.outerHTML; }
+}
+
+
+EmbedVideoBlot.blotName = 'embed-video';
+EmbedVideoBlot.tagName = 'iframe';
+
+Quill.register(EmbedVideoBlot, true);
+
 var Size = Quill.import('attributors/style/size');
 Size.whitelist = fontSizeArr;
 Quill.register(Size, true);
 
 
 const toolbarOptions = [
-  [{ 'size': fontSizeArr }],  // custom dropdown
-  [{ 'color': [] }, { 'background': backgroundArr }],          // dropdown with defaults from theme
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  [{ 'align': [] }],
-  ['blockquote', 'code-block'],
-  ['link'],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'size': fontSizeArr }],  
+  [{ 'color': [] }, { 'background': backgroundArr },{ 'align': [] },'bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block','link','text-to-image','text-to-video'],
+  [{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
   ['clean']                                         // remove formatting button
 ];
 
@@ -310,12 +382,114 @@ const RootComponent = {
       },
     },
     mounted(){
-        quill=new Quill('#editor', {
-            modules: {
-                toolbar: toolbarOptions
-            },
-            theme: 'snow'
+        quill = new Quill('#editor', {
+          modules: {
+            toolbar: toolbarOptions 
+          },
+          theme: 'snow'
         });
+
+        // 获取当前编辑器容器组件范围
+        const editorContainer = document.querySelector('#editor').parentElement;
+
+        // ====================================================
+        // 【选中文本转图片】按钮逻辑
+        // ====================================================
+        const imgBtn = editorContainer.querySelector('.ql-text-to-image');
+        if (imgBtn) {
+          // 注入自定义图片图标
+          imgBtn.innerHTML = linkImageIcon;
+          imgBtn.setAttribute('title', '将选中文本转换为图片链接插入');
+
+          imgBtn.addEventListener('click', () => {
+            // 传入 true，在点击按钮失去焦点时，强制夺回最后高亮的文本范围
+            const range = quill.getSelection(true);
+
+            if (!range || range.length === 0) {
+              customAlert.alert('请先在编辑器中选中一段图片 URL 链接文本！');
+              return;
+            }
+
+            // 提取选中的明文地址
+            const selectedText = quill.getText(range.index, range.length).trim();
+
+            if (!selectedText.startsWith('http://') && !selectedText.startsWith('https://')) {
+              customAlert.alert('链接识别失败，请确保选中内容以 http:// 或 https:// 开头');
+              return;
+            }
+
+            // 执行原地替换操作
+            quill.deleteText(range.index, range.length);          //  擦除纯文本网址
+            quill.insertEmbed(range.index, 'image', selectedText); //  插入带样式和onerror防护的图片
+            quill.setSelection(range.index + 1);                  // 光标后移
+          });
+        }
+
+        // ====================================================
+        // 【选中 iframe 转视频组件】按钮逻辑
+        // ====================================================
+        const videoBtn = editorContainer.querySelector('.ql-text-to-video');
+        if (videoBtn) {
+          // 注入自定义视频相机图标
+          videoBtn.innerHTML = embedVideoIcon;
+          videoBtn.setAttribute('title', '将选中的 iframe 代码转换为嵌入式视频组件');
+
+          videoBtn.addEventListener('click', () => {
+            // 同样强制拉回高亮文本焦点
+            const range = quill.getSelection(true);
+
+            if (!range || range.length === 0) {
+              customAlert.alert('请先在编辑器中选中一整段 <iframe>...</iframe> 代码文本！');
+              return;
+            }
+
+            // 直接抓取用户高亮选中的纯文本 HTML 代码
+            const selectedHtmlCodeRaw = quill.getText(range.index, range.length).trim();
+            if (!selectedHtmlCodeRaw.startsWith('<iframe') || !selectedHtmlCodeRaw.endsWith('</iframe>')) {
+              customAlert.alert('识别失败，请输入完整的视频嵌入代码（必须以 <iframe 开头，以 </iframe> 结尾）！');
+              return;
+            }
+
+            // 利用正则安全、精确地抠出 src 属性里面的纯网址（兼容单引号、双引号、无协议头等所有复杂格式）
+            const srcMatch = selectedHtmlCodeRaw.match(/src=["']([^"']+)["']/i);
+            if (!srcMatch || !srcMatch[1]) {
+              customAlert.alert('【安全拦截】无法解析该代码中的 src 视频播放源地址！');
+              return;
+            }
+
+            // 拿到干净的、没有任何 HTML 标签干扰的 URL 字符串
+            let videoUrl = srcMatch[1].trim();
+            let finalHtmlCode = selectedHtmlCodeRaw;
+
+            // 只针对提取出的 URL 变量进行协议补齐，并安全回填，绝对不破坏原本 iframe 的内部属性（如 scrolling 等）
+            if (videoUrl.startsWith('//')) {
+              videoUrl = 'https:' + videoUrl;
+              // 使用正则捕获组 $1 优雅安全地将 https: 塞回 HTML 中
+              finalHtmlCode = selectedHtmlCodeRaw.replace(/src=["']\/\/([^"']+)["']/i, `src="https://$1"`);
+            }
+
+            // 精简、精准的官方视频播放专用“二级域名”白名单，去掉干扰的 :// 前缀，完美兼容 www. 和 v. 等子域名
+            const trustedDomains = [
+              'player.bilibili.com',
+              'www.youtube.com',
+              'www.youtube-nocookie.com',
+              'v.qq.com',
+              'player.youku.com'
+            ];
+
+            // 正向判定检查——核对解析出的真实视频网址中，是否包含了白名单里的合规域名
+            const isTrusted = trustedDomains.some(domain => videoUrl.includes(domain));
+
+            if (!isTrusted) {
+              customAlert.alert('【安全拦截】系统检测到该代码指向未授权的外部视频服务器！支持视频平台：Bilibili、优酷、腾讯视频、Youtube。');
+              return;
+            }
+
+            quill.deleteText(range.index, range.length);                 // 抹除选中的大段文本
+            quill.insertEmbed(range.index, 'embed-video', finalHtmlCode); // 将清洗完美的 finalHtmlCode 插入为组件
+            quill.setSelection(range.index + 1);                         // 光标后移
+          });
+        }
     },
     updated(){
         

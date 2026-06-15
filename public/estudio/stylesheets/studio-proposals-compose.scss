@@ -2,7 +2,9 @@ pt-app content main{
     padding: 0;
 }
 .box-bg-primary{
-    background-color: #1f1f1f;
+    background: linear-gradient(to bottom right, #171717, #171717cc);
+    border: none;
+    box-shadow: 0 25px 50px -12px #00000040;
 }
 header{
     border-bottom: 1px solid #fff3;

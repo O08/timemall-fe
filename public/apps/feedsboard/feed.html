@@ -35,64 +35,74 @@
           <span v-show="historyFeed.highlight=='1'" class="signals-icon"><i class="bi bi-stars highlight"></i></span>
         </div>
 
-      
-        <div   class="dropdown-center">
-          <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="dropdown">
+          <button class="btn feed-menu__trigger" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="More actions">
             <i class="bi bi-three-dots"></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-dark">
-
-            <div class="feed-actions">
-
+          
+          <ul class="dropdown-menu dropdown-menu-dark feed-menu__dropdown p-1 shadow-sm">
             
-  
-              <div class="w-100" v-if="isChannelAdminRoleV() || isFeedAuthorRoleV()">
-                <div class="del_post">
-                  <button v-preventreclick @click="showDeleteFocusModalV" class="btn-del_post"><i class="bi bi-trash me-1"></i> 删除帖子</button>
-                </div>
-              </div>
-      
-              <div  v-if="isFeedAuthorRoleV()" class="author-menu-only">
-                <div class="del_post">
-                  <button v-preventreclick @click="showEditFeedModalV" class="btn-del_post"><i class="bi bi-pencil me-1"></i> 编辑帖子</button>
-                </div>
-                <div class="del_post">
-                  <button v-preventreclick @click="manageCommentFeatureV"  class="btn-del_post"><i class="bi bi-chat-left-text me-1"></i> {{ historyFeed.commentTag=="0" ? "开放评论" : "关闭评论"}} </button>
-                </div>
-                <div class="del_post">
-                  <button :class="{'loading': btn_ctl.material_uploading}" type="button" class="btn-del_post btn-file-upload">
-                    <div class="btn-file-upload-wrp"><i class="bi bi-file-arrow-up me-1"></i> 添加附件 <input id="feed_attachment_file" @change="uploadAttachmentV" tabindex="-1" class="file-input" type="file"  multiple=""  style="opacity: 0; cursor: pointer; width: 100%; height: 100%; font-size: 0px; position: absolute; top: 0px; left: 0px;"></div>
-                    <div class="loading-content">
-                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                      <span role="status">正在上传...</span>
-                    </div>
-                  </button>
-                </div>
-              </div>
-      
-              <div v-if="isChannelAdminRoleV()" class="admin-menu-only">
-                <div class="del_post">
-                  <button v-preventreclick @click="highlightFeedV" class="btn-del_post"><i class="bi bi-stars me-1"></i> {{ historyFeed.highlight=="0" ? "内容加精" : "取消加精"}}</button>
-                </div>
-                <div class="del_post">
-                  <button v-preventreclick @click="pinFeedV" class="btn-del_post"><i class="bi bi-pin-angle me-1"></i> {{ historyFeed.pin=="0" ? "内容置顶" : "取消置顶"}}</button>
-                </div>
-              </div>
-
-              <div class="commmon-user w-100">
-                <div class="del_post">
-                  <button v-preventreclick @click="copyPostUrlV" class="btn-del_post"><i class="bi bi-copy me-1"></i> 复制链接</button>
-                </div>
-                <div class="del_post">
-                  <button v-preventreclick @click="refreshPageV"  class="btn-del_post"><i class="bi bi-arrow-clockwise me-1"></i> 刷新</button>
-                </div>
-              </div>
-      
-      
-            </div>
-            
+            <li v-if="isChannelAdminRoleV() || isFeedAuthorRoleV()">
+              <button v-preventreclick @click="showDeleteFocusModalV" class="dropdown-item feed-menu__item  d-flex align-items-center">
+                <i class="bi bi-trash me-2"></i> 删除帖子
+              </button>
+            </li>
+        
+            <!-- 动态分割线 -->
+            <li v-if="isChannelAdminRoleV() || isFeedAuthorRoleV()"><hr class="dropdown-divider my-1 opacity-25"></li>
+        
+            <!-- 2. 作者内容治理区 -->
+            <template v-if="isFeedAuthorRoleV()">
+              <li>
+                <button v-preventreclick @click="showEditFeedModalV" class="dropdown-item feed-menu__item d-flex align-items-center">
+                  <i class="bi bi-pencil me-2"></i> 编辑帖子
+                </button>
+              </li>
+              <li>
+                <button v-preventreclick @click="manageCommentFeatureV" class="dropdown-item feed-menu__item d-flex align-items-center">
+                  <i class="bi bi-chat-left-text me-2"></i> {{ historyFeed.commentTag == "0" ? "开放评论" : "关闭评论" }}
+                </button>
+              </li>
+              <!-- 上传附件：运用 position-relative 规范覆盖隐式 Input -->
+              <li class="position-relative">
+                <button :class="{'feed-menu__item--loading': btn_ctl.material_uploading}" type="button" class="dropdown-item feed-menu__item feed-menu__item--upload d-flex align-items-center">
+                  <i class="bi bi-file-arrow-up me-2"></i> 添加附件
+                  <input id="feed_attachment_file" @change="uploadAttachmentV" tabindex="-1" class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer" type="file" multiple>
+                </button>
+              </li>
+              <li><hr class="dropdown-divider my-1 opacity-25"></li>
+            </template>
+        
+            <!-- 管理员评级控制区 -->
+            <template v-if="isChannelAdminRoleV()">
+              <li>
+                <button v-preventreclick @click="highlightFeedV" class="dropdown-item feed-menu__item d-flex align-items-center">
+                  <i class="bi bi-stars me-2"></i> {{ historyFeed.highlight == "0" ? "内容加精" : "取消加精" }}
+                </button>
+              </li>
+              <li>
+                <button v-preventreclick @click="pinFeedV" class="dropdown-item feed-menu__item d-flex align-items-center">
+                  <i class="bi bi-pin-angle me-2"></i> {{ historyFeed.pin == "0" ? "内容置顶" : "取消置顶" }}
+                </button>
+              </li>
+              <li><hr class="dropdown-divider my-1 opacity-25"></li>
+            </template>
+        
+            <!-- 全局通用操作区 -->
+            <li>
+              <button v-preventreclick @click="copyPostUrlV" class="dropdown-item feed-menu__item d-flex align-items-center">
+                <i class="bi bi-copy me-2"></i> 复制链接
+              </button>
+            </li>
+            <li>
+              <button v-preventreclick @click="refreshPageV" class="dropdown-item feed-menu__item d-flex align-items-center">
+                <i class="bi bi-arrow-clockwise me-2"></i> 刷新
+              </button>
+            </li>
+        
           </ul>
         </div>
+        
 
   
         
