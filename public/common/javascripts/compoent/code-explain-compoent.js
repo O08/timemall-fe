@@ -1,5 +1,6 @@
 import {
     SupplierLevelEnum,SupplierStatusEnum,
+    AppMeetrEventStatusEnum,AppMeetrEventTypeEnum,AppMeetrDurationTypeEnum,AppMeetrEventCategoryEnum,
     OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag
 } from "/common/javascripts/tm-constant.js";
 
@@ -71,6 +72,18 @@ const CodeExplainComponent = {
     },
     explainSupplierStatusV(status){
       return explainSupplierStatus(status);
+    },
+    explainAppMeetrEventStatusEnumV(status){
+        return explainAppMeetrEventStatusEnum(status);
+    },
+    explainAppMeetrDurationTypeEnumV(durationType){
+        return explainAppMeetrDurationTypeEnum(durationType);
+    },
+    explainAppMeetrEventTypeEnumV(eventType){
+        return explainAppMeetrEventTypeEnum(eventType);
+    },
+    explainAppMeetrEventCategoryEnumV(category){
+        return explainAppMeetrEventCategoryEnum(category);
     }
    }
 }
@@ -592,6 +605,112 @@ function explainSupplierLevel(level){
   return levelDesc;
 
 }
+
+function explainAppMeetrEventStatusEnum(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case AppMeetrEventStatusEnum.PREPARING:
+            statusDesc="筹办中";
+            break; 
+        case AppMeetrEventStatusEnum.CANCELLED:
+            statusDesc="已取消";
+            break; 
+    }
+    return statusDesc;
+}
+
+function explainAppMeetrEventTypeEnum(eventType){
+    var eventTypeDesc = "未知";
+    switch(eventType){
+
+        case AppMeetrEventTypeEnum.ONLINE:
+            eventTypeDesc="线上";
+            break; 
+        case AppMeetrEventTypeEnum.OFFLINE:
+            eventTypeDesc="线下";
+            break; 
+        case AppMeetrEventTypeEnum.HYBRID:
+            eventTypeDesc="混合";
+            break;     
+    }
+    return eventTypeDesc;
+}
+
+function explainAppMeetrDurationTypeEnum(durationType){
+    var durationTypeDesc = "未知";
+    switch(durationType){
+
+        case AppMeetrDurationTypeEnum.MINUTES:
+            durationTypeDesc="分钟";
+            break; 
+        case AppMeetrDurationTypeEnum.HOURS:
+            durationTypeDesc="小时";
+            break; 
+        case AppMeetrDurationTypeEnum.DAYS:
+            durationTypeDesc="天";
+            break; 
+        case AppMeetrDurationTypeEnum.WEEKS:
+            durationTypeDesc="周";
+            break; 
+        case AppMeetrDurationTypeEnum.MONTHS:
+            durationTypeDesc="月";
+  
+    }
+    return durationTypeDesc;
+}
+
+function explainAppMeetrEventCategoryEnum(category){
+    var categoryDesc = "未知";
+    switch(category){
+
+        case AppMeetrEventCategoryEnum.TECHNOLOGY:
+            categoryDesc="科技";
+            break; 
+        case AppMeetrEventCategoryEnum.SOCIAL_ACTIVITY:
+            categoryDesc="社交聚会";
+            break; 
+        case AppMeetrEventCategoryEnum.HOBBIES_PASSIONS:
+            categoryDesc="兴趣爱好";
+            break; 
+        case AppMeetrEventCategoryEnum.SPORTS_FITNESS:
+            categoryDesc="运动健身";
+            break; 
+        case AppMeetrEventCategoryEnum.TRAVEL_OUTDOOR:
+            categoryDesc="旅游户外";
+        case AppMeetrEventCategoryEnum.CAREER_BUSINESS:
+            categoryDesc="商业";
+            break; 
+        case AppMeetrEventCategoryEnum.GAMES:
+            categoryDesc="游戏";
+            break; 
+        case AppMeetrEventCategoryEnum.DANCING:
+            categoryDesc="舞蹈";
+            break; 
+        case AppMeetrEventCategoryEnum.MUSIC:
+            categoryDesc="音乐";
+            break; 
+        case AppMeetrEventCategoryEnum.HEALTH_WELLBEING:
+            categoryDesc="健康养生";   
+        case AppMeetrEventCategoryEnum.ART_CULTURE:
+            categoryDesc="文化艺术";
+            break; 
+        case AppMeetrEventCategoryEnum.SCIENCE_EDUCATION:
+            categoryDesc="教育";
+            break; 
+        case AppMeetrEventCategoryEnum.PETS_ANIMALS:
+            categoryDesc="萌宠";
+            break; 
+        case AppMeetrEventCategoryEnum.WRITING:
+            categoryDesc="写作";
+            break; 
+        case AppMeetrEventCategoryEnum.PARENTS_FAMILY:
+            categoryDesc="亲子家庭";     
+  
+    }
+    return categoryDesc;
+}
+
 
 export {
     CodeExplainComponent

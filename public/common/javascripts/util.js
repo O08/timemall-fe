@@ -43,6 +43,11 @@ export function parseIpLocationCityInfo(cityInfo){
 }
 
 export function  transformInputNumberAsPositive(e){
+    if (e.target.value === '') {
+        e.target.value = '';
+        return;
+    }
+
     var val = Number(e.target.value.replace(/^(0+)|[^\d]+/g,''));// type int
     var min = Number(e.target.min);
     var max = Number(e.target.max);

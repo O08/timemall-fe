@@ -1,6 +1,6 @@
 col-content {
   overflow-y: scroll;
-  height: 100vh;
+  height: 100dvh;
 }
 .back-link-box{
   height: 5rem;
@@ -34,7 +34,7 @@ col-content {
   }
   col-content{
     background-color: #1A1A1A;
-    height: 100vh;
+    height: 100dvh;
     width: calc(100% - 240px);
   }
 }
@@ -46,7 +46,7 @@ col-content {
   }
   .xxl-hiden-menu col-content{
     height: 100%;
-    min-height: 100vh;
+    min-height: 100dvh;
     overflow-y: unset;
     overflow-x: unset;
     scrollbar-width: none;

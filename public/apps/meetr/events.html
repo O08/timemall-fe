@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
+
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>参与有趣的活动、派对~ | Meetr</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/meetr/stylesheets/events.scss">
+
+</head>
+<body>
+  <micro-app id="app" v-cloak>
+    <div class="app-container"  :class="{'sandbox': sandbox=='1' }">
+        <main>
+
+          <div id="nav-searchform" >
+              <div class="nav-search-btn">
+                <i class="bi bi-search"></i>
+              </div>
+              <div class="nav-search-content">
+                <input  v-model="feedList_pagination.param.q" @keyup.enter.native="retrieveFeedListV" class="nav-search-input" type="text" autocomplete="off"  maxlength="100"
+                  x-webkit-speech="" x-webkit-grammar="builtin:translate"  placeholder="活动｜派对｜沙龙..." >
+              </div>
+              <div class="btn-wrp">
+                <button type="button" v-if="memberCanPost || isChannelAdminV()" v-preventreclick @click="showNewEventModalV" class="btn-tm-primary">
+                  <div class="btn-content">
+                    <i class="bi bi-file-earmark-plus"></i> 
+                    <span class="btn-content-text ms-1">
+                      我要发布
+                    </span>
+                  </div>
+                </button>
+                <button type="button" v-else v-preventreclick @click="retrieveFeedListV" class="btn-tm-primary">
+                  <div class="btn-content">
+                      搜索
+                  </div>
+                </button>
+              </div>
+          </div>
+
+          <div class="tagsContainer">
+
+            <div class="dropdown">
+              <a class="btn-dropdown dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-arrow-down-up me-1"></i>排序
+              </a>
+            
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item groupLabel">            
+                    排序
+                  </a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortCreateTime">
+                        发布日期
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"   value="1" class="form-check-input" name="sortRadios" type="radio"  id="sortCreateTime" >
+                    </div>
+                  </a>
+                </li>
+  
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortHot">
+                        活动热度
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"  value="2" class="form-check-input" name="sortRadios" type="radio"  id="sortHot" >
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item">
+                    <div class="form-check form-check-reverse">
+                      <label class="form-check-label" for="sortPirceDesc">
+                        费用降序
+                      </label>
+                      <input @change="sortFeedListV"  v-model="feedList_pagination.param.sort"   value="3" class="form-check-input" name="sortRadios" type="radio"  id="sortPirceDesc" >
+                    </div>
+                  </a>
+                </li>
+
+                
+  
+              </ul>
+            </div>
+
+            <div class="vertical-line"></div>
+
+            <div class="genre-list-box">
+
+              <div class="genre-list">
+                <div  v-preventreclick @click="filterFeedListV('')"  class="genre-item"
+                :class="{'active': !feedList_pagination.param.category }">
+                  全部活动
+                </div>
+                <div  v-for="genre in genres"  v-preventreclick @click="filterFeedListV(genre.category)"   class="genre-item"
+                :class="{'active': genre.category==feedList_pagination.param.category }">
+                  {{genre.genreName}}
+                </div>
+              </div>
+
+            </div>
+
+            <div v-if="genres.length>0" class="dropdown">
+
+              <a class="btn-dropdown  dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                全部
+              </a>
+
+              <div class="dropdown-menu">
+               <div class="genre-list-menu">
+
+                <div  v-for="genre in genres"  v-preventreclick @click="filterFeedListV(genre.category)"   class="genre-item"
+                :class="{'active': genre.category==feedList_pagination.param.category }">
+                  {{genre.genreName}}
+                </div>
+
+               </div>
+              </div>
+
+            </div>
+
+           
+
+            
+  
+          </div>
+
+          <div class="content-container" style="padding-bottom: 160px;">
+
+            <!-- grid start -->
+            <div  class="row  gx-3 gy-4 row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3 row-cols-xxl-4" >
+
+              <div  v-for="card in feedArr" class="col-12 col-sm-6 col-lg-4">
+                <div  class="activity-card">
+                  <div v-preventreclick @click="showEventDetailModalV(card.id)" class="card-img-wrap">
+                    <img
+                      :src="adaptiveImageUriV(card.thumbnail)"
+                      alt="活动主图" loading="lazy">
+                    <div class="card-img-gradient"></div>
+
+                    <span v-if="Number(card.budget)>0" class="badge-price paid">{{ "¥"+card.budget}}</span>
+                  </div>
+                  <div class="card-body-inner">
+                    <div :title="card.title" v-preventreclick @click="showEventDetailModalV(card.id)" class="card-title ellipsis-1">{{card.title}}</div>
+                    <div class="card-meta">
+                      <div class="card-meta-row"><i class="bi bi-calendar3"></i><span>{{formatEventDateV(card.activityStartAt)}}</span></div>
+                      <div class="card-meta-row"><i class="bi bi-geo-alt"></i><span :title="card.location" class="ellipsis-1">{{card.location}}</span></div>
+                    </div>
+                    <div class="card-divider"></div>
+                    <div class="organizer-row">
+                      <div class="organizer-info">
+                        <img class="organizer-avatar"
+                        :src="adaptiveImageUriV(card.hostedBrandAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+                          alt="活动主持">
+                        <span class="organizer-name">{{card.hostedBrandName}}</span>
+                      </div>
+                      <div v-if="card.attendees>0" class="reg-count">
+                        <span class="num">{{formatCmpctNumberV(card.attendees)}}</span>
+                        <span>人预约</span>
+                      </div>
+                    </div>
+                    <div class="seats-section">
+                      <div class="seats-header">
+                        <span class="seats-label"><i class="bi bi-ticket-perforated"></i>剩余席位</span>
+                        <span class="seats-count">{{card.maxSeats==0 ? '不限' : ''}}</span>
+                      </div>
+                      <div :style="{ '--progress': calcRawPercentV(card.attendees, card.maxSeats) }" class="seats-row">
+                        <div class="seats-track-wrap">
+                          <div class="seats-track">
+                            <div class="seats-fill normal"></div>
+                          </div>
+                        </div>
+                        <span class="seats-num normal">{{card.maxSeats==0 ? '∞' : Number(card.maxSeats)-Number(card.attendees)}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          <!-- grid end -->
+
+            <div  v-show="feedList_pagination.pages > feedList_pagination.current"  class="show-more-row">
+              <button v-preventreclick @click="showMoreV" type="button" class="btn btn-show-more"> 显示更多 </button>
+            </div>
+
+            <div v-show="feedArr.length == 0" class="not-found-resource">
+              <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+              <h4>未找到结果</h4>
+            </div>
+
+
+          </div>
+
+
+        </main>
+
+        <section class="modals">
+          <!-- ── Modal ── -->
+          <div class="modal fade" id="publishModal" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Header -->
+                <div class="modal-header d-flex justify-content-between">
+                  <div>
+                    <h5 class="modal-title" id="publishModalLabel">发布活动</h5>
+                    <p class="modal-subtitle mb-0">填写活动时间、话题信息</p>
+                  </div>
+                  <button type="button" class="btn-close-custom" data-bs-dismiss="modal">
+                    <i class="bi bi-x" style="font-size:18px;"></i>
+                  </button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                  <form class="form-section" onsubmit="return false;">
+
+                    <!-- 活动类型 -->
+                    <div>
+                      <span class="field-label">活动类型 <span class="req">*</span></span>
+                      <div class="type-grid">
+                        <button type="button" :class="{'active': newEventObj.eventType=='Offline'}" class="type-card" @click="selectNewEventModalTypeV('Offline')">
+                          <i class="bi bi-geo-alt-fill"></i>
+                          <span class="type-name">线下</span>
+                          <span class="type-desc">现场活动</span>
+                        </button>
+                        <button type="button" :class="{'active': newEventObj.eventType=='Online'}"  class="type-card" @click="selectNewEventModalTypeV('Online')">
+                          <i class="bi bi-globe2"></i>
+                          <span class="type-name">线上</span>
+                          <span class="type-desc">远程参与</span>
+                        </button>
+                        <button type="button" :class="{'active': newEventObj.eventType=='Hybrid'}"  class="type-card" @click="selectNewEventModalTypeV('Hybrid')">
+                          <i class="bi bi-layers-half"></i>
+                          <span class="type-name">混合</span>
+                          <span class="type-desc">线上 + 线下</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- 主图 -->
+                    <div>
+                      <span class="field-label">活动主图 <span class="req">*</span></span>
+                      <div class="cover-upload" id="coverZone"
+                        onclick="document.getElementById('coverInput').click()">
+                        <img :src="newEventObj.thumbnailUrl" :class="{'d-none': !newEventObj.thumbnailUrl }" id="coverPreview" class="cover-preview" alt="活动主图预览" />
+                        <div  v-if="!newEventObj.thumbnailUrl" id="coverPlaceholder" class="d-flex flex-column align-items-center gap-2">
+                          <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                          <span class="upload-title">点击上传图片</span>
+                          <span class="upload-sub">JPG、PNG，建议 16:9，最大 6MB</span>
+                        </div>
+                        <div class="cover-replace-overlay" id="coverOverlay">
+                          <i class="bi bi-arrow-repeat"></i> 更换图片
+                        </div>
+                      </div>
+                      <input type="file" id="coverInput"  accept="image/jpg, image/png, image/jpeg" class="d-none" @change="previewNewEventThumbnailV($event)" />
+                    </div>
+
+                    <!-- 活动名称 -->
+                    <div>
+                      <label class="field-label" for="actName">活动名称 <span class="req">*</span></label>
+                      <div class="position-relative">
+                        <input v-model="newEventObj.title" type="text" class="form-control" id="actName" maxlength="32"
+                          placeholder="给活动起一个吸引人的名字" autocomplete="off"/>
+                      </div>
+                    </div>
+
+
+
+                    <!-- 日期 + 开始时间 -->
+                    <div class="field-row">
+                      <div>
+                        <label class="field-label" for="actDate">开始日期 <span class="req">*</span></label>
+                        <input  @click="$event.target.showPicker()"  v-model="newEventObj.activityStartDate"  type="date" class="form-control" id="actDate" autocomplete="off"/>
+                      </div>
+                      <div>
+                        <label class="field-label" for="actTime">开始时间 <span class="req">*</span></label>
+                        <input  @click="$event.target.showPicker()"  v-model="newEventObj.activityStartTime"  type="time" class="form-control" id="actTime" autocomplete="off"/>
+                      </div>
+                    </div>
+
+
+                    <!-- 活动时长 -->
+                    <div class="field-row">
+                      <div>
+                        <label class="field-label" for="actDuration">活动时长 <span class="req">*</span></label>
+                        <input  @input="transformInputNumberAsPositiveV($event)" min="1" max="365" v-model="newEventObj.duration"  type="text" class="form-control" id="actDuration" autocomplete="off"/>
+                      </div>
+                      <div>
+                        <label class="field-label" for="actDurationType">时长单位 <span class="req">*</span></label>
+                        <select v-model="newEventObj.durationType"  class="form-select" id="actDurationType">
+                          <option value="Minutes">分钟</option>
+                          <option value="Hours">小时</option>
+                          <option value="Days">天</option>
+                          <option value="Weeks">周</option>
+                          <option value="Months">月</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <!-- 分区 -->
+                    <div>
+                      <label class="field-label" for="actCategory">分区 <span class="req">*</span></label>
+                      <div class="input-icon-wrap">
+                        <select v-model="newEventObj.category"  class="form-select" id="actCategory">
+                          <option value="1">科技</option>
+                          <option value="2">社交聚会</option>
+                          <option value="3">兴趣爱好</option>
+                          <option value="4">运动健身</option>
+                          <option value="5">旅游户外</option>
+                          <option value="6">商业</option>
+                          <option value="7">游戏</option>
+                          <option value="8">舞蹈</option>
+                          <option value="9">音乐</option>
+                          <option value="10">健康养生</option>
+                          <option value="11">文化艺术</option>
+                          <option value="12">教育</option>
+                          <option value="13">萌宠</option>
+                          <option value="14">写作</option>
+                          <option value="15">亲子家庭</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- 活动地点 -->
+                    <div id="fieldLocation">
+                      <label class="field-label" for="actLocation">活动地点 <span class="req">*</span></label>
+                      <div class="input-icon-wrap">
+                        <span class="input-icon"><i class="bi bi-geo-alt"></i></span>
+                        <input  v-model="newEventObj.location"  type="text" class="form-control" id="actLocation" maxlength="50" placeholder="城市 · 具体场所 或 线上平台名称" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 线上链接 -->
+                    <div id="fieldLink">
+                      <label class="field-label" for="actLink">活动链接 <span v-show="newEventObj.eventType=='Online'" class="req">*</span></label>
+                      <div class="input-icon-wrap">
+                        <span class="input-icon"><i class="bi bi-link-45deg"></i></span>
+                        <input  v-model="newEventObj.onlineLink" maxlength="500" type="text" class="form-control" id="actLink" placeholder="https://..." autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 报名人数 + 最低预算 -->
+                    <div class="field-row">
+                      <div>
+                        <label class="field-label" for="actCapacity">活动人数上限 <span class="req">*</span></label>
+                        <input @input="transformInputNumberAsPositiveV($event)" min="0" max="999999" v-model="newEventObj.maxSeats"  type="text" class="form-control" id="actCapacity" min="1" placeholder="0 = 不限" autocomplete="off"/>
+
+                      </div>
+                      <div>
+                        <label class="field-label" for="actBudget">最低预算（元）<span class="req">*</span></label>
+                        <input  @input="transformInputNumberAsPositiveDecimalV($event)" min="0" max="50000"  v-model="newEventObj.budget"  type="text" class="form-control" id="actBudget" min="0" placeholder="0 = 免费" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 活动话题 -->
+                    <div>
+                      <span class="field-label">活动话题 <span class="req">*</span></span>
+                      <div class="topics-wrap" v-preventreclick onclick="document.getElementById('topicInput').focus()">
+                        <!-- tags inserted here -->
+                        <span v-for="(topic, index) in newEventObj.topics" :key="index" class="topic-tag"> {{ topic }}<button type="button"  v-preventreclick @click.stop="removeNewEventTopicV(index)"><i class="bi bi-x"></i></button></span>
+                        <input  @keyup.enter.prevent="addNewEventTopicV" v-model="newEventObj.inputTopic" type="text" class="topic-input" id="topicInput"
+                          placeholder="添加话题，回车确认…" maxlength="20" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 允许携带客人 -->
+                    <div class="toggle-row">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="toggle-icon-wrap"><i class="bi bi-person-plus"></i></div>
+                        <div>
+                          <div class="toggle-label">允许携带客人</div>
+                          <div class="toggle-sublabel">预约人可为同伴预留席位</div>
+                        </div>
+                      </div>
+                      <button :class="{'on': newEventObj.allowGuests=='1'}" type="button" class="custom-toggle" id="guestToggle" v-preventreclick @click.stop="newEventObj.allowGuests ^= 1"></button>
+                    </div>
+
+                    <!-- 活动描述 -->
+                    <div>
+                      <label class="field-label" for="actDesc">活动描述 <span class="req">*</span></label>
+                      <div class="position-relative">
+                    
+                        <textarea  v-model="newEventObj.description"  class="form-control" id="actDesc" rows="13"
+                          maxlength="500"
+                          placeholder="介绍活动内容、特色、注意事项等…"></textarea>
+                        <span class="char-counter"><span id="descCount">{{newEventObj.description.length}}</span>/500</span>
+                      </div>
+                    </div>
+
+                  </form>
+                </div><!-- /modal-body -->
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn-cancel" data-bs-dismiss="modal">取消</button>
+                  <div class="d-flex gap-2">
+                    <button :disabled="!validateNewEventModalV()" v-preventreclick @click="publishEventV" type="button" class="btn-publish">
+                      <i class="bi bi-fire" style="font-size:13px;"></i>提交
+                    </button>
+                  </div>
+                </div>
+
+              </div><!-- /modal-content -->
+            </div>
+          </div><!-- /modal -->
+
+
+
+          <!-- ── Modal ── -->
+          <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+
+                <!-- Header -->
+                <div class="modal-header d-flex justify-content-between">
+                  <div>
+                    <h5 class="modal-title" id="editModalLabel">编辑活动</h5>
+                    <p class="modal-subtitle mb-0">填写活动时间、话题信息</p>
+                  </div>
+                  <button @click="closeEditEventModalWhenNoChangeNeedV" type="button" class="btn-close-custom" data-bs-dismiss="modal">
+                    <i class="bi bi-x" style="font-size:18px;"></i>
+                  </button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                  <form class="form-section" onsubmit="return false;">
+
+                    <!-- 活动类型 -->
+                    <div>
+                      <span class="field-label">活动类型 <span class="req">*</span></span>
+                      <div class="type-grid">
+                        <button type="button" :class="{'active': editEventObj.eventType=='Offline'}" class="type-card" @click="selectEditEventModalTypeV('Offline')">
+                          <i class="bi bi-geo-alt-fill"></i>
+                          <span class="type-name">线下</span>
+                          <span class="type-desc">现场活动</span>
+                        </button>
+                        <button type="button" :class="{'active': editEventObj.eventType=='Online'}"  class="type-card" @click="selectEditEventModalTypeV('Online')">
+                          <i class="bi bi-globe2"></i>
+                          <span class="type-name">线上</span>
+                          <span class="type-desc">远程参与</span>
+                        </button>
+                        <button type="button" :class="{'active': editEventObj.eventType=='Hybrid'}"  class="type-card" @click="selectEditEventModalTypeV('Hybrid')">
+                          <i class="bi bi-layers-half"></i>
+                          <span class="type-name">混合</span>
+                          <span class="type-desc">线上 + 线下</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- 主图 -->
+                    <div>
+                      <span class="field-label">活动主图 <span class="req">*</span></span>
+                      <div class="cover-upload" id="editCoverZone"  onclick="document.getElementById('editCoverInput').click()">
+                        <img :src="adaptiveImageUriV(editEventObj.thumbnailUrl)"  id="editCoverPreview" class="cover-preview" alt="活动主图预览" />
+                        <div v-if="!editEventObj.thumbnailUrl" id="editCoverPlaceholder" class="d-flex flex-column align-items-center gap-2">
+                          <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                          <span class="upload-title">点击上传或拖拽图片</span>
+                          <span class="upload-sub">JPG、PNG、WEBP，建议 16:9，最大 6MB</span>
+                        </div>
+                        <div class="cover-replace-overlay" id="editCoverOverlay">
+                          <i class="bi bi-arrow-repeat"></i> 更换图片
+                        </div>
+                      </div>
+                      <input type="file" id="editCoverInput"  accept="image/jpg, image/png, image/jpeg" class="d-none" @change="previewEditEventThumbnailV($event)" />
+                    </div>
+
+                    <!-- 活动名称 -->
+                    <div>
+                      <label class="field-label" for="editActName">活动名称 <span class="req">*</span></label>
+                      <div class="position-relative">
+                        <input  v-model="editEventObj.title" type="text" class="form-control" id="editActName" maxlength="32"
+                          placeholder="给活动起一个吸引人的名字" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 日期 + 开始时间 -->
+                    <div class="field-row">
+                      <div>
+                        <label class="field-label" for="editActDate">开始日期 <span class="req">*</span></label>
+                        <input  @click="$event.target.showPicker()"  v-model="editEventObj.activityStartDate"  type="date" class="form-control" id="editActDate" autocomplete="off"/>
+                      </div>
+                      <div>
+                        <label class="field-label" for="editActTime">开始时间 <span class="req">*</span></label>
+                        <input  @click="$event.target.showPicker()"   v-model="editEventObj.activityStartTime"  type="time" class="form-control" id="editActTime" autocomplete="off"/>
+                      </div>
+                    </div>
+
+
+
+                    <!-- 活动时长 -->
+                    <div class="field-row">
+                      <div>
+                        <label class="field-label" for="editActDuration">活动时长 <span class="req">*</span></label>
+                        <input @input="transformInputNumberAsPositiveV($event)" min="1" max="365"  v-model="editEventObj.duration"  type="text" class="form-control" id="editActDuration" autocomplete="off"/>
+                      </div>
+                      <div>
+                        <label class="field-label" for="editActDurationType">时长单位 <span class="req">*</span></label>
+                        <select v-model="editEventObj.durationType"  class="form-select" id="editActDurationType">
+                          <option value="Minutes">分钟</option>
+                          <option value="Hours">小时</option>
+                          <option value="Days">天</option>
+                          <option value="Weeks">周</option>
+                          <option value="Months">月</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label class="field-label" for="editActCategory">分区 <span class="req">*</span></label>
+                      <div class="input-icon-wrap">
+                        <select v-model="editEventObj.category"  class="form-select" id="editActCategory">
+                          <option value="1">科技</option>
+                          <option value="2">社交聚会</option>
+                          <option value="3">兴趣爱好</option>
+                          <option value="4">运动健身</option>
+                          <option value="5">旅游户外</option>
+                          <option value="6">商业</option>
+                          <option value="7">游戏</option>
+                          <option value="8">舞蹈</option>
+                          <option value="9">音乐</option>
+                          <option value="10">健康养生</option>
+                          <option value="11">文化艺术</option>
+                          <option value="12">教育</option>
+                          <option value="13">萌宠</option>
+                          <option value="14">写作</option>
+                          <option value="15">亲子家庭</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <!-- 活动地点（线下/混合可见） -->
+                    <div>
+                      <label class="field-label" for="editActLocation">活动地点 <span class="req">*</span></label>
+                      <div class="input-icon-wrap">
+                        <span class="input-icon"><i class="bi bi-geo-alt"></i></span>
+                        <input v-model="editEventObj.location"  type="text" class="form-control" id="editActLocation" maxlength="50" placeholder="城市 · 具体场所" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 线上链接（线上/混合可见） -->
+                    <div>
+                      <label class="field-label" for="editActLink">活动链接 <span v-show="editEventObj.eventType == 'Online'" class="req">*</span></label>
+                      <div class="input-icon-wrap">
+                        <span class="input-icon"><i class="bi bi-link-45deg"></i></span>
+                        <input v-model="editEventObj.onlineLink" maxlength="500" type="text" class="form-control" id="editActLink" placeholder="https://..." autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 报名人数 + 最低预算 -->
+                    <div class="field-row">
+                      <div>
+                        <label class="field-label" for="editActCapacity">活动人数上限 <span class="req">*</span></label>
+                        <input @input="transformInputNumberAsPositiveV($event)" min="0" max="999999" v-model="editEventObj.maxSeats"  type="text" class="form-control" id="editActCapacity" min="1" placeholder="0 = 不限" autocomplete="off"/>
+
+                      </div>
+                      <div>
+                        <label class="field-label" for="editActBudget">最低预算（元）<span class="req">*</span></label>
+                        <input  @input="transformInputNumberAsPositiveDecimalV($event)" min="0" max="50000" v-model="editEventObj.budget"  type="text" class="form-control" id="editActBudget" min="0" placeholder="0 = 免费" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 活动话题 -->
+                    <div>
+                      <span class="field-label">活动话题 <span class="req">*</span></span>
+                      <div class="topics-wrap" id="editTopicsWrap"  onclick="document.getElementById('editTopicInput').focus()">
+                        <!-- tags inserted here -->
+                        <span v-for="(topic, index) in editEventObj.topics" :key="index" class="topic-tag"> {{ topic }}<button type="button" v-preventreclick @click.stop="removeEditEventTopicV(index)"><i class="bi bi-x"></i></button></span>
+                        <input @keyup.enter.prevent="addEditEventTopicV" v-model="editEventObj.inputTopic" type="text" class="topic-input" id="editTopicInput"
+                          placeholder="添加话题，回车确认…" maxlength="20" autocomplete="off"/>
+                      </div>
+                    </div>
+
+                    <!-- 允许携带客人 -->
+                    <div class="toggle-row">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="toggle-icon-wrap"><i class="bi bi-person-plus"></i></div>
+                        <div>
+                          <div class="toggle-label">允许携带客人</div>
+                          <div class="toggle-sublabel">预约人可为同伴预留席位</div>
+                        </div>
+                      </div>
+                      <button :class="{'on': editEventObj.allowGuests=='1'}" type="button" class="custom-toggle" id="editGuestToggle" v-preventreclick @click.stop="editEventObj.allowGuests ^= 1"></button>
+                    </div>
+
+                    <!-- 活动状态 -->
+                    <div class="toggle-row">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="toggle-icon-wrap"><i class="bi bi-opencollective"></i></div>
+                        <div>
+                          <div class="toggle-label">活动状态</div>
+                          <div class="toggle-sublabel">取消或恢复活动，设置为关闭状态表示活动已取消</div>
+                        </div>
+                      </div>
+                      <button :class="{'on': editEventObj.eventStatus=='Preparing'}" type="button" class="custom-toggle" id="editGuestToggle" v-preventreclick @click.stop="editEventObj.eventStatus= editEventObj.eventStatus =='Preparing' ?  'Cancelled' :  'Preparing' "></button>
+                    </div>
+
+                    <!-- 活动描述 -->
+                    <div>
+                      <label class="field-label" for="editActDesc">活动描述 <span class="req">*</span></label>
+                      <div class="position-relative">
+                    
+                        <textarea class="form-control" id="editActDesc" rows="13"
+                          maxlength="500"
+                          v-model="editEventObj.description" 
+                          placeholder="介绍活动内容、特色、注意事项等…"></textarea>
+                        <span class="char-counter"><span id="editDescCount">{{editEventObj.description.length}}</span>/500</span>
+                      </div>
+                    </div>
+
+                  </form>
+                </div><!-- /modal-body -->
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                  <button @click="closeEditEventModalWhenNoChangeNeedV"  type="button" class="btn-cancel" data-bs-dismiss="modal">取消</button>
+                  <div class="d-flex gap-2">
+                    <button v-if="isEventInfoAuthorV(eventInfo) || isChannelAdminV()" v-preventreclick @click="deleteOneEventV(editEventObj.id)" type="button" class="btn-draft">删除活动</button>
+                    <button v-if="isEventInfoAuthorV(eventInfo)" type="button" :disabled="!validateEditEventModalV()" class="btn-publish" v-preventreclick @click="editEventV">
+                      <i class="bi bi-fire" style="font-size:13px;"></i>提交
+                    </button>
+                  </div>
+                </div>
+
+              </div><!-- /modal-content -->
+            </div>
+          </div><!-- /modal -->
+
+
+
+          <div class="modal fade event-modal" id="eventDetailModal" tabindex="-1" aria-labelledby="eventModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+        
+                <!-- Hero -->
+                <div class="event-hero" id="heroSection">
+                  <img id="heroImage" class="event-hero__image" :src="adaptiveImageUriV(eventInfo.thumbnail)" alt="活动主图">
+                  <div class="event-hero__gradient"></div>
+        
+                  <!-- Badges -->
+                  <div class="event-hero__badges" id="heroBadges">
+                    <span class="event-badge event-badge--type-online ">{{explainAppMeetrEventTypeEnumV(eventInfo.eventType)}}</span>
+                  </div>
+        
+                  <!-- Top-right controls -->
+                  <div class="event-hero__controls-top">
+                  
+                    <button v-if="isEventInfoAuthorV(eventInfo) || isChannelAdminV()" class="icon-btn" v-preventreclick @click="showEditEventModalV(eventInfo)" title="编辑">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="icon-btn" v-preventreclick @click="copyMeetrEventLinkV(eventInfo)" title="分享">
+                      <i class="bi bi-share"></i>
+                    </button>
+                    <button class="icon-btn" data-bs-dismiss="modal" title="关闭">
+                      <i class="bi bi-x" style="font-size:17px;"></i>
+                    </button>
+                  </div>
+        
+                  <!-- Title area -->
+                  <div class="event-hero__title-area">
+                    <div class="event-tag-list" id="heroTagList">
+                      <span v-for="topic in eventInfo.topics" class="event-tag">{{topic}}</span>
+                    </div>
+                    <h2 class="event-title" id="eventModalTitle">{{eventInfo.title}}</h2>
+                  </div>
+                </div>
+        
+                <!-- Body -->
+                <div class="modal-body">
+        
+                  <!-- Meta grid -->
+                  <div class="event-meta-grid" id="metaGrid">
+                    <div class="event-meta-cell">
+                      <div class="field-label"><i class="bi bi-calendar3"></i>时间</div>
+                      <div class="event-meta-cell__value" id="metaDate">{{renderDateInChinaV(eventInfo.activityStartAt)}}</div>
+                    </div>
+                    <div class="event-meta-cell">
+                      <div class="field-label"><i class="bi bi-clock"></i>时长</div>
+                      <div class="event-meta-cell__value" id="metaDuration">{{eventInfo.duration}} {{explainAppMeetrDurationTypeEnumV(eventInfo.durationType)}}</div>
+                    </div>
+                    <div class="event-meta-cell">
+                      <div class="field-label"><i class="bi bi-geo-alt"></i>地点</div>
+                      <div :title="eventInfo.location" class="event-meta-cell__value ellipsis-2" id="metaLocation">{{eventInfo.location}}</div>
+                    </div>
+                    <div class="event-meta-cell">
+                      <div class="field-label d-flex justify-content-between">
+                        <div>
+                          <i class="bi bi-people me-1"></i>预约人数
+                        </div>
+                        <div  v-if="eventInfo.attendees > 0" v-preventreclick @click="showRegistrantsModalV(eventInfo.id)">
+                          <i class="bi bi-chevron-right"></i>
+                        </div>
+                      </div>
+                      <div class="event-meta-cell__value" id="metaRegistrations">{{ eventInfo.attendees > 0 ? eventInfo.attendees + ' 人' : '暂无' }}</div>
+                    </div>
+                  </div>
+        
+                  <!-- Organizer -->
+                  <div class="event-organizer">
+                    <img id="organizerAvatar" class="event-organizer__avatar" :src="adaptiveImageUriV(eventInfo.hostedBrandAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="host avatar">
+                    <div class="flex-grow-1 min-w-0">
+                      <div class="field-label">主持人</div>
+                      <div class="event-organizer__name ellipsis-1" id="organizerName">{{eventInfo.hostedBrandName}}</div>
+                    </div>
+                    <div v-if="eventInfo.allowGuests == '1'" class="event-organizer__guest-badge" id="guestBadge">
+                      <i class="bi bi-person-plus" style="font-size:11px;"></i>
+                      允许携客
+                    </div>
+                  </div>
+
+                  <!--线上链接区块 -->
+                  <div v-if="eventInfo.onlineLink" class="event-online-link-block">
+                    <div class="field-label mb-2"><i class="bi bi-broadcast"></i>活动链接</div>
+                    <div class="link-card-wrapper">
+                      <div class="link-content text-truncate">
+                        <a :href="eventInfo.onlineLink" target="_blank" class="stretched-link event-link-text">{{ eventInfo.onlineLink }}</a>
+                      </div>
+                      <button class="link-copy-btn" v-preventreclick @click.stop="copyTextV(eventInfo.onlineLink)">
+                        <i class="bi bi-files"></i>
+                      </button>
+                    </div>
+                  </div>
+        
+                  <!-- Description -->
+                  <div class="event-description">
+                    <div class="field-label mb-2"><i class="bi bi-file-text"></i>活动介绍</div>
+                    <p class="event-description__body" id="eventDescription">{{eventInfo.description}}</p>
+                  </div>
+
+                  <!-- Seats -->
+                  <div class="event-seats" :style="{ '--progress': calcRawPercentV(eventInfo.attendees, eventInfo.maxSeats) }">
+                    <div class="event-seats__header">
+                      <div class="field-label mb-0"><i class="bi bi-ticket-perforated"></i>剩余席位</div>
+                      <span class="event-seats__count" id="seatsCount">{{ eventInfo.maxSeats == 0 ? '不限' : eventInfo.attendees + ' / ' + eventInfo.maxSeats }}</span>
+                    </div>
+                    <div v-if="eventInfo.maxSeats > 0" class="event-seats__track">
+                      <div class="event-seats__fill" id="seatsFill"></div>
+                    </div>
+                  </div>
+        
+                </div><!-- /modal-body -->
+        
+                <!-- Footer -->
+                <div class="modal-footer">
+                  <div v-if="Number(eventInfo.budget)>0">
+                    <div class="event-price__label">活动费用</div>
+                    <div class="event-price__value" id="priceDisplay">¥{{eventInfo.budget}}</div>
+                  </div>
+                  <div v-if="Number(eventInfo.budget)==0" class="event-price__value text-success fw-bold"  style="font-size: 16px;">
+                    免费
+                  </div>
+        
+                  <button
+                      v-preventreclick
+                       @click="registerNowV" 
+                     :disabled="eventInfo.eventStatus=='Cancelled' || eventInfo.reserved=='1' || eventExpiredV(eventInfo) "
+                      type="button" class="register-btn" id="registerBtn">
+                    <i v-if=" eventInfo.eventStatus=='Cancelled'" class="bi bi-x"></i>
+                    <i v-else-if="eventExpiredV(eventInfo)" class="bi bi-calendar-x"></i>
+                    <i v-else-if=" eventInfo.reserved=='0'" class="bi bi-ticket-perforated"></i>
+                    <i v-else-if=" eventInfo.reserved=='1'" class="bi bi-bookmark-check"></i>
+                    <span id="btnLabel">
+                      {{ 
+                        eventInfo.eventStatus == 'Cancelled' ? '活动已取消' : 
+                        eventExpiredV(eventInfo) ? '活动已结束' : 
+                        eventInfo.reserved == '1' ? '已预约' : '立即预约' 
+                      }}
+                    </span>
+                  </button>
+                </div>
+        
+              </div><!-- /modal-content -->
+            </div>
+          </div>
+
+
+          <!-- ── Modal ── -->
+          <div class="modal fade registrants-modal" id="registrantsModal" tabindex="-1" aria-labelledby="registrantsTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content d-flex flex-column" style="min-height: 360px;">
+        
+                <!-- Header -->
+                <div class="registrants-header">
+                  <div class="registrants-header__icon">
+                    <i class="bi bi-people-fill"></i>
+                  </div>
+                  <div class="registrants-header__meta">
+                    <h5 class="registrants-header__title" id="registrantsTitle">活动预约名单</h5>
+                    <p class="registrants-header__subtitle ellipsis-1">{{eventInfo.title}}</p>
+                  </div>
+                  <button @click="closeRegistrantsModalHandlerV" class="registrants-header__close" data-bs-dismiss="modal">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </div>
+        
+                <!-- Search -->
+                <div class="registrants-search">
+                  <div class="registrants-search__field">
+                    <i class="bi bi-search registrants-search__icon"></i>
+                    <input v-model="registrantList_pagination.param.q" type="text" class="registrants-search__input" id="searchInput" placeholder="搜索…" @keyup.enter.native="searchRegistrantsV" autocomplete="off">
+                  </div>
+                </div>
+        
+                <!-- List -->
+                <div class="registrants-list-wrap">
+                  <ul class="registrants-list" id="registrantsList">
+                    <li v-for="(person,index) in registrantList_pagination.records" class="registrant-row">
+                      <span class="registrant-row__index">{{index + 1}}</span>
+                      <div class="registrant-row__avatar-wrap">
+                        <img class="registrant-row__avatar" :src="adaptiveImageUriV(person.memberBrandAvatar)  || defaultAvatarImage" @error="e => { e.target.src = defaultAvatarImage }"  alt="person avatar" loading="lazy">
+                        <span :class="{'registrant-row__status-dot--checked-in': person.memberBrandMark=='3' }" class="registrant-row__status-dot "></span>
+                      </div>
+                      <div class="registrant-row__info">
+                        <div class="registrant-row__name registrant-row__name--checked-in">{{person.memberBrandName}}</div>
+                        <div class="registrant-row__time">{{renderDateInChinaV(person.createAt)}}</div>
+                      </div>
+                      
+                    
+                    </li></ul>
+                  <div v-show="registrantList_pagination.records.length==0" class="registrants-list__empty" id="emptyState">
+                    <i class="bi bi-person-slash"></i>
+                    <p>未找到相关数据</p>
+                  </div>
+                </div>
+        
+          
+        
+              </div>
+            </div>
+          </div>
+
+
+        </section>
+    </div>
+  </micro-app>
+
+<script type="module" src="/common/javascripts/tm.js"></script>
+<script type="module" src="/apps/meetr/javascripts/events.js"></script>
+
+
+
+</body>
+</html>

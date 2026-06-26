@@ -302,10 +302,42 @@ var SupplierStatusEnum = Object.freeze({
     "TERMINATED": "TERMINATED",
     "FROZEN": "FROZEN"
 });
-
+var AppMeetrEventStatusEnum = Object.freeze({
+    "PREPARING": "Preparing",
+    "CANCELLED": "Cancelled"
+});
+var AppMeetrEventTypeEnum = Object.freeze({
+    "ONLINE": "Online",
+    "OFFLINE": "Offline",
+    "HYBRID": "Hybrid"
+});
+var AppMeetrDurationTypeEnum = Object.freeze({
+    "MINUTES": "Minutes",
+    "HOURS": "Hours",
+    "DAYS": "Days",
+    "WEEKS": "Weeks",
+    "MONTHS": "Months"
+});
+var AppMeetrEventCategoryEnum = Object.freeze({
+    "TECHNOLOGY": "1",
+    "SOCIAL_ACTIVITY": "2",
+    "HOBBIES_PASSIONS": "3",
+    "SPORTS_FITNESS": "4",
+    "TRAVEL_OUTDOOR": "5",
+    "CAREER_BUSINESS": "6",
+    "GAMES": "7",
+    "DANCING": "8",
+    "MUSIC": "9",
+    "HEALTH_WELLBEING": "10",
+    "ART_CULTURE": "11",
+    "SCIENCE_EDUCATION": "12",
+    "PETS_ANIMALS": "13",
+    "WRITING": "14",
+    "PARENTS_FAMILY": "15"
+});
 
 export {
-    SupplierLevelEnum,SupplierStatusEnum,
+    SupplierLevelEnum,SupplierStatusEnum,AppMeetrEventStatusEnum,AppMeetrEventTypeEnum,AppMeetrDurationTypeEnum,AppMeetrEventCategoryEnum,
     AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,OasisEquityOrderStatusEnum,
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,
     MillstoneAc,DspCaseStatus,VirtualOrderTag,ProductStatus,ProposalProjectStatusEnum,SubscriptionStatusEnum,

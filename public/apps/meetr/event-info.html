@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>活动详情 | 活动咖</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/apps/meetr/stylesheets/event-info.scss">
+
+
+</head>
+<body>
+  <div id="app" class="app-container" v-cloak>
+    <div v-if="!init_finish">
+      <img class="loading-annimation" src="/common/images/loading.gif" alt="loading annimation">
+    </div>
+    <div v-else="init_finish" class="event-container">
+
+
+
+      <div class="event-info-section">
+        <div class="event-info-wrp">
+          <div class="event-content">
+    
+            <!-- Hero -->
+            <div class="event-hero" id="heroSection">
+              <img id="heroImage" class="event-hero__image" :src="adaptiveImageUriV(eventInfo.thumbnail)" alt="event thumbnail">
+              <div class="event-hero__gradient"></div>
+    
+              <!-- Badges -->
+              <div class="event-hero__badges" id="heroBadges">
+                <span class="event-badge event-badge--type-online ">{{explainAppMeetrEventTypeEnumV(eventInfo.eventType)}}</span>
+              </div>
+              <!-- Top-right controls -->
+              <div class="event-hero__controls-top">
+
+                <button v-if="isEventInfoAuthorV(eventInfo)"  v-preventreclick @click="deleteOneEventV(eventInfo.id)"  type="button" class="icon-btn" title="删除活动">
+                  <i class="bi bi-trash3"></i>
+                </button>
+               
+                <button v-preventreclick @click="copyMeetrEventLinkV(eventInfo)" type="button" class="icon-btn" title="分享">
+                  <i class="bi bi-share"></i>
+                </button>
+
+              </div>
+    
+              <!-- Title area -->
+              <div class="event-hero__title-area">
+                <div class="event-tag-list" id="heroTagList">
+                  <span v-for="topic in eventInfo.topics" class="event-tag">{{topic}}</span>
+                </div>
+                <h2 class="event-title" id="eventModalTitle">{{eventInfo.title}}</h2>
+              </div>
+            </div>
+    
+            <!-- Body -->
+            <div class="event-body">
+    
+              <!-- Meta grid -->
+              <div class="event-meta-grid" id="metaGrid">
+                <div class="event-meta-cell">
+                  <div class="field-label"><i class="bi bi-calendar3"></i>时间</div>
+                  <div class="event-meta-cell__value" id="metaDate">{{renderDateInChinaV(eventInfo.activityStartAt)}}</div>
+                </div>
+                <div class="event-meta-cell">
+                  <div class="field-label"><i class="bi bi-clock"></i>时长</div>
+                  <div class="event-meta-cell__value" id="metaDuration">{{eventInfo.duration}} {{explainAppMeetrDurationTypeEnumV(eventInfo.durationType)}}</div>
+                </div>
+                <div class="event-meta-cell">
+                  <div class="field-label"><i class="bi bi-geo-alt"></i>地点</div>
+                  <div :title="eventInfo.location" class="event-meta-cell__value ellipsis-2" id="metaLocation">{{eventInfo.location}}</div>
+                </div>
+                <div class="event-meta-cell">
+                  <div class="field-label d-flex justify-content-between">
+                    <div>
+                      <i class="bi bi-people me-1"></i>预约人数
+                    </div>
+                    <div  v-if="eventInfo.attendees > 0" v-preventreclick @click="showRegistrantsModalV(eventInfo.id)">
+                      <i class="bi bi-chevron-right"></i>
+                    </div>
+                  </div>
+                  <div class="event-meta-cell__value" id="metaRegistrations">{{ eventInfo.attendees > 0 ? eventInfo.attendees + ' 人' : '暂无' }}</div>
+                </div>
+              </div>
+    
+              <!-- Organizer -->
+              <div class="event-organizer">
+                <img id="organizerAvatar" class="event-organizer__avatar" :src="adaptiveImageUriV(eventInfo.hostedBrandAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="host avatar">
+                <div class="flex-grow-1 min-w-0">
+                  <div class="field-label">主持人</div>
+                  <div class="event-organizer__name ellipsis-1" id="organizerName">{{eventInfo.hostedBrandName}}</div>
+                </div>
+                <div v-if="eventInfo.allowGuests == '1'" class="event-organizer__guest-badge" id="guestBadge">
+                  <i class="bi bi-person-plus" style="font-size:11px;"></i>
+                  允许携客
+                </div>
+              </div>
+
+              <div v-if="eventInfo.onlineLink" class="event-online-link-block">
+                <div class="field-label mb-2"><i class="bi bi-broadcast"></i>活动链接</div>
+                <div class="link-card-wrapper">
+                  <div class="link-content text-truncate">
+                    <a :href="eventInfo.onlineLink" target="_blank" class="stretched-link event-link-text">{{ eventInfo.onlineLink }}</a>
+                  </div>
+                  <button class="link-copy-btn" v-preventreclick @click.stop="copyTextV(eventInfo.onlineLink)">
+                    <i class="bi bi-files"></i>
+                  </button>
+                </div>
+              </div>
+    
+              <!-- Description -->
+              <div class="event-description">
+                <div class="field-label mb-2"><i class="bi bi-file-text"></i>活动介绍</div>
+                <p class="event-description__body" id="eventDescription">{{eventInfo.description}}</p>
+              </div>
+    
+              <!-- Seats -->
+              <div class="event-seats" :style="{ '--progress': calcRawPercentV(eventInfo.attendees, eventInfo.maxSeats) }">
+                <div class="event-seats__header">
+                  <div class="field-label mb-0"><i class="bi bi-ticket-perforated"></i>剩余席位</div>
+                  <span class="event-seats__count" id="seatsCount">{{ eventInfo.maxSeats == 0 ? '不限' : eventInfo.attendees + ' / ' + eventInfo.maxSeats }}</span>
+                </div>
+                <div v-if="eventInfo.maxSeats > 0" class="event-seats__track">
+                  <div class="event-seats__fill" id="seatsFill"></div>
+                </div>
+              </div>
+           
+    
+            </div><!-- /event-body -->
+    
+            <!-- Footer -->
+            <div class="event-footer">
+              <div v-if="Number(eventInfo.budget)>0">
+                <div class="event-price__label">活动费用</div>
+                <div class="event-price__value">¥{{eventInfo.budget}}</div>
+              </div>
+              <div v-if="Number(eventInfo.budget)==0" class="event-price__value text-success fw-bold"  style="font-size: 16px;">
+                免费
+              </div>
+
+              <div class="d-flex gap-2">
+                <button :disabled="eventInfo.eventStatus=='Cancelled' || eventInfo.reserved=='1' || eventExpiredV(eventInfo) " type="button" class="register-btn" id="registerBtn" v-preventreclick @click="registerNowV">
+                  <i v-if=" eventInfo.eventStatus=='Cancelled'" class="bi bi-x"></i>
+                  <i v-else-if="eventExpiredV(eventInfo)" class="bi bi-calendar-x"></i>
+                  <i v-else-if=" eventInfo.reserved=='0'" class="bi bi-ticket-perforated"></i>
+                  <i v-else-if=" eventInfo.reserved=='1'" class="bi bi-bookmark-check"></i>
+                  <span id="btnLabel">
+                    {{ 
+                      eventInfo.eventStatus == 'Cancelled' ? '活动已取消' : 
+                      eventExpiredV(eventInfo) ? '活动已结束' : 
+                      eventInfo.reserved == '1' ? '已预约' : '立即预约' 
+                    }}
+                  </span>
+                </button>
+              </div>
+    
+          
+            </div>
+
+
+    
+          </div><!-- /event-content -->
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="modal fade registrants-modal" id="registrantsModal" tabindex="-1" aria-labelledby="registrantsTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content d-flex flex-column" style="min-height: 360px;">
+  
+          <!-- Header -->
+          <div class="registrants-header">
+            <div class="registrants-header__icon">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="registrants-header__meta">
+              <h5 class="registrants-header__title" id="registrantsTitle">活动预约名单</h5>
+              <p class="registrants-header__subtitle ellipsis-1">{{eventInfo.title}}</p>
+            </div>
+            <button @click="closeRegistrantsModalHandlerV" class="registrants-header__close" data-bs-dismiss="modal">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+  
+          <!-- Search -->
+          <div class="registrants-search">
+            <div class="registrants-search__field">
+              <i class="bi bi-search registrants-search__icon"></i>
+              <input v-model="registrantList_pagination.param.q" type="text" class="registrants-search__input" id="searchInput" placeholder="搜索…" @keyup.enter.native="searchRegistrantsV" autocomplete="off">
+            </div>
+           </div>
+  
+          <!-- List -->
+          <div class="registrants-list-wrap">
+            <ul class="registrants-list" id="registrantsList">
+              <li v-for="(person,index) in registrantList_pagination.records" class="registrant-row">
+                <span class="registrant-row__index">{{index + 1}}</span>
+                <div class="registrant-row__avatar-wrap">
+                  <img class="registrant-row__avatar" :src="adaptiveImageUriV(person.memberBrandAvatar)  || defaultAvatarImage" @error="e => { e.target.src = defaultAvatarImage }"  alt="person avatar" loading="lazy">
+                  <span :class="{'registrant-row__status-dot--checked-in': person.memberBrandMark=='3' }" class="registrant-row__status-dot "></span>
+                </div>
+                <div class="registrant-row__info">
+                  <div class="registrant-row__name registrant-row__name--checked-in">{{person.memberBrandName}}</div>
+                  <div class="registrant-row__time">{{renderDateInChinaV(person.createAt)}}</div>
+                </div>
+                
+               
+              </li></ul>
+            <div v-show="registrantList_pagination.records.length==0" class="registrants-list__empty" id="emptyState">
+              <i class="bi bi-person-slash"></i>
+              <p>未找到相关数据</p>
+            </div>
+          </div>
+  
+     
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/apps/meetr/javascripts/event-info.js"></script>
+
+
+
+</body>
+</html>
