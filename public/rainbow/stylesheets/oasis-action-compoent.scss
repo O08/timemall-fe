@@ -30,6 +30,9 @@
     border: none;
     background-color: #4e50584d;
 }
+#reportOasisModal .modal-footer{
+  justify-content: flex-end;
+}
 #adminWidthdrawModal  .form-control:disabled, #topUpToOasisModal  .form-control:disabled,#collectAccountModal .form-control:disabled{
     background-color: #4e50584d;
     border: none;
@@ -394,6 +397,7 @@
   width: 100%;
   font-size: 16px;
   outline: none;
+  padding: 10px;
 }
 #reportOasisModal .maxLength {
   pointer-events: none;
@@ -405,4 +409,24 @@
 }
 #reportOasisModal  .modal-content{
   max-height: 500px;
+}
+#caseMaterialFile {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  border-color: #444444;
+  box-shadow: none;
+}
+
+#caseMaterialFile::placeholder {
+  color: #888888;
+}
+
+#caseMaterialFile::file-selector-button {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
+}
+
+#caseMaterialFile::file-selector-button:hover {
+  background-color: #444444;
 }

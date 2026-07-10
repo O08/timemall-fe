@@ -151,12 +151,9 @@ col-content{
 }
 
 @media (max-width: 576px) {
-    col-content header{
-        height: 72px;
- 
-    }
+
     .content-wrapper{
-        height: calc(100% - 72px);
+        height: calc(100% - 56px);
     }
     .room-msg-container{
         height: calc(100% - 222px);

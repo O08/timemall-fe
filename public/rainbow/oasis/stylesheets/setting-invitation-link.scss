@@ -48,16 +48,11 @@
 
 #createInvitationLinkModal {
 
-    /* Container for the Modal Content */
     .modal-content.text-color-dark {
         background-color: #1f1f1f;
-        /* YouTube's primary dark background */
         color: #f1f1f1;
-        /* Soft white for primary text */
         border: 1px solid #333;
-        /* Subtle border for separation */
         border-radius: 12px;
-        /* Modern rounded corners */
     }
 
     .modal-header {
@@ -88,7 +83,6 @@
     /* Select & Input Styling */
     .yt-select {
         background-color: #0f0f0f;
-        /* Slightly darker than main background */
         color: #f1f1f1;
         border: 1px solid #333;
         padding: 10px 12px;
@@ -97,7 +91,6 @@
         outline: none;
         transition: border-color 0.2s;
         appearance: none;
-        /* Removes default browser styling */
         background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
         background-repeat: no-repeat;
         background-position: right 12px center;
@@ -106,7 +99,6 @@
 
     .yt-select:focus {
         border-color: #3ea6ff;
-        /* YouTube Blue focus color */
         box-shadow: 0 0 0 1px #3ea6ff;
     }
 
@@ -123,7 +115,6 @@
 
     .invite-details {
         width: 100%;
-        /* On mobile, if items are long, they stack nicely */
         display: flex;
         flex-direction: row;
         justify-content: flex-start;

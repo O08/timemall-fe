@@ -336,7 +336,28 @@ var AppMeetrEventCategoryEnum = Object.freeze({
     "PARENTS_FAMILY": "15"
 });
 
+var CoopApplicationStatusEnum = Object.freeze({
+    "PENDING": "pending",
+    "APPROVED": "approved",
+    "REJECTED": "rejected"
+});
+
+var CoopProgramStatusEnum = Object.freeze({
+    "RECRUITING": "recruiting",
+    "CLOSED": "closed",
+    "INVALID": "invalid",
+    "FREEZE":"freeze"
+});
+
+var CoopProgramWrokModeEnum = Object.freeze({
+    "FULL_TIME": "full_time",
+    "PART_TIME": "part_time",
+    "FLEXIBLE": "flexible"
+});
+
+
 export {
+    CoopApplicationStatusEnum,CoopProgramStatusEnum,CoopProgramWrokModeEnum,
     SupplierLevelEnum,SupplierStatusEnum,AppMeetrEventStatusEnum,AppMeetrEventTypeEnum,AppMeetrDurationTypeEnum,AppMeetrEventCategoryEnum,
     AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,OasisEquityOrderStatusEnum,
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,

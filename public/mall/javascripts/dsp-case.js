@@ -18,6 +18,7 @@ const RootComponent = {
     data() {
         return {
             closedCommercialPaperId:"",
+            freezeCoopProgramId: "",
             webAppDomain: currentDomain,
             virtualProductOrderRefundObj: {
                 orderId: "",
@@ -66,6 +67,10 @@ const RootComponent = {
         showFreezeUserModalV(){
             this.freezeUserId = "";
             $("#freezeUserModal").modal("show"); // show modal
+        },
+        showFreezeCoopProgramV(){
+            this.freezeCoopProgramId = "";
+            $("#freezeCoopProgram").modal("show"); // show modal
         },
         showOfflineVirtualProductModalV(){
             this.offlineVirtualProductId = "";
@@ -127,6 +132,19 @@ const RootComponent = {
 
                     customAlert.alert("冻结账号成功");
                     $("#freezeUserModal").modal("hide"); // show modal
+
+                }
+                if(response.data.code!=200){
+                    customAlert.alert(response.data.message)
+                }
+            })
+        },
+        freezeCoopProgramV(){
+            freezeCoopProgram(this.freezeCoopProgramId).then(response=>{
+                if(response.data.code==200){
+
+                    customAlert.alert("冻结自由合作项目成功");
+                    $("#freezeCoopProgram").modal("hide");
 
                 }
                 if(response.data.code!=200){
@@ -335,6 +353,13 @@ async function doOasisMembershipRefund(dto){
     const url="/api/v1/team/membership/open_order/refund";
     return await axios.post(url,dto);
 }  
+async function doFreezeCoopProgram(freezeCoopProgramId){
+    const url = "/api/v1/team/dsp_case/action/coop/program/{id}/freeze".replace("{id}",freezeCoopProgramId);
+    return await axios.put(url,{});
+}
+async function freezeCoopProgram(freezeCoopProgramId){
+    return await doFreezeCoopProgram(freezeCoopProgramId);
+}
 async function oasisMembersipRefund(dto){
     return await doOasisMembershipRefund(dto);
  }

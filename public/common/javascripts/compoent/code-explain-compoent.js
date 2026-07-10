@@ -1,5 +1,5 @@
 import {
-    SupplierLevelEnum,SupplierStatusEnum,
+    SupplierLevelEnum,SupplierStatusEnum,CoopApplicationStatusEnum,CoopProgramStatusEnum,CoopProgramWrokModeEnum,
     AppMeetrEventStatusEnum,AppMeetrEventTypeEnum,AppMeetrDurationTypeEnum,AppMeetrEventCategoryEnum,
     OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag
 } from "/common/javascripts/tm-constant.js";
@@ -7,6 +7,15 @@ import {
 const CodeExplainComponent = {
 
    methods: {
+    explainCoopApplicationStatusEnumV(status){
+        return explainCoopApplicationStatusEnum(status);
+    },
+    explainCoopProgramStatusEnumV(status){
+        return explainCoopProgramStatusEnum(status);
+    },
+    explainCoopProgramWrokModeEnumV(workMode){
+        return explainCoopProgramWrokModeEnum(workMode);
+    },
     explainMentorshipStausV(status){
         return explainMentorshipStaus(status);
     },
@@ -711,6 +720,57 @@ function explainAppMeetrEventCategoryEnum(category){
     return categoryDesc;
 }
 
+function explainCoopApplicationStatusEnum(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case CoopApplicationStatusEnum.PENDING:
+            statusDesc="待审核";
+            break; 
+        case CoopApplicationStatusEnum.APPROVED:
+            statusDesc="已同意";
+            break; 
+        case CoopApplicationStatusEnum.REJECTED:
+            statusDesc="已否决";
+            break;     
+    }
+    return statusDesc;
+}
+function explainCoopProgramStatusEnum(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case CoopProgramStatusEnum.RECRUITING:
+            statusDesc="匹配中";
+            break; 
+        case CoopProgramStatusEnum.CLOSED:
+            statusDesc="已关闭";
+            break; 
+        case CoopProgramStatusEnum.INVALID:
+            statusDesc="已失效";
+            break;   
+        case CoopProgramStatusEnum.FREEZE:
+            statusDesc="已冻结";
+            break;        
+    }
+    return statusDesc;
+}
+function explainCoopProgramWrokModeEnum(workmode){
+    var workmodeDesc = "未知";
+    switch(workmode){
+
+        case CoopProgramWrokModeEnum.FULL_TIME:
+            workmodeDesc="全职";
+            break; 
+        case CoopProgramWrokModeEnum.PART_TIME:
+            workmodeDesc="兼职";
+            break; 
+        case CoopProgramWrokModeEnum.FLEXIBLE:
+            workmodeDesc="不限";
+            break;     
+    }
+    return workmodeDesc;
+}
 
 export {
     CodeExplainComponent

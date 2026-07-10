@@ -160,9 +160,11 @@ const RootComponent = {
         newReportCase(this.reportForm).then(response=>{
             if(response.data.code==200){
 
-            document.querySelector('#caseMaterialFile').value = null;
+              customAlert.alert("举报/投诉记录已追加到档案库，可通过【个人中心】-【争端解决】了解最新的处理情况");
+              
+              document.querySelector('#caseMaterialFile').value = null;
 
-            $("#reportOasisModal").modal("hide"); // show success modal
+              $("#reportOasisModal").modal("hide"); 
 
             }
             if(response.data.code!=200){

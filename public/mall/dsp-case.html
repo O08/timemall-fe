@@ -99,6 +99,9 @@
                                       <div class="del_post">
                                         <button v-preventreclick @click="showOasisMembershipRefundModalV" class="btn-del_post">部落会员订阅退款</button>
                                       </div>
+                                      <div class="del_post">
+                                        <button v-preventreclick @click="showFreezeCoopProgramV" class="btn-del_post">冻结自由合作项目</button>
+                                      </div>
                                     </div>
                             
                             
@@ -407,6 +410,32 @@
                   'btn-primary': !!closedCommercialPaperId ,
                   'btn-secondary': !closedCommercialPaperId }"
                    v-preventreclick @click="closeCommercialPaperV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- freeze user modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="freezeCoopProgram" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">冻结自由合作项目</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form class="w-100" onsubmit="return false">
+                    <input v-model="freezeCoopProgramId" class="form-control  only-show-bottom dark-input-default" type="text" placeholder="项目Id">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button
+                  :class="{'disabled': !freezeCoopProgramId, 
+                  'btn-primary': !!freezeCoopProgramId ,
+                  'btn-secondary': !freezeCoopProgramId }"
+                   v-preventreclick @click="freezeCoopProgramV" type="button"  class="btn">提交</button>
                 </div>
               </div>
             </div>

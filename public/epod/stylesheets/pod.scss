@@ -1414,3 +1414,35 @@ file upload
   box-shadow: none;
   --bs-btn-close-focus-shadow: 0 0 0 .25rem transparent;
 }
+
+
+/* 标准自定义主操作按钮 */
+.btn-blv-primary {
+  background-color: #5865f2 !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 4px !important;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+  min-height: 38px;
+  box-shadow: none !important;
+}
+
+/* 鼠标悬浮 */
+.btn-blv-primary:hover {
+  background-color: #4752c4 !important;
+}
+
+/* 点击按下时的物理反馈 */
+.btn-blv-primary:active {
+  background-color: #3c45a5 !important;
+  transform: scale(0.98); 
+}
+
+/* 键盘聚焦或选中状态 */
+.btn-blv-primary:focus {
+  box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.4) !important;
+}

@@ -105,6 +105,11 @@ app.get('/apps/group-chat/admin', (req, res) => {
 app.get('/mall/dsp-case/:case_no', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/dsp-case.html")        //设置/ 下访问文件位置
 })
+app.get('/program/:id', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/epod/program.html")        //设置/ 下访问文件位置
+})
+
+
 
 app.get('/messages', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/arch/messages.html")        //设置/ 下访问文件位置

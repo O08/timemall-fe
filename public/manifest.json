@@ -8,6 +8,7 @@
     "theme_color": "#2f2f2f",
     "orientation": "any",
     "display": "standalone",
+    "display_override": ["minimal-ui", "standalone"], 
     "lang": "zh-CN",
     "dir": "ltr",
     "icons": [
@@ -58,7 +59,6 @@
     "related_applications": [],
     "prefer_related_applications": false,
     "launch_handler": {
-        "route_to": "existing-client",
-        "navigate_existing_client": "never"
+        "client_mode": "navigate-new"
     }
 }

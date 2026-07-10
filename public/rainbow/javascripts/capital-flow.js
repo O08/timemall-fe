@@ -14,6 +14,7 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
       return {
+        isProcessingTrans: false,
         alipay: {},
         trans: {
             drawable: 0.00,
@@ -42,6 +43,10 @@ const RootComponent = {
             });
         },
         withdrawV(){
+            // 拦截重复点击
+            if (this.isProcessingTrans) return;
+            this.isProcessingTrans = true;
+            
             withdrawToAlipayAccount(this.trans.amount,this.trans.id).then(response=>{
                 if(response.data.code==200){
                     this.retrieveFinInfoV();
@@ -61,6 +66,10 @@ const RootComponent = {
                     customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
                 }
 
+            }).catch(error => {
+                customAlert.alert("网络异常或系统繁忙，请稍后再试。");
+            }).finally(() => {
+                this.isProcessingTrans = false;
             });
         },
         retrieveFinInfoV(){

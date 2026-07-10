@@ -226,7 +226,14 @@
             <div class="mt-5">
               <button  @click="withdrawV" v-preventreclick 
               :class="{'disabled': !trans.id || !trans.amount || (trans.drawable < trans.amount) }"
-              type="submit" class="btn btn-action-submit w-100">确认转出</button>
+              type="submit" class="btn btn-action-submit w-100">
+                <span class="btn-content-wrapper">
+                  <!-- 处理中圆圈 -->
+                  <span v-if="isProcessingTrans" class="btn-spinner"></span>
+                  <!-- 动态文本 -->
+                  <span>{{ isProcessingTrans ? '处理中...' : '确认转出' }}</span>
+                </span>
+              </button>
             </div>                    
           </form>
 

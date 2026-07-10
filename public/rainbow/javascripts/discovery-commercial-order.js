@@ -10,6 +10,9 @@ import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import {DspReportApi} from "/common/javascripts/dsp-report-api.js";
 
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 const defaultObjPreviewImage = new URL(
     '/common/images/default-cell-preview.jpg',
     import.meta.url
@@ -89,10 +92,12 @@ const RootComponent = {
         newReportCaseV(){
           newReportCase(this.reportForm).then(response=>{
               if(response.data.code==200){
+
+                customAlert.alert("举报/投诉记录已追加到档案库，可通过【个人中心】-【争端解决】了解最新的处理情况");
   
-              document.querySelector('#caseMaterialFile').value = null;
-  
-              this.closeOasisReportModalV();
+                document.querySelector('#caseMaterialFile').value = null;
+    
+                this.closeOasisReportModalV();
   
               }
               if(response.data.code!=200){

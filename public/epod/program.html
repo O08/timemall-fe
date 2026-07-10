@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
+
+    <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+    <title>项目信息 | 自由合作</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/common/stylesheets/report-modal.scss">
+
+    <link rel="stylesheet" href="/epod/stylesheets/program.scss">
+
+
+</head>
+<body>
+  <div id="app" class="app-container" v-cloak>
+    <div v-if="!init_finish">
+      <img class="loading-annimation" src="/common/images/loading.gif" alt="loading annimation">
+    </div>
+    <div v-else="init_finish" class="event-container">
+
+      <div class="detail-drawer" id="detailDrawer">
+        <div class="detail-drawer__scroller">
+      
+          <!-- ── Cover ── -->
+          <div class="detail-drawer__cover">
+            <img
+              :src="adaptiveImageUriV(previewProgram.thumbnail)"
+              alt="Game art collaboration"
+              class="detail-drawer__cover-img"
+            />
+            <div class="detail-drawer__cover-overlay"></div>
+      
+            <!-- Controls -->
+            <div class="detail-drawer__controls d-flex align-items-center justify-content-between">
+              
+
+              <button title="申请状态" :class="{ 'collab-action-btn--applied': previewProgram.applied == '1' }" class="detail-drawer__ctrl-btn" aria-label="申请状态">
+                <svg  class="bookmark-icon"  xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+              </button>
+
+              <div class="d-flex align-items-center gap-2">
+
+                <button title="分享" v-preventreclick  @click="shareProgramV(previewProgram.programId)" type="button"  class="detail-drawer__ctrl-btn" aria-label="分享">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2-icon lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+                </button>
+               
+                <button title="举报" type="button" v-preventreclick  @click="showOasisReportModalV(previewProgram)" class="detail-drawer__ctrl-btn" aria-label="举报">
+                  <svg class="action-menu__item-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                  stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                    <line x1="4" y1="22" x2="4" y2="15"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+      
+            <!-- Publisher -->
+            <div class="detail-drawer__publisher d-flex align-items-center gap-2">
+              <img
+              :src="adaptiveImageUriV(previewProgram.authorAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }"
+                alt="brand avatar"
+                class="detail-drawer__publisher-avatar"
+              />
+              <div class="min-w-0 flex-grow-1">
+                <p class="detail-drawer__publisher-name">{{previewProgram.authorName}}</p>
+                <p class="detail-drawer__publisher-role">{{previewProgram.authorIpLocation?.replace(/\|/g, '·')}}</p>
+              </div>
+            </div>
+          </div><!-- /.detail-drawer__cover -->
+      
+      
+          <!-- ── Body ── -->
+          <div class="detail-drawer__body">
+      
+            <!-- Title -->
+            <h2 class="detail-drawer__title">{{previewProgram.title}}</h2>
+      
+            <!-- Stats strip -->
+            <div class="detail-stats">
+              <div class="detail-stats__cell">
+                <span class="detail-stats__label">状态</span>
+                <span class="detail-stats__value">{{explainCoopProgramStatusEnumV(previewProgram.status)}}</span>
+              </div>
+              <div class="detail-stats__cell">
+                <span class="detail-stats__label">时间要求</span>
+                <span class="detail-stats__value">{{explainCoopProgramWrokModeEnumV(previewProgram.workMode)}}</span>
+              </div>
+              <div class="detail-stats__cell">
+                <span class="detail-stats__label">申请人数</span>
+                <span class="detail-stats__value">
+                  {{formatCmpctNumberV(previewProgram.applys)}} <em>人</em>
+                </span>
+              </div>
+              <div class="detail-stats__cell">
+                <span class="detail-stats__label">发布时间</span>
+                <span class="detail-stats__value">
+                  {{formateDateV(previewProgram.createdAt)}}
+                </span>
+              </div>
+            </div>
+      
+            <!-- Skills -->
+            <div class="detail-section">
+              <p class="detail-section__label">合作领域</p>
+              <div class="d-flex  gap-2 detail-topics">
+                <span  v-for="topic in previewProgram.topics" class="skill-chip skill-chip--game-art">
+                  <span class="skill-chip__dot"></span>
+                  {{topic}}
+                </span>
+                 
+              </div>
+            </div>
+      
+            <!-- Description -->
+            <div class="detail-section">
+              <p class="detail-section__label">项目详情</p>
+              <p class="detail-section__body" style=" white-space: pre-wrap;">
+                {{previewProgram.description}}
+              </p>
+            </div>
+      
+            <!-- Community links -->
+            <div v-if="previewProgram.onlineLink" class="detail-section">
+              <div class="d-flex flex-column gap-2">
+      
+                <a :href="previewProgram.onlineLink" class="community-link" target="_blank" rel="noopener noreferrer">
+                  <span class="community-link__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5865f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  </span>
+                  <div class="min-w-0 flex-grow-1">
+                    <p class="community-link__name">社区链接</p>
+                    <p class="community-link__platform ellipsis-1">{{previewProgram.onlineLink}}</p>
+                  </div>
+                  <svg class="community-link__arrow" xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                       viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/>
+                  </svg>
+                </a>
+      
+            
+      
+              </div>
+            </div>
+      
+            <!-- Divider -->
+            <div class="detail-drawer__divider"></div>
+      
+            <!-- Apply section -->
+            <div class="apply-section">
+              <p class="detail-section__label">提交申请</p>
+      
+              <div  class="apply-form">
+                <div class="apply-form__field">
+                  <div class="d-flex align-items-baseline justify-content-between mb-2">
+                    <label class="apply-form__label">介绍一下自己</label>
+                    <span class="apply-form__counter" id="introCounter">{{applicationReqObj.message?.length}}/300</span>
+                  </div>
+                  <textarea
+                    v-model="applicationReqObj.message"
+                    class="apply-form__textarea"
+                    rows="8"
+                    placeholder="你的背景、相关技能，以及为什么想参与这个项目…"
+                    id="introTextarea"
+                    maxlength="300"
+                  ></textarea>
+                </div>
+                <button  :disabled="isSubmitting || previewProgram.applied=='1' || previewProgram.status!='recruiting' || !applicationReqObj.message || !applicationReqObj.message.trim()"  @click="applyProgramV" type="button"  class="apply-form__submit" id="submitBtn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                       fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+                  </svg>
+                  {{previewProgram.status!='recruiting' ? '暂不接受申请' : previewProgram.applied=='0' ? '发送申请' : '已申请' }}
+                </button>
+              </div>
+      
+            </div><!-- /.apply-section -->
+      
+          </div><!-- /.detail-drawer__body -->
+        </div><!-- /.detail-drawer__scroller -->
+      </div><!-- /.detail-drawer -->
+
+
+      <div class="modal-container">
+              
+        <!-- Modal -->
+        <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content text-color-dark">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5">举报项目</h1>
+                <button type="button" v-preventreclick  @click="closeOasisReportModalV" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body d-flex justify-content-center">
+                <form class="w-100">
+                  <div class="pt-3">
+                    <ul class="list-group">
+                      <li v-for="report in reportOptions" class="list-group-item">
+                          <div class="form-check">
+                          <input class="form-check-input" v-bind:value="report.itemCode"  v-model="reportForm.fraudType" type="radio" name="reportList">
+                          <label class="form-check-label" for="reportList">
+                              {{report.item}}
+                          </label>
+                          </div>
+                      </li>
+                    </ul>
+                 </div>
+    
+                 <div class="py-3">
+                  <div class="label-color field-label">详细描述（必填）</div>
+                  <div class="inputWrapper">
+                      <div class="inputMaxLength">
+                          <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                          <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 : 200-reportForm.caseDesc.length}}</div>
+                      </div>
+                  </div>
+                  <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
+    
+                  <input style="font-size: 12px;" id="caseMaterialFile" class="form-control  only-show-bottom mb-3" type="file" placeholder="选择举报材料">
+    
+                 </div>
+    
+                </form>
+                
+              </div>
+              <div class="modal-footer btn-light">
+                <button 
+                :class="{'disabled': !validateReportFormV(), 
+                  'btn-primary': validateReportFormV() ,
+                  'btn-secondary': !validateReportFormV()  }"
+                 v-preventreclick @click="newReportCaseV" type="button"  class="btn">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/epod/javascripts/programs.js"></script>
+
+
+
+</body>
+</html>

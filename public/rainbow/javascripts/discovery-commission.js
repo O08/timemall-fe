@@ -55,8 +55,9 @@ const RootComponent = {
             
             $("#acceptTaskModal").modal("show");
         },
-        retrieveOasisGridV(){
-            retrieveOasisGrid();
+        retrieveCommissionGridV(){
+            this.taskgrid_pagination.current=1;
+            this.reloadPage(this.taskgrid_pagination);
         },
         formatTimeV(dateStr){
             return formatTime(dateStr);
@@ -105,9 +106,6 @@ window.disTask = disTask;
 // init
 disTask.pageInit(disTask.taskgrid_pagination);
 
-function retrieveOasisGrid(){
-    disTask.reloadPage(disTask.taskgrid_pagination);
-}
 
 async function acceptCommission(dto){
     const url ="/api/v1/team/commission/accept";
