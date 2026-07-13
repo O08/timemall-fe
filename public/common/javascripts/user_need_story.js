@@ -1,3 +1,6 @@
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
+
 async function handleErrors(response) {
     if (!response.ok){
       throw Error(response.statusText);
@@ -29,7 +32,7 @@ async function uploadUserNeedStory(){
     var data = await response.json();
     if(data.code==200){
        // close feedback offcanvas
-       alert("您的反馈已提交成功，感谢反馈，我们承诺会快速评估，推出合适的商品与服务。祝愉快！");
+       customAlert.alert("您的反馈已提交成功，感谢反馈，我们承诺会快速评估，推出合适的商品与服务。祝愉快！");
        document.getElementById("input_need_description").value="";
        document.getElementById("input_need_budget").value="";
        document.getElementById("input_need_contact").value="";
@@ -37,7 +40,7 @@ async function uploadUserNeedStory(){
     }
     if(data.code!=200){
       const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+data.message;
-      alert(error); 
+      customAlert.alert(error); 
     }
 }
 

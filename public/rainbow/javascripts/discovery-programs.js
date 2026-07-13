@@ -44,7 +44,7 @@ const RootComponent = {
             },
             programgrid_pagination: {
                 url: "/api/v1/web_pod/discovery/cooperation/programs",
-                size: 2,
+                size: 30,
                 current: 1,
                 total: 0,
                 pages: 0,

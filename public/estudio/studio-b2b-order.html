@@ -44,7 +44,7 @@
             
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
                 <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
-                  <i class="bi bi-grid"></i>                  
+                  <i class="bi bi-ui-radios-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
@@ -287,10 +287,13 @@
 
            <!-- 容器元素 -->
         <div class="page-title-container">
-          <!-- 文章:粘性约束元素 -->
-          <div class="page-title">
-            <h1>履约中心</h1>
-          </div>
+          <div class="page-header-monolith">
+            <div class="title-wrapper"><span class="title-anchor"></span>
+              <h1 class="main-heading">履约中心</h1>
+            </div>
+            <p class="header-description">订单、商品、服务交付&售后支持体系。 </p>
+            <div class="header-divider"></div>
+          </div> 
           <div class="data-tag">服务类型</div>
           <!-- tablist -->
           <div class="nav-tabs-container">
@@ -370,10 +373,10 @@
 
                 <div class="table-wrp">
 
-                  <table class="table table-sm table-dark table-hover align-middle">
+                  <table class="table table-borderless table-sm table-dark table-hover align-middle">
                     <thead>
                       <tr>
-                        <th class="col-product-no-option"></th>
+                        <th class="col-product-no-option">商单</th>
                         <th class="col-fee">采购金额</th>
                         <th class="col-brand">采购商</th>
                         <th class="col-piece">职能</th>
@@ -443,7 +446,7 @@
             <!-- asking mps tab-->
             <div class="tab-pane fade" id="asking-tab-pane" role="tabpanel" aria-labelledby="asking-tab" tabindex="0">
               <div class="d-flex justify-content-between mps-list-header my-3">
-                <div class="asking-search d-flex">
+                <div class="asking-search d-flex" style="min-width: 260px;">
                   <form class="nosubmit" onsubmit="return false">
                     <input  @keyup.enter.native="retrieveOrderReceivingPaperTbV" v-model="mps_order_receiving_pagination.param.q"  class="nosubmit asking-search-btn" type="search" placeholder="搜索...">
                   </form>
@@ -453,10 +456,10 @@
 
                 <div class="table-wrp">
 
-                  <table class="table table-sm  table-hover align-middle">
+                  <table class="table table-borderless table-sm  table-hover align-middle">
                     <thead>
                       <tr>
-                        <th class="col-product-no-option-lg"></th>
+                        <th class="col-product-no-option-lg">商单</th>
                         <th class="col-fee">采购金额</th>
                         <th class="col-piece">职能</th>
                         <th class="col-addTime">派单日期</th>

@@ -73,7 +73,7 @@ a {
 
 }
 body {
-    background-color: #000;
+    background-color: #141414;
     color: #FDFDFD;
 }
 body {
@@ -84,7 +84,7 @@ header{
   z-index: 1020;
   position: sticky;
   top: 0;
-  background-color: #000;
+  background-color: #141414;
 }
 [v-cloak] {
   display:none !important;
@@ -216,13 +216,17 @@ header{
 }
 
 .btn-option-secondary {
-    color: #f8f9fa;
-    cursor: pointer;
-    background-color: #212529;
-    border: 0;
-    border-radius: .25rem;
-    padding: .5em;
-    line-height: 1;
+  color: #e3e5e7;
+  cursor: pointer;
+  background-color: #212529;
+  border: 0;
+  border-radius: .25rem;
+  padding: .5em;
+  line-height: 1;
+}
+.btn-option-secondary:hover:not(:disabled){
+color: #FDFDFD;
+background-color: #5865f2;
 }
 
 .brand-portrait, .brand-portrait img
@@ -655,6 +659,61 @@ img:after {
     object-fit: cover;
     color: rgba(0, 0, 0, 0) !important;
   }
+#section_feedback_offcanvas{
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #b5bac1;
+    margin-bottom: 6px;
+  }
+
+  .form-control{
+    background-color: #1e1f22 !important;
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    color: #dbdee1 !important;
+    font-size: 14px;
+    padding: 10px 14px !important;
+    transition: border-color .2s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .form-control::placeholder {
+    color: #72767d !important;
+    opacity: 1;
+    font-size: 13.5px;
+  }
+
+  .form-control::-webkit-input-placeholder {
+    color: #72767d !important;
+    font-size: 13.5px;
+  }
+
+  .form-control::-moz-placeholder {
+    color: #72767d !important;
+    opacity: 1;
+  }
+
+  .form-control:-ms-input-placeholder {
+    color: #72767d !important;
+  }
+
+  .form-control:focus {
+    border-color: #5865f2 !important;
+    box-shadow: none !important;
+    background-color: #1e1f22 !important;
+  }
+
+
+  textarea.form-control {
+    resize: none;
+    line-height: 1.6;
+  }
+}
 
   /*----------------------------------------------------
     16. contentediable compoent default style

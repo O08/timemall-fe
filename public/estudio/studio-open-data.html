@@ -47,7 +47,7 @@
           
             <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
               <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
-                <i class="bi bi-grid"></i>                  
+                <i class="bi bi-ui-radios-grid"></i>                  
               </div>
             </button>
             <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
@@ -286,31 +286,41 @@
       </aside>
       <main>
 
-        <!-- top search -->
-        <top-search class="section-top-serach">
-          <div class="input-group input-normal-search">
-            <input @keyup.enter.native="retrieveSemiDataV" v-model="open_data_pagination.param.q"  class="form-control top-search-input" type="text"
-              placeholder="搜索..." aria-label="Search">
-            <button v-preventreclick @click="retrieveSemiDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </top-search>
 
-        <div class="mt-5 data-tb-container">
+        <div class="page-header-monolith">
+          <div class="title-wrapper"><span class="title-anchor"></span>
+            <h1 class="main-heading">数据分析</h1>
+          </div>
+          <p class="header-description">分析搜索行为，研究新的服务与市场机会 </p>
+          <div class="header-divider"></div>
+        </div> 
+        <div class="filter-bar">
+          <!-- top search -->
+          <top-search class="section-top-serach">
+            <div class="input-group input-normal-search">
+              <input @keyup.enter.native="retrieveSemiDataV" v-model="open_data_pagination.param.q"  class="form-control top-search-input" type="text" placeholder="搜索..." aria-label="Search">
+              <button v-preventreclick @click="retrieveSemiDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </top-search>
+
+        </div>
+
+        <div class="mt-2 data-tb-container">
 
           <div class="table-responsive">
 
             <div class="table-wrp">
 
-              <table class="table table-sm table-hover align-middle">
+              <table class="table table-borderless table-sm table-hover align-middle">
                 <thead>
                   <tr>
                     <th class="col-snippet">摘要</th>
                     <th class="col-details">明细</th>
                     <th class="col-time">采集时间</th>
                     <th class="col-type">
-                      <div class="dropdown">
+                      <div class="dropdown position-relative">
                         <button class="btn data-tb-filter dropdown-toggle" type="button"
                           data-bs-toggle="dropdown" aria-expanded="false">
                           数据来源
@@ -372,7 +382,7 @@
                       </div>
                     </th>
     
-                    <th class="col-option">
+                    <th class="col-option position-relative">
                       <div class="dropdown">
                         <button class="btn data-tb-filter dropdown-toggle" type="button"
                           data-bs-toggle="dropdown" aria-expanded="false">

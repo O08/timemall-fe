@@ -1,14 +1,14 @@
 {
+    "id": "/pwa",
     "name": "班蔚",
     "short_name": "班蔚",
     "description": "个性化定制、社交、商务、远程办公、创业为一体的数字职场",
     "start_url": "/",
     "scope": "/",
-    "background_color": "#2f2f2f",
-    "theme_color": "#2f2f2f",
+    "background_color": "#1f1f1f",
+    "theme_color": "#1f1f1f",
     "orientation": "any",
     "display": "standalone",
-    "display_override": ["minimal-ui", "standalone"], 
     "lang": "zh-CN",
     "dir": "ltr",
     "icons": [
@@ -31,7 +31,7 @@
             "purpose": "any"
         }
     ],
-    "categories": ["商务", "productivity", "social"],
+    "categories": ["business", "productivity", "social"],
     "screenshots": [],
     "shortcuts": [
         {
@@ -59,6 +59,7 @@
     "related_applications": [],
     "prefer_related_applications": false,
     "launch_handler": {
-        "client_mode": "navigate-new"
+        "route_to": "existing-client",
+        "navigate_existing_client": "never"
     }
 }

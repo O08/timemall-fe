@@ -116,7 +116,7 @@ nav{
 }
 .search-container{
   padding-top: 72px;
-  background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
+  // background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
 }
 .cell-item .card{
   background-color: #2f2f2f;
@@ -257,6 +257,62 @@ nav{
   #section_user_need_feedback_offcanvas .offcanvas-title,#section_user_need_feedback_offcanvas .form-label{
     color: #FDFDFD;
   }
+
+#section_user_need_feedback_offcanvas{
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #b5bac1;
+    margin-bottom: 6px;
+  }
+
+  .form-control{
+    background-color: #1e1f22 !important;
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    color: #dbdee1 !important;
+    font-size: 14px;
+    padding: 10px 14px !important;
+    transition: border-color .2s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .form-control::placeholder {
+    color: #72767d !important;
+    opacity: 1;
+    font-size: 13.5px;
+  }
+
+  .form-control::-webkit-input-placeholder {
+    color: #72767d !important;
+    font-size: 13.5px;
+  }
+
+  .form-control::-moz-placeholder {
+    color: #72767d !important;
+    opacity: 1;
+  }
+
+  .form-control:-ms-input-placeholder {
+    color: #72767d !important;
+  }
+
+  .form-control:focus {
+    border-color: #5865f2 !important;
+    box-shadow: none !important;
+    background-color: #1e1f22 !important;
+  }
+
+
+  textarea.form-control {
+    resize: none;
+    line-height: 1.6;
+  }
+}
   
   .budget-filter-form{
     min-width: 300px;
@@ -354,9 +410,10 @@ nav{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-bottom: 100px;
-    padding-top: 25px;
     border-radius: 10px;
+    background-color: #141414;
+    min-height: 580px;
+    padding: 12px;
   }
   .service_not_found_description .sorry{
     font-weight: bolder;
@@ -596,3 +653,38 @@ nav{
   .header-container .dropdown-menu {
     z-index: 2001;
   }
+
+  /* 指令磁贴块 */
+.command-block {
+  background-color: #2B2D31;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.command-block:hover {
+  background-color: #35373C;
+  border-color: #5865F2;
+  transform: translateX(4px);
+  color: inherit;
+}
+
+.icon-box {
+  width: 40px;
+  height: 40px;
+  background-color: #1E1F22;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.command-block:hover .icon-box {
+  transform: scale(1.1);
+}

@@ -52,7 +52,7 @@
           
                 <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
                   <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
-                    <i class="bi bi-grid"></i>                 
+                    <i class="bi bi-ui-radios-grid"></i>                 
                   </div>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
@@ -213,12 +213,12 @@
                   <div class="row g-3">
                     <div class="col-6 input-wrapper">
                       <label for="input_budget_min" class="form-label">最小预算</label>
-                      <input v-model="cellgrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)">
+                      <input v-model="cellgrid_pagination.param.budgetMin" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_min" @input="transformInputNumberV($event)" autocomplete="off">
                       <i>￥</i>
                     </div>
                     <div class="col-6 input-wrapper">
                       <label for="input_budget_max" class="form-label">最大预算</label>
-                      <input  v-model="cellgrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)">
+                      <input  v-model="cellgrid_pagination.param.budgetMax" type="text" min="1" max="50000" step="1" class="form-control" id="input_budget_max" @input="transformInputNumberV($event)" autocomplete="off">
                       <i>￥</i>
                     </div>
                   </div>
@@ -267,28 +267,56 @@
                 <section class="section-service-grid">
                   <!-- service top bar -->
                 
-                 <div v-show="isEmptyObjV(cellgrid_pagination.records)" class="service_not_found_container">
-                  <div class="service_not_found_illustration">
-                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
-                  </div>
-                  <div class="service_not_found_description">
-                    <p class="sorry">抱歉，未找到商品</p>
-                    <p class="sub_command">尝试新搜索或告诉我们你的需要,另外,你也可以前往商单助手发布需求</p>
-                  </div>
-                  <div class="service_not_found_option mt-2">
+                  <div v-show="isEmptyObjV(cellgrid_pagination.records)" class="service_not_found_container">
+                    <div class="service_not_found_illustration">
+                      <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
+                    </div>
+                    <div class="service_not_found_description">
+                      <p class="sorry">抱歉，未找到商品</p>
+                      <p class="sub_command">尝试新搜索或告诉我们你的需要,另外,你也可以前往商单助手发布需求</p>
+                    </div>
 
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#user_need_feedback_offcanvas_right" aria-controls="user_need_feedback_offcanvas_right">
-                      告诉我们
-                    </button>
+                    <!-- 交互磁贴区 -->
+                    <div class="row g-3 mb-5">
+                      <div class="col-12 col-md-6">
+                        <a href="/estudio/studio-mps" class="command-block">
+                          <div class="d-flex align-items-center">
+                            <div class="icon-box me-3">
+                              <svg width="20" height="20" fill="none" stroke="#5865F2" stroke-width="2" viewBox="0 0 24 24">
+                                <path
+                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                              </svg>
+                            </div>
+                            <div style="text-align: start;">
+                              <div class="fw-bold text-white small">发布需求</div>
+                              <div style="font-size: 11px; color: #949ba4; width: max-content;">全球专家时刻为您服务</div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <button data-bs-toggle="offcanvas" data-bs-target="#user_need_feedback_offcanvas_right" aria-controls="user_need_feedback_offcanvas_right" 
+                          class="command-block border-dashed"
+                          style="border-style: dashed ; border-color: rgba(88, 101, 242, 0.3) ; width: 100%;">
+                          <div class="d-flex align-items-center">
+                            <div class="icon-box me-3">
+                              <svg width="20" height="20" fill="none" stroke="#23A559" stroke-width="2" viewBox="0 0 24 24">
+                                <path
+                                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                                </path>
+                              </svg>
+                            </div>
+                            <div style="text-align: start;">
+                              <div class="fw-bold text-white small">告诉我们</div>
+                              <div style="font-size: 11px; color: #949ba4; width: max-content;">获取人工推荐及需求分析</div>
+                            </div>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
 
-                    <a  class="btn btn-primary ms-4" href="/estudio/studio-mps">
-                      发布需求
-                    </a>
-
-
-                  </div>
-
-                 </div> 
+                  </div> 
                  
                   <div id="div_gri_panel" 
                     class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-6">

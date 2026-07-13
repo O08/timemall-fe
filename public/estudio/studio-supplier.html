@@ -51,7 +51,7 @@
             <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
                 data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
-                <i class="bi bi-grid"></i>
+                <i class="bi bi-ui-radios-grid"></i>
               </div>
             </button>
             <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
@@ -299,9 +299,13 @@
       </aside>
       <main>
         <div class="main-content-container full">
-          <div class="page-title mb-5">
-            <h1>商业伙伴</h1>
-          </div>
+          <div class="page-header-monolith">
+            <div class="title-wrapper"><span class="title-anchor"></span>
+              <h1 class="main-heading">商业伙伴</h1>
+            </div>
+            <p class="header-description">供应商、干系人或合作伙伴档案库。 </p>
+            <div class="header-divider"></div>
+          </div> 
           <div class="filter-bar">
             <button v-preventreclick @click="showInviteModalV" class="btn btn-blv-primary d-inline-flex align-items-center"><i class="bi bi-plus"></i> 添加品牌</button>
             <!-- top search -->
@@ -378,7 +382,7 @@
           <div class="data-tb-container pt-2">
             <div class="table-responsive">
               <div class="table-wrp">
-                <table class="table table-sm table-hover align-middle">
+                <table class="table table-borderless table-sm table-hover align-middle">
                   <thead>
                     <th class="col-option"></th>
                     <th class="col-brand">品牌</th>
@@ -453,7 +457,7 @@
                         
                       </td>
                       <td :title="explainSupplierStatusV(supplier.supplierStatus)"><span class="ellipsis-1">{{explainSupplierStatusV(supplier.supplierStatus)}}</span></td>
-                      <td :title="formateDateV(supplier.supplierLoginAt)"><span style="font-size: 10px; color: rgb(100, 116, 139);" class="ellipsis-1">{{formateDateV(supplier.supplierLoginAt)}}</span></td>
+                      <td :title="formateDateV(supplier.supplierLoginAt)"><span  class="ellipsis-1">{{formateDateV(supplier.supplierLoginAt)}}</span></td>
                     </tr>
                   </tbody>
                 </table>
@@ -563,7 +567,7 @@
       <div class="modal-container">
         <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" style="max-width: 460px; border-radius: 8px;">
-            <div class="modal-content border-0 p-lg-3">
+            <div class="modal-content border-0">
               
               <!-- 头部 -->
               <div class="modal-header border-0 pb-2 position-relative">
@@ -619,7 +623,7 @@
       <div class="modal-container">
         <div class="modal fade" id="editSupplierModal" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content border-0 p-lg-3">
+            <div class="modal-content border-0">
               
               <!-- 头部 -->
               <div class="modal-header border-0 pb-2 position-relative">
@@ -701,7 +705,7 @@
         <!-- Modal Component Container -->
         <div class="modal fade" id="uploadNdaModal" tabindex="-1" aria-hidden="true" ref="uploadModal">
           <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 p-lg-3" style="max-width: 480px;">
+            <div class="modal-content border-0" style="max-width: 480px;">
               
               <!-- Header Header -->
               <div class="modal-header border-0 pb-1 position-relative">

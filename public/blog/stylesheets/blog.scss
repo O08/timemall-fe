@@ -10,9 +10,9 @@ mall-app {
 mall-app main {
     flex: 1;
 }
-content{
-    background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
-}
+// content{
+//     background: linear-gradient(#d8dcf01a 0%, #3a303000 100%);
+// }
 .back-link{
     font-size: 14px;
     font-weight: 500;
@@ -32,11 +32,14 @@ footer {
     margin-top: -100px;
     position: relative;
 }
+body{
+    background: #141414;
+}
 header{
     z-index: 1020;
     position: sticky;
     top: 0;
-    background-color: #000;
+    background-color: #141414;
 }
 .toggle-nav {
     font-weight: 600;

@@ -44,7 +44,7 @@
             
               <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
                 <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
-                  <i class="bi bi-grid"></i>                  
+                  <i class="bi bi-ui-radios-grid"></i>                  
                 </div>
               </button>
               <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
@@ -284,9 +284,13 @@
       <main>
         <div class="main-content-container full">
 
-        <div class="page-title">
-          <h1>履约中心</h1>
-        </div>  
+        <div class="page-header-monolith">
+          <div class="title-wrapper"><span class="title-anchor"></span>
+            <h1 class="main-heading">履约中心</h1>
+          </div>
+          <p class="header-description">订单、商品、服务交付&售后支持体系。 </p>
+          <div class="header-divider"></div>
+        </div> 
         <div class="data-tag">服务类型</div>
         <!-- first tablist -->
         <div class="first-nav-tabs-container">
@@ -318,7 +322,7 @@
 
           <div class="tab-pane fade show active" id="plan-order-tab-pane" role="tabpanel" aria-labelledby="plan-order-tab" tabindex="0">
 
-            <div class="d-flex cell-plan-order-list-header mt-5 mb-3">
+            <div style="margin-top: 24px;" class="d-flex cell-plan-order-list-header mb-3">
               <div class="plan-order-search d-flex">
                 <form class="nosubmit" onsubmit="return false">
                   <input  @keyup.enter.native="retrieveCellPlanOrderTbV" v-model="plan_pagination.param.q"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
@@ -351,7 +355,7 @@
 
               <div class="table-wrp">
 
-                <table class="table table-sm  table-hover align-middle">
+                <table class="table table-borderless table-sm  table-hover align-middle">
                   <thead>
                     <tr>
                       <th>服务</th>
