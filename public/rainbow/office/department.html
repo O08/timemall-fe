@@ -189,7 +189,7 @@
     <section class="modals">
       <!-- new department Modal start -->
       <div class="modal-container">
-        <div class="modal" id="newDepartmentModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal fade" id="newDepartmentModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-body">
@@ -206,7 +206,7 @@
                   </div>
                 </form>
               </div>
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closeNewDepartmentModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">
@@ -226,7 +226,7 @@
       <!-- new department Modal end -->
       <!-- edit department Modal start -->
       <div class="modal-container">
-        <div class="modal" id="editDepartmentModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal" id="editDepartmentModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-body">
@@ -241,6 +241,7 @@
                     <label for="editDepartmentObj__leader" class="form-label">部门负责人</label>
                     <model-select
                       id="editDepartmentObj__leader" 
+                      class="dark-model-select"
                       :options="employeeOptions"
 
                       @blur="btn_ctl.editDepartmentModal_already_change=true" 
@@ -257,7 +258,7 @@
                   </div>
                 </form>
               </div>
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closeEditDepartmentModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">

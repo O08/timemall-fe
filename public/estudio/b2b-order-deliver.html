@@ -665,12 +665,12 @@
 
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fade" id="newDeliverModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal dcModal fade" id="newDeliverModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5">准备交付内容</h1>
-                  <button @click="closeDeliverPaperModalHandlerV"  type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button @click="closeDeliverPaperModalHandlerV"  type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <form onsubmit="return false">
@@ -681,7 +681,7 @@
                           上传预览文件，采购商通过该文件判断是否接受您的交付资料。(最大20M)                          </div>
                       </label>
                       <div class="col-sm-8">
-                        <input type="file" @change="handlePreviewFileUpload" class="form-control form-control-sm" id="inputPreviewFile">
+                        <input type="file" @change="handlePreviewFileUpload" class="form-control form-file form-control-sm" id="inputPreviewFile">
                       </div>
                     </div>
                     <div class="row mb-3">
@@ -692,18 +692,18 @@
                         </div>
                       </label>
                       <div class="col-sm-8">
-                        <input type="file" @change="handleDeliverFileUpload"  class="form-control form-control-sm" id="inputDeliverFile">
+                        <input type="file" @change="handleDeliverFileUpload"  class="form-control form-file form-control-sm" id="inputDeliverFile">
                       </div>
                     </div>
                   </form>
                
                 </div>
-                <div class="modal-footer btn-light">
+                <div class="modal-footer btn-light border-0">
                   <button
                   :class="{'disabled': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded , 
-                        'btn-primary': !delieverOrPreviewFileIsEmpty && !deliverFileSizeExceeded && !previewFileSizeExceeded,
+                        'btn-action-submit': !delieverOrPreviewFileIsEmpty && !deliverFileSizeExceeded && !previewFileSizeExceeded,
                         'btn-secondary': delieverOrPreviewFileIsEmpty || deliverFileSizeExceeded || previewFileSizeExceeded}"
-                   v-preventreclick @click="deliverPaperV"  type="button" class="btn">提交</button>
+                   v-preventreclick @click="deliverPaperV"  type="button" class="btn w-100">提交</button>
                 </div>
               </div>
             </div>

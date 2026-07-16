@@ -178,12 +178,6 @@ pt-app content main {
 
 
 
-#focusModal .modal-dialog-scrollable .modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-}
 
 #focusModal .modal-header {
   padding: 20px 24px 12px;
@@ -192,104 +186,15 @@ pt-app content main {
 #focusModal .modal-title {
   font-size: 15px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #fff;
 }
 
-#focusModal .modal-body {
-  padding: 8px 24px 20px;
-}
 
 #focusModal .card-text {
   font-size: 13px;
   line-height: 1.6;
-  color: #666;
+  color: #9ca3af;
   margin: 0;
-}
-
-#focusModal .modal-footer {
-  padding: 16px 24px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #eee;
-  border-radius: 0 0 8px 8px;
-}
-
-#focusModal .modal-btn-ui {
-  font-size: 13px;
-  font-weight: 500;
-  padding: 8px 20px;
-  border-radius: 4px;
-}
-
-#focusModal .btn-secondary {
-  background: transparent;
-  border: 1px solid #ddd;
-  color: #666;
-}
-
-#focusModal .btn-secondary:hover {
-  background: #f5f5f5;
-  border-color: #ccc;
-  color: #333;
-}
-
-#focusModal .btn-primary {
-  background: #1a1a1a;
-  border: none;
-  color: #fff;
-}
-
-#focusModal .btn-primary:hover {
-  background: #333;
-}
-
-/* ========== configCompensationModal ========== */
-#configCompensationModal .modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-}
-
-#configCompensationModal .modal-body {
-  padding: 24px;
-}
-
-#configCompensationModal .form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #666;
-  margin-bottom: 6px;
-}
-
-#configCompensationModal .form-control,
-#configCompensationModal .form-select {
-  font-size: 13px;
-  padding: 10px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #1a1a1a;
-}
-
-#configCompensationModal .form-control:focus,
-#configCompensationModal .form-select:focus {
-  border-color: #999;
-  box-shadow: none;
-  outline: none;
-}
-
-#configCompensationModal .modal-footer {
-  padding: 16px 24px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #eee;
-  border-radius: 0 0 8px 8px;
-}
-
-#configCompensationModal .fresh-ui-btn {
-  font-size: 13px;
-  font-weight: 500;
-  padding: 8px 20px;
-  border-radius: 4px;
 }
 
 
@@ -696,6 +601,11 @@ pt-app content main {
 
 .status-pending i {
   font-size: 14px;
+}
+
+.section-name {
+  font-weight: 700;
+  font-size: 13px;
 }
 
 /* ========== 响应式设计 V3 ========== */

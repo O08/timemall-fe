@@ -297,9 +297,9 @@
 
       <div class="modal-container">
         <div class="modal-container">
-          <div class="modal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
-            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
+          <div class="modal dcModal fade" id="focusModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+            <div style="max-width: 280px;" class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content" >
                 <div class="modal-header d-flex justify-content-center border-0 ">
                   <h1 class="modal-title fs-5">操作提示</h1>
                 </div>
@@ -320,7 +320,7 @@
 
       <!-- pay general employee Modal start -->
       <div class="modal-container">
-        <div class="modal" id="payGeneralModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+        <div class="modal dcModal fade" id="payGeneralModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-body">
@@ -343,7 +343,7 @@
                   </div>
                 </form>
               </div>
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closePayGeneralModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">
@@ -364,12 +364,12 @@
 
       <!-- pay one employee Modal start-->
       <div class="modal-container">
-        <div class="modal fade" id="payOneEmployeeModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+        <div class="modal dcModal fade" id="payOneEmployeeModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
           <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header border-0">
                 <h1 class="modal-title fs-5">职员工资发放</h1>
-                <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 
@@ -425,7 +425,7 @@
 
        <!-- pay perk Modal start -->
       <div class="modal-container">
-        <div class="modal" id="payRetroactivelyModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+        <div class="modal dcModal fade" id="payRetroactivelyModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-body">
@@ -469,7 +469,7 @@
                   </div>
                 </form>
               </div>
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closePayRetroactivelyModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">

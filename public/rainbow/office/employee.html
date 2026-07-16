@@ -246,7 +246,7 @@
     <section class="modals">
       <!-- new employee Modal start -->
       <div class="modal-container">
-        <div class="modal define-employee-modal" id="newEmployeeModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
+        <div class="modal dcModal define-employee-modal" id="newEmployeeModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="false">
           <div class="modal-dialog  modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-body">
@@ -275,7 +275,7 @@
 
                   <div class="col-md-6">
                     <label for="newEmployee__department" class="form-label">部门</label>
-                    <model-select tabindex="-1" id="newEmployee__department" class="mb-3" :options="departmentOptions" placeholder="" v-model="departmentSelectedItem">
+                    <model-select tabindex="-1" id="newEmployee__department" class="dark-model-select mb-3" :options="departmentOptions" placeholder="" v-model="departmentSelectedItem">
                     </model-select>
 
                   </div>
@@ -493,7 +493,7 @@
 
               </div>
 
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closeNewEmployeeModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">

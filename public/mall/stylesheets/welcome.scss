@@ -27,7 +27,7 @@ body {
   -webkit-app-region: drag;
   -webkit-font-smoothing: antialiased;
   width: 100%;
-  background-image: linear-gradient(0deg, rgba(20, 20, 20, 0) 1%, rgba(20, 20, 20, .7) 99%);
+  // background-image: linear-gradient(0deg, rgba(20, 20, 20, 0) 1%, rgba(20, 20, 20, .7) 99%);
   opacity: 1;
   transition: opacity .3s;
 }
@@ -66,22 +66,14 @@ body {
 
 .logo_box img {
   position: relative;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  margin-right: 8px;
+  width: auto;
+  height: 24px;
 }
 
 .leftnav_nav_box {
   height: calc(100% - 68px);
 }
 
-.logo_box {
-  font-size: 32px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
 
 .leftnav_nav_content {
   height: calc(100% - 30px);
@@ -95,12 +87,12 @@ body {
   position: relative;
   width: 144px;
   text-align: left;
+  padding-top: 64px;
 }
 
 .leftnav_link_item {
   padding-left: 40px;
   color: #a0a5aa; /* 稍微亮一点的默认颜色 */
-  font-weight: 600; /* 增加字体权重 */
   font-size: 16px;
   text-decoration: none;
   display: flex;
@@ -108,10 +100,11 @@ body {
   align-items: center;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
-  height: 52px; /* 增加高度 */
-  line-height: 52px; /* 相应调整行高 */
+  height: 42px; /* 增加高度 */
+  line-height: 42px; /* 相应调整行高 */
   margin-bottom: 4px; /* 添加底部间距 */
   transition: all 0.3s ease; /* 添加过渡效果 */
+  letter-spacing: 0.02rem;
 }
 
 .leftnav_current_item,

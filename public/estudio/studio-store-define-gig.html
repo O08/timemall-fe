@@ -440,7 +440,7 @@
                               <button class="btn dropdown-toggle widget-cal ms-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-calculator-fill"></i>自动定价
                               </button>
-                              <form class="dropdown-menu  p-4 auto-cal-form" onsubmit="return false">
+                              <form style="background-color: #2f2f2f; color: #fefefe;" class="dropdown-menu  p-4 auto-cal-form" onsubmit="return false">
                                 <div>
                                   定价基准
                                 </div>
@@ -600,7 +600,7 @@
                         :class="{'disabled': !agree_check, 
                         'btn-primary': agree_check,
                         'btn-secondary': !agree_check}"
-                        type="submit" @click="onlineCell" class="btn">发布</button>
+                        type="submit" @click="onlineCell" class="btn">发布服务</button>
                       </div>
                     </div>
                   </div>
@@ -618,14 +618,14 @@
       </main>
       <section class="modals">
         <div class="modal-container">
-          <div class="modal fade" id="planConfigModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal dcModal fade" id="planConfigModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content text-color-dark">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5">配置{{planTypeToGradeV(cofingPlan.planType)}}套餐：{{explainPlanTypeV(cofingPlan.planType)}}</h1>
-                  <button  type="button" id="closePlanConfigModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button  type="button" id="closePlanConfigModal" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body px-4">
+                <div class="modal-body">
                   <form onsubmit="return false">
                    
                     <div class="mb-3">
@@ -642,7 +642,7 @@
                       <input @change="btn_ctl.put_cell_plan_already_change = true"  type="text"  v-model="cofingPlan.price"  max="50000000" @input="transformInputNumberV($event)"  id="cofingPlanPrice" class="form-control"  autocomplete="off">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-5">
                       <label for="cofingPlanFeature" class="form-label">权益</label>
                       <textarea @change="btn_ctl.put_cell_plan_already_change = true"  v-model="cofingPlan.feature" id="cofingPlanFeature" rows="12" class="form-control" maxlength="600" placeholder="比如： 支持最多50张PPT制作；10次改稿机会..."></textarea>
                     </div>   
@@ -651,7 +651,7 @@
                     :class="{'disabled': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput(), 
                     'btn-primary': btn_ctl.put_cell_plan_already_change && validatePutCellPlanInput(),
                     'btn-secondary': !btn_ctl.put_cell_plan_already_change || !validatePutCellPlanInput()}"
-                     v-preventreclick @click="putCellPlanV" type="button" id="btn-save-plan" class="btn my-4 w-100">保存</button>
+                     v-preventreclick @click="putCellPlanV" type="button" id="btn-save-plan" class="btn btn-action-submit w-100">保存</button>
                   </form>
                 </div>
        

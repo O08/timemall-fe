@@ -128,26 +128,31 @@
     margin: 12px 0;
     border-radius: 5px;
     border: 1px solid #a6a6a6;
+    background: linear-gradient(135deg, #111 0%, #0d0d0d 100%);
+    border: 1px solid #1a1a1a;
   }
   .tag-content ul  li{
-    color: #333;
     margin: 4px 3px;
     list-style: none;
     border-radius: 5px;
-    background: #F2F2F2;
     padding: 5px 8px 5px 10px;
-    border: 1px solid #e3e1e1;
+    background: #111;
+    border: 1px solid #222;
   }
   .tag-content ul li i{
     height: 20px;
     width: 20px;
-    color: #808080;
+    color: #666;
     margin-left: 8px;
     font-size: 12px;
     cursor: pointer;
     border-radius: 50%;
-    background: #dfdfdf;
+    background: #ffffff0d;
     justify-content: center;
+  }
+  .tag-content ul li i:hover {
+    color: #dc3545;
+    background: #dc354526;
   }
   .tag-content ul input{
     flex: 1;
@@ -501,17 +506,16 @@
   height: 48%;
 }
 
-
 #cell-define-container .accordion
 {
-    --bs-accordion-bg: #2e2e2e9d;
+    --bs-accordion-bg: #1a1a1a;
     --bs-accordion-color: #ecf0f1;
     --bs-accordion-border-color: none;
     --bs-accordion-border-width: none;
     --bs-accordion-btn-color: #ecf0f1;
     --bs-accordion-btn-focus-box-shadow: none;
     --bs-accordion-active-color: #ecf0f1;
-    --bs-accordion-active-bg: #000;
+    --bs-accordion-active-bg: #1a1a1a;
     --bs-accordion-btn-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ecf0f1'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
     --bs-accordion-btn-active-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ecf0f1'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
 }
@@ -521,12 +525,68 @@
 }
 #cell-define-container  .accordion-body
 {
-    background-color: #000;
+    background-color: #1a1a1a;
 }
 #cell-define-container  .accordion-button
 {
   font-size: 32px;
   font-weight: bold;
+}
+#cell-define-container{
+  .input-group-text {
+    color: #4a90e2;
+    background: #222;
+    border: none;
+    border-radius: 0 4px 4px 0 ;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+  }
+  .form-control,
+  .form-select {
+    background-color: #111 !important; // 嵌入式深黑底
+    border: 1px solid transparent !important;
+    border-radius: 4px !important;
+    color: #dbdee1 !important;
+    font-size: 14px;
+    padding: 10px 14px !important;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-control {
+    &::placeholder {
+      color: #72767d !important;
+      opacity: 1; // 强制解除某些浏览器默认的淡化半透明滤镜
+      font-size: 13.5px; // 占位符字号微调窄一点点，使其更具辅助感
+    }
+
+    &::-webkit-input-placeholder {
+      color: #72767d !important;
+      font-size: 13.5px;
+    }
+
+    &::-moz-placeholder {
+      color: #72767d !important;
+      opacity: 1;
+    }
+
+    &:-ms-input-placeholder {
+      color: #72767d !important;
+    }
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #5865f2 !important;
+    box-shadow: none !important;
+  }
+
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b5bac1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+  }
 }
 .thumbnail-box {
   height: 100%;

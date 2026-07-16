@@ -403,7 +403,7 @@
 
         <!-- edit basic info for employee Modal start -->
         <div class="modal-container">
-          <div class="modal define-employee-modal" id="editEmployeeModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal dcModal define-employee-modal" id="editEmployeeModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-body">
@@ -479,7 +479,7 @@
                     <div class="col-md-6">
                       <label for="editEmployee__department" class="form-label">部门</label>
                       <model-select  @blur="btn_ctl.basicInfo_already_change=true" 
-                       tabindex="-1" id="editEmployee__department" class="mb-3" :options="departmentOptions" placeholder="" v-model="departmentSelectedItem">
+                       tabindex="-1" id="editEmployee__department" class="dark-model-select mb-3" :options="departmentOptions" placeholder="" v-model="departmentSelectedItem">
                       </model-select>
                     </div>
 
@@ -571,7 +571,7 @@
 
                 </div>
 
-                <div class="modal-footer fresh-ui-modal-footer">
+                <div class="modal-footer d-flex justify-content-between border-0">
 
                   <button v-preventreclick @click="closeEditBasicEmployeeModalV" type="button"
                     class="btn btn-outline-secondary fresh-ui-btn">
@@ -595,7 +595,7 @@
 
         <!-- edit benefit info for employee Modal start -->
         <div class="modal-container">
-          <div class="modal define-employee-modal" id="editEmployeeBenefitModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal dcModal fade define-employee-modal" id="editEmployeeBenefitModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-body">
@@ -727,7 +727,7 @@
 
                 </div>
 
-                <div class="modal-footer fresh-ui-modal-footer">
+                <div class="modal-footer d-flex justify-content-between border-0">
 
                   <button v-preventreclick @click="closeEditEmployeeBenefitModalV" type="button"
                     class="btn btn-outline-secondary fresh-ui-btn">
@@ -749,16 +749,16 @@
         <!-- edit employee benefit info Modal end -->
 
         <!-- config compensation Modal start -->
-        <div class="modal fade" id="configCompensationModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal fade" id="configCompensationModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content text-color-dark">
               <div class="modal-header">
                 <h1 class="modal-title fs-5">薪酬配置</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
 
-                <div class="tb-search-container">
+                <div style="border-bottom: 1px solid #3e3e3e; padding-bottom: 16px;" class="tb-search-container">
                   <div class="tb-search">
                     <div class="tb-search-group">
                       <i class="bi bi-search"></i>
@@ -791,7 +791,7 @@
 
       <!-- add   employee extra info Modal start -->
       <div class="modal-container">
-        <div class="modal fade" id="newEmployeeExtraInfoModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal fade" id="newEmployeeExtraInfoModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-body">
@@ -815,7 +815,7 @@
 
               </div>
 
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closeNewEmployeeExtraInfoModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">
@@ -839,7 +839,7 @@
 
       <!-- rename employee material  Modal start -->
       <div class="modal-container">
-        <div class="modal fade" id="renameEmployeeMaterialModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal fade" id="renameEmployeeMaterialModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog  modal-dialog-centered   modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-body">
@@ -858,7 +858,7 @@
 
               </div>
 
-              <div class="modal-footer fresh-ui-modal-footer">
+              <div class="modal-footer d-flex justify-content-between border-0">
 
                 <button v-preventreclick @click="closeRenameEmployeeMaterialModalV" type="button"
                   class="btn btn-outline-secondary fresh-ui-btn">

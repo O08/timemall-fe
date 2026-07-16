@@ -746,7 +746,7 @@ pt-app content main {
   background-color: #c4c9ce27;
 }
 
-.tb-search-group {
+.tb-search-group{
   min-height: 32px;
   height: 32px;
   font-weight: 400;
@@ -761,12 +761,12 @@ pt-app content main {
   padding-inline: 16px 4px;
   outline: none;
   border-radius: 5px;
-  color: #333;
-  background-color: #f6f6f6;
-  border: 1px solid #e0e0e0;
-}
+  color: #c3bfbf;
+  background-color: #212529;
+  border: 1px solid #555;
 
-.tb-search-group .input_search {
+}
+.tb-search-group .input_search{
   appearance: textfield;
   all: unset;
   flex: 1;
@@ -777,17 +777,24 @@ pt-app content main {
   text-overflow: ellipsis;
   border: none;
   outline: none;
-  color: #333;
 }
-
-.tb-search-group .input_search::placeholder {
-  color: #999;
-}
-
 .tb-search-group:has(.input_search:active, .input_search:focus) {
-  border-color: rgb(153, 153, 153);
-  box-shadow:none;
+  border-color: #aaa;
+}
+.form-switch-ui .form-check-input{
   outline: 0;
+  box-shadow: none;
+  background-color: #c3bfbf;
+  border-color: #c3bfbf;
+}
+.form-switch-ui .form-check-input:focus{
+  border-color: #c3bfbf;
+  outline: 0;
+  box-shadow: none;
+}
+.form-switch-ui .form-check-input:checked{
+  background-color: #9373ee;
+  border-color: #9373ee;
 }
 
 .tb-search-container {
@@ -816,6 +823,11 @@ pt-app content main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.section-name {
+  font-weight: 700;
+  font-size: 13px;
 }
 
 /* ========== 响应式设计 ========== */
@@ -999,105 +1011,3 @@ pt-app content main {
   }
 }
 
-/* ========== newEmployeeExtraInfoModal ========== */
-#newEmployeeExtraInfoModal .modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-}
-
-#newEmployeeExtraInfoModal .modal-body {
-  padding: 24px;
-}
-
-#newEmployeeExtraInfoModal .form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #666;
-  margin-bottom: 6px;
-}
-
-#newEmployeeExtraInfoModal .form-control {
-  font-size: 13px;
-  padding: 10px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #1a1a1a;
-}
-
-#newEmployeeExtraInfoModal .form-control::placeholder {
-  color: #aaa;
-}
-
-#newEmployeeExtraInfoModal .form-control:focus {
-  border-color: #999;
-  box-shadow: none;
-  outline: none;
-}
-
-#newEmployeeExtraInfoModal .modal-footer {
-  padding: 16px 24px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #eee;
-  border-radius: 0 0 8px 8px;
-}
-
-#newEmployeeExtraInfoModal .fresh-ui-btn {
-  font-size: 13px;
-  font-weight: 500;
-  padding: 8px 20px;
-  border-radius: 4px;
-}
-
-
-
-
-/* ========== renameEmployeeMaterialModal ========== */
-#renameEmployeeMaterialModal .modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-}
-
-#renameEmployeeMaterialModal .modal-body {
-  padding: 24px;
-}
-
-#renameEmployeeMaterialModal .form-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #666;
-  margin-bottom: 6px;
-}
-
-#renameEmployeeMaterialModal .form-control {
-  font-size: 13px;
-  padding: 10px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  background-color: #fff;
-  color: #1a1a1a;
-}
-
-#renameEmployeeMaterialModal .form-control:focus {
-  border-color: #999;
-  box-shadow: none;
-  outline: none;
-}
-
-#renameEmployeeMaterialModal .modal-footer {
-  padding: 16px 24px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #eee;
-  border-radius: 0 0 8px 8px;
-}
-
-#renameEmployeeMaterialModal .fresh-ui-btn {
-  font-size: 13px;
-  font-weight: 500;
-  padding: 8px 20px;
-  border-radius: 4px;
-}

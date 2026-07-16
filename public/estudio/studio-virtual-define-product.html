@@ -648,10 +648,10 @@
                                     </div>
                                     <div class="widgetListItemOption">
                                       <div class="widgetListItemOptionBox">
-                                        <button v-preventreclick @click="showEditRandomShippingMerchandiseV(record)"  class="btn  btn-dark cta edit">
+                                        <button type="button" v-preventreclick @click="showEditRandomShippingMerchandiseV(record)"  class="btn  btn-dark cta edit">
                                           <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button  v-preventreclick @click="removeRandomShippingMerchandiseV(record.id)"  class="btn  btn-danger cta del">
+                                        <button type="button" v-preventreclick @click="removeRandomShippingMerchandiseV(record.id)"  class="btn  btn-danger cta del">
                                           <i class="bi bi-trash"></i>
                                         </button>
                                       </div>
@@ -671,7 +671,7 @@
                           :class="{'disabled': !validateShippingFormV(), 
                           'btn-primary': validateShippingFormV(),
                           'btn-secondary': !validateShippingFormV()}" 
-                          type="submit" v-preventreclick @click="changShippingInfoV" class="btn">保存</button>
+                          type="button" v-preventreclick @click="changShippingInfoV" class="btn">保存</button>
                         </div>
                       </form>
                     </div>
@@ -706,7 +706,7 @@
                         :class="{'disabled': !agree_check, 
                         'btn-primary': agree_check,
                         'btn-secondary': !agree_check}"
-                        type="submit" @click="onlineProductV" class="btn">发布</button>
+                        type="submit" @click="onlineProductV" class="btn">发布商品</button>
                       </div>
                     </div>
                   </div>
@@ -726,12 +726,12 @@
 
         <!-- edit one random shipping merchandise modal -->
         <div class="modal-container">
-          <div class="modal fade" id="editRandomShippingMerchandiseModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal dcModal fade" id="editRandomShippingMerchandiseModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header  display-dialog-header-bg">
                   <h1 class="modal-title fs-5">随机发货货品更新</h1>
-                  <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
   
@@ -748,7 +748,7 @@
                     
                     <button
                     :class="{'disabled btn-secondary': !changeRandomShippingMerchandiseObj.pack || !btn_ctl.editRandomShippingMerchandise_already_change, 
-                    'btn-primary': !!changeRandomShippingMerchandiseObj.pack && btn_ctl.editRandomShippingMerchandise_already_change }"
+                    'btn-action-submit': !!changeRandomShippingMerchandiseObj.pack && btn_ctl.editRandomShippingMerchandise_already_change }"
                     v-preventreclick @click="editRandomShippingMerchandiseV"  type="button"  class="btn  mt-5 w-100">提交</button>
 
                     
@@ -762,12 +762,12 @@
 
         <!-- create one random shipping merchandise modal -->
         <div class="modal-container">
-          <div class="modal fade" id="createRandomShippingMerchandiseModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal dcModal fade" id="createRandomShippingMerchandiseModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
               <div class="modal-content">
                 <div class="modal-header  display-dialog-header-bg">
                   <h1 class="modal-title fs-5">随机发货货品录入</h1>
-                  <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button"  class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
   
@@ -788,7 +788,7 @@
                     
                     <button
                     :class="{'disabled': !addRandomShippingMerchandiseObj.pack , 
-                  'btn-primary': !!addRandomShippingMerchandiseObj.pack,
+                  'btn-action-submit': !!addRandomShippingMerchandiseObj.pack,
                   'btn-secondary': !addRandomShippingMerchandiseObj.pack }"
                      v-preventreclick @click="addRandomShippingMerchandiseV"  type="button"  class="btn  mt-5 w-100">提交</button>
 
