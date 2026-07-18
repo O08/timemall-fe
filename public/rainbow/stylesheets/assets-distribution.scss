@@ -4,6 +4,19 @@
     &::-webkit-scrollbar{
       display: none
     };
+    padding-top: 48px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    @media (max-width: 1400px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    @media (max-width: 576px) {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
 }
 .btn-go-back{
     height: 45px;

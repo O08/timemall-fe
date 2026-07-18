@@ -67,7 +67,7 @@ body {
 .logo_box img {
   position: relative;
   width: auto;
-  height: 24px;
+  height: 28px;
 }
 
 .leftnav_nav_box {
@@ -313,8 +313,7 @@ body {
 }
 
 .logo_link img {
-  height: 32px;
-  width: 32px;
+  height: 28px;
 }
 
 .button_user,
@@ -839,6 +838,10 @@ svg:not(:root) {
     text-decoration: none;
   }
 
+  .logo_link img {
+    height: 20px;
+  }
+
   .desk-app {
     display: none;
   }
@@ -1137,7 +1140,7 @@ svg:not(:root) {
   text-size-adjust: none;
   margin: 0;
   overflow-wrap: break-word;
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 600;
   letter-spacing: calc(.10455px - .14205vw);
   line-height: 1.2;
@@ -1817,7 +1820,7 @@ h2 {
   }
 
   .platform-value h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
   h2 {

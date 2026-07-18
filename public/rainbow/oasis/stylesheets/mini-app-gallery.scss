@@ -105,3 +105,10 @@
     --bs-border-opacity: 1;
     border-color: rgba(var(--bs-danger-rgb), var(--bs-border-opacity)) !important;
 }
+@media (max-width: 767px) {
+    .app-main-container{
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
+

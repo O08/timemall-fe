@@ -1,6 +1,5 @@
 .logo_link img {
-    width: 32px;
-    height: 32px;
+    height: 28px;
 }
 
 .content-container{
@@ -363,5 +362,8 @@ main{
   @media (width <= 576px) {
     .report-case-body .table-responsive{
       overflow-x: unset;
+    }
+    .logo_link img{
+      height: 24px;
     }
   }

@@ -67,9 +67,9 @@ a {
   -webkit-opacity: 1; /* WebKit browser e.g. Safari */
 }
 .logo h2 {
+     display: none;
     text-decoration: none;
     color: #fff;
-    font-family: "YouSheBiaoTiHei", Microsoft YaHei, Arial, Helvetica, sans-serif !important;
 
 }
 body {
@@ -91,7 +91,6 @@ header{
 }
 
   .toggle-nav{
-    width: 50px;
     background-color: unset;
     border: none;
   }
@@ -99,7 +98,7 @@ header{
   {
     background-color: #000000;
   }
-  .offcanvas-start.show,.offcanvas-end.show
+  .offcanvas-start.show,.offcanvas-end.show,.offcanvas-end,.offcanvas-start
   {
     background-color: #141414;
   }
@@ -301,10 +300,7 @@ pt-app header{
     box-shadow: none;
   }
   .logo img{
-    height: 32px;
-    width: 32px;
-    display: none;
-    border-radius: 4px;
+    height: 28px;
   }
   .nav-icon,.entry-nav svg{
     height: 24px !important;
@@ -1024,9 +1020,6 @@ file upload
     .toggle-nav{
       display: none;
     }
-    .logo img{
-        display: block;
-    }
 
     .join-now{
       background-color: #5390EC;
@@ -1052,12 +1045,19 @@ file upload
     .empty-box{
       height: 200px; width: 100%;
     }
+    .logo img{
+      display: none;
+    }
+    .logo h2{
+      display: block;
+    }
+
   }
   
   @media (max-width: 576px) {
 
     .logo h2{
-      font-size: 18px;
+      font-size: 16px;
     }
 
     pt-app header{

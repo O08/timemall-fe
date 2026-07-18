@@ -829,14 +829,24 @@ img[alt] {
 }
 @media only screen and (max-width: 1399.98px) {
     header{
-        height: 72px;
+        height: 56px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    header h2{
+        font-size: 16px;
     }
     .content-container{
-        min-height: calc(100dvh - 72px);
+        min-height: calc(100dvh - 56px);
     }
 }
 
-@media (max-width: 48rem) {
+
+@media (max-width: 767px) {
+    header, .content-container{
+        padding-left: 12px;
+        padding-right: 12px;
+    }
     .section-title{
         flex-direction: column;
     }

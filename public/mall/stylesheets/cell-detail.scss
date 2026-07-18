@@ -45,10 +45,6 @@ mall-app {
   .header-container,.nav_link,header{
     height: 55px;
   }
-  .header-container{
-    padding-left: 24px;
-    padding-right: 24px;
-  }
   nav{
     display: flex;
     justify-content: space-between;
@@ -111,13 +107,12 @@ mall-app {
     justify-content: center;
   }
   .logo_link img{
-    height: 32px;
-    width: 32px;
+    height: 28px;
   }
   
 
 
-  .sub-nav-container,.content-container{
+  .sub-nav-container,.content-container,.header-container{
     padding-left: 60px;
     padding-right: 60px;
   }
@@ -730,6 +725,9 @@ mall-app {
     }
 }
 @media (max-width: 767px) {
+    .logo_link img{
+        height: 24px;
+     }
     mall-app content {
         height: calc(100vh - 146px);
     }

@@ -117,8 +117,7 @@ nav{
   justify-content: center;
 }
 .logo_link img{
-  height: 32px;
-  width: 32px;
+  height: 28px;
 }
 
 
@@ -338,6 +337,9 @@ nav{
   color: #c4b1d4;
 }
 @media (max-width: 576px) {
+  .logo_link img{
+    height: 24px;
+  }
   .nav-tabs .nav-link{
     font-size: 16px;
     padding-left: .75rem;

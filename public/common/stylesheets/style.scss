@@ -129,7 +129,6 @@ img[alt] {
 
 } 
 .toggle-nav{
-  width: 50px;
   background-color: unset;
   border: none;
 }
@@ -137,7 +136,7 @@ img[alt] {
 {
   background-color: #000000;
 }
-.offcanvas-start.show,.offcanvas-end.show
+.offcanvas-start.show,.offcanvas-end.show,.offcanvas-end,.offcanvas-start
 {
   background-color: #141414;
 }
@@ -2040,4 +2039,23 @@ emoji-picker {
 // 货币字体
 .font-mono {
   font-family: JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+
+.blv-glass-card {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(28, 28, 30, 0.45);   
+
+  background: rgba(28, 28, 30, 0.45);               /* 调暗基底，使用深灰色半透明 */
+    
+  border: 1px solid rgba(255, 255, 255, 0.12);      /* 极低透明度的白色边框 */
+  
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);     /* 加深阴影增强悬浮感 */
+  color: #FFFFFF;     
+  
+  /* 基础形状与阴影 */
+  border-radius: 24px;
+  padding: 24px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }

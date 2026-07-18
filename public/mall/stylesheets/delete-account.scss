@@ -105,8 +105,7 @@ a{
     justify-content: center;
 }
 .logo_link img{
-    width: 32px;
-    height: 32px;
+    width: 28px;
 }
 .content-main{
     padding-bottom: 100px;
@@ -177,6 +176,10 @@ a{
     html { font-size: 12px; }
 }
 @media (max-width: 48rem){
+
+    .logo_link img{
+        height: 24px;
+      }
    
     .nav_links{
       font-size: 14px;

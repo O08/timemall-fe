@@ -51,6 +51,14 @@ col-content {
     overflow-x: unset;
     scrollbar-width: none;
   }
+  header{
+    height: 56px;
+    padding-left: 20px;
+    padding-right: 20px;
+    h2{
+      font-size: 20px;
+    }
+  }
 }
 col-content{
   width: 100%;
@@ -67,6 +75,9 @@ header{
 }
 header{
   z-index: 1035;
+}
+.feature-logo{
+  height: 24px;
 }
 .toggle-nav{
   background: inherit;
@@ -382,7 +393,17 @@ header{
     padding: 0;
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 767px) {
+
+  header{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .obj-banner-container,.section-team-grid{
+    margin-left: 12px;
+    margin-right: 12px;
+    width: calc(100% - 24px)
+  }
   .logo{
     justify-content: flex-end !important;
   }

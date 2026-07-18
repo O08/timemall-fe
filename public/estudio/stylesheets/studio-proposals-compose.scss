@@ -7,7 +7,14 @@ pt-app content main{
     box-shadow: 0 25px 50px -12px #00000040;
 }
 header{
-    border-bottom: 1px solid #fff3;
+    padding-top: 32px;
+    margin: auto;
+    --gutterWidth: 24px;
+    --containerWidth: 1100px;
+    max-width: var(--containerWidth);
+    padding-left: var(--gutterWidth);
+    padding-right: var(--gutterWidth);
+    min-width: 480px;
 }
 .content-box{
     --gutterWidth: 24px;
@@ -205,6 +212,16 @@ header{
     }
     .material-item{
         font-size: 12px;
+    }
+    .blv-glass-card{
+        border-radius: 0;
+        border: none;
+        padding: 0;
+    }
+    pt-app header{
+        margin: 0;
+        padding-top: 0;
+        min-width: unset;
     }
 }
 

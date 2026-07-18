@@ -161,13 +161,13 @@ body,
     }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1399px) {
     .mini-main-container{
-        padding: 12px;
+        padding: 20px;
     }
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 767px) {
     .mini-main-container{
         padding: 12px;
     }

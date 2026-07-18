@@ -104,8 +104,7 @@ nav{
   justify-content: center;
 }
 .logo_link img{
-  height: 32px;
-  width: 32px;
+  height: 28px;
 }
 
 
@@ -482,6 +481,9 @@ nav{
 }
 
 @media (max-width: 576px) {
+  .logo_link img{
+    height: 24px;
+  }
   .top-bar-filter-budget,.sort-by , .sbu-option,.sbu-option option,.s_type{
     font-size: 12px;
   }

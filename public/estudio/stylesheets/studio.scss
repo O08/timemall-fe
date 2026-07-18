@@ -81,7 +81,7 @@ a {
 .logo h2 {
     text-decoration: none;
     color: #fff;
-    font-family: "YouSheBiaoTiHei", Microsoft YaHei, Arial, Helvetica, sans-serif !important;
+    display: none;
 
 }
 body {
@@ -104,7 +104,6 @@ header{
 }
 
   .toggle-nav{
-    width: 50px;
     background-color: unset;
     border: none;
   }
@@ -112,7 +111,7 @@ header{
   {
     background-color: #000000;
   }
-  .offcanvas-start.show,.offcanvas-end.show
+  .offcanvas-start.show,.offcanvas-end.show,.offcanvas-end,.offcanvas-start
   {
     background-color: #141414;
   }
@@ -316,10 +315,7 @@ pt-app header{
     box-shadow: none;
   }
   .logo img{
-    height: 32px;
-    width: 32px;
-    border-radius: 4px;
-    display: none;
+    height: 28px;
   }
   .nav-icon,.entry-nav svg{
     height: 24px !important;
@@ -1022,9 +1018,6 @@ file upload
     .toggle-nav{
       display: none;
     }
-    .logo img{
-        display: block;
-    }
 
     .join-now{
       background-color: #5390EC;
@@ -1050,12 +1043,21 @@ file upload
     .empty-box{
       height: 200px; width: 100%;
     }
+
+    .logo h2{
+      display: block;
+    }
+    .logo img{
+      display: none;
+      height: 24px;
+    }
+
   }
   
   @media (max-width: 576px) {
 
     .logo h2{
-      font-size: 18px;
+      font-size: 16px;
     }
 
     pt-app header{
@@ -1755,6 +1757,25 @@ file upload
 .table-dropdown-container .dropdown-item-danger:hover {
   background-color: #da373c !important;
   color: #ffffff !important;
+}
+
+
+.blv-glass-card {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(28, 28, 30, 0.45);   
+
+  background: rgba(28, 28, 30, 0.45);               /* 调暗基底，使用深灰色半透明 */
+    
+  border: 1px solid rgba(255, 255, 255, 0.12);      /* 极低透明度的白色边框 */
+  
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);     /* 加深阴影增强悬浮感 */
+  color: #FFFFFF;     
+  
+  /* 基础形状与阴影 */
+  border-radius: 24px;
+  padding: 24px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
 

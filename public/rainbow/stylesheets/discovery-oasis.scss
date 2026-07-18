@@ -6,6 +6,9 @@ col-content {
 header{
   z-index: 1035;
 }
+.feature-logo{
+  height: 24px;
+}
 .back-link-box{
   height: 5rem;
   padding-top: 1rem;
@@ -54,6 +57,14 @@ header{
     overflow-y: unset;
     overflow-x: unset;
     scrollbar-width: none;
+  }
+  header{
+    height: 56px;
+    padding-left: 20px;
+    padding-right: 20px;
+    h2{
+      font-size: 20px;
+    }
   }
 }
 col-content{
@@ -232,9 +243,18 @@ header{
   font-size: 14px;
   font-weight: 400;
 }
-@media (max-width: 576px) {
+@media (max-width: 767px) {
   .logo{
     justify-content: flex-end !important;
+  }
+  header{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .obj-banner-container,.section-team-grid{
+    margin-left: 12px;
+    margin-right: 12px;
+    width: calc(100% - 24px)
   }
 }
 .not-found-resource{
