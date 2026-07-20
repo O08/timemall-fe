@@ -1,6 +1,7 @@
 {
-    "name": "班蔚",
-    "short_name": "班蔚",
+    "id": "banwei",
+    "name": "班蔚 - 社群、灵活就业、生活为一体的线上世界",
+    "short_name": "班蔚App",
     "description": "个性化定制、社交、商务、远程办公、创业为一体的数字职场",
     "start_url": "/",
     "scope": "/",
@@ -8,6 +9,16 @@
     "theme_color": "#1f1f1f",
     "orientation": "any",
     "display": "standalone",
+    "display_override": [
+        "tabbed",
+        "window-controls-overlay"
+    ],
+    "tab_strip": {
+        "home_tab": {
+            "scope": "/",
+            "icons": [{ "src": "/common/images/favicon-192x192.png", "sizes": "192x192", "type": "image/png" }]
+        }
+    },
     "lang": "zh-CN",
     "dir": "ltr",
     "icons": [
@@ -24,41 +35,54 @@
             "purpose": "maskable"
         },
         {
-            "src": "/common/images/favicon-512x512.png",
+            "src": "/common/images/favicon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         }
     ],
     "categories": ["business", "productivity", "social"],
-    "screenshots": [],
+    "screenshots": [
+        {
+            "src": "/common/images/screenshot-mobile.png",
+            "sizes": "1080x2074",
+            "type": "image/png",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "/common/images/screenshot-desktop.png",
+            "sizes": "2560x1440",
+            "type": "image/png",
+            "form_factor": "wide",
+            "platform": "windows" 
+        }
+    ],
     "shortcuts": [
         {
             "name": "彩虹部落",
             "short_name": "部落",
             "description": "社群与办公空间",
             "url": "/rainbow/teixcalaanli",
-            "icons": [{ "src": "/common/images/favicon-512x512.png", "sizes": "192x192" }]
+            "icons": [{ "src": "/common/images/favicon-192x192.png", "sizes": "192x192", "type": "image/png" }]
         },
         {
             "name": "心选商店",
             "short_name": "商店",
             "description": "技能服务市场",
             "url": "/mall/gig-economy",
-            "icons": [{ "src": "/common/images/favicon-512x512.png", "sizes": "192x192" }]
+            "icons": [{ "src": "/common/images/favicon-192x192.png", "sizes": "192x192", "type": "image/png" }]
         },
         {
             "name": "薪动商号",
             "short_name": "商号",
             "description": "工作室管理",
             "url": "/estudio/studio-dashboard",
-            "icons": [{ "src": "/common/images/favicon-512x512.png", "sizes": "192x192" }]
+            "icons": [{ "src": "/common/images/favicon-192x192.png", "sizes": "192x192", "type": "image/png" }]
         }
     ],
     "related_applications": [],
     "prefer_related_applications": false,
     "launch_handler": {
-        "route_to": "existing-client",
-        "navigate_existing_client": "never"
+        "route_to": "existing-client"
     }
 }
