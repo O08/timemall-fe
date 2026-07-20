@@ -2,7 +2,7 @@
     "id": "banwei",
     "name": "班蔚 - 社群、灵活就业、生活为一体的线上世界",
     "short_name": "班蔚App",
-    "description": "个性化定制、社交、商务、远程办公、创业为一体的数字职场",
+    "description": "办公、社交、私域、共创、消费与娱乐无缝交织，快乐工作，快乐生活，全在云端",
     "start_url": "/",
     "scope": "/",
     "background_color": "#1f1f1f",
@@ -51,7 +51,7 @@
         },
         {
             "src": "/common/images/screenshot-desktop.png",
-            "sizes": "2560x1440",
+            "sizes": "1880x1440",
             "type": "image/png",
             "form_factor": "wide",
             "platform": "windows" 
