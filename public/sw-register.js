@@ -40,11 +40,9 @@ if ('serviceWorker' in navigator) {
   }
 
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(
-      new URL('/sw.js', import.meta.url),
-      { type: 'module', scope: '/' }
-    )
-    .then(registration => {
+    const swPath = '/' + 'sw.js'; 
+
+    navigator.serviceWorker.register(swPath, { scope: '/' }).then(registration => {
       console.log('班蔚 PWA 基础层加载成功');
 
       // 如果老用户刚打开网页时，发现上一次就已经默默下载好了新版

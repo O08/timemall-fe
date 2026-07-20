@@ -69,6 +69,6 @@
     "vue": "vue/dist/vue.esm-browser.prod.js"
   },
   "staticFiles": {
-    "staticPath": "public/favicon.png"
+    "staticPath": "public/resource"
   }
 }
