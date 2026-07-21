@@ -43,7 +43,7 @@ app.get('/link/parse',async (req,res)=>{
 
 
 app.get('/',(req,res)=>{
-  res.sendFile(__dirname+"/dist"+"/welcome.html")        //设置/ 下访问文件位置
+  res.sendFile(__dirname+"/dist"+"/index.html")        //设置/ 下访问文件位置
 });
 
 app.get('/idea/:och', (req, res) => {

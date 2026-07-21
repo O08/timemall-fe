@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { goLoginPage,goWelcome } from "../../common/javascripts/pagenav";
+import { goLoginPage,goHome } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
 // import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
@@ -59,7 +59,7 @@ export default function Auth(params) {
                 var responese = Api.logout()
                 if(responese.code == 200){
                    this.user_already_login = false;
-                   goWelcome();
+                   goHome();
                 }
             },
             getIdentity(){
