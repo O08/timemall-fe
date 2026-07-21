@@ -85,9 +85,9 @@ export default function Auth(params) {
             if(need_init){
                 this.userAdapter();
             }
-            EventUtil.addHandler(window, "offline", function() {
-                window.location.href="/pwa-bad-network";
-            });
+            // EventUtil.addHandler(window, "offline", function() {
+            //     window.location.href="/pwa-bad-network";
+            // });
         }
     }
     

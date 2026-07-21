@@ -52,6 +52,6 @@ var EventUtil = {
   }
 };
 
-EventUtil.addHandler(window, "offline", function() {
-  window.location.href="/pwa-bad-network";
-});
+// EventUtil.addHandler(window, "offline", function() {
+//   window.location.href="/pwa-bad-network";
+// });
