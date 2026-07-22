@@ -34,10 +34,10 @@ async function logout(){
           loginBtnEl.style.display="block";
         }
         document.querySelector(".button_user").style.display="none";
-        window.location.href="/";
+        window.location.href="/index";
     }
     if(data.code==200 && !!isVuePage){
-       window.location.href="/";
+       window.location.href="/index";
     }
   }
 

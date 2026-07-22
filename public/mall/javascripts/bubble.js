@@ -12,7 +12,17 @@ import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteCompo
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
 
-
+var EventUtil = {
+    addHandler: function(element, type, handler) {
+        if (element.addEventListener) {
+            element.addEventListener(type, handler, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + type, handler);
+        } else {
+            element["on" + type] = handler;
+        }
+    }
+};
 
 const defaultBannerImage = new URL(
     '/common/images/default-brand-banner-4x3.svg',
@@ -87,6 +97,11 @@ const RootComponent = {
             })
         }
 
+    },
+    created: function() {
+        EventUtil.addHandler(window, "offline", function() {
+            window.location.href="/pwa-bad-network";
+        });
     },
     updated(){
         

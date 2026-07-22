@@ -7,19 +7,13 @@ let customAlert = new CustomAlertModal();
 var Api = {}
 
 
-function getUserInfo(){
+async function getUserInfo() {
+  const url = '/api/v1/web_mall/me';
 
-   var res={}
-   $.ajaxSetup({async: false});
-   $.get('/api/v1/web_mall/me',function(data) {
-     res = data;
-    })
-      .fail(function(data) {
-        // place error code here
-        customAlert.alert('芜湖,系统裂开了！请稍后重试！')
-      });
-   return res;
- }
+  return await axios.get(url);
+
+}
+
 Api.getUserInfo = getUserInfo;
 
 // logout

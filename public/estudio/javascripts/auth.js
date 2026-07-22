@@ -1,5 +1,5 @@
 import "/common/javascripts/import-jquery.js";
-import { goLoginPage,goHome } from "../../common/javascripts/pagenav";
+import { goLoginPage,goWelcome } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
 // import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
@@ -40,26 +40,34 @@ export default function Auth(params) {
         },
         methods: {
             userAdapter(){
-                var responese = Api.getUserInfo()
-                this.auth_init_finish=true;
-                if(responese.code == 200){
-                   this.user_already_login = true;
-                   setTidentity(responese.user);
-                   return
-                }
-                if(responese.code !== 200 && need_permission){
-                  goLoginPage()
-                  return
-                }
-                if(responese.code !== 200 && !need_permission){
-                    this.user_already_login = false;
-                }
+                Api.getUserInfo().then(response => {
+
+                    if(response.data.code == 200){
+                        this.user_already_login = true;
+                        setTidentity(response.data.user);
+                        return
+                     }
+                     if(response.data.code !== 200 && need_permission){
+                       goLoginPage()
+                       return
+                     }
+                     if(response.data.code !== 200 && !need_permission){
+                         this.user_already_login = false;
+                     }
+
+                }).catch(error => {
+                    customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+                }).finally(() => {
+                    this.auth_init_finish=true;
+                });
+
+           
             },
             logout(){
                 var responese = Api.logout()
                 if(responese.code == 200){
                    this.user_already_login = false;
-                   goHome();
+                   goWelcome();
                 }
             },
             getIdentity(){

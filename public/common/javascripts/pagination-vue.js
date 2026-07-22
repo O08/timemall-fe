@@ -43,9 +43,16 @@ const Pagination = {
             this.processflow(info);
         },
         pageDataSource(info){
-            $.get(info.url,info.param,function(data) {
-                    info.responesHandler(data);
-               })
+            const query = info.param ? '?' + new URLSearchParams(info.param).toString() : '';
+
+            fetch(info.url + query, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' } 
+            })
+            .then(res => res.ok ? res.json() : Promise.reject(res))
+            .then(data => info.responesHandler(data))
+            .catch(err => console.error("Request Failed or Server Error:", err));
+
         },
         interceptor(info){
             if(!!info.urlHandler){

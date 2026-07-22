@@ -19,6 +19,9 @@ export  function goLoginPage(){
 export  function goHome(){
     go("/")
 }
+export  function goWelcome(){
+    go("/index")
+}
 export  function goError(){
     go("/404")
 }
