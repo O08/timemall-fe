@@ -2,7 +2,7 @@ const defaultBrandAvatar="https://d13-content.oss-cn-hangzhou.aliyuncs.com/commo
 
 async function fetchUserInfo(){
     const url="/api/v1/web_mall/me";
-    return await fetch(url);
+    return await fetch(url,{ credentials: 'include' });
   }
   async function userHandler(){
     const needAuth=!!document.querySelector(".need_auth");

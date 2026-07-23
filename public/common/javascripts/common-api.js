@@ -10,7 +10,9 @@ var Api = {}
 async function getUserInfo() {
   const url = '/api/v1/web_mall/me';
 
-  return await axios.get(url);
+  return await axios.get(url,{
+    withCredentials: true 
+  });
 
 }
 

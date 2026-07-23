@@ -19,7 +19,8 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
     }
 
     return await axios.get('/api/v1/web_mall/do_wechat_qrCode_sign_in', {
-        params: requestParams
+        params: requestParams,
+        withCredentials: true 
       });
 
   }
@@ -35,10 +36,11 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
         return; 
     }
     const toPage=getQueryVariable("to_page");
+    // 清除所有缓存数据
+    localStorage.clear();
     await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState).then(response=>{
         if(response.data.code == 200){
-            // 清除所有缓存数据
-            localStorage.clear();
+
             if (response.data.oauthRedirect) {
                 window.location.href = response.data.oauthRedirect;
                 return;

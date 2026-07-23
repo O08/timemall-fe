@@ -94,6 +94,9 @@ function doLogin(){
     formData.state = state;
   }
 
+  // 清除所有缓存数据
+  localStorage.clear();
+
   $.post('/api/v1/web_mall/email_or_phone_sign_in',formData, function(data) {
 
     // SUCCESS(200, "Success"),
@@ -120,8 +123,7 @@ function doLogin(){
 
         if(data.code === 200){
           // to login success handler
-          // 清除所有缓存数据
-          localStorage.clear();
+ 
           if (data.data && data.data.oauthRedirect) {
             // Redirect back to the AI or other platform
             window.location.href = data.data.oauthRedirect;
@@ -156,7 +158,7 @@ function doLogin(){
 }
 async function fetchUserInfo(){
   const url="/api/v1/web_mall/me";
-  return await fetch(url);
+  return await fetch(url,{ credentials: 'include' });
 }
 async function userHandler(){
   const response= await fetchUserInfo();
