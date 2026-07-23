@@ -2,6 +2,8 @@ import "./import-jquery";
 import {nextPageWhenLoginSuccess,goHome} from "./pagenav.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 import { validateEmailOrPhoneInput } from "/common/javascripts/util.js";
+import {Api} from "/common/javascripts/common-api.js"
+
 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -94,8 +96,8 @@ function doLogin(){
     formData.state = state;
   }
 
-  // 清除所有缓存数据
-  localStorage.clear();
+   // 清除用户缓存数据
+   localStorage.removeItem("Tidentity001");
 
   $.post('/api/v1/web_mall/email_or_phone_sign_in',formData, function(data) {
 
@@ -123,6 +125,9 @@ function doLogin(){
 
         if(data.code === 200){
           // to login success handler
+
+          Api.fetchUserInfoToLocalStorage();
+
  
           if (data.data && data.data.oauthRedirect) {
             // Redirect back to the AI or other platform

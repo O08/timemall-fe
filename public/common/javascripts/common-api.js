@@ -16,6 +16,30 @@ async function getUserInfo() {
 
 }
 
+// save user base info
+function setTidentity(tidentity){
+    var identity = getTidentity();
+    if(!identity || identity.expired > new Date() ){
+        identity = tidentity;
+        identity.expired = new Date();
+        identity.expired.setDate(identity.expired.getDate()+1);
+        localStorage.setItem("Tidentity001",JSON.stringify(identity));
+    }
+}
+function getTidentity(){
+    const identity = localStorage.getItem("Tidentity001");
+    return JSON.parse(identity);
+}
+async function fetchUserInfoToLocalStorage(){
+  await getUserInfo().then(response => {
+
+    if(response.data.code == 200){
+        setTidentity(response.data.user);
+     }
+
+  })
+}
+
 Api.getUserInfo = getUserInfo;
 
 // logout
@@ -90,5 +114,6 @@ Api.sendOrderReceivingEmail=sendOrderReceivingEmail;
 Api.virtualProductOrderRefund=virtualProductOrderRefund;
 Api.subscriptionBillRefund=subscriptionBillRefund;
 Api.fetchBrandCoreMetrics=fetchBrandCoreMetrics;
+Api.fetchUserInfoToLocalStorage=fetchUserInfoToLocalStorage;
 
 export {Api}

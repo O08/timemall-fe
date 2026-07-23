@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {goHome} from "/common/javascripts/pagenav.js";
+import {Api} from "/common/javascripts/common-api.js"
+
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -36,10 +38,12 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
         return; 
     }
     const toPage=getQueryVariable("to_page");
-    // 清除所有缓存数据
-    localStorage.clear();
+    // 清除用户缓存数据
+    localStorage.removeItem("Tidentity001");
     await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState).then(response=>{
         if(response.data.code == 200){
+
+            Api.fetchUserInfoToLocalStorage();
 
             if (response.data.oauthRedirect) {
                 window.location.href = response.data.oauthRedirect;
