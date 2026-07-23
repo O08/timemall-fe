@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { getQueryVariable } from "/common/javascripts/util.js";
 import {goHome} from "/common/javascripts/pagenav.js";
 
@@ -5,17 +7,21 @@ import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
 async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState){
-    const params = new URLSearchParams({
+
+    const requestParams = {
         wx_code: code,
         wx_state: state
-    });
+    };
 
     if (isThirdAuth === "1") {
-        params.append("redirect_uri", thirdRedirectUri);
-        params.append("state", thirdState || '');
+        requestParams.redirect_uri = thirdRedirectUri;
+        requestParams.state = thirdState || '';
     }
 
-    return await fetch(`/api/v1/web_mall/do_wechat_qrCode_sign_in?${params.toString()}`);
+    return await axios.get('/api/v1/web_mall/do_wechat_qrCode_sign_in', {
+        params: requestParams
+      });
+
   }
   async function loadAuthenticationInfo(){
 
@@ -29,34 +35,34 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
         return; 
     }
     const toPage=getQueryVariable("to_page");
-    const response =  await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState);
-    var data = await response.json();
+    await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState).then(response=>{
+        if(response.data.code == 200){
+            // 清除所有缓存数据
+            localStorage.clear();
+            if (response.data.oauthRedirect) {
+                window.location.href = response.data.oauthRedirect;
+                return;
+            }
+            // to login success handler
+            var isEmptyPage= !toPage;
 
-    if(data.code == 200){
-        // 清除所有缓存数据
-        localStorage.clear();
-        if (data.data && data.data.oauthRedirect) {
-            window.location.href = data.data.oauthRedirect;
-            return;
+            var isAuthPage = !!toPage ? (toPage.search("login") > 0 || toPage.search("signup")>0 || toPage.search("login.html") > 0 || toPage.search("signup.html")>0) : false;
+
+
+            
+            var isThirdSite= (!!toPage && !isAuthPage) ? (new URL(toPage,window.location.origin).hostname.search("bluvarri.com") == -1) : false;
+
+            if(isEmptyPage || isAuthPage  || isThirdSite){
+                goHome();
+            }else{
+                window.location.href=toPage;
+            }
         }
-        // to login success handler
-        var isEmptyPage= !toPage;
-
-        var isAuthPage = !!toPage ? (toPage.search("login") > 0 || toPage.search("signup")>0 || toPage.search("login.html") > 0 || toPage.search("signup.html")>0) : false;
-
-
-        
-        var isThirdSite= (!!toPage && !isAuthPage) ? (new URL(toPage,window.location.origin).hostname.search("bluvarri.com") == -1) : false;
-
-        if(isEmptyPage || isAuthPage  || isThirdSite){
-            goHome();
-        }else{
-            window.location.href=toPage;
+        if(response.data.code != 200){
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
         }
-    }
-    if(data.code !=200){
-        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+data.message);
-    }
+     });
+
 
   }
 
