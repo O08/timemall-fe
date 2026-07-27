@@ -52,7 +52,7 @@ function resetCount(){
   $(".qrcode").attr("disabled", false);
 }
 
- function sendVerificationCode  () {
+async function sendVerificationCode  () {
   //校验 username must be : email or phone
   const flag = validatedUserName();
   // 发送验证码
@@ -61,46 +61,49 @@ function resetCount(){
       inter = setInterval(showCount, 1000);
       $(".qrcode").attr("disabled", true);
 
-      // 请求服务器发送验证码
-      $.post('/api/v1/web_mall/signup/send_qrcode',{ emailOrPhone: $("#identifierId").val()}, function(data) {
+    try {
+      const data = await $.post('/api/v1/web_mall/signup/send_qrcode', {
+        emailOrPhone: $("#identifierId").val()
+      });
 
-        if(data.code!=200){
-          resetCount();
-        }
-         
-         // 账号已经存在 2008
-         if(data.code == 2008){
-          $("#email-error-tip").text(data.message);
-          $("#signup-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-          return;
-        }
-        //  邮箱限制
-        if(data.code == 40003){
-          $("#email-error-tip").text(data.message);
-          $("#password-reset-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-          return;
-        }
-          //  短信限制
-          if(data.code == 40036){
-          $("#email-error-tip").text(data.message);
-          $("#password-reset-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-          return;
-        }
+      if (data.code != 200) {
+        resetCount();
+      }
 
-        if(data.code!==200){
-          const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+ data.message;
-          customAlert.alert(error); 
-        }
+      // 账号已经存在 2008
+      if (data.code == 2008) {
+        $("#email-error-tip").text(data.message);
+        $("#signup-form").removeClass('was-validated');
+        $("#identifierId").removeClass("is-valid");
+        $("#identifierId").addClass("invalid-input");
+        return;
+      }
+      //  邮箱限制
+      if (data.code == 40003) {
+        $("#email-error-tip").text(data.message);
+        $("#password-reset-form").removeClass('was-validated');
+        $("#identifierId").removeClass("is-valid");
+        $("#identifierId").addClass("invalid-input");
+        return;
+      }
+      //  短信限制
+      if (data.code == 40036) {
+        $("#email-error-tip").text(data.message);
+        $("#password-reset-form").removeClass('was-validated');
+        $("#identifierId").removeClass("is-valid");
+        $("#identifierId").addClass("invalid-input");
+        return;
+      }
 
+      if (data.code !== 200) {
+        const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + data.message;
+        customAlert.alert(error);
+      }
+    } catch (err) {
+      resetCount();
+      customAlert.alert("网络请求失败，请检查网络或稍后再试。");
+    }
 
-
-      })
   
   }
 }

@@ -49,6 +49,40 @@ async function doRefreshDataList(model){
 		'Content-Type':'application/json'
 	}});
 }
+
+async function doLogout(){
+    const url="/api/v1/web_mall/logout";
+    return await fetch(url);
+  }
+  async function doFeedback(issue,attachment,contactInfo){
+    var form = new FormData();
+    form.append("issue",issue);
+    form.append("contactInfo",contactInfo);
+    if(!!attachment){
+      form.append("attachment",attachment);
+    }
+
+    const url="/api/v1/web_mall/feedback";
+    return await fetch(url,{method: "POST",body: form});
+  }
+
+async function logout(){
+    const response= await doLogout();
+    var data = await response.json();
+    var isVuePage=document.querySelector(".button_user_vue");
+    if(data.code==200 && !isVuePage){
+        var loginBtnEl=document.querySelector(".button_login");
+        if(loginBtnEl){
+          loginBtnEl.style.display="block";
+        }
+        document.querySelector(".button_user").style.display="none";
+        window.location.href="/index";
+    }
+    if(data.code==200 && !!isVuePage){
+       window.location.href="/index";
+    }
+}
+
 async function deleteAccount(){
     const response= await doDelAccount();
     await handleErrors(response);
