@@ -180,7 +180,7 @@
         <h3>特色部落</h3>
       </div>
       <section class="section-team-grid">
-        <div  class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-5">
+        <div  class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-4">
           <div v-for="oasis in oasisgrid_pagination.records" class="col">
             <div class="team-card-container  px-2">
               <a :href="'/' + oasis.handle" class="text-decoration-none" style="color: unset;">
@@ -192,9 +192,13 @@
                 <div class="oasis-title-wrapper">
                   <h6 class="mt-2">{{oasis.title}}</h6>
                 </div>
+                <p class="profile-meta">
+                  {{explainOasisMarkEnumV(oasis.mark)}}<span class="sep">·</span>{{Number(oasis.membership).toLocaleString('en-US')}} 位成员
+                </p>
                 <div class="oasis-intro-wrapper">
                   <p class="help-text">{{oasis.subTitle}}</p>
                 </div>
+
               </div>
               </a>
             </div>

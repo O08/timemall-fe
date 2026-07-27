@@ -255,6 +255,10 @@ app.get('/:hd/setting-equity-register', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-equity-register.html")        //设置/ 下访问文件位置
 })
 
+app.get('/:hd/kindness', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/oasis/kindness.html")        //设置/ 下访问文件位置
+})
+
 app.get('/:hd/setting-equity-write-off', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/oasis/setting-equity-write-off.html")        //设置/ 下访问文件位置
 })

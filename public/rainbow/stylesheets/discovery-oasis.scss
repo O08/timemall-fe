@@ -209,8 +209,16 @@ header{
   text-overflow: ellipsis;
   white-space:nowrap;
   line-height: 1.765;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0;
 
 }
+.profile-meta {
+  font-size: 12px; color: #4e5058;
+  font-weight: 400; margin-bottom: 10px;
+}
+.profile-meta .sep { margin: 0 5px; opacity: .85; }
 .oasis-intro-wrapper p{
   margin-bottom: 0;
   width: 100%;

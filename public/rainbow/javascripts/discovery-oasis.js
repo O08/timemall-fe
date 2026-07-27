@@ -40,6 +40,10 @@ const RootComponent = {
         }
     },
     methods: {
+        explainOasisMarkEnumV(mark){
+            if(mark=='2') return '运营中';
+            return '经营异常';
+        },
         retrieveOasisGridV(){
             retrieveOasisGrid();
             this.uploadScienceDataV();

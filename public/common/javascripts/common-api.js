@@ -31,13 +31,14 @@ function getTidentity(){
     return JSON.parse(identity);
 }
 async function fetchUserInfoToLocalStorage(){
-  await getUserInfo().then(response => {
-
-    if(response.data.code == 200){
-        setTidentity(response.data.user);
-     }
-
-  })
+  try {
+    const response = await getUserInfo();
+    if (response.data.code == 200) {
+      setTidentity(response.data.user);
+    }
+  } catch (error) {
+    console.error("获取用户信息失败：", error);
+  }
 }
 
 Api.getUserInfo = getUserInfo;

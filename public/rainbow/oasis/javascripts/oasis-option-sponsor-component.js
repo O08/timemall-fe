@@ -1,10 +1,18 @@
 import  OasisApi from "/rainbow/javascripts/oasis/OasisApi.js";
+import {EnvWebsite} from "/common/javascripts/tm-constant.js";
+
+import { copyValueToClipboard } from "/common/javascripts/share-util.js";
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 import axios from 'axios';
 import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
+
+
+const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
+
 const  OasisOptionSponsorComponent = {
-  props: ['oasis_id'],
+  props: ['oasis_id','oasis_announce'],
   data () {
       return{
         oasisId: this.oasis_id,
@@ -17,7 +25,15 @@ const  OasisOptionSponsorComponent = {
         }
       }
   },
+  computed: {
+    kindnessShareUrl() {
+        return currentDomain + "/" + this.oasis_announce.handle + "/kindness";
+    }
+  },
   methods: {
+    copySponsorLinkToClipboardV(){
+       copyValueToClipboard(this.kindnessShareUrl);
+    },
       transformInputNumberV(event){
           return transformInputNumberAsPositive(event);
       },
@@ -79,9 +95,25 @@ const  OasisOptionSponsorComponent = {
               <label for="t3" class="form-label">助力金额</label>
               <input id="t3" v-model="amount" placeholder="请输入助力金额" @input="transformInputNumberV($event)" min="1" max="50000" type="number" class="form-control">
             </div> 
-            <div class="help-text fs-6 ms-1 mt-1">
+            <div class="help-text ms-1 mt-1" style="font-size:12px">
               <i class="bi bi-question-circle"></i><span class="ms-1">特别提示：助力金额将转化为同等数额的贡献值</span>
             </div>
+            <div class="link-invite-section mt-3" style="border-radius: 6px;  background: rgb(30, 31, 34);">
+              <div class="other-invite">分享链接贴给朋友粉丝</div>
+              <div class="invite-link-container">
+                <div class="invite-link-wrp">
+                  <div class="link-content-block">
+                    <input type="text" class="input-link"
+                    :value="kindnessShareUrl" disabled>
+                  </div>
+                  <div>
+                    <button 
+                    v-preventreclick @click="copySponsorLinkToClipboardV" type="button" class="btn btn-primary link-btn">复制</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="w-100" style="height: 16px;"></div>
           </form>
           
         </div>

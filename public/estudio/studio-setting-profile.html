@@ -713,11 +713,11 @@
           <!-- seller skills -->
           <section class="section-seller-block section-skills box-bg-primary mb-5">
             <div class="section-header">
-              <i class="bi bi-noise-reduction me-2" style="color: #4A90E2;"></i>品牌词条
+              <i class="bi bi-noise-reduction me-2" style="color: #4A90E2;"></i>品牌特质
             </div>
             <div class="d-flex align-items-center help-text mb-4">
               <i class="bi bi-info-square-fill"></i>
-              <span class="ms-1">用简洁的标签展示品牌价值、专业能力与荣誉资质</span>
+              <span class="ms-1">用简洁的标签展示品牌资产、专业能力与荣誉资质，潜在客户会通过特质连接您以探索各种合作机会</span>
             </div>
             
             <!-- 空状态 -->
@@ -728,18 +728,18 @@
                   <span class="tag-demo"><i class="bi bi-patch-check"></i> ISO9001认证</span>
                   <span class="tag-demo"><i class="bi bi-star"></i> 优质服务商</span>
                 </div>
-                <p class="empty-title">还没有添加词条</p>
-                <p class="empty-desc">添加荣誉、资质等信息</p>
+                <p class="empty-title">还没有添加特质</p>
+                <p class="empty-desc">添加资产、荣誉、资质等信息</p>
                 <button v-if="!brandProfile.skills || brandProfile.skills.length === 0" 
                   class="btn btn-save" 
                   @click="addSkillV">
                   <i class="bi bi-plus-circle"></i>
-                  <span>添加第一个词条</span>
+                  <span>添加第一个特质</span>
                 </button>
               </div>
             </div>
             
-            <!-- 词条展示 -->
+            <!-- 特质展示 -->
             <div v-else class="skills-showcase">
               <div class="skills-tags-wrapper">
                 <div v-for="(skill, index) in brandProfile.skills" :key="index" class="skill-tag-item">
@@ -749,7 +749,7 @@
                       v-model.trim="skill.entry" 
                       maxlength="32" 
                       @change="btn_ctl.activate_skills_save_btn = true" 
-                      placeholder="输入词条...">
+                      placeholder="输入特质...">
                   </div>
                   <button v-preventreclick @click="removeSkillV(index)" class="tag-remove">
                     <i class="bi bi-x"></i>
@@ -759,7 +759,7 @@
                 <!-- 添加按钮作为标签 -->
                 <button class="skill-tag-add" @click="addSkillV">
                   <i class="bi bi-plus"></i>
-                  <span>添加词条</span>
+                  <span>添加特质</span>
                 </button>
               </div>
             </div>
@@ -780,7 +780,7 @@
               </div>
               <div class="skills-count" v-if="brandProfile.skills && brandProfile.skills.length > 0">
                 <span class="count-num">{{ brandProfile.skills.length }}</span>
-                <span class="count-label">个词条</span>
+                <span class="count-label">个特质</span>
               </div>
             </div>
           </section>

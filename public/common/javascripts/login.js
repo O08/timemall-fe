@@ -79,7 +79,7 @@ el.addEventListener('click', () => {
 
 
 
-function doLogin(){
+async function doLogin(){
 
   var emailOrPhone = $('#identifierId').val();
   var password = $('#identifierPassword').val();
@@ -99,7 +99,8 @@ function doLogin(){
    // 清除用户缓存数据
    localStorage.removeItem("Tidentity001");
 
-  $.post('/api/v1/web_mall/email_or_phone_sign_in',formData, function(data) {
+  try {
+    const data = await $.post('/api/v1/web_mall/email_or_phone_sign_in', formData);
 
     // SUCCESS(200, "Success"),
     // FAILED(503, "处理失败！"),
@@ -122,44 +123,43 @@ function doLogin(){
     // USER_ACCOUNT_USE_BY_OTHERS(2009, "账号下线"),
 
     // USER_ACCOUNT_DISABLE(2005, "账号不可用")
+    if(data.code === 200){
+      // to login success handler
 
-        if(data.code === 200){
-          // to login success handler
+     await Api.fetchUserInfoToLocalStorage();
 
-          Api.fetchUserInfoToLocalStorage();
 
- 
-          if (data.data && data.data.oauthRedirect) {
-            // Redirect back to the AI or other platform
-            window.location.href = data.data.oauthRedirect;
-          } else {
-            // Normal  login flow
-            nextPageWhenLoginSuccess();
-          }
-        }
-        if(data.code === 503){
-          customAlert.alert('芜湖,系统裂开了！请稍后重试！')
-        }
-        if(data.code == 2007 || data.code == 2002 || data.code == 2005
-          || data.code == 2006 || data.code == 2008 || data.code == 2009){
-          // alert fail
-          $("#email-error-tip").text(data.message);
-          $("#login-form").removeClass('was-validated');
-          $("#identifierId").removeClass("is-valid");
-          $("#identifierId").addClass("invalid-input");
-        }
-        if(data.code == 2003 || data.code == 2004 ){
-          // alert fail
-          $("#password-error-tip").text(data.message);
-          $("#login-form").removeClass('was-validated');
-          $("#identifierPassword").removeClass("is-valid");
-          $("#identifierPassword").addClass("invalid-input");
-        }
-      })
-        .fail(function(data) {
-          // place error code here
-          customAlert.alert('芜湖,系统裂开了！请稍后重试！')
-        });
+      if (data.data && data.data.oauthRedirect) {
+        // Redirect back to the AI or other platform
+        window.location.href = data.data.oauthRedirect;
+      } else {
+        // Normal  login flow
+        nextPageWhenLoginSuccess();
+      }
+    }
+    if(data.code === 503){
+      customAlert.alert('芜湖,系统裂开了！请稍后重试！')
+    }
+    if(data.code == 2007 || data.code == 2002 || data.code == 2005
+      || data.code == 2006 || data.code == 2008 || data.code == 2009){
+      // alert fail
+      $("#email-error-tip").text(data.message);
+      $("#login-form").removeClass('was-validated');
+      $("#identifierId").removeClass("is-valid");
+      $("#identifierId").addClass("invalid-input");
+    }
+    if(data.code == 2003 || data.code == 2004 ){
+      // alert fail
+      $("#password-error-tip").text(data.message);
+      $("#login-form").removeClass('was-validated');
+      $("#identifierPassword").removeClass("is-valid");
+      $("#identifierPassword").addClass("invalid-input");
+    }
+
+  } catch (error) {
+    customAlert.alert('芜湖,系统裂开了！请稍后重试！');
+  }
+
 }
 async function fetchUserInfo(){
   const url="/api/v1/web_mall/me";

@@ -40,10 +40,11 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
     const toPage=getQueryVariable("to_page");
     // 清除用户缓存数据
     localStorage.removeItem("Tidentity001");
-    await doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,thirdState).then(response=>{
-        if(response.data.code == 200){
+    try {
+          const response = await doLoadAuthenticationInfo(code, state, isThirdAuth, thirdRedirectUri, thirdState);
+          if(response.data.code == 200){
 
-            Api.fetchUserInfoToLocalStorage();
+           await Api.fetchUserInfoToLocalStorage();
 
             if (response.data.oauthRedirect) {
                 window.location.href = response.data.oauthRedirect;
@@ -67,7 +68,11 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
         if(response.data.code != 200){
             customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
         }
-     });
+    } catch (error) {
+          customAlert.alert("网络请求失败，请稍后再试");
+    }
+        
+   
 
 
   }
