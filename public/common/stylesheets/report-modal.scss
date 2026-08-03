@@ -124,3 +124,17 @@
 #caseMaterialFile::file-selector-button:hover {
   background-color: #444444;
 }
+@media (width <= 767px) {
+  #reportOasisModal {
+    .modal-dialog {
+      margin: 0;
+      height: 100%;
+      
+    }
+    .modal-content{
+      max-height: unset;
+      height: 100%;
+    }
+  }
+
+}

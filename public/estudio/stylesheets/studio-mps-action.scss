@@ -76,10 +76,7 @@
 
 
 
-.mps-panel-detail{
-  padding: 1.5rem;
-  font-size: 16px;
-}
+
 
 .deliver-record-container {
   padding: 16px;
@@ -167,48 +164,6 @@
   padding: 1rem;
   font-size: 14px;
   display: flex;
-}
-
-.deltail-title{
-  padding-top: 16px;
-  text-align: center;
-  word-break: break-all;
-}
-.detail-item{
-  display: flex;
-} 
-.detail-sow-heading{
-  font-weight: 700;
-  padding-top: 26px;
-  padding-bottom: 4px;
-  font-size: 16px;
-}
-.link__content {
-  display: inline-block;
-  background: #c4c9ce27;
-  border: none;
-  color: #fff;
-  outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
-  min-width: 356px;
-}
-.detail-sow-content{
-  white-space: pre-wrap;
-  word-break: break-all;
-  line-height: 1.875;
-  font-size: 16px;
-  min-height: 30px;
-  color: #aaa;
-}
-.detail-item-head{
-  width: 120px;
-  font-weight: 600;
-}
-.detail-item-content{
-  width: calc(100% - 120px);
-  white-space: pre-wrap;
-  word-break: break-all;
 }
 
 .dot-info{
@@ -373,61 +328,6 @@ pt-app content main {
 .chat-input-wrapper{
   width: 100%;
   position: absolute;
-}
-
-.visit-brand-link {
-  color: #3887fe;
-  background-color: #0000;
-  font-size: 12px;
-  font-weight: 400;
-  text-decoration: none;
-  padding: .25rem .5rem;
-  border: 1px solid #3887fe;
-  border-radius: 5px;
-}
-.visit-brand-link:hover{
-  color: #fff;
-  border-color: #fff;
-}
-
-.skills-box{
-  flex-wrap: wrap;
-  gap: 8px;
-  padding-top: 24px;
-  display: flex;
-}
-.skill-pill{
-  background-color: #c4c9ce27;
-  border-color: #c4c9ce99;
-  border-radius: 3px;
-  margin-bottom: 6px;
-  margin-right: 6px;
-  padding: 4px 10px;
-  font-size: 14px;
-  color: #757a81;
-  word-break: break-all;
-}
-.paper-link{
-  color: #757a81;
-  word-break: break-all;
-  border: none;
-  border-radius: 2px;
-  width: 100%;
-  padding-top: 4px;
-  font-size: 12px;
-  display: inline-flex;
-  width: fit-content;
-}
-.paper-link span{
-  background: #c4c9ce27;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  border-radius: 4px;
-}
-.paper-link i:hover {
-  color: #fff;
 }
 
 .textAreaDefault{

@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
     <link rel="stylesheet" href="/common/stylesheets/millstone-chat-compoent.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/comerical-paper-info.scss">
     <link rel="stylesheet" href="/estudio/stylesheets/b2b-order-deliver.scss">
 
 
@@ -427,141 +428,125 @@
             <!-- event tab end -->
             <!-- sow tab begin -->
               <div class="tab-pane fade show active" id="sow-tab-pane" role="tabpanel" aria-labelledby="sow-tab" tabindex="0">
-                <div class="papaer-info-container">
+                <div v-if="!isEmptyObjectV(paperDetail)" class="papaer-info-container">
 
-                  <h1 class="deltail-title">{{paperDetail.title}}</h1>
-                  <h2 class="detail-sow-heading">合约内容</h2>
-                  <p class="detail-sow-content">
-                    {{paperDetail.sow}}
-                  </p>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      商单号
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.paperId}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      职能
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.piece}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      奖金/元
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.bonus}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      采购商
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.purchaser}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      服务商
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.supplier}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      交付周期/天
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.deliveryCycle}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div v-if="paperDetail.tag=='5' " class="detail-item">
-                    <div class="detail-item-head">
-                      接单时间
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.modifiedAt}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      经验要求
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{!!paperDetail.experience ? paperDetail.experience + "年及以上" : "不限"}}
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      消耗源能
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.bidElectricity}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      办公地点
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{paperDetail.location}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      任务难度
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
-                        {{explainMpsDifficultyV(paperDetail.difficulty)}} 
-                      </span>
-                    </div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-item-head">
-                      状态
-                    </div>
-                    <div class="detail-item-content">
-                      <span>
+                  <!-- Page header -->
+                  <div class="page-header">
+                    <div class="page-header__meta">
+                      <span class="status-badge status-badge--recruiting">
+                        <span class="status-badge__dot"></span>
                         {{explainPaperTagV(paperDetail.tag)}}
                       </span>
                     </div>
-                  </div>
-                  <div class="detail-item pb-5">
-                    <div class="skills-box">
-                      <div class="skill-pill" v-for="skill in paperDetail.skills">
-                        {{skill}}
-                      </div>
+                    <h1 class="page-header__title">{{paperDetail.title}}</h1>
+                    <div class="d-flex flex-wrap gap-2">
+                      <span v-for="skill in paperDetail.skills" class="topic-tag"> {{skill}}</span>
                     </div>
                   </div>
+                  <div class="page-body">
+                    <!-- Metrics -->
+                    <div class="row g-3 mb-3">
+                      <div class="col-6 col-md-3">
+                        <div class="metric-card metric-card--featured">
+                          <div class="metric-card__label">总奖金</div>
+                          <div class="metric-card__value">¥{{paperDetail.bonus}}</div>
+                          <div class="metric-card__footnote">任务完成后结算</div>
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-3">
+                        <div class="metric-card">
+                          <div class="metric-card__label">招商期</div>
+                          <div class="metric-card__value">{{paperDetail.contractValidityPeriod}}<span class="metric-card__unit">天</span></div>
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-3">
+                        <div class="metric-card">
+                          <div class="metric-card__label">交付周期</div>
+                          <div class="metric-card__value">{{paperDetail.deliveryCycle}}<span class="metric-card__unit">天</span></div>
+                        </div>
+                      </div>
+                      <div class="col-6 col-md-3">
+                        <div class="metric-card">
+                          <div class="metric-card__label">接单消耗</div>
+                          <div class="metric-card__value">{{paperDetail.bidElectricity}}<span class="metric-card__unit">源能</span></div>
+                        </div>
+                      </div>
+                    </div>
 
+                    <!-- Order info -->
+                    <div class="section-card mb-3">
+                      <div class="section-card__heading">商单信息</div>
+                      <table class="attr-table">
+                        <tbody>
+                          <tr class="attr-table__row">
+                            <td class="attr-table__label">商单号</td>
+                            <td class="attr-table__value">
+                              {{paperDetail.paperId}}
+                            </td>
+                          </tr>
+                          <tr class="attr-table__row">
+                            <td class="attr-table__label">职能类别</td>
+                            <td class="attr-table__value"> {{paperDetail.piece}}</td>
+                          </tr>
+                          <tr class="attr-table__row">
+                            <td class="attr-table__label">经验要求</td>
+                            <td class="attr-table__value"> {{!!paperDetail.experience ? paperDetail.experience + "年及以上" : "不限"}}</td>
+                          </tr>
+                          <tr class="attr-table__row">
+                            <td class="attr-table__label">办公地点</td>
+                            <td class="attr-table__value"> {{paperDetail.location}} </td>
+                          </tr>
+                          <tr class="attr-table__row">
+                            <td class="attr-table__label">任务难度</td>
+                            <td class="attr-table__value">
+                              {{explainMpsDifficultyV(paperDetail.difficulty)}} 
+                            </td>
+                          </tr>
+                          <tr v-if="paperDetail.tag=='5' "  class="attr-table__row">
+                            <td class="attr-table__label">接单时间</td>
+                            <td class="attr-table__value">
+                              {{paperDetail.bidAt ? renderDateInChinaV(paperDetail.bidAt) : "-" }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <!-- Contract -->
+                    <div class="section-card mb-3">
+                      <div class="section-card__heading">合约内容</div>
+                      <div class="prose-block"> 
+                        {{paperDetail.sow}}
+                      </div>
+                    </div>
+
+                    <!-- Parties -->
+                    <div class="section-card mb-3">
+                      <div class="section-card__heading">相关方</div>
+                      <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                          <div class="party-card">
+                            <div class="party-card__avatar party-card__avatar--buyer">{{Array.from(paperDetail.purchaser)[0]}}</div>
+                            <div>
+                              <div class="party-card__role"><span>采购商</span><span class="ms-2"><a   :href="'/messages/' + paperDetail.purchaserUserId" class="btn-private-link"><i class="bi bi-soundwave"></i></a></span></div>
+                              <div class="party-card__name">{{paperDetail.purchaser}}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="party-card">
+                            <div class="party-card__avatar party-card__avatar--vendor">{{paperDetail.supplier ? Array.from(paperDetail.supplier)[0] : '-'}}</div>
+                            <div>
+                              <div class="party-card__role"><span>服务商</span></div>
+                              <div class="party-card__name">{{ paperDetail.supplier ? paperDetail.supplier : '-'}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
 
                 </div>
                 

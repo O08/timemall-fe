@@ -16,6 +16,8 @@ import RtmCompoent from "/common/javascripts/blv-rtm.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+import { renderDateInChina } from "/common/javascripts/util.js";
+
 
 const RootComponent = {
     data() {
@@ -30,6 +32,9 @@ const RootComponent = {
         }
     },
     methods: {
+        renderDateInChinaV(dateStr){
+            return renderDateInChina(dateStr);
+        },
         findPaperDetailV(){
             findPaperDetail().then(response=>{
                 if(response.data.code==200){

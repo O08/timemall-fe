@@ -1,0 +1,201 @@
+:root {
+    --surface-base:    #121212;
+    --surface-raised:  #111111;
+    --surface-inset:   #0d0d0d;
+    --border-subtle:   #1a1a1a;
+    --text-primary:    #e4e4e4;
+    --text-secondary:  #a8a8a8;
+    --text-tertiary:   #606060;
+    --text-disabled:   #3a3a3a;
+    --accent-green:       #4ade80;
+    --accent-green-bg:    rgba(74,222,128,0.07);
+    --accent-green-border:rgba(74,222,128,0.20);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+  }
+
+
+.paper-info-container,.papaer-info-container{
+    background-color: var(--surface-base);
+}
+
+  /* ── Page header ── */
+  .page-header {
+    background: var(--surface-raised);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 28px 32px 24px;
+  }
+
+  .page-header__meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+
+  .page-header__order-id {
+    font-size: 11.5px; color: var(--text-disabled);
+    font-variant-numeric: tabular-nums; letter-spacing: .02em;
+  }
+
+  .page-header__title {
+    font-size: 21px; font-weight: 600; color: var(--text-primary);
+    letter-spacing: -.013em; line-height: 1.35; margin-bottom: 14px;
+    word-break: break-all;
+  }
+
+  /* ── Status badge ── */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: var(--radius-sm);
+    font-size: 12px; font-weight: 500; border: 1px solid transparent;
+  }
+  .status-badge__dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  .status-badge--recruiting {
+    background: var(--accent-green-bg);
+    border-color: var(--accent-green-border);
+    color: var(--accent-green);
+  }
+  .status-badge--recruiting .status-badge__dot { background: var(--accent-green); }
+
+
+
+  /* ── Topic tags ── */
+  .topic-tag {
+    display: inline-block; padding: 2px 9px; font-size: 11.5px;
+    color: var(--text-tertiary); background: #151515;
+    border: 1px solid #1e1e1e; border-radius: var(--radius-sm);
+    word-break: break-all;
+  }
+
+  /* ── Metric card ── */
+  .metric-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 18px 20px 16px;
+    height: 100%;
+  }
+
+  .metric-card__label { font-size: 11.5px; color: var(--text-disabled); margin-bottom: 8px; }
+  .metric-card--featured .metric-card__label { color: #4a5244; }
+
+  .metric-card__value {
+    font-size: 22px; font-weight: 600; color: var(--text-tertiary);
+    letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .metric-card--featured .metric-card__value { color: #d0e4c8; }
+
+  .metric-card__unit { font-size: 13px; font-weight: 400; color: var(--text-disabled); margin-left: 4px; }
+  .metric-card--featured .metric-card__unit { color: #4a5a44; }
+
+  .metric-card__footnote { font-size: 11px; color: #2e2e2e; margin-top: 6px; }
+  .metric-card--featured .metric-card__footnote { color: #374034; }
+
+  /* ── Section card ── */
+  .section-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 22px 24px;
+  }
+  .section-card__heading {
+    font-size: 10.5px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--text-disabled); margin-bottom: 16px;
+  }
+
+  /* ── Attribute table ── */
+  .attr-table { width: 100%; border-collapse: collapse; }
+  .attr-table__row { border-bottom: 1px solid #171717; }
+  .attr-table__row:last-child { border-bottom: none; }
+
+  .attr-table__label {
+    width: 100px; padding: 10px 16px 10px 0;
+    font-size: 12px; color: var(--text-disabled);
+    vertical-align: top; white-space: nowrap; line-height: 1.6;
+  }
+  .attr-table__value {
+    padding: 10px 0; font-size: 13.5px;
+    color: var(--text-secondary); vertical-align: top; line-height: 1.6;
+    word-break: break-all;
+  }
+  .attr-table__link {
+    color: #6080cc; text-decoration: none; font-size: 12.5px;
+    word-break: break-all; transition: color .15s;
+  }
+  .attr-table__link:hover { color: #8aabf5; }
+
+ 
+
+  /* ── Prose ── */
+  .prose-block { 
+    font-size: 13.5px; line-height: 1.85; color: #707070;
+    word-break: break-all;
+    white-space: pre-line;
+ }
+
+
+  /* ── Party card ── */
+  .party-card {
+    background: var(--surface-inset); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm); padding: 14px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+    transition: border-color .15s;
+  }
+  .party-card:hover { border-color: #282828; }
+
+  .party-card__avatar {
+    width: 34px; height: 34px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
+  }
+  .party-card__avatar--buyer  { background: #3b82f6; }
+  .party-card__avatar--vendor { background: #22c55e; }
+
+  .party-card__role  { font-size: 11px; color: var(--text-disabled); margin-bottom: 3px; }
+  .party-card__name  { 
+    font-size: 13px; color: var(--text-secondary); font-weight: 500; line-height: 1.4; margin-bottom: 2px;
+    word-break: break-all;
+ }
+  .party-card__meta  { font-size: 11.5px; color: var(--text-disabled); }
+
+  /* ── Timestamp ── */
+  .timestamp-item__label { font-size: 11.5px; color: var(--text-disabled); margin-bottom: 5px; }
+  .timestamp-item__value { font-size: 13px; color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+
+  /* ── Layout ── */
+  .page-body { padding: 24px 32px 60px; }
+
+  .btn-copy-paper-link:hover{
+    color: #fff;
+  }
+  .btn-private-link{
+    color: var(--text-secondary);
+  }
+  .btn-private-link:hover{
+    color: #fff;
+  }
+  
+  @media (max-width: 767px) {
+     .page-header,.page-body{
+        padding: 12px;
+     }
+     .section-card{
+        padding: 12px;
+     }
+     .metric-card__value{
+        font-size: 16px;
+     }
+     .attr-table__value{
+        font-size: 12px;
+     }
+     .page-header__title{
+        font-size: 18px;
+     }
+     .timestamp-item__value{
+        font-size: 10px;
+     }
+     .party-card__name{
+        font-size: 10px;
+     }
+     .metric-card{
+        padding: 16px;
+     }
+  }
