@@ -20,56 +20,58 @@
 <body>
   <micro-app id="app" v-cloak>
     <div class="content-container">
-        <div class="head-pannel justify-content-between" style="padding-left: 1.25rem; padding-right: 1.25rem;">
-          <div class="d-flex align-items-center">
-
-
-
-            <div class="code-option">
-                
-                <div>
-                    <div class="d-flex align-items-center logo_link">
-                        <a href="/">
-                            <img src="/common/images/blv-web-logo.png" alt="logo">
-                        </a>
-                      </div>
-                </div>
+        <header>
+          <div class="head-pannel blv-glass-card justify-content-between" style="padding-left: 1.25rem; padding-right: 1.25rem;">
+            <div class="d-flex align-items-center">
+  
+  
+  
+              <div class="code-option">
+                  
+                  <div>
+                      <div class="d-flex align-items-center logo_link">
+                          <a href="/">
+                              <img src="/common/images/blv-web-logo.png" alt="logo">
+                          </a>
+                        </div>
+                  </div>
+              </div>
+  
             </div>
-
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
-              <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
-              <li>
-                <a href="/estudio/studio-setting-profile">
-                  <button class="dropdown-item" type="button">
-                    <i class="bi bi-person-vcard me-1"></i> 品牌形象
-                   </button>
-                </a>
-              </li>
-              <li>
-                  <button id="logout-btn" @click="logout()" class="dropdown-item" type="button">   
-                    <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+  
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle button_user brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
+                <li>
+                  <a href="/estudio/studio-setting-profile">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-person-vcard me-1"></i> 品牌形象
+                     </button>
+                  </a>
+                </li>
+                <li>
+                    <button id="logout-btn" @click="logout()" class="dropdown-item" type="button">   
+                      <i class="bi bi-box-arrow-right me-1"></i> 退出登录 
+                    </button>
+                </li>
+                <li>
+                  <a href="/mall/delete-account">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-trash3 me-1"></i> 删除账号
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                    <i class="bi bi-flag me-1"></i> 问题反馈
                   </button>
-              </li>
-              <li>
-                <a href="/mall/delete-account">
-                  <button class="dropdown-item" type="button">
-                    <i class="bi bi-trash3 me-1"></i> 删除账号
-                   </button>
-                </a>
-              </li>
-              <li>
-                <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
-                  <i class="bi bi-flag me-1"></i> 问题反馈
-                </button>
-              </li>
-            </ul>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        </header>
         <main>
 
 
@@ -79,16 +81,18 @@
               <div class="report-case-wrapper">
                 <div class="report-case-header">
                   <div class="filter-bar">
-                    <div class="filter-item filter-item__search">
 
-                      <div id="nav-searchform">
-                        <div class="nav-search-btn"><i class="bi bi-search"></i></div>
-                        <div class="nav-search-content">
-                          <input v-model="caseList_pagination.param.q" @keyup.enter.native="filterCaseListV" class="nav-search-input" type="text" autocomplete="off" maxlength="100" x-webkit-speech="" x-webkit-grammar="builtin:translate" placeholder="搜索案件">
-                        </div>
+                    <top-search class="section-top-serach">
+                      <div class="input-group input-normal-search">
+                        <input
+                        v-model="caseList_pagination.param.q" @keyup.enter.native="filterCaseListV"
+                          class="form-control top-search-input" type="text" placeholder="搜索案件..." aria-label="Search">
+                        <button v-preventreclick @click="filterCaseListV" class="btn btn-outline-secondary input-group-search-btn"
+                          type="button">
+                          <i class="bi bi-search"></i>
+                        </button>
                       </div>
-
-                    </div>
+                    </top-search>
 
                     <div class="filter-item tagsContainer">
 

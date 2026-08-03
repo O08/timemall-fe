@@ -118,6 +118,10 @@ const RootComponent = {
                 caseDesc: "",
                 material: ""
             }
+
+            if(!!document.querySelector('#caseMaterialFile') && !!document.querySelector('#caseMaterialFile').value ){
+                document.querySelector('#caseMaterialFile').value = null;
+            }
             
   
             showOasisReportModal(         

@@ -27,6 +27,14 @@ const RootComponent = {
             isLoading: true,
             queryBid: queryBid,
             brandProfile: {},
+            handoutFlierFormObj: {
+                q: "",
+                receiverName: "",
+                records: [],
+                selectedFlierId: "",
+                receiverBrandId:""
+        
+            },
             typeOfBusinessOptions: [
                 { value: "0", text: "非商业主体" },
                 { value: "1", text: "独资经营" },
@@ -112,6 +120,71 @@ const RootComponent = {
         closePartnerInfoPreviewModalV(){
             this.resetBrandUrlToList();
             $("#partnerInfoPreviewModal").modal("hide");
+        },
+        showSendFlierModalV(){
+
+            this.handoutFlierFormObj.q="";
+            this.handoutFlierFormObj.records=[];
+            this.handoutFlierFormObj.receiverName=this.brandProfile.brand;
+            this.handoutFlierFormObj.selectedFlierId="";
+            this.handoutFlierFormObj.receiverBrandId=this.brandProfile.brandId;
+
+            loadFlierList(this.handoutFlierFormObj.q).then(response => {
+       
+                if (response.data.code == 200) {
+                    this.handoutFlierFormObj.records=response.data.flier.records;
+                    $("#partnerInfoPreviewModal").modal("hide");
+                    $("#flierModal").modal("show");
+                }
+    
+                if (response.data.code != 200) {
+                    const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+                    customAlert.alert(error);
+                }
+            }).catch(error => {
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+            });
+    
+        },
+        handoutFlierV(){
+            if(!this.handoutFlierFormObj.selectedFlierId) return;
+            handoutFlier(this.handoutFlierFormObj.selectedFlierId,this.handoutFlierFormObj.receiverBrandId).then(response => {
+       
+                if (response.data.code == 200) {
+                    customAlert.alert("传单已分发！");
+                }
+
+                if (response.data.code == 40007) {
+                    customAlert.alert("源能余额不足，操作失败，可前往【薪动商号】-【补给商城】进行补给。");
+                    return;
+                  }
+    
+                if (response.data.code != 200) {
+                    const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+                    customAlert.alert(error);
+                }
+            }).catch(error => {
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+            });
+        },
+        retrieveFlierListV(){
+            loadFlierList(this.handoutFlierFormObj.q).then(response => {
+       
+                if (response.data.code == 200) {
+                    this.handoutFlierFormObj.records=response.data.flier.records;
+                }
+    
+                if (response.data.code != 200) {
+                    const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+                    customAlert.alert(error);
+                }
+            }).catch(error => {
+                customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+            });
+        },
+        closeSendFlierModalV(){
+            $("#partnerInfoPreviewModal").modal("show");
+            $("#flierModal").modal("hide");
         },
         resetBrandUrlToList() {
             const targetUrl = '/rainbow/discovery-partner';
@@ -216,6 +289,24 @@ function filterTalentGrid(){
  async function doApplyMentor(mentorBrandId){
     const url = "/api/v1/web_epod/brand/{id}/mentor/apply".replace("{id}",mentorBrandId);
     return await axios.post(url);
+ }
+ async function doLoadFlierList(q){
+    const url="/api/v1/web_estudio/brand/flier/query?current=1&size=20&status=normal&q="+q;
+    return await axios.get(url);
+ }
+ async function doHandoutFlier(dto){
+    const url="/api/v1/web_estudio/brand/flier/handout";
+    return await axios.post(url,dto);
+ }
+ async function handoutFlier(flierId,receiverBrandId){
+    const dto={
+        flierId: flierId,
+        receiverBrandId: receiverBrandId
+    }
+    return await doHandoutFlier(dto);
+ }
+ async function loadFlierList(q){
+    return await doLoadFlierList(q);
  }
  async function applyMentor(mentorBrandId){
     return await doApplyMentor(mentorBrandId);

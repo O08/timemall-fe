@@ -36,6 +36,7 @@ const RootComponent = {
             freezeUserId: "",
             blockOasisId: "",
             offlineCellId: "",
+            freezeFlierId: "",
             settingWithdrawLimitObj: {
                 caseNO: currentCaseNo,
                 offOrOn: ""
@@ -71,6 +72,23 @@ const RootComponent = {
         showFreezeCoopProgramV(){
             this.freezeCoopProgramId = "";
             $("#freezeCoopProgram").modal("show"); // show modal
+        },
+        showFreezeFlierV(){
+            this.freezeFlierId = "";
+            $("#freezeFlierModal").modal("show"); // show modal
+        },
+        freezeFlierV(){
+            freezeFlier(this.freezeFlierId).then(response=>{
+                if(response.data.code==200){
+
+                    customAlert.alert("冻结自由合作项目成功");
+                    $("#freezeFlierModal").modal("hide");
+
+                }
+                if(response.data.code!=200){
+                    customAlert.alert(response.data.message)
+                }
+            })
         },
         showOfflineVirtualProductModalV(){
             this.offlineVirtualProductId = "";
@@ -356,6 +374,13 @@ async function doOasisMembershipRefund(dto){
 async function doFreezeCoopProgram(freezeCoopProgramId){
     const url = "/api/v1/team/dsp_case/action/coop/program/{id}/freeze".replace("{id}",freezeCoopProgramId);
     return await axios.put(url,{});
+}
+async function doFreezeFlier(freezeFlierId){
+    const url = "/api/v1/team/dsp_case/action/flier/{id}/block".replace("{id}",freezeFlierId);
+    return await axios.post(url,{});
+}
+async function freezeFlier(freezeFlierId){
+   return await doFreezeFlier(freezeFlierId);
 }
 async function freezeCoopProgram(freezeCoopProgramId){
     return await doFreezeCoopProgram(freezeCoopProgramId);

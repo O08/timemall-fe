@@ -158,6 +158,10 @@ const RootComponent = {
             $("#reportOasisModal").modal("hide");
         },
         showOasisReportModalV(program){
+
+          if(!!document.querySelector('#caseMaterialFile') && !!document.querySelector('#caseMaterialFile').value ){
+            document.querySelector('#caseMaterialFile').value = null;
+          }
   
             this.reportForm={
                 fraudType: "",
@@ -268,7 +272,6 @@ async function loadReportIssueList(appObj) {
 
 async function showOasisReportModal(loadReportIssueListV) {
   await loadReportIssueListV();
-  $("#commericalOrderPreviewModal").modal("hide");
   $("#reportOasisModal").modal("show");
 }
 

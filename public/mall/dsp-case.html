@@ -24,7 +24,7 @@
             <div class="case-archive-content">
                 <div class="archive-detail-container">
                   <div class="archiveDetail-avatar">
-                    <i  style="font-size: 48px;" class="bi bi-briefcase"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase-business-icon lucide-briefcase-business"><path d="M12 12h.01"/><path d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M22 13a18.15 18.15 0 0 1-20 0"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
                   </div>
                   <div class="archiveDetail-header">
                     <h1>{{caseProfile.general.caseNo}}</h1>
@@ -36,22 +36,22 @@
                         
                         <div class="opt_item_container d-flex flex-column justify-content-center">
                           <div class="opt_item_head">
-                            <a>
+                            <div class="opt_item_head_menu">
                               <button v-preventreclick  @click="showAddNewMaterialModalV" class="btn btn-dark private-msg-link">
                                 <i class="bi bi-file-earmark-plus"></i>
                               </button>
-                            </a> 
+                            </div> 
                           </div>
                           <span class="opt_item_desc">上传材料</span>
                         </div>
 
                         <div class="opt_item_container d-flex flex-column justify-content-center">
                           <div class="opt_item_head">
-                            <a>
+                            <div class="opt_item_head_menu">
                               <button v-preventreclick  @click="showCaseManagementModalV"  data-bs-toggle="modal" data-bs-target="#inviteModal" class="btn btn-dark  copy-link">
                                 <i class="bi bi-feather"></i>
                               </button>
-                            </a>
+                            </div>
                         
                           </div>
                           <span class="opt_item_desc">处理案子</span>
@@ -59,57 +59,54 @@
 
                         <div class="opt_item_container d-flex flex-column justify-content-center">
                           <div class="opt_item_head">
-                            <a>
+                            <div class="opt_item_head_menu">
                               <div   class="dropdown-center">
-                                <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-secondary dropdown-toggle " type="button" data-bs-toggle="dropdown"  aria-expanded="false">
                                   <i class="bi bi-three-dots"></i>
                                 </button>
+                                
                                 <ul class="dropdown-menu dropdown-menu-dark">
                       
-                                  <div class="case-actions">
-                      
-                                    <div class="w-100">
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="executeWithdrawLimitV" class="btn-del_post">执行限额</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="recallWithdrawLimitV" class="btn-del_post">解除限额</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showOfflineCellModalV"  class="btn-del_post">下线特约</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showBlockOasisModalV"  class="btn-del_post">封禁部落</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showFreezeUserModalV" class="btn-del_post">冻结账号</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showOfflineVirtualProductModalV" class="btn-del_post">下架虚拟商品</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showVirtualProductRefundModalV" class="btn-del_post">虚拟商品退款</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showSubscriptionBillRefundModalV" class="btn-del_post">付费订阅账单退款</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showCloseCommercialPaperModalV" class="btn-del_post">关闭商单</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showOasisMembershipRefundModalV" class="btn-del_post">部落会员订阅退款</button>
-                                      </div>
-                                      <div class="del_post">
-                                        <button v-preventreclick @click="showFreezeCoopProgramV" class="btn-del_post">冻结自由合作项目</button>
-                                      </div>
-                                    </div>
-                            
-                            
-                                  </div>
+                                  <li>
+                                    <button v-preventreclick @click="executeWithdrawLimitV" class="dropdown-item">执行限额</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="recallWithdrawLimitV" class="dropdown-item">解除限额</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showOfflineCellModalV"  class="dropdown-item">下线特约</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showBlockOasisModalV"  class="dropdown-item">封禁部落</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showFreezeUserModalV" class="dropdown-item">冻结账号</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showOfflineVirtualProductModalV" class="dropdown-item">下架虚拟商品</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showVirtualProductRefundModalV" class="dropdown-item">虚拟商品退款</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showSubscriptionBillRefundModalV" class="dropdown-item">付费订阅账单退款</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showCloseCommercialPaperModalV" class="dropdown-item">关闭商单</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showOasisMembershipRefundModalV" class="dropdown-item">部落会员订阅退款</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showFreezeCoopProgramV" class="dropdown-item">冻结自由合作项目</button>
+                                  </li>
+                                  <li>
+                                    <button v-preventreclick @click="showFreezeFlierV" class="dropdown-item">封禁违规传单</button>
+                                  </li>
                                   
                                 </ul>
                               </div>
-                            </a>
+                            </div>
                         
                           </div>
                           <span class="opt_item_desc">更多</span>
@@ -168,20 +165,20 @@
                   </div>
                   <div class="archiveDetail-skills">
                     <h2>处理方案</h2>
-                    <div class="archiveDetail-skills-item ms-2 ps-2 py-2">
+                    <div class="archiveDetail-skills-item  py-2">
                       {{caseProfile.general.solution}}
                     </div>
                   </div>
 
                   <div class="archiveDetail-skills">
                     <h2>举报资料</h2>
-                    <div class="business-scope  ps-2 py-2">
+                    <div class="business-scope   py-2">
                       <div v-for="item in caseProfile.material.informerMaterial" class="material-item">
                         <span class="ellipsis-1">
                           <i style="color: aliceblue;" class="bi bi-file-earmark-fill"></i> <span class="ms-1">{{item.materialName}}</span>
                         </span>
                         <div class="material-item-optional">
-                          <a target="_blank" class="download"  :href="'/mall/preview?uri=' + webAppDomain + item.materialUrl"><i class="bi bi-file-earmark-play"></i></a>
+                          <a target="_blank" class="download"  :href="'/mall/preview?uri=' + webAppDomain + item.materialUrl"><i class="bi bi-eye"></i></a>
                           <a target="_blank" class="download ms-2" :download="item.materialName" :href="downLoadFileUriV(item.materialName,item.materialUrl)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                         </div>
                       </div>
@@ -189,13 +186,13 @@
                   </div>
                   <div class="archiveDetail-skills">
                     <h2>申诉资料</h2>
-                    <div class="business-scope  ps-2 py-2">
+                    <div class="business-scope   py-2">
                       <div v-for="item in caseProfile.material.defendantMaterial" class="material-item">
                         <span class="ellipsis-1">
                           <i style="color: aliceblue;" class="bi bi-file-earmark-fill"></i> <span class="ms-1">{{item.materialName}}</span>
                         </span>
                         <div class="material-item-optional">
-                          <a target="_blank" class="download"  :href="'/mall/preview?uri='+ webAppDomain+ item.materialUrl"><i class="bi bi-file-earmark-play"></i></a>
+                          <a target="_blank" class="download"  :href="'/mall/preview?uri='+ webAppDomain+ item.materialUrl"><i class="bi bi-eye"></i></a>
                           <a target="_blank" class="download ms-2" :download="item.materialName" :href="downLoadFileUriV(item.materialName,item.materialUrl)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                         </div>
                       </div>
@@ -204,13 +201,13 @@
 
                   <div class="archiveDetail-skills">
                     <h2>补充资料</h2>
-                    <div class="business-scope ps-2 py-2">
+                    <div class="business-scope  py-2">
                       <div v-for="item in caseProfile.material.peacemakerMaterial" class="material-item">
                         <span class="ellipsis-1">
                           <i style="color: aliceblue;" class="bi bi-file-earmark-fill"></i> <span class="ms-1">{{item.materialName}}</span>
                         </span>
                         <div class="material-item-optional">
-                          <a target="_blank" class="download"  :href="'/mall/preview?uri='+ webAppDomain+ item.materialUrl"><i class="bi bi-file-earmark-play"></i></a>
+                          <a target="_blank" class="download"  :href="'/mall/preview?uri='+ webAppDomain+ item.materialUrl"><i class="bi bi-eye"></i></a>
                           <a target="_blank" class="download ms-2" :download="item.materialName" :href="downLoadFileUriV(item.materialName,item.materialUrl)"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                         </div>
                       </div>
@@ -436,6 +433,32 @@
                   'btn-primary': !!freezeCoopProgramId ,
                   'btn-secondary': !freezeCoopProgramId }"
                    v-preventreclick @click="freezeCoopProgramV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- freeze user modal -->
+        <div class="modal-container">
+          <div class="modal fade" id="freezeFlierModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header  display-dialog-header-bg">
+                  <h1 class="modal-title fs-5">封禁违规传单</h1>
+                </div>
+                <div class="modal-body d-flex justify-content-center border-0 display-dialog-body-bg">
+                  <form class="w-100" onsubmit="return false">
+                    <input v-model="freezeFlierId" class="form-control  only-show-bottom dark-input-default" type="text"
+                      placeholder="传单Id">
+                  </form>
+                </div>
+                <div class="modal-footer btn-light d-flex justify-content-between border-0 display-dialog-footer-bg">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                  <button :class="{'disabled': !freezeFlierId, 
+                          'btn-primary': !!freezeFlierId ,
+                          'btn-secondary': !freezeFlierId }" v-preventreclick @click="freezeFlierV" type="button"
+                    class="btn">提交</button>
                 </div>
               </div>
             </div>

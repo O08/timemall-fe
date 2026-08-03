@@ -1,0 +1,181 @@
+.content-wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;    /* 开启纵向磁性吸附 */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
+}
+
+/* 隐藏滚动条 */
+.content-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.feed-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.slide-page {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;  
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    box-sizing: border-box;
+    padding: 24px 0;     
+    position: relative;
+}
+
+
+
+.video-card {
+    position: relative;
+    background-color: #111;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; 
+    transition: all 0.25s ease;
+    
+    width: 94vw; 
+    height: 100%;
+    border-radius: 3px;
+}
+
+.ad-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    z-index: 10;
+}
+
+.right-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    
+    position: absolute;
+    right: 12px;
+    bottom: 24px;
+    gap: 16px;
+}
+
+.avatar-box { position: relative; width: 42px; height: 42px; margin-bottom: 4px; }
+.avatar { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+
+.action-btn { display: flex; flex-direction: column; align-items: center; color: #b0b3b8; cursor: pointer; background: none; border: none; padding: 0; }
+
+.action-btn svg { width: 28px; height: 28px; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.6)); }
+.action-label { font-size: 11px; font-weight: 500; margin-top: 3px; text-shadow: 1px 1px 3px rgba(0,0,0,0.9); }
+
+
+.action-btn:hover{
+    color: #fff;
+}
+.action-btn:hover svg{
+    fill: #fff;
+}
+.action-btn.liked svg{
+    fill: #2d88ff;
+}
+.action-btn.del:hover svg{
+    fill: #ff3b30;
+}
+.bottom-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.85));
+    transition: all 0.25s ease;
+    
+    padding: 40px 75px 25px 15px; 
+}
+.username { 
+    font-size: 15px; font-weight: 700; margin-bottom: 6px;
+    word-break: break-all;
+ }
+.description { 
+    font-size: 13px; line-height: 1.4; opacity: 0.95;
+    word-break: break-all;
+ }
+
+
+/* ==========================================================================
+   🎨 响应式分流：平板端与电脑端（宽度 >= 768px）
+   ========================================================================== */
+@media (min-width: 768px) {
+    .slide-page {
+        flex-direction: row;
+        gap: 24px; 
+    }
+
+    .video-card {
+        max-width: unset;
+        width: unset;
+        height:  100%;
+        aspect-ratio: 1 / 1.414; 
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .right-actions {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        gap: 24px; 
+    }
+
+    .action-label {
+        color: #b3b3b3;
+        text-shadow: none;
+    }
+    .action-btn svg {
+        filter: none;
+    }
+
+    .bottom-info {
+        padding: 40px 20px 25px 20px; 
+    }
+}
+@media (max-width: 1399px) {
+    .content-wrapper {
+        height: calc(100vh - 60px);
+    }
+    .slide-page{
+        background-color: #2e2e2e9d;
+        height: calc(100vh - 60px);
+    }
+}
+@media (max-width: 767px) {
+    .content-wrapper{
+        height: 100%;
+    }
+    header{
+        background: unset;
+        position: fixed;
+        width: 100%;
+    }
+    .slide-page{
+        padding: 0;
+        height: 100vh;
+    }
+    .video-card{
+        border-radius: 0;
+        width: 100%;
+    }
+}

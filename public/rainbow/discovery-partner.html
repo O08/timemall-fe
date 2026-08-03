@@ -331,7 +331,74 @@
       </section>
      
     </col-content>
- <!-- Modal -->
+     <!-- Modal -->
+    <div class="modal-container">
+    
+      <div class="modal dcModal fade" id="flierModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen-md-down  modal-dialog-centered modal-dialog-scrollable">
+      
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 style="margin:0; font-size:16px;">发送传单</h3>
+              <button  v-preventreclick @click="closeSendFlierModalV" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none; font-size: 12px;"></button>
+
+            </div>
+      
+            <div class="modal-body">
+              <div class="form-label">接收品牌</div>
+              <div class="brand-target-banner">
+                <span id="targetBrandLabel" style="font-weight: 600; word-break: break-all;">{{handoutFlierFormObj.receiverName}}</span>
+              </div>
+      
+              <div class="form-label">选择要投递的传单</div>
+              <input  @keyup.enter.native="retrieveFlierListV" v-model="handoutFlierFormObj.q" type="text" class="form-control mb-3" id="flierSearch" placeholder="搜索传单..." autocomplete="off">
+      
+              <div class="flier-scroll-box mb-3" id="flierListContainer">
+                <div v-for="flier in handoutFlierFormObj.records" class="flier-option-card" :class="{'selected': flier.flierId==handoutFlierFormObj.selectedFlierId }">
+                  <input  v-model="handoutFlierFormObj.selectedFlierId" type="radio" name="flierRadioGroup" v-bind:value="flier.flierId">
+                  <img
+                    class="flier-thumbnail"
+                    :src="adaptiveImageUriV(flier.contentLink) ">
+                  <div class="flier-info-wrapper">
+                    <div class="flier-opt-title">{{flier.title}}</div>
+                    <div class="flier-opt-desc">{{flier.description}}</div>
+                  </div>
+                </div>
+                <div v-if="handoutFlierFormObj.records.length==0" class="align-items-center d-flex empty-data-state flex-column justify-content-center p-4 text-center">
+                  <svg
+                    xmlns:xmlns="http://w3.org" width="48" height="48" fill="currentColor" class="bi bi-person-dash empty-icon"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M11 12h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1m-7-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M5 8a4 4 0 1 0-8 0 4 4 0 0 0 8 0">
+                    </path>
+                    <path
+                      d="M0 8a5 5 0 1 1 10 0A5 5 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1">
+                    </path>
+                  </svg>
+                  <div class="empty-search-title mb-2">未找到相关的数据</div>
+                  <div class="empty-search-desc"> 没有找到匹配的传单。请检查拼写是否正确，或尝试<strong>调整关键词再搜索</strong>。 </div>
+                </div>
+              </div>
+              <div class="align-items-start d-flex mb-0 p-3 rounded-2"
+                style="background-color: rgb(30, 31, 34); border-left: 4px solid rgb(240, 178, 50);"><i
+                  class="bi bi-exclamation-triangle-fill me-2 mt-0.5" style="color: rgb(240, 178, 50);"></i>
+                <div style="font-size: 13px; line-height: 1.5;"><strong class="d-block mb-1 text-white"
+                    style="font-weight: 600;">温馨提示</strong><span
+                    class="text-muted-dark">每次分发需要扣除源能 1 点，发送前请谨慎选择需要触达的品牌。</span>
+                </div>
+              </div>
+            </div>
+      
+            <div class="modal-footer border-0">
+              <button v-preventreclick  :disabled="!handoutFlierFormObj.selectedFlierId" @click="handoutFlierV" class="btn-action-submit" id="submitModalBtn" >确认发送</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+    
+    </div>
+    <!-- Modal -->
     <div class="modal-container">
       <div class="modal fade" id="inviteModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
@@ -429,6 +496,18 @@
                               </a>
                             </div>
                             <span class="opt_item_desc">拜师</span>
+                          </div>
+
+                          <div class="opt_item_container d-flex flex-column justify-content-center">
+                            <div class="opt_item_head">
+                              <a>
+                                <button v-preventreclick  @click="showSendFlierModalV"  class="btn btn-dark  copy-link">
+                                  <i class="bi bi-file-earmark-bar-graph"></i>
+                                </button>
+                              </a>
+                          
+                            </div>
+                            <span class="opt_item_desc">发传单</span>
                           </div>
 
                           <div class="opt_item_container d-flex flex-column justify-content-center">

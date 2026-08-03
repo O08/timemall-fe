@@ -136,6 +136,9 @@ app.get('/proposal/:projectNo/compose', (req, res) => {
 app.get('/proposal/:projectNo', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/estudio/studio-proposals-review.html")        //设置/ 下访问文件位置
 })
+app.get('/flier/:id', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/rainbow/arch/digital-flier-info.html")        //设置/ 下访问文件位置
+})
 
 
 app.get('/:seller/:product/subscription', (req, res) => {

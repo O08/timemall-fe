@@ -7,12 +7,12 @@
     <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>委托任务 - E-Studio</title>
+    <title>数字传单 - E-Studio</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
-    <link rel="stylesheet" href="/estudio/stylesheets/studio-commission.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-digital-flier.scss">
 
 
 
@@ -225,7 +225,7 @@
                   </div>
                   <span>智能提案</span>
                 </a>
-                <a class="nav-link active" href="/estudio/studio-commission">
+                <a class="nav-link" href="/estudio/studio-commission">
                   <div class="nav-icon">
                     <i class="bi bi-stickies"></i>
                   </div>
@@ -249,12 +249,12 @@
                   </div>
                   <span>营销活动</span>
                 </a>
-                <a class="nav-link" href="/estudio/studio-digital-flier">
-                  <div class="nav-icon">
-                    <i class="bi bi-file-earmark-bar-graph"></i>
-                  </div>
-                  <span>数字传单</span>
-                </a>
+                <a class="nav-link active" href="/estudio/studio-digital-flier">
+                    <div class="nav-icon">
+                      <i class="bi bi-file-earmark-bar-graph"></i>
+                    </div>
+                    <span>数字传单</span>
+                  </a>
                 <a class="nav-link" href="/estudio/studio-msg">
                   <div class="nav-icon">
                     <i class="bi bi-bell"></i>
@@ -295,72 +295,26 @@
 
             <div class="page-header-monolith">
               <div class="title-wrapper"><span class="title-anchor"></span>
-                <h1 class="main-heading">委托任务</h1>
+                <h1 class="main-heading">数字传单</h1>
               </div>
-              <p class="header-description">接取微任务，享共创佣金。 </p>
+              <p class="header-description">使用数字传单推广你的商品、服务，禁止通过私信进行骚扰营销。您发出的数字传单会并入接受者的私信中，同时也让接受传单的客户有一个更安全的心理预期。发送传单请前往品牌银行<a class="ms-1" href="/rainbow/discovery-partner"><i class="bi bi-box-arrow-up-right"></i></a></p>
               <div class="header-divider"></div>
             </div> 
   
             <div class="filter-bar">
 
-              <a href="/rainbow/discovery-commission">
-                <button  class="btn btn-blv-primary d-inline-flex align-items-center"><i class="bi bi-plus"></i> 接取任务</button>
-              </a>
+              <button @click="showNewFlierModalV"  class="btn btn-blv-primary d-inline-flex align-items-center"><i class="bi bi-plus"></i> 录入传单</button>
+        
 
               <top-search class="section-top-serach">
                 <div class="input-group input-normal-search">
-                  <input @keyup.enter.native="retrieveTaskDataV" v-model="taskList_pagination.param.q"   class="form-control top-search-input" type="text"
+                  <input @keyup.enter.native="retrieveFlierDataV" v-model="flierList_pagination.param.q"   class="form-control top-search-input" type="text"
                     placeholder="搜索..." aria-label="Search">
-                  <button v-preventreclick @click="retrieveTaskDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
+                  <button v-preventreclick @click="retrieveFlierDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
                     <i class="bi bi-search"></i>
                   </button>
                 </div>
               </top-search>
-  
-              <div class="filter-item tagsContainer">
-  
-                <div class="dropdown">
-                  <a class="btn-dropdown dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    状态
-                  </a>
-                
-                  <ul class="dropdown-menu">
-    
-                    <li>
-                      <a class="dropdown-item">
-                        <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterStatus_Item_1">
-                            {{explainOasisCommissionTagV("2")}}
-                          </label>
-                          <input @change="retrieveByStatusV"  v-model="taskList_pagination.param.tag"   value="2" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_Item_1" >
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item">
-                        <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterStatus_Item_2">
-                            {{explainOasisCommissionTagV("4")}}
-                          </label>
-                          <input @change="retrieveByStatusV"  v-model="taskList_pagination.param.tag"   value="4" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_Item_2" >
-                        </div>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item">
-                        <div class="form-check form-check-reverse">
-                          <label class="form-check-label" for="filterStatus_ALL">
-                            全部
-                          </label>
-                          <input @change="retrieveByStatusV"  v-model="taskList_pagination.param.tag"   value="" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus_ALL" >
-                        </div>
-                      </a>
-                    </li>
-                   
-                  </ul>
-                </div>
-  
-              </div>
   
             </div>
   
@@ -370,56 +324,83 @@
                 <div class="table-wrp">
                   <table class="table table-borderless table-sm table-hover align-middle">
                     <thead>    
-                      <th class="col-oasis">部落</th>   
-                      <th class="col-task">任务</th>
-                      <th class="col-number">佣金</th>
+                      <th class="col-option"></th>
+                      <th class="col-title">传单</th>   
+                      <th class="col-desc">描述</th>
+                      <th class="col-number">点赞人次</th>
+                      <th class="col-number">发放份数</th>
+                      <th class="col-number">CTA点击量</th>
                       <th class="col-number">状态</th>
-                      <th class="col-time">接取时间</th>
-                      <th class="col-time">截止日期</th>
                     </thead>
                     <tbody>
-                      <tr v-for="task in taskList_pagination.records">
-                        <td :title="task.taskName" class="text-center">
-                          <a :href="'/'+task.oasisHandle" class="tb-url-link">
+                      <tr v-for="flier in flierList_pagination.records">
+                        <td class="col-option">
+
+                          <div class="d-flex align-items-center">
+
+                            <span class="btn-option-secondary"
+                               v-preventreclick  @click="copyValueToClipboardV(flier.flierId)"
+                              data-bs-custom-class="custom-popover"  data-bs-placement="bottom" data-bs-trigger="hover"
+                              data-bs-toggle="popover" data-bs-content="复制链接">
+                              <i class="bi bi-copy"></i>
+                            </span>
+                            <span class="option-edit ms-3" class="btn-option-secondary">
+                              <div class="dropdown table-dropdown-container">
+                                <a class="btn-option-secondary dropdown-toggle" href="#" role="button"
+                                  data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="bi bi-three-dots"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" target="_blank" :href="'/flier/'+flier.flierId" >查看</a></li>
+                                  <li><a class="dropdown-item"  v-preventreclick @click="showEditFlierModalV(flier)">编辑</a></li>
+                                  <li><a class="dropdown-item" v-preventreclick @click="deleteOneFlierV(flier.flierId)">移除</a></li>
+                                </ul>
+                              </div>
+                            </span>
+
+                          </div>
+
+
+
+                        </td>
+                        <td :title="flier.title" class="text-center">
+                          <a target="_blank" :href="'/flier/'+flier.flierId" class="tb-url-link">
                             <div class="d-flex align-items-center" style="gap: 4px;">
-                              <img :src="adaptiveImageUriV(task.oasisAvatar) || oasisAvatarDefault" 
-                                 @error="e => { e.target.src = oasisAvatarDefault }"
+                              <img :src="adaptiveImageUriV(flier.contentLink) " 
                                class="peacemaker-avatar">
-                              <span class="ellipsis-1 ms-1">{{task.oasisName}}</span>
+                              <span class="ellipsis-1 ms-1">{{flier.title}}</span>
                             </div>
                           </a>
                         </td>
-                        <td :title="task.title">
-                          <a :href="'/'+task.oasisHandle+'/task/' + task.id" class="tb-url-link">
-                            <span class="ellipsis-1">
-                              {{task.title}}
-                            </span>
-                          </a>
+                        <td :title="flier.description">
+                          <span class="ellipsis-1">
+                            {{flier.description}}
+                          </span>
                         </td>
-                        <td :title="task.bonus">
-                          {{task.bonus}}
+                        <td :title="flier.likes">
+                          {{flier.likes}}
                          </td>
-                        <td :title="explainOasisCommissionTagV(task.tag)">{{explainOasisCommissionTagV(task.tag)}}</td>
-                        <td :title="renderDateInChinaV(task.signAt)">{{renderDateInChinaV(task.signAt)}}</td>
-                        <td :title="renderDateInChinaV(task.signAt,task.deliveryCycle)">{{renderDateInChinaV(task.signAt,task.deliveryCycle)}}</td>
+                        <td :title="flier.copies">{{flier.copies}}</td>
+                        <td :title="flier.ctaClicks">{{flier.ctaClicks}}</td>
+                        <td :title="explainStatusV(flier.status)">{{explainStatusV(flier.status)}}</td>
                       </tr>
                     </tbody>
                   </table>
-                  <div v-show="taskList_pagination.records.length==0" class="empty-content-block">
+                  <div v-show="flierList_pagination.records.length==0" class="empty-content-block">
     
                     没有可用的内容！
         
                   </div>
-                  <nav v-if="!!taskList_pagination.paging" aria-label="Page navigation">
+                  <nav v-if="!!flierList_pagination.paging" aria-label="Page navigation">
                     <ul class="pagination pagination-lg pagination-dark  border-0">
-                      <li class="page-item" @click="pagePre(taskList_pagination)">
+                      <li class="page-item" @click="pagePre(flierList_pagination)">
                         <a class="page-link"  aria-label="Previous">
                           <span aria-hidden="true">&laquo;</span>
                         </a>
                       </li>
-                      <li class="page-item"  v-for="page in taskList_pagination.paging.items" :class="{'current-page-active': taskList_pagination.paging.current == page}" 
-                            @click="pageGo(taskList_pagination,page)"><a class="page-link">{{page}}</a></li>
-                      <li class="page-item" @click="pageNext(taskList_pagination)">
+                      <li class="page-item"  v-for="page in flierList_pagination.paging.items" :class="{'current-page-active': flierList_pagination.paging.current == page}" 
+                            @click="pageGo(flierList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                      <li class="page-item" @click="pageNext(flierList_pagination)">
                         <a class="page-link" aria-label="Next">
                           <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -441,6 +422,180 @@
         
       </content>
       <section class="modals">
+
+         <!-- ── Modal ── -->
+         <div class="modal fade" id="publishModal" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <!-- Header -->
+              <div class="modal-header d-flex justify-content-between">
+                <div>
+                  <h5 class="modal-title" id="publishModalLabel">录入传单</h5>
+                  <p class="modal-subtitle mb-0">上传传单、填写CTA信息</p>
+                </div>
+                <button type="button" class="btn-close-custom" data-bs-dismiss="modal">
+                  <i class="bi bi-x" style="font-size:18px;"></i>
+                </button>
+              </div>
+
+              <!-- Body -->
+              <div class="modal-body">
+                <form class="form-section" onsubmit="return false;">
+
+
+
+                  <!-- 传单 -->
+                  <div>
+                    <span class="field-label">传单 <span class="req">*</span></span>
+                    <div class="cover-upload" id="coverZone"
+                      onclick="document.getElementById('coverInput').click()">
+                      <img :src="newFlierObj.thumbnailUrl" :class="{'d-none': !newFlierObj.thumbnailUrl }" id="coverPreview" class="cover-preview" alt="传单预览" />
+                      <div  v-if="!newFlierObj.thumbnailUrl" id="coverPlaceholder" class="d-flex flex-column align-items-center gap-2">
+                        <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <span class="upload-title">点击上传图片</span>
+                        <span class="upload-sub">JPG、PNG，建议 A4 纸比例，最大 6MB</span>
+                      </div>
+                      <div class="cover-replace-overlay" id="coverOverlay">
+                        <i class="bi bi-arrow-repeat"></i> 更换图片
+                      </div>
+                    </div>
+                    <input type="file" id="coverInput"  accept="image/jpg, image/png, image/jpeg" class="d-none" @change="previewNewFlierMaterialV($event)" />
+                  </div>
+
+                  <!-- 传单标题 -->
+                  <div>
+                    <label class="field-label" for="actName">标题 <span class="req">*</span></label>
+                    <div class="position-relative">
+                      <input v-model="newFlierObj.title" type="text" class="form-control" id="actName" maxlength="32"  autocomplete="off"/>
+                    </div>
+                  </div>
+
+
+                  <!-- 线上链接 -->
+                  <div id="fieldLink">
+                    <label class="field-label" for="actLink">CTA链接</label>
+                    <div class="input-icon-wrap">
+                      <span class="input-icon"><i class="bi bi-link-45deg"></i></span>
+                      <input  v-model="newFlierObj.ctaLink" maxlength="300" type="text" class="form-control" id="actLink" placeholder="https://..." autocomplete="off"/>
+                    </div>
+                  </div>
+
+                  <!-- 传单描述 -->
+                  <div>
+                    <label class="field-label" for="actDesc">描述 <span class="req">*</span></label>
+                    <div class="position-relative">
+                  
+                      <textarea  v-model="newFlierObj.description"  class="form-control" id="actDesc" rows="5"
+                        maxlength="72"
+                        placeholder="简单说明营销内容…"></textarea>
+                      <span class="char-counter"><span id="descCount">{{newFlierObj.description.length}}</span>/72</span>
+                    </div>
+                  </div>
+
+                </form>
+              </div><!-- /modal-body -->
+
+              <!-- Footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn-cancel" data-bs-dismiss="modal">取消</button>
+                <div class="d-flex gap-2">
+                  <button :disabled="!validateNewFlierModalV()"   v-preventreclick @click="newFlierV" type="button" class="btn-publish">
+                    提交
+                  </button>
+                </div>
+              </div>
+
+            </div><!-- /modal-content -->
+          </div>
+        </div><!-- /modal -->
+
+         <!-- ── Modal ── -->
+         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <!-- Header -->
+              <div class="modal-header d-flex justify-content-between">
+                <div>
+                  <h5 class="modal-title" id="editModalLabel">编辑传单</h5>
+                  <p class="modal-subtitle mb-0">修改传单描述、CTA信息</p>
+                </div>
+                <button @click="closeEditFlierModalWhenNoChangeNeedV" type="button" class="btn-close-custom" data-bs-dismiss="modal">
+                  <i class="bi bi-x" style="font-size:18px;"></i>
+                </button>
+              </div>
+
+              <!-- Body -->
+              <div class="modal-body">
+                <form class="form-section" onsubmit="return false;">
+
+
+                  <!-- 传单 -->
+                  <div>
+                    <span class="field-label">传单 <span class="req">*</span></span>
+                    <div class="cover-upload" id="editCoverZone"  onclick="document.getElementById('editCoverInput').click()">
+                      <img :src="editFlierObj.thumbnailUrl"  id="editCoverPreview" class="cover-preview" alt="传单预览" />
+                      <div v-if="!editFlierObj.contentLink" id="editCoverPlaceholder" class="d-flex flex-column align-items-center gap-2">
+                        <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+                        <span class="upload-title">点击上传或拖拽图片</span>
+                        <span class="upload-sub">JPG、PNG，建议 A4 纸比例，最大 6MB</span>
+                      </div>
+                      <div class="cover-replace-overlay" id="editCoverOverlay">
+                        <i class="bi bi-arrow-repeat"></i> 更换图片
+                      </div>
+                    </div>
+                    <input type="file" id="editCoverInput"  accept="image/jpg, image/png, image/jpeg" class="d-none" @change="previewEditFlierMaterialV($event)" />
+                  </div>
+
+                  <!-- 标题 -->
+                  <div>
+                    <label class="field-label" for="editActName">标题 <span class="req">*</span></label>
+                    <div class="position-relative">
+                      <input  v-model="editFlierObj.title" type="text" class="form-control" id="editActName" maxlength="32"
+                        placeholder="给活动起一个吸引人的名字" autocomplete="off"/>
+                    </div>
+                  </div>
+
+
+                  <!-- CTA链接 -->
+                  <div>
+                    <label class="field-label" for="editActLink">CTA链接</label>
+                    <div class="input-icon-wrap">
+                      <span class="input-icon"><i class="bi bi-link-45deg"></i></span>
+                      <input v-model="editFlierObj.ctaLink" maxlength="300" type="text" class="form-control" id="editActLink" placeholder="https://..." autocomplete="off"/>
+                    </div>
+                  </div>
+
+                 
+
+                  <!-- 活动描述 -->
+                  <div>
+                    <label class="field-label" for="editActDesc">活动描述 <span class="req">*</span></label>
+                    <div class="position-relative">
+                  
+                      <textarea class="form-control" id="editActDesc" rows="5"
+                        maxlength="72"
+                        v-model="editFlierObj.description" 
+                        placeholder="介绍活动内容、特色、注意事项等…"></textarea>
+                      <span class="char-counter"><span id="editDescCount">{{editFlierObj.description.length}}</span>/72</span>
+                    </div>
+                  </div>
+
+                </form>
+              </div><!-- /modal-body -->
+
+              <!-- Footer -->
+              <div class="modal-footer">
+                <button @click="closeEditFlierModalWhenNoChangeNeedV"  type="button" class="btn-cancel" data-bs-dismiss="modal">取消</button>
+                <button :disabled="!validateEditFlierModalV()"   type="button" class="btn-publish" v-preventreclick @click="editFlierV">
+                  提交
+                </button>
+              </div>
+
+            </div><!-- /modal-content -->
+          </div>
+        </div><!-- /modal -->
        
 
       </section>
@@ -480,7 +635,7 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script type="module" src="/common/javascripts/tm.js"></script>
-  <script type="module" src="/estudio/javascripts/studio-commission.js"></script>
+  <script type="module" src="/estudio/javascripts/studio-digital-flier.js"></script>
 
 
 

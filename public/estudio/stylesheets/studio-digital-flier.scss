@@ -1,0 +1,385 @@
+.peacemaker-avatar{
+    height: 24px;
+    width: 24px;
+    border-radius: 2px;
+    position: relative;
+  }
+  .btn-close{
+   outline: none;
+   box-shadow: none;
+   --bs-btn-close-focus-shadow: 0 0 0 .25rem transparent;
+  }
+  .tb-url-link{
+   color: #fff;
+  }
+  .tb-url-link:hover{
+    text-decoration-line: underline;
+    text-decoration-color: #fff;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.25em;
+  }
+
+  .col-option{
+    width: 90px;
+  }
+  
+  .col-title{
+    width: 25%;
+  }
+  
+  .col-desc{
+    width: 30%;
+  }
+  .col-number{
+    width: 10%;
+  }
+
+  
+  .main-content-container {
+    min-width: 1000px;
+  }
+  
+  .tb-options{
+    display: flex;
+    gap: 6px;
+  }
+
+#publishModal,#editModal {
+    .modal-dialog {
+      max-width: 680px;
+    }
+    .modal-content {
+      color-scheme: dark; // 适配原始的默认date time 为深色模式
+      background: #2b2d31;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .6);
+    }
+  
+  
+  
+    .modal-header {
+      background: #2b2d31;
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      padding: 16px 24px;
+      border-radius: 8px 8px 0 0;
+    }
+  
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #f2f3f5;
+    }
+  
+    .modal-subtitle {
+      font-size: 12px;
+      color: #949ba4;
+      margin-top: 2px;
+    }
+  
+    .btn-close-custom {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: #949ba4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color .15s;
+    }
+  
+    .btn-close-custom:hover {
+      color: #f2f3f5;
+    }
+  
+    .modal-body {
+      background: #313338;
+      padding: 20px 24px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      max-height: 72dvh;
+    }
+  
+    .modal-body::-webkit-scrollbar {
+      display: none;
+    }
+  
+    @media (max-width: 1024px) {
+      .modal-dialog {
+        height: 100%;
+        margin: 0;
+        max-width: 100%;
+      }
+      .modal-content {
+        border-radius: unset;
+        border: none;
+        max-height: 100%;
+  
+      }
+      .modal-body {
+        max-height: 100%;
+  
+      }
+    }
+  
+    .modal-footer {
+      background: #2b2d31;
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      padding: 12px 24px;
+      border-radius: 0 0 8px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    /* ── Labels ── */
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: #b5bac1;
+      margin-bottom: 6px;
+    }
+  
+    .field-label .req {
+      color: #f87171;
+      margin-left: 2px;
+    }
+  
+
+  
+  
+    .form-control,
+    .form-select {
+      background-color: #1e1f22 !important;
+      border: 1px solid transparent !important;
+      border-radius: 4px !important;
+      color: #dbdee1 !important;
+      font-size: 14px;
+      padding: 10px 14px !important;
+      transition: border-color .2s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+  
+    .form-control::placeholder {
+      color: #72767d !important;
+      opacity: 1;
+      font-size: 13.5px;
+    }
+  
+    .form-control::-webkit-input-placeholder {
+      color: #72767d !important;
+      font-size: 13.5px;
+    }
+  
+    .form-control::-moz-placeholder {
+      color: #72767d !important;
+      opacity: 1;
+    }
+  
+    .form-control:-ms-input-placeholder {
+      color: #72767d !important;
+    }
+  
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #5865f2 !important;
+      box-shadow: none !important;
+      background-color: #1e1f22 !important;
+    }
+  
+    .form-select {
+      cursor: pointer;
+    }
+  
+    .form-select option {
+      background: #1e1f22;
+    }
+  
+    textarea.form-control {
+      resize: none;
+      line-height: 1.6;
+    }
+  
+    /* icon inside input */
+    .input-icon-wrap {
+      position: relative;
+    }
+  
+    .input-icon-wrap .input-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #72767d;
+      font-size: 14px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+  
+    .input-icon-wrap.textarea-icon .input-icon {
+      top: 14px;
+      transform: none;
+    }
+  
+    .input-icon-wrap .form-control {
+      padding-left: 36px !important;
+    }
+  
+    /* char counter */
+    .char-counter {
+      position: absolute;
+      right: 12px;
+      bottom: 10px;
+      font-size: 11px;
+      color: #72767d;
+      pointer-events: none;
+    }
+  
+   
+  
+    /* ── Cover upload ── */
+    .cover-upload {
+      background: #1e1f22;
+      border: 2px dashed rgba(255, 255, 255, .10);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px;
+      transition: border-color .2s, background .2s;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 1 / 1.414; 
+    }
+  
+    .cover-upload:hover,
+    .cover-upload.drag-over {
+      border-color: #5865f2;
+      background: rgba(88, 101, 242, .08);
+    }
+  
+    .cover-upload .upload-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      background: rgba(88, 101, 242, .15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7289da;
+      font-size: 18px;
+    }
+  
+    .cover-upload .upload-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: #dbdee1;
+    }
+  
+    .cover-upload .upload-sub {
+      font-size: 12px;
+      color: #72767d;
+    }
+  
+    .cover-preview {
+      width: 100%;
+      aspect-ratio: 1 / 1.414; 
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  
+    .cover-replace-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  
+    .cover-upload:hover .cover-replace-overlay {
+      display: flex;
+    }
+  
+  
+    /* ── Footer buttons ── */
+    .btn-cancel {
+      background: transparent;
+      border: none;
+      color: #949ba4;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: color .15s;
+    }
+  
+    .btn-cancel:hover {
+      color: #dbdee1;
+    }
+  
+  
+    .btn-draft:hover {
+      background: #2b2d31;
+      color: #dbdee1;
+    }
+  
+    /* ── 正常状态 ── */
+    .btn-publish {
+      background: #5865f2;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 7px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color .15s, opacity .15s;
+    }
+  
+    /* ── 正常 Hover ── */
+    .btn-publish:not(:disabled):hover {
+      opacity: .88;
+    }
+  
+    /* ── 禁用状态（利用原生伪类提高权重） ── */
+    .btn-publish:disabled {
+      background: #4e5058;       
+      color: #949ba4;               /* 文本变暗 */
+      cursor: not-allowed;          /* 禁用图标 */
+      opacity: 0.5;                 /* 降低整体透明度 */
+    }
+  
+    .btn-publish:disabled:hover {
+      opacity: 0.5;
+    }
+  
+  
+    /* section divider */
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
