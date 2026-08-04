@@ -323,11 +323,10 @@ col-content{
     align-items: center;
     display: flex;
 }
-.menu-flier{
-    background-color: #3f5eb5;
-    color: #fff;
-    border-radius: 2px;
+.menu-flier svg{
+   fill: #757a81;
 }
+
 
 .nav-link .link-title {
     font-weight: 400;
