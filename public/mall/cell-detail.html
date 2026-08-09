@@ -275,7 +275,7 @@
                             </div>
                           </div>
                           <div class="input-group w-100 mb-3">
-                            <input type="text" class="form-control border-0 option-sbu-input" min="1" max="50000" step="1" v-model="quantity" @change="computeFeeV" @input="transformInputNumberV($event)" aria-label="Text input with dropdown button">
+                            <input type="text" class="form-control  option-sbu-input" min="1" max="50000" step="1" v-model="quantity" @change="computeFeeV" @input="transformInputNumberV($event)" aria-label="Text input with dropdown button">
                             <select class="form-select option-sbu" v-model="selectedSbu" @change="computeFeeV" aria-label="Default select example">
                               <option :value="item.sbu" v-for="item in profile.fee">{{transformSbuV(item.sbu)}}</option>
                             </select>

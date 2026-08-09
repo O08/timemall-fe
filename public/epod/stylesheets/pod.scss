@@ -73,7 +73,7 @@ a {
 
 }
 body {
-    background-color: #141414;
+    background-color: #000;
     color: #FDFDFD;
 }
 body {
@@ -84,7 +84,7 @@ header{
   z-index: 1020;
   position: sticky;
   top: 0;
-  background-color: #141414;
+  background-color: #000;
 }
 [v-cloak] {
   display:none !important;
@@ -100,7 +100,7 @@ header{
   }
   .offcanvas-start.show,.offcanvas-end.show,.offcanvas-end,.offcanvas-start
   {
-    background-color: #141414;
+    background-color: #121212;
   }
   .show .header-navbar {
     flex-direction: column !important;
@@ -355,14 +355,14 @@ pt-app content,main,pt-app main{
   width: 100%;
 }
 aside,main{
-  background-color: #141414;
+  background-color: #000;
   border-radius: 5px;
 }
 .table{
-    --bs-table-bg: #141414 !important;
+    --bs-table-bg: #000 !important;
     --bs-table-color: #f2f3f5 !important;
     border-color: rgba(255,255,255,0.1) !important;
-    --bs-table-hover-bg: #000 !important;
+    --bs-table-hover-bg: #1a1a1a !important;
     --bs-table-hover-color: #f2f3f5 !important;
     margin-bottom: 0;
 }

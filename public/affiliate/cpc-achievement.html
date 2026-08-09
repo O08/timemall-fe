@@ -235,7 +235,7 @@
             <label class="search-cfg">访问时间</label>
             <div class="cdn-field">
               <div class="field-content">
-                <input onpaste="return false;" ondrop="return false;" autocomplete="off" data-olddate="2022-02-21" @input="userInputDatePickerHandlerV($event)" @change="filterVisitTableV"  type="text" class="datepicker ms-3" v-model="visit_pagination.param.visitTime" >
+                <input onpaste="return false;" ondrop="return false;" autocomplete="off" data-olddate="2022-02-21" @input="userInputDatePickerHandlerV($event)" @change="filterVisitTableV"  type="text" class="datepicker ms-3 tiny-input-text" v-model="visit_pagination.param.visitTime" >
               </div>
 
             </div>
@@ -245,7 +245,7 @@
             <label class="search-cfg">结算批次</label>
             <div class="cdn-field">
               <div class="field-content">
-                <input @change="filterVisitTableV" type="text" class="ms-3" v-model="visit_pagination.param.batch" maxlength="80">
+                <input @change="filterVisitTableV" type="text" class="ms-3 tiny-input-text" v-model="visit_pagination.param.batch" maxlength="80">
               </div>
 
             </div>

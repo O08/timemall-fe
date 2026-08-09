@@ -23,7 +23,7 @@ header{
     padding-bottom: 100px;
     padding: 0 var(--gutterWidth);
     margin: 50px auto 96px;
-    background-color: #141414;
+    background-color: #000;
 }
 .section-box{
     min-height: 72px;
@@ -46,7 +46,7 @@ header{
     content: none;
 }
 .material-item:hover{
-    background-color: #0d1117;
+    background-color: #1f1f1f;
 }
 
 .new-item{

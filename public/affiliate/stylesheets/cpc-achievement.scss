@@ -149,6 +149,18 @@ table .btn{
     color: #999;
     font-size: 12px;
 }
+.tiny-input-text{
+    color: #e4e4e7;
+    caret-color: #a1a1aa;
+    background: 0 0;
+    border: 1px solid #3f4248;
+    border-radius: 2px;
+}
+.tiny-input-text:hover{
+    color: #e4e4e7;
+    background: #0006;
+    border-color: #de97f6ac;
+}
 @media (max-width: 1199.98px){
     table{
         min-width: 1000px;

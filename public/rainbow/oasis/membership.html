@@ -106,6 +106,34 @@
             
                 <span>主页</span>  
               </a>
+              <div v-if="shouldShowEmptyStateV" class="channel-state-container">
+                <div class="assistant-card">
+                  <div class="card-illustration">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://w3.org">
+                      <rect x="8" y="8" width="20" height="20" rx="4" stroke="#5865F2" stroke-width="2" stroke-dasharray="4 4"/>
+                      <rect x="36" y="8" width="20" height="20" rx="4" stroke="#4E5058" stroke-width="2"/>
+                      <rect x="8" y="36" width="20" height="20" rx="4" stroke="#4E5058" stroke-width="2"/>
+                      <circle cx="46" cy="46" r="10" stroke="#5865F2" stroke-width="2"/>
+                      <path d="M46 42V50M42 46H50" stroke="#5865F2" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+              
+                  <div class="card-content">
+                    <h3 class="card-title">定制频道内容</h3>
+                    <p class="card-subtitle">当前部落尚未检索到频道数据，利用频道助手提供的小组件，编排、定义您的个性化社群</p>
+                  </div>
+              
+                  <div class="card-actions">
+                    <a  class="text-decoration-none" :href="'/'+announce.handle+'/channels'">
+                      <button class="btn-primary">
+                        <svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                        配置频道
+                      </button>
+                    </a>
+                  
+                  </div>
+                </div>
+              </div>
               <div v-for="channel in channelSort" 
                 :class="{'channel-active': currentOch==channel}"
                 class="w-100 position-relative sub-channel-box">

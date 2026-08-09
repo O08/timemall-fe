@@ -219,6 +219,66 @@ mall-app {
     margin-left: 20px;
     margin-right: 20px;
 }
+.fee-calculator {
+  
+    .input-group {
+      display: flex;
+  
+      .form-select {
+        appearance: none !important; 
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        
+        background-color: #1e1f22; 
+        border: 1px solid #2b2d31;
+        border-radius: 0px;
+        color: #dddee0;
+        font-size: 14px;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+  
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzk0OWJhNCIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNNy4yNDcgMTEuMTQgMi40NTEgNS42NThDMS44ODUgNS4wMTMgMi4zNDUgNCAzLjIwNCA0aDkuNTkyYTEgMSAwIDAgMSAuNzUzIDEuNjU5bC00Ljc5NiA1LjQ4YTEgMSAwIDAgMS0xLjUwNiAweiIvPjwvc3ZnPg==") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 14px center !important;
+        background-size: 10px !important;
+  
+        &:hover {
+          border-color: #35373c;
+          background-color: #232428;
+        }
+  
+        &:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 0 3px #4a90e21a;
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxMiIgZmlsbD0iIzU4NjVmMiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNNy4yNDcgMTEuMTQgMi40NTEgNS42NThDMS44ODUgNS4wMTMgMi4zNDUgNCAzLjIwNCA0aDkuNTkyYTEgMSAwIDAgMSAuNzUzIDEuNjU5bC00Ljc5NiA1LjQ4YTEgMSAwIDAgMS0xLjUwNiAweiIvPjwvc3ZnPg==") !important;
+        }
+  
+        option {
+          background-color: #1e1f22;
+          color: #dddee0;
+          padding: 10px;
+        }
+      }
+  
+      .form-control{
+        color: #e0e0e0;
+        background-color: #1e1f22; 
+        border: 1px solid #2b2d31;
+        border-radius: 0px;
+        padding: 10px 14px;
+        font-size: 13px;
+        transition: all .15s;
+      }
+      .form-control:focus{
+        border-color: #4a90e2;
+        outline: none;
+        box-shadow: 0 0 0 3px #4a90e21a;
+      }
+    }
+  
+}
 .service-brand{
     width: 46px;
     height: 46px;

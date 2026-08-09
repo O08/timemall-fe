@@ -320,6 +320,41 @@ border-bottom: none;
 .fee-calculator-bg  .card-header {
   color: #aaa;
 }
+.fee-calculator {
+  
+  .input-group {
+    display: flex;
+
+    .input-group-text {
+      background-color: #1e1f22; 
+      border: 1px solid #2b2d31;
+      border-right: none;
+      border-radius: 0px;
+      color: #4A90E2;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control{
+      color: #e0e0e0;
+      background-color: #1e1f22; 
+      border: 1px solid #2b2d31;
+      border-radius: 0px;
+      padding: 10px 14px;
+      font-size: 13px;
+      transition: all .15s;
+    }
+    .form-control:focus{
+      border-color: #4a90e2;
+      outline: none;
+      box-shadow: 0 0 0 3px #4a90e21a;
+    }
+  }
+
+}
 .virtual-product-thumbnail{
   border-radius: 5px;
   overflow: hidden;
@@ -376,7 +411,7 @@ border-bottom: none;
     padding-left: 12px;
 }
 .brand-identity .brand-name{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     white-space: pre-wrap;
     text-overflow: ellipsis;
@@ -416,7 +451,7 @@ border-bottom: none;
   padding: 24px;
 }
 .brand-title {
-  padding: 14px;
+  padding: 4px;
 }
 .seller-info{
   border: 1px solid #fff3;
@@ -603,6 +638,13 @@ border-bottom: none;
   .brand-title, .seller-skill, .seller-general, .seller-links{
     padding: 8px;
   }
+  .ip-location{
+    margin-left: 0;
+  }
+  .brand-identity  .brand-title {
+    margin-left: 0;
+    padding-left: 0;
+  }
   .seller-skill-header{
     padding-bottom: 8px;
   }
@@ -641,7 +683,7 @@ border-bottom: none;
     padding-left: 0px;
   }
   .brand-identity .brand-name{
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     padding-top: 8px;
   }

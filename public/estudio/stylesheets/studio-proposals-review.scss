@@ -2,7 +2,7 @@ pt-app content main{
     padding: 0;
 }
 .box-bg-primary{
-    background-color: #1f1f1f;
+    background-color: #121212;
 }
 header{
     border-bottom: 1px solid transparent;
@@ -22,7 +22,7 @@ header{
     max-width: var(--containerWidth);
     padding: 0 var(--gutterWidth);
     margin: 50px auto 96px;
-    background-color: #141414;
+    background-color: #000;
 }
 /* Page Header */
 .page-header{
@@ -406,6 +406,9 @@ header{
 }
 .table td{
     word-break: break-all;
+}
+.table{
+    --bs-table-bg: #121212 !important;
 }
 // tablets ipad air mini pro
 @media (min-width: 768px) and (max-width: 1100px) {

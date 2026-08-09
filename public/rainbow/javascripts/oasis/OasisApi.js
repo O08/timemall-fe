@@ -123,6 +123,7 @@ async function loadAnnounceUsingHandle(handle){
  function fetchchannelList(oasisId){
     const channelSort = ref([])
     const oaisiChannelList = ref([])
+    const channelListLoading = ref(true) 
     const getChannelDataV= (och,channelList)=>{
         return channelList.filter(e=>e.oasisChannelId==och)[0];
     }
@@ -132,8 +133,10 @@ async function loadAnnounceUsingHandle(handle){
             channelSort.value=response.data.sort;
             oaisiChannelList.value=response.data.channel;
         }
-     });
-     return { channelSort, oaisiChannelList ,getChannelDataV}
+     }).finally(() => {
+        channelListLoading.value = false;
+    });
+     return { channelSort, oaisiChannelList ,getChannelDataV,channelListLoading}
 }
 function followOasis(oasisId,privateCode){
     const dto={

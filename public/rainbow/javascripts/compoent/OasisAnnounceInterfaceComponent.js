@@ -7,6 +7,7 @@ const OasisAnnounceInterfaceComponent = {
         channelSort: [],
         oaisiChannelList: [],
         getChannelDataV: null,
+        channelSortLoading: true,
 
         oasisId: "",
         oasisHandle: "",
@@ -40,6 +41,15 @@ const OasisAnnounceInterfaceComponent = {
             
         ]
       }
+    },
+    computed: {
+        shouldShowEmptyStateV() {
+          if (this.channelSortLoading) {
+            return false;
+          }
+          
+          return this.initiatorRoleV() && this.channelSort.length === 0;
+        }
     },
     methods: {
         async loadAnnounceUseExternalOasisIdV(oasisId){
@@ -118,11 +128,12 @@ const OasisAnnounceInterfaceComponent = {
             if(!oasisId){
                 return ;
             }
-            const { channelSort, oaisiChannelList, getChannelDataV } = OasisApi.fetchchannelList(oasisId);
+            const { channelSort, oaisiChannelList, getChannelDataV,channelListLoading } = OasisApi.fetchchannelList(oasisId);
         
             this.channelSort = channelSort;
             this.oaisiChannelList = oaisiChannelList;
             this.getChannelDataV = getChannelDataV;
+            this.channelSortLoading=channelListLoading;
         },
         initiatorRoleV(){
             const brandId = this.getIdentity().brandId;
