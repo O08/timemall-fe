@@ -59,6 +59,26 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
             
             var isThirdSite= (!!toPage && !isAuthPage) ? (new URL(toPage,window.location.origin).hostname.search("bluvarri.com") == -1) : false;
 
+            if (window.opener) {
+                
+                var targetLocation = window.location.origin;
+                
+                if (isEmptyPage || isAuthPage || isThirdSite) {
+                    targetLocation = window.location.origin; 
+                } else {
+                    targetLocation = toPage; 
+                }
+        
+                try {
+                    window.opener.location.href = targetLocation;
+                } catch (e) {
+                    window.opener.location.reload();
+                }
+        
+                window.close(); 
+                return; 
+            }
+
             if(isEmptyPage || isAuthPage  || isThirdSite){
                 goHome();
             }else{
