@@ -75,7 +75,11 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
                     window.opener.location.reload();
                 }
         
-                window.close(); 
+                if (window.flutter_inappwebview && window.flutter_inappwebview.callHandler) {
+                    window.flutter_inappwebview.callHandler('closeAuthWindow');
+                } else {
+                    window.close(); 
+                }
                 return; 
             }
 
