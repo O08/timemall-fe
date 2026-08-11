@@ -500,7 +500,9 @@ border-radius: 0;
           overflow: hidden;
           text-overflow: ellipsis;
           user-select: all;
-      }
+          word-break: break-all;
+
+        }
   }
 
   .error-summary-label {
@@ -526,6 +528,19 @@ border-radius: 0;
       border: none !important;
       padding: 16px 24px 24px 24px !important;
       background-color: transparent !important;
+  }
+
+  .loading .btn-file-upload-wrp{
+    display: none;
+  }
+  
+  .loading-content{
+    display: none;
+  }
+  .loading .loading-content{
+    display: flex;
+    gap: 4px;
+    align-items: center;
   }
 
 

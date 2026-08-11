@@ -14,6 +14,7 @@ export default function StemChatCompoent(config) {
     data(){
       return {
         initMsgLoaded: false,
+        attachmentUploading: false,
         pageLoadSetting: {
           pages: "",
           current: 1,
@@ -240,6 +241,7 @@ export default function StemChatCompoent(config) {
         if(!chatSetting.rtcChannel){
           return ;
         }
+        this.attachmentUploading=true;
         sendBigFileMessage(chatSetting,this.rawBigfile).then(response=>{
           if(response.data.code==200){
             this.sendRtmChannelMessageHandler(); // notice event
@@ -259,6 +261,8 @@ export default function StemChatCompoent(config) {
           }
         }).catch(err=>{
           customAlert.alert("系统异常，请检查网络或者重新发送！")
+        }).finally(() => {
+          this.attachmentUploading = false;
         });
   
       },

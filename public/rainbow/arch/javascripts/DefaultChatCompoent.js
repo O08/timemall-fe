@@ -16,6 +16,7 @@ export default function DefaultChatCompoent(config) {
     data(){
       return {
         chatSetting: chatSetting,
+        attachmentUploading: false,
          eventObj:{},
          // image file 
          errors: [],
@@ -90,6 +91,7 @@ export default function DefaultChatCompoent(config) {
         if(!chatSetting.rtcChannel){
           return ;
         }
+        this.attachmentUploading = true;
         sendBigFileMessage(chatSetting,this.rawBigfile).then(response=>{
           if(response.data.code==200){
             this.sendRtmChannelMessageHandler(); // notice event
@@ -100,6 +102,8 @@ export default function DefaultChatCompoent(config) {
           }
         }).catch(err=>{
           customAlert.alert("系统异常，请检查网络或者重新发送！")
+        }).finally(() => {
+          this.attachmentUploading = false;
         });
   
       },

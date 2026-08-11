@@ -867,7 +867,7 @@
                 
                 <div v-if="errors.length == 0" class="file-info-container-card gap-3">
                   <i class="bi bi-file-earmark-zip-fill"></i>
-                  <div class="min-w-0 flex-grow-1">
+                  <div class="min-w-0 flex-grow-1"  style="width: 80%;">
                     <div style="font-size: 11px; color: #949ba4; font-weight: 700; text-uppercase: uppercase; letter-spacing: 0.5px;" class="mb-0.5">已选中文件</div>
                     <div class="file-name-text-highlight">{{ bigfile.fileName }}</div>
                   </div>
@@ -889,12 +889,16 @@
                   取消
                 </button>
                 <button 
-                  @click="sendAttachmentV" 
-                  v-preventreclick 
-                  type="button"
-                  class="btn btn-action-submit"
-                  :disabled="!errors || errors.length > 0">
-                  确认发送
+                    @click="sendAttachmentV" 
+                    v-preventreclick  type="button"
+                      :class="{'loading': attachmentUploading}" 
+                      :disabled="!errors || errors.length > 0 || attachmentUploading"
+                      class="btn btn-action-submit btn-file-upload">
+                    <div class="btn-file-upload-wrp">确认发送</div>
+                    <div class="loading-content">
+                      <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                      <span role="status">正在上传...</span>
+                    </div>
                 </button>
               </div>
             </div>

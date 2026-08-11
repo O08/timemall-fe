@@ -11,6 +11,7 @@ const currentRTMChannel=getQueryVariable("workflow_id");
 const MillstoneChatCompoent = {
   data(){
     return {
+       attachmentUploading: false,
        eventObj:{},
        // image file 
        errors: [],
@@ -87,6 +88,7 @@ const MillstoneChatCompoent = {
     sendAttachmentV(){
       const millstoneId = getQueryVariable("workflow_id");
       const brandId = this.getIdentity().brandId; // Auth.getIdentity();
+      this.attachmentUploading = true;
       sendBigFileMessage(brandId,this.rawBigfile).then(response=>{
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
@@ -97,6 +99,8 @@ const MillstoneChatCompoent = {
         }
       }).catch(err=>{
         customAlert.alert("系统异常，请检查网络或者重新发送！")
+      }).finally(() => {
+        this.attachmentUploading = false;
       });
 
     },

@@ -13,6 +13,7 @@ const CellPlanOrderChatCompoent = {
   data(){
     return {
        eventObj:{},
+       attachmentUploading: false,
        // image file 
        errors: [],
        maxSize: 1, // 1 M
@@ -88,6 +89,7 @@ const CellPlanOrderChatCompoent = {
     },
     sendAttachmentV(){
       const brandId = this.getIdentity().brandId; // Auth.getIdentity();
+      this.attachmentUploading = true;
       sendBigFileMessage(brandId,this.rawBigfile).then(response=>{
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
@@ -99,6 +101,8 @@ const CellPlanOrderChatCompoent = {
         }
       }).catch(err=>{
         customAlert.alert("系统异常，请检查网络或者重新发送！")
+      }).finally(() => {
+        this.attachmentUploading = false;
       });
 
     },

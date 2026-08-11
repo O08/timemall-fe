@@ -14,6 +14,7 @@ const currentRTMChannel=getQueryVariable("id");
 const MpsPaperChatCompoent = {
   data(){
     return {
+       attachmentUploading: false,
        currentRTMChannel: currentRTMChannel,
        eventObj:{},
        // image file 
@@ -99,6 +100,7 @@ const MpsPaperChatCompoent = {
     sendAttachmentV(){
       const targetId = this.currentRTMChannel;
       const brandId = this.getIdentity().brandId; // Auth.getIdentity();
+      this.attachmentUploading = true;
       sendBigFileMessage(brandId,this.rawBigfile,targetId).then(response=>{
         if(response.data.code==200){
           this.sendRtmChannelMessageV(); // notice event
@@ -111,6 +113,8 @@ const MpsPaperChatCompoent = {
         }
       }).catch(err=>{
         customAlert.alert("系统异常，请检查网络或者重新发送！")
+      }).finally(() => {
+        this.attachmentUploading = false;
       });
 
     },
