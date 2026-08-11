@@ -33,6 +33,7 @@ const RootComponent = {
         },
         genres:[],
         sandbox: !sandboxEnv ? "0" : sandboxEnv,
+        initAppLoaded: false,
         feedArr: [],
         productProfile: {
             price: 0
@@ -65,6 +66,7 @@ const RootComponent = {
                     this.feedList_pagination.records = response.product.records;
                     this.feedList_pagination.isLoading = false;
                     this.feedArr.push(...response.product.records);
+                    this.initAppLoaded=true;
                 }
             }
         },

@@ -34,6 +34,7 @@ const RootComponent = {
         sandbox: !sandboxEnv ? "0" : sandboxEnv,
 
         memberCanPost: false,
+        initAppLoaded: false,
         newEventObj:{
           eventType: "Offline",
           thumbnail: "",
@@ -172,6 +173,7 @@ const RootComponent = {
                     this.feedList_pagination.records = response.event.records;
                     this.feedList_pagination.isLoading = false;
                     this.feedArr.push(...response.event.records);
+                    this.initAppLoaded=true;
                 }
             }
         },

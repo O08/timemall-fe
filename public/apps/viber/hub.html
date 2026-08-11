@@ -142,7 +142,7 @@
             </div>
           </div>
          
-          <div v-if="isEmptyObjV(feedArr)" class="posts-empty-state">
+          <div v-if="isEmptyObjV(feedArr) && initAppLoaded" class="posts-empty-state">
             <div class="empty-icon">
               <i class="fas fa-rss"></i>
             </div>

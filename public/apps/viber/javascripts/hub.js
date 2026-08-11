@@ -81,6 +81,7 @@ const RootComponent = {
             userCtaInfo: {},
             ctaInfoLoadFinish: false,
             sandbox: !sandboxEnv ? "0" : sandboxEnv,
+            initAppLoaded: false,
             newCommentObj: {
                 postId: "",
                 textMsg: ""
@@ -137,6 +138,7 @@ const RootComponent = {
                         if (uniqueRecords.length > 0) {
                             this.feedArr.push(...uniqueRecords);
                         }
+                        this.initAppLoaded=true;
                     }
                     if(response.code == 40042){
                         this.hasAuth=false;

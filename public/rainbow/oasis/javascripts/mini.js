@@ -26,9 +26,11 @@ const RootComponent = {
     },
     data() {
 
-
+      const physicalScreenWidth = window.screen.width;
+ 
       return {
         isLoadingMiniApp: true,
+        insideLargeScreen: physicalScreenWidth >= 1400 ,
         currentOch,
         appViewUrl: ""
       }
@@ -53,7 +55,18 @@ const RootComponent = {
         handleUnfollowSuccessEventV(){
             this.loadJoinedOases(); // sub nav component.js
         },
+        handleObjectLoaded() {
+
+            setTimeout(() => {
+              this.isLoadingMiniApp = false;
+            }, 200); 
+        }
         
+    },
+    mounted() {
+        window.addEventListener('resize', () => {
+          this.insideLargeScreen = window.innerWidth >= 1400;
+        });
     },
     updated(){
         

@@ -26,6 +26,7 @@ const RootComponent = {
         sandbox: !sandboxEnv ? "0" : sandboxEnv,
         currentNow,
         memberCanPost: false,
+        initAppLoaded: false,
         newProduct:{
             linkUrl: "",
             title: "",
@@ -63,6 +64,7 @@ const RootComponent = {
                     this.feedList_pagination.records = response.feed.records;
                     this.feedList_pagination.isLoading = false;
                     this.feedArr.push(...response.feed.records);
+                    this.initAppLoaded=true;
                 }
             }
         },

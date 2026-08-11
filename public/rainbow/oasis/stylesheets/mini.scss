@@ -1,4 +1,6 @@
-
+header{
+  display: block;
+}
 .mini-app-sandbox{
     position: relative;
     overflow-y: scroll;
@@ -9,12 +11,13 @@
    // 空隙修复
    font-size: 0;
    line-height: 0;
+   contain: layout size style; 
   
-   height: 100%;
+  height: calc(100dvh - 56px);
 
-   @media only screen and (width <=1399.98px) {
-    height: calc(100dvh - 56px);
-   }
+  @media only screen and (device-width >= 1400px) {
+    height: 100%;
+  }
 
 
    .loading-overlay{
@@ -49,4 +52,7 @@
    &::-webkit-scrollbar{
      display: none
    };
+   mix-blend-mode: normal !important;
+   will-change: contents; 
+
 }

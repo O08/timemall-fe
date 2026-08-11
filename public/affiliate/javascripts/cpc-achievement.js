@@ -145,7 +145,11 @@ function filterVisitTable(){
 }
 
 async function doDownload(dto){
-  const url="/api/v1/web/affiliate/ppc/visit/download?" + new URLSearchParams(dto).toString();
+  
+  const searchParams = new URLSearchParams(dto).toString();
+
+  const url = `/api/v1/web/affiliate/ppc/visit/download?download=true${searchParams ? '&' + searchParams : ''}`;
+
   var link = document.createElement("a");
   link.download = 'PPC访问明细-ppc-visit-record.csv';
   link.href = url;

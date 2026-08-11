@@ -195,7 +195,7 @@
               <button v-preventreclick @click="showMoreV" type="button" class="btn btn-show-more"> 显示更多 </button>
             </div>
 
-            <div v-show="feedArr.length == 0" class="not-found-resource">
+            <div v-show="feedArr.length == 0 && initAppLoaded" class="not-found-resource">
               <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
               <h4>未找到结果</h4>
             </div>

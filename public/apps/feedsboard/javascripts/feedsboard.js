@@ -121,6 +121,7 @@ const RootComponent = {
     data() {
       return {
         sandbox: !sandboxEnv ? "0" : sandboxEnv,
+        initAppLoaded: false,
         currentOch,
         feedArr: [],
         guide: {
@@ -159,6 +160,7 @@ const RootComponent = {
                   this.feedList_pagination.records = response.feed.records;
                   this.feedList_pagination.isLoading = false;
                   this.feedArr.push(...response.feed.records);
+                  this.initAppLoaded=true;
                   // this.paging = this.doPaging({current: response.cells.current, pages: response.cells.pages, max: 5});
               }
           }

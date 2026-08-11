@@ -21,6 +21,7 @@ const RootComponent = {
       return {
         sandbox: !sandboxEnv ? "0" : sandboxEnv,
         oasisRole: [],
+        initAppLoaded: false,
         currentUserBrandId: "",
         newCard:{
             linkUrl: "",
@@ -58,6 +59,7 @@ const RootComponent = {
                     this.feedList_pagination.records = response.feed.records;
                     this.feedList_pagination.isLoading = false;
                     this.feedArr.push(...response.feed.records);
+                    this.initAppLoaded=true;
                 }
             }
         },

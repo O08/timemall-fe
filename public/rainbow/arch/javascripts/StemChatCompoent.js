@@ -13,6 +13,7 @@ export default function StemChatCompoent(config) {
   return {
     data(){
       return {
+        initMsgLoaded: false,
         pageLoadSetting: {
           pages: "",
           current: 1,
@@ -119,7 +120,9 @@ export default function StemChatCompoent(config) {
             })
           
           }
-        })
+        }).finally(() => {
+          this.initMsgLoaded = true;
+        });
       },
       scrollToTopThenLoadV(e){
         var container = e.currentTarget;

@@ -139,7 +139,7 @@
     </div>
     
     <col-content>
-    <header>
+    <header v-if="!isLoadingMiniApp && !insideLargeScreen">
       <div class="d-flex justify-content-between h-100 align-items-center text-white">
         <div class="d-flex align-items-center logo">
           <a href="#" class="d-flex align-items-center  text-white text-decoration-none">
@@ -157,16 +157,22 @@
         </div>
       </div>
     </header>
+    
 
-     <div class="mini-app-sandbox">
-      <div v-if="isLoadingMiniApp" class="loading-overlay">
-        <div class="spinner"></div>
-      </div>
-      <object   :style="{ visibility: isLoadingMiniApp ? 'hidden' : 'visible' }"
-              :data="appViewUrl+'?sandbox=1'"  @load="isLoadingMiniApp=false" type="text/html" >
-        mini app
-      </object>
-     </div>
+
+    <main class="main-content-wrapper" style="width: 100%; height: 100%;">
+      <div class="mini-app-sandbox">
+        <div v-if="isLoadingMiniApp" class="loading-overlay">
+          <div class="spinner"></div>
+        </div>
+        <object   :style="{ visibility: isLoadingMiniApp ? 'hidden' : 'visible' }"
+                :data="appViewUrl+'?sandbox=1'"  @load="handleObjectLoaded" type="text/html" >
+          mini app
+        </object>
+       </div>
+    </main>
+
+
 
 
     </col-content>

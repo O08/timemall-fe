@@ -356,7 +356,7 @@
                                 <img  :src="JSON.parse(record.msg).uri" class="img-message">
                               </a>
                               <p>
-                                <a target="_blank" class="download" download="" :href="JSON.parse(record.msg).uri"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
+                                <a target="_blank" class="download" download="" :href="JSON.parse(record.msg).uri + '?download=true'"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a>
                               </p>
                             </div>
                             <div v-if="record.msgType === 'attachment'">
@@ -364,7 +364,7 @@
                                 <span> {{JSON.parse(record.msg).fileName}}</span>
                                 <i class="bi bi-file-earmark"></i>
                               </div>
-                              <p><a target="_blank" class="download" :download="JSON.parse(record.msg).fileName" :href="JSON.parse(record.msg).uri"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a></p>
+                              <p><a target="_blank" class="download" :download="JSON.parse(record.msg).fileName" :href="JSON.parse(record.msg).uri  + '?download=true'"><i class="bi bi-cloud-arrow-down content-download-icon"></i></a></p>
                             </div>
                           </div>
                         </section>

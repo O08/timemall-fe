@@ -20,7 +20,8 @@ const currentOch = window.location.pathname.split('/').pop();
 const RootComponent = {
     data() {
         return {
-            sandbox: !sandboxEnv ? "0" : sandboxEnv
+            sandbox: !sandboxEnv ? "0" : sandboxEnv,
+            initAppLoaded: false
         }
     },
     methods: {

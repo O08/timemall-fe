@@ -14,6 +14,7 @@ const RootComponent = {
     data() {
       return {
         q: "",
+        initAppLoaded: false,
         apps: []
       }
     },
@@ -82,5 +83,7 @@ async function fetchApps(q,och){
       const error="操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message;
       customAlert.alert(error); 
     }
-  })
+  }).finally(() => {
+    yourApps.initAppLoaded = true;
+  });
 }
