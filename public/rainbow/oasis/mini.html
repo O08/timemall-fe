@@ -160,17 +160,15 @@
     
 
 
-    <main class="main-content-wrapper" style="width: 100%; height: 100%;">
-      <div class="mini-app-sandbox">
-        <div v-if="isLoadingMiniApp" class="loading-overlay">
-          <div class="spinner"></div>
-        </div>
-        <object   :style="{ visibility: isLoadingMiniApp ? 'hidden' : 'visible' }"
-                :data="appViewUrl+'?sandbox=1'"  @load="handleObjectLoaded" type="text/html" >
-          mini app
-        </object>
-       </div>
-    </main>
+    <div class="mini-app-sandbox">
+      <div v-if="isLoadingMiniApp" class="loading-overlay">
+        <div class="spinner"></div>
+      </div>
+      <object   :style="{ visibility: isLoadingMiniApp ? 'hidden' : 'visible' }"
+              :data="appViewUrl+'?sandbox=1'"  @load="handleObjectLoaded" type="text/html" >
+        mini app
+      </object>
+    </div>
 
 
 
