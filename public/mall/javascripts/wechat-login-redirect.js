@@ -45,9 +45,10 @@ async function doLoadAuthenticationInfo(code,state,isThirdAuth,thirdRedirectUri,
           if(response.data.code == 200){
 
            await Api.fetchUserInfoToLocalStorage();
-
-            if (response.data.oauthRedirect) {
-                window.location.href = response.data.oauthRedirect;
+  
+            if (response.data.data && response.data.data.oauthRedirect) {
+                // Redirect back to the AI or other platform
+                window.location.href = response.data.data.oauthRedirect;
                 return;
             }
             // to login success handler
