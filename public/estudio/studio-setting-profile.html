@@ -919,6 +919,59 @@
               保存更改
             </button>
           </section>
+          <!-- personal access token setting -->
+          <section class="section-seller-block section-pat-menu box-bg-primary mb-5">
+            <div class="section-header">
+              <i class="bi bi-shield-lock me-2" style="color: #4A90E2;"></i>私人令牌
+            </div>
+            <div class="d-flex align-items-center help-text mb-4">
+              <i class="bi bi-info-square-fill"></i>
+              <span class="ms-1">使用私人令牌接入MCP、Open API服务</span>
+            </div>
+            <div class="d-flex tool-bar mb-4">
+              <button class="btn-add-milestone" @click="showGenerateTokenModalV">
+                <i class="bi bi-plus-circle"></i>
+                <span>生成新令牌</span>
+              </button>
+            </div>
+            <div class="token-list">
+
+              <div 
+                :class="isTokenExpiredV(token.expiresAt) ? 'token-card--err' : 'token-card--ok'"
+                v-for="token in personalAccessTokens" class="token-card" :key="token.id">
+                <div class="token-card__strip"></div>
+                <div class="token-card__body">
+                  <div class="token-card__content">
+                    <div class="token-card__name">{{token.name}}</div>
+                    <div class="token-card__meta">
+                      <div>
+                        <div class="token-meta-item__label">令牌后四位</div>
+                        <div class="token-meta-item__value">{{token.tokenLast}}</div>
+                      </div>
+                      <div>
+                        <div class="token-meta-item__label">过期时间</div>
+                        <div :class="{'token-meta-item__value--warn': isTokenExpiredV(token.expiresAt) }" class="token-meta-item__value">{{token.expiresAt ? renderDateInChinaV(token.expiresAt) : '永不过期'}}</div>
+                      </div>
+                      <div>
+                        <div class="token-meta-item__label">近期使用</div>
+                        <div class="token-meta-item__value">{{token.lastUsedAt ? formatTimeV(token.lastUsedAt)  : '--'}}</div>
+                      </div>
+                      <div>
+                        <div class="token-meta-item__label">添加时间</div>
+                        <div class="token-meta-item__value">{{renderDateToDayInChinaV(token.createdAt)}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" @click="showRevokeTokenModalV(token)" class="btn-revoke-inline"  aria-label="Revoke token ci-pipeline-prod">
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M5 4V2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5V4M6 7v5M10 7v5M3 4l1 9.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5L13 4"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+
+
+            </div>
+          </section>
             
 
           <div class="empty-box"></div>
@@ -926,14 +979,128 @@
         </main>
       </content>
       <section class="modals">
+        <!--  generate one personal access token modal -->
+        <div class="modal-container">
+
+          <div class="modal fade dcModal pat-token-modal" id="generateTokenModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered text-white" style="max-width: 460px; border-radius: 8px;">
+              <div class="modal-content border-0 p-lg-2">
+                
+                <!-- header -->
+                <div class="modal-header border-0 pb-0 position-relative">
+                  <div class="w-100">
+                    <h5 class="modal-title fw-bold fs-6 mb-1 text-white">
+                      生成私人令牌
+                    </h5>
+                    <p class="text-secondary small mb-0" style="font-size: 13px; color: #b5bac1 !important;">
+                      使用私人令牌，访问你授权的数据，请注意数据安全！
+                    </p>
+                  </div>
+                  <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                </div>
+          
+                <!-- content -->
+                <div class="modal-body py-3">
+
+                  <div id="gen-step-form" v-if="!generateTokenObj.showResult">
+                    <div class="field-group">
+                      <label class="field-label" for="input-token-name">
+                        私人令牌描述<span class="req">*</span>
+                      </label>
+                      <input v-model="generateTokenObj.name" id="input-token-name" class="field-input" maxlength="50" type="text" placeholder="填写的私人令牌描述，最大长度为50字符" autocomplete="off">
+                    </div>
+            
+                    <div class="field-group field-group--sm">
+                      <label class="field-label" for="input-days">
+                        令牌过期时间<span class="req">*</span>
+                      </label>
+                      <div class="position-relative">
+                        <input @input="transformInputNumberAsPositiveV($event)" min="1" max="99999"  v-model="generateTokenObj.daysToLive" placeholder="∞" id="input-days" class="field-input field-input--suffix" type="text"  value="30">
+                        <span id="days-suffix" class="field-suffix">天</span>
+                      </div>
+                    </div>
+            
+                    <div class="preset-group" id="preset-group">
+                      <button :class="{'btn-preset--active': generateTokenObj.daysToLive=='7'}" class="btn-preset" @click="selectPreset('7')">7天</button>
+                      <button :class="{'btn-preset--active': generateTokenObj.daysToLive=='30'}" class="btn-preset"  @click="selectPreset('30')">30天</button>
+                      <button :class="{'btn-preset--active': generateTokenObj.daysToLive=='90'}" class="btn-preset"   @click="selectPreset('90')">90天</button>
+                      <button :class="{'btn-preset--active': generateTokenObj.daysToLive=='365'}" class="btn-preset"  @click="selectPreset('365')">一年</button>
+                      <button :class="{'btn-preset--active': generateTokenObj.daysToLive==''}" class="btn-preset" @click="selectPreset('')">永久</button>
+                    </div>
+            
+                    <div class="action-row">
+                      <button  :class="{'disabled':  !generateTokenObj.name }" v-preventreclick  @click="generateOneTokenV" class="btn-primary">提交 →</button>
+                    </div>
+                  </div>
+                  <div id="gen-step-reveal" v-if="generateTokenObj.showResult">
+                    <div class="token-reveal">
+                      <span class="token-reveal__value" id="reveal-value">{{generateTokenObj.rawToken}}</span>
+                      <button v-preventreclick  @click="copyTokenV(generateTokenObj.rawToken)" class="btn-copy" id="btn-copy">
+                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="9" height="9" rx="1"></rect><path d="M11 5V3a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h2"></path></svg>
+                        复制
+                      </button>
+                    </div>
+                    <div class="notice-warning">本页面关闭后，平台将不再显示私人令牌，请妥善保存。</div>
+                  </div>
+                   
+  
+                </div>
+          
+   
+          
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--  generate one personal access token modal -->
+        <div class="modal-container">
+
+          <div class="modal fade dcModal pat-token-modal" id="revokeTokenModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered text-white" style="max-width: 460px; border-radius: 8px;">
+              <div class="modal-content border-0 p-lg-2">
+                
+                <!-- header -->
+                <div class="modal-header border-0 pb-0 position-relative">
+                  <div class="w-100">
+                    <h5 class="modal-title fw-bold fs-6 mb-1 text-white">
+                      删除私人令牌
+                    </h5>
+                  </div>
+                  <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-2" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                </div>
+          
+                <!-- content -->
+                <div class="modal-body py-3">
+
+                  <p style="font-size: 11px;">任何使用此令牌的脚本或集成都将立即失去访问权限，移除前请核查。</p>
+                  <div class="token-info-block">
+                    <div class="token-info-block__name" id="revoke-name">{{revokeTokenObj.name}}</div>
+                    <div class="token-info-block__last4">
+                      <span class="token-info-block__dots">****** </span><span class="token-info-block__value" id="revoke-last4">{{revokeTokenObj.tokenLast}}</span>
+                    </div>
+                  </div>
+                  <div class="action-row">
+                    <button v-preventreclick  @click="removeOneTokenV" class="btn-danger">删除令牌</button>
+                  </div>
+  
+                </div>
+          
+   
+          
+              </div>
+            </div>
+          </div>
+
+        </div>
          <!--  explain info modal -->
       <div class="modal-container">
-        <div class="modal fade" id="explainInfoModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal dcModal fade" id="explainInfoModal" data-bs-backdrop="static" tabindex="-1">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
                 <h1 class="modal-title" id="explainInfoModalLabel">{{explain.title}}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <p class="help-text">{{explain.content}}</p>
@@ -1063,19 +1230,17 @@
         <!-- add new experience -->
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fade" id="newExperienceModal" tabindex="-1">
+          <div class="modal dcModal fade" id="newExperienceModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-scrollable modal-slide-right">
               <div class="modal-content modal-slide-content">
                 
                 <!-- Header -->
                 <div class="slide-modal-header">
                   <div class="header-info">
-                    <h2 class="header-title">编写经历</h2>
+                    <h2 class="header-title">编辑经历</h2>
                     <p class="header-subtitle">记录个人/品牌发展的重要时刻</p>
                   </div>
-                  <button type="button" id="closeNewExperienceModal" class="header-close" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i>
-                  </button>
+                  <button  id="closeNewExperienceModal" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
                 <!-- Body -->
@@ -1085,28 +1250,27 @@
                     <!-- 基本信息 -->
                     <div class="form-section">
                       
-                      <div class="slide-field">
-                        <label>标题 <span class="req">*</span></label>
-                        <input type="text" 
-                          v-model="tmpMillstone.title" 
-                          class="slide-input" 
-                          maxlength="32" 
-                          placeholder="比如 2022年A股上市">
+                      <!-- 标题 -->
+                      <div>
+                        <label class="form-label" for="inputNewMillstoneTitle">标题 <span class="req">*</span></label>
+                        <div class="position-relative">
+                          <input  v-model="tmpMillstone.title"  type="text" class="form-control" id="inputNewMillstoneTitle" maxlength="32"
+                            placeholder="比如 2022年A股上市" autocomplete="off"/>
+                        </div>
                       </div>
-                      
-                      <div class="slide-field">
-                        <label>子标题</label>
-                        <textarea rows="3"
-                          v-model="tmpMillstone.subtitle" 
-                          class="slide-input" 
-                          maxlength="72" 
-                          placeholder="可选，补充说明"></textarea>
+
+                      <!-- 子标题 -->
+                      <div>
+                        <label class="form-label" for="inputNewMillstoneSubtitle">子标题</label>
+                        <div class="position-relative">
+                          <textarea v-model="tmpMillstone.subtitle"  id="inputNewMillstoneSubtitle" class="form-control"  rows="3" maxlength="72" placeholder="补充说明…"></textarea>
+                        </div>
                       </div>
                     </div>
                     
                     <!-- 时间设置 -->
                     <div class="form-section">
-                      <div class="section-header">
+                      <div class="form-section-header">
                         <i class="bi bi-calendar3"></i>
                         时间设置
                       </div>
@@ -1115,7 +1279,7 @@
                         <div class="toggle-info">
                           <i class="bi bi-arrow-repeat"></i>
                           <div class="toggle-text">
-                            <span class="toggle-title">经历还在持续</span>
+                            <span class="form-label">经历还在持续</span>
                             <span class="toggle-desc">开启后无需填写结束时间</span>
                           </div>
                         </div>
@@ -1127,16 +1291,16 @@
                       
                       <div class="time-row">
                         <div class="slide-field">
-                          <label>开始年 <span class="req">*</span></label>
-                          <select v-model="tmpMillstone.startYear" class="slide-select">
-                            <option value="">选择</option>
+                          <label class="form-label">开始年 <span class="req">*</span></label>
+                          <select v-model="tmpMillstone.startYear" class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
                           </select>
                         </div>
                         <div class="slide-field">
-                          <label>开始月 <span class="req">*</span></label>
-                          <select v-model="tmpMillstone.startMonth" class="slide-select">
-                            <option value="">选择</option>
+                          <label class="form-label">开始月 <span class="req">*</span></label>
+                          <select v-model="tmpMillstone.startMonth" class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="month in 12" :value="month">{{month}}月</option>
                           </select>
                         </div>
@@ -1144,24 +1308,24 @@
                       
                       <div class="time-row" :class="{'has-error': validateExperienceDateV}">
                         <div class="slide-field">
-                          <label :class="{'disabled': tmpMillstone.inProgress}">
+                          <label class="form-label">
                             结束年 <span v-show="!tmpMillstone.inProgress" class="req">*</span>
                           </label>
                           <select v-model="tmpMillstone.endYear" 
                             :disabled="tmpMillstone.inProgress" 
-                            class="slide-select">
-                            <option value="">选择</option>
+                            class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
                           </select>
                         </div>
                         <div class="slide-field">
-                          <label :class="{'disabled': tmpMillstone.inProgress}">
+                          <label class="form-label">
                             结束月 <span v-show="!tmpMillstone.inProgress" class="req">*</span>
                           </label>
                           <select v-model="tmpMillstone.endMonth" 
                             :disabled="tmpMillstone.inProgress" 
-                            class="slide-select">
-                            <option value="">选择</option>
+                            class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="month in 12" :value="month">{{month}}月</option>
                           </select>
                         </div>
@@ -1190,15 +1354,15 @@
                     <button v-show="!tmpMillstone.mode" 
                       type="button" 
                       :class="{'disabled': validateExperienceModalFailForAddMode}" 
-                      class="btn-footer-primary"
+                      class="btn-action-submit"
                        v-preventreclick 
                       @click="addExperienceV">
-                      提交
+                      提交 →
                     </button>
                     <button v-show="tmpMillstone.mode==='edit'" 
                       type="button" 
                       :class="{'disabled': !validateExperienceModalForEditModeCanSave}" 
-                      class="btn-footer-primary"
+                      class="btn-action-submit"
                        v-preventreclick 
                       @click="modifyExperienceV(tmpMillstone.index)">
                       保存更改
@@ -1212,7 +1376,7 @@
         <!-- add new experience description -->
         <div class="modal-container">
           <!-- Modal -->
-          <div class="modal fullscreen-modal fade" id="newExperienceDescModal" tabindex="-1">
+          <div class="modal dcModal fullscreen-modal fade" id="newExperienceDescModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-scrollable modal-desc-slide">
               <div class="modal-content modal-desc-v2">
                 
@@ -1221,9 +1385,7 @@
                   <div class="header-left">
                     <h2 class="header-title">编辑描述</h2>
                   </div>
-                  <button type="button" id="closenewExperienceDescModal" class="header-close" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg"></i>
-                  </button>
+                  <button  id="closenewExperienceDescModal" type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
                 <!-- Body -->
@@ -1233,28 +1395,28 @@
                     <!-- 左侧：基本信息 -->
                     <div class="desc-section">
 
-                      <div class="desc-field">
-                        <label>标题 <span class="req">*</span></label>
-                        <input v-model="tmpMillstioneDesc.title" 
-                          type="text" 
-                          class="desc-input" 
-                          maxlength="32" 
-                          placeholder="输入标题">
+                      <!-- 标题 -->
+                      <div>
+                        <label class="form-label" for="inputNewMillstoneDescTitle">标题 <span class="req">*</span></label>
+                        <div class="position-relative">
+                          <input  v-model="tmpMillstioneDesc.title"  type="text" class="form-control" id="inputNewMillstoneDescTitle" maxlength="32"
+                            placeholder="输入标题" autocomplete="off"/>
+                        </div>
                       </div>
-                      
-                      <div class="desc-field">
-                        <label>详细描述</label>
-                        <textarea v-model="tmpMillstioneDesc.story" 
-                          maxlength="200" 
-                          class="desc-textarea" 
-                          rows="5"
-                          placeholder="详细说明这段经历..."></textarea>
+
+                      <!-- 详细描述 -->
+                      <div>
+                        <label class="form-label" for="inputNewMillstoneDescStory">详细描述</label>
+                        <div class="position-relative">
+                          <textarea v-model="tmpMillstioneDesc.story"  id="inputNewMillstoneDescStory" class="form-control"  rows="5" maxlength="200" placeholder="详细说明这段经历..."></textarea>
+                        </div>
                       </div>
+
                     </div>
                     
                     <!-- 右侧：时间设置 -->
                     <div class="desc-section">
-                      <div class="section-title">
+                      <div class="form-section-header">
                         <i class="bi bi-calendar3"></i>
                         时间设置
                       </div>
@@ -1263,7 +1425,7 @@
                         <div class="toggle-info">
                           <i class="bi bi-arrow-repeat"></i>
                           <div class="toggle-text">
-                            <span class="toggle-title">经历还在持续</span>
+                            <span class="form-label">经历还在持续</span>
                             <span class="toggle-desc">开启后无需填写结束时间</span>
                           </div>
                         </div>
@@ -1275,16 +1437,16 @@
                       
                       <div class="time-row">
                         <div class="desc-field">
-                          <label>开始年 <span class="req">*</span></label>
-                          <select v-model="tmpMillstioneDesc.startYear" class="desc-select">
-                            <option value="">选择</option>
+                          <label class="form-label">开始年 <span class="req">*</span></label>
+                          <select v-model="tmpMillstioneDesc.startYear" class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
                           </select>
                         </div>
                         <div class="desc-field">
-                          <label>开始月 <span class="req">*</span></label>
-                          <select v-model="tmpMillstioneDesc.startMonth" class="desc-select">
-                            <option value="">选择</option>
+                          <label class="form-label">开始月 <span class="req">*</span></label>
+                          <select v-model="tmpMillstioneDesc.startMonth" class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="month in 12" :value="month">{{month}}月</option>
                           </select>
                         </div>
@@ -1292,24 +1454,24 @@
                       
                       <div class="time-row" :class="{'has-error': validateExperienceDescDateV}">
                         <div class="desc-field">
-                          <label :class="{'disabled': tmpMillstioneDesc.inProgress}">
+                          <label class="form-label">
                             结束年 <span v-show="!tmpMillstioneDesc.inProgress" class="req">*</span>
                           </label>
                           <select v-model="tmpMillstioneDesc.endYear" 
                             :disabled="tmpMillstioneDesc.inProgress" 
-                            class="desc-select">
-                            <option value="">选择</option>
+                            class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="i in 200" :value="new Date().getFullYear()-i+1">{{new Date().getFullYear()-i+1}}</option>
                           </select>
                         </div>
                         <div class="desc-field">
-                          <label :class="{'disabled': tmpMillstioneDesc.inProgress}">
+                          <label class="form-label">
                             结束月 <span v-show="!tmpMillstioneDesc.inProgress" class="req">*</span>
                           </label>
                           <select v-model="tmpMillstioneDesc.endMonth" 
                             :disabled="tmpMillstioneDesc.inProgress" 
-                            class="desc-select">
-                            <option value="">选择</option>
+                            class="form-select">
+                            <option value="">--请选择--</option>
                             <option v-for="month in 12" :value="month">{{month}}月</option>
                           </select>
                         </div>
@@ -1338,7 +1500,7 @@
                     <button v-show="!tmpMillstioneDesc.mode" 
                       type="button" 
                       :class="{'disabled': validateExperienceDescModalFailForAddMode}" 
-                      class="btn-footer-primary"
+                      class="btn-action-submit"
                        v-preventreclick 
                       @click="addExperienceDescV">
                       添加描述
@@ -1346,7 +1508,7 @@
                     <button v-show="tmpMillstioneDesc.mode==='edit'" 
                       type="button" 
                       :class="{'disabled': !validateExperienceDescModalForEditModeCanSave}" 
-                      class="btn-footer-primary"
+                      class="btn-action-submit"
                        v-preventreclick 
                       @click="modifyExperienceDescV(tmpMillstioneDesc.experienceIndex, tmpMillstioneDesc.descIndex)">
                       保存更改

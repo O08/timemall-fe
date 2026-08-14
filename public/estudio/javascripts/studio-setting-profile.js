@@ -6,6 +6,8 @@ import SkillComponent from "/estudio/javascripts/studio-setting-profile-skill.js
 import BrandLinksSettingCompoent from "/estudio/javascripts/compoent/BrandLinksSettingCompoent.js";
 import BrandAvatorAndBannerSetting from "/estudio/javascripts/compoent/BrandAvatorAndBannerSetting.js";
 import BrandBasicSetting from "/estudio/javascripts/compoent/BrandBasicSetting.js";
+import BrandPersonalAccessTokenSetting from "/estudio/javascripts/compoent/BrandPersonalAccessTokenSetting.js";
+
 
 import axios from 'axios';
 import Auth from "/estudio/javascripts/auth.js"
@@ -18,6 +20,10 @@ import {Api} from "/common/javascripts/common-api.js";
 import FriendListCompoent from "/common/javascripts/compoent/private-friend-list-compoent.js"
 import Ssecompoent from "/common/javascripts/compoent/sse-compoent.js";
 import BrandContactSetting from "/estudio/javascripts/compoent/BrandContactSetting.js"
+import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
+import {Ftime, renderDateInChina,renderDateToDayInChina } from "/common/javascripts/util.js";
+
+
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
 
@@ -79,6 +85,20 @@ const RootComponent = {
         }
     },
     methods: {
+        transformInputNumberAsPositiveV(event){
+            return transformInputNumberAsPositive(event);
+        },
+        renderDateInChinaV(dateStr){
+            return renderDateInChina(dateStr);
+        },
+        renderDateToDayInChinaV(dateStr){
+            return renderDateToDayInChina(dateStr);
+        },
+        formatTimeV(date){
+            if(!date) return '';
+            var timespan = (new Date(date)).getTime()/1000;
+            return Ftime(timespan);
+        },
         parseIpLocationCityInfoV(cityInfo){
             return parseIpLocationCityInfo(cityInfo);
         },
@@ -192,6 +212,7 @@ app.mixin(SkillComponent);
 app.mixin(BrandLinksSettingCompoent);
 app.mixin(BrandAvatorAndBannerSetting);
 app.mixin(BrandBasicSetting);
+app.mixin(BrandPersonalAccessTokenSetting);
 app.mixin(new Auth({need_permission : true,need_init: false}));
 app.mixin(new EventFeed({need_fetch_event_feed_signal : true,
     need_fetch_mutiple_event_feed : false,
@@ -230,6 +251,7 @@ settingProfilePage.initEventFeedCompoentV();
 settingProfilePage.loadBrandContactV(); // BrandContactSetting.js
 settingProfilePage.fetchPrivateFriendV();// FriendListCompoent.js
 settingProfilePage.sseInitV();// Ssecompoent.js
+settingProfilePage.loadTokenListV(); // BrandPersonalAccessTokenSetting.js
 async function updateExperienceForBrand(brandId,dto){
     const url = "/api/v1/web_estudio/brand/{brand_id}/experience".replace("{brand_id}",brandId);
     return await axios.put(url,dto)  

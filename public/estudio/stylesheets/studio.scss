@@ -1336,21 +1336,62 @@ file upload
       letter-spacing: 0.5px;
   }
 
+
   .form-control,
   .form-select {
-      background-color: #1e1f22 !important; // 嵌入式深黑底
-      border: 1px solid transparent !important;
-      border-radius: 4px !important;
-      color: #dbdee1 !important;
+      background-color: #1e1f22; // 嵌入式深黑底
+      border: 1px solid transparent;
+      border-radius: 4px ;
+      color: #dbdee1 ;
       font-size: 14px;
-      padding: 10px 14px !important;
+      padding: 10px 14px;
       transition: border-color 0.2s ease;
   }
-  .form-control{
+  
+  .form-control {
+    &:disabled,
+    &.disabled {
+      background-image: linear-gradient(
+        45deg, 
+        #111214 25%, 
+        #1a1b1e 25%, 
+        #1a1b1e 50%, 
+        #111214 50%, 
+        #111214 75%, 
+        #1a1b1e 75%, 
+        #1a1b1e 100%
+      ) !important;
+      
+      // 控制斑马线条纹的密集粗细程度（16px * 16px 平铺循环）
+      background-size: 16px 16px !important; 
+      
+      // 边缘钝化：将外边框线条直接抹暗，使其融入背景
+      border-color: #1e1f22 !important;     
+      
+      // 文本衰减：字色变为极度内敛的暗瓦灰
+      color: #60646c !important;            
+      
+      // 物理防线：强制将鼠标光标锁定为标准的“红圈斜线禁止”手势
+      cursor: not-allowed !important;       
+      
+      // 彻底封杀 iOS Safari 等移动端系统的流氓半透明淡化滤镜
+      -webkit-text-fill-color: #60646c !important; 
+      opacity: 1 !important; 
+
+      // 强力防线：即使被意外触发了 Hover 或 Focus，也绝对不执行任何颜色变化或紫色高亮
+      &:hover {
+        border-color: #1e1f22 !important;
+      }
+
+      &:focus {
+        border-color: #1e1f22 !important;
+        box-shadow: none !important;
+      }
+    }
     &::placeholder {
       color: #72767d !important;
-      opacity: 1; // 强制解除某些浏览器默认的淡化半透明滤镜
-      font-size: 13.5px; // 占位符字号微调窄一点点，使其更具辅助感
+      opacity: 1;
+      font-size: 13.5px; 
     }
 
     &::-webkit-input-placeholder {
@@ -1368,6 +1409,48 @@ file upload
     }
   }
 
+
+ .form-select {
+
+  &:disabled,
+  &.disabled {
+    // 🎨 双层背景叠加
+    background-image:
+      url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2360646c' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"),
+      linear-gradient(45deg,
+        #111214 25%,
+        #1a1b1e 25%,
+        #1a1b1e 50%,
+        #111214 50%,
+        #111214 75%,
+        #1a1b1e 75%,
+        #1a1b1e 100%);
+
+    background-size: 16px 12px, 16px 16px;
+    background-position: right 0.75rem center, center;
+    background-repeat: no-repeat, repeat;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border-color: #1e1f22;
+    color: #60646c;
+    cursor: not-allowed;
+    -webkit-text-fill-color: #60646c;
+    opacity: 1;
+
+    &:hover {
+      border-color: #1e1f22;
+    }
+
+    &:focus {
+      border-color: #1e1f22;
+      box-shadow: none;
+    }
+  }
+ }
+
   .form-control:focus,
   .form-select:focus {
       border-color: #5865f2 !important;
@@ -1375,9 +1458,7 @@ file upload
   }
 
 
-  .form-select {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://w3.org' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23b5bac1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
-  }
+
 
   .form-control.form-file::file-selector-button { 
     background-color: #1a1a1a; 
@@ -1387,6 +1468,10 @@ file upload
 
   .form-control.form-file:hover::file-selector-button { 
     background-color: #444444; 
+  }
+  .req {
+      color: #f87171;
+      margin-left: 2px;
   }
 
   
