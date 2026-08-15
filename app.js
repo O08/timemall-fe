@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 import parseOneLink from './routes/parselink.js';
+import mcpRouter from './routes/mcpRouter.js';
 
 
 
@@ -24,12 +25,14 @@ app.disable('x-powered-by');
 
 app.use(logger('dev'));
 
-app.use(cors())
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist'),{extensions: ['html']}));
+
+app.use('/mcp-gateway', mcpRouter);
 
 app.get('/link/parse',async (req,res)=>{
   try {

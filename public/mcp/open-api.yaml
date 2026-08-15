@@ -1,0 +1,1852 @@
+components:
+    examples:
+        find_current_user_info:
+            value:
+                ReqExample: {}
+                RespExample:
+                    code: 200
+                    message: Success
+                    user:
+                        avatar: https://thirdwx.qlogo.cn/mmopen/vi_32/Vlyu5WoK1jrEx9ibMO8qQpnpwV4uxtRcLMVSrUhw4eUMibyOmGJIsZWrdegzfo4XWMCaQOSqDlX8rLNA1IiapzUIQ/132
+                        brandId: b160a5be216247589596e0c1ddb2034f
+                        brandName: 鲸跃数据服务
+                        electricity: 200
+                        handle: b160a5be216247589596e0c1ddb2034f@blv.bi
+                        hiLinkName: null
+                        hiLinkUrl: null
+                        userId: a861d71140cc4ae9b40dd297efa37fc9
+                        username: 鲸跃数据服务
+        find_friends:
+            value:
+                ReqExample: {}
+                RespExample:
+                    code: 200
+                    friend:
+                        records:
+                            - avatar: null
+                              brandMark: "4"
+                              id: 89b2c4c4951f493a9ef4fea7e04366ff
+                              latestContent: 你是
+                              modifiedAt: "2025-03-28 16:20:01"
+                              title: "18401689113"
+                              unread: "0"
+                    message: Success
+        find_gig_info:
+            value:
+                ReqExample:
+                    cell_id: b9015076623342f099e3b209cecbf63f
+                RespExample:
+                    code: 200
+                    message: Success
+                    profile:
+                        avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                        brand: 达意设计
+                        brandId: c1b420e0d9dd46df9057779f9506a19a
+                        brandMark: "4"
+                        cellMark: "2"
+                        cover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/2b4443c139424b46a9daf9b36124e24d.png.avif
+                        fee:
+                            - price: 9600
+                              sbu: month
+                            - price: 60
+                              sbu: hour
+                            - price: 0.02
+                              sbu: second
+                            - price: 115200
+                              sbu: year
+                            - price: 2400
+                              sbu: week
+                            - price: 480
+                              sbu: day
+                            - price: 28800
+                              sbu: quarter
+                            - price: 1
+                              sbu: minute
+                        id: b9015076623342f099e3b209cecbf63f
+                        introCover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/intro-cover/03dfbbcce80f47d0b91e23f138959394.png.avif
+                        productDesc: <p>好的广告创意能带来更高的点击率，从而直接影响点击转化率，作为数字广告的老牌形式，Banner广告（根据尺寸标准可以分为：半页广告、通栏广告、巨型广告、中型广告、大型移动横幅广告）拥有比视频广告更高的性价比。</p><p>如果您想要设计适用于 Shopify、Etsy、Google Ads、传单、社交媒体封面等不同平台的的广告横幅，我想我们可以为你提供帮助。</p><p>我们设计工作室不限制改稿次数，所用设计材料完全符合知识产权要求，交付后我们还免费提供格式转换、色差校正、字号调整服务。</p><p>开始设计之前，您需要提供横幅的尺寸、广告内容文案、logo或者产品相关的图片材料。</p>
+                        provideInvoice: "1"
+                        revshare: null
+                        tags:
+                            - 设计 半页广告
+                            - 通栏广告
+                            - Banner广告
+                            - 移动横幅广告
+                        title: 设计半页广告-通栏广告-巨型广告-中型广告-大型移动横幅广告-Banner广告
+        find_gig_plan_info:
+            value:
+                ReqExample:
+                    cell_id: 05c30932c9644d5c9a65d83ec61a57e1
+                RespExample:
+                    code: 200
+                    message: Success
+                    plan:
+                        records:
+                            - content: 最容易入口的鸡尾酒
+                              feature: |+
+                                1.金汤力（GinTonic）、自由古巴（Cuba Libre）、咸狗（highball）任选一种
+                                2.酒类选择与购买建议
+                                3.工具置办建议
+                                4.俱乐部建议
+
+                              planId: 8958b2ab93744b2bbd63f3bc8b397f2f
+                              planType: bird
+                              price: "99.00"
+                              title: 长饮类鸡尾酒DIY
+        find_gigs_by_brand:
+            value:
+                ReqExample:
+                    brandId: c379d42f68f741919fd5b8f6b847b13c
+                    current: 1
+                    q: 线上工作室
+                    sbu: hour
+                    size: 5
+                RespExample:
+                    cells:
+                        current: 1
+                        pages: 1
+                        records:
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: null
+                              enableBlue: null
+                              id: 2b96e3c4cdac4d2c8f6c7993d58afe43
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/072ee3128662468ea09d5cd39e714159.png.avif
+                              price: 50
+                              sbu: hour
+                              title: 创业者线上工作室解决方案
+                        size: 5
+                        total: 1
+                    code: 200
+                    message: Success
+        find_one_brand_info:
+            value:
+                ReqExample:
+                    brand_id: 73fb64fc5116408eb5d4e0afd045e105
+                RespExample:
+                    code: 200
+                    message: Success
+                    profile:
+                        availableForWork: null
+                        avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
+                        brand: 快乐工作室
+                        brandMark: "4"
+                        brandTypeCode: null
+                        brandUserId: 4edc028f26a048199c11b50a830bc50b
+                        businessScope: null
+                        cooperationScope: null
+                        cover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/cover/eaef4992ba5b43eaa9d9db52856562dc.jpg.avif
+                        createAt: "2025-09-03 14:43:03"
+                        enableBlue: "0"
+                        enableFoodForWork: null
+                        enableMentorship: null
+                        experience: null
+                        freeNightCounsellor: null
+                        handle: happy.studio@blv.bi
+                        hiring: null
+                        industry: null
+                        industryCode: null
+                        links: null
+                        location: 中国|贵州省|黔西南|移动
+                        mentorHonor: null
+                        occupation: null
+                        occupationCode: null
+                        pdOasisId: null
+                        skills:
+                            - entry: 生活规划
+                            - entry: 兴趣探索
+                        supportFreeCooperation: null
+                        title: 让人微笑，帮助人们大胆走向未来！
+                        typeOfBusiness: null
+        find_one_gig_info:
+            value:
+                ReqExample:
+                    cell_id: 05c30932c9644d5c9a65d83ec61a57e1
+                RespExample:
+                    code: 200
+                    message: Success
+                    profile:
+                        avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
+                        brand: 快乐工作室
+                        brandId: 73fb64fc5116408eb5d4e0afd045e105
+                        brandMark: "4"
+                        cellMark: "2"
+                        cover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/1a3a19a9500c41da81210ba0d320f5de.jpg.avif
+                        fee:
+                            - price: 30
+                              sbu: hour
+                            - price: 14400
+                              sbu: quarter
+                            - price: 0.01
+                              sbu: second
+                            - price: 4800
+                              sbu: month
+                            - price: 0.5
+                              sbu: minute
+                            - price: 240
+                              sbu: day
+                            - price: 1200
+                              sbu: week
+                            - price: 57600
+                              sbu: year
+                        id: 05c30932c9644d5c9a65d83ec61a57e1
+                        introCover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/intro-cover/386c9ebf4a14425994759bd33b803de3.jpg.avif
+                        productDesc: <p>鸡尾酒是一种混饮，由两种或者两种以上的酒、果汁、汽水混合形成。</p><p>调制鸡尾酒常用的基础酒类：朗姆酒、金酒、龙舌兰、伏特加、威士忌、白兰地。</p><p>鸡尾酒中常用的辅助物：水果果汁、蔬菜汁、蛋清、咖啡、椰汁、汤、苦精。</p><p>鸡尾酒的高级感源于纯手工调制，从而赋予它高度的创造性和独特性。</p><p>鸡尾酒种类、口感丰富，世界级的标准为RIMS。</p><p>远方的朋友，来杯血腥玛丽！</p>
+                        provideInvoice: "1"
+                        revshare: null
+                        tags: null
+                        title: DIY 鸡尾酒
+        find_user_info:
+            value:
+                ReqExample: {}
+                RespExample:
+                    code: 200
+                    message: Success
+                    user:
+                        avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                        brandId: c1b420e0d9dd46df9057779f9506a19a
+                        brandName: 达意设计
+                        electricity: 200
+                        handle: x.design@blv.bi
+                        hiLinkName: null
+                        hiLinkUrl: null
+                        userId: 0bac18ebbc534ffa9f1947e74e7a4fbe
+                        username: 达意设计
+        find_virtual_products:
+            value:
+                ReqExample:
+                    current: "1"
+                    size: "5"
+                RespExample:
+                    code: 200
+                    message: Success
+                    product:
+                        current: 1
+                        pages: 2
+                        records:
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              brand: 大盒游戏工作室
+                              brandId: 97e42a401639401baa9fdb2ac35355a0
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: 48b25af4882f4563920ba181359f0f72
+                              productName: 电脑单机游戏盒子离线中文版3A大作不限速下载
+                              productPrice: 19.9
+                              salesVolume: null
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/e0b9dd0af7f4409cbaf443c0671f09a6.png.avif
+                              views: "19"
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: 4f0796ee3a4a43a188b755512c5f4e78
+                              productName: 原神Q版表情包
+                              productPrice: 1.99
+                              salesVolume: "1"
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/9a6824524d3749f9b7a097d3291b5579.png.avif
+                              views: "224"
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
+                              brand: 快乐工作室
+                              brandId: 73fb64fc5116408eb5d4e0afd045e105
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: 86191b109a0c48b983242565f7576d14
+                              productName: 无损车载音乐下载包高音质MP3抖音歌曲dj/flac/wav/mp4
+                              productPrice: 12
+                              salesVolume: "1"
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/7922d20bdc0347c8baf0df754fd4fe3e.png.avif
+                              views: "201"
+                            - avatar: null
+                              brand: xueyuedasa
+                              brandId: ef96013feb2142b39f4bdcb0de5f6cd8
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: b539df84c88148d89391d98f1591bc1a
+                              productName: 163邮箱会员
+                              productPrice: 1
+                              salesVolume: "14"
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/6bf104b26d814291952766d54fca252c.png.avif
+                              views: "195"
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: b8f2b6c39ab1449d8e794d1b10dcaba4
+                              productName: UI/UX 新手课程
+                              productPrice: 10
+                              salesVolume: null
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/811ebd4dac3f4ecead9b8906724cc8d7.png.avif
+                              views: "233"
+                        size: 5
+                        total: 9
+        find_virtual_products_by_brand:
+            value:
+                ReqExample:
+                    brandId: 97e42a401639401baa9fdb2ac35355a0
+                    current: 1
+                    size: 5
+                    status: "2"
+                RespExample:
+                    code: 200
+                    message: Success
+                    product:
+                        current: 1
+                        pages: 1
+                        records:
+                            - clicks: "21"
+                              createAt: "2026-03-20 10:47:30"
+                              inventory: "10000"
+                              productId: 48b25af4882f4563920ba181359f0f72
+                              productName: 电脑单机游戏盒子离线中文版3A大作不限速下载
+                              productPrice: "19.90"
+                              salesVolume: null
+                              sellerAvatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              sellerBrandId: 97e42a401639401baa9fdb2ac35355a0
+                              sellerName: 大盒游戏工作室
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/e0b9dd0af7f4409cbaf443c0671f09a6.png.avif
+                              views: "77"
+                        size: 5
+                        total: 1
+        search_gigs:
+            value:
+                ReqExample:
+                    current: 1
+                    sbu: day
+                    size: 20
+                RespExample:
+                    cells:
+                        current: 1
+                        pages: 3
+                        records:
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 1f0ee3373194416d8c67a21ed2859bd1
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/07d0888eca1c456e98a7b28ee4d5cb1c.jpg
+                              price: 1000
+                              sbu: day
+                              title: 制定面向 IT  领域的商业计划书、提案
+                            - avator: https://thirdwx.qlogo.cn/mmopen/vi_32/Cz3XbiaBYHGpBE88pYpTDo3ic7YCJTIEnh9JQYwjn3s706lARNnnptl4pKo0wcrJp8VC2CibJNY9icDhSYTLzjkU1w/132
+                              brand: Bran
+                              brandId: 498f5047cbea4d74bee386ffa58a6cd4
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 9a736c90fded49e0a26c6c451ae56033
+                              preview: null
+                              price: 480
+                              sbu: day
+                              title: alibaba.com 阿里巴巴国际站运营咨询服务，包含店铺诊断，店铺数据分析，店铺优化，广告数据分析，广告调整，店铺规划等
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              brand: 大盒游戏工作室
+                              brandId: 97e42a401639401baa9fdb2ac35355a0
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: ebbdd1deffd242779186731893476c53
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/1d81e552798e4f25bc7de22394cdba2c.png.avif
+                              price: 200
+                              sbu: day
+                              title: 【直播】原神代肝代练代打委托任务神瞳收集云端无密码接触
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/eb2c98c5f08c4801bf2745e5603f8a23.png.avif
+                              brand: 省心财税
+                              brandId: 0e7ed80ae2ff4256b089eca63c66f99c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 4641b33e140f4c9aaaeb2b5a3cb738eb
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/efe1886958284ce1bae3fce604bc1034.png.avif
+                              price: 50
+                              sbu: day
+                              title: 公司从注册到注销百科全书
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: c3a2f791b1e547caa549c6296a0ac063
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/cb5c61b168d5432685c82199dc6148ed.png.avif
+                              price: 320
+                              sbu: day
+                              title: 平面广告、活动海报设计
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
+                              brand: 快乐工作室
+                              brandId: 73fb64fc5116408eb5d4e0afd045e105
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 16a381e020924485951b994e72cfb299
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/92704603e3974a4f9f28e750625a84ec.png.avif
+                              price: 640
+                              sbu: day
+                              title: 潜能激发教练
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 9ebc8684ea1c47af9022af728af8281c
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/b5e51206f7b6477698d023acf07be79c.png.avif
+                              price: 400
+                              sbu: day
+                              title: 协助验证你的商业概念和想法  ：：概念验证服务
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              brand: 大盒游戏工作室
+                              brandId: 97e42a401639401baa9fdb2ac35355a0
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 86c5f0745d334b52a42fe81b930a0052
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/558e0a88f36a4a29899976be63f8b31e.jpg.avif
+                              price: 120
+                              sbu: day
+                              title: 王者荣耀钻石及以下段位上星助手 游戏代打
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 7321dab3cb044f1c957e335efd770ccd
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/3f7a66253b194b22819a747f77bee2f5.png.avif
+                              price: 528
+                              sbu: day
+                              title: 打造稳定高价值的商业关系
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: f88249906153421eb11f5fc2a33d1117
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/4b3ea2c0a3894834a7cf75d7ad3c113e.png
+                              price: 1100
+                              sbu: day
+                              title: 辅助企业构建数字化能力
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 419c25946e284fe7aa4b193ba845d01d
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/b1ac58f2673747318b285e0d9971100f.png.avif
+                              price: 704
+                              sbu: day
+                              title: 高级商业助理/秘书服务
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              brand: 大盒游戏工作室
+                              brandId: 97e42a401639401baa9fdb2ac35355a0
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 306d2ba4b2204e88b1c9d691e9b4ec1f
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/5d2391a845804e9fb90c4dca34aa2aed.png.avif
+                              price: 96
+                              sbu: day
+                              title: 我的人生故事
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/4b4b467deb054212a316f3f6221ff1bc.jpg.avif
+                              brand: 前沿智库
+                              brandId: b898138b76a64aea891a83bca5dc5138
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 5934d0932281471db490ad156c6df0d1
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/5148af87e00f45c8a9dc1d0f1296b28c.png
+                              price: 1000
+                              sbu: day
+                              title: 圆桌会议
+                            - avator: https://thirdwx.qlogo.cn/mmopen/vi_32/tQqGWy0Hiax9qenfJn1ytf05jZSX2eMJYwyUpJVWeeCszxLTWhnDCRcK05wIuTj3iazaicqLHqXMSWKzYp1Ke94tA/132
+                              brand: 无限网游旗舰
+                              brandId: c09051e911284b548a7b25ceae0e4887
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 6c6c84f75f044ef29d021f498f35718c
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/903ce35fa4e54df8b1f6c7e79cf877b6.png.avif
+                              price: 240
+                              sbu: day
+                              title: 王者荣耀代练陪练排位赛巅峰赛超高效率
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 16e1a2cc14124462af2bed7844f447d3
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/7b20d1d4e645492f821783d30a81679a.jpg
+                              price: 500
+                              sbu: day
+                              title: 撰写 IT 科技领域博客、文章
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              brand: 大盒游戏工作室
+                              brandId: 97e42a401639401baa9fdb2ac35355a0
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: fe1341006b8f4b2d9d9266ef0ace761c
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/370a14bf0f6a4838bb377c2f01e220c6.png.avif
+                              price: 160
+                              sbu: day
+                              title: 英雄联盟手游双排匹配排位娱乐上大分
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 2a96d88468c4464c971171d3c6415dd9
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/6e0619f2c772477490c12119d937ad72.png.avif
+                              price: 528
+                              sbu: day
+                              title: 创建业务增长引擎
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: e2e090a3dd04422a865c8da09d5f9c92
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/db2d32a95e084a50835f6b10755865f7.png.avif
+                              price: 240
+                              sbu: day
+                              title: 为你设计宣传推广使用的HTML/H5落地页
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 1ca4f46eccb446b383a6c1e426223fab
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/54829538eaee45c3a7eed9fd4e8fe39a.png.avif
+                              price: 160
+                              sbu: day
+                              title: 远程助手（初级）服务
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: d6ffab209d15406a90597378ab869d8f
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/35fe29665304485a867b068199b25096.png.avif
+                              price: 800
+                              sbu: day
+                              title: 外部专家
+                        size: 20
+                        total: 53
+                    code: 200
+                    message: Success
+        search_kol_products:
+            value:
+                ReqExample:
+                    current: "1"
+                    q: 原神
+                    size: "10"
+                RespExample:
+                    code: 200
+                    message: Success
+                    product:
+                        current: 1
+                        pages: 1
+                        records:
+                            - cellId: ebbdd1deffd242779186731893476c53
+                              cellSaleVolume: null
+                              inChoice: "0"
+                              influencers: "1"
+                              planPrice: "200.00"
+                              planSaleVolume: null
+                              productName: 【直播】原神代肝代练代打委托任务神瞳收集云端无密码接触
+                              refundOrders: null
+                              revshare: "15.00"
+                              sales: "0.00"
+                              supplierBrandId: 97e42a401639401baa9fdb2ac35355a0
+                              views: "112"
+                            - cellId: a5d070da8110481e96d806516fa8f1d3
+                              cellSaleVolume: null
+                              inChoice: "0"
+                              influencers: "1"
+                              planPrice: "10.00"
+                              planSaleVolume: null
+                              productName: 原神大世界访问权限
+                              refundOrders: null
+                              revshare: "15.00"
+                              sales: "0.00"
+                              supplierBrandId: 97e42a401639401baa9fdb2ac35355a0
+                              views: "174"
+                            - cellId: d85e6fe9468643d5a994de6dfba17247
+                              cellSaleVolume: null
+                              inChoice: "0"
+                              influencers: null
+                              planPrice: "1.00"
+                              planSaleVolume: null
+                              productName: 原神提瓦特大陆征服者套餐
+                              refundOrders: null
+                              revshare: "15.00"
+                              sales: "0.00"
+                              supplierBrandId: 97e42a401639401baa9fdb2ac35355a0
+                              views: "138"
+                        size: 10
+                        total: 3
+        search_trans:
+            value:
+                ReqExample:
+                    current: 1
+                    size: 10
+                RespExample:
+                    code: 200
+                    message: Success
+                    trans:
+                        current: 1
+                        pages: 0
+                        records: []
+                        size: 10
+                        total: 0
+        search_virtual_products:
+            value:
+                ReqExample:
+                    current: "1"
+                    size: "5"
+                RespExample:
+                    code: 200
+                    message: Success
+                    product:
+                        current: 1
+                        pages: 2
+                        records:
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
+                              brand: 大盒游戏工作室
+                              brandId: 97e42a401639401baa9fdb2ac35355a0
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: 48b25af4882f4563920ba181359f0f72
+                              productName: 电脑单机游戏盒子离线中文版3A大作不限速下载
+                              productPrice: 19.9
+                              salesVolume: null
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/e0b9dd0af7f4409cbaf443c0671f09a6.png.avif
+                              views: "77"
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: 4f0796ee3a4a43a188b755512c5f4e78
+                              productName: 原神Q版表情包
+                              productPrice: 1.99
+                              salesVolume: "1"
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/9a6824524d3749f9b7a097d3291b5579.png.avif
+                              views: "282"
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
+                              brand: 快乐工作室
+                              brandId: 73fb64fc5116408eb5d4e0afd045e105
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: 86191b109a0c48b983242565f7576d14
+                              productName: 无损车载音乐下载包高音质MP3抖音歌曲dj/flac/wav/mp4
+                              productPrice: 12
+                              salesVolume: "1"
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/7922d20bdc0347c8baf0df754fd4fe3e.png.avif
+                              views: "259"
+                            - avatar: null
+                              brand: xueyuedasa
+                              brandId: ef96013feb2142b39f4bdcb0de5f6cd8
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: b539df84c88148d89391d98f1591bc1a
+                              productName: 163邮箱会员
+                              productPrice: 1
+                              salesVolume: "14"
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/6bf104b26d814291952766d54fca252c.png.avif
+                              views: "253"
+                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
+                              brand: 达意设计
+                              brandId: c1b420e0d9dd46df9057779f9506a19a
+                              brandMark: "4"
+                              enableBlue: "0"
+                              productId: b8f2b6c39ab1449d8e794d1b10dcaba4
+                              productName: UI/UX 新手课程
+                              productPrice: 10
+                              salesVolume: null
+                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/811ebd4dac3f4ecead9b8906724cc8d7.png.avif
+                              views: "291"
+                        size: 5
+                        total: 9
+        send_text_msg_to_friend:
+            value:
+                ReqExample:
+                    friend: 89b2c4c4951f493a9ef4fea7e04366ff
+                    msg: heool
+                    msgType: text
+                RespExample:
+                    code: 200
+                    message: Success
+        skill_find:
+            value:
+                ReqExample:
+                    budgetMax: 2000
+                    current: 1
+                    q: 人工智能
+                    sbu: hour
+                    size: 20
+                RespExample:
+                    cells:
+                        current: 1
+                        pages: 1
+                        records:
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: 8c4087d3439b45d79fcf7dfb3d0a9476
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/7b7105b84df4448ca2c42801f8c8aab6.png.avif
+                              price: 88
+                              sbu: hour
+                              title: 人工智能协同共创
+                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
+                              brand: 创客甄选
+                              brandId: c379d42f68f741919fd5b8f6b847b13c
+                              brandMark: "4"
+                              enableBlue: "0"
+                              id: e7b027e426274267bd9634de1b963713
+                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/d13d3b4d999b4e80b8562a1f98093a67.png.avif
+                              price: 66
+                              sbu: hour
+                              title: 定制开发最小化可实行产品（MVP），擅长领域：网站、小程序、APP、人工智能、大数据、接口
+                        size: 20
+                        total: 2
+                    code: 200
+                    message: Success
+info:
+    description: "插件主要功能 \n业务全景检索 (Universal Retrieval)：瞬时调取班蔚平台产品目录、详情及动态指标，实现数据层面的全量观测。\n资产脉络追踪 (Asset Tracking)：实时获取用户的历史订单、交易存证。\n指令权限代理 (Authority Delegation)：通过 OAuth 2.0 协议获得用户授权后，全权代理身份行使业务决策。"
+    title: 班蔚·端脑·开放
+    version: v1
+openapi: 3.0.1
+paths:
+    /api/v1/ms/private/{friend}/event/storeText:
+        put:
+            operationId: send_text_msg_to_friend
+            parameters:
+                - description: 好友UID
+                  in: path
+                  name: friend
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                msg:
+                                    description: 消息内容，长度不超过500
+                                    type: string
+                                msgType:
+                                    default: text
+                                    description: 消息类型：文本消息统一输入枚举： text
+                                    type: string
+                            required:
+                                - msgType
+                                - msg
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 给私信好友发文字类型的消息
+    /api/v1/ms/private/me/event/friend/list:
+        get:
+            operationId: find_friends
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    friend:
+                                        description: 好友列表
+                                        properties:
+                                            records:
+                                                items:
+                                                    properties:
+                                                        avatar:
+                                                            description: 头像
+                                                            type: string
+                                                        brandMark:
+                                                            description: 状态，枚举值：2-已销户；3-在线；4-离线；
+                                                            type: string
+                                                        id:
+                                                            description: 用户 uid
+                                                            type: string
+                                                        latestContent:
+                                                            description: 最新消息
+                                                            type: string
+                                                        modifiedAt:
+                                                            description: 最新消息发送时间
+                                                            type: string
+                                                        title:
+                                                            description: 昵称
+                                                            type: string
+                                                        unread:
+                                                            description: 未读消息数量
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                        type: object
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询私信好友列表信息
+    /api/v1/team/trans:
+        get:
+            operationId: search_trans
+            parameters:
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: 10
+                    type: integer
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: 1
+                    type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    trans:
+                                        description: 历史交易记录
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        amount:
+                                                            description: 交易金额（元）
+                                                            type: string
+                                                        createAt:
+                                                            description: 交易日期
+                                                            type: string
+                                                        direction:
+                                                            description: 收支标识，-1 表示支出，1 表示收款
+                                                            type: string
+                                                        transNumber:
+                                                            description: 流水编号
+                                                            type: string
+                                                        transType:
+                                                            description: 场景枚举
+                                                            type: string
+                                                        transTypeDesc:
+                                                            description: 是 transType 的枚举解释，比如部落赞助、订阅账单支付等等
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少记录
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询当前用户的流水、交易记录
+    /api/v1/web/affiliate/product:
+        get:
+            operationId: search_kol_products
+            parameters:
+                - description: 搜索关键词，用于匹配特定技能名称、商家或标签的商品。示例：'插画定制'、'小米'、'GEO'。
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 最小经营年限，单位为月。示例：30 - 表示30个月，也就是2年半
+                  in: query
+                  name: supplierAccountAgeLeft
+                  schema:
+                    type: string
+                - description: 最近活跃 。枚举值：1 为 一周内活跃； 2 为 一月内活跃；3 为三个月内活跃；
+                  in: query
+                  name: heartbeat
+                  schema:
+                    type: string
+                - description: 会员标识。只能输入 1 或者 空，1 表示开通会员的供应商。
+                  in: query
+                  name: blue
+                  schema:
+                    type: string
+                - description: 单品最低价格
+                  in: query
+                  name: planPriceLeft
+                  schema:
+                    type: string
+                - description: 供应商是否提供发票。只能输入 1 或者 空，
+                  in: query
+                  name: provideInvoice
+                  schema:
+                    type: string
+                - description: 商品最低佣金比例
+                  in: query
+                  name: revshareLeft
+                  schema:
+                    type: string
+                - description: 商品最低浏览量，单位为1000，示例：3 表示最低浏览量为3000人次
+                  in: query
+                  name: viewsLeft
+                  schema:
+                    type: string
+                - description: 商品最高浏览量，单位为1000，示例：6 表示最高浏览量为6000人次
+                  in: query
+                  name: viewsRight
+                  schema:
+                    type: string
+                - description: 单品最高价格
+                  in: query
+                  name: planPriceRight
+                  schema:
+                    type: string
+                - description: 商品最高佣金比例
+                  in: query
+                  name: revshareRight
+                  schema:
+                    type: string
+                - description: 最大经营年限，配合最小经营年限进行区间查询。单位为月。示例：30 - 表示30个月，也就是2年半
+                  in: query
+                  name: supplierAccountAgeRight
+                  schema:
+                    type: string
+                - description: 最低销量
+                  in: query
+                  name: saleVolumeLeft
+                  schema:
+                    type: string
+                - description: 最大销量
+                  in: query
+                  name: saleVolumeRight
+                  schema:
+                    type: string
+                - description: 带货达人数量（最低）
+                  in: query
+                  name: influencersLeft
+                  schema:
+                    type: string
+                - description: 带货达人数量（最高）
+                  in: query
+                  name: influencersRight
+                  schema:
+                    type: string
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "10"
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 排序，枚举值。1-单品价格；2-佣金比例；3-单品销量；4-销售额；5-浏览量；6-带货达人数量；
+                  in: query
+                  name: sort
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    product:
+                                        description: 选品数据列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        cellId:
+                                                            description: 商品Id
+                                                            type: string
+                                                        cellSaleVolume:
+                                                            description: 特约销量
+                                                            type: string
+                                                        inChoice:
+                                                            description: 是否已经添加到带货橱窗。示例：1 表示已经添加
+                                                            type: string
+                                                        influencers:
+                                                            description: 带货达人数量
+                                                            type: string
+                                                        planPrice:
+                                                            description: 单品单价
+                                                            type: string
+                                                        planSaleVolume:
+                                                            description: 单品销量
+                                                            type: string
+                                                        productName:
+                                                            description: 商品名
+                                                            type: string
+                                                        refundOrders:
+                                                            description: 已退款的订单数量
+                                                            type: string
+                                                        revshare:
+                                                            description: 佣金比例
+                                                            type: string
+                                                        sales:
+                                                            description: 销售额
+                                                            type: string
+                                                        supplierBrandId:
+                                                            description: 商品供应商品牌Id
+                                                            type: string
+                                                        views:
+                                                            description: 浏览量
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少记录
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询选品信息，创作者、明星、流量达人等KOL可通过本工具选择需要带货的商品。
+    /api/v1/web_mall/brand/{brand_id}/profile:
+        get:
+            operationId: find_one_brand_info
+            parameters:
+                - description: 品牌Id
+                  in: path
+                  name: brand_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 请求成功或失败时的简单解释
+                                        type: string
+                                    profile:
+                                        properties:
+                                            availableForWork:
+                                                description: 求职标识：1-求职中
+                                                type: string
+                                            avator:
+                                                description: 品牌头像Url
+                                                type: string
+                                            brand:
+                                                description: 品牌名
+                                                type: string
+                                            brandMark:
+                                                description: 商家的状态，2-已注销；3-在线；4-离线
+                                                type: string
+                                            brandTypeCode:
+                                                description: 账号类型，1-结构，其他为个人
+                                                type: string
+                                            brandUserId:
+                                                description: 品牌的用户Id
+                                                type: string
+                                            businessScope:
+                                                description: 经营范围
+                                                type: string
+                                            cooperationScope:
+                                                description: 自由合作范围与内容
+                                                type: string
+                                            cover:
+                                                description: 品牌横幅图片URL
+                                                type: string
+                                            createAt:
+                                                description: 品牌注册日期
+                                                type: string
+                                            enableBlue:
+                                                description: 会员标识：1-开启 0-关闭
+                                                type: string
+                                            enableFoodForWork:
+                                                description: 以工换食，1-开启；雇员给品牌工作，作为回报，品牌需要为雇员准备食物或用餐费，建议餐标每人每日不低于 30 RMB，本标识用于义工或慈善场景，默认为关闭状态
+                                                type: string
+                                            enableMentorship:
+                                                description: 是否收徒：1-开启 0-关闭
+                                                type: string
+                                            experience:
+                                                description: 工作经历或组织历史沿革
+                                                items:
+                                                    properties:
+                                                        end:
+                                                            description: 经历结束时间
+                                                            type: string
+                                                        entries:
+                                                            description: 经历细化描述
+                                                            type: string
+                                                        icon:
+                                                            description: 图标
+                                                            type: string
+                                                        start:
+                                                            description: 经历开始时间
+                                                            type: string
+                                                        subTitle:
+                                                            description: 简短说明
+                                                            type: string
+                                                        title:
+                                                            description: 经历
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            freeNightCounsellor:
+                                                description: 夜间咨询：1-开启 0-关闭；处于开启状态，表示在每天夜晚(18:00 ～ 22:00)，品牌为有需要的用户提供无偿、免费的咨询服务。
+                                                type: string
+                                            handle:
+                                                description: 品牌标识，可通过 https://bluvarrri.com/品牌标识，访问品牌主页
+                                                type: string
+                                            hiring:
+                                                description: 招聘标识：1-招聘中
+                                                type: string
+                                            industry:
+                                                description: 行业
+                                                type: string
+                                            industryCode:
+                                                description: 行业编码
+                                                type: string
+                                            links:
+                                                description: 品牌的社交媒体、官网等连接
+                                                type: string
+                                            location:
+                                                description: IP 归属地
+                                                type: string
+                                            mentorHonor:
+                                                description: 品牌作为导师指导学员获取的荣誉标识
+                                                type: string
+                                            occupation:
+                                                description: 职业
+                                                type: string
+                                            occupationCode:
+                                                description: 职业编码
+                                                type: string
+                                            pdOasisId:
+                                                description: 私域部落Id，用于私域运营的部落Id
+                                                type: string
+                                            skills:
+                                                description: 品牌词条，比如UI UX，Spring Boot
+                                                items:
+                                                    properties:
+                                                        entry:
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            supportFreeCooperation:
+                                                description: 是否支持自由合作：1-支持 0-不支持；自由合作用来标记品牌的对外合作意向，默认为关闭，表示不支持各种合作方式；处于开放状态，表示品牌愿意与其他感兴趣的第三方讨论各种合作方式；
+                                                type: string
+                                            title:
+                                                description: 商家的状态，2-已注销；3-在线；4-离线
+                                                type: string
+                                            typeOfBusiness:
+                                                description: 商业主体，0-非商业主体，1-独资经营，2-合伙经营，3-有限责任公司，4-C型股份制有限公司，5-S型股份制有限公司，6-B型股份制有限公司，7-非营利机构，8-个体户，9-合作社，10-社团，11-协会，12-党派
+                                                type: string
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询商家信息
+    /api/v1/web_mall/brand/virtual/product:
+        get:
+            operationId: find_virtual_products_by_brand
+            parameters:
+                - description: 品牌（商家）Id
+                  in: query
+                  name: brandId
+                  required: true
+                  schema:
+                    type: string
+                - description: 搜索关键词，用于匹配虚拟商品名称。示例：'爱奇艺会员'、' 苹果美区账户充值'、'2026世界经济报告'。
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 商品状态：2-热卖中，3-已下架
+                  in: query
+                  name: status
+                  required: true
+                  schema:
+                    default: "2"
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: 1
+                    type: integer
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: 5
+                    type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        type: number
+                                    message:
+                                        type: string
+                                    product:
+                                        properties:
+                                            current:
+                                                type: number
+                                            pages:
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        clicks:
+                                                            description: 商品点击量
+                                                            type: string
+                                                        createAt:
+                                                            description: 商品上架时间
+                                                            type: string
+                                                        inventory:
+                                                            description: 商品库存
+                                                            type: string
+                                                        productId:
+                                                            description: 商品Id
+                                                            type: string
+                                                        productName:
+                                                            description: 商品名称
+                                                            type: string
+                                                        productPrice:
+                                                            description: 商品价格
+                                                            type: string
+                                                        salesVolume:
+                                                            description: 商品销量
+                                                            type: string
+                                                        sellerAvatar:
+                                                            description: 商家头像
+                                                            type: string
+                                                        sellerBrandId:
+                                                            description: 商家Id
+                                                            type: string
+                                                        sellerName:
+                                                            description: 商家名称
+                                                            type: string
+                                                        thumbnailUrl:
+                                                            description: 商品主图
+                                                            type: string
+                                                        views:
+                                                            description: 商品曝光量
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            size:
+                                                type: number
+                                            total:
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询指定商家名下的虚拟商品列表。仅返回数字类商品（如会员、点卡、代金券），不包含实物。
+    /api/v1/web_mall/brandCells:
+        get:
+            operationId: find_gigs_by_brand
+            parameters:
+                - description: 品牌（商家）Id
+                  in: query
+                  name: brandId
+                  required: true
+                  schema:
+                    type: string
+                - description: 搜索关键词，用于匹配技能名称或商家。示例：'插画定制'、'法律咨询'、'后期剪辑'。
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: 1
+                    type: integer
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: 5
+                    type: integer
+                - description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
+                  in: query
+                  name: sbu
+                  required: true
+                  schema:
+                    default: hour
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    cells:
+                                        properties:
+                                            current:
+                                                type: number
+                                            pages:
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        avator:
+                                                            description: 品牌（商家）头像
+                                                            type: string
+                                                        brand:
+                                                            description: 品牌（商家）名称
+                                                            type: string
+                                                        brandId:
+                                                            description: 品牌（商家）Id
+                                                            type: string
+                                                        brandMark:
+                                                            description: 品牌（商家）的状态，2-已注销；3-在线；4-离线
+                                                            type: string
+                                                        enableBlue:
+                                                            description: 品牌（商家）是否开通会员
+                                                            type: string
+                                                        id:
+                                                            description: 技能服务Id
+                                                            type: string
+                                                        preview:
+                                                            description: 技能服务主图
+                                                            type: string
+                                                        price:
+                                                            description: 价格
+                                                            type: number
+                                                        sbu:
+                                                            description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
+                                                            type: string
+                                                        title:
+                                                            description: 技能服务名称
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            size:
+                                                type: number
+                                            total:
+                                                type: number
+                                        type: object
+                                    code:
+                                        type: number
+                                    message:
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询品牌（商家）名下的技能服务
+    /api/v1/web_mall/cells:
+        get:
+            operationId: search_gigs
+            parameters:
+                - description: 搜索关键词，用于匹配技能名称或商家。示例：'插画定制'、'法律咨询'、'后期剪辑'。
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
+                  in: query
+                  name: sbu
+                  required: true
+                  schema:
+                    default: day
+                    type: string
+                - description: 最小预算
+                  in: query
+                  name: budgetMin
+                  schema:
+                    type: integer
+                - description: 最大预算
+                  in: query
+                  name: budgetMax
+                  schema:
+                    type: integer
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: 1
+                    type: integer
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: 20
+                    type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    cells:
+                                        description: 技能服务列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: integer
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: integer
+                                            records:
+                                                items:
+                                                    properties:
+                                                        avator:
+                                                            description: 商家的头像
+                                                            type: string
+                                                        brand:
+                                                            description: 商家名称
+                                                            type: string
+                                                        brandId:
+                                                            description: 商家Id
+                                                            type: string
+                                                        brandMark:
+                                                            description: 商家的状态，2-已注销；3-在线；4-离线
+                                                            type: string
+                                                        enableBlue:
+                                                            description: 商家是否开通会员
+                                                            type: string
+                                                        id:
+                                                            description: 商品Id
+                                                            type: string
+                                                        preview:
+                                                            description: 服务展示效果图 URL
+                                                            type: string
+                                                        price:
+                                                            description: 相对应的sbu下，服务的单价，比如sbu 为 “day”，pirce为服务每天的服务费用
+                                                            type: number
+                                                        sbu:
+                                                            description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
+                                                            type: string
+                                                        title:
+                                                            description: 商品名称
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            size:
+                                                description: 每页返回的服务数量
+                                                type: integer
+                                            total:
+                                                description: 总共有多少服务
+                                                type: integer
+                                        type: object
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 检索班蔚（中国版 Patreon）内的专业技能服务。适用于用户寻找插画定制、程序开发、文案策划等人工服务的场景。支持按关键词、计费单位及价格区间筛选
+    /api/v1/web_mall/me:
+        get:
+            operationId: find_current_user_info
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 请求成功或失败时的简单解释
+                                        type: string
+                                    user:
+                                        description: 用户信息
+                                        properties:
+                                            avatar:
+                                                description: 用户头像
+                                                type: string
+                                            brandId:
+                                                description: 品牌Id
+                                                type: string
+                                            brandName:
+                                                description: 品牌名称
+                                                type: string
+                                            electricity:
+                                                description: 源能余额，源能为班蔚平台代币
+                                                type: number
+                                            handle:
+                                                description: 品牌标识，可通过 https://bluvarrri.com/品牌标识，访问品牌主页
+                                                type: string
+                                            hiLinkName:
+                                                description: 自定义菜单名称
+                                                type: string
+                                            hiLinkUrl:
+                                                description: 自定义菜单Url
+                                                type: string
+                                            userId:
+                                                description: 用户Id
+                                                type: string
+                                            username:
+                                                description: 用户名
+                                                type: string
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询当前用户信息，比如品牌信息、头像信息、源能信息
+    /api/v1/web_mall/services/{cell_id}/intro:
+        get:
+            operationId: find_one_gig_info
+            parameters:
+                - description: 技能服务商品Id
+                  in: path
+                  name: cell_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 请求成功或失败时的简单解释
+                                        type: string
+                                    profile:
+                                        description: 服务信息
+                                        properties:
+                                            avator:
+                                                description: 品牌（商家）头像
+                                                type: string
+                                            brand:
+                                                description: 品牌（商家）
+                                                type: string
+                                            brandId:
+                                                description: 品牌（商家）Id
+                                                type: string
+                                            brandMark:
+                                                description: 品牌（商家）的状态，2-已注销；3-在线；4-离线
+                                                type: string
+                                            cellMark:
+                                                description: 服务状态：1-草稿，2-热卖中，3-已下架
+                                                type: string
+                                            cover:
+                                                description: 服务主图
+                                                type: string
+                                            fee:
+                                                description: 费用信息
+                                                items:
+                                                    properties:
+                                                        price:
+                                                            description: 标准计费单位下的价格
+                                                            type: number
+                                                        sbu:
+                                                            description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            id:
+                                                description: 技能服务商品Id
+                                                type: string
+                                            introCover:
+                                                description: 技能服务页面横幅UrL
+                                                type: string
+                                            productDesc:
+                                                description: 产品说明，为 html 片段
+                                                type: string
+                                            provideInvoice:
+                                                description: 是否提供发票：1-提供，0-不提供；
+                                                type: string
+                                            revshare:
+                                                description: 拥挤比例：kol带货此产品获得的佣金比例
+                                                type: string
+                                            tags:
+                                                description: 标签
+                                                items:
+                                                    type: string
+                                                type: array
+                                            title:
+                                                description: 技能服务名称
+                                                type: string
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询技能服务信息
+    /api/v1/web_mall/services/{cell_id}/plan:
+        get:
+            operationId: find_gig_plan_info
+            parameters:
+                - description: 技能服务Id
+                  in: path
+                  name: cell_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        type: number
+                                    message:
+                                        type: string
+                                    plan:
+                                        properties:
+                                            records:
+                                                items:
+                                                    properties:
+                                                        content:
+                                                            description: 套餐内容
+                                                            type: string
+                                                        feature:
+                                                            description: 套餐权益
+                                                            type: string
+                                                        planId:
+                                                            description: 单品套餐Id
+                                                            type: string
+                                                        planType:
+                                                            description: 单品套餐：bird-小鸟套餐，eagle-老鹰套餐，albatross-信天翁套餐
+                                                            type: string
+                                                        price:
+                                                            description: 单品价格
+                                                            type: string
+                                                        title:
+                                                            description: 套餐名称
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询指定服务（Gig）名下的详细套餐或单品规格信息。当用户选中某个具体服务并询问‘有哪些价格档位’、‘套餐包含什么’或‘单品详情’时调用。
+    /api/v1/web_mall/virtual/product:
+        get:
+            operationId: search_virtual_products
+            parameters:
+                - description: 搜索关键词，用于匹配虚拟商品名称或商家。示例：'腾讯视频会员'、'雅思线上课程'、'2026年合同模版'。
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 最小预算
+                  in: query
+                  name: budgetMin
+                  schema:
+                    type: string
+                - description: 最大预算
+                  in: query
+                  name: budgetMax
+                  schema:
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "5"
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                description: new desc
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        type: number
+                                    message:
+                                        type: string
+                                    product:
+                                        properties:
+                                            current:
+                                                type: number
+                                            pages:
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        avatar:
+                                                            description: 商家头像
+                                                            type: string
+                                                        brand:
+                                                            description: 商家名称
+                                                            type: string
+                                                        brandId:
+                                                            description: 商家Id
+                                                            type: string
+                                                        brandMark:
+                                                            description: 商家的状态，2-已注销；3-在线；4-离线
+                                                            type: string
+                                                        enableBlue:
+                                                            description: 商家是否开通会员
+                                                            type: string
+                                                        productId:
+                                                            description: 虚拟商品Id
+                                                            type: string
+                                                        productName:
+                                                            description: 商品名称
+                                                            type: string
+                                                        productPrice:
+                                                            description: 商品价格
+                                                            type: number
+                                                        salesVolume:
+                                                            description: 销量
+                                                            type: string
+                                                        thumbnailUrl:
+                                                            description: 商品主图
+                                                            type: string
+                                                        views:
+                                                            description: 商品点击量
+                                                            type: string
+                                                    type: object
+                                                type: array
+                                            size:
+                                                type: number
+                                            total:
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: |
+                检索班蔚平台已上架的虚拟商品。适用于用户寻找在线课程、软件、会员、IP、游戏道具，或其他任何数字产品的场景。支持按关键词、价格区间筛选
+servers:
+    - url: https://bluvarri.com

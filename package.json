@@ -14,6 +14,8 @@
     "start": "npm run build && node ./bin/www.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/node": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
     "@parcel/service-worker": "^2.16.3",
     "@picmo/popup-picker": "^5.8.5",
     "@popperjs/core": "^2.11.8",
@@ -25,12 +27,13 @@
     "cropperjs": "^1.6.1",
     "emoji-picker-element": "^1.28.1",
     "emojibase-data": "^17.0.0",
-    "express": "^4.18.2",
+    "express": "^4.22.2",
     "http-errors": "~1.6.3",
     "jquery": "^3.6.1",
     "jquery-ui": "^1.13.2",
     "link-preview-js": "^4.0.0",
     "lodash": "^4.18.1",
+    "mcp-from-openapi": "^2.7.0",
     "morgan": "^1.10.1",
     "pug": "^3.0.2",
     "quill": "^2.0.3",
