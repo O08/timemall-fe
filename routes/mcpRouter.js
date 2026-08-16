@@ -91,8 +91,15 @@ const node = toNodeHandler(handler);
 
 const auth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
+  const body = req.body;
+
+  const callingTools= req.method === 'POST' && body && body.method === 'tools/call';
+
+  if(!callingTools){
+    return next();
+  }
   
-  // 拦截非法的外部请求
+  // 工具调用保护，拦截非法的外部请求
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return res.status(401).json({ error: "Unauthorized: Missing token header." });
   }
