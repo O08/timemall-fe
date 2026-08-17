@@ -1,9 +1,10 @@
 import express from 'express';
+import fs from 'fs';
 import { McpServer, createMcpHandler,fromJsonSchema } from '@modelcontextprotocol/server';
 import { toNodeHandler } from '@modelcontextprotocol/node';
 import { OpenAPIToolGenerator,toSdkTool, buildHttpRequest } from "mcp-from-openapi";
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath,pathToFileURL } from 'url';
 
 const router = express.Router();
 
@@ -11,37 +12,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const openApiYamlPath = path.join(__dirname, "../public/mcp/open-api.yaml");
 
+const UI_COMPONENTS_DIR = path.join(__dirname, '../public/mcp/ui-components');
 
-// 编写写给大模型的【自适应通用 UI 呈现设计系统规范（作为默认方案）】
-// 这段指令不限定死任何业务字段或 HTML 标签，而是交给大模型去自适应推导
-const GLOBAL_UI_DESIGN_SYSTEM = `
 
-### [MCP UI Presentation Guide - Adaptive Multimedia Card Systems]
-作为顶级的智能体，当调用此工具并成功拿到下游真实多媒体资产数据时，为了向终端用户提供超越文本的富媒体感知体验，请遵循以下【通用富媒体 UI 系统默认规范】来动态组织你的网页渲染结构：
-
-1. **结构化组件分流 (Layout Adaptability)**:
-   - **大数据集场景**：请优先在响应中为每一个数据项构建前端卡片 (UI Card) 模块（使用内联样式 \`border:1px solid #e5e7eb; border-radius:12px; padding:16px; margin:12px 0; background:#fff; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); font-family:sans-serif;\`）。
-   - **纯状态确认场景**：精简呈现为一个轻量级的状态微标/通知条 (Status Toast / Badge)，禁止画蛇添足。
-
-2. **全自动多媒体智能资产推导 (Omni-Media Automatic Adaptation)**:
-   请自动嗅探返回的 JSON 中包含 "http" 协议链接的任何多媒体字段（如 url, avatar, cover, video, audio, mp4, mp3 等），并进行如下全自适应前端多模态渲染：
-   
-   - 📸 **图片资产 (Images)**：
-     识别到头像/商品封面链接时，请使用 \`<img>\` 标签进行精美排版，必须强制附带 \`onerror="this.style.display='none'"\` 防止死链。
-   
-   - 🎵 **音频/语音资产 (Audio)**：
-     自动识别包含 \`.mp3\`, \`.wav\`, \`.m4a\` 或命名包含 "audio", "voice", "sound" 的音频链接。如果当前生态支持 HTML（Tier A），请在卡片内直接嵌入原生原生音频播放器组件：
-     \`<div style="margin: 8px 0;"><span style="font-size:12px; color:#6b7280; display:block; margin-bottom:4px;">🎵 语音播放</span><audio src="{{在此填入音频URL}}" controls preload="none" style="width:100%; max-width:320px; height:32px;"></audio></div>\`
-     如果环境不支持 HTML（Tier B），请将其优雅降级转化为 Markdown 的语音直达按钮样式： \`[🎵 点击播放语音说明]({{在此填入音频URL}})\`。
-   
-   - 🎬 **视频资产 (Video)**：
-     自动识别包含 \`.mp4\`, \`.webm\`, \`.mov\` 或命名包含 "video", "movie", "live" 的视频链接。如果支持 HTML（Tier A），请直接在卡片正中心或最上方嵌入现代化视频播放窗口：
-     \`<video src="{{在此填入视频URL}}" controls preload="none" poster="{{若存在封面则填入，无则不写}}" style="width:100%; max-width:400px; border-radius:8px; margin:8px 0; box-shadow:0 2px 4px rgba(0,0,0,0.05);"></video>\`
-     如果环境不支持 HTML（Tier B），请无缝降级转化为直观的 Markdown 播放超链接： \`[🎬 点击播放视频宣传片]({{在此填入视频URL}})\`。
-
-3. **空值弹性防护 (Null-Safety)**:
-   若上述任何音视频字段返回为 null 或未定义，大模型必须自动在 DOM 树中隐藏该媒体组件，绝不能渲染出破损的网页播放器外壳，确保界面的绝对干净和鲁棒。
-`;
 
 const generator = await OpenAPIToolGenerator.fromFile(openApiYamlPath);
 const tools = await generator.generateTools();
@@ -56,18 +29,11 @@ const handler = createMcpHandler((ctx) => {
   tools.forEach((tool) => {
     const sdkToolParams = toSdkTool(tool, { fromJsonSchema });
 
-    
+    const operationId = sdkToolParams?.[0]; 
+
 
     injectComplexExamplesToDescription(sdkToolParams,generator.getDocument());
 
-    // 将输出 Schema 从参数中强行剥离或置空
-    // 这样 MCP 内部校验器就会认为该工具“没有定义输出结构”，从而彻底忽略对返回数据的校验！
-    if (sdkToolParams[1] && typeof sdkToolParams[1] === 'object') {
-      // 依具体的 toSdkTool 返回结构而定，通常是将 outputSchema 或 responseSchema 字段删掉
-      // delete sdkToolParams[1].outputSchema;
-      // delete sdkToolParams[1].responseSchema;
-      console.log("tool:"+JSON.stringify(sdkToolParams));
-    }
 
     const outputSchemaWrapper = sdkToolParams[1]?.outputSchema;
 
@@ -90,6 +56,9 @@ const handler = createMcpHandler((ctx) => {
         ...(userPat ? { "Authorization": `Bearer ${userPat}` } : {})
       };
 
+        console.log(`access to tool:${operationId}`)
+
+        
         const response = await fetch(request.url, {
           method: request.method,
           headers: finalHeaders, 
@@ -100,13 +69,41 @@ const handler = createMcpHandler((ctx) => {
 
         try {
           // 尝试解析下游返回的 JSON 对象
+
           const jsonResult = JSON.parse(responseText);
+
+          const componentPath = path.join(UI_COMPONENTS_DIR, `${operationId}.js`);
+
+
+          if (fs.existsSync(componentPath)) {
+            try {
+
+              const moduleFileUrl = pathToFileURL(componentPath).href;
+
+              
+              const uiComponentModule = await import(moduleFileUrl);
+              const renderComponent = uiComponentModule.default;
+      
+              const compiledHtmlFeed = renderComponent(jsonResult); 
+    
+              return {
+                content: [{ 
+                  type: "text", 
+                  text: `[MCP Gateway] Data pipe executed. Process payload below:\n\n${compiledHtmlFeed}` 
+                }],
+                structuredContent: jsonResult
+              };
+
+            } catch (routerError) {
+              console.error(`[网关警告] 动态路由加载或执行组件 [${operationId}.js] 失败:`, routerError);
+            }
+          }
+
           
           return { 
             content: [{ 
               type: "text", 
-              // text: JSON.stringify(jsonResult, null, 2) // 美化返回
-              text: `[MCP Gateway] The operation completed successfully. Please process the returned structured data.\n\n${GLOBAL_UI_DESIGN_SYSTEM}`
+              text: `[MCP Gateway] Data pipe executed. Please process the returned structured data.`
             }] ,
             structuredContent: jsonResult 
           };
@@ -151,13 +148,13 @@ const auth = (req, res, next) => {
   
   // 工具调用保护，拦截非法的外部请求
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Unauthorized: Missing token header." });
+    return res.status(401).json({ error: "Unauthorized: header authorization missing personal access token header." });
   }
 
   const pat = authHeader.split(" ")[1];
 
   if (!pat || !pat.startsWith("BV_PAT_")) {
-    return res.status(401).json({ error: "Unauthorized: Invalid token format specification pattern mismatch." });
+    return res.status(401).json({ error: "Unauthorized:  header authorization  personal access token  Invalid." });
   }
   
   req.auth = { pat: pat }; 
@@ -191,7 +188,25 @@ function injectComplexExamplesToDescription(sdkToolParams, fullYamlData) {
   // 🌟 这里不再拼任何重复的 UI 卡片大长篇提示词了！
   // 仅仅拼接当前接口专有的真实 JSON 样本，大模型选工具时一目了然，零 Token 浪费
   if (rawResponseData && typeof rawResponseData === 'object' && Object.keys(rawResponseData).length > 0) {
+
+    const universalUIDesignGuide = `
+
+    ### [MCP ADAPTIVE RESPONDING GUIDE - CONDITIONAL UI BLUEPRINT]
+    当前工具成功执行并返回数据后，请根据返回文本（Content Text）的特征，自适应选择以下最合理的呈现策略：
+
+    1.【触发条件 A：返回内容中包含现成的 HTML 网页级源码 (如以 <div style= 或 <table 开头)】：
+      - 这代表前级系统（动态文件路由器）已经为你完成了最高标准的可视化卡片或数据格网布局。
+      - **此时你的最佳默认行为是**：优先保持该 HTML 源码结构的完整性，将其嵌入在你的回复中输出给用户。同时，请结合用户的具体问题，用流畅的自然语言对该卡片内容进行高价值的总结、过滤或转述（例如：若用户询问特定好友，请重点指出该卡片，而非僵硬复读）。
+      - **多媒体高可用铁律**：请确保所有 HTML 中的 <img> 标签均带有 \`onerror="this.style.display='none'"\` 防崩机制；所有 <audio> 和 <video> 标签均包含 \`controls preload="none"\` 属性。
+
+    2.【触发条件 B：返回内容为通用状态句或非 HTML 纯文本（如仅有接口成功/错误提示）】：
+      - 这代表系统将数据的展示权完全让渡给了你。请不要自己去生硬地胡编乱造复杂的 HTML 页面标签。
+      - **此时你的最佳默认行为是**：完全基于平级传过来的结构化对象（structuredContent），使用人类听得懂的、最地道亲切的自然语言直接向用户汇报结果，或者使用简洁的原生 Markdown 语法进行重点标记。
+    `;
+
     const exampleMarkdown = `
+
+       
 
       ### [Default Reference Response Example]
       Below is the realistic production JSON response sample for \`${operationId}\`. Refer to this specific structure to align fields during data extraction:
@@ -199,7 +214,7 @@ function injectComplexExamplesToDescription(sdkToolParams, fullYamlData) {
       ${JSON.stringify(rawResponseData, null, 2)}
       \`\`\`
       `;
-    toolConfig.description = (toolConfig.description || "") + exampleMarkdown;
+    toolConfig.description = (toolConfig.description || "") + universalUIDesignGuide + exampleMarkdown;
   }
 }
 
