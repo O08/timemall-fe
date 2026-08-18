@@ -38,10 +38,13 @@ export default function render(jsonResult) {
     // 将所有好友卡片包裹在一个现代化的双列 Grid 弹性网格中！
     const cardListHtml = records.map(item => {
       const isOnline = item.brandMark === "3";
+      const defalutAvatar="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/panda-kawaii.png";
       return `
         <div style="border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; background: #ffffff; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); min-width: 200px;">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="${item.avatar || ''}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" onerror="this.src='https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/panda-kawaii.svg'"/>
+            <img src="${item.avatar || defalutAvatar}" 
+     style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" 
+     onerror="this.onerror=null; this.src='${defalutAvatar}'"/>
             <div style="flex: 1; min-width: 0;">
               <h4 style="margin: 0 0 2px 0; font-size: 14px; color: #1f2937; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.title || '用户'}</h4>
               <span style="font-size: 10px; color: ${isOnline ? '#16a34a' : '#9ca3af'}; font-weight: 500;">${isOnline ? '● 在线' : '○ 离线'}</span>

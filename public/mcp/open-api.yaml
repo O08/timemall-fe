@@ -774,26 +774,27 @@ paths:
                                                     properties:
                                                         avatar:
                                                             description: 头像
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandMark:
                                                             description: 状态，枚举值：2-已销户；3-在线；4-离线；
-                                                            type: string
+                                                            type: [string, "null"]
                                                         id:
                                                             description: 用户 uid
-                                                            type: string
+                                                            type: [string, "null"]
                                                         latestContent:
                                                             description: 最新消息
-                                                            type: string
+                                                            type: [string, "null"]
                                                         modifiedAt:
                                                             description: 最新消息发送时间
-                                                            type: string
+                                                            type: [string, "null"]
                                                         title:
                                                             description: 昵称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         unread:
                                                             description: 未读消息数量
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                         type: object
                                     message:
@@ -854,23 +855,24 @@ paths:
                                                     properties:
                                                         amount:
                                                             description: 交易金额（元）
-                                                            type: string
+                                                            type: [string, "null"]
                                                         createAt:
                                                             description: 交易日期
-                                                            type: string
+                                                            type: [string, "null"]
                                                         direction:
                                                             description: 收支标识，-1 表示支出，1 表示收款
-                                                            type: string
+                                                            type: [string, "null"]
                                                         transNumber:
                                                             description: 流水编号
-                                                            type: string
+                                                            type: [string, "null"]
                                                         transType:
                                                             description: 场景枚举
-                                                            type: string
+                                                            type: [string, "null"]
                                                         transTypeDesc:
                                                             description: 是 transType 的枚举解释，比如部落赞助、订阅账单支付等等
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                             size:
                                                 description: 每页返回的记录数量
@@ -1018,41 +1020,42 @@ paths:
                                                     properties:
                                                         cellId:
                                                             description: 商品Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         cellSaleVolume:
                                                             description: 特约销量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         inChoice:
                                                             description: 是否已经添加到带货橱窗。示例：1 表示已经添加
-                                                            type: string
+                                                            type: [string, "null"]
                                                         influencers:
                                                             description: 带货达人数量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         planPrice:
                                                             description: 单品单价
-                                                            type: string
+                                                            type: [string, "null"]
                                                         planSaleVolume:
                                                             description: 单品销量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productName:
                                                             description: 商品名
-                                                            type: string
+                                                            type: [string, "null"]
                                                         refundOrders:
                                                             description: 已退款的订单数量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         revshare:
                                                             description: 佣金比例
-                                                            type: string
+                                                            type: [string, "null"]
                                                         sales:
                                                             description: 销售额
-                                                            type: string
+                                                            type: [string, "null"]
                                                         supplierBrandId:
                                                             description: 商品供应商品牌Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         views:
                                                             description: 浏览量
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                             size:
                                                 description: 每页返回的记录数量
@@ -1098,119 +1101,120 @@ paths:
                                         properties:
                                             availableForWork:
                                                 description: 求职标识：1-求职中
-                                                type: string
+                                                type: [string, "null"]
                                             avator:
                                                 description: 品牌头像Url
-                                                type: string
+                                                type: [string, "null"]
                                             brand:
                                                 description: 品牌名
-                                                type: string
+                                                type: [string, "null"]
                                             brandMark:
                                                 description: 商家的状态，2-已注销；3-在线；4-离线
-                                                type: string
+                                                type: [string, "null"]
                                             brandTypeCode:
                                                 description: 账号类型，1-结构，其他为个人
-                                                type: string
+                                                type: [string, "null"]
                                             brandUserId:
                                                 description: 品牌的用户Id
-                                                type: string
+                                                type: [string, "null"]
                                             businessScope:
                                                 description: 经营范围
-                                                type: string
+                                                type: [string, "null"]
                                             cooperationScope:
                                                 description: 自由合作范围与内容
-                                                type: string
+                                                type: [string, "null"]
                                             cover:
                                                 description: 品牌横幅图片URL
-                                                type: string
+                                                type: [string, "null"]
                                             createAt:
                                                 description: 品牌注册日期
-                                                type: string
+                                                type: [string, "null"]
                                             enableBlue:
                                                 description: 会员标识：1-开启 0-关闭
-                                                type: string
+                                                type: [string, "null"]
                                             enableFoodForWork:
                                                 description: 以工换食，1-开启；雇员给品牌工作，作为回报，品牌需要为雇员准备食物或用餐费，建议餐标每人每日不低于 30 RMB，本标识用于义工或慈善场景，默认为关闭状态
-                                                type: string
+                                                type: [string, "null"]
                                             enableMentorship:
                                                 description: 是否收徒：1-开启 0-关闭
-                                                type: string
+                                                type: [string, "null"]
                                             experience:
                                                 description: 工作经历或组织历史沿革
                                                 items:
                                                     properties:
                                                         end:
                                                             description: 经历结束时间
-                                                            type: string
+                                                            type: [string, "null"]
                                                         entries:
                                                             description: 经历细化描述
-                                                            type: string
+                                                            type: [string, "null"]
                                                         icon:
                                                             description: 图标
-                                                            type: string
+                                                            type: [string, "null"]
                                                         start:
                                                             description: 经历开始时间
-                                                            type: string
+                                                            type: [string, "null"]
                                                         subTitle:
                                                             description: 简短说明
-                                                            type: string
+                                                            type: [string, "null"]
                                                         title:
                                                             description: 经历
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
-                                                type: array
+                                                type: [array, "null"]
                                             freeNightCounsellor:
                                                 description: 夜间咨询：1-开启 0-关闭；处于开启状态，表示在每天夜晚(18:00 ～ 22:00)，品牌为有需要的用户提供无偿、免费的咨询服务。
-                                                type: string
+                                                type: [string, "null"]
                                             handle:
                                                 description: 品牌标识，可通过 https://bluvarrri.com/品牌标识，访问品牌主页
-                                                type: string
+                                                type: [string, "null"]
                                             hiring:
                                                 description: 招聘标识：1-招聘中
-                                                type: string
+                                                type: [string, "null"]
                                             industry:
                                                 description: 行业
-                                                type: string
+                                                type: [string, "null"]
                                             industryCode:
                                                 description: 行业编码
-                                                type: string
+                                                type: [string, "null"]
                                             links:
                                                 description: 品牌的社交媒体、官网等连接
-                                                type: string
+                                                type: [string, "null"]
                                             location:
                                                 description: IP 归属地
-                                                type: string
+                                                type: [string, "null"]
                                             mentorHonor:
                                                 description: 品牌作为导师指导学员获取的荣誉标识
-                                                type: string
+                                                type: [string, "null"]
                                             occupation:
                                                 description: 职业
-                                                type: string
+                                                type: [string, "null"]
                                             occupationCode:
                                                 description: 职业编码
-                                                type: string
+                                                type: [string, "null"]
                                             pdOasisId:
                                                 description: 私域部落Id，用于私域运营的部落Id
-                                                type: string
+                                                type: [string, "null"]
                                             skills:
                                                 description: 品牌词条，比如UI UX，Spring Boot
                                                 items:
                                                     properties:
                                                         entry:
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
-                                                type: array
+                                                type: [array, "null"]
                                             supportFreeCooperation:
                                                 description: 是否支持自由合作：1-支持 0-不支持；自由合作用来标记品牌的对外合作意向，默认为关闭，表示不支持各种合作方式；处于开放状态，表示品牌愿意与其他感兴趣的第三方讨论各种合作方式；
-                                                type: string
+                                                type: [string, "null"]
                                             title:
-                                                description: 商家的状态，2-已注销；3-在线；4-离线
-                                                type: string
+                                                description: 品牌简介
+                                                type: [string, "null"]
                                             typeOfBusiness:
                                                 description: 商业主体，0-非商业主体，1-独资经营，2-合伙经营，3-有限责任公司，4-C型股份制有限公司，5-S型股份制有限公司，6-B型股份制有限公司，7-非营利机构，8-个体户，9-合作社，10-社团，11-协会，12-党派
-                                                type: string
-                                        type: object
-                                type: object
+                                                type: [string, "null"]
+                                        type: [object, "null"]
+                                        additionalProperties: true
+                                type: [object, "null"]
                     description: new desc
                 default:
                     description: ""
@@ -1278,41 +1282,42 @@ paths:
                                                     properties:
                                                         clicks:
                                                             description: 商品点击量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         createAt:
                                                             description: 商品上架时间
-                                                            type: string
+                                                            type: [string, "null"]
                                                         inventory:
                                                             description: 商品库存
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productId:
                                                             description: 商品Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productName:
                                                             description: 商品名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productPrice:
                                                             description: 商品价格
-                                                            type: string
+                                                            type: [string, "null"]
                                                         salesVolume:
                                                             description: 商品销量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         sellerAvatar:
                                                             description: 商家头像
-                                                            type: string
+                                                            type: [string, "null"]
                                                         sellerBrandId:
                                                             description: 商家Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         sellerName:
                                                             description: 商家名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         thumbnailUrl:
                                                             description: 商品主图
-                                                            type: string
+                                                            type: [string, "null"]
                                                         views:
                                                             description: 商品曝光量
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                             size:
                                                 type: number
@@ -1383,35 +1388,36 @@ paths:
                                                     properties:
                                                         avator:
                                                             description: 品牌（商家）头像
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brand:
                                                             description: 品牌（商家）名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandId:
                                                             description: 品牌（商家）Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandMark:
                                                             description: 品牌（商家）的状态，2-已注销；3-在线；4-离线
-                                                            type: string
+                                                            type: [string, "null"]
                                                         enableBlue:
                                                             description: 品牌（商家）是否开通会员
-                                                            type: string
+                                                            type: [string, "null"]
                                                         id:
                                                             description: 技能服务Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         preview:
                                                             description: 技能服务主图
-                                                            type: string
+                                                            type: [string, "null"]
                                                         price:
                                                             description: 价格
                                                             type: number
                                                         sbu:
                                                             description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
-                                                            type: string
+                                                            type: [string, "null"]
                                                         title:
                                                             description: 技能服务名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                             size:
                                                 type: number
@@ -1493,35 +1499,36 @@ paths:
                                                     properties:
                                                         avator:
                                                             description: 商家的头像
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brand:
                                                             description: 商家名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandId:
                                                             description: 商家Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandMark:
                                                             description: 商家的状态，2-已注销；3-在线；4-离线
-                                                            type: string
+                                                            type: [string, "null"]
                                                         enableBlue:
                                                             description: 商家是否开通会员
-                                                            type: string
+                                                            type: [string, "null"]
                                                         id:
                                                             description: 商品Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         preview:
                                                             description: 服务展示效果图 URL
-                                                            type: string
+                                                            type: [string, "null"]
                                                         price:
                                                             description: 相对应的sbu下，服务的单价，比如sbu 为 “day”，pirce为服务每天的服务费用
                                                             type: number
                                                         sbu:
                                                             description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
-                                                            type: string
+                                                            type: [string, "null"]
                                                         title:
                                                             description: 商品名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                             size:
                                                 description: 每页返回的服务数量
@@ -1566,32 +1573,33 @@ paths:
                                         properties:
                                             avatar:
                                                 description: 用户头像
-                                                type: string
+                                                type: [string, "null"]
                                             brandId:
                                                 description: 品牌Id
-                                                type: string
+                                                type: [string, "null"]
                                             brandName:
                                                 description: 品牌名称
-                                                type: string
+                                                type: [string, "null"]
                                             electricity:
                                                 description: 源能余额，源能为班蔚平台代币
                                                 type: number
                                             handle:
                                                 description: 品牌标识，可通过 https://bluvarrri.com/品牌标识，访问品牌主页
-                                                type: string
+                                                type: [string, "null"]
                                             hiLinkName:
                                                 description: 自定义菜单名称
-                                                type: string
+                                                type: [string, "null"]
                                             hiLinkUrl:
                                                 description: 自定义菜单Url
-                                                type: string
+                                                type: [string, "null"]
                                             userId:
                                                 description: 用户Id
-                                                type: string
+                                                type: [string, "null"]
                                             username:
                                                 description: 用户名
-                                                type: string
+                                                type: [string, "null"]
                                         type: object
+                                        additionalProperties: true
                                 type: object
                     description: new desc
                 default:
@@ -1630,22 +1638,22 @@ paths:
                                         properties:
                                             avator:
                                                 description: 品牌（商家）头像
-                                                type: string
+                                                type: [string, "null"]
                                             brand:
                                                 description: 品牌（商家）
-                                                type: string
+                                                type: [string, "null"]
                                             brandId:
                                                 description: 品牌（商家）Id
-                                                type: string
+                                                type: [string, "null"]
                                             brandMark:
                                                 description: 品牌（商家）的状态，2-已注销；3-在线；4-离线
-                                                type: string
+                                                type: [string, "null"]
                                             cellMark:
                                                 description: 服务状态：1-草稿，2-热卖中，3-已下架
-                                                type: string
+                                                type: [string, "null"]
                                             cover:
                                                 description: 服务主图
-                                                type: string
+                                                type: [string, "null"]
                                             fee:
                                                 description: 费用信息
                                                 items:
@@ -1655,34 +1663,35 @@ paths:
                                                             type: number
                                                         sbu:
                                                             description: 标准计费单位 (Standard Billing Unit)。例如：'second' (按秒计费), 'minute' (按分钟计费), 'hour' (按时计费), 'day' (按天计费), 'week' (按周计费), 'month' (按月计费), 'quarter' (按季度计费), 'year' (按年计费)。
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
-                                                type: array
+                                                type: [array, "null"]
                                             id:
                                                 description: 技能服务商品Id
-                                                type: string
+                                                type: [string, "null"]
                                             introCover:
                                                 description: 技能服务页面横幅UrL
-                                                type: string
+                                                type: [string, "null"]
                                             productDesc:
                                                 description: 产品说明，为 html 片段
-                                                type: string
+                                                type: [string, "null"]
                                             provideInvoice:
                                                 description: 是否提供发票：1-提供，0-不提供；
-                                                type: string
+                                                type: [string, "null"]
                                             revshare:
                                                 description: 拥挤比例：kol带货此产品获得的佣金比例
-                                                type: string
+                                                type: [string, "null"]
                                             tags:
                                                 description: 标签
                                                 items:
-                                                    type: string
+                                                    type: [string, "null"]
                                                 type: array
                                             title:
                                                 description: 技能服务名称
-                                                type: string
-                                        type: object
-                                type: object
+                                                type: [string, "null"]
+                                        type: [object, "null"]
+                                        additionalProperties: true
+                                type: [object, "null"]
                     description: new desc
                 default:
                     description: ""
@@ -1720,23 +1729,24 @@ paths:
                                                     properties:
                                                         content:
                                                             description: 套餐内容
-                                                            type: string
+                                                            type: [string, "null"]
                                                         feature:
                                                             description: 套餐权益
-                                                            type: string
+                                                            type: [string, "null"]
                                                         planId:
                                                             description: 单品套餐Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         planType:
                                                             description: 单品套餐：bird-小鸟套餐，eagle-老鹰套餐，albatross-信天翁套餐
-                                                            type: string
+                                                            type: [string, "null"]
                                                         price:
                                                             description: 单品价格
-                                                            type: string
+                                                            type: [string, "null"]
                                                         title:
                                                             description: 套餐名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                         type: object
                                 type: object
@@ -1804,38 +1814,39 @@ paths:
                                                     properties:
                                                         avatar:
                                                             description: 商家头像
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brand:
                                                             description: 商家名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandId:
                                                             description: 商家Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         brandMark:
                                                             description: 商家的状态，2-已注销；3-在线；4-离线
-                                                            type: string
+                                                            type: [string, "null"]
                                                         enableBlue:
                                                             description: 商家是否开通会员
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productId:
                                                             description: 虚拟商品Id
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productName:
                                                             description: 商品名称
-                                                            type: string
+                                                            type: [string, "null"]
                                                         productPrice:
                                                             description: 商品价格
                                                             type: number
                                                         salesVolume:
                                                             description: 销量
-                                                            type: string
+                                                            type: [string, "null"]
                                                         thumbnailUrl:
                                                             description: 商品主图
-                                                            type: string
+                                                            type: [string, "null"]
                                                         views:
                                                             description: 商品点击量
-                                                            type: string
+                                                            type: [string, "null"]
                                                     type: object
+                                                    additionalProperties: true
                                                 type: array
                                             size:
                                                 type: number

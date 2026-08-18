@@ -20,7 +20,7 @@ const generator = await OpenAPIToolGenerator.fromFile(openApiYamlPath);
 const tools = await generator.generateTools();
 
 // Build the stateless handler factory using the official v2 context protocol
-const handler = createMcpHandler((ctx) => {
+const handler = createMcpHandler(async (ctx) => {
   const server = new McpServer({ 
     name: 'blv-mcp-gateway-v2', 
     version: '2.0.0' 
@@ -35,15 +35,6 @@ const handler = createMcpHandler((ctx) => {
     injectComplexExamplesToDescription(sdkToolParams,generator.getDocument());
 
 
-    const outputSchemaWrapper = sdkToolParams[1]?.outputSchema;
-
-    if (outputSchemaWrapper && outputSchemaWrapper["~standard"]) {
-      // 直接重写内部的运行时校验器，禁用返回结果验证
-      // 无论下游微服务返回了什么 null 或者是错字，都一律判定为校验成功放行
-      outputSchemaWrapper["~standard"].validate = async (value) => {
-        return { value: value }; 
-      };
-    }
 
 
 
@@ -56,9 +47,7 @@ const handler = createMcpHandler((ctx) => {
         ...(userPat ? { "Authorization": `Bearer ${userPat}` } : {})
       };
 
-        console.log(`access to tool:${operationId}`)
 
-        
         const response = await fetch(request.url, {
           method: request.method,
           headers: finalHeaders, 
@@ -89,7 +78,12 @@ const handler = createMcpHandler((ctx) => {
               return {
                 content: [{ 
                   type: "text", 
-                  text: `[MCP Gateway] Data pipe executed. Process payload below:\n\n${compiledHtmlFeed}` 
+                  text: `[MCP Gateway] Media pipeline executed. The complete data view has been pushed to the standalone sandboxed layout module below.\n\n<json_data_payload>${JSON.stringify(jsonResult)}</json_data_payload>` 
+                }],
+                resources: [{
+                  uri: `ui://blv-mcp-gateway/render/views/${operationId}/${Date.now()}`,
+                  mimeType: "text/html", // Enforce pure sandboxed HTML frame compilation
+                  text: compiledHtmlFeed  // Offload the massive UI string safely here
                 }],
                 structuredContent: jsonResult
               };
@@ -99,11 +93,19 @@ const handler = createMcpHandler((ctx) => {
             }
           }
 
+          const llmVisiblePayload = `
+            [MCP Gateway] Data pipe executed. Please process the returned structuredContent data.If structuredContent is null, Please process the raw JSON structure within the <json_data_payload> tags below and present it elegantly to the user.
+
+            <json_data_payload>
+            ${JSON.stringify(jsonResult, null, 2)}
+            </json_data_payload>
+            `;
+
           
           return { 
             content: [{ 
               type: "text", 
-              text: `[MCP Gateway] Data pipe executed. Please process the returned structured data.`
+              text: llmVisiblePayload
             }] ,
             structuredContent: jsonResult 
           };
