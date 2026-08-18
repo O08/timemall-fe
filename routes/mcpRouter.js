@@ -142,6 +142,9 @@ const auth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const body = req.body;
 
+  console.log("req method:"+req.method)
+  console.log("body method:"+body?.method)
+
   const callingTools= req.method === 'POST' && body && body.method === 'tools/call';
 
   if(!callingTools){
@@ -202,8 +205,8 @@ function injectComplexExamplesToDescription(sdkToolParams, fullYamlData) {
       - **多媒体高可用铁律**：请确保所有 HTML 中的 <img> 标签均带有 \`onerror="this.style.display='none'"\` 防崩机制；所有 <audio> 和 <video> 标签均包含 \`controls preload="none"\` 属性。
 
     2.【触发条件 B：返回内容为通用状态句或非 HTML 纯文本（如仅有接口成功/错误提示）】：
-      - 这代表系统将数据的展示权完全让渡给了你。请不要自己去生硬地胡编乱造复杂的 HTML 页面标签。
-      - **此时你的最佳默认行为是**：完全基于平级传过来的结构化对象（structuredContent），使用人类听得懂的、最地道亲切的自然语言直接向用户汇报结果，或者使用简洁的原生 Markdown 语法进行重点标记。
+      - 这代表系统将数据的展示权完全让渡给了你。
+      - **此时你的最佳默认行为是**：完全基于平级传过来的结构化对象（structuredContent），推荐优先使用优雅、标准的html卡片展示数据给用户（如商品列表、好友列表）。同时使用人类听得懂的、最地道亲切的自然语言直接向用户汇报结果，或者使用简洁的原生 Markdown 语法进行重点标记。
     `;
 
     const exampleMarkdown = `

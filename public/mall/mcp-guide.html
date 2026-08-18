@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>班蔚 MCP · 接入指引</title>
+  <link rel="icon" href="https://www.bluvarri.com/favicon.png">
+
+  <style>
+    :root {
+      --clr-bg:            #161719;
+      --clr-topbar:        #0d0e11;
+      --clr-surface:       #1c1e21;
+      --clr-elevated:      #22252a;
+      --clr-input:         #2a2d33;
+      --clr-border:        rgba(255,255,255,0.07);
+      --clr-accent:        #5865f2;
+      --clr-accent-hover:  #4752c4;
+      --clr-accent-dim:    rgba(88,101,242,0.12);
+      --clr-accent-border: rgba(88,101,242,0.3);
+      --clr-online:        #3ba55c;
+      --clr-text:          #d4d5d6;
+      --clr-text-sub:      #9ea0a3;
+      --clr-muted:         #5a5c60;
+      --clr-white:         #f0f1f2;
+      --font-sans:         'Inter', system-ui, sans-serif;
+      --font-mono:         'JetBrains Mono', monospace;
+    }
+
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; }
+    h1,h2,h3,h4 { margin: 0; }
+    p { margin: 0; }
+    pre,code { font-family: var(--font-mono); }
+
+    /* ── Utilities ── */
+    .text-accent   { color: var(--clr-accent) !important; }
+    .text-sub      { color: var(--clr-text-sub) !important; }
+    .text-muted-ui { color: var(--clr-muted) !important; }
+    .text-primary  { color: var(--clr-white) !important; }
+    .font-mono     { font-family: var(--font-mono) !important; }
+
+    /* ── Section label ── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 14px;
+    }
+    .section-label__bar {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--clr-accent);
+      flex-shrink: 0;
+    }
+    .section-label__text {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--clr-accent);
+    }
+
+    /* ─────────────────────────────────────────────
+       NAV + HERO
+    ───────────────────────────────────────────── */
+    .site-header {
+      position: relative;
+      overflow: hidden;
+      background: var(--clr-topbar);
+    }
+
+    /* Mesh gradient backdrop */
+    .hero-backdrop {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-backdrop__orb--primary {
+      position: absolute;
+      top: -10%;
+      left: 15%;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(88,101,242,0.28) 0%, transparent 70%);
+      filter: blur(40px);
+    }
+    .hero-backdrop__orb--secondary {
+      position: absolute;
+      top: 30%;
+      right: -5%;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(87,242,135,0.12) 0%, transparent 70%);
+      filter: blur(60px);
+    }
+    .hero-backdrop__orb--tertiary {
+      position: absolute;
+      bottom: -5%;
+      left: 40%;
+      width: 460px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(235,69,158,0.10) 0%, transparent 70%);
+      filter: blur(50px);
+    }
+    .hero-backdrop__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-backdrop__fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, #1e2124);
+    }
+
+    /* Nav */
+    .site-nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: clamp(20px,3vw,32px) clamp(12px,5vw,64px);
+    }
+    .site-nav__brand {
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--clr-white);
+      letter-spacing: -0.03em;
+    }
+    .site-nav__brand span { color: #7289da; }
+    .site-nav__links {
+      display: flex;
+      gap: 28px;
+    }
+    .site-nav__link {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: .01em;
+      transition: color .15s;
+    }
+    .site-nav__link:hover { color: rgba(255,255,255,0.9); }
+    .site-nav__cta {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.65);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all .15s;
+    }
+    .site-nav__cta:hover {
+      border-color: rgba(88,101,242,0.6);
+      color: var(--clr-white);
+    }
+
+    /* Hero section */
+    .hero-section {
+      position: relative;
+      z-index: 1;
+      padding: clamp(48px,8vw,96px) clamp(12px,6vw,64px) clamp(72px,9vw,108px);
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-section__status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px 5px 10px;
+      border-radius: 99px;
+      background: rgba(13,14,17,0.55);
+      border: 1px solid rgba(88,101,242,0.3);
+      font-size: 12px;
+      color: rgba(114,137,218,0.9);
+      font-weight: 600;
+      margin-bottom: 32px;
+      backdrop-filter: blur(8px);
+      letter-spacing: .01em;
+    }
+    .hero-section__status-dot-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(87,242,135,0.15);
+      flex-shrink: 0;
+    }
+    .hero-section__status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--clr-online);
+      box-shadow: 0 0 6px var(--clr-online);
+    }
+    .hero-section__heading {
+      font-size: clamp(2.2rem,5.8vw,3.8rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--clr-white);
+    }
+    .hero-section__heading--accent { color: var(--clr-accent); }
+    .hero-section__subtext {
+      font-size: clamp(14px,1.8vw,16.5px);
+      color: rgba(185,188,190,0.8);
+      line-height: 1.9;
+      max-width: 540px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+    .hero-section__subtext strong {
+      color: var(--clr-text);
+      font-weight: 600;
+    }
+    .hero-section__actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+    .btn-primary-gradient {
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 26px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #5865f2 0%, #7c88f7 100%);
+      color: #fff;
+      display: inline-block;
+      transition: all .2s;
+      box-shadow: 0 4px 16px rgba(88,101,242,0.4);
+    }
+    .btn-primary-gradient:hover {
+      box-shadow: 0 6px 24px rgba(88,101,242,0.55);
+      transform: translateY(-1px);
+      color: #fff;
+    }
+    .btn-ghost {
+      font-weight: 500;
+      font-size: 14px;
+      padding: 11px 26px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.6);
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all .2s;
+    }
+    .btn-ghost:hover {
+      color: var(--clr-white);
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 440px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 40px;
+    }
+    .hero-stats__item {
+      flex: 1 1 100px;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero-stats__item + .hero-stats__item {
+      border-left: 1px solid rgba(255,255,255,0.07);
+    }
+    .hero-stats__value {
+      font-size: clamp(18px,2.6vw,24px);
+      font-weight: 900;
+      color: var(--clr-white);
+      letter-spacing: -0.03em;
+      margin-bottom: 5px;
+    }
+    .hero-stats__label {
+      font-size: 11px;
+      color: var(--clr-muted);
+      letter-spacing: .015em;
+    }
+
+    /* ─────────────────────────────────────────────
+       FEATURE HIGHLIGHTS
+    ───────────────────────────────────────────── */
+    .features-section {
+      background: var(--clr-surface);
+      padding: clamp(56px,7vw,88px) clamp(12px,6vw,64px);
+    }
+    .features-section__heading {
+      font-size: clamp(1.5rem,3vw,2rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      margin-bottom: clamp(28px,4vw,44px);
+      letter-spacing: -0.025em;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    /* Individual feature card */
+    .feature-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px,4vw,40px) clamp(24px,3.5vw,36px);
+      background: var(--clr-elevated);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background .25s;
+    }
+    .feature-card:hover { background: var(--clr-input); }
+
+    /* Ghost numeral */
+    .feature-card__numeral {
+      position: absolute;
+      right: -8px;
+      bottom: -20px;
+      font-family: var(--font-mono);
+      font-weight: 900;
+      font-size: clamp(80px,10vw,120px);
+      line-height: 1;
+      color: rgba(255,255,255,0.04);
+      transition: color .35s;
+      user-select: none;
+      pointer-events: none;
+      letter-spacing: -0.04em;
+    }
+    .feature-card:hover .feature-card__numeral { color: var(--fc-accent); }
+
+    /* Top row */
+    .feature-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .feature-card__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      padding: 4px 9px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.04);
+      color: var(--clr-muted);
+      border: 1px solid transparent;
+      transition: all .25s;
+    }
+    .feature-card:hover .feature-card__tag {
+      background: var(--fc-accent-dim);
+      color: var(--fc-accent);
+      border-color: color-mix(in srgb, var(--fc-accent) 27%, transparent);
+    }
+    .feature-card__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--clr-muted);
+      transition: all .25s;
+    }
+    .feature-card:hover .feature-card__icon {
+      background: var(--fc-accent-dim);
+      border-color: color-mix(in srgb, var(--fc-accent) 31%, transparent);
+      color: var(--fc-accent);
+    }
+
+    /* Body */
+    .feature-card__body {
+      position: relative;
+      z-index: 1;
+    }
+    .feature-card__divider {
+      width: 24px;
+      height: 2px;
+      border-radius: 2px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.1);
+      transition: background .25s;
+    }
+    .feature-card:hover .feature-card__divider { background: var(--fc-accent); }
+    .feature-card__title {
+      font-weight: 800;
+      font-size: clamp(15px,2vw,17px);
+      color: var(--clr-white);
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .feature-card__description {
+      font-size: 13px;
+      color: var(--clr-text-sub);
+      line-height: 1.78;
+    }
+
+    /* Per-card accent tokens */
+    .feature-card--setup   { --fc-accent: #5865f2; --fc-accent-dim: rgba(88,101,242,0.12); }
+    .feature-card--security{ --fc-accent: #3ba55c; --fc-accent-dim: rgba(59,165,92,0.12); }
+    .feature-card--realtime{ --fc-accent: #eb459e; --fc-accent-dim: rgba(235,69,158,0.12); }
+    .feature-card--autoupdate { --fc-accent: #f0a232; --fc-accent-dim: rgba(240,162,50,0.12); }
+
+    /* ─────────────────────────────────────────────
+       TOOL EXPLORER
+    ───────────────────────────────────────────── */
+    .tools-section {
+      padding: clamp(56px,7vw,88px) clamp(12px,6vw,64px);
+    }
+    .tools-section__heading-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: clamp(24px,4vw,40px);
+    }
+    .tools-section__heading {
+      font-size: clamp(1.5rem,3vw,2rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      letter-spacing: -0.025em;
+    }
+    .badge-live {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: var(--clr-accent-dim);
+      color: var(--clr-accent);
+      font-weight: 600;
+      border: 1px solid var(--clr-accent-border);
+      white-space: nowrap;
+      letter-spacing: .02em;
+    }
+
+    /* Category tabs */
+    .tab-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--clr-border);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      background: transparent;
+      color: var(--clr-text-sub);
+      transition: all .15s;
+    }
+    @media (max-width: 576px) {
+      .tab-btn{
+        padding: 7px;
+      }
+    }
+    .tab-btn.is-active {
+      background: var(--clr-accent);
+      border-color: transparent;
+      color: var(--clr-white);
+    }
+    .tab-btn__count {
+      opacity: .55;
+      font-weight: 400;
+      font-size: 12px;
+    }
+
+    /* Category context bar */
+    .category-context {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-radius: 8px;
+      background: rgba(88,101,242,0.05);
+      border-left: 3px solid var(--clr-accent);
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--clr-text-sub);
+    }
+    .category-context__icon { color: var(--clr-accent); flex-shrink: 0; display: flex; }
+
+    /* Tool card */
+    .tool-list { display: flex; flex-direction: column; gap: 10px; }
+    .tool-card {
+      padding: clamp(16px,3vw,22px);
+      border-radius: 10px;
+      background: var(--clr-elevated);
+      border: 1px solid var(--clr-border);
+      transition: border-color .15s;
+    }
+    .tool-card:hover { border-color: rgba(88,101,242,0.31); }
+    .tool-card__header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .tool-card__name {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: var(--clr-accent-dim);
+      color: var(--clr-accent);
+      border: 1px solid rgba(88,101,242,0.16);
+    }
+    .badge-access {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .badge-access--read {
+      background: var(--clr-accent-dim);
+      color: var(--clr-accent);
+      border: 1px solid var(--clr-accent-border);
+    }
+    .badge-access--write {
+      background: rgba(255,255,255,0.05);
+      color: var(--clr-muted);
+      border: 1px solid transparent;
+    }
+    .tool-card__title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--clr-white);
+    }
+    .tool-card__desc {
+      margin: 0 0 12px;
+      font-size: 13.5px;
+      color: var(--clr-text-sub);
+      line-height: 1.8;
+    }
+    .tool-card__params {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .tool-card__params-label {
+      color: var(--clr-muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .tool-card__params-value {
+      font-family: var(--font-mono);
+      color: #9aa0a6;
+      background: var(--clr-surface);
+      padding: 3px 9px;
+      border-radius: 4px;
+      line-height: 1.6;
+    }
+    .tool-card--placeholder {
+      padding: 18px;
+      border-radius: 10px;
+      border: 1px dashed rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tool-card--placeholder__plus {
+      font-size: 18px;
+      opacity: .3;
+      line-height: 1;
+    }
+    .tool-card--placeholder__text {
+      font-size: 13px;
+      color: var(--clr-muted);
+    }
+
+    /* ─────────────────────────────────────────────
+       INSTALL GUIDE
+    ───────────────────────────────────────────── */
+    .install-section {
+      background: var(--clr-surface);
+      padding: clamp(56px,7vw,88px) clamp(12px,6vw,64px);
+    }
+    .install-section__heading {
+      font-size: clamp(1.5rem,3vw,2rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      margin-bottom: clamp(28px,4vw,48px);
+      letter-spacing: -0.025em;
+    }
+    .install-layout {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* Step nav */
+    .step-nav {
+      display: flex;
+      flex-direction: column;
+      min-width: 170px;
+      width: clamp(170px,22%,210px);
+      flex-shrink: 0;
+      position: relative;
+    }
+    .step-nav__track {
+      position: absolute;
+      left: 20px;
+      top: 28px;
+      bottom: 28px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--clr-accent-border), transparent);
+    }
+    .step-nav__btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      background: transparent;
+      font-family: var(--font-sans);
+      position: relative;
+      z-index: 1;
+      transition: all .15s;
+    }
+    .step-nav__btn.is-active { background: rgba(88,101,242,0.12); }
+    .step-nav__indicator {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--clr-input);
+      border: 1px solid var(--clr-border);
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--clr-muted);
+      font-family: var(--font-mono);
+      transition: all .15s;
+    }
+    .step-nav__btn.is-active .step-nav__indicator {
+      background: var(--clr-accent);
+      border-color: var(--clr-accent);
+      color: var(--clr-white);
+    }
+    .step-nav__label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--clr-text-sub);
+      line-height: 1.35;
+      transition: color .15s;
+    }
+    .step-nav__btn.is-active .step-nav__label { color: var(--clr-white); }
+
+    /* Step panel */
+    .step-panel {
+      flex: 1;
+      min-width: 260px;
+      max-width: 75vw;
+      padding: clamp(20px,3vw,32px);
+      border-radius: 10px;
+      background: var(--clr-elevated);
+      border: 1px solid var(--clr-border);
+      display: none;
+    }
+    .step-panel.is-visible { display: block; }
+    .step-panel__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--clr-accent);
+      letter-spacing: .06em;
+    }
+    .step-panel__heading {
+      font-size: clamp(15px,2.5vw,18px);
+      font-weight: 700;
+      color: var(--clr-white);
+      margin: 10px 0 12px;
+      letter-spacing: -0.015em;
+    }
+    .step-panel__desc {
+      font-size: 13.5px;
+      color: var(--clr-text-sub);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .step-panel__nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+    .btn-step {
+      padding: 8px 18px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all .15s;
+    }
+    .btn-step--ghost {
+      background: transparent;
+      border: 1px solid var(--clr-border);
+      color: var(--clr-text-sub);
+    }
+    .btn-step--filled {
+      background: var(--clr-accent);
+      border: 1px solid transparent;
+      color: var(--clr-white);
+    }
+    .btn-step:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Code block */
+    .code-block {
+      border-radius: 6px;
+      overflow: hidden;
+      background: #111214;
+      border: 1px solid var(--clr-border);
+    }
+    .code-block__toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 14px;
+      background: #18191c;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .code-block__lang {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--clr-muted);
+    }
+    .code-block__copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-sans);
+      background: var(--clr-input);
+      color: var(--clr-muted);
+      transition: all .15s;
+    }
+    .code-block__copy.is-copied {
+      background: var(--clr-accent-dim);
+      color: var(--clr-accent);
+    }
+    .code-block__pre {
+      margin: 0;
+      padding: 16px 14px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: #b9c2d0;
+      line-height: 1.8;
+      overflow-x: auto;
+      max-width: 80vw;
+    }
+
+    /* ─────────────────────────────────────────────
+       SCENARIOS
+    ───────────────────────────────────────────── */
+    .scenarios-section {
+      padding: clamp(56px,7vw,88px) clamp(12px,6vw,64px);
+    }
+    .scenarios-section__heading {
+      font-size: clamp(1.5rem,3vw,2rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      margin-bottom: clamp(28px,4vw,44px);
+      letter-spacing: -0.025em;
+    }
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .scenario-card {
+      padding: clamp(20px,3vw,28px);
+      border-radius: 10px;
+      background: var(--clr-elevated);
+      border: 1px solid var(--clr-border);
+      transition: border-color .2s;
+    }
+    .scenario-card:hover { border-color: var(--clr-accent-border); }
+    .scenario-card__header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 14px;
+    }
+    .scenario-card__icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--clr-accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--clr-accent);
+    }
+    .scenario-card__title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--clr-white);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .scenario-card__body {
+      font-size: 13px;
+      color: var(--clr-text-sub);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .scenario-card__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .scenario-card__tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--clr-input);
+      color: var(--clr-text-sub);
+    }
+
+    /* ─────────────────────────────────────────────
+       FAQ
+    ───────────────────────────────────────────── */
+    .faq-section {
+      background: var(--clr-surface);
+      padding: clamp(56px,7vw,88px) clamp(12px,6vw,64px);
+    }
+    .faq-section__heading {
+      font-size: clamp(1.5rem,3vw,2rem);
+      font-weight: 800;
+      color: var(--clr-white);
+      margin-bottom: clamp(28px,4vw,40px);
+      letter-spacing: -0.025em;
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 6px; }
+    .faq-item {
+      border-radius: 10px;
+      background: var(--clr-elevated);
+      border: 1px solid var(--clr-border);
+      overflow: hidden;
+      transition: border-color .15s;
+    }
+    .faq-item.is-open { border-color: var(--clr-accent-border); }
+    .faq-item__trigger {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 17px 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+      font-family: var(--font-sans);
+    }
+    .faq-item__question {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--clr-white);
+      line-height: 1.45;
+    }
+    .faq-item__toggle {
+      color: var(--clr-muted);
+      font-size: 20px;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: transform .2s, color .15s;
+      display: inline-block;
+    }
+    .faq-item.is-open .faq-item__toggle {
+      transform: rotate(45deg);
+      color: var(--clr-accent);
+    }
+    .faq-item__answer {
+      display: none;
+      padding: 14px 16px 20px;
+      border-top: 1px solid var(--clr-border);
+      font-size: 13.5px;
+      color: var(--clr-text-sub);
+      line-height: 1.88;
+      border-left: 3px solid var(--clr-accent);
+      margin: 0 20px 16px;
+      border-radius: 0 0 4px 4px;
+    }
+    .faq-item.is-open .faq-item__answer { display: block; }
+
+    /* ─────────────────────────────────────────────
+       CTA
+    ───────────────────────────────────────────── */
+    .cta-section {
+      padding: clamp(72px,9vw,112px) clamp(24px,6vw,64px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section__backdrop {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .cta-section__glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(88,101,242,0.12) 0%, transparent 70%);
+      filter: blur(20px);
+    }
+    .cta-section__inner {
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-section__heading {
+      font-size: clamp(1.6rem,4vw,2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--clr-white);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    .cta-section__body {
+      font-size: 15px;
+      color: var(--clr-text-sub);
+      line-height: 1.85;
+      margin-bottom: 36px;
+    }
+    .cta-section__actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-new-token svg{
+      fill: #5865f2;
+    }
+    .cta-new-token:hover svg{
+      fill: #4752c4;
+    }
+
+    /* ─────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────── */
+    .site-footer {
+      background: #0d0e11;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 22px clamp(24px,6vw,64px);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--clr-muted);
+    }
+    .site-footer__brand {
+      font-weight: 900;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: -0.03em;
+    }
+    .site-footer__brand span { color: rgba(114,137,218,0.5); }
+    .site-footer__links { display: flex; gap: 20px; }
+    .site-footer__link {
+      color: var(--clr-muted);
+      transition: color .15s;
+    }
+    .site-footer__link:hover { color: var(--clr-text-sub); }
+
+    /* ─────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .site-nav__links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .install-layout { flex-direction: column; }
+      .step-nav { width: 100%; min-width: unset; }
+      .step-nav__track { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER: Nav + Hero ── -->
+  <header class="site-header">
+    <div class="hero-backdrop">
+      <div class="hero-backdrop__orb--primary"></div>
+      <div class="hero-backdrop__orb--secondary"></div>
+      <div class="hero-backdrop__orb--tertiary"></div>
+      <div class="hero-backdrop__grid"></div>
+      <div class="hero-backdrop__fade"></div>
+    </div>
+
+    <nav class="site-nav">
+      <span class="site-nav__brand"><span>MCP</span></span>
+      <div class="site-nav__links">
+        <a href="#features"  class="site-nav__link">功能特性</a>
+        <a href="#tools"     class="site-nav__link">工具列表</a>
+        <a href="#install"   class="site-nav__link">接入指引</a>
+        <a href="#scenarios" class="site-nav__link">使用场景</a>
+      </div>
+      <a href="/" class="site-nav__cta">
+        进入班蔚
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </nav>
+
+    <section class="hero-section">
+      <div class="hero-section__status-pill">
+        <span class="hero-section__status-dot-wrap">
+          <span class="hero-section__status-dot"></span>
+        </span>
+        现已上线 · 核心工具开放调用
+      </div>
+
+      <h1 class="hero-section__heading">
+        告诉 AI 你的需要，剩下的<br />
+        交给<span class="hero-section__heading--accent"> 班蔚 MCP</span>
+      </h1>
+
+      <p class="hero-section__subtext">
+        授权 AI 接入并管理你的账号。聊天、购物、办公、社群运营 ——
+        <strong>说一句话，AI 替你完成。</strong>
+      </p>
+
+      <div class="hero-section__actions">
+        <a href="#install" class="btn-primary-gradient">5 分钟快速接入</a>
+        <a href="#tools" class="btn-ghost">浏览全部工具 →</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stats__item">
+          <div class="hero-stats__value">10+</div>
+          <div class="hero-stats__label">可调用工具</div>
+        </div>
+        <div class="hero-stats__item">
+          <div class="hero-stats__value">5 大类</div>
+          <div class="hero-stats__label">覆盖核心场景</div>
+        </div>
+        <div class="hero-stats__item">
+          <div class="hero-stats__value">&lt; 5 min</div>
+          <div class="hero-stats__label">完成首次接入</div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <!-- ── FEATURES ── -->
+  <section id="features" class="features-section">
+    <div style="max-width:1080px;margin:0 auto">
+      <div class="section-label">
+        <span class="section-label__bar"></span>
+        <p class="section-label__text">功能特性</p>
+      </div>
+      <h2 class="features-section__heading">接入班蔚，你得到的不只是工具</h2>
+
+      <div class="feature-grid">
+
+        <div class="feature-card feature-card--setup">
+          <span class="feature-card__numeral">01</span>
+          <div class="feature-card__header">
+            <span class="feature-card__tag">ZERO SETUP</span>
+            <div class="feature-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8H6a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2z"/></svg>
+            </div>
+          </div>
+          <div class="feature-card__body">
+            <div class="feature-card__divider"></div>
+            <div class="feature-card__title">即插即用</div>
+            <p class="feature-card__description">改一个 JSON 文件，无需安装 SDK、无需阅读文档。配完刷新，工具立刻出现在助手里。</p>
+          </div>
+        </div>
+
+        <div class="feature-card feature-card--security">
+          <span class="feature-card__numeral">02</span>
+          <div class="feature-card__header">
+            <span class="feature-card__tag">LOCAL &amp; SAFE</span>
+            <div class="feature-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="feature-card__body">
+            <div class="feature-card__divider"></div>
+            <div class="feature-card__title">本地运行，你说了算</div>
+            <p class="feature-card__description">令牌只存在你的机器上，每次调用的操作和参数在客户端实时可见，随时叫停。</p>
+          </div>
+        </div>
+
+        <div class="feature-card feature-card--realtime">
+          <span class="feature-card__numeral">03</span>
+          <div class="feature-card__header">
+            <span class="feature-card__tag">LIVE DATA</span>
+            <div class="feature-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+          </div>
+          <div class="feature-card__body">
+            <div class="feature-card__divider"></div>
+            <div class="feature-card__title">每次都是最新数据</div>
+            <p class="feature-card__description">直连接口，不靠模型记忆。余额、消息、订单——当下是什么，返回就是什么。</p>
+          </div>
+        </div>
+
+        <div class="feature-card feature-card--autoupdate">
+          <span class="feature-card__numeral">04</span>
+          <div class="feature-card__header">
+            <span class="feature-card__tag">AUTO UPDATE</span>
+            <div class="feature-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </div>
+          </div>
+          <div class="feature-card__body">
+            <div class="feature-card__divider"></div>
+            <div class="feature-card__title">工具更新，无需重配</div>
+            <p class="feature-card__description">新工具随版本推送，重启客户端自动到位。配置文件一字不动，新能力悄然到账。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TOOLS ── -->
+  <section id="tools" class="tools-section">
+    <div style="max-width:1080px;margin:0 auto">
+      <div class="section-label">
+        <span class="section-label__bar"></span>
+        <p class="section-label__text">工具列表</p>
+      </div>
+      <div class="tools-section__heading-row">
+        <h2 class="tools-section__heading">连上班蔚，这些事不用再手动做</h2>
+        <span class="badge-live">持续更新中</span>
+      </div>
+
+      <!-- Tab group -->
+      <div class="tab-group" id="toolTabs">
+        <button class="tab-btn is-active" data-tab="social">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          社交通讯 <span class="tab-btn__count">(2)</span>
+        </button>
+        <button class="tab-btn" data-tab="finance">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          财务账单 <span class="tab-btn__count">(1)</span>
+        </button>
+        <button class="tab-btn" data-tab="market">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          技能服务 <span class="tab-btn__count">(4)</span>
+        </button>
+        <button class="tab-btn" data-tab="kol">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          带货选品 <span class="tab-btn__count">(2)</span>
+        </button>
+        <button class="tab-btn" data-tab="user">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          账号中心 <span class="tab-btn__count">(1)</span>
+        </button>
+      </div>
+
+      <!-- Category context bar -->
+      <div class="category-context" id="categoryContext">
+        <span class="category-context__icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span id="categoryDesc">查好友、发私信——把重复的沟通动作压缩成一句指令</span>
+      </div>
+
+      <!-- Tool panels -->
+      <div id="toolPanels">
+
+        <div class="tool-list" data-panel="social">
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">find_friends</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">获取好友列表</span>
+            </div>
+            <p class="tool-card__desc">拉取账号全部私信好友，返回昵称、头像、最新消息与未读数。想知道「谁还没回」或「上周联系过哪些人」，直接问 AI。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">无需参数</code>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">send_text_msg_to_friend</code>
+              <span class="badge-access badge-access--write">WRITE</span>
+              <span class="tool-card__title">发送文字私信</span>
+            </div>
+            <p class="tool-card__desc">向指定好友发送私信。告诉 AI 发给谁、说什么——客户跟进、活动通知、批量触达，不需要逐个打开对话框。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">friend（好友 UID）· msg（≤ 500 字）</code>
+            </div>
+          </div>
+          <div class="tool-card--placeholder">
+            <span class="tool-card--placeholder__plus">＋</span>
+            <span class="tool-card--placeholder__text">更多工具正在开发中，将随 <code class="font-mono" style="font-size:12px;color:#9aa0a6">@mcp-server</code> 新版本自动推送，无需重新配置。</span>
+          </div>
+        </div>
+
+        <div class="tool-list" data-panel="finance" style="display:none">
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">search_trans</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">查询交易流水</span>
+            </div>
+            <p class="tool-card__desc">分页获取账户收支记录，含金额、方向（收入 / 支出）、场景描述（订阅、佣金等）和流水号。让 AI 按类型汇总，上个月哪里多扣了钱，一眼看清。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">current（页码）· size（每页条数）</code>
+            </div>
+          </div>
+          <div class="tool-card--placeholder">
+            <span class="tool-card--placeholder__plus">＋</span>
+            <span class="tool-card--placeholder__text">更多工具正在开发中，将随 <code class="font-mono" style="font-size:12px;color:#9aa0a6">@mcp-server</code> 新版本自动推送，无需重新配置。</span>
+          </div>
+        </div>
+
+        <div class="tool-list" data-panel="market" style="display:none">
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">find_one_brand_info</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">查询商家资料</span>
+            </div>
+            <p class="tool-card__desc">按品牌 ID 拉取商家主页：名称、头像、技能标签和所在地区。合作前想先了解对方，给 AI 一个 ID，信息整理好递给你。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">brand_id（品牌 ID）</code>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">find_gigs_by_brand</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">查看商家服务列表</span>
+            </div>
+            <p class="tool-card__desc">列出商家名下全部在售服务，支持按计费单位（按时 / 天 / 月）过滤。想知道「这家还能合作什么」，一句话问出来。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">brandId · sbu（计费单位）· current · size</code>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">search_gigs</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">全站技能搜索</span>
+            </div>
+            <p class="tool-card__desc">全平台搜技能服务，设计、开发、法律、陪练都有。说出预算和需求，AI 筛完直接推荐，不用自己翻页。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">q（关键词）· sbu · budgetMin · budgetMax</code>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">find_one_gig_info</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">查看服务详情</span>
+            </div>
+            <p class="tool-card__desc">拉取单个服务的完整介绍、套餐定价、评分和上架状态。下单前最后确认，省去来回沟通。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">cell_id（服务 ID）</code>
+            </div>
+          </div>
+          <div class="tool-card--placeholder">
+            <span class="tool-card--placeholder__plus">＋</span>
+            <span class="tool-card--placeholder__text">更多工具正在开发中，将随 <code class="font-mono" style="font-size:12px;color:#9aa0a6">@mcp-server</code> 新版本自动推送，无需重新配置。</span>
+          </div>
+        </div>
+
+        <div class="tool-list" data-panel="kol" style="display:none">
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">search_kol_products</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">KOL 选品搜索</span>
+            </div>
+            <p class="tool-card__desc">达人专属选品工具。说出品类方向和佣金底线，AI 按销量、浏览量、带货人数多维排序，几秒内交出一份可直接用的清单。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">q · revshare（佣金区间）· planPrice（价格区间）· sort（排序维度）</code>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">find_virtual_products_by_brand</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">商家虚拟商品</span>
+            </div>
+            <p class="tool-card__desc">查商家在售数字商品：会员卡、点券、代金券等，含价格和库存状态。选品、核库存，不用登后台自己翻。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">brandId · status（热卖中 / 已下架）· current · size</code>
+            </div>
+          </div>
+          <div class="tool-card--placeholder">
+            <span class="tool-card--placeholder__plus">＋</span>
+            <span class="tool-card--placeholder__text">更多工具正在开发中，将随 <code class="font-mono" style="font-size:12px;color:#9aa0a6">@mcp-server</code> 新版本自动推送，无需重新配置。</span>
+          </div>
+        </div>
+
+        <div class="tool-list" data-panel="user" style="display:none">
+          <div class="tool-card">
+            <div class="tool-card__header">
+              <code class="tool-card__name">find_current_user_info</code>
+              <span class="badge-access badge-access--read">READ</span>
+              <span class="tool-card__title">查询当前用户信息</span>
+            </div>
+            <p class="tool-card__desc">返回用户名、头像、品牌 ID、源能余额（平台代币）和主页地址。先确认是谁在操作，再执行后续动作——这是大多数自动化工作流的第一步。</p>
+            <div class="tool-card__params">
+              <span class="tool-card__params-label">入参：</span>
+              <code class="tool-card__params-value">无需参数，自动识别登录态</code>
+            </div>
+          </div>
+          <div class="tool-card--placeholder">
+            <span class="tool-card--placeholder__plus">＋</span>
+            <span class="tool-card--placeholder__text">更多工具正在开发中，将随 <code class="font-mono" style="font-size:12px;color:#9aa0a6">@mcp-server</code> 新版本自动推送，无需重新配置。</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSTALL GUIDE ── -->
+  <section id="install" class="install-section">
+    <div style="max-width:1000px;margin:0 auto">
+      <div class="section-label">
+        <span class="section-label__bar"></span>
+        <p class="section-label__text">接入指引</p>
+      </div>
+      <h2 class="install-section__heading">四步接入，一次配置，永久有效</h2>
+
+      <div class="install-layout">
+        <!-- Step nav -->
+        <div class="step-nav">
+          <div class="step-nav__track"></div>
+          <button onclick="goStep(0)" class="step-nav__btn is-active" data-step="0">
+            <span class="step-nav__indicator">1</span>
+            <span class="step-nav__label">生成私人令牌</span>
+          </button>
+          <button onclick="goStep(1)" class="step-nav__btn" data-step="1">
+            <span class="step-nav__indicator">2</span>
+            <span class="step-nav__label">写入客户端配置</span>
+          </button>
+          <button onclick="goStep(2)" class="step-nav__btn" data-step="2">
+            <span class="step-nav__indicator">3</span>
+            <span class="step-nav__label">重启并确认连接</span>
+          </button>
+          <button onclick="goStep(3)" class="step-nav__btn" data-step="3">
+            <span class="step-nav__indicator">4</span>
+            <span class="step-nav__label">用自然语言开始工作</span>
+          </button>
+        </div>
+
+        <!-- Step panels -->
+        <div style="flex:1;min-width:260px">
+
+          <div class="step-panel is-visible" data-panel="0">
+            <span class="step-panel__label">STEP 01</span>
+            <h3 class="step-panel__heading">生成私人令牌
+              <a class="cta-new-token" href="/estudio/studio-setting-profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+                  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+                </svg>
+              </a>
+            </h3>
+            <div class="step-panel__desc">登录班蔚，进入「个人中心 → 品牌形象 → 私人令牌」，点击「生成新令牌」。明文只显示一次——生成后立刻复制，关掉就看不到了。</div>
+            <div class="code-block" data-code="curl -s -X POST https://bluvarri.com/mcp-gateway/mcp \
+  -H &quot;Content-Type: application/json&quot; \
+  -H &quot;Accept: application/json&quot; \
+  -H &quot;Accept: text/event-stream&quot; \
+  -H &quot;Authorization: Bearer YOUR_TOKEN&quot; \
+  -d '{
+    &quot;jsonrpc&quot;: &quot;2.0&quot;,
+    &quot;id&quot;: 100,
+    &quot;method&quot;: &quot;tools/call&quot;,
+    &quot;params&quot;: {
+      &quot;name&quot;: &quot;find_friends&quot;,
+      &quot;arguments&quot;: {}
+    }
+  }'">
+  <div class="code-block__toolbar">
+    <span class="code-block__lang">bash</span>
+    <button class="code-block__copy" onclick="copyCode(this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      复制
+    </button>
+  </div>
+  <pre class="code-block__pre" style="white-space: pre;"><code>curl -s -X POST https://bluvarri.com/mcp-gateway/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Accept: text/event-stream" \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 100,
+    "method": "tools/call",
+    "params": {
+      "name": "find_friends",
+      "arguments": {}
+    }
+  }'</code></pre>
+            </div>
+
+            <div class="step-panel__nav">
+              <button class="btn-step btn-step--ghost" disabled>← 上一步</button>
+              <button class="btn-step btn-step--filled" onclick="goStep(1)">下一步 →</button>
+            </div>
+          </div>
+
+          <div class="step-panel" data-panel="1">
+            <span class="step-panel__label">STEP 02</span>
+            <h3 class="step-panel__heading">写入客户端配置</h3>
+            <p class="step-panel__desc">打开 AI 客户端的配置文件（支持 MCP 的客户端均可），在 mcpServers 字段追加以下内容：</p>
+            <div class="code-block">
+              <div class="code-block__toolbar">
+                <span class="code-block__lang">json</span>
+                <button class="code-block__copy" onclick="copyCode(this)">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  复制
+                </button>
+              </div>
+              <pre class="code-block__pre"><code>{
+  "mcpServers": {
+    "bv_mcp_connector": {
+        "type": "http",
+        "url": "https://bluvarri.com/mcp-gateway/mcp",
+        "headers": {
+            "Authorization": "Bearer YOUR_TOKEN"
+        },
+    }
+  }
+}</code></pre>
+            </div>
+            <div class="step-panel__nav">
+              <button class="btn-step btn-step--ghost" onclick="goStep(0)">← 上一步</button>
+              <button class="btn-step btn-step--filled" onclick="goStep(2)">下一步 →</button>
+            </div>
+          </div>
+
+          <div class="step-panel" data-panel="2">
+            <span class="step-panel__label">STEP 03</span>
+            <h3 class="step-panel__heading">重启并确认连接</h3>
+            <p class="step-panel__desc">完全退出并重启客户端。工具面板出现「bv_mcp_connector」且亮绿灯，即表示连接成功。若没出现，检查 Token 是否粘贴完整。</p>
+            <div class="code-block">
+              <div class="code-block__toolbar">
+                <span class="code-block__lang">bash</span>
+                <button class="code-block__copy" onclick="copyCode(this)">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  复制
+                </button>
+              </div>
+              <pre class="code-block__pre"><code># 也可以通过 CLI 验证
+mcp list
+
+</code></pre>
+            </div>
+            <div class="step-panel__nav">
+              <button class="btn-step btn-step--ghost" onclick="goStep(1)">← 上一步</button>
+              <button class="btn-step btn-step--filled" onclick="goStep(3)">下一步 →</button>
+            </div>
+          </div>
+
+          <div class="step-panel" data-panel="3">
+            <span class="step-panel__label">STEP 04</span>
+            <h3 class="step-panel__heading">用自然语言开始工作</h3>
+            <p class="step-panel__desc">不用记参数，不用看文档。像对人说话一样描述你的需求，AI 自己判断调哪个工具、传什么参数、返回什么结果。</p>
+            <div class="code-block">
+              <div class="code-block__toolbar">
+                <span class="code-block__lang">text</span>
+                <button class="code-block__copy" onclick="copyCode(this)">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  复制
+                </button>
+              </div>
+              <pre class="code-block__pre"><code>用户：帮我找找平台上有没有插画定制服务，
+      预算每天 300 以内，按口碑排
+
+AI：收到，正在搜索…
+    [调用 search_gigs → q="插画" budgetMax=300 sbu="day"]
+
+    共找到 6 个匹配服务，以下是评分最高的 3 个：
+    ① 达意设计  · 商业插画定制  ¥280/天  ⭐ 4.9 (37 评价)
+    ② 小鹿插画  · 品牌 IP 设计  ¥250/天  ⭐ 4.8 (21 评价)
+    ③ 云端画室  · 头像 / 表情包  ¥180/天  ⭐ 4.7 (58 评价)
+
+    需要我帮你查看某家的详细套餐吗？</code></pre>
+            </div>
+            <div class="step-panel__nav">
+              <button class="btn-step btn-step--ghost" onclick="goStep(2)">← 上一步</button>
+              <button class="btn-step btn-step--filled" disabled>下一步 →</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCENARIOS ── -->
+  <section id="scenarios" class="scenarios-section">
+    <div style="max-width:1080px;margin:0 auto">
+      <div class="section-label">
+        <span class="section-label__bar"></span>
+        <p class="section-label__text">使用场景</p>
+      </div>
+      <h2 class="scenarios-section__heading">接好之后，能做的比你想象的多</h2>
+      <div class="scenario-grid">
+
+        <div class="scenario-card">
+          <div class="scenario-card__header">
+            <div class="scenario-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </div>
+            <h3 class="scenario-card__title">选品清单，几秒出炉</h3>
+          </div>
+          <p class="scenario-card__body">说出品类方向和佣金底线，AI 多维筛选排序，输出一份可直接用的推荐清单。以前要翻一小时的货，现在一句话。</p>
+          <div class="scenario-card__tags">
+            <code class="scenario-card__tag">search_kol_products</code>
+            <code class="scenario-card__tag">find_virtual_products_by_brand</code>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-card__header">
+            <div class="scenario-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h3 class="scenario-card__title">客户跟进，批量但不失温度</h3>
+          </div>
+          <p class="scenario-card__body">拉出好友列表，挑出未回复的对象，让 AI 按不同情况拟好私信逐一发出。半天的重复操作，压成一条指令。</p>
+          <div class="scenario-card__tags">
+            <code class="scenario-card__tag">find_friends</code>
+            <code class="scenario-card__tag">send_text_msg_to_friend</code>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-card__header">
+            <div class="scenario-card__icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+            </div>
+            <h3 class="scenario-card__title">流水对账，AI 替你看</h3>
+          </div>
+          <p class="scenario-card__body">调出近期收支，让 AI 按订阅、商单、佣金分类汇总，告诉你钱从哪来、花到哪去。异常扣款藏不住。</p>
+          <div class="scenario-card__tags">
+            <code class="scenario-card__tag">search_trans</code>
+            <code class="scenario-card__tag">find_current_user_info</code>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section class="faq-section">
+    <div style="max-width:680px;margin:0 auto">
+      <div class="section-label">
+        <span class="section-label__bar"></span>
+        <p class="section-label__text">常见问题</p>
+      </div>
+      <h2 class="faq-section__heading">你可能想先问</h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" onclick="toggleFaq(this)">
+            <span class="faq-item__question">MCP 和 Function Calling 有什么本质区别？</span>
+            <span class="faq-item__toggle">+</span>
+          </button>
+          <div class="faq-item__answer">Function Calling 是各厂商的私有规范，工具定义随应用捆绑，换个客户端就得重写。MCP 是开放标准：Server 独立运行、版本化发布、兼容客户端即插即用。平台更新工具时，你不需要改任何配置——重启客户端，新工具自动到位。</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" onclick="toggleFaq(this)">
+            <span class="faq-item__question">我的账号 Token 和数据安全吗？</span>
+            <span class="faq-item__toggle">+</span>
+          </button>
+          <div class="faq-item__answer">MCP Server 以本地进程运行，Token 只存在你自己机器的配置文件里，不经过任何中间服务器。每次工具调用都会在客户端界面展示操作内容与参数，你随时可以查看、拒绝或撤销。</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" onclick="toggleFaq(this)">
+            <span class="faq-item__question">新工具上线后需要重新配置吗？</span>
+            <span class="faq-item__toggle">+</span>
+          </button>
+          <div class="faq-item__answer">不需要。新工具随 mcp-server 版本推送，重启客户端时自动拉取，无需修改任何配置文件，新工具直接出现在工具面板里。</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" onclick="toggleFaq(this)">
+            <span class="faq-item__question">平台代币余额不足会影响调用吗？</span>
+            <span class="faq-item__toggle">+</span>
+          </button>
+          <div class="faq-item__answer">所有工具（查询好友、服务、流水等）全部免费，不消耗代币。</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__trigger" onclick="toggleFaq(this)">
+            <span class="faq-item__question">支持哪些客户端和模型？</span>
+            <span class="faq-item__toggle">+</span>
+          </button>
+          <div class="faq-item__answer">所有实现了 MCP 协议的客户端均可接入，包括主流 AI 桌面客户端和编辑器扩展。模型没有限制——无论底层跑的是什么模型，只要客户端支持 MCP 就能调用。</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="cta-section">
+    <div class="cta-section__backdrop">
+      <div class="cta-section__glow"></div>
+    </div>
+    <div class="cta-section__inner">
+      <h2 class="cta-section__heading">下达指令，平台的事 AI 替你跑</h2>
+      <p class="cta-section__body">5 分钟完成接入，AI助手调用MCP工具箱，完成你交托的任务，便捷又省心。</p>
+      <div class="cta-section__actions">
+        <a href="#install" class="btn-primary-gradient">立即接入</a>
+        <a href="/"   class="btn-ghost">访问官网</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <span class="site-footer__brand">blu<span>varri</span></span>
+    <span>© 2026 上海群巅科技有限公司 · 沪ICP备2022021979号</span>
+    <div class="site-footer__links">
+      <a href="/mall/contact-us" class="site-footer__link">联系我们</a>
+      <a href="/mall/privacy-policy" class="site-footer__link">隐私政策</a>
+      <a href="/mall/legal" class="site-footer__link">法律声明</a>
+    </div>
+  </footer>
+
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script>
+    /* ── Tab switching ── */
+    const TAB_META = {
+      social:  { desc: '查好友、发私信——把重复的沟通动作压缩成一句指令' },
+      finance: { desc: '拉取收支流水，让 AI 帮你归类对账、揪出异常扣款' },
+      market:  { desc: '按预算搜服务商，查详情、摸底价，合作前不再两眼一抹黑' },
+      kol:     { desc: '说出品类和佣金底线，AI 多维筛选，直接交出一份可用的选品清单' },
+      user:    { desc: '确认当前身份、查看余额——大多数工作流从这里开始' },
+    };
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        const toolPanels = document.getElementById('toolPanels');
+
+        if (toolPanels) {
+          toolPanels.querySelectorAll('[data-panel]').forEach(p => {
+            p.style.display = p.dataset.panel === tab ? 'flex' : 'none';
+          });
+        }
+
+        document.getElementById('categoryDesc').textContent = TAB_META[tab]?.desc || '';
+      });
+    });
+
+    /* ── Step navigation ── */
+    function goStep(idx) {
+      document.querySelectorAll('.step-nav__btn').forEach((b, i) => {
+        b.classList.toggle('is-active', i === idx);
+      });
+      document.querySelectorAll('.step-panel').forEach(p => {
+        p.classList.toggle('is-visible', parseInt(p.dataset.panel) === idx);
+      });
+    }
+
+    /* ── FAQ accordion ── */
+    function toggleFaq(trigger) {
+      const item = trigger.closest('.faq-item');
+      const isOpen = item.classList.contains('is-open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('is-open'));
+      if (!isOpen) item.classList.add('is-open');
+    }
+
+    /* ── Copy code ── */
+    function copyCode(btn) {
+      const pre = btn.closest('.code-block').querySelector('pre code');
+      const text = pre ? pre.innerText : '';
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('is-copied');
+        btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 已复制`;
+        setTimeout(() => {
+          btn.classList.remove('is-copied');
+          btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 复制`;
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
