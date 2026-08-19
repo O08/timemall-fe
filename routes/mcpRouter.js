@@ -26,28 +26,14 @@ const handler = createMcpHandler(async (ctx) => {
     version: '2.0.0' 
   });
 
-  // 判断当前请求客户端是否支持高级 Schema 特性（通过在客户端配置的自定义 Header）
-  // 只有当明确传了 'false' 时，才判定为需要进行降级裁剪的平台
-  const supportOutputSchema = ctx?.authInfo?.supportOutputSchema;
-
-
+ 
 
   tools.forEach((tool) => {
     const sdkToolParams = toSdkTool(tool, { fromJsonSchema });
-    if (!supportOutputSchema && sdkToolParams[1] && typeof sdkToolParams[1] === 'object') {
-      // 依具体的 toSdkTool 返回结构而定，通常是将 outputSchema 或 responseSchema 字段删掉
-      delete sdkToolParams[1].outputSchema;
-      delete sdkToolParams[1].responseSchema;
-    }
+ 
 
 
     const operationId = sdkToolParams?.[0]; 
-
-
-    injectComplexExamplesToDescription(sdkToolParams,generator.getDocument());
-
-
-
 
 
     server.registerTool(...sdkToolParams, async (input,toolCtx) => {
@@ -88,15 +74,20 @@ const handler = createMcpHandler(async (ctx) => {
               const compiledHtmlFeed = renderComponent(jsonResult); 
     
               return {
-                content: [{ 
+                content: [
+                  { 
                   type: "text", 
-                  text: `[MCP Gateway] Media pipeline executed. The complete data view has been pushed to the standalone sandboxed layout module below.\n\n<json_data_payload>${JSON.stringify(jsonResult)}</json_data_payload>` 
-                }],
-                resources: [{
-                  uri: `ui://blv-mcp-gateway/render/views/${operationId}/${Date.now()}`,
-                  mimeType: "text/html", // Enforce pure sandboxed HTML frame compilation
-                  text: compiledHtmlFeed  // Offload the massive UI string safely here
-                }],
+                  text: `[MCP Gateway] Media pipeline executed. The complete data view has been pushed to the standalone sandboxed layout module below.` 
+                 },
+                 {
+                  type: "resource",
+                  resource: {
+                    uri: `ui://blv-mcp-gateway/render/views/${operationId}/${Date.now()}`,
+                    mimeType: "text/html",
+                    text: compiledHtmlFeed 
+                  }
+                }
+              ],
                 structuredContent: jsonResult
               };
 
@@ -156,12 +147,8 @@ const auth = (req, res, next) => {
 
 
   const callingTools= req.method === 'POST' && body && body.method === 'tools/call';
-  const supportOutputSchema = req.headers['mcp-support-output-schema'] !== 'false';
 
   if(!callingTools){
-    req.auth ={
-      supportOutputSchema: supportOutputSchema
-    }
     return next();
   }
   
@@ -177,8 +164,7 @@ const auth = (req, res, next) => {
   }
   
   req.auth = { 
-    pat: pat ,
-    supportOutputSchema: supportOutputSchema
+    pat: pat
   }; 
 
   next();
@@ -187,58 +173,6 @@ const auth = (req, res, next) => {
 
 router.all('/mcp', auth,  (req, res) => void node(req, res, req.body));
 
-/**
- * 瘦身版高可用通用案例注入器
- */
-function injectComplexExamplesToDescription(sdkToolParams, fullYamlData) {
-  const operationId = sdkToolParams?.[0]; 
-  const toolConfig = sdkToolParams?.[1];  
-
-  if (!operationId || !toolConfig || !fullYamlData) return;
-
-  const globalExamples = fullYamlData.components?.examples;
-  const targetExampleNode = globalExamples?.[operationId];
-  
-  let rawResponseData = null;
-  if (targetExampleNode?.value) {
-    const valueNode = targetExampleNode.value;
-    rawResponseData = valueNode.RespExample || valueNode.response || valueNode;
-  } else if (targetExampleNode) {
-    rawResponseData = targetExampleNode;
-  }
-
-  // 🌟 这里不再拼任何重复的 UI 卡片大长篇提示词了！
-  // 仅仅拼接当前接口专有的真实 JSON 样本，大模型选工具时一目了然，零 Token 浪费
-  if (rawResponseData && typeof rawResponseData === 'object' && Object.keys(rawResponseData).length > 0) {
-
-    const universalUIDesignGuide = `
-
-    ### [MCP ADAPTIVE RESPONDING GUIDE - CONDITIONAL UI BLUEPRINT]
-    当前工具成功执行并返回数据后，请根据返回文本（Content Text）的特征，自适应选择以下最合理的呈现策略：
-
-    1.【触发条件 A：返回内容中包含现成的 HTML 网页级源码 (如以 <div style= 或 <table 开头)】：
-      - 这代表前级系统（动态文件路由器）已经为你完成了最高标准的可视化卡片或数据格网布局。
-      - **此时你的最佳默认行为是**：优先保持该 HTML 源码结构的完整性，将其嵌入在你的回复中输出给用户。同时，请结合用户的具体问题，用流畅的自然语言对该卡片内容进行高价值的总结、过滤或转述（例如：若用户询问特定好友，请重点指出该卡片，而非僵硬复读）。
-      - **多媒体高可用铁律**：请确保所有 HTML 中的 <img> 标签均带有 \`onerror="this.style.display='none'"\` 防崩机制；所有 <audio> 和 <video> 标签均包含 \`controls preload="none"\` 属性。
-
-    2.【触发条件 B：返回内容为通用状态句或非 HTML 纯文本（如仅有接口成功/错误提示）】：
-      - 这代表系统将数据的展示权完全让渡给了你。
-      - **此时你的最佳默认行为是**：完全基于平级传过来的结构化对象（structuredContent），推荐优先使用优雅、标准的html卡片展示数据给用户（如商品列表、好友列表）。同时使用人类听得懂的、最地道亲切的自然语言直接向用户汇报结果，或者使用简洁的原生 Markdown 语法进行重点标记。
-    `;
-
-    const exampleMarkdown = `
-
-       
-
-      ### [Default Reference Response Example]
-      Below is the realistic production JSON response sample for \`${operationId}\`. Refer to this specific structure to align fields during data extraction:
-      \`\`\`json
-      ${JSON.stringify(rawResponseData, null, 2)}
-      \`\`\`
-      `;
-    toolConfig.description = (toolConfig.description || "") + universalUIDesignGuide + exampleMarkdown;
-  }
-}
 
 
 
