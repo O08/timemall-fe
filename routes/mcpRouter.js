@@ -26,8 +26,20 @@ const handler = createMcpHandler(async (ctx) => {
     version: '2.0.0' 
   });
 
+  // 判断当前请求客户端是否支持高级 Schema 特性（通过在客户端配置的自定义 Header）
+  // 只有当明确传了 'false' 时，才判定为需要进行降级裁剪的平台
+  const supportOutputSchema = ctx?.authInfo?.supportOutputSchema;
+
+
+
   tools.forEach((tool) => {
     const sdkToolParams = toSdkTool(tool, { fromJsonSchema });
+    if (!supportOutputSchema && sdkToolParams[1] && typeof sdkToolParams[1] === 'object') {
+      // 依具体的 toSdkTool 返回结构而定，通常是将 outputSchema 或 responseSchema 字段删掉
+      delete sdkToolParams[1].outputSchema;
+      delete sdkToolParams[1].responseSchema;
+    }
+
 
     const operationId = sdkToolParams?.[0]; 
 
@@ -142,12 +154,14 @@ const auth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const body = req.body;
 
-  console.log("req method:"+req.method)
-  console.log("body method:"+body?.method)
 
   const callingTools= req.method === 'POST' && body && body.method === 'tools/call';
+  const supportOutputSchema = req.headers['mcp-support-output-schema'] !== 'false';
 
   if(!callingTools){
+    req.auth ={
+      supportOutputSchema: supportOutputSchema
+    }
     return next();
   }
   
@@ -162,7 +176,10 @@ const auth = (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized:  header authorization  personal access token  Invalid." });
   }
   
-  req.auth = { pat: pat }; 
+  req.auth = { 
+    pat: pat ,
+    supportOutputSchema: supportOutputSchema
+  }; 
 
   next();
 };

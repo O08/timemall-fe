@@ -1501,10 +1501,12 @@
               <pre class="code-block__pre"><code>{
   "mcpServers": {
     "bv_mcp_connector": {
-        "type": "http",
         "url": "https://bluvarri.com/mcp-gateway/mcp",
         "headers": {
-            "Authorization": "Bearer 你的_令牌"
+            "Authorization": "Bearer 你的_令牌",
+            
+            #部分mcp客户端版本较低，可能需要配置以下参数关闭校验
+            #"mcp-support-output-schema": "false"
         },
     }
   }
