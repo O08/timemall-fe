@@ -325,7 +325,8 @@
             <div v-if="programgrid_pagination.records.length==0" class="not-found-resource">
               <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-service-not-found">
               <h4>未找到结果</h4>
-              <p>试试搜索别的吧。</p>
+              <p>试试换换关键词再次搜索，或前往【自由合作】发布信息</p>
+              <div class="card-actions"><a class="text-decoration-none" href="/epod/pod-posted-programs"><button class="btn-primary"><svg class="btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg> 前往发布 </button></a></div>
             </div>
   
             <div  v-if="programgrid_pagination.paging && programgrid_pagination.paging.items.length>1 " class="pagination-box">

@@ -64,6 +64,19 @@
 .app-option:hover{
     background-color: #2e2e2e;
 }
+.mini-info-desc{
+    font-size: 12px;
+    line-height: 20px;
+    opacity: 1;
+    color: #87888c;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    word-break: break-all;
+    margin-bottom: 8px;
+}
 #errorModal {
     .modal-header {
         border-bottom: none;

@@ -281,13 +281,12 @@ a{
     padding-right: 0;
 }
 .post-heading-sample{
-    font-size: 14px !important;
+    font-size: 13px !important;
     line-height: 18px !important;
     color: inherit;
-    font-weight: 500;
     max-height: 36px;
     min-height: 18px;
-    word-break: break-word;
+    word-break: break-all;
     color: hsl(213.75 calc(1 * 8.081%) 61.176% / 1);
     margin-bottom: 0;
 }

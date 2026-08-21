@@ -110,6 +110,7 @@ const RootComponent = {
           if (response.data.code == 200) {
             flier.likes=Number(flier.likes)+1;
             flier.hasLike='1';
+            customAlert.alert("完成阅读传单任务，获得 1 点源能奖励～")
           }
 
           if (response.data.code != 200) {

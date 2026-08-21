@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
-    <meta http-equiv ="content-language" content ="zh-cn">
+    <meta http-equiv ='content-language' content ='zh-cn'>
 
     <link rel="icon" href="https://www.bluvarri.com/favicon.png">
-    <title>已申请的合作 - E-Pod</title>
+    <title>源能账目 - E-Pod</title>
     <script src="/common/javascripts/avif-webp.min.js"></script>
 
 
     <link rel="stylesheet" href="/epod/stylesheets/pod.scss">
-    <link rel="stylesheet" href="/epod/stylesheets/pod-applied-programs.scss">
+    <link rel="stylesheet" href="/epod/stylesheets/pod-points-history.scss">
+
+
 
 </head>
 <body>
@@ -179,7 +181,7 @@
           <!-- menu -->
           <div class="sidebar-wrapper">
             <nav class="sidebar nav">
-              <a class="nav-link" aria-current="page" href="/epod/pod-packages-order">
+              <a class="nav-link" href="/epod/pod-packages-order">
                 <div class="nav-icon">
                   <i class="bi bi-truck"></i>
                 </div>
@@ -221,13 +223,13 @@
                 </div>
                 <span>工资明细</span>
               </a>
-              <a class="nav-link" href="/epod/pod-points-history">
+              <a class="nav-link active" href="/epod/pod-points-history">
                 <div class="nav-icon">
                   <i class="bi bi-lightning"></i>
                 </div>
                 <span>源能账目</span>
               </a>
-              <a class="nav-link active" href="/epod/pod-posted-programs">
+              <a class="nav-link" href="/epod/pod-posted-programs">
                 <div class="nav-icon">
                   <i class="bi bi-infinity"></i>
                 </div>
@@ -260,132 +262,64 @@
             
           <div class="title-wrapper">
             <span class="title-anchor"></span>
-            <h1 class="main-heading">合作信息</h1>
+            <h1 class="main-heading">源能账目</h1>
           </div>
 
           <p class="header-description">
-            查阅已发布或已申请的组队、项目合作信息。
+            查阅每一笔源能的开支信息。
           </p>
 
           <div class="header-divider"></div>
-        </div> 
-
-        <div class="data-tag">合作动态</div>
-        <!-- first tablist -->
-        <div class="first-nav-tabs-container">
-          <ul class="nav nav-tabs border-0 ">
-            <li class="nav-item" role="presentation">
-              <a href="/epod/pod-posted-programs">
-                <button class="nav-link">已发布</button>
-              </a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a href="/epod/pod-applied-programs">
-                <button class="nav-link active">已申请</button>
-              </a>
-            </li>
-            <li class="nav-item" role="presentation">
-              <a href="/rainbow/discovery-programs">
-                <button class="nav-link" style="gap: 4px; display: flex;">
-                  <span>去组队</span>
-                  <i class="bi bi-box-arrow-up-right"></i>
-                </button>
-              </a>
-            </li>
-          </ul>
         </div>
 
-        <div class="filter-bar mt-4">
-          <top-search class="section-top-serach">
-            <div class="input-group input-normal-search">
-              <input @keyup.enter.native="retrieveApplicationV" v-model="application_pagination.param.q"   class="form-control top-search-input" type="text"
-                placeholder="搜索..." aria-label="Search">
-              <button v-preventreclick @click="retrieveApplicationV" class="btn btn-outline-secondary input-group-search-btn" type="button">
-                <i class="bi bi-search"></i>
-              </button>
-            </div>
-          </top-search>
-        </div>
-        <div class="table-responsive pt-2">
-
+        <div class="table-responsive">
           <div class="table-wrp">
 
-            <table class="table table-sm table-borderless table-hover align-middle">
+            <table class="table table-borderless table-sm  table-hover align-middle">
               <thead>
-                <tr>
-                  <th class="td-option" scope="col"></th>
-                  <th class="col-program">项目</th>
-                  <th class="col-applys" scope="col">申请人数</th>
-                  <th class="col-applys" scope="col">审核状态</th>
-                  <th class="col-applys" scope="col">申请日期</th>
-                </tr>
-              </thead>
+                  <tr>
+                    <th scope="col" class="w-40">流水编号</th>
+                    <th scope="col" class="w-25">场景</th>
+                    <th scope="col" class="w-20">源能</th>
+                    <th scope="col" class="w-15">时间</th>
+                  </tr>
+                </thead>
               <tbody>
-                <tr v-for="application in application_pagination.records">
-                  <td class="td-option">   
-                    <div class="option-container">
-                      <span  class="btn-option-secondary option-view-contact" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="私信">
-                        <a target="_blank" :href="'/messages/'+application.authorUserId" style="text-decoration: none; color: unset ;">
-                          <i class="bi bi-soundwave"></i> 
-                        </a>          
-                      </span>
-                       <span  v-preventreclick  @click="deleteOneProgramApplicationV(application.applicationId)" class="btn-option-secondary option-view-contact ms-2" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-toggle="popover" data-bs-content="删除">
-                        <i class="bi bi-trash3"></i>
-                       </span>
-                    </div>   
+                <tr v-for="record in transList_pagination.records">
+                  <td>{{record.id}}</td>
+                  <td>{{record.item}}</td>
+                  <td :class="{'in_money': record.direction =='1'  }" class="font-mono">
+                      {{  (record.direction =='1' ? "+" : "-") + record.amount}}
                   </td>
-                  <td :title="application.title" class="col-program">
-                   
-                    <div class="d-flex gap-2 align-items-center">
-                      <a target="_blank" class="tb-url-link" :href="'/program/'+application.programId">
-                        <img :src="adaptiveImageUriV(application.thumbnail)"  loading="lazy" alt="thumbnail">
-                      </a>
-                      <div>
-
-                        <a target="_blank" class="tb-url-link" :href="'/program/'+application.programId">
-                          <div class="ellipsis-1">{{application.title}}</div>
-                        </a>
-                        <div  class="tb-text-secondary" style="
-                        font-size: 10px;
-                        font-weight: 400;">
-                          {{explainCoopProgramStatusEnumV(application.programStatus)}}
-                        </div>
-
-                      </div>
-                    </div>
-                
+                  <td class="tb-text-secondary">
+                    {{record.createAt.replace(new RegExp('-', 'g'), '/')}}                   
                   </td>
-                  <td :title="application.applys" class="tb-text-secondary">{{application.applys}}</td>
-                  <td :title="explainCoopApplicationStatusEnumV(application.status)" class="tb-text-secondary">
-                    {{explainCoopApplicationStatusEnumV(application.status)}}
-                  </td>
-                  <td class="tb-text-secondary" :title="application.createdAt">{{application.createdAt.replace(new RegExp('-', 'g'), '/')}}</td>
                 </tr>
               </tbody>
             </table>
-            <div v-show="application_pagination.records.length==0" class="tb-empty-data-wrapper">
+            <div v-show="transList_pagination.records.length==0" class="tb-empty-data-wrapper">
           
               <svg xmlns="http://w3.org" width="52" height="52" fill="currentColor" class="bi bi-folder-x empty-vector-icon" viewBox="0 0 16 16">
                 <path d="M4.544 1.242A.5.5 0 0 1 5 1h6a.5.5 0 0 1 .456.258L12.51 3.5H14.5a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5h2zM3.41 4H2v10h12V4h-1.41a.5.5 0 0 1-.456-.258L10.59 1.5H5.41L3.866 3.742A.5.5 0 0 1 3.41 4z"/>
                 <path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708L8.707 9l2.147 2.146a.5.5 0 0 1-.708.708L8 9.707l-2.146 2.147a.5.5 0 0 1-.708-.708L7.293 9 5.146 6.854a.5.5 0 1 1 .708-.708L8 8.293l2.146-2.147a.5.5 0 0 1 .708 0z"/>
               </svg>
     
-              <h4 class="empty-primary-title">未找到数据</h4>
+              <h4 class="empty-primary-title">未找到交易记录</h4>
               
               <p class="empty-secondary-desc">
-                当前未检索到任何相关记录，尝试<strong>调整关键词再搜索</strong>。
+                当前未检索到任何相关的源能流水信息。
               </p>
             </div>
-            <nav v-if="!!application_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+            <nav v-if="!!transList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
               <ul class="pagination pagination-lg pagination-dark  border-0">
-                <li class="page-item" @click="pagePre(application_pagination)">
+                <li class="page-item" @click="pagePre(transList_pagination)">
                   <a class="page-link"  aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item"  v-for="page in application_pagination.paging.items" :class="{'current-page-active': application_pagination.paging.current == page}" 
-                      @click="pageGo(application_pagination,page)"><a class="page-link">{{page}}</a></li>
-                <li class="page-item" @click="pageNext(application_pagination)">
+                <li class="page-item"  v-for="page in transList_pagination.paging.items" :class="{'current-page-active': transList_pagination.paging.current == page}" 
+                      @click="pageGo(transList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                <li class="page-item" @click="pageNext(transList_pagination)">
                   <a class="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                   </a>
@@ -397,9 +331,12 @@
           
         </div>
 
+          
+        </div>
+
         <div class="empty-box"></div>
 
-        
+           
       </main>
       
     </content>
@@ -440,8 +377,6 @@
   </section>
   <script type="module" src="/common/javascripts/feedback.js"></script>
   <script  type="module" src="/common/javascripts/tm.js"></script>
-  <script  type="module" src="/epod/javascripts/pod-applied-programs.js"></script>
-
-
+  <script  type="module" src="/epod/javascripts/pod-points-history.js"></script>
 </body>
 </html>

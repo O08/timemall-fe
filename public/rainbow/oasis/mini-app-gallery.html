@@ -132,6 +132,8 @@
     </header>
 
     <div class="app-main-container">
+      <div v-show="appLibrary.length>0" class="mini-info-desc"><i class="bi bi-bell me-1"></i>特别提示：每次安装需要扣除 1 点源能</div>
+
         <div class="row g-2 g-md-3  row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
             <div v-for="app in appLibrary" class="col">
                 <div class="app-card">

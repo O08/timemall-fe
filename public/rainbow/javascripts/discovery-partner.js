@@ -151,7 +151,7 @@ const RootComponent = {
             handoutFlier(this.handoutFlierFormObj.selectedFlierId,this.handoutFlierFormObj.receiverBrandId).then(response => {
        
                 if (response.data.code == 200) {
-                    customAlert.alert("传单已分发！");
+                    customAlert.alert("传单投递成功！");
                 }
 
                 if (response.data.code == 40007) {
