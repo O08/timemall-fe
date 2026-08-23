@@ -1859,5 +1859,447 @@ paths:
                     description: ""
             summary: |
                 检索班蔚平台已上架的虚拟商品。适用于用户寻找在线课程、软件、会员、IP、游戏道具，或其他任何数字产品的场景。支持按关键词、价格区间筛选
+    /api/v1/team/office/payroll/employee_query:
+        get:
+            operationId: search_payrolls
+            parameters:
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 每页返回的数据数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "10"
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    payroll:
+                                        description: 工资单列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        company:
+                                                            description: 机构
+                                                            type: [string, "null"]
+                                                        deductions:
+                                                            description: 应扣工资（元）
+                                                            type: [string, "null"]
+                                                        department:
+                                                            description: 部门
+                                                            type: [string, "null"]
+                                                        grossPay:
+                                                            description: 应发工资（元）
+                                                            type: [string, "null"]
+                                                        id:
+                                                            description: 工资单编号
+                                                            type: [string, "null"]
+                                                        netPay:
+                                                            description: 实发工资（元）
+                                                            type: [string, "null"]
+                                                        paymentDate:
+                                                            description: 打款日期
+                                                            type: [string, "null"]
+                                                        role:
+                                                            description: 职务
+                                                            type: [string, "null"]
+                                                        title:
+                                                            description: 条目
+                                                            type: [string, "null"]
+                                                        withholdAndRemitTax:
+                                                            description: 代扣代缴（元）
+                                                            type: [string, "null"]
+                                                    type: object
+                                                    additionalProperties: true
+                                                type: array
+                                            size:
+                                                description: 每页返回的数据数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少记录
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询用户的工资发放信息
+    /api/v1/web_estudio/virtual/order/list:
+        get:
+            operationId: search_brand_virtual_order
+            parameters:
+                - description: 查询词，可以是订单号、商品、客户名
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 订单状态，枚举值：2-等待支付；3-已支付；4-交付中；5-履约完成；6-已取消订单；7-已退款；8-已打款关单；9-申请退款；不填标识全部状态。
+                  in: query
+                  name: tag
+                  schema:
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 分页返回的记录数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "10"
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    order:
+                                        description: 订单列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        alreadyPay:
+                                                            description: 1-标识客户已支付
+                                                            type: [string, "null"]
+                                                        alreadyRefund:
+                                                            description: 1-标识商家已退回款项给客户
+                                                            type: [string, "null"]
+                                                        alreadyRemittance:
+                                                            description: 1-已收回货款，标识平台已打款给商家（品牌）
+                                                            type: [string, "null"]
+                                                        buyerAvatar:
+                                                            description: 买家头像
+                                                            type: [string, "null"]
+                                                        buyerBrandId:
+                                                            description: 买家品牌Id
+                                                            type: [string, "null"]
+                                                        buyerBrandName:
+                                                            description: 买家名称
+                                                            type: [string, "null"]
+                                                        buyerUserId:
+                                                            description: 买家UserId
+                                                            type: [string, "null"]
+                                                        createAt:
+                                                            description: 下单时间
+                                                            type: [string, "null"]
+                                                        orderId:
+                                                            description: 订单Id
+                                                            type: [string, "null"]
+                                                        orderNO:
+                                                            description: 订单号
+                                                            type: [string, "null"]
+                                                        pack:
+                                                            description: 货品
+                                                            type: [string, "null"]
+                                                        productId:
+                                                            description: 商品Id
+                                                            type: [string, "null"]
+                                                        productName:
+                                                            description: 商品
+                                                            type: [string, "null"]
+                                                        productPrice:
+                                                            description: 商品价格
+                                                            type: [string, "null"]
+                                                        quantity:
+                                                            description: 购买数量
+                                                            type: [string, "null"]
+                                                        refundReason:
+                                                            description: 客户退款原因
+                                                            type: [string, "null"]
+                                                        tag:
+                                                            description: 订单状态，枚举值：2-等待支付；3-已支付；4-交付中；5-履约完成；6-已取消订单；7-已退款；8-已打款关单；9-申请退款；
+                                                            type: [string, "null"]
+                                                        totalFee:
+                                                            description: 费用
+                                                            type: [string, "null"]
+                                                    type: object
+                                                    additionalProperties: true
+                                                type: array
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少记录
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询商家（品牌）名下已售卖的虚拟商品订单
+    /api/v1/web_pod/discovery/cooperation/programs:
+        get:
+            operationId: discovery_programs
+            parameters:
+                - description: 查询词，可按项目、发布品牌、话题进行搜索
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 工作模式，枚举：workMode - 全职；part_time - 兼职；flexible - 灵活办公；
+                  in: query
+                  name: workMode
+                  schema:
+                    type: string
+                - description: 排序，枚举：1 - 最新发布； 2 - 申请最多；3 - 热门优先；
+                  in: query
+                  name: sort
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 总共有多少记录
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "10"
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    program:
+                                        description: 合作项目列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        applied:
+                                                            description: 1 - 标识已申请项目
+                                                            type: [string, "null"]
+                                                        applys:
+                                                            description: 申请人数
+                                                            type: [string, "null"]
+                                                        attendees:
+                                                            description: 审请通过人数
+                                                            type: [string, "null"]
+                                                        authorAvatar:
+                                                            description: 发起人头像
+                                                            type: [string, "null"]
+                                                        authorBrandId:
+                                                            description: 发起人品牌Id（BID）
+                                                            type: [string, "null"]
+                                                        authorIpLocation:
+                                                            description: 发起人归属地
+                                                            type: [string, "null"]
+                                                        authorName:
+                                                            description: 发起人
+                                                            type: [string, "null"]
+                                                        authorUserId:
+                                                            description: 发起人UID
+                                                            type: [string, "null"]
+                                                        buzz:
+                                                            description: 热度
+                                                            type: [string, "null"]
+                                                        createdAt:
+                                                            description: 发布日期
+                                                            type: [string, "null"]
+                                                        description:
+                                                            description: 项目推介
+                                                            type: [string, "null"]
+                                                        onlineLink:
+                                                            description: 社区链接
+                                                            type: [string, "null"]
+                                                        programId:
+                                                            description: 项目Id
+                                                            type: [string, "null"]
+                                                        status:
+                                                            description: 状态，枚举：recruiting - 匹配中；closed - 已关闭；invalid - 已失效；freeze - 已冻结；
+                                                            type: [string, "null"]
+                                                        thumbnail:
+                                                            description: 封面
+                                                            type: [string, "null"]
+                                                        title:
+                                                            description: 项目
+                                                            type: [string, "null"]
+                                                        topics:
+                                                            description: 话题组
+                                                            items:
+                                                                description: 话题
+                                                                type: [string, "null"]
+                                                            type: array
+                                                        workMode:
+                                                            description: 工作模式，枚举：workMode - 全职；part_time - 兼职；flexible - 灵活办公；
+                                                            type: [string, "null"]
+                                                    type: object
+                                                    additionalProperties: true
+                                                type: array
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少记录
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 自由合作项目大厅，查询、发现有趣项目
+    /api/v1/web_estudio/discover/commercial_paper:
+        get:
+            operationId: discovery_commercial_order
+            parameters:
+                - description: 查询词，可按职能、商单名检索
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 每页返回的记录数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "10"
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    paper:
+                                        description: 商单列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        avatar:
+                                                            description: 采购商头像
+                                                            type: [string, "null"]
+                                                        bonus:
+                                                            description: 奖金（元）
+                                                            type: [string, "null"]
+                                                        brandName:
+                                                            description: 采购商名称
+                                                            type: [string, "null"]
+                                                        deliveryCycle:
+                                                            description: 交付周期（天）
+                                                            type: [string, "null"]
+                                                        id:
+                                                            description: 商单号
+                                                            type: [string, "null"]
+                                                        piece:
+                                                            description: 职能
+                                                            type: [string, "null"]
+                                                        title:
+                                                            description: 商单
+                                                            type: [string, "null"]
+                                                    type: object
+                                                    additionalProperties: true
+                                                type: array
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少记录
+                                                type: number
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 商单大厅，查询、接取商单
 servers:
     - url: https://bluvarri.com
