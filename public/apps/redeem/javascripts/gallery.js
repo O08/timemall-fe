@@ -126,7 +126,7 @@ const RootComponent = {
                 if(response.data.code == 200){
                     $("#productInfoModal").modal("hide");
                     this.loadPointsInfoV();
-                    customAlert.alert("兑换成功，可通过【个人中心】-【兑换记录】查看已兑换的商品"); 
+                    customAlert.alert("兑换成功，可通过【个人中心】-【部落兑换】查看已兑换的商品"); 
                 }
                 if(response.data.code==40007){
                     customAlert.alert("余额不足，可通过 「助力部落」 或 接取本部落发布的委托任务获取贡献点"); 
