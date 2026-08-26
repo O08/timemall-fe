@@ -302,7 +302,7 @@ $("#identifierId").on("focus", function (e) {
 
     // get redirect url when login success
     const blv_uri_for_success=encodeURIComponent(document.referrer);
-    var wechatLoginPageRedirectUrl=  encodeURIComponent(EnvWebsite.PROD_WWW+"/mall/wechat-login-redirect?to_page="+blv_uri_for_success);
+    var wechatLoginPageRedirectUrl=  encodeURIComponent(EnvWebsite.PROD+"/mall/wechat-login-redirect?to_page="+blv_uri_for_success);
     var wechatLoginPageUri = EnvWebsite.PROD_WX_QRCONNECT_URI+"?appid=" + EnvWebsite.PROD_WX_APPID + "&redirect_uri=" + wechatLoginPageRedirectUrl + "&response_type=code&scope=snsapi_login&state=3d6be0a4035d839573b04816624a415e#wechat_redirect";
   
     window.open(wechatLoginPageUri, '_blank');
