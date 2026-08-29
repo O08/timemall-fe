@@ -3,6 +3,9 @@
   "resolvers": ["parcel-resolver-website","..."],
   "namers": ["parcel-namer-website", "..."],
   "reporters":  ["...", "parcel-reporter-static-files-copy"],
+  "optimizers": {
+    "*.html": ["@parcel/optimizer-htmlnano"]
+  },
   "compressors": {
     "*.{html,css,js,svg,map}": [
       "...",
