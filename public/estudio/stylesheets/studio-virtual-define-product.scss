@@ -547,7 +547,7 @@
   .form-control,
   .form-select {
     background-color: #111 !important; // 嵌入式深黑底
-    border: 1px solid transparent !important;
+    border: 1px solid #262626 !important;
     border-radius: 4px !important;
     color: #dbdee1 !important;
     font-size: 14px;
@@ -590,6 +590,16 @@
 }
 .thumbnail-box {
   height: 100%;
+}
+
+#deliverAttachment::file-selector-button {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #555555;
+}
+
+#deliverAttachment::file-selector-button:hover {
+  background-color: #444444;
 }
 
 @media (width <= 576px) {

@@ -1234,7 +1234,7 @@ paths:
                   name: q
                   schema:
                     type: string
-                - description: 商品状态：2-热卖中，3-已下架
+                - description: 商品状态：2-热卖中，3-已下架，1-草稿箱
                   in: query
                   name: status
                   required: true
@@ -2301,5 +2301,75 @@ paths:
                 default:
                     description: ""
             summary: 商单大厅，查询、接取商单
+    /api/v1/web_estudio/virtual/product/change_desc:
+        put:
+            operationId: edit_virtual_product_desc
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                productDesc:
+                                    description: 商品描述，合规的的html代码，最大长度10000；
+                                    type: string
+                                productId:
+                                    description: 商品Id
+                                    type: string
+                            required:
+                                - productId
+                                - productDesc
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 编辑虚拟商品的描述（商品说明）信息。
+    /api/v1/web_estudio/services/intro/content/change:
+        put:
+            operationId: edit_gig_desc
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                id:
+                                    description: 技能服务商品Id
+                                    type: string
+                                productDesc:
+                                    description: 商品说明,html 字符，最大长度 5000。
+                                    type: string
+                            required:
+                                - id
+                                - productDesc
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 编辑技能服务的描述（商品说明）信息。
 servers:
     - url: https://bluvarri.com
