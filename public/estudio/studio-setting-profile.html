@@ -635,6 +635,68 @@
                   </div>
                 </div>
               </div>
+              <div class="form-field resume-field">
+                <label class="field-label">
+                  简历
+                </label>
+                <div class="resume-area">
+
+                  <div class="resume-section">
+
+                    <div id="resumeContainer">
+
+                      <div v-if="isUploadingResume" class="progress-box">
+                        <div class="progress-header">
+                          <span class="uploading-name">{{ resumeUploadStatus }}</span>
+                          <span class="progress-percent">{{ resumeUploadProgress }}%</span>
+                        </div>
+                        <div class="progress-track">
+                          <div 
+                            class="progress-bar" 
+                            :class="{ 'is-processing': resumeUploadProgress === 100 }"
+                            :style="{ width: resumeUploadProgress + '%' }">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div v-else-if="!brandProfile.resumeUrl"  class="upload-box" @click="triggerReuploadResumeV">
+                        <span class="upload-text">+ 点击上传简历</span>
+                        <span class="upload-tip">支持 PDF 格式，最大 10MB</span>
+                      </div>
+
+           
+                  
+                      <div v-else class="echo-box">
+                        <!-- 左侧：图标与文件名 -->
+                        <div class="file-info">
+                          <a id="resumeDownloadLink"  target="_blank" class="file-name" :download="identity.brand+'_resume.pdf'" :href="downLoadFileUriV(identity.brand+'_resume.pdf',brandProfile.resumeUrl)">
+                            <span class="file-icon">
+                              <svg class="ico-pdf" width="38" height="46" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+                                <rect x="1" y="1" width="36" height="44" rx="4" fill="#1a1c1f" stroke="#3a3d42" stroke-width="1.5"/>
+                                <path d="M25 1v8a2 2 0 002 2h8" stroke="#3a3d42" stroke-width="1.5"/>
+                                <path d="M25 1L35 11H27a2 2 0 01-2-2V1z" fill="#4f6af5" fill-opacity=".2"/>
+                                <rect x="7" y="25" width="24" height="12" rx="3" fill="#4f6af51f"/>
+                                <text x="19" y="35" text-anchor="middle" fill="#4f6af5" font-size="7.5" font-weight="700" font-family="inherit" letter-spacing="1.2">PDF</text>
+                                <line x1="7" y1="18" x2="24" y2="18" stroke="#3a3d42" stroke-width="1.2" stroke-linecap="round"/>
+                                <line x1="7" y1="22" x2="19" y2="22" stroke="#3a3d42" stroke-width="1.2" stroke-linecap="round"/>
+                              </svg>
+                            </span>
+                          </a>
+                        </div>
+                  
+                        <div class="action-group">
+                          <span v-preventreclick @click="triggerReuploadResumeV" class="btn-action btn-reupload">重新上传</span>
+                          <span v-preventreclick @click="removeResumeV" class="btn-action btn-delete">删除</span>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <input type="file" id="resumeFileInput" accept=".pdf" style="display: none;" @change="handleResumeUploadV($event)">
+                  </div>
+                  
+                   
+                </div>
+              </div>
             </div>
             
             <button :class="{'disabled': !contact_already_change}" 

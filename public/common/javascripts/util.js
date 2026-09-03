@@ -21,25 +21,22 @@ export function getSecondsBetween(date_1,date_2){
    var dif = Math.round(date_1 - date_2) / 1000;
    return dif;
 }
-export function parseIpLocationCityInfo(cityInfo){
-      if (!!cityInfo) {
-          cityInfo = cityInfo.replace("|", " ");
-          var cityList = cityInfo.split(" ");
-          if (cityList.length > 0) {
-              // 国内的显示到具体的市
-              if ("中国"==cityList[0]) {
-                  if (cityList.length > 2) {
-                      return cityList[2];
-                  }
-                  if (cityList.length > 1) {
-                      return cityList[1];
-                  }
-              }
-              // 国外显示到国家
-              return cityList[0];
-          }
-      }
-      return "未知";
+export function parseIpLocationCityInfo(cityInfo) {
+    if (!cityInfo) return "未知";
+
+    var cityList = cityInfo.split("|");
+
+    var country  = cityList[0]; // 国家
+
+
+    if (country === "中国") {
+        cityList.pop();
+        return cityList[cityList.length - 1];
+    } else {
+        //【国外】只显示到国家级别
+        // 自动过滤和丢弃后面的省州和城市占位符
+        return country && country !== "0" ? country : "未知";
+    }
 }
 
 export function  transformInputNumberAsPositive(e){

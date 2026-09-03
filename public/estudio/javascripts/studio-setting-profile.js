@@ -85,6 +85,9 @@ const RootComponent = {
         }
     },
     methods: {
+        downLoadFileUriV(fileName,uri){
+            return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+        },
         transformInputNumberAsPositiveV(event){
             return transformInputNumberAsPositive(event);
         },
@@ -282,6 +285,7 @@ function loadBrandProfile(){
         // set brand
         settingProfilePage.brand.avator = profile.avator;
         settingProfilePage.brand.banner = profile.cover;
+        settingProfilePage.brandProfile.resumeUrl=profile.resumeUrl;
         // set skill
         settingProfilePage.brandProfile.skills = !profile.skills ? [] : profile.skills;
 

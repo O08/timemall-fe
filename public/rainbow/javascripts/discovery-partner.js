@@ -222,7 +222,10 @@ const RootComponent = {
             }).catch(error=>{
                 customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+error);
             });
-        }
+        },
+        downLoadFileUriV(fileName,uri){
+            return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+        },
     },
     updated(){
         $(function() {

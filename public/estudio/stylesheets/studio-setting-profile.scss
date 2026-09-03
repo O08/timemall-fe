@@ -2660,4 +2660,199 @@ body::-webkit-scrollbar {
   }
 
 }
+.resume-field {
+
+  .resume-section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+
+  .upload-box {
+    background: #111;
+    border: 2px dashed #333;
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+  }
+
+  .upload-box:hover,
+  .upload-box.drag-over {
+    border-color: #4a90e2;
+    background-color: #1c2330;
+  }
+
+  /* 提示主文字 */
+  .upload-text {
+    color: #4a90e2;
+    font-size: 13px;
+    display: block;
+    font-weight: 500;
+  }
+
+  /* 底部的小字格式说明 */
+  .upload-tip {
+    color: #555555;
+    font-size: 11px;
+    display: block;
+    margin-top: 6px;
+  }
+
+
+  .progress-box {
+    border: 1px solid #333333;
+    border-radius: 10px;
+    background-color: #111;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  /* 正在上传的文件名与图标组合 */
+  .progress-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  /* 动态状态文字（如：正在上传、正在解析...） */
+  .uploading-name {
+    color: #cccccc;
+    font-size: 11px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* 右侧蓝色的百分比数字 */
+  .progress-percent {
+    color: #4a90e2;
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  /* 进度条外壳轨道 */
+  .progress-track {
+    width: 100%;
+    height: 4px;
+    background-color: #222222;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  /* 核心进度内条 */
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(0, 162, 255, 0.5);
+    transition: width 0.15s linear;
+  }
+
+  .progress-bar.is-processing {
+    background-image: linear-gradient(45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent);
+    background-size: 40px 40px;
+    animation: progress-bar-stripes 1.2s linear infinite;
+  }
+
+  /* 进度条斑马线滚动动画 */
+  @keyframes progress-bar-stripes {
+    from {
+      background-position: 40px 0;
+    }
+
+    to {
+      background-position: 0 0;
+    }
+  }
+
+
+  .echo-box {
+    border: 1px solid #333333;
+    border-radius: 10px;
+    background-color: #111;
+    padding: 14px 16px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    &:hover {
+      background: #4a90e20d;
+    }
+  }
+
+  /* 左侧：文件图标 + 名字和大小 */
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    /* 极关键：允许子元素长文本收缩，触发省略号 */
+  }
+
+
+  /* 右侧：按钮操作组（重新上传、删除） */
+  .action-group {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    flex-shrink: 0;
+    /* 严禁操作按钮换行挤压 */
+    user-select: none;
+  }
+
+  /* 按钮通用基础悬停过渡 */
+  .btn-action {
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  /* “重新上传”默认灰色，悬停变蓝 */
+  .btn-reupload {
+    color: #aaaaaa;
+  }
+
+  .btn-reupload:hover {
+    color: #4a90e2;
+  }
+
+  /* “删除”默认深灰，悬停变警示红 */
+  .btn-delete {
+    color: #666666;
+  }
+
+  .btn-delete:hover {
+    color: #ff4d4f;
+  }
+
+
+
+}
+
+@media (width <= 576px) {
+  pt-app content main {
+      padding: 0 12px;
+  }
+}
 

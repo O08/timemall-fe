@@ -491,7 +491,7 @@ header{
    display: flex;
    flex-flow: column wrap;
    margin-bottom: 12px;
-   padding: 28px;
+   padding: 12px;
    width: 320px;
 }
 .archiveDetail-skills,.archiveDetail-links{
@@ -566,11 +566,11 @@ header{
 .keyInfo-heading{
   font-size: 24px;
   text-align: center;
-  padding-bottom: 38px;
+  padding-bottom: 24px;
   word-break: break-all;
 }
 .archiveDetailCore-keyinfo-item{
-  padding-bottom: 30px;
+  padding-bottom: 12px;
 }
 .archiveDetailCore-keyinfo-item h3{
   color: #aaa;
@@ -641,6 +641,10 @@ header{
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
   color: #fff;
+}
+.resume-pure-icon-link:hover .ico-pdf text[fill="#4f6af5"] {
+  fill: #00ffcc;
+  text-shadow: 0 0 4px rgba(0, 255, 204, 0.6);
 }
 .business-scope{
   width: 100%;

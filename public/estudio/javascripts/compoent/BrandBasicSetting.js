@@ -1,12 +1,17 @@
+import axios from "axios";
 import "/common/javascripts/import-jquery.js";
 import {CodeMappingTypeEnum} from "/common/javascripts/tm-constant.js";
-
+import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
+let customAlert = new CustomAlertModal();
 
 
 const BrandBasicSetting = {
 
     data(){
         return {
+            isUploadingResume: false,
+            resumeUploadProgress: 0,
+            resumeUploadStatus: "",
             referenceSetting: {},
             explainTopic: [
                 {title: "自由合作",content: "自由合作用来标记你的对外合作意向，默认为关闭，表示你不支持各种合作方式；处于开放状态，表示你愿意与其他感兴趣的第三方讨论各种合作方式；平台鼓励各种形式的开放与合作，同时也在努力打造一个受信任的合作环境，但依然要求你采用零信任的方式去拥抱合作，规避金融、道德等欺诈风险。"},
@@ -158,6 +163,15 @@ const BrandBasicSetting = {
         },
         settingBasicInfoV(){
             modifyBasicSetting(this);
+        },
+        removeResumeV(){
+            removeResume(this);
+        },
+        triggerReuploadResumeV(){
+            document.getElementById('resumeFileInput').click();
+        },
+        handleResumeUploadV(e){
+            handleResumeUpload(e,this);
         }
         
        
@@ -177,6 +191,42 @@ async function putBasicSetting(dto){
 async function fetchPdOasisInfo(){
     const url="/api/v1/team/oasis_list_create_by_current_brand";
     return await fetch(url);
+}
+async function doRemoveResume(){
+    const url="/api/v1/web_estudio/brand/setting/remove_resume";
+    return await axios.delete(url);
+}
+async function doUploadResume(form,onProgress){
+    const url="/api/v1/web_estudio/brand/setting/resume";
+    return await axios.put(url, form, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        // Capture the native progress event
+        onUploadProgress: (progressEvent) => {
+            if (progressEvent.total && onProgress) {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                onProgress(percentCompleted); 
+            }
+        }
+    });
+}
+async function uploadResumeFile(file,onProgress){
+    var form = new FormData();
+    form.append("material",file);
+   return await doUploadResume(form,onProgress);
+}
+async function removeResume(appObj){
+    doRemoveResume().then(response=>{
+        if(response.data.code==200){
+            appObj.brandProfile.resumeUrl="";
+        }
+        if(response.data.code!=200){
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息："+response.data.message);
+        }
+    }).catch(error=>{
+        customAlert.alert("系统异常，请检查网络或者重新发送！")
+    });
 }
 async function loadPdOasisList(appObj){
     const response = await fetchPdOasisInfo();
@@ -235,5 +285,48 @@ async function loadIndustryList(appObj){
        });
        appObj.industryOptions=arr;
     }
+}
+
+function handleResumeUpload(e,appObj){
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    var size = parseFloat(file.size);
+    var maxSizeMB = 10; //Size in MB.
+    var maxSize = maxSizeMB * 1024 * 1024; //File size is returned in Bytes.
+    if (size > maxSize) {
+      customAlert.alert("简历文件最大支持10M!");
+      document.querySelector('#resumeFileInput').value = ''; // reset file input
+      return false;
+    }
+    appObj.isUploadingResume = true;
+    appObj.resumeUploadProgress = 0;
+    appObj.resumeUploadStatus = "正在上传简历..."; // 新增：动态状态文字描述
+
+    // 调用上传函数，并传入进度回调
+    uploadResumeFile(file, (percent) => {
+        appObj.resumeUploadProgress = percent; 
+        
+        if (percent === 100) {
+            appObj.resumeUploadStatus = "文件已接收，服务器正在处理...";
+        } else {
+            appObj.resumeUploadStatus = `正在上传简历 (${percent}%)`;
+        }
+    }).then(response => {
+        if(response.data.code == 200){
+            appObj.loadBrandProfileV(); // 刷新配置
+            document.querySelector('#resumeFileInput').value = ''; // 清空输入框
+        }
+        if(response.data.code != 200){
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message);
+        }
+    }).catch(error => {
+        customAlert.alert("系统异常，请检查网络或者重新发送！");
+    }).finally(() => {
+        // 重置状态
+        appObj.isUploadingResume = false;
+        appObj.resumeUploadStatus = "";
+    });
 }
 export default BrandBasicSetting;
