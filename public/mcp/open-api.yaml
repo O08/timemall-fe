@@ -2371,5 +2371,94 @@ paths:
                 default:
                     description: ""
             summary: 编辑技能服务的描述（商品说明）信息。
+    /api/v1/ms/private/{friend}/event:
+        get:
+            operationId: find_friend_msg
+            parameters:
+                - description: 好友UID，商家（品牌）UserId
+                  in: path
+                  name: friend
+                  required: true
+                  schema:
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: "1"
+                    type: string
+                - description: 每页返回的数据数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: "10"
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: number
+                                    event:
+                                        description: 消息列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: number
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: number
+                                            records:
+                                                items:
+                                                    properties:
+                                                        author:
+                                                            description: 发送人
+                                                            type: [string, "null"]
+                                                        authorIcon:
+                                                            description: 发送人头像
+                                                            type: [string, "null"]
+                                                        authorId:
+                                                            description: 消息发送人UID
+                                                            type: [string, "null"]
+                                                        createAt:
+                                                            description: 消息发送时间
+                                                            type: [string, "null"]
+                                                        id:
+                                                            description: 消息ID
+                                                            type: [string, "null"]
+                                                        msg:
+                                                            description: 消息体
+                                                            type: [string, "null"]
+                                                        msgType:
+                                                            description: 消息类型，枚举值：text（文本）；image（图片）；attachment（文件）；
+                                                            type: [string, "null"]
+                                                    type: object
+                                                    additionalProperties: true
+                                                type: array
+                                            size:
+                                                description: 每页返回的数据数量
+                                                type: number
+                                            total:
+                                                description: 总共有多少条数据
+                                                type: number
+                                        type: object
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询私信好友消息列表
 servers:
     - url: https://bluvarri.com
