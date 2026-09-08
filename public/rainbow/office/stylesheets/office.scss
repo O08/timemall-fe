@@ -308,6 +308,9 @@ col-nav-main .oasis-avatar {
 
 col-content {
   width: 100%;
+  @media only screen and (min-width: 1400px) {
+    width: calc(100vw - 220px);
+  }
 }
 
 

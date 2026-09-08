@@ -3,9 +3,12 @@
     justify-content: space-between;
   }
 
-  .content-core-box {
+  .table-responsive .table,.table-responsive .not-found-resource {
     min-width: 1280px;
-  }
+}
+.content-core-box {
+  min-width: 680px;
+}
 
 
   .section-name {

@@ -10,7 +10,7 @@
 }
 
 .col-department-name {
-  width: 62%;
+  width: 52%;
 }
 
 
@@ -49,6 +49,9 @@
 }
 
 
+.table-responsive .table,.table-responsive .not-found-resource {
+  min-width: 1080px;
+}
 .content-core-box {
-  min-width: 1280px;
+min-width: 680px;
 }
