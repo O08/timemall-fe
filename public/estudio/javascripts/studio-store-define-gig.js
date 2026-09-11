@@ -512,7 +512,7 @@ function changeUrlTabWithoutRefreshPage(tab){
         option="create"
     }
     if(id){
-        let url = "/estudio/studio-store-define-cell?tab="+ tab+ "&cell_id="+ id + "&option="+option;
+        let url = "/estudio/studio-store-define-gig?tab="+ tab+ "&cell_id="+ id + "&option="+option;
         history.pushState(null, "", url);
     }
 }
