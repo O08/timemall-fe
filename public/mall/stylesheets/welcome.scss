@@ -541,7 +541,7 @@ svg:not(:root) {
 }
 
 .how_it_work_container {
-  margin-top: 160px;
+  margin-top: 72px;
 }
 
 .marquee-item-media {
@@ -601,6 +601,94 @@ svg:not(:root) {
   .marquee:after {
     width: 5rem;
   }
+}
+.user_base_container{
+  padding-top: 2.5rem;
+}
+.user_base_heading{
+  font-size: 16px;
+  font-weight: 500;
+}
+.user_base_content {
+
+  overflow-x: auto;
+
+
+
+  .user_base_card {
+    width: 252px;
+    height: 68px;
+    position: relative;
+    border-radius: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.16);
+    transition: background-color 0.15s ease, border-radius 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      border: 1px solid #9373ee;
+    }
+  }
+
+  .user_base_card_inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .corner_badge {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.85;
+    transition: transform 0.15s ease;
+  }
+
+  .badge_icon {
+    position: absolute;
+    left: 9px;
+    top: 5px;
+    font-size: 11px;
+    line-height: 1;
+    z-index: 10;
+  }
+
+  .user_base_info {
+    margin-left: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .user_base_info--title {
+    color: #f2f3f5;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 1px;
+    width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: width 0.15s ease;
+  }
+
+  .user_base_info--desc {
+    color: #949ba4;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: width 0.15s ease;
+  }
+
+
 }
 
 .choice_service_container {

@@ -2059,3 +2059,13 @@ emoji-picker {
   padding: 24px;
   transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* 兼容 IE 和 旧版 Edge */
+  scrollbar-width: none;     /* 兼容 Firefox */
+}
+
+/* 兼容 Chrome, Safari 和 Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
