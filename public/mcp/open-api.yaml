@@ -2460,5 +2460,317 @@ paths:
                 default:
                     description: ""
             summary: 查询私信好友消息列表
+    /api/v1/web_estudio/virtual/product/status:
+        put:
+            operationId: edit_virtual_product_status
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                productId:
+                                    description: 虚拟商品Id
+                                    type: string
+                                status:
+                                    description: 状态，枚举值：2-上架；3-下架；
+                                    type: string
+                            required:
+                                - productId
+                                - status
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: integer
+                                    message:
+                                        description: 操作成功或失败时的简单解释
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 编辑虚拟商品的状态，用于上架或者下架虚拟商品场景
+    /api/v1/web_estudio/brand/virtual/product/order/maintenance:
+        put:
+            operationId: edit_virtual_order_status
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                orderId:
+                                    description: 虚拟商品订单Id
+                                    type: string
+                                tag:
+                                    description: 订单状态，枚举值：4-交付中；5-履约完成；6-已取消订单；
+                                    type: string
+                            required:
+                                - orderId
+                                - tag
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: integer
+                                    message:
+                                        description: 操作成功或失败时的简单解释
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 编辑管理虚拟商品订单状态
+    /api/v1/web_estudio/virtual/product/order/pack/change:
+        put:
+            operationId: edit_virtual_order_pack
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                orderId:
+                                    description: 虚拟商品订单Id
+                                    type: string
+                                pack:
+                                    description: 货品信息（卡密、网盘链接等），内容最大长度300
+                                    type: string
+                            required:
+                                - orderId
+                                - pack
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: integer
+                                    message:
+                                        description: 操作成功或失败时的简单解释
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 编辑虚拟商品订单货品信息，用于发货、修改货品场景
+    /api/v1/web_estudio/virtual/product/change:
+        put:
+            operationId: change_virtual_product_config
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                inventory:
+                                    description: 库存
+                                    type: integer
+                                productId:
+                                    description: 商品Id
+                                    type: string
+                                productName:
+                                    description: 商品名，最大长度为38字符
+                                    type: string
+                                productPrice:
+                                    description: 售价
+                                    type: number
+                                provideInvoice:
+                                    description: 是否提供发票，枚举值：0-不提供；1-提供；
+                                    type: string
+                                tags:
+                                    description: 商品标签数组字符串，案例： "[\"John\"]"
+                                    type: string
+                            required:
+                                - productId
+                                - inventory
+                                - productName
+                                - productPrice
+                                - provideInvoice
+                                - tags
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: integer
+                                    message:
+                                        description: 操作成功或失败时的简单解释
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 修改虚拟商品的配置信息，比如库存、定价、标签等，产品定义场景
+    /api/v1/web_estudio/brand/virtual/product/{id}/meta:
+        get:
+            operationId: find_virtual_product_config
+            parameters:
+                - description: 虚拟商品Id
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    product:
+                                        description: 商品信息
+                                        properties:
+                                            deliverAttachment:
+                                                description: 预制交付文件，客户购买后开放访问
+                                                type: [string, "null"]
+                                            deliverNote:
+                                                description: 交付说明，描述商品的用法、发货、售后等指导内容（说明书仅对已购买用户开放访问）
+                                                type: [string, "null"]
+                                            inventory:
+                                                description: 库存
+                                                type: [string, "null"]
+                                            pack:
+                                                description: 货品信息，比如卡密、网盘链接
+                                                type: [string, "null"]
+                                            productDesc:
+                                                description: 商品描述，html字符串
+                                                type: [string, "null"]
+                                            productName:
+                                                description: 商品名称
+                                                type: [string, "null"]
+                                            productPrice:
+                                                description: 售价
+                                                type: [string, "null"]
+                                            productStatus:
+                                                description: 状态，枚举值：1-草稿；2-售卖中；3-已下架；
+                                                type: [string, "null"]
+                                            provideInvoice:
+                                                description: 是否提供发票，枚举值：0-不提供；1-提供；
+                                                type: [string, "null"]
+                                            shippingMethod:
+                                                description: 发货策略，枚举值：standard-标准发货；random-随机发货；manual-手动发货；标准发货：自动发货方式，适用于向所以客户发送同一个网盘链接、账号等场景，选用该方式，每一个订单客户限购 1 份商品。随机发货：自动发货方式，从已配置的货品中随机选取并发送给客户，选用该方式，每一个订单客户限购 1 份商品。手动发货：每一个订单，商家需手动填写货品信息，选用该方式，不对客户进行限购。
+                                                type: [string, "null"]
+                                            showcase:
+                                                description: 商品展示
+                                                items:
+                                                    description: 商品展示图例
+                                                    type: [string, "null"]
+                                                type: array
+                                            tags:
+                                                description: 标签数组
+                                                items:
+                                                    description: 标签
+                                                    type: [string, "null"]
+                                                type: array
+                                            thumbnailUrl:
+                                                description: 主图
+                                                type: [string, "null"]
+                                        type: object
+                                        additionalProperties: true
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询虚拟商品配置信息，产品定义场景使用
+    /api/v1/web_mall/virtual/product/{id}/profile:
+        get:
+            operationId: find_one_virtual_product_info
+            parameters:
+                - description: 虚拟商品Id
+                  in: path
+                  name: id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    profile:
+                                        description: 商品信息
+                                        properties:
+                                            inventory:
+                                                description: 库存
+                                                type: [string, "null"]
+                                            productDesc:
+                                                description: 商品描述，html字符串
+                                                type: [string, "null"]
+                                            productName:
+                                                description: 名称
+                                                type: [string, "null"]
+                                            productPrice:
+                                                description: 售价
+                                                type: [string, "null"]
+                                            productStatus:
+                                                description: 状态，枚举值：1-草稿；2-售卖中；3-已下架；
+                                                type: [string, "null"]
+                                            provideInvoice:
+                                                description: 是否提供发票，枚举值：0-不提供；1-提供；
+                                                type: [string, "null"]
+                                            shippingMethod:
+                                                description: 发货策略，枚举值：standard-标准发货；random-随机发货；manual-手动发货；标准发货：自动发货方式，适用于向所以客户发送同一个网盘链接、账号等场景，选用该方式，每一个订单客户限购 1 份商品。随机发货：自动发货方式，从已配置的货品中随机选取并发送给客户，选用该方式，每一个订单客户限购 1 份商品。手动发货：每一个订单，商家需手动填写货品信息，选用该方式，不对客户进行限购。
+                                                type: [string, "null"]
+                                            showcase:
+                                                description: 商品展示
+                                                items:
+                                                    description: 商品展示图例
+                                                    type: [string, "null"]
+                                                type: array
+                                            tags:
+                                                description: 标签数组
+                                                items:
+                                                    description: 标签
+                                                    type: [string, "null"]
+                                                type: array
+                                            thumbnailUrl:
+                                                description: 商品主图
+                                                type: [string, "null"]
+                                        type: object
+                                        additionalProperties: true
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询虚拟商品信息
+
 servers:
     - url: https://bluvarri.com
