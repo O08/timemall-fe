@@ -2771,6 +2771,53 @@ paths:
                 default:
                     description: ""
             summary: 查询虚拟商品信息
-
+    /api/v1/web_estudio/brand/check_in:
+        post:
+            operationId: brand_daily_checkin
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示操作成功
+                                        type: number
+                                    message:
+                                        description: 操作成功或失败时的简单解释
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 品牌（用户）每日签到，签到成功获取 10 源能
+    /api/v1/web_estudio/brand/check_in/info:
+        get:
+            operationId: find_checkin_info
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    info:
+                                        description: 签到信息
+                                        properties:
+                                            checkedIn:
+                                                description: 今日是否已经签到，枚举值：0-未签到；1-已签到；
+                                                type: string
+                                        type: object
+                                        additionalProperties: true
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询用户签到状态
 servers:
     - url: https://bluvarri.com

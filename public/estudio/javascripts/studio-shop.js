@@ -19,6 +19,9 @@ let customAlert = new CustomAlertModal();
 const RootComponent = {
     data() {
         return {
+            checkInfo: {
+                checkedIn: false
+            },
             product_bluesign: {
                 tradingName: "蓝标",
                 price: "30"
@@ -37,9 +40,14 @@ const RootComponent = {
         buyVipProductV(){
             buyVipProduct()
         },
+        brandCheckInV(){
+            if(this.checkInfo.checkedIn) return;
+            brandCheckIn();
+        },
         init(){
             initBlueSign();
             fetchProductElectricity();
+            fetchCheckInfo();
         },
         getDaysBetweenV(begainDate,endDate){
             if(!begainDate || !endDate){
@@ -98,6 +106,41 @@ async function getElectricityInfo(){
 async function buyElectricity(){
     const url = "/api/v1/web_estudio/shop/electricity/buy";
     return await axios.post(url);
+}
+
+async function doBrandCheckIn(){
+    const url = "/api/v1/web_estudio/brand/check_in";
+    return await axios.post(url);
+}
+
+async function getCheckinInfo(){
+    const url = "/api/v1/web_estudio/brand/check_in/info";
+    return await axios.get(url);
+}
+
+async function brandCheckIn(){
+    doBrandCheckIn().then((response) => {
+        if (response.data.code == 200) {
+            shopPage.checkInfo.checkedIn=true;
+            fetchProductElectricity();
+            $("#dailyCheckInModal").modal("hide");
+            customAlert.alert("签到成功，福利已发放");
+
+
+        }
+        if (response.data.code != 200) {
+            customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message);
+        }
+    }).catch(error => {
+        customAlert.alert("操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + error);
+    });
+}
+async function fetchCheckInfo(){
+    getCheckinInfo().then((response)=>{
+        if(response.data.code == 200){
+            shopPage.checkInfo.checkedIn= response.data.info.checkedIn=='1';
+        }
+    })
 }
 
 async function buyElectricityProduct() {
@@ -171,6 +214,10 @@ $(".product-top_up .product-img").on("click",()=>{
     
 
     $("#topUpModal").modal("show");
+})
+$(".daily-check_in .product-img").on("click",()=>{
+    if(shopPage.checkInfo.checkedIn) return;
+    $("#dailyCheckInModal").modal("show");
 })
 
 $(".electrcity-top_up .product-img").on("click",()=>{
