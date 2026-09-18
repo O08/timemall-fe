@@ -276,6 +276,11 @@ app.get( /.*@blv\.bi$/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/bubble.html")        //设置/ 下访问文件位置
 })
 
+// match @blv.me suffix for brand bio mapping
+app.get( /.*@blv\.me$/, (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/mall/digital-business-card.html")        //设置/ 下访问文件位置
+})
+
 // match @blv.hub suffix for oasis handle mapping
 app.get( /.*@blv\.hub$/, (req, res) => {
   res.sendFile(__dirname+"/dist"+"/rainbow/oasis/home.html")        //设置/ 下访问文件位置

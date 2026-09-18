@@ -65,6 +65,12 @@ async function getBrandProfile(brandId)
     const url = "/api/v1/web_mall/brand/{brand_id}/profile".replace("{brand_id}",brandId);
     return axios.get(url);
 }
+async function getBrandProfileByHandle(handle)
+{
+    const url = "/api/v1/web_mall/brand/{handle}/bio".replace("{handle}",handle);
+    return await axios.get(url);
+}
+
 
 async function doSendOrderReceivingEmail(dto){
   const url="/api/v1/web_mall/email_notice";
@@ -111,6 +117,7 @@ function sendOrderReceivingEmail(noticeType,orderId){
 }
 
 Api.getBrandProfile=getBrandProfile;
+Api.getBrandProfileByHandle=getBrandProfileByHandle;
 Api.sendOrderReceivingEmail=sendOrderReceivingEmail;
 Api.virtualProductOrderRefund=virtualProductOrderRefund;
 Api.subscriptionBillRefund=subscriptionBillRefund;

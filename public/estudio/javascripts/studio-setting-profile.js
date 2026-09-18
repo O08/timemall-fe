@@ -23,9 +23,13 @@ import BrandContactSetting from "/estudio/javascripts/compoent/BrandContactSetti
 import { transformInputNumberAsPositive } from "/common/javascripts/util.js";
 import {Ftime, renderDateInChina,renderDateToDayInChina } from "/common/javascripts/util.js";
 
+import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
+
+const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
+
 
 const defaultAvatarImage = new URL(
     '/common/icon/panda-kawaii.svg',
@@ -85,6 +89,7 @@ const RootComponent = {
         }
     },
     methods: {
+        
         downLoadFileUriV(fileName,uri){
             return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
         },
@@ -158,6 +163,12 @@ const RootComponent = {
          
     },
     computed:{
+        brandStoreUrl(){
+            return `${currentDomain}/${this.identity.handle}@blv.bi`;
+        },
+        brandBioUrl(){
+          return `${currentDomain}/${this.identity.handle}@blv.me`;
+        },
         validateExperienceModalFailForAddMode(){
             return validateModalFail(this.tmpMillstone);
              

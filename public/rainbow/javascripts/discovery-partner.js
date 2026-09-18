@@ -12,6 +12,8 @@ import { parseIpLocationCityInfo } from "/common/javascripts/util.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
 
+import { copyValueToClipboard } from "/common/javascripts/share-util.js";
+import {EnvWebsite} from "/common/javascripts/tm-constant.js";
 
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
 
@@ -20,6 +22,9 @@ let customAlert = new CustomAlertModal();
 
 const lastSegment=window.location.pathname.split('/').pop();
 const queryBid = lastSegment === 'discovery-partner' ? null : lastSegment ;
+
+const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCAL : EnvWebsite.PROD;
+
 
 const RootComponent = {
     data() {
@@ -86,6 +91,11 @@ const RootComponent = {
             // 18:00 ~ 22:00
             const localTime=new Date().getHours();
             return localTime>=18 && localTime<=21;
+        },
+        shareBrandBioV(){
+            const handleBio = this.brandProfile.handle?.replace("@blv.bi","@blv.me");
+            const copyContent = `${currentDomain}/${handleBio}`;
+            copyValueToClipboard(copyContent);
         },
         parseIpLocationCityInfoV(cityInfo){
             return parseIpLocationCityInfo(cityInfo);

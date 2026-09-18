@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,nofollow">
+    <meta http-equiv ="content-language" content ="zh-cn">
+
+    <link rel="icon" href="https://bluvarri.com/favicon.png">
+    <title> 数字名片|班蔚 </title>
+    <meta name="description" content="品牌数字名片，仅需一个永久链接，聚合所有入口，UP主、自媒体人、商家等都在用">
+    <meta name="keywords" content="数字名片,聚合链接,linktree,链接树,导航页">
+
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+    <link rel="stylesheet" href="/rainbow/stylesheets/discovery-partner.scss">
+    <style>
+      .fade-in-up {
+        animation: fadeInUp 0.4s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+    
+</head>
+<body>
+
+  <div id="app" style="padding-left: 12px; padding-right: 12px;" v-cloak>
+
+    <div  v-if="init_finish" class="partner-archive-content fade-in-up">
+      <div class="archive-detail-container">
+        <div class="archiveDetail-avatar">
+          <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
+        </div>
+        <div class="archiveDetail-header">
+          <h1>{{brandProfile.brand}}</h1>
+          <p>{{brandProfile.title}}</p>
+          <div class="archiveDetail-action">
+
+            <div class="can_opt_wrapper d-flex">
+              <div class="opt_item_container d-flex flex-column justify-content-center">
+                <div class="opt_item_head">
+                  <a :href="'/'+ brandProfile.handle" target="_blank">
+                    <button  class="btn btn-dark  copy-link ">
+                      <i class="bi bi-house"></i>
+                    </button>
+                  </a>
+                </div>
+                <span class="opt_item_desc">小店</span>
+              </div>
+              
+              <div class="opt_item_container d-flex flex-column justify-content-center">
+                <div class="opt_item_head">
+                  <a :href="'/messages/'+ brandProfile.brandUserId" target="_blank">
+                    <button  class="btn btn-dark private-msg-link">
+                      <i class="bi bi-soundwave"></i>
+                      <div v-if="brandProfile.brandMark=='3'"  class="online-indicator">
+                        <div class="online-indicator-content">
+                        </div>
+                      </div>
+                    </button>
+                  </a> 
+                </div>
+                <span class="opt_item_desc">聊一聊</span>
+              </div>
+
+              <div class="opt_item_container d-flex flex-column justify-content-center">
+                <div class="opt_item_head">
+                  <a>
+                    <button v-preventreclick  @click="shareBrandBioV"  class="btn btn-dark  copy-link">
+                      <i class="bi bi-link-45deg"></i>
+                    </button>
+                  </a>
+              
+                </div>
+                <span class="opt_item_desc">分享</span>
+              </div>
+
+
+
+
+
+
+              
+    
+            </div>
+
+          </div>
+        </div>
+        <div class="archiveDetail-core">
+          <div class="archiveDetail-core-cooperationScope">
+            <div>
+              <p>
+                {{!brandProfile.cooperationScope ? '未录入合作信息' : brandProfile.cooperationScope}}
+              </p>
+            </div>
+          </div>
+          <div class="archiveDetail-core-keyinfo-wrapper">
+
+            <div class="archiveDetail-core-keyinfo">
+              <div>
+                <h2 class="keyInfo-heading">{{ brandProfile.brandTypeCode=='1' ?  (!brandProfile.typeOfBusiness ? '未设置主体' :  parseTypeOfBusinessV(brandProfile.typeOfBusiness)) : (!brandProfile.occupation? '未设置职业' : brandProfile.occupation)  }}</h2>
+              </div>
+              <div class="archiveDetailCore-keyinfo-item">
+                <h3>IP 属地</h3>
+                <h4>{{parseIpLocationCityInfoV(brandProfile.location)}}</h4>
+              </div>
+              <div class="archiveDetailCore-keyinfo-item">
+                <h3>行业</h3>
+                <h4>{{!brandProfile.industry? '无数据' : brandProfile.industry}}</h4>
+              </div>
+              <div class="archiveDetailCore-keyinfo-item profile-info-item" v-if="brandProfile.resumeUrl">
+                <h3>简历</h3>
+                <div class="info-content">
+                  <a :download="brandProfile.brand+'_resume.pdf'" :href="downLoadFileUriV(brandProfile.brand+'_resume.pdf',brandProfile.resumeUrl)" target="_blank" class="resume-pure-icon-link" title="点击预览简历">
+                    <span class="pure-icon">
+                      <svg class="ico-pdf" width="32" height="38" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+                        <rect x="1" y="1" width="36" height="44" rx="4" fill="#1a1c1f" stroke="#3a3d42" stroke-width="1.5"/>
+                        <path d="M25 1v8a2 2 0 002 2h8" stroke="#3a3d42" stroke-width="1.5"/>
+                        <path d="M25 1L35 11H27a2 2 0 01-2-2V1z" fill="#4f6af5" fill-opacity=".2"/>
+                        <rect x="7" y="25" width="24" height="12" rx="3" fill="#4f6af51f"/>
+                        <text x="19" y="35" text-anchor="middle" fill="#4f6af5" font-size="7.5" font-weight="700" font-family="inherit" letter-spacing="1.2">PDF</text>
+                        <line x1="7" y1="18" x2="24" y2="18" stroke="#3a3d42" stroke-width="1.2" stroke-linecap="round"/>
+                        <line x1="7" y1="22" x2="19" y2="22" stroke="#3a3d42" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div v-if="brandProfile.freeNightCounsellor === '1' || brandProfile.enableFoodForWork === '1'" class="archiveDetailCore-keyinfo-item archive-services">
+                <h3 class="section-title">公益服务</h3>
+                
+                <div class="service-list">
+                  <!-- Free Night Consultation -->
+                  <div v-if="brandProfile.freeNightCounsellor === '1'" class="service-item">
+                    <i class="icon-moon"></i>
+                    <div class="service-content">
+                      <span class="label">夜间咨询</span>
+                      <span class="desc">每日 18:00 ～ 22:00 提供免费咨询</span>
+                    </div>
+                  </div>
+              
+                  <!-- Food for Work -->
+                  <div v-if="brandProfile.enableFoodForWork === '1'" class="service-item">
+                    <i class="icon-food"></i>
+                    <div class="service-content">
+                      <span class="label">以工换食</span>
+                      <span class="desc">支持通过劳动换取食物或餐费</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+
+              <div class="partner-meta-info">
+                <div  class="partner-meta-item">
+                  <i class="bi bi-buildings me-1"></i>
+                  {{ brandProfile.brandTypeCode=='1' ? '机构' : '个人' }}
+                </div>
+                <div 
+                :class="{'active': brandProfile.supportFreeCooperation== '1'}"
+                  class="partner-meta-item">
+                  <i class="bi bi-opencollective me-1"></i>
+                  
+                  {{  brandProfile.supportFreeCooperation== '1' ?  '支持自由合作' : '未开放外部合作' }}
+
+                </div>
+                <div 
+                :class="{'active': brandProfile.availableForWork== '1'}"
+                  class="partner-meta-item">
+                  <i class="bi bi-mortarboard me-1"></i>
+                  
+                  {{  brandProfile.availableForWork== '1' ?  '可聘用' : '未开启求职' }}
+
+                </div>
+                <div 
+                   :class="{'active': brandProfile.hiring== '1'}"
+                   class="partner-meta-item">
+                  <i class="bi bi-duffle me-1"></i>
+                      {{  brandProfile.hiring== '1' ?  '招聘中' : '无招聘计划'}}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          
+        </div>
+        <div class="archiveDetail-skills">
+          <h2>经营范围</h2>
+          <div  class="business-scope py-1">
+            <p>{{brandProfile.businessScope}}</p>
+          </div>
+        </div>
+        <div class="archiveDetail-skills">
+          <h2>品牌特质</h2>
+          <div class="brand-skill-box">
+            <div v-for="skill in brandProfile.skills" class="archiveDetail-skills-item">
+              {{skill.entry}}
+            </div>
+          </div>
+        </div>
+        <div class="archiveDetail-links">
+          <h2>链接</h2>
+          <div v-for="link in brandProfile.links" class="me-link py-1">
+            <img class="link__favicon" width="24" height="24" :src="getLinkIconUrlV(link.uri)">
+            <div class="link-view-wrapper">
+               <span class="link-view-title">{{link.linkTitle}}</span>
+               <span class="link-view-url">
+                <a :href="parseLinkUriV(link.uri)" rel="nofollow" target="_blank" dir="auto" tabindex="0">
+                    {{link.uri}}
+                </a>
+               </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+    
+  <script type="module" src="/common/javascripts/tm.js"></script>
+  <script type="module" src="/mall/javascripts/digital-business-card.js"></script>
+
+
+</body>
+</html>

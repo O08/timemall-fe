@@ -660,6 +660,8 @@ header{
 }
 .can_opt_wrapper{
   padding-top: 32px;
+  max-width: 100%;
+  overflow-x: auto;
 }
 .opt_item_container{
   width: 56px;
@@ -776,6 +778,7 @@ header{
    }
    .can_opt_wrapper {
     padding-top: 24px;
+    gap: 12px;
   }
   #partnerInfoPreviewModal .modal-body {
     border: none;
