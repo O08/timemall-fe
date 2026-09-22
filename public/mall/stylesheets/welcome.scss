@@ -1188,12 +1188,6 @@ svg:not(:root) {
 
 }
 
-.link-heading {
-  font-size: .8125em;
-  line-height: 24px;
-  font-weight: 800;
-  padding-bottom: 2px;
-}
 
 .workplace-container {
   padding-top: 120px;
@@ -1246,235 +1240,6 @@ svg:not(:root) {
   color: rgba(255, 255, 255, 0.85);
 }
 
-.workplace-benefits-container {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding: 0 72px;
-  padding-top: 32px;
-  gap: 32px;
-}
-
-.benefit-group {
-  display: grid;
-  grid-template-columns: 1.42fr 1fr;
-  gap: 32px;
-}
-
-.office-col {
-  width: 100%;
-  border-radius: 16px;
-  padding: 48px;
-  padding-bottom: 0;
-}
-
-.glass {
-  background: linear-gradient(0deg, #141414 0%, rgba(120, 115, 203, 0.2) 40%);
-  overflow: clip;
-  background-size: cover;
-  background-image: image-set(url("https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/welcome/glass-effect-bg.webp") type("image/webp"),
-      url("https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/welcome/glass-effect-bg.png") type("image/jpeg"));
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(120, 115, 203, 0.25);
-  border-color: rgba(147, 115, 238, 0.2);
-}
-
-.team-col {
-  width: 100%;
-  border-radius: 16px;
-  padding: 48px;
-  padding-bottom: 40px;
-}
-
-.benefit-item {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  gap: 16px;
-  height: 100%;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-}
-
-.benefit-item-office-intro {
-  text-align: left;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  gap: 12px;
-  text-align: left;
-}
-
-.benefit-item-office-case {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: flex-end;
-  -webkit-box-align: flex-end;
-  -ms-flex-align: flex-end;
-  align-items: flex-end;
-}
-
-.benefit-intro-title {
-  margin: 0;
-  font-family: '__Inter_d65c78', '__Inter_Fallback_d65c78', Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.334;
-  font-feature-settings: "ss02" on;
-  font-family: '__BagossCondensedFont_6a34bf', '__BagossCondensedFont_Fallback_6a34bf', Arial, Helvetica, sans-serif;
-  color: #fff;
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 120%;
-  letter-spacing: -0.14px;
-  position: relative;
-  z-index: 1;
-}
-
-.benefit-intro-desc {
-  margin: 0;
-  font-family: '__Inter_d65c78', '__Inter_Fallback_d65c78', Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  font-feature-settings: "ss01" on;
-  color: rgba(255, 255, 255, 0.9);
-  font-family: '__Inter_d65c78', '__Inter_Fallback_d65c78', Arial, Helvetica, sans-serif;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 180%;
-  letter-spacing: -0.085px;
-}
-
-.office-case-img-container {
-  height: auto;
-  align-items: flex-end;
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  position: relative;
-}
-
-.office-case-img-container img {
-  color: transparent;
-  max-width: 623.5px;
-  width: 100%;
-  height: auto;
-}
-
-.benefit-item-team-case {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.team-case-img-container {
-  height: auto;
-  align-items: flex-end;
-  width: 100%;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  position: relative;
-}
-
-.team-case-img-container img {
-  color: transparent;
-  max-width: 224px;
-  width: 100%;
-  height: auto;
-}
-
-.benefit-item-team-intro {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-align: center;
-}
-
-.team-intro-title {
-  margin: 0;
-  color: #fff;
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 120%;
-  letter-spacing: -0.14px;
-  position: relative;
-  z-index: 1;
-}
-
-.team-intro-desc {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 180%;
-  letter-spacing: -0.085px;
-}
-
-.benefit-group-default {
-  display: grid;
-  grid-template-columns: 1fr 1.42fr;
-  gap: 32px;
-}
-
-.pay-col {
-  width: 100%;
-  border-radius: 16px;
-  padding: 48px;
-  padding-bottom: 40px;
-}
 
 h2 {
   font-size: 2rem;
@@ -1487,7 +1252,6 @@ h2 {
 }
 
 .how_it_work_container,
-.workplace-benefits-container,
 .choice_service_container {
   position: relative;
   align-items: center;
@@ -1495,18 +1259,6 @@ h2 {
   flex-direction: column;
 }
 
-.workplace-benefits-container .heading {
-  background-repeat: no-repeat;
-  background-position: 12px -36px;
-  background-size: cover;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 56px;
-  width: 390px;
-
-}
 
 .how_it_work_hero_title {
   background-repeat: no-repeat;
@@ -1813,17 +1565,7 @@ h2 {
   inset: 72px auto auto -28px;
 }
 
-.office-col,
-.team-col,
-.pay-col {
-  transition: all 0.3s ease;
-}
 
-.office-col:hover,
-.team-col:hover,
-.pay-col:hover {
-  transform: translateY(-4px);
-}
 @keyframes bubbles {
   from {
     transform: translate();
@@ -1839,9 +1581,7 @@ h2 {
     font-size: 14px;
     line-height: 20px;
   }
-  .workplace-benefits-container {
-    padding: 32px 24px 0;
-  }
+
 
   .hot-topic-container,
   .hero-info-container {
@@ -1859,34 +1599,17 @@ h2 {
     padding-left: 32px;
     padding-right: 32px;
   }
-
-  .team-intro-desc,
   .benefit-intro-desc,
   .hook-info__desc p {
     font-size: 13px;
     line-height: 1.456;
   }
 
-  .benefit-intro-title,
-  .team-intro-title,
   .hook-info__title h3 {
     font-size: 18px;
   }
 
-  .office-col,
-  .team-col,
-  .pay-col {
-    padding: 24px 24px 0;
-  }
 
-  .benefit-group-default,
-  .benefit-group {
-    gap: 16px;
-  }
-
-  .team-intro-title {
-    word-break: keep-all;
-  }
 
   .hook-info {
     gap: 12px;
@@ -1901,10 +1624,6 @@ h2 {
 
   .hook-img-container img {
     width: 170px;
-  }
-
-  .benefit-item-team-intro {
-    padding-bottom: 24px;
   }
 
   .platform-value h1 {
