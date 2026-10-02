@@ -598,15 +598,44 @@ nav{
       vertical-align: middle;
       font-weight:400;
       font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
-      width: calc(100% - 32px);
+      max-width: 100%;
       white-space: nowrap;
       text-overflow: ellipsis;
       text-align: left;
       display: inline-block;
       overflow: hidden;
   }
+  .card-brand-info__name{
+    max-width: calc(100% - 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-brand-info__vip{
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-brand-info{
+    width: calc(100% - 32px);
+    display: flex;
+  }
+  .price-label{
+    color: #b5bac1;
+    font-size: 13px;
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+  .vip-award i{
+    font-size: 13px;
+    display: none;
+  }
   .enable-blue i{
     color: #3887FE;
+    display: block;
   }
   
 

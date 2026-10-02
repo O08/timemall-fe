@@ -326,7 +326,7 @@
                             <img loading="lazy" :src="adaptiveImageUriV(cell.preview) || defaultCellPreviewImage" class="card-img-top cell-thumbnail" alt="..." @error="e => { e.target.src = defaultCellPreviewImage }">
                           </a>
                           <div class="card-body">
-                            <div class="d-flex portrait align-items-center">
+                            <div class="d-flex gap-1 portrait align-items-center">
                               <div class="brand-logo-container">
                                 <img loading="lazy" class="service-brand" :src="adaptiveImageUriV(cell.avator) || defaultAvatarImage" @error="e => { e.target.src = defaultAvatarImage }">
                                 <div v-if="cell.brandMark=='3'" class="online-indicator">
@@ -334,7 +334,17 @@
                                   </div>
                                 </div>
                               </div>
-                              <h6 class="service-brand-name ms-2 my-0">{{cell.brand}}</h6>
+                              <div class="card-brand-info">
+                                <div class="card-brand-info__name">
+                                  <span class="service-brand-name my-0">{{cell.brand}}</span>
+                                </div>
+                                <div class="card-brand-info__vip">
+                                  <span class="vip-award"
+                                    :class="{'enable-blue': Number(cell.enableBlue)}">
+                                    <i class="bi bi-patch-check"></i>
+                                  </span>
+                                </div>
+                              </div>
                             </div>
                             <p class="card-text mt-2">
                               <a :href="'/mall/cell-detail?cell_id='+cell.id + '&brand_id=' + cell.brandId " class="url-link">
@@ -343,9 +353,8 @@
                             </p>
                           </div>
                           <div class="card-footer d-flex align-items-center justify-content-between card-footer-highlight">
-                            <span class="vip-award"
-                              :class="{'enable-blue': Number(cell.enableBlue)}">
-                              <i class="bi bi-award-fill"></i>
+                            <span class="price-label">
+                              售价
                             </span>
                             <div class="price">
                               <i>￥</i>

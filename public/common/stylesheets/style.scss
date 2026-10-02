@@ -746,6 +746,10 @@ opacity: 0;
   font-size: 20px;
   line-height: 24px;
   color: #4CFFA9;
+  @media (max-width: 480px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 .price i {
   margin-right: 3px;
@@ -766,6 +770,9 @@ opacity: 0;
   font-size: 20px;
     font-weight: 700;
     font-family: arial,sans-serif;
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
 }
 .price .price-sbu{
   font-style: normal;
@@ -773,6 +780,9 @@ opacity: 0;
   font-size: 14px;
   font-weight: 700;
   font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 }
 .text-color-dark{
   color: #212529;
