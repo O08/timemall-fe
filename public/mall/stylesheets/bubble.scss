@@ -225,6 +225,13 @@ nav{
     overflow: hidden;
     height: 70px;
 }
+.price-label{
+  color: #b5bac1;
+  font-size: 13px;
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
 .service-brand-blue{
   font-size: 12px;
   line-height: 20px;
