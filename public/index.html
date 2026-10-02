@@ -44,6 +44,28 @@
   <link rel="stylesheet" href="/mall/stylesheets/welcome.scss">
   <link rel="canonical" href="https://bluvarri.com" />
   <link rel="manifest" href="/manifest.json">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "班蔚",
+      "alternativeName": "Bluvarri",
+      "operatingSystem": "Windows 10, Windows 11",
+      "applicationCategory": "BusinessApplication, SocialNetworkingApplication",
+      "url": "https://bluvarri.com",
+      "downloadUrl": "https://apps.microsoft.com/detail/9pc8h63vkvkj",
+      "publisher": {
+        "@type": "Organization",
+        "name": "上海群巅科技有限公司",
+        "url": "https://bluvarri.com",
+        "sameAs": [
+          "https://apps.microsoft.com/detail/9pc8h63vkvkj"
+        ]
+      }
+    }
+  </script>
+    
+    
 </head>
 <body>
   <div id="desk-app" class="desk-app">
@@ -279,9 +301,34 @@
                       <i class="bi bi-arrow-right-circle-fill me-1"></i>开始体验
                     </button>
                   </a>
-                  <button  id="install" hidden class="btn btn-outline-dark btn-view-more text-white ms-3">
+                  <div id="pwa-install-group" hidden class="btn-group ms-3">
+                    <!-- Main Button: Triggers native PWA Installation -->
+                    <button  id="install" type="button" class="btn btn-outline-dark btn-install-app text-white d-inline-flex align-items-center">
+                      <i class="bi bi-laptop-fill me-2"></i>
+                      <span>安装客户端</span>
+                    </button>
+                    
+                    <!-- Toggle Arrow -->
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="visually-hidden">切换下拉菜单</span>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-dark shadow">
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center p-2" href="https://apps.microsoft.com/detail/9pc8h63vkvkj" target="_blank" rel="noopener">
+                          <i class="bi bi-windows text-info fs-5 me-3"></i>
+                          <div>
+                            <div class="fw-bold text-white" style="font-size: 14px;">微软商店安装</div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <!-- <button  id="install" hidden class="btn btn-outline-dark btn-view-more text-white ms-3">
                     <i class="bi bi-laptop-fill me-1"></i>安装客户端
-                  </button>
+                  </button> -->
       
                 </div>
               </div>
@@ -573,7 +620,7 @@
                   <div class="copyright">
                     <span>
                       <span>
-                        <span>©2026 上海群巅科技有限公司&nbsp;</span>
+                        <span>©2022-Present 上海群巅科技有限公司&nbsp;</span>
                         <span class="icp">
                           <a rel="nofollow" class="nav-link" href="https://beian.miit.gov.cn/" target="_blank">沪ICP备2022021979号</a>
                         </span>
@@ -1051,12 +1098,14 @@
       // Whether we are running as an installed PWA or not.
       // Whether the app is running in the Microsoft Edge sidebar.
       let installPrompt = null;
-      const installButton = document.querySelector("#install");
+      const installContainerButton = document.querySelector("#pwa-install-group");
+
+      const installButton = document.getElementById('install');
 
       window.addEventListener("beforeinstallprompt", (event) => {
         event.preventDefault();
         installPrompt = event;
-        installButton.removeAttribute("hidden");
+        installContainerButton.removeAttribute("hidden");
       });
 
       installButton.addEventListener("click", async () => {
