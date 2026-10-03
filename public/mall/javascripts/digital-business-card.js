@@ -94,7 +94,10 @@ const RootComponent = {
             }).finally(() => {
                 this.init_finish = true;
             });
-        }
+        },
+        downLoadFileUriV(fileName,uri){
+            return uri + "&download=true&downloadName=" + encodeURIComponent(fileName);
+        },
     }
 }
 

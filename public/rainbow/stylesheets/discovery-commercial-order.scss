@@ -199,6 +199,50 @@ header{
   background-color: #2E2E2E;
 }
 
+.vip-award i{
+  font-size: 13px;
+  display: none;
+}
+.enable-blue i{
+  color: #3887FE;
+  display: block;
+}
+.paper-info-box{
+  display: flex;
+}
+
+
+.paper-brand-info{
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  display: flex;
+}
+.paper-name-box{
+  justify-content: center;
+  align-items: center;
+  max-width: calc(100% - 24px);
+  display: flex;
+}
+.paper-name{
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+  font-family: MicrosoftYahei-regular, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  display: inline-block;
+  overflow: hidden;
+}
 .obj-title-wrapper{
   height: 50px;
 }

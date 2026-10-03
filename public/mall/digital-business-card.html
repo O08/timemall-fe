@@ -37,7 +37,15 @@
           <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
         </div>
         <div class="archiveDetail-header">
-          <h1>{{brandProfile.brand}}</h1>
+          <div class="archiveDetail-brand_name">
+            <h1>{{brandProfile.brand}}</h1>
+            <div v-if="Number(brandProfile.enableBlue)">
+              <span class="vip-award"
+              :class="{'enable-blue': Number(brandProfile.enableBlue)}">
+                 <i class="bi bi-patch-check"></i>
+              </span>
+            </div>
+          </div>
           <p>{{brandProfile.title}}</p>
           <div class="archiveDetail-action">
 

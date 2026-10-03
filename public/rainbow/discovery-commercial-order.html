@@ -186,9 +186,19 @@
               <div class="paper-header-container">
                 <img :src="adaptiveImageUriV(paper.avatar) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
                 <div class="paper-detail-container">
-                  <p class="paper-name display-one-content">
-                    {{paper.brandName}}
-                  </p>
+                  <div class="paper-info-box">
+                    <div class="paper-name-box">
+                      <span class="paper-name">
+                        {{paper.brandName}}
+                      </span>
+                    </div>
+                    <div class="paper-brand-info">
+                      <span class="vip-award"
+                      :class="{'enable-blue': Number(paper.enableBlue)}">
+                        <i class="bi bi-patch-check"></i>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="card-body mb-3">

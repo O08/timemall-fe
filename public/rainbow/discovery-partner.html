@@ -274,9 +274,20 @@
               <div class="partner-header-container">
                 <img :src="adaptiveImageUriV(partner.avatar) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
                 <div class="partner-detail-container">
-                  <p class="partner-name display-one-content">
-                    {{partner.brandName}}
-                  </p>
+                  <div class="partner-info-box">
+                    <div class="partner-name-box">
+                      <span class="partner-name">
+                        {{partner.brandName}}
+                      </span>
+                    </div>
+                    <div class="partner-brand-info">
+                      <span class="vip-award"
+                      :class="{'enable-blue': Number(partner.enableBlue)}">
+                        <i class="bi bi-patch-check"></i>
+                      </span>
+                    </div>
+                  </div>
+                  
                   <div v-if="partner.mentorHonor" class="brand-bages">
                     <div class="card-mentor-badge">{{explainMentorshipHonorV(partner.mentorHonor)}}</div>
                   </div>
@@ -456,7 +467,15 @@
                       <img :src="adaptiveImageUriV(brandProfile.avator) || defaultAvatarImage" alt="avatar" @error.once="e => { e.target.src = defaultAvatarImage }">
                     </div>
                     <div class="archiveDetail-header">
-                      <h1>{{brandProfile.brand}}</h1>
+                      <div class="archiveDetail-brand_name">
+                        <h1>{{brandProfile.brand}}</h1>
+                        <div v-if="Number(brandProfile.enableBlue)">
+                          <span class="vip-award"
+                          :class="{'enable-blue': Number(brandProfile.enableBlue)}">
+                             <i class="bi bi-patch-check"></i>
+                          </span>
+                        </div>
+                      </div>
                       <p>{{brandProfile.title}}</p>
                       <div class="archiveDetail-action">
 

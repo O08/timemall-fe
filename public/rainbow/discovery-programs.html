@@ -228,7 +228,15 @@
                   <div class="d-flex align-items-center gap-2" style="width: calc(100% - 124px);">
                     <img   :src="adaptiveImageUriV(program.authorAvatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }" alt="brand" class="collab-card__avatar" />
                     <div class="collab-card__authorInfo">
-                      <span class="collab-card__author">{{program.authorName}}</span>
+                      <span class="collab-card__author">
+                        <span>
+                          {{program.authorName}}
+                        </span>
+                        <span class="vip-award"
+                        :class="{'enable-blue': Number(program.enableBlue)}">
+                          <i class="bi bi-patch-check"></i>
+                        </span>
+                      </span>
                       <span class="collab-card__author-role d-block">{{program.authorIpLocation?.replace(/\|/g, '·')}}</span>
                     </div>
                   </div>
@@ -466,7 +474,15 @@
                           class="detail-drawer__publisher-avatar"
                         />
                         <div class="min-w-0 flex-grow-1">
-                          <p class="detail-drawer__publisher-name">{{previewProgram.authorName}}</p>
+                          <p class="detail-drawer__publisher-name">
+                            <span>
+                              {{previewProgram.authorName}}
+                            </span>
+                            <span class="vip-award"
+                            :class="{'enable-blue': Number(previewProgram.enableBlue)}">
+                              <i class="bi bi-patch-check"></i>
+                            </span>
+                          </p>
                           <p class="detail-drawer__publisher-role">{{previewProgram.authorIpLocation?.replace(/\|/g, '·')}}</p>
                         </div>
                         <!-- <span class="detail-drawer__posted-at">{{formateDateV(previewProgram.createdAt)}}</span> -->

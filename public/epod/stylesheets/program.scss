@@ -6,6 +6,15 @@ body{
   display: flex;
 }
 
+.vip-award i{
+  font-size: 13px;
+  display: none;
+}
+.enable-blue i{
+  color: #3887FE;
+  display: block;
+}
+
 // ═══════════════════════════════════════
 // DETAIL DRAWER
 // ═══════════════════════════════════════
@@ -101,7 +110,7 @@ body{
   }
 
   &__publisher-name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #fff;
     margin: 0;
@@ -109,10 +118,12 @@ body{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-flex;
+    gap: 4px;
   }
 
   &__publisher-role {
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255,255,255,0.45);
     margin: 0;
     line-height: 1.3;

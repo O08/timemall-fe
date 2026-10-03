@@ -16,6 +16,51 @@ p{
   word-break: break-all;
 }
 
+.vip-award i{
+  font-size: 13px;
+  display: none;
+}
+.enable-blue i{
+  color: #3887FE;
+  display: block;
+}
+.partner-info-box{
+  display: flex;
+}
+
+
+.partner-brand-info{
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  display: flex;
+}
+.partner-name-box{
+  justify-content: center;
+  align-items: center;
+  max-width: calc(100% - 24px);
+  display: flex;
+}
+.partner-name{
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+  font-family: MicrosoftYahei-regular, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  display: inline-block;
+  overflow: hidden;
+}
+
 .filter-component{
 
 /* 深色下拉菜单容器 */
@@ -357,7 +402,10 @@ header{
 .partner-header-container{
   display: flex;
   align-items: center;
-
+  height: 56px;
+}
+.archiveDetail-brand_name{
+  padding-bottom: 8px;
 }
 .partner-detail-container p{
   margin-bottom: 0;
@@ -378,9 +426,6 @@ header{
   margin-bottom: 30px;
 }
 
-.partner-name{
-  font-size: 14px;
-}
 .display-one-content{
   -webkit-line-clamp: 2;
   word-break: break-word;
@@ -462,6 +507,7 @@ header{
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 8px;
+  word-break: break-all;
 }
 .archiveDetail-core{
   display: flex;

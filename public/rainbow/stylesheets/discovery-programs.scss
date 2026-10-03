@@ -209,7 +209,14 @@ header{
   margin-left: 20px;
   margin-right: 20px;
 }
-
+.vip-award i{
+  font-size: 13px;
+  display: none;
+}
+.enable-blue i{
+  color: #3887FE;
+  display: block;
+}
 
 .nav-title h3 {
   white-space: nowrap;
@@ -537,14 +544,15 @@ header{
   }
 
   &__author {
-    display: block;
+    display: inline-flex;
     font-size: 13px;
     font-weight: 500;
     color: #c8cad6; 
+    gap: 4px;
   }
 
   &__author-role {
-    font-size: 12px;
+    font-size: 11px;
     color: #72767d; 
   }
 
@@ -832,7 +840,7 @@ header{
   }
 
   &__publisher-name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #fff;
     margin: 0;
@@ -840,10 +848,12 @@ header{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-flex;
+    gap: 4px;
   }
 
   &__publisher-role {
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255,255,255,0.45);
     margin: 0;
     line-height: 1.3;

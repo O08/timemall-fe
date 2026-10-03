@@ -70,7 +70,15 @@
                 class="detail-drawer__publisher-avatar"
               />
               <div class="min-w-0 flex-grow-1">
-                <p class="detail-drawer__publisher-name">{{previewProgram.authorName}}</p>
+                <p class="detail-drawer__publisher-name">
+                  <span>
+                    {{previewProgram.authorName}}
+                  </span>
+                  <span class="vip-award"
+                  :class="{'enable-blue': Number(previewProgram.enableBlue)}">
+                    <i class="bi bi-patch-check"></i>
+                  </span>
+                </p>
                 <p class="detail-drawer__publisher-role">{{previewProgram.authorIpLocation?.replace(/\|/g, '·')}}</p>
               </div>
             </div>
