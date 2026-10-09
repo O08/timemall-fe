@@ -76,8 +76,7 @@ const RootComponent = {
         refreshChannelSort(this.oasisId,JSON.stringify(this.items));
       },
       loadJoinedOases(){
-        const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
-        OasisApi.getAListOfJoinedOases(brandId).then(response=>{
+        OasisApi.getAListOfJoinedOases('').then(response=>{
             if(response.data.code == 200){
                 this.joinedoases = response.data.joined;
             }

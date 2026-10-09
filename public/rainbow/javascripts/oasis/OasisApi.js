@@ -43,8 +43,8 @@ async function getAListOfInvitedOases(brandId){
     const url ="/api/v1/team/invitedOases?brandId="+brandId;
     return axios.get(url);
 }
-async function getAListOfJoinedOases(brandId){
-    const url ="/api/v1/team/joinedOases?brandId="+brandId;
+async function getAListOfJoinedOases(q){
+    const url ="/api/v1/team/joinedOases?q="+q;
     return axios.get(url);
 }
 async function getAnnounce(oasisId,oasisHandle,solution){

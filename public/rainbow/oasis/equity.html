@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/rainbow/oasis/stylesheets/equity.scss">
     <link rel="stylesheet" href="/rainbow/stylesheets/oasis-action-compoent.scss">
     <link rel="stylesheet" href="/rainbow/oasis/stylesheets/fast-link-container.scss">
+    <link rel="stylesheet" href="/rainbow/oasis/stylesheets/community-directory.scss">
 
 </head>
 <body>
@@ -52,6 +53,13 @@
           </div>
           
           <div class="nav-setting">
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="nav-item-default d-flex align-items-center justify-content-center">
+                <button class="rail-action" type="button" v-preventreclick  @click="showCommunityDirectoryV" aria-label="切换部落">
+                  <i class="bi bi-grid"></i>
+                </button>
+              </div>
+            </div>
             <div class="nav-item-default nav-gear d-flex align-items-center justify-content-center ms-3">
               <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
@@ -357,6 +365,10 @@
       </div>
     </col-content>
     <section class="modals">
+
+      <div class="modal-container">
+        <communitydirectory ref="communitydirectoryModal"/>
+      </div>
 
       <!-- focus modal start -->
       <div class="modal-container">

@@ -24,8 +24,7 @@ const TeicallaanliSubNavComponent = {
             })
         },
         loadJoinedOases(){
-            const brandId =  this.getIdentity().brandId; // Auth.getIdentity();
-            OasisApi.getAListOfJoinedOases(brandId).then(response=>{
+            OasisApi.getAListOfJoinedOases('').then(response=>{
                 if(response.data.code == 200){
                     this.joinedoases = response.data.joined;
                 }

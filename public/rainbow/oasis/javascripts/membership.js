@@ -14,6 +14,7 @@ import axios from "axios";
 
 import { getDayName } from "/common/javascripts/util.js";
 
+import {OasisCommunityDirectoryComponent} from "/rainbow/oasis/javascripts/oasis-community-directory-component.js";
 
 import { CustomAlertModal } from '/common/javascripts/ui-compoent.js';
 let customAlert = new CustomAlertModal();
@@ -27,7 +28,7 @@ const [currentOasisHandle,] = segments;
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent,communitydirectory: OasisCommunityDirectoryComponent
     },
     data() {
 
@@ -51,6 +52,9 @@ const RootComponent = {
       }
     },
     methods: {
+        showCommunityDirectoryV(){
+            this.$refs.communitydirectoryModal.doShowCommunityDirectoryModalV();
+        },
         handleJoinSuccessEventV(){
             this.loadJoinedOases(); // sub nav component.js
         },

@@ -8,6 +8,7 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js';
+import {OasisCommunityDirectoryComponent} from "/rainbow/oasis/javascripts/oasis-community-directory-component.js";
 
 
 const pathname = window.location.pathname; 
@@ -17,7 +18,7 @@ const [currentOasisHandle,] = segments;
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent,communitydirectory: OasisCommunityDirectoryComponent
     },
     data() {
 
@@ -28,6 +29,9 @@ const RootComponent = {
         }
     },
     methods: {
+        showCommunityDirectoryV(){
+            this.$refs.communitydirectoryModal.doShowCommunityDirectoryModalV();
+        },
         handleJoinSuccessEventV(){
             this.loadJoinedOases(); // sub nav component.js
         },

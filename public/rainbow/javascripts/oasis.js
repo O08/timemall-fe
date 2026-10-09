@@ -8,6 +8,8 @@ import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpiv
 import {OasisOptionCtlComponent} from '/rainbow/oasis/javascripts/oasis-option-ctl-component.js'; 
 import {OasisFastLinkComponent} from '/rainbow/oasis/javascripts/oasis-fast-link-component.js'; 
 import { getQueryVariable } from "/common/javascripts/util.js";
+import {OasisCommunityDirectoryComponent} from "/rainbow/oasis/javascripts/oasis-community-directory-component.js";
+
 
 
 const currentOasisHandle = window.location.pathname.split('/').pop();
@@ -15,7 +17,7 @@ const currentOasisId=getQueryVariable("oasis_id");
 
 const RootComponent = {
     components: {
-        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent
+        oasisoptions: OasisOptionCtlComponent,fastlinks: OasisFastLinkComponent,communitydirectory: OasisCommunityDirectoryComponent
     },
     data() {
         return {
@@ -28,6 +30,9 @@ const RootComponent = {
         },
         handleUnfollowSuccessEventV(){
             this.loadJoinedOases(); // sub nav component.js
+        },
+        showCommunityDirectoryV(){
+            this.$refs.communitydirectoryModal.doShowCommunityDirectoryModalV();
         }
 
     },
