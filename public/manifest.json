@@ -91,8 +91,14 @@
         }
         
     ],
-    "related_applications": [],
-    "prefer_related_applications": false,
+    "related_applications": [
+        {
+            "platform": "windows",
+            "url": "https://apps.microsoft.com/detail/9pc8h63vkvkj",
+            "id": "9pc8h63vkvkj"
+        }
+    ],
+    "prefer_related_applications": true,
     "launch_handler": {
         "route_to": "existing-client"
     }
