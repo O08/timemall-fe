@@ -10,6 +10,8 @@ import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-co
 import {goErrorByReplace} from "/common/javascripts/pagenav.js";
 import { copyValueToClipboard } from "/common/javascripts/share-util.js";
 import {EnvWebsite} from "/common/javascripts/tm-constant.js";
+import {goLoginPage} from "/common/javascripts/pagenav.js";
+import { transformInputNumberAsPositive} from "/common/javascripts/util.js";
 
 
 import {CustomAlertModal} from '/common/javascripts/ui-compoent.js';
@@ -25,6 +27,11 @@ const currentDomain = window.location.hostname === 'localhost' ? EnvWebsite.LOCA
 const RootComponent = {
     data() {
         return {
+            sponsorshipForm:{
+               amount: 30,
+               message: "",
+               step: 1
+            },
             init_finish: false,
             queryHandle: queryHandle,
             brandProfile: {},
@@ -46,6 +53,49 @@ const RootComponent = {
         }
     },
     methods: {
+        transformInputNumberAsPositiveV(event){
+            return transformInputNumberAsPositive(event);
+        },
+        showSponsorshipModalV(){
+            this.sponsorshipForm={
+                amount: 30,
+                message: "",
+                step: 1
+             }
+            $("#sponsorshipModal").modal("show");
+        },
+        chooseSponsorshipFeeV(amount){
+            this.sponsorshipForm.amount=amount;
+        },
+        goSponsorshipModalStepV(step){
+            this.sponsorshipForm.step=step;
+        },
+        sponsorBrandFeeV(){
+             // 用户未登录，跳到登录页面
+            if(!this.user_already_login){
+                goLoginPage();
+                return
+            }
+            const dto={
+                amount: this.sponsorshipForm.amount,
+                sponsoreeBrandId: this.brandProfile.brandId,
+                message: this.sponsorshipForm.message,
+            }
+            Api.sponsorshipOneBrand(dto).then(response=>{
+                if (response.data.code == 200 ) {
+                    this.goSponsorshipModalStepV(3);
+                }
+                if (response.data.code != 200) {
+                    const error = "操作失败，请检查网络、查阅异常信息或联系技术支持。异常信息：" + response.data.message;
+                    customAlert.alert(error);
+                }
+
+            }).catch(error=>{
+
+                customAlert.alert("操作失败，请检查网络或联系技术支持。");
+
+            })
+        },
         inNightV(){
             // 18:00 ~ 22:00
             const localTime=new Date().getHours();

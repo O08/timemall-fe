@@ -444,7 +444,7 @@ pt-app footer {
 .table ,.table td{
     font-size: 12px;
 }
-.table,.empty-content-block{
+.table,.empty-content-block,.tb-empty-data-wrapper{
   min-width: 1200px;
 }
 .table td{
@@ -1560,4 +1560,24 @@ file upload
 .table-dropdown-container .dropdown-item-danger:hover {
   background-color: #da373c !important;
   color: #ffffff !important;
+}
+
+.peacemaker-avatar {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+.td-option {
+  width: 100px;
+}
+.td-option-mid {
+  width: 150px;
+}
+.td-option-lg {
+  width: 200px;
+}
+// 货币字体
+.font-mono {
+  font-family: JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace;
 }

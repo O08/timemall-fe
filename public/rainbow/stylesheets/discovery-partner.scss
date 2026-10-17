@@ -999,3 +999,491 @@ border-width: 3px;
   }
 
 }
+#sponsorshipModal{
+  --support-surface: #2b2d31;
+  --support-surface-raised: #313338;
+  --support-field: #000;
+  --support-border: #41434a;
+  --support-text: #f2f3f5;
+  --support-muted: #b5bac1;
+  --support-subtle: #80848e;
+  --support-primary: #5865f2;
+  --support-primary-hover: #4752c4;
+  --support-success: #23a559;
+
+
+  .support-dialog {
+    max-width: 31.5rem;
+  }
+
+  .support-dialog .modal-content {
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 10px;
+    color: var(--support-text);
+    background: var(--support-surface);
+    box-shadow: 0 2rem 5.625rem rgb(0 0 0 / 55%);
+  }
+
+  .support-header {
+    min-height: 5.25rem;
+    padding: 1.125rem 1.625rem;
+    border-bottom: 1px solid var(--support-border);
+    background:
+      radial-gradient(circle at 16% -40%, rgb(151 105 255 / 48%), transparent 50%),
+      radial-gradient(circle at 92% 120%, rgb(88 101 242 / 18%), transparent 45%),
+      #282a2f;
+  }
+
+  .sponsoree-avatar {
+    width: 3rem;
+    height: 3rem;
+    flex: 0 0 auto;
+    background: linear-gradient(140deg, #705cf6, #c35ccf 58%, #ff9f86);
+    box-shadow: 0 0.3125rem 1rem rgb(0 0 0 / 25%);
+    font-weight: 800;
+  }
+
+  .sponsoree-caption {
+    color: var(--support-subtle);
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .sponsoree-name {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .support-body {
+    padding: 1.75rem 1.75rem 1.5rem;
+  }
+
+  .support-title {
+    margin: 0;
+    font-size: 1.4375rem;
+    font-weight: 750;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  .support-description {
+    margin: 0.4375rem 0 0;
+    color: var(--support-muted);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+
+  .field-group {
+    margin-top: 1.625rem;
+  }
+
+  .field-label {
+    margin-bottom: 0.6875rem;
+    color: var(--support-muted);
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+  }
+
+  .amount-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5625rem;
+  }
+
+  .amount-option {
+    position: relative;
+    min-height: 3.25rem;
+    border: 1px solid var(--support-border);
+    border-radius: 0.5rem;
+    color: var(--support-text);
+    background: #222327;
+    font-size: 1.125rem;
+    font-weight: 750;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      transform 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .amount-option:hover {
+    border-color: #73767f;
+    background: #26272c;
+    transform: translateY(-1px);
+  }
+
+  .amount-option.is-selected {
+    border-color: var(--support-primary);
+    background: linear-gradient(
+      180deg,
+      rgb(88 101 242 / 22%),
+      rgb(88 101 242 / 12%)
+    );
+    box-shadow:
+      inset 0 0 0 1px var(--support-primary),
+      0 0.3125rem 1rem rgb(34 42 132 / 18%);
+  }
+
+  .currency-mark {
+    margin-right: 0.1875rem;
+    color: var(--support-subtle);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+
+  .recommendation-badge {
+    position: absolute;
+    top: -0.5625rem;
+    right: -0.3125rem;
+    padding: 0.1875rem 0.375rem;
+    border: 2px solid var(--support-surface);
+    border-radius: 0.375rem;
+    color: #fff;
+    background: var(--support-primary);
+    font-size: 0.5625rem;
+    font-weight: 750;
+    line-height: 1;
+  }
+
+  .amount-entry {
+    height: 2.875rem;
+    margin-top: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background: var(--support-field);
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .amount-entry:focus-within {
+    border-color: var(--support-primary);
+    box-shadow: 0 0 0 0.1875rem rgb(88 101 242 / 12%);
+  }
+
+  .amount-entry .form-control {
+    min-width: 0;
+    border: 0;
+    color: var(--support-text);
+    background: transparent;
+    box-shadow: none;
+    font-size: 0.9375rem;
+  }
+
+  .amount-entry .form-control::placeholder,
+  .message-input::placeholder {
+    color: #6c7179;
+  }
+
+  .amount-entry-label,
+  .amount-entry-unit {
+    color: var(--support-subtle);
+  }
+
+  .amount-entry-unit {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    word-break: keep-all;
+  }
+
+  .message-wrap {
+    position: relative;
+  }
+
+  .message-input {
+    min-height: 8rem;
+    resize: none;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.8125rem 0.875rem 1.625rem;
+    color: var(--support-text);
+    background: var(--support-field);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    box-shadow: none;
+  }
+
+  .message-input:focus {
+    border-color: var(--support-primary);
+    color: var(--support-text);
+    background: var(--support-field);
+    box-shadow: 0 0 0 0.1875rem rgb(88 101 242 / 12%);
+  }
+
+  .character-count {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.5625rem;
+    color: #686d75;
+    font-size: 0.625rem;
+  }
+
+  .support-submit {
+    min-height: 3rem;
+    margin-top: 1rem;
+    border-color: var(--support-primary);
+    border-radius: 0.5rem;
+    background: var(--support-primary);
+    box-shadow: 0 0.4375rem 1.125rem rgb(38 48 160 / 22%);
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .support-submit:hover,
+  .support-submit:focus-visible {
+    border-color: var(--support-primary-hover);
+    background: var(--support-primary-hover);
+  }
+
+
+  .success-panel {
+    padding: 3.5rem 2.375rem 2.375rem;
+    text-align: center;
+  }
+
+  .payment-review {
+    padding: 2rem 1.75rem 1.5rem;
+  }
+
+  .review-card {
+    margin-top: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--support-border);
+    border-radius: 0.75rem;
+    background: var(--support-surface-raised);
+  }
+
+  .review-amount {
+    padding: 1.5rem;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 0, rgb(88 101 242 / 20%), transparent 62%),
+      #292b30;
+  }
+
+  .review-amount-label {
+    color: var(--support-muted);
+    font-size: 0.75rem;
+  }
+
+  .review-amount-value {
+    margin-top: 0.25rem;
+    font-size: 2rem;
+    font-weight: 780;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+  }
+
+  .review-details {
+    padding: 0 1rem;
+  }
+
+  .review-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.875rem 0;
+    border-top: 1px solid var(--support-border);
+    font-size: 0.8125rem;
+  }
+
+  .review-row-label {
+    flex: 0 0 auto;
+    color: var(--support-subtle);
+  }
+
+  .review-row-value {
+    min-width: 0;
+    color: var(--support-text);
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .balance-assistance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding: 0.75rem 0.875rem;
+    border: 1px solid var(--support-border);
+    border-radius: 0.5rem;
+    color: var(--support-muted);
+    background: rgb(30 31 34 / 58%);
+    font-size: 0.8125rem;
+  }
+
+  .recharge-link {
+    display: inline-flex;
+    min-height: 2rem;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.3125rem;
+    padding: 0 0.5rem;
+    border-radius: 0.375rem;
+    color: #a8b0ff;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .recharge-link:hover,
+  .recharge-link:focus-visible {
+    color: #c6caff;
+    background: rgb(88 101 242 / 12%);
+  }
+
+  .review-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 0.38fr) minmax(0, 1fr);
+    gap: 0.625rem;
+    margin-top: 1.25rem;
+  }
+
+  .review-actions .btn {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .review-back {
+    min-height: 3rem;
+    border-color: #4e5058;
+    border-radius: 0.5rem;
+    color: var(--support-text);
+    background: #4e5058;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .review-back:hover,
+  .review-back:focus-visible {
+    border-color: #5d6069;
+    color: #fff;
+    background: #5d6069;
+  }
+
+  .success-mark {
+    display: inline-grid;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-bottom: 1.375rem;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--support-success);
+    box-shadow: 0 0 0 0.625rem rgb(35 165 89 / 12%);
+  }
+
+  @media (max-width: 767px) {
+    .modal-dialog {
+      align-items: end;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    .support-dialog {
+      max-width: none;
+    }
+
+    .support-dialog .modal-content {
+      max-height: 100dvh;
+      overflow-y: auto;
+      border-right: 0;
+      border-bottom: 0;
+      border-left: 0;
+      border-radius:0;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .support-dialog .modal-content::before {
+      content: "";
+      position: sticky;
+      z-index: 2;
+      top: 0.4375rem;
+      display: block;
+      width: 2.375rem;
+      height: 0.25rem;
+      margin: 0.4375rem auto -0.6875rem;
+      border-radius: 99px;
+      background: rgb(255 255 255 / 18%);
+    }
+
+    .support-header {
+      min-height: 5rem;
+      padding: 1.125rem 1.25rem 1rem;
+    }
+
+    .support-body {
+      padding: 1.4375rem 1.25rem 1.125rem;
+    }
+
+    .support-title {
+      font-size: 1.3125rem;
+    }
+
+    .support-description {
+      font-size: 0.8125rem;
+    }
+
+    .field-group {
+      margin-top: 1.25rem;
+    }
+
+    .amount-grid {
+      gap: 0.4375rem;
+    }
+
+    .amount-option {
+      min-height: 3rem;
+      font-size: 1rem;
+    }
+
+    .message-input {
+      min-height: 5.125rem;
+    }
+    .payment-review {
+      padding: 1.5rem 1.25rem 1.125rem;
+    }
+
+    .review-card {
+      margin-top: 1.25rem;
+    }
+
+    .review-amount {
+      padding: 1.25rem;
+    }
+
+    .review-amount-value {
+      font-size: 1.75rem;
+    }
+  }
+
+  @media (max-width: 359.98px) {
+    .support-body {
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+    .amount-option {
+      min-height: 2.875rem;
+      font-size: 0.9375rem;
+    }
+
+    .review-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .review-actions .review-back {
+      order: 2;
+    }
+  }
+
+}

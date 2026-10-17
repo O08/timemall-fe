@@ -54,11 +54,22 @@
                 <div class="opt_item_head">
                   <a :href="'/'+ brandProfile.handle" target="_blank">
                     <button  class="btn btn-dark  copy-link ">
-                      <i class="bi bi-house"></i>
+                      <i class="bi bi-shop-window"></i>
                     </button>
                   </a>
                 </div>
                 <span class="opt_item_desc">小店</span>
+              </div>
+
+              <div v-if="brandProfile.pdOasisId" class="opt_item_container d-flex flex-column justify-content-center">
+                <div class="opt_item_head">
+                  <a :href="'/rainbow/oasis/home?oasis_id='+ brandProfile.pdOasisId" target="_blank">
+                    <button  class="btn btn-dark private-msg-link">
+                      <i class="bi bi-people"></i>
+                    </button>
+                  </a> 
+                </div>
+                <span class="opt_item_desc">部落</span>
               </div>
               
               <div class="opt_item_container d-flex flex-column justify-content-center">
@@ -74,6 +85,18 @@
                   </a> 
                 </div>
                 <span class="opt_item_desc">聊一聊</span>
+              </div>
+
+              <div class="opt_item_container d-flex flex-column justify-content-center">
+                <div class="opt_item_head">
+                  <a>
+                    <button v-preventreclick  @click="showSponsorshipModalV"  class="btn btn-dark  copy-link">
+                      <i class="bi bi-heart-pulse"></i>
+                    </button>
+                  </a>
+              
+                </div>
+                <span class="opt_item_desc">打赏</span>
               </div>
 
               <div class="opt_item_container d-flex flex-column justify-content-center">
@@ -230,6 +253,104 @@
 
       </div>
 
+    </div>
+
+    <div class="modal fade" id="sponsorshipModal" tabindex="-1" aria-labelledby="supportModalTitle" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-fullscreen-md-down  modal-dialog-centered support-dialog">
+        <div class="modal-content">
+          <div v-show="sponsorshipForm.step==1" id="supportFormPanel">
+            <header class="modal-header support-header">
+              <div class="align-items-center d-flex gap-3">
+                <div class="align-items-center sponsoree-avatar d-grid justify-content-center place-items-center rounded-circle"
+                  aria-hidden="true"> 
+                  <i class="bi bi-heart-pulse"></i>
+                </div>
+                <div class="d-flex flex-column gap-1"> <span class="sponsoree-caption">正在打赏</span> <strong
+                    class="sponsoree-name ellipsis-1">{{brandProfile.brand}}</strong> </div>
+              </div>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="关闭">
+              </button>
+            </header>
+            <form class="support-body" id="supportForm">
+              <section aria-labelledby="supportModalTitle">
+                <h1 class="support-title" id="supportModalTitle">给带派的灵魂充个电，你的支持就是最好的肯定和激励</h1>
+              </section>
+              <fieldset class="border-0 field-group p-0">
+                <legend class="field-label float-none w-auto">选择打赏金额</legend>
+                <div class="amount-grid" role="group" aria-label="打赏金额">
+                  <button @click="chooseSponsorshipFeeV(10)" :class="{'is-selected': sponsorshipForm.amount==10}" type="button" class="amount-option"> <span class="currency-mark">¥</span>10 </button>
+                  <button @click="chooseSponsorshipFeeV(30)" :class="{'is-selected': sponsorshipForm.amount==30}"  type="button" class="amount-option"> <span class="currency-mark">¥</span>30 <span
+                      class="recommendation-badge">推荐</span> </button>
+                  <button @click="chooseSponsorshipFeeV(50)" :class="{'is-selected': sponsorshipForm.amount==50}"  type="button" class="amount-option"> <span class="currency-mark">¥</span>50 </button> 
+                  <button @click="chooseSponsorshipFeeV(100)" :class="{'is-selected': sponsorshipForm.amount==100}"  type="button" class="amount-option"> <span class="currency-mark">¥</span>100 </button>
+                </div>
+                <label class="align-items-center amount-entry d-flex px-3">
+                   <span class="amount-entry-label" aria-hidden="true">¥</span>
+                    <input  @input="transformInputNumberAsPositiveV($event)" v-model="sponsorshipForm.amount" type="text" class="form-control px-2" id="amountInput" min="1" max="999" placeholder="自定义金额" aria-label="输入其他金额" autocomplete="off"> <span class="amount-entry-unit">人民币</span> 
+                </label>
+              </fieldset>
+              <div class="field-group">
+                <label class="d-block field-label" for="supportMessage"> 留言
+                </label>
+                <div class="message-wrap">
+                   <textarea v-model="sponsorshipForm.message" class="form-control message-input" id="supportMessage" maxlength="120"
+                    placeholder="说些祝福、勉励的话…"></textarea>
+                     <span class="character-count" id="characterCount">{{sponsorshipForm?.message.length}}/120</span>
+                </div>
+              </div>
+              <button :disabled="!sponsorshipForm.amount || !sponsorshipForm.message"  @click="goSponsorshipModalStepV(2)" type="button" class="btn btn-primary support-submit w-100"> <span
+                  class="align-items-center d-inline-flex justify-content-center">
+                    <span id="submitLabel">即刻打赏</span> </span>
+              </button>
+            </form>
+          </div>
+          <section v-show="sponsorshipForm.step==2" class="payment-review" id="paymentReview" aria-live="polite">
+            <div>
+              <h2 class="support-title">确认付款信息</h2>
+              <p class="support-description">请仔细核对打赏金额，确认无误后再继续，注意理性消费，未成年不提倡大额打赏，留意相关话术诱导行为，以免上当受骗。</p>
+            </div>
+            <div class="review-card">
+              <div class="review-amount">
+                <div class="review-amount-label">本次付款金额</div>
+                <div class="review-amount-value" id="reviewAmount">¥{{sponsorshipForm.amount}}</div>
+              </div>
+              <div class="review-details">
+                <div class="review-row"> <span class="review-row-label">收款对象</span> <strong
+                    class="review-row-value">{{brandProfile.brand}}</strong> 
+                </div>
+                <div class="review-row"> <span class="review-row-label">打赏留言</span> <span class="review-row-value"
+                    id="reviewMessage">{{sponsorshipForm.message}}</span> 
+                </div>
+              </div>
+            </div>
+            <div class="balance-assistance"> 
+              <span>账户余额不足？</span> 
+              <a target="_blank" class="recharge-link" href="/estudio/studio-shop"> <span>前往充值</span>
+                <svg
+                  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6"></path>
+                </svg>
+              </a> 
+            </div>
+            <div class="review-actions">
+              <button @click="goSponsorshipModalStepV(1)" type="button" class="btn review-back" id="reviewBack"> 返回修改 </button> 
+              <button v-preventreclick  @click="sponsorBrandFeeV"  type="button" class="btn btn-primary mt-0 support-submit" id="paymentConfirm"> 
+              <span id="paymentConfirmLabel">确认并支付</span>
+              </button>
+            </div>
+          </section>
+          <section v-show="sponsorshipForm.step==3" class="success-panel" id="successPanel" aria-live="polite">
+            <div class="success-mark"> <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12l4 4L19 6"></path>
+              </svg> </div>
+            <h2 class="support-title">感谢支持！</h2>
+            <p class="support-description" id="successMessage">你的 ¥{{sponsorshipForm.amount}} 打赏与留言已经送达。</p> 
+            <button type="button" class="btn btn-primary support-submit w-100" data-bs-dismiss="modal"> 完成 </button>
+          </section>
+        </div>
+      </div>
     </div>
 
 

@@ -71,6 +71,11 @@ async function getBrandProfileByHandle(handle)
     return await axios.get(url);
 }
 
+async function sponsorshipOneBrand(dto){
+    const url = "/api/v1/team/sponsor/brand";
+    return await axios.post(url,dto);
+}
+
 
 async function doSendOrderReceivingEmail(dto){
   const url="/api/v1/web_mall/email_notice";
@@ -123,5 +128,6 @@ Api.virtualProductOrderRefund=virtualProductOrderRefund;
 Api.subscriptionBillRefund=subscriptionBillRefund;
 Api.fetchBrandCoreMetrics=fetchBrandCoreMetrics;
 Api.fetchUserInfoToLocalStorage=fetchUserInfoToLocalStorage;
+Api.sponsorshipOneBrand=sponsorshipOneBrand;
 
 export {Api}

@@ -2,6 +2,8 @@ import "/common/javascripts/import-jquery.js";
 import { goLoginPage,goWelcome } from "../../common/javascripts/pagenav";
 import {Api} from "/common/javascripts/common-api.js"
 import "/common/javascripts/pagenav.js";
+import { replaceBlvBiToMeSuffix } from "/common/javascripts/util.js";
+
 // import defaultAvatarImage from '/common/icon/panda-kawaii.svg';
 
 const defaultAvatarImage = new URL(
@@ -39,6 +41,9 @@ export default function Auth(params) {
             }
         },
         methods: {
+            replaceBlvBiToMeSuffixV(text){
+                return replaceBlvBiToMeSuffix(text);
+            },
             userAdapter(){
                 Api.getUserInfo().then(response => {
 

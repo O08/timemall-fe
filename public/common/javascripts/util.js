@@ -356,3 +356,9 @@ export function formatNumber(num) {
     }
     return num.toString();
 }
+
+export function replaceBlvBiToMeSuffix(text) {
+    if (typeof text !== 'string') return text;
+    return text.replace(/@blv\.bi$/, '@blv.me');
+}
+
