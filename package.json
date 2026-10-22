@@ -16,7 +16,6 @@
   "dependencies": {
     "@modelcontextprotocol/node": "^2.0.0",
     "@modelcontextprotocol/server": "^2.0.0",
-    "@parcel/service-worker": "^2.16.3",
     "@picmo/popup-picker": "^5.8.5",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.13.2",
@@ -53,6 +52,7 @@
     "@parcel/optimizer-htmlnano": "^2.16.4",
     "@parcel/packager-raw-url": "^2.16.3",
     "@parcel/packager-xml": "^2.16.3",
+    "@parcel/service-worker": "^2.16.4",
     "@parcel/transformer-jsonld": "^2.16.3",
     "@parcel/transformer-sass": "^2.16.3",
     "@parcel/transformer-vue": "^2.16.3",
