@@ -1,0 +1,822 @@
+.tab-content form {
+  color: whitesmoke;
+  display: flex;
+  padding: 2px;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+}
+
+.tab-content input[type="search"] {
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid transparent;
+}
+
+.tab-content input[type="search"]::placeholder {
+  color: #bbb;
+}
+
+.tab-content button[type="submit"]:focus,
+.tab-content input[type="search"]:focus {
+  box-shadow: 0 0 3px 0 #1183d6;
+  border-color: #1183d6;
+  outline: none;
+}
+
+.tab-content form.nosubmit {
+  border: none;
+  padding: 0;
+  background-color: #212529;
+  max-width: 600px;
+  width: 100%;
+}
+
+.tab-content input.nosubmit {
+  border: 1px solid #555;
+  width: 100%;
+  padding: 9px 4px 9px 40px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' fill='%23555'  %3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+}
+
+.plan-order-search-btn {
+  border-radius: 5px 5px;
+  height: 38px;
+
+}
+
+.cell_plan_order_list-tb-filter-btn {
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #212529;
+  font-size: 14px;
+  line-height: 1.625;
+  max-width: 140px;
+  color: #c3bfbf;
+}
+
+.plan-order-search {
+  width: 32%;
+  min-width: 200px;
+}
+
+.cell-plan-order-list-header {
+  min-width: 400px;
+}
+
+
+td a {
+  text-decoration: none;
+  color: white;
+}
+
+td a:hover {
+  color: #c3bfbf;
+}
+
+table td {
+  font-size: 14px;
+  line-height: 1.565;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.custom-select {
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="%23555" d="M192 384c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L192 306.8l137.4-137.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-160 160C208.4 380.9 200.2 384 192 384z"/></svg>') right 1rem center/8px 10px no-repeat;
+}
+
+.col-option {
+  width: 13%;
+  min-width: 130px;
+}
+
+.col-orderId {
+  width: 20%;
+  min-width: 200px;
+}
+
+.col-fee {
+  width: 11%;
+  min-width: 80px;
+}
+
+.col-addTime {
+  width: 13%;
+  min-width: 130px;
+}
+
+.col-user {
+  width: 21%;
+  min-width: 330px;
+}
+
+
+.main-content-container {
+  min-width: 1000px;
+}
+
+.peacemaker-avatar {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.option-edit .dropdown-toggle::after {
+  content: unset;
+}
+
+
+
+/* 订单明细弹窗 */
+#orderDetailModal {
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .od-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #f2f3f5;
+    line-height: 1.4;
+  }
+
+  .od-order-no {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .od-copy-btn {
+    border: 0;
+    background-color: transparent;
+    color: #7a808a;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 4px;
+    font-size: 13px;
+    transition: color .15s ease, background-color .15s ease;
+
+    &:hover {
+      color: #dbdee1;
+      background-color: rgba(255, 255, 255, .07);
+    }
+  }
+
+  // 平台托管说明：蓝色调信息条
+  .od-note {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #a9c5ff;
+    background-color: rgba(123, 167, 255, 0.06);
+    border-radius: 6px;
+  }
+
+  .od-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #b5bac1;
+    margin-bottom: 12px;
+  }
+
+  .od-amount,
+  .od-panel {
+    background-color: #1e1f22;
+    border: 1px solid transparent;
+    border-radius: 6px;
+  }
+
+  .od-item {
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+    transition: border-color .15s ease;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+
+    &:hover {
+      border-color: #4e5058;
+    }
+  }
+
+  .od-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background-color: #2b2d31;
+    color: #7a808a;
+    font-size: 22px;
+    position: relative;
+
+    @media (max-width: 575.98px) {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .od-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f2f3f5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @media (max-width: 575.98px) {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
+
+  .od-item-meta {
+    font-size: 12px;
+    color: #8b9098;
+    word-break: break-all;
+  }
+
+  .od-item-fee {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f2f3f5;
+  }
+
+  .od-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+
+    .od-card-label {
+      flex-shrink: 0;
+    }
+  }
+
+  .od-info-value {
+    min-width: 0;
+    text-align: right;
+    font-size: 12px;
+    color: #dbdee1;
+
+    &.text-truncate {
+      line-height: 26px;
+    }
+  }
+
+  .od-card-label {
+    font-size: 12.5px;
+    color: #8b9098;
+  }
+
+  .od-info-sum {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #3f4248;
+
+    .od-card-label {
+      color: #b5bac1;
+    }
+  }
+
+  .od-sum-value {
+    font-size: 17px;
+    font-weight: 600;
+    color: #5865f2;
+  }
+
+  .od-amount-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13.5px;
+    color: #b5bac1;
+    padding: 4px 0;
+  }
+
+  .od-line {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f2f3f5;
+    word-break: break-all;
+  }
+
+  .btn-cta-submit{
+    background-color: #5865f2;
+    color: #ffffff;
+    border: none;
+    transition: background-color 0.1s ease, transform 0.1s ease, opacity 0.15s ease;
+  
+    &:hover:not(:disabled) {
+      background-color: #4752c4;
+    }
+  
+    &:active:not(:disabled) {
+      background-color: #3c45a5;
+      transform: scale(0.99);
+    }
+  
+    &:disabled,
+    &.disabled {
+      background-color: #5865f2;
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      pointer-events: none;
+    }
+  }
+
+  .od-muted {
+    font-size: 12.5px;
+    color: #8b9098;
+    word-break: break-all;
+  }
+
+  .od-fund {
+    font-size: 12px;
+  }
+
+  // 商品行下方的退款入口
+  .od-item-action {
+    border-top:  1px solid #3f4248;
+  }
+
+  // 资金状态配色
+  .fund-pending {
+    color: #ffcd70;
+  }
+
+  .fund-escrow {
+    color: #a9c5ff;
+  }
+
+  .fund-settled {
+    color: #23a55a;
+  }
+
+  .fund-refunded {
+    color: #9297a0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  #orderDetailModal .modal-dialog {
+    --bs-modal-margin: 0;
+    margin: 0;
+    height: 100%;
+  }
+
+  #orderDetailModal .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+/* 子订单申请退款弹窗（叠在订单明细之上） */
+#subOrderRefundModal {
+  z-index: 1065;
+
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .or-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #f2f3f5;
+    line-height: 1.4;
+  }
+
+  .or-goods {
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+  }
+
+  .or-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background-color: #2b2d31;
+    color: #7a808a;
+    font-size: 20px;
+    position: relative;
+  }
+
+  .or-goods-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f2f3f5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @media (max-width: 575.98px) {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
+
+  .or-goods-meta {
+    font-size: 12px;
+    color: #8b9098;
+  }
+
+  .or-goods-fee {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f2f3f5;
+  }
+
+  .or-orderno {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #2b2d31;
+    font-size: 12px;
+    color: #949ba4;
+  }
+
+  .or-orderno-label {
+    flex-shrink: 0;
+    margin-right: 8px;
+    letter-spacing: 0.4px;
+  }
+
+  .or-orderno-num {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    color: #b5bac1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .or-amount-fixed {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+
+  .or-amount-fixed-num {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ff9292;
+  }
+}
+
+/* 订单发货弹窗 */
+#deliverOrderModal {
+
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .do-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #b5bac1;
+    margin-bottom: 12px;
+  }
+
+  .do-info,
+  .do-item {
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+  }
+
+
+  .do-info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13.5px;
+    padding: 3px 0;
+  }
+
+  .do-info-label {
+    flex-shrink: 0;
+    width: 72px;
+    color: #8b9098;
+  }
+
+  .do-info-value {
+    color: #dbdee1;
+    word-break: break-all;
+  }
+
+  .do-order-no {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    word-break: break-all;
+  }
+
+  .do-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background-color: #2b2d31;
+    color: #7a808a;
+    font-size: 20px;
+    position: relative;
+  }
+
+  .do-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #dbdee1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @media (max-width: 575.98px) {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
+
+  .do-item-meta {
+    font-size: 11px;
+    color: #8b9098;
+  }
+
+  .do-item-count {
+    font-size: 12px;
+    color: #8b9098;
+  }
+
+  .do-note {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #a9c5ff;
+    background-color: rgba(123, 167, 255, 0.06);
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  #deliverOrderModal .modal-dialog {
+    --bs-modal-margin: 0;
+    margin: 0;
+    height: 100%;
+  }
+
+  #deliverOrderModal .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+
+
+/* 配送信息弹窗 */
+#deliveryInfoModal {
+
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .di-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #f2f3f5;
+    line-height: 1.4;
+  }
+
+  .di-order-no {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .di-copy-btn {
+    border: 0;
+    background-color: transparent;
+    color: #7a808a;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 4px;
+    font-size: 13px;
+    transition: color .15s ease, background-color .15s ease;
+
+    &:hover {
+      color: #dbdee1;
+      background-color: rgba(255, 255, 255, .07);
+    }
+  }
+
+  .di-panel {
+    background-color: #1e1f22;
+    border: 1px solid transparent;
+    border-radius: 6px;
+  }
+
+  .di-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+
+    .di-card-label {
+      flex-shrink: 0;
+    }
+  }
+
+  .di-info-value {
+    min-width: 0;
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .di-block {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #2b2d31;
+  }
+
+  .di-sub-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #b5bac1;
+  }
+
+  .di-card-label {
+    font-size: 12.5px;
+    color: #8b9098;
+  }
+
+  .di-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f2f3f5;
+    word-break: break-all;
+  }
+
+  .di-muted {
+    font-size: 12.5px;
+    color: #8b9098;
+    word-break: break-all;
+  }
+
+  .di-code {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    min-width: 0;
+  }
+
+  .di-remark {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #dbdee1;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .di-note {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #a9c5ff;
+    background-color: rgba(123, 167, 255, 0.06);
+    border-radius: 6px;
+  }
+}
+
+.di-info-value {
+  color: #dbdee1;
+}
+/* 配送状态配色：订单明细与配送信息两个弹窗共用 */
+.delivery-status-pending {
+  color: #ffcd70;
+}
+
+.delivery-status-shipping {
+  color: #a9c5ff;
+}
+
+.delivery-status-delivered {
+  color: #23a55a;
+}

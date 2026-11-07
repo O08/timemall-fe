@@ -130,6 +130,10 @@ app.get('/mall/virtual/:item', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/mall/virtual-item.html")        //设置/ 下访问文件位置
 })
 
+app.get('/mall/physical/:item', (req, res) => {
+  res.sendFile(__dirname+"/dist"+"/mall/physical-item.html")        //设置/ 下访问文件位置
+})
+
 app.get('/proposal/compose', (req, res) => {
   res.sendFile(__dirname+"/dist"+"/estudio/studio-proposals-compose.html")        //设置/ 下访问文件位置
 })

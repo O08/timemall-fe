@@ -106,7 +106,7 @@
                     <label class="form-check-label" for="feedLinkAll">
                       全部内容
                     </label>
-                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter"  value="" class="form-check-input" name="filterFeed" type="radio"  id="feedLinkAll" >
+                    <input @change="retrieveFeedListV" v-model="feedList_pagination.param.filter" :value="''" class="form-check-input" name="filterFeed" type="radio"  id="feedLinkAll" >
                   </div>
                 </a>
               </li>

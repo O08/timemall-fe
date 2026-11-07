@@ -173,29 +173,107 @@
           </div>
           
         </section>
-        <section id="section-tabs" class="section-tabs">
-          <!-- bubble tablist -->
-          <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button @click="changeUrlTabV('home')" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">虚拟商品</button>
-            </li>
+        <!-- 占位容器：#section-tabs 吸顶时走 position: fixed 会脱离文档流，由 JS 把它的实际高度写在这里顶住，避免下方内容上跳 -->
+        <div class="tabs-holder">
+          <section id="section-tabs" class="section-tabs">
+            <!-- bubble tablist -->
+            <ul class="nav nav-tabs border-0" id="bubble-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button @click="changeUrlTabV('home')" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">虚拟商品</button>
+              </li>
 
-            <li class="nav-item" role="presentation">
-              <button @click="changeUrlTabV('service')"  class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">技能服务</button>
-            </li>
+              <li class="nav-item" role="presentation">
+                <button @click="changeUrlTabV('physical')" class="nav-link" id="physical-tab" data-bs-toggle="tab" data-bs-target="#physical-tab-pane" type="button" role="tab" aria-controls="physical-tab-pane" aria-selected="false">精致好物</button>
+              </li>
 
-            <li class="nav-item" role="presentation">
-              <button @click="changeUrlTabV('subscription')"  class="nav-link" id="subscription-tab" data-bs-toggle="tab" data-bs-target="#subscription-tab-pane" type="button" role="tab" aria-controls="subscription-tab-pane" aria-selected="false">付费订阅</button>
-            </li>
+              <li class="nav-item" role="presentation">
+                <button @click="changeUrlTabV('service')"  class="nav-link" id="service-tab" data-bs-toggle="tab" data-bs-target="#service-tab-pane" type="button" role="tab" aria-controls="service-tab-pane" aria-selected="false">技能服务</button>
+              </li>
 
-          </ul>
-        </section>
+              <li class="nav-item" role="presentation">
+                <button @click="changeUrlTabV('subscription')"  class="nav-link" id="subscription-tab" data-bs-toggle="tab" data-bs-target="#subscription-tab-pane" type="button" role="tab" aria-controls="subscription-tab-pane" aria-selected="false">付费订阅</button>
+              </li>
+
+            </ul>
+          </section>
+        </div>
 
         
         <div class="content-container">
           
             <!-- bubble tablist content-->
             <div class="tab-content" id="bubble-tab-content">
+              <div class="tab-pane fade" id="physical-tab-pane" role="tabpanel" aria-labelledby="physical-tab" tabindex="0">
+                <div class="physical-search">
+                  <input v-model="physical.queryParam.q" @keyup.enter="refreshPhysicalListV" type="text" enterkeyhint="search" class="physical-search__input" placeholder="搜索商品" aria-label="在精致好物中搜索商品">
+                  <button class="btn physical-search__submit" type="button" @click="refreshPhysicalListV" aria-label="搜索">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+                <section class="delivery-bar my-4">
+                  <div class="delivery-bar__info">
+                    <strong class="text-accent">¥{{homeInfo.minDeliveryAmount}} 起送</strong>
+                    <span class="text-muted-app" style="word-break: break-all;">配送范围：{{homeInfo.deliveryArea}}</span>
+                  </div>
+                  <button class="btn btn-outline-app delivery-bar__cart" data-bs-toggle="offcanvas" data-bs-target="#cartPanel">
+                    <span :class="{'me-3':cartCount>0 }" class="position-relative d-inline-block">
+                      <i class="bi bi-cart"></i> 
+                      <span v-if="cartCount>0" class="cart-count-badge">{{cartCount}}</span>
+                    </span>
+                    <span>
+                      购物车
+                    </span>
+                  </button>
+                </section>
+                <section class="section-list-render mt-0">
+                  <div v-if="physical.records.length==0 && !physical.queryParam.loading" class="not-found-resource">
+                    <img src="https://d13-content.oss-cn-hangzhou.aliyuncs.com/common/image/not-found-result.png" alt="bluvarri-physical-product-not-found">
+                    <h4 v-if="physical.queryParam.q">没有找到相关商品</h4>
+                    <h4 v-else>未找到结果</h4>
+                    <button v-if="physical.queryParam.q" class="btn btn-outline-app btn-sm mt-2" type="button" @click="clearPhysicalSearchV">清空搜索条件</button>
+                  </div>
+
+                  <div class="row g-2 g-md-3  row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 row-cols-xxl-6">
+                    <div v-for="product in physical.records" :key="product.productId" class="col">
+                      <div @click="showProductModalV(product)" class="cell-item">
+                        <div class="card border-0 cell-card-body-bg  pb-1">
+                          <div class="thumbnail-container">
+                            <img :src="adaptiveImageUriV(product.thumbnail)" class="card-img-top cell-thumb" alt="商品主图">
+                          </div>
+                          <div class="card-body px-2">
+                            <p class="card-text mt-2">
+                              <span class="url-link">
+                                {{product.productName}}
+                              </span>
+                            </p>
+                          </div>
+                          <div class="card-footer px-2 d-flex align-items-center justify-content-between card-footer-highlight">
+                            <span v-if="isSoldOutV(product)" class="price-label sold-out-label">已售罄</span>
+                            <span v-else class="price-label">
+                              售价
+                            </span>
+                            <div class="price">
+                              <i>￥</i>
+                              <ins class="text-decoration-none price-txt">{{product.price}}</ins>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+
+                  <div  class="show-more-row">
+                    <div v-if="physical.queryParam.pages > physical.queryParam.current">
+                      <button  v-preventreclick @click="infinitePhysicalHandler" type="button"  class="btn btn-show-more" >
+                        显示更多
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="empty-box" style="height: 200px; width: 100%;"></div>
+                </section>
+              </div>
               <!-- home tab-->
               <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 
@@ -284,10 +362,12 @@
 
                   </div>
 
-                  <div v-if="subscription.queryParam.pages > subscription.queryParam.current" class="show-more-row">
-                    <button v-preventreclick @click="infinitePlanHandler" type="button"  class="btn btn-show-more" >
-                      显示更多
-                    </button>
+                  <div  class="show-more-row">
+                    <div v-if="subscription.queryParam.pages > subscription.queryParam.current">
+                      <button v-preventreclick @click="infinitePlanHandler" type="button"  class="btn btn-show-more" >
+                        显示更多
+                      </button>
+                    </div>
                   </div>
 
                   <div class="empty-box" style="height: 200px; width: 100%;"></div>
@@ -333,10 +413,12 @@
                       
                     </div>
                   </div>
-                  <div v-if="queryParam.pages > queryParam.current" class="show-more-row">
-                    <button v-preventreclick @click="infiniteHandler" type="button"  class="btn btn-show-more" >
-                      显示更多
-                    </button>
+                  <div  class="show-more-row">
+                    <div v-if="queryParam.pages > queryParam.current">
+                      <button v-preventreclick @click="infiniteHandler" type="button"  class="btn btn-show-more" >
+                        显示更多
+                      </button>
+                    </div>
                   </div>
                   <div class="empty-box" style="height: 200px; width: 100%;"></div>
 
@@ -348,7 +430,206 @@
       </main>
       <section class="modals">
         <div class="modal-container">
+
+          <!-- product detail modal -->
+          <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true" aria-labelledby="productModalTitle">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content" v-if="productModalObj.product">
+                <div class="modal-body p-0">
+                  <div class="product-modal-media">
+                    <img :src="adaptiveImageUriV(productModalObj.product.thumbnail)" class="product-modal-image" alt="商品主图">
+                    <button type="button" class="product-modal-close" data-bs-dismiss="modal" aria-label="关闭商品详情">
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </div>
+                  <div class="product-core-info pb-3 pt-3">
+                    <h2 class="product-modal-name h4" id="productModalTitle">{{productModalObj.product.productName}}</h2>
+                    <div class="product-modal-price">
+                      <div class="price">
+                        <i>￥</i>
+                        <ins class="text-decoration-none price-txt">{{productModalObj.product.price}}</ins>
+                      </div>
+                    </div>
+                    <p v-if="lowStockRemaining" class="product-modal-stock product-modal-stock--low mb-0">仅剩 {{lowStockRemaining}} 件</p>
+
+                    <h3 class="product-modal-label product-modal-label--row mt-4">商品详情<a class="product-modal-link" target="_blank" rel="noopener noreferrer" :href="'/mall/physical/' + productModalObj.product.productId">前往商品页<i class="bi bi-box-arrow-up-right ms-1"></i></a></h3>
+                    <div class="product-modal-desc mb-0" v-html="productModalObj.product.productDesc"></div>
+
+                    <h3 class="product-modal-label mt-4">温馨提示</h3>
+                    <div class="security-note product-modal-note p-2">
+                      <p class="mb-0"><span style="word-break: break-all;">{{productModalObj.product.warmReminder}}</span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer product-modal-footer">
+                  <div class="input-group quantity-stepper">
+                    <button class="btn" type="button" aria-label="减少数量" :disabled="productModalObj.quantity <= 1" @click="productModalObj.quantity--">−</button>
+                    <span class="input-group-text">{{productModalObj.quantity}}</span>
+                    <button class="btn" type="button" aria-label="增加数量" :disabled="productModalObj.quantity >= productMaxQty(productModalObj.product)" @click="productModalObj.quantity++">＋</button>
+                  </div>
+                  <div class="product-modal-subtotal">小计<b class="text-accent">￥{{ modalSubtotal }}</b></div>
+                  <button class="btn product-modal-submit" :class="purchasable ? 'btn-accent' : 'btn-secondary'" :disabled="!purchasable" type="button" @click="addToCartV">
+                    <i class="bi bi-bag-plus"></i>
+                    <span>{{ submitLabel }}</span>
+                  </button>
+                  <div v-for="bubble in bubbles" 
+                    :key="bubble.id" 
+                    :style="bubble.style"
+                    class="cart-bubble-sphere">
+                    <span class="bubble-num">+{{ bubble.count }}</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- cart panel -->
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="cartPanel" aria-labelledby="cartPanelTitle">
+            <div class="offcanvas-header">
+              <h2 class="offcanvas-title mb-0" id="cartPanelTitle">购物车<template v-if="cartCount>0"><span class="cart-count-inner-badge">{{cartCount}}</span><span class="visually-hidden">件</span></template></h2>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="security-note cart-note p-3">
+                <p class="note-block__title"><i class="bi bi-geo-alt"></i>配送范围</p>
+                <p class="note-block__text mb-0" style="word-break: break-all;">当前仅配送「{{homeInfo.deliveryArea}}」范围内的地址，下单前请确认收货地址在配送区域内。</p>
+              </div>
+
+              <div class="cart-list">
+                <div v-for="(item, index) in cartItems" class="cart-item">
+                  <div class="item-thumbnail-container">
+                    <img :src="adaptiveImageUriV(item.thumbnail)" class="item-thumbnail" alt="商品主图">
+                  </div>
+                  <div class="cart-item-main">
+                    <div class="cart-item-head">
+                      <strong class="cart-item-name">{{item.productName}}</strong>
+                      <button v-preventreclick class="btn cart-item-remove" type="button" :aria-label="'移除 ' + item.productName" @click="removeCartItemV(index)">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                    <div class="cart-item-price">
+                      <span class="cart-item-price__amount">￥{{item.price}}</span>
+                      <button v-if="editingCartId !== item.productId" class="btn cart-qty-pill" type="button" :aria-label="'修改购买数量，当前 ' + item.quantity + ' 件'" @click="editingCartId = item.productId">
+                        <span>×</span><b>{{item.quantity}}</b><i class="bi bi-chevron-down"></i>
+                      </button>
+                      <div v-else class="input-group quantity-stepper quantity-stepper-sm">
+                        <button class="btn" type="button" aria-label="减少数量" :disabled="item.quantity <= 1" @click="decreaseCartItemQuantityV(index)">−</button>
+                        <button class="btn quantity-stepper-value" type="button" aria-label="收起数量调整" @click="editingCartId = null">{{item.quantity}}</button>
+                        <button class="btn" type="button" aria-label="增加数量" :disabled="item.quantity >= 99" @click="increaseCartItemQuantityV(index)">＋</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div v-if="cartItems.length==0" class="cart-empty">
+                  <i class="bi bi-bag"></i>
+                  <p class="mb-3">购物车还是空的</p>
+                  <button class="btn btn-outline-app btn-sm" style="font-size: 12px;" type="button" data-bs-dismiss="offcanvas">去挑商品</button>
+                </div>
+              </div>
+
+              <div class="cart-summary">
+                <div class="cart-summary-row">
+                  <span class="cart-summary-label">合计</span>
+                  <strong class="cart-summary-total text-accent">￥{{cartTotal}}</strong>
+                </div>
+                <button  :class="{'disabled': cartItems.length==0}" class="btn btn-accent w-100" type="button"  @click="checkoutV">去结算</button>
+              </div>
+            </div>
+          </div>
           
+          <!-- checkout modal -->
+          <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <!-- form view -->
+                <form v-if="!checkoutModalObj.done" id="checkout-form" :class="{'was-validated': checkoutModalObj.validated}" @submit.prevent="submitOrderV" novalidate>
+                  <div class="modal-header">
+                    <div>
+                      <h2 class="modal-title mb-0" id="checkoutModalTitle">自助收银</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭结算"></button>
+                  </div>
+                  <div class="modal-body">
+                    <section class="checkout-section">
+                      <h3 class="form-section-title">收货信息</h3>
+                      <div class="row g-3">
+                        <div class="col-sm-6">
+                          <label class="form-label" for="input_checkout_receiver">收货人</label>
+                          <input id="input_checkout_receiver" v-model.trim="checkoutModalObj.form.recipient" class="form-control" maxlength="16" autocomplete="name" required placeholder="请输入姓名">
+                          <div class="invalid-feedback">请输入有效的收货人姓名</div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label class="form-label" for="input_checkout_phone">手机号码</label>
+                          <input id="input_checkout_phone" v-model.trim="checkoutModalObj.form.recipientPhone"  class="form-control" maxlength="20" autocomplete="tel" inputmode="tel" type="tel" required placeholder="请输入 11 位手机号">
+                          <div class="invalid-feedback">请输入有效的手机号码</div>
+                        </div>
+                        <div class="col-12">
+                          <label class="form-label" for="input_checkout_address">详细地址</label>
+                          <textarea id="input_checkout_address" v-model.trim="checkoutModalObj.form.shippingAddress" class="form-control" rows="3" maxlength="90" autocomplete="street-address" required placeholder="请输入省市区、街道及门牌号"></textarea>
+                          <div class="invalid-feedback">请输入有效的详细地址</div>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="checkout-section">
+                      <h3 class="form-section-title">商品清单</h3>
+                      <div v-for="item in cartItems" class="order-item">
+                        <div class="order-item-container">
+                          <img :src="adaptiveImageUriV(item.thumbnail)" class="item-thumbnail checkout-item-thumb" alt="商品主图">
+                        </div>
+                        <div class="order-item-main">
+                          <strong class="order-item-name">{{item.productName}}</strong>
+                          <p class="order-item-meta mb-0">￥{{item.price}} × {{item.quantity}}</p>
+                        </div>
+                        <span class="order-item-line">￥{{ lineSubtotalV(item) }}</span>
+                      </div>
+                      <button class="checkout-edit-link" type="button" @click="backToCartV"><i class="bi bi-arrow-left"></i>返回购物车修改采购信息</button>
+                    </section>
+
+                    <section class="checkout-section">
+                      <div class="security-note checkout-note">
+                        <p class="note-block__title"><i class="bi bi-geo-alt"></i>配送范围</p>
+                        <p class="note-block__text mb-0" style="word-break: break-all;">当前仅配送「{{homeInfo.deliveryArea}}」范围内的地址，下单前请确认收货地址在配送区域内。</p>
+                      </div>
+                    </section>
+
+                    <section class="checkout-section">
+                      <div class="suborder-panel balance-assistance">
+                        <span>账户余额不足？</span>
+                        <a class="recharge-link" href="/estudio/studio-shop" target="_blank" rel="noopener noreferrer">前往充值<i class="bi bi-box-arrow-up-right"></i></a>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="modal-footer checkout-footer">
+                    <div class="checkout-total">
+                      <span class="checkout-total__label">应付合计</span>
+                      <strong class="checkout-total__amount text-accent">￥{{cartTotal}}</strong>
+                    </div>
+                    
+                    <button :class="{'disabled':checkoutModalObj.submitting}" v-preventreclick class="btn btn-accent checkout-submit" type="button"  @click="submitOrderV">{{checkoutModalObj.submitting ? '提交中…' : '提交订单'}}</button>
+                  </div>
+                </form>
+                <!-- success view（下单成功 / 40007 余额不足建单待支付，共用这一张结果卡片） -->
+                <div v-if="checkoutModalObj.done" class="checkout-success text-center">
+                  <div class="success-check mx-auto mb-3" :class="{'success-check--pending': checkoutModalObj.pendingPayment}"><i class="bi" :class="checkoutModalObj.pendingPayment ? 'bi-clock-history' : 'bi-check-lg'"></i></div>
+                  <p class="checkout-success__tag status-pill" :class="checkoutModalObj.pendingPayment ? 'status-pending' : 'status-success'">{{checkoutModalObj.pendingPayment ? '待支付' : '已提交'}}</p>
+                  <h2 class="checkout-success__title mb-0">{{checkoutModalObj.pendingPayment ? '订单已创建，等待支付' : '下单成功'}}</h2>
+                  <p class="checkout-success__desc"><template v-if="checkoutModalObj.pendingPayment">您的账户余额不足，商品已为你预留。可先在<a class="checkout-success__link" href="/estudio/studio-shop" target="_blank" rel="noopener noreferrer">商城充值</a>，再回到【个人中心-履约中心-实物商品】点击「继续支付」完成下单。</template><template v-else>商家将按下述信息安排配送。</template></p>
+                  <div class="suborder-panel checkout-success__meta">
+                    <div class="checkout-meta-row"><span>订单金额</span><strong class="text-accent">￥{{checkoutModalObj.orderAmount}}</strong></div>
+                    <div class="checkout-meta-row"><span>收货人</span><strong>{{checkoutModalObj.orderInfo.recipient}}</strong></div>
+                    <div class="checkout-meta-row"><span>联系电话</span><strong>{{checkoutModalObj.orderInfo.recipientPhone}}</strong></div>
+                    <div class="checkout-meta-row"><span>收货地址</span><strong class="checkout-meta-value">{{checkoutModalObj.orderInfo.shippingAddress}}</strong></div>
+                  </div>
+                  <button v-preventreclick class="btn btn-accent w-100 checkout-submit" type="button" @click="finishCheckoutV">完成</button>
+                  <a class="btn btn-outline-app w-100 mt-2" href="/epod/pod-physical-order">查看我的订单</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Modal -->
           <div class="modal fade" id="inviteModal" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">

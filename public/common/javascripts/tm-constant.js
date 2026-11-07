@@ -98,7 +98,9 @@ var EmailNoticeEnum= Object.freeze({
 var RefundSceneEnum=Object.freeze({
     "CELL_PLAN_ORDER": "CELL_PLAN_ORDER",  // cell plan order 
     "VIRTUAL_ORDER": "VIRTUAL_ORDER",
-    "SUBSCRIPTION": "SUBSCRIPTION"
+    "SUBSCRIPTION": "SUBSCRIPTION",
+    "PHYSICAL_ORDER_ITEM": "PHYSICAL_ORDER_ITEM",
+    "PHYSICAL_ORDER": "PHYSICAL_ORDER"
 }); 
 var CellPlanOrderTag=Object.freeze({
     "CREATING": "0",  // 订单创建中
@@ -355,9 +357,45 @@ var CoopProgramWrokModeEnum = Object.freeze({
     "FLEXIBLE": "flexible"
 });
 
+var PhysicalOrderItemStatusEnum = Object.freeze({
+    "PENDING_PAYMENT": "pending_payment", // 待支付
+    "PAID": "paid", // 已支付
+    "REFUNDED": "refunded", // 已退款
+    "CANCELLED": "cancelled", // 已取消
+    "CLOSED": "closed", // 已关闭
+    "SETTLED": "settled" // 已结算
+});
+
+var PhysicalOrderPaymentStatusEnum = Object.freeze({
+    "UNPAID": "UNPAID", // 未支付
+    "PAID": "PAID", // 已支付
+    "PARTIAL_REFUNDED": "PARTIAL_REFUNDED", // 部分退款
+    "FULLY_REFUNDED": "FULLY_REFUNDED", // 全额退款
+    "REMITTING": "REMITTING", // 结算中
+    "ALREADY_REMITTANCE": "ALREADY_REMITTANCE", // 已收取货款
+    "CANCELLED": "CANCELLED", // 已取消
+    "CLOSED": "CLOSED" // 已关闭
+});
+
+var PhysicalOrderShippingStatusEnum = Object.freeze({
+    "PENDING": "pending", // 待发货
+    "SHIPPED": "shipped", // 已发货
+    "DELIVERED": "delivered" // 已送达
+});
+
+var PhysicalOrderStatusEnum = Object.freeze({
+    "PENDING_PAYMENT": "pending_payment", // 待支付
+    "PAID": "paid", // 已支付/待发货
+    "SHIPPED": "shipped", // 已发货
+    "COMPLETED": "completed", // 已完成
+    "CANCELLED": "cancelled", // 已取消
+    "CLOSED": "closed", // 已关闭
+    "REFUNDED": "refunded" // 已退款
+});
 
 export {
     CoopApplicationStatusEnum,CoopProgramStatusEnum,CoopProgramWrokModeEnum,
+    PhysicalOrderItemStatusEnum,PhysicalOrderPaymentStatusEnum,PhysicalOrderShippingStatusEnum,PhysicalOrderStatusEnum,
     SupplierLevelEnum,SupplierStatusEnum,AppMeetrEventStatusEnum,AppMeetrEventTypeEnum,AppMeetrDurationTypeEnum,AppMeetrEventCategoryEnum,
     AppViberPostEmbedFacetEnum,AppViberFileSceneEnum,OasisEquityOrderStatusEnum,
     SubsBillCalendarEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,RedeemOrderStatusEnum,AppRedeemShippingTypeEnum,OrderStatusEnum,

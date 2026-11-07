@@ -149,7 +149,7 @@
                                 <label class="form-check-label" for="filterCaseStatus_RESOLVED">
                                   全部
                                 </label>
-                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"   value="" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_ALL" >
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.caseStatus"  :value="''" class="form-check-input" name="filterCaseStatus" type="radio"  id="filterCaseStatus_ALL" >
                               </div>
                             </a>
                           </li>
@@ -246,7 +246,7 @@
                                 <label class="form-check-label" for="filter[casePriority]_All">
                                   ALL
                                 </label>
-                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   value="" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_All" >
+                                <input @change="retrieveCaseListV"  v-model="caseList_pagination.param.casePriority"   :value="''" class="form-check-input" name="filter[casePriority]" type="radio"  id="filter[casePriority]_All" >
                               </div>
                             </a>
                           </li>

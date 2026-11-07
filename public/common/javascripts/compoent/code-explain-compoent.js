@@ -1,7 +1,8 @@
 import {
     SupplierLevelEnum,SupplierStatusEnum,CoopApplicationStatusEnum,CoopProgramStatusEnum,CoopProgramWrokModeEnum,
     AppMeetrEventStatusEnum,AppMeetrEventTypeEnum,AppMeetrDurationTypeEnum,AppMeetrEventCategoryEnum,
-    OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag
+    OasisEquityOrderStatusEnum,MentorshipStatusEnum,OrderStatusEnum,ProductStatus,AppRedeemShippingTypeEnum,RedeemOrderStatusEnum,SubsOfferStatusEnum,SubsOfferTypeEnum,SubsBillCalendarEnum,SubscriptionStatusEnum,ProposalProjectStatusEnum,CellPlanOrderTag,CellPlanType,CommissionTag,FromWhere,DspCaseStatus,VirtualOrderTag,
+    PhysicalOrderStatusEnum,PhysicalOrderPaymentStatusEnum,PhysicalOrderShippingStatusEnum,PhysicalOrderItemStatusEnum
 } from "/common/javascripts/tm-constant.js";
 
 const CodeExplainComponent = {
@@ -93,6 +94,18 @@ const CodeExplainComponent = {
     },
     explainAppMeetrEventCategoryEnumV(category){
         return explainAppMeetrEventCategoryEnum(category);
+    },
+    explainPhysicalOrderStatusV(status){
+        return explainPhysicalOrderStatus(status);
+    },
+    explainPhysicalOrderPaymentStatusV(status){
+        return explainPhysicalOrderPaymentStatus(status);
+    },
+    explainPhysicalOrderShippingStatusV(status){
+        return explainPhysicalOrderShippingStatus(status);
+    },
+    explainPhysicalOrderItemStatusV(status){
+        return explainPhysicalOrderItemStatus(status);
     }
    }
 }
@@ -770,6 +783,110 @@ function explainCoopProgramWrokModeEnum(workmode){
             break;     
     }
     return workmodeDesc;
+}
+
+function explainPhysicalOrderStatus(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case PhysicalOrderStatusEnum.PENDING_PAYMENT:
+            statusDesc="待支付";
+            break; 
+        case PhysicalOrderStatusEnum.PAID:
+            statusDesc="待发货";
+            break; 
+        case PhysicalOrderStatusEnum.SHIPPED:
+            statusDesc="已发货";
+            break; 
+        case PhysicalOrderStatusEnum.COMPLETED:
+            statusDesc="履约结束";
+            break; 
+        case PhysicalOrderStatusEnum.CANCELLED:
+            statusDesc="已取消";
+            break; 
+        case PhysicalOrderStatusEnum.CLOSED:
+            statusDesc="已关闭";
+            break; 
+        case PhysicalOrderStatusEnum.REFUNDED:
+            statusDesc="已退款";
+            break;     
+    }
+    return statusDesc;
+}
+
+function explainPhysicalOrderPaymentStatus(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case PhysicalOrderPaymentStatusEnum.UNPAID:
+            statusDesc="未支付";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.PAID:
+            statusDesc="托管中";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.PARTIAL_REFUNDED:
+            statusDesc="部分退款";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.FULLY_REFUNDED:
+            statusDesc="全额退款";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.REMITTING:
+            statusDesc="结算中";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.ALREADY_REMITTANCE:
+            statusDesc="已结算";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.CANCELLED:
+            statusDesc="已取消";
+            break; 
+        case PhysicalOrderPaymentStatusEnum.CLOSED:
+            statusDesc="已关闭";
+            break;     
+    }
+    return statusDesc;
+}
+
+function explainPhysicalOrderShippingStatus(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case PhysicalOrderShippingStatusEnum.PENDING:
+            statusDesc="待发货";
+            break; 
+        case PhysicalOrderShippingStatusEnum.SHIPPED:
+            statusDesc="已发货";
+            break; 
+        case PhysicalOrderShippingStatusEnum.DELIVERED:
+            statusDesc="已送达";
+            break;     
+    }
+    return statusDesc;
+}
+
+function explainPhysicalOrderItemStatus(status){
+    var statusDesc = "未知";
+    switch(status){
+
+        case PhysicalOrderItemStatusEnum.PENDING_PAYMENT:
+            statusDesc="待支付";
+            break; 
+        case PhysicalOrderItemStatusEnum.PAID:
+            statusDesc="已支付";
+            break; 
+        case PhysicalOrderItemStatusEnum.REFUNDED:
+            statusDesc="已退款";
+            break; 
+        case PhysicalOrderItemStatusEnum.CANCELLED:
+            statusDesc="已取消";
+            break; 
+        case PhysicalOrderItemStatusEnum.CLOSED:
+            statusDesc="已关闭";
+            break; 
+        case PhysicalOrderItemStatusEnum.SETTLED:
+            statusDesc="已结算";
+            break;     
+    }
+    return statusDesc;
 }
 
 export {

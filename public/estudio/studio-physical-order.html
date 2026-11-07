@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <link rel="icon" href="https://bluvarri.com/favicon.png">
+    <title>履约中心 - E-Studio</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+
+    <link rel="stylesheet" href="/estudio/stylesheets/studio.scss">
+    <link rel="stylesheet" href="/estudio/stylesheets/studio-physical-order.scss">
+
+</head>
+<body>
+    <pt-app id="app" v-cloak>
+      <!-- header nav -->
+      <header class="text-white">
+        <div class="d-flex justify-content-between align-items-center hdlayout">
+  
+          <div class="d-flex">
+            <div class="toggle-nav">
+              <button class="navbar-toggler p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdSidebar" aria-controls="bdSidebar" aria-label="Toggle docs navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="bi" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path>
+                </svg>
+              </button>
+            </div>
+            <a href="/estudio/studio-dashboard">
+              <div class="d-flex align-items-center logo">
+                <img src="/common/images/blv-studio-logo-trail.png" alt="logo">
+                <h2  class="mb-0">薪动商号</h2>
+              </div>
+            </a>
+  
+          </div>
+          
+          <div>
+            
+            <div class="btn-group" style="margin-right: 8px;" >
+            
+              <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false" >
+                <div class="tooltip-nav" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-trigger="hover" data-bs-placement="bottom" data-bs-title="访达">
+                  <i class="bi bi-ui-radios-grid"></i>                  
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
+                <li>
+                  <a href="/">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-house me-2"></i> 主站首页
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/rainbow/teixcalaanli">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-rainbow me-2"></i> 彩虹部落
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/mall/gig-economy">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-bag-heart me-2"></i> 心选商店
+                     </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/affiliate/dashboard">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-megaphone me-2"></i> 带货中心
+                     </button>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="/epod/pod-packages-order">
+                    <button class="dropdown-item" type="button" >
+                      <i class="blv bii-personnal me-2"></i>个人中心
+                     </button>
+                  </a>
+                </li>
+                <li v-if="!!getIdentity().hiLinkUrl">
+                  <a :href="getIdentity().hiLinkUrl">
+                    <button class="dropdown-item" type="button" >
+                      <i class="bi bi-box-arrow-up-left me-2"></i> {{getIdentity().hiLinkName}}
+                     </button>
+                  </a>
+                </li>
+              </ul>
+  
+            </div>
+  
+           
+  
+            <div class="btn-group private-msg-atom" style="margin-right: 8px;">
+              <button type="button" class="btn entry-nav" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="tooltip-nav" data-bs-custom-class="custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-trigger="hover" data-bs-title="消息">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.80403 8.3533C2.52389 10.9562 2.53637 13.9582 2.9262 16.5505C3.1419 17.9849 4.31257 19.0845 5.75763 19.2102L7.26787 19.3414C10.4169 19.6152 13.5838 19.6152 16.7328 19.3414L18.2431 19.2102C19.6881 19.0845 20.8588 17.9849 21.0745 16.5505C21.4643 13.9582 21.4768 10.9564 21.1967 8.35345C21.1605 8.05169 21.1197 7.75034 21.0745 7.44949C20.8588 6.0151 19.6881 4.91545 18.2431 4.78983L16.7328 4.65855C13.5838 4.38481 10.4169 4.38481 7.26787 4.65855L5.75763 4.78983C4.31257 4.91545 3.1419 6.0151 2.9262 7.44949C2.88096 7.75028 2.84024 8.05159 2.80403 8.3533ZM7.39777 6.15292C10.4604 5.88669 13.5403 5.88669 16.6029 6.15292L18.1131 6.2842C18.8675 6.34977 19.4786 6.92379 19.5912 7.67254C19.6029 7.7503 19.6142 7.82809 19.6253 7.90592L14.0643 10.9954C12.7807 11.7085 11.2199 11.7085 9.93632 10.9954L4.37539 7.90596C4.38645 7.82812 4.39783 7.75031 4.40952 7.67254C4.52211 6.92379 5.13321 6.34977 5.88754 6.2842L7.39777 6.15292ZM19.8088 9.51989C20.0028 11.7876 19.9303 14.0725 19.5912 16.3274C19.4786 17.0762 18.8675 17.6502 18.1132 17.7158L16.6029 17.8471C13.5403 18.1133 10.4604 18.1133 7.39777 17.8471L5.88754 17.7158C5.13321 17.6502 4.52211 17.0762 4.40952 16.3274C4.07043 14.0725 3.99787 11.7877 4.19184 9.51992L9.20786 12.3066C10.9445 13.2714 13.0561 13.2714 14.7928 12.3066L19.8088 9.51989Z" fill="white"/>
+                    </svg>  
+                </div>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <div class="friend-header">
+                  私信（{{friends.totalUnRead}}）
+                </div>
+                <div class="friend-list">
+  
+                  <li class="friend-item"   v-for="friend in friends.records">
+                    <a target="_blank" :href="'/messages/'+ friend.id">
+                      <div class="friend-container">
+                        <div class="frend-avatar-container">
+                          <img class="frend-avatar" :src="adaptiveImageUriV(friend.avatar) || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+                          <div v-if="friend.brandMark=='3'" class="online-indicator">
+                            <div class="online-indicator-content">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="friend-info">
+                          <div class="friend-name"><span class="ellipsis-1">{{friend.title}}</span> </div>
+                          <div class="friend-msg"> <span class="ellipsis-1">{{friend.latestContent}}</span> </div>
+                          <div class="msg-time">{{getPublishTimeV(friend.modifiedAt)}}</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+  
+                 
+  
+                </div>
+                
+  
+  
+              </ul>
+            </div>
+  
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle button_user_vue brand-avatar" data-bs-toggle="dropdown" aria-expanded="false">
+                <img  :src="adaptiveImageUriV(getIdentity().avatar)  || defaultAvatarImage" @error.once="e => { e.target.src = defaultAvatarImage }">
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-dark">
+                <li>
+                  <a href="/estudio/studio-setting-profile">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-person-vcard me-2"></i> 品牌形象
+                     </button>
+                  </a>
+                </li>
+                <li>
+                    <button @click="logout()" class="dropdown-item" type="button">   
+                      <i class="bi bi-box-arrow-right me-2"></i> 退出登录 
+                    </button>
+                </li>
+                <li>
+                  <a href="/mall/delete-account">
+                    <button class="dropdown-item" type="button">
+                      <i class="bi bi-trash3 me-2"></i> 删除账号
+                     </button>
+                  </a>
+                </li>
+                
+                <li>
+                  <button class="dropdown-item" type="button" data-bs-toggle="offcanvas" data-bs-target="#feedback_offcanvas_right" aria-controls="feedback_offcanvas_right">
+                    <i class="bi bi-flag me-2"></i> 问题反馈
+                  </button>
+                </li>
+              </ul>
+            </div>
+    
+            
+          </div>
+  
+  
+        </div>
+      </header>
+    <content class="bd-layout">
+      <aside>
+        <div class="offcanvas-xxl offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel">
+          <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#bdSidebar" aria-label="Close"></button>
+          </div> 
+          <!-- menu -->
+          <div class="sidebar-wrapper">
+            <nav class="sidebar nav">
+              <a class="nav-link" href="/estudio/studio-dashboard">
+                <div class="nav-icon">
+                  <i class="bi bi-rocket-takeoff"></i>
+                </div>
+                <span>运营数据</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-physical-store">
+                <div class="nav-icon">
+                  <i class="bi bi-shop"></i>
+                </div>
+                <span>实物店铺</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-gig-store">
+                <div class="nav-icon">
+                  <i class="bi bi-shop-window"></i>
+                </div>
+                <span>技能店铺</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-virtual-store">
+                <div class="nav-icon">
+                  <i class="bi bi-badge-vr"></i>
+                </div>
+                <span>虚拟店铺</span>  
+              </a>
+              <a class="nav-link active">
+                <div class="nav-icon">
+                  <i class="bi bi-truck"></i>
+                </div>
+                <span>履约中心</span>        
+              </a>
+              <a class="nav-link" href="/estudio/studio-bill">
+                <div class="nav-icon">
+                  <i class="bi bi-receipt"></i>
+                </div>
+                <span>账单管理</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-proposals">
+                <div class="nav-icon">
+                  <i class="bi bi-file-medical"></i>
+                </div>
+                <span>智能提案</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-commission">
+                <div class="nav-icon">
+                  <i class="bi bi-stickies"></i>
+                </div>
+                <span>委托任务</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-mps">
+                <div class="nav-icon">
+                  <i class="bi bi-columns"></i>
+                </div>
+                <span>商单助手</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-subscription">
+                <div class="nav-icon">
+                  <i class="bi bi-magic"></i>
+                </div>
+                <span>付费订阅</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-promotion">
+                <div class="nav-icon">
+                  <i class="bi bi-gift"></i>
+                </div>
+                <span>营销活动</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-digital-flier">
+                <div class="nav-icon">
+                  <i class="bi bi-images"></i>
+                </div>
+                <span>数字传单</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-msg">
+                <div class="nav-icon">
+                  <i class="bi bi-bell"></i>
+                </div>
+                <span>消息通知<sup v-if="includeUnprocessedFeed" class="disabled dot-info"></sup></span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-dsp">
+                <div class="nav-icon">
+                  <i class="bi bi-shield-plus"></i>
+                </div>
+                <span>争端解决</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-supplier">
+                <div class="nav-icon">
+                  <i class="bi bi-person-bounding-box"></i>
+                </div>
+                <span>商业伙伴</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-mentorship">
+                <div class="nav-icon">
+                  <i class="bi bi-person-arms-up"></i>
+                </div>
+                <span>学员培训</span>
+              </a>
+              <a class="nav-link" href="/estudio/studio-shop">
+                <div class="nav-icon">
+                  <i class="bi bi-bag"></i>
+                </div>
+                <span>补给商城</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </aside>
+      <main>
+        <div class="main-content-container full">
+        <div class="page-header-monolith">
+          <div class="title-wrapper"><span class="title-anchor"></span>
+            <h1 class="main-heading">履约中心</h1>
+          </div>
+          <p class="header-description">订单、商品、服务交付&售后支持体系。 </p>
+          <div class="header-divider"></div>
+        </div> 
+        <div class="data-tag">服务类型</div>
+        <!-- first tablist -->
+        <div class="first-nav-tabs-container">
+          <ul class="nav nav-tabs border-0 " id="millstone-first-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a href="/estudio/studio-packages-order">
+                <button class="nav-link">单品</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a href="/estudio/studio-gig-order">
+                <button class="nav-link">特约</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a href="/estudio/studio-b2b-order">
+                <button class="nav-link" type="button">商单</button>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a href="/estudio/studio-physical-order">
+                  <button class="nav-link active"  type="button">实物商品</button>
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a href="/estudio/studio-virtual-order">
+                <button class="nav-link">虚拟商品</button>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!--  first tablist content-->
+        <div class="tab-content" id="millstone-first-tab-content">
+                  <!--  plan content start-->
+
+          <div class="tab-pane fade show active" id="plan-order-tab-pane" role="tabpanel" aria-labelledby="plan-order-tab" tabindex="0">
+
+            <div class="d-flex cell-plan-order-list-header mt-5 mb-3">
+              <div class="plan-order-search d-flex">
+                <form class="nosubmit" onsubmit="return false">
+                  <input  @keyup.enter.native="retrieveOrderTbV" v-model="physicalOrderList_pagination.param.q"  class="nosubmit plan-order-search-btn" type="search" placeholder="搜索...">
+                </form>
+              </div>   
+
+              <select v-model="physicalOrderList_pagination.param.status" @change="filterOrderByStatusV" class="form-select ms-3 cell_plan_order_list-tb-filter-btn custom-select">
+                <option value="">全部状态</option>
+                <option value="pending_payment">{{explainPhysicalOrderStatusV("pending_payment")}}</option>
+                <option value="paid">{{explainPhysicalOrderStatusV("paid")}}</option>
+                <option value="shipped">{{explainPhysicalOrderStatusV("shipped")}}</option>
+                <option value="completed">{{explainPhysicalOrderStatusV("completed")}}</option>
+                <option value="cancelled">{{explainPhysicalOrderStatusV("cancelled")}}</option>
+                <option value="closed">{{explainPhysicalOrderStatusV("closed")}}</option>
+                <option value="refunded">{{explainPhysicalOrderStatusV("refunded")}}</option>
+              </select>         
+            </div>
+
+            <div class="table-responsive">
+
+              <div class="table-wrp">
+
+                <table class="table table-borderless table-sm  table-hover align-middle">
+                  <thead>
+                    <tr>
+                      <th class="col-option"></th>
+                      <th class="col-orderId">订单</th>
+                      <th class="col-user">客户</th>
+                      <th class="col-fee">金额</th>
+                      <th class="col-fee">订单状态</th>
+                      <th class="col-fee">资金状态</th>
+                      <th class="col-addTime">订单时间</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in physicalOrderList_pagination.records">
+                      <td>
+                        <div class="d-flex">
+
+                          <span v-preventreclick @click="showOrderDetailModalV(item)" class="btn-option-secondary" role="button" tabindex="0">
+                            订单明细
+                          </span>
+                          <span  class="option-edit ms-3" class="btn-option-secondary">
+                            <div class="dropdown table-dropdown-container">
+                              <a class="btn-option-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                              </a>
+                            
+                              <ul class="dropdown-menu">
+                                <li v-if="canDeliverOrderV(item)"><a class="dropdown-item"  v-preventreclick @click="showDeliverOrderModalV(item)" >现在发货</a></li>
+                                <li v-if="canConfirmReceiptOrderV(item)"><a class="dropdown-item" v-preventreclick @click="confirmReceiptOrderV(item)">确认送达</a></li>
+                                <li v-if="canRemitOrderV(item)"><a class="dropdown-item" v-preventreclick @click="remitOrderV(item)">收取货款</a></li>
+                                <li><a class="dropdown-item" v-preventreclick @click="showDeliveryInfoModalV(item)">配送信息</a></li>
+                                <li><a class="dropdown-item" target="_blank" :href="'/messages/' + item.buyerUserId">联系客户</a></li>
+                              </ul>
+                            </div>
+                          </span>
+
+                        </div>
+                      </td>
+                      <td :title="item.orderId">{{item.orderId}}</td>
+                      <td :title="item.buyerName">
+                        <span class="ellipsis-1">
+                          <a target="_blank" :href="'/messages/' + item.buyerUserId">
+                            <img :src="adaptiveImageUriV(item.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar">
+                          </a>
+                          <span>{{item.buyerName}}</span>
+                        </span>
+                      </td>
+                      <td :title="item.payAmount">{{item.payAmount}}</td>
+                      <td :title="explainPhysicalOrderStatusV(item.orderStatus)">{{explainPhysicalOrderStatusV(item.orderStatus)}}</td>
+                      <td :title="explainPhysicalOrderPaymentStatusV(item.paymentStatus)">{{explainPhysicalOrderPaymentStatusV(item.paymentStatus)}}</td>
+                    
+                      <td :title="item.createAt">{{item.createAt.replace(new RegExp('-', 'g'), '/')}}</td>
+                    </tr>
+                    
+                   
+                  </tbody>
+                </table>
+                <div v-show="isEmptyObjV(physicalOrderList_pagination.records)" class="empty-content-block">
+    
+                  没有可用的内容！
+    
+                </div>
+                <nav v-if="!!physicalOrderList_pagination.paging" aria-label="Page navigation" class="millstone-pagination">
+                  <ul class="pagination pagination-lg pagination-dark  border-0">
+                    <li class="page-item" @click="pagePre(physicalOrderList_pagination)">
+                      <a class="page-link"  aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"  v-for="page in physicalOrderList_pagination.paging.items" :class="{'current-page-active': physicalOrderList_pagination.paging.current == page}" 
+                          @click="pageGo(physicalOrderList_pagination,page)"><a class="page-link">{{page}}</a></li>
+                    <li class="page-item" @click="pageNext(physicalOrderList_pagination)">
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+              </div>
+
+            
+
+            </div>
+            
+
+          </div>
+          
+        </div>
+
+        </div>
+        
+        <div class="empty-box"></div>
+        
+      </main>
+    </content>
+    <section class="modals">
+      <!-- order detail modal（订单明细） -->
+      <div class="modal-container">
+        <div class="modal fade dcModal" id="orderDetailModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-fullscreen-lg-down modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="od-title mb-0">订单明细</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="关闭"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="od-note p-3 mb-4">
+                  买家款项由平台托管，商家无法直接收取。订单履约完成后，通过【收取货款】结算。结算功能会在下单后 7 个工作日开放。
+                </div>
+
+                <h3 class="od-section-title">商品信息</h3>
+                <div class="od-items-list">
+                  <div class="od-item p-3" v-for="line in orderDetail.items" :key="line.orderItemId">
+                    <div class="d-flex gap-3 align-items-start">
+                      <img  :src="adaptiveImageUriV(line.productThumbnail)" class="od-thumb flex-shrink-0" alt="商品图">
+                      <div class="flex-grow-1 min-w-0">
+                        <p class="od-item-name mb-1">{{line.productName}}</p>
+                        <p class="od-item-meta mb-0">数量 × {{line.quantity}}</p>
+                        <p class="od-item-meta mb-0">单价 ¥{{line.productPrice}}</p>
+                        <p class="od-item-meta mb-0" v-if="line.refundReason">退款原因：{{line.refundReason}}</p>
+                      </div>
+                      <div class="text-end flex-shrink-0">
+                        <strong class="od-item-fee">¥{{Number(line.splitPayAmount).toFixed(2)}}</strong>
+                        <p class="od-fund mb-0" :class="itemStatusClassV(line)">{{explainPhysicalOrderItemStatusV(line.status)}}</p>
+                      </div>
+                    </div>
+                    <div class="od-item-action pt-3 mt-3 text-end" v-if="canSubOrderRefundV(line)">
+                      <button v-preventreclick @click="showSubOrderRefundV(line)" class="btn btn-sm btn-cta-submit" type="button">退款</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <h3 class="od-section-title">订单信息</h3>
+                <div class="od-panel p-3 mb-4">
+                  <div class="od-info-row mb-2">
+                    <span class="od-card-label">主订单</span>
+                    <span class="d-flex align-items-center min-w-0">
+                      <span class="od-order-no" :title="orderDetail.orderId">{{orderDetail.orderId}}</span>
+                      <button type="button" class="od-copy-btn" title="复制订单号" aria-label="复制订单号"
+                              @click="copyValueToClipboardV(orderDetail.orderId)">
+                        <i class="bi bi-clipboard"></i>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">订单状态</span>
+                    <span class="od-info-value">{{explainPhysicalOrderStatusV(orderDetail.orderStatus)}}</span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">资金状态</span>
+                    <span class="od-info-value" :class="paymentStatusClassV(orderDetail)">{{explainPhysicalOrderPaymentStatusV(orderDetail.paymentStatus)}}</span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">客户</span>
+                    <span class="od-info-value text-truncate min-w-0">
+                      <a target="_blank" :href="'/messages/' + orderDetail.buyerUserId">
+                        <img :src="adaptiveImageUriV(orderDetail.buyerAvatar) || defaultAvatarImage" class="peacemaker-avatar me-1">
+                      </a>
+                      {{orderDetail.buyerName}}
+                    </span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">下单时间</span>
+                    <span class="od-info-value">{{orderDetail.createAt}}</span>
+                  </div>
+                  <div class="od-info-row od-info-sum">
+                    <span class="od-card-label">订单合计</span>
+                    <span class="od-sum-value">¥{{orderDetail.payAmount}}</span>
+                  </div>
+                </div>
+
+                <h3 class="od-section-title">金额明细</h3>
+                <div class="od-amount p-3 mb-4">
+                  <div class="od-amount-row">
+                    <span>商品总额</span>
+                    <span>¥{{orderGoodsTotalV(orderDetail)}}</span>
+                  </div>
+                  <div class="od-amount-row">
+                    <span>优惠</span>
+                    <span>-¥{{orderPromotionTotalV(orderDetail)}}</span>
+                  </div>
+                </div>
+
+                <h3 class="od-section-title">收货与配送信息</h3>
+                <div class="od-panel p-3 mb-4">
+                  <div class="d-flex align-items-start justify-content-between gap-2 mb-3">
+                    <div class="min-w-0">
+                      <p class="od-line mb-1">{{orderDetail.recipient}}
+                        <span class="od-muted ms-2">{{orderDetail.recipientPhone}}</span>
+                      </p>
+                      <p class="od-muted mb-0">{{orderDetail.shippingAddress}}</p>
+                    </div>
+                    <button type="button" class="od-copy-btn flex-shrink-0" title="复制收货信息" aria-label="复制收货信息"
+                            @click="copyValueToClipboardV(fullAddressTextV(orderDetail))">
+                      <i class="bi bi-clipboard"></i>
+                    </button>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">配送状态</span>
+                    <span class="od-info-value" :class="deliveryStatusClassV(orderDetail.shippingStatus)">{{deliveryStatusV(orderDetail.shippingStatus)}}</span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">配送方式</span>
+                    <span class="od-info-value">{{displayTextInfoOrBlankDashV(orderDetail.shippingMethod)}}</span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">物流单号</span>
+                    <span class="d-flex align-items-center min-w-0">
+                      <span class="od-order-no" :title="orderDetail.shippingNumber">{{displayTextInfoOrBlankDashV(orderDetail.shippingNumber)}}</span>
+                      <button v-if="!!orderDetail.shippingNumber" type="button" class="od-copy-btn" title="复制单号" aria-label="复制单号"
+                              @click="copyValueToClipboardV(orderDetail.shippingNumber)">
+                        <i class="bi bi-clipboard"></i>
+                      </button>
+                    </span>
+                  </div>
+                  <div class="od-info-row">
+                    <span class="od-card-label">配送员联系电话</span>
+                    <span class="od-info-value">{{displayTextInfoOrBlankDashV(orderDetail.courierPhone)}}</span>
+                  </div>
+                  <div class="mt-3">
+                    <p class="od-card-label mb-1">发货备注</p>
+                    <p class="od-muted mb-0">{{displayTextInfoOrBlankDashV(orderDetail.shippingNote)}}</p>
+                  </div>
+                </div>
+
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- sub order refund modal（子订单申请退款，叠在订单明细之上） -->
+      <div class="modal-container">
+        <div class="modal fade dcModal" id="subOrderRefundModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="or-title mb-0">订单退款</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="关闭"></button>
+              </div>
+              <div class="modal-body">
+
+                <!-- 商品信息：帮助商家核对退款对象与金额 -->
+                <div class="or-goods p-3">
+                  <div class="d-flex gap-3 align-items-start">
+                    <img :src="adaptiveImageUriV(subOrderRefundObj.productThumbnail)" class="or-thumb flex-shrink-0" alt="商品图">
+                    <div class="flex-grow-1 min-w-0">
+                      <p class="or-goods-name mb-1">{{subOrderRefundObj.productName}}</p>
+                      <p class="or-goods-meta mb-0">数量 × {{subOrderRefundObj.quantity}}</p>
+                      <p class="or-goods-meta mb-0">单价 ¥{{subOrderRefundObj.productPrice}}</p>
+                    </div>
+                    <div class="text-end flex-shrink-0">
+                      <strong class="or-goods-fee">¥{{Number(subOrderRefundObj.splitPayAmount).toFixed(2)}}</strong>
+                      <p class="or-goods-meta mb-0">平台托管</p>
+                    </div>
+                  </div>
+                  <p class="or-orderno mb-0">
+                    <span class="or-orderno-label">主订单</span>
+                    <span class="or-orderno-num" :title="subOrderRefundObj.orderId">{{subOrderRefundObj.orderId}}</span>
+                  </p>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">退款金额</label>
+                  <div class="or-amount-fixed">
+                    <span class="or-amount-fixed-num">¥{{Number(subOrderRefundObj.splitPayAmount).toFixed(2)}}</span>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="subOrderRefundReason" class="form-label">退款原因</label>
+                  <textarea id="subOrderRefundReason" v-model="subOrderRefundObj.refundReason" rows="3" maxlength="72" class="form-control" placeholder="填写退款原因，例如：商品破损"></textarea>
+                </div>
+
+                <!-- 退款授权：需手动输入固定短语才能提交，避免误操作退款 -->
+                <div class="mb-1">
+                  <label for="subOrderRefundTerm" class="form-label">填写“我支持退款”进行退款授权</label>
+                  <input id="subOrderRefundTerm" v-model="subOrderRefundObj.term" type="text" autocomplete="off" class="form-control" placeholder="我支持退款">
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">取消</button>
+                <button :class="{'disabled': !isRefundAuthorizedV() || !subOrderRefundObj.refundReason}" v-preventreclick @click="submitSubOrderRefundV"  type="button" class="btn btn-action-submit">提交</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- deliver order modal（订单发货）：要填单号与备注的录入弹窗-->
+      <div class="modal-container">
+        <div class="modal fade dcModal" id="deliverOrderModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-fullscreen-lg-down modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 mb-0">订单发货</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="关闭"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="do-info p-3 mb-4">
+                  <div class="do-info-row">
+                    <span class="do-info-label">主订单</span>
+                    <span class="do-order-no">{{deliverOrderObj.orderId}}</span>
+                  </div>
+                </div>
+
+                <h3 class="do-section-title">收件信息</h3>
+                <div class="do-info p-3 mb-4">
+                  <div class="do-info-row">
+                    <span class="do-info-label">收件人</span>
+                    <span class="do-info-value">{{deliverOrderObj.recipient}}</span>
+                  </div>
+                  <div class="do-info-row">
+                    <span class="do-info-label">联系电话</span>
+                    <span class="do-info-value">{{deliverOrderObj.recipientPhone}}</span>
+                  </div>
+                  <div class="do-info-row">
+                    <span class="do-info-label">收货地址</span>
+                    <span class="do-info-value">{{deliverOrderObj.shippingAddress}}</span>
+                  </div>
+                </div>
+
+                <h3 class="do-section-title">发货商品</h3>
+                <div class="do-item p-3 mb-2" v-for="line in deliverOrderObj.items" :key="line.orderItemId">
+                  <div class="d-flex gap-3 align-items-start">
+                    <img :src="adaptiveImageUriV(line.productThumbnail)" class="do-thumb flex-shrink-0" alt="商品图">
+                    <div class="flex-grow-1 min-w-0">
+                      <p class="do-item-name mb-1">{{line.productName}}</p>
+                      <p class="do-item-meta mb-0">数量 × {{line.quantity}}</p>
+                      <p class="do-item-meta mb-0">单价 ¥{{line.productPrice}}</p>
+                    </div>
+                  </div>
+                </div>
+                <p class="do-item-count mb-4">共 {{deliverItemCountV()}} 件</p>
+
+                <div class="mb-3">
+                  <label for="deliverOrderCompany" class="form-label">配送方式</label>
+                  <input id="deliverOrderCompany" v-model.trim="deliverOrderObj.shippingMethod" maxlength="20" class="form-control" type="text" placeholder="填自主配送或顺丰快递等物流公司">
+                </div>
+
+                <div class="mb-3">
+                  <label for="deliverOrderNo" class="form-label">物流单号</label>
+                  <input id="deliverOrderNo" v-model.trim="deliverOrderObj.shippingNumber" maxlength="40" class="form-control" type="text" placeholder="填写快递公司物流单号" autocomplete="off">
+                </div>
+
+                <div class="mb-3">
+                  <label for="deliverOrderPhone" class="form-label">配送员联系电话</label>
+                  <input id="deliverOrderPhone" v-model.trim="deliverOrderObj.courierPhone" maxlength="20" class="form-control" type="tel" placeholder="填写配送人员电话，供买家咨询配送进度">
+                </div>
+
+                <div class="mb-3">
+                  <label for="deliverOrderNote" class="form-label">发货备注</label>
+                  <textarea id="deliverOrderNote" v-model="deliverOrderObj.shippingNote" rows="2" maxlength="72" class="form-control" placeholder="填写配送说明"></textarea>
+                </div>
+
+                <div class="do-note p-3">
+                  发货后订单转为已发货，买家签收后点击「确认送达」，下单 7 天后开放结算功能。
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-action-cancel" data-bs-dismiss="modal">取消</button>
+                <button :class="{'disabled':!validateDeliverFormReadyV()}" v-preventreclick @click="confirmDeliverOrderV" type="button" class="btn btn-action-submit">确认发货</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- delivery info modal（配送信息） -->
+      <div class="modal-container">
+        <div class="modal fade dcModal" id="deliveryInfoModal" data-bs-backdrop="static" tabindex="-1">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="di-title mb-0">配送信息</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="关闭"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="di-panel p-3 mb-3">
+                  <div class="di-info-row">
+                    <span class="di-card-label">主订单</span>
+                    <span class="d-flex align-items-center min-w-0">
+                      <span class="di-order-no" :title="deliveryInfoObj.orderId">{{deliveryInfoObj.orderId}}</span>
+                      <button type="button" class="di-copy-btn" title="复制订单号" aria-label="复制订单号"
+                              @click="copyValueToClipboardV(deliveryInfoObj.orderId)">
+                        <i class="bi bi-clipboard"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="di-panel p-3" v-if="hasDeliveredV(deliveryInfoObj)">
+
+                  <div class="di-info-row">
+                    <span class="di-card-label">配送状态</span>
+                    <span class="di-info-value" :class="deliveryStatusClassV(deliveryInfoObj.shippingStatus)">{{deliveryStatusV(deliveryInfoObj.shippingStatus)}}</span>
+                  </div>
+
+                  <div class="di-block">
+                    <p class="di-sub-label mb-1">收货人信息</p>
+                    <div class="d-flex align-items-start justify-content-between gap-2">
+                      <div class="min-w-0">
+                        <p class="di-name mb-1">{{deliveryInfoObj.recipient}}
+                          <span class="di-muted ms-2">{{deliveryInfoObj.recipientPhone}}</span>
+                        </p>
+                        <p class="di-muted mb-0">{{deliveryInfoObj.shippingAddress}}</p>
+                      </div>
+                      <button type="button" class="di-copy-btn flex-shrink-0" title="复制收货信息" aria-label="复制收货信息"
+                              @click="copyValueToClipboardV(fullAddressTextV(deliveryInfoObj))">
+                        <i class="bi bi-clipboard"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="di-block">
+                    <p class="di-sub-label mb-1">配送信息</p>
+                    <div class="di-info-row">
+                      <span class="di-card-label">配送方式</span>
+                      <span class="di-info-value">{{deliveryInfoObj.shippingMethod || '--'}}</span>
+                    </div>
+                    <div class="di-info-row">
+                      <span class="di-card-label">物流单号</span>
+                      <span class="d-flex align-items-center min-w-0">
+                        <span class="di-code text-truncate" :title="deliveryInfoObj.shippingNumber">{{deliveryInfoObj.shippingNumber || '--'}}</span>
+                        <button type="button" class="di-copy-btn" title="复制单号" aria-label="复制单号"
+                                v-if="!!deliveryInfoObj.shippingNumber"
+                                @click="copyValueToClipboardV(deliveryInfoObj.shippingNumber)">
+                          <i class="bi bi-clipboard"></i>
+                        </button>
+                      </span>
+                    </div>
+                     <div class="di-info-row">
+                      <span class="di-card-label">配送联系电话</span>
+                      <span class="di-info-value">{{deliveryInfoObj.courierPhone || '--'}}</span>
+                    </div>
+                  </div>
+
+                  <div class="di-block">
+                    <p class="di-sub-label mb-1">发货备注</p>
+                    <p class="di-remark mb-0">{{displayTextInfoOrBlankDashV(deliveryInfoObj.shippingNote)}}</p>
+                  </div>
+                </div>
+
+                <div class="di-note p-3" v-if="!hasDeliveredV(deliveryInfoObj)">
+                  订单尚未发货，完成发货后可在此查看完整配送信息。
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </pt-app>
+    <section class="feedback_offcanvas" id="section_feedback_offcanvas">
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="feedback_offcanvas_right" aria-labelledby="feedbackOffcanvasRightLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="feedbackOffcanvasRightLabel">发送反馈到小蔚</h5>
+          <button id="closeFeedbackOffcanvas" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <form id="feedback-form">
+            <div class="mt-3">
+              <label for="input_issue" class="form-label">您遇到的具体问题是什么(必填,300字以内)</label>
+              <textarea  rows="8" type="text" maxlength="300" class="form-control"  id="input_issue"></textarea>
+            </div> 
+            <div class="mt-3">
+              <label class="form-label">附件图片(选填)</label>
+              <div class="feedback-attachment-upload-container dropzone-wrapper">
+                <img  id="lastestFeedbackAttachment" >
+                <div class="dropzone-desc">
+                  <i class="bi bi-cloud-plus"></i>
+                </div>
+                <input type="file" id="input_issue_attachment"  accept="image/jpg, image/png, image/jpeg" class="dropzone">
+              </div>
+            </div>  
+            <div class="mt-3">
+              <label for="input_issue_contact" class="form-label">您的联系方式(选填)</label>
+              <input id="input_issue_contact"  min="1" max="50000" step="1" type="text" class="form-control" placeholder="请留下邮箱或电话，使我们快速反馈">
+            </div> 
+            <button type="submit" class="btn btn-primary mt-5 w-100">提交</button>
+          </form>
+        </div>
+      </div>
+  
+    </section>
+    <script type="module" src="/common/javascripts/feedback.js"></script>
+    <script type="module" src="/common/javascripts/tm.js"></script>
+    <script type="module" src="/estudio/javascripts/studio-physical-order.js"></script>
+
+
+</body>
+</html>

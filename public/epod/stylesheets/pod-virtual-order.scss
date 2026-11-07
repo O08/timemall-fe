@@ -18,10 +18,15 @@
       border-radius: 4px !important;
       height: 42px !important;
       padding: 0 4px 0 0 !important;
-      transition: border-color 0.15s ease-in-out;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        border-color: #4e5058 !important;
+      }
 
       &:focus-within {
         border-color: #5865f2 !important;
+        box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
 
         .input-group-search-btn {
           color: #5865f2 !important;
@@ -50,15 +55,21 @@
         border: none !important;
         color: #949ba4; // 内敛次要灰
         padding: 0 10px !important;
-        height: 100%;
+        height: calc(100% - 8px);
+        border-radius: 3px;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: color 0.15s ease;
+        transition: color 0.15s ease, background-color 0.15s ease;
         box-shadow: none !important;
 
         &:hover {
           color: #ffffff !important;
+          background-color: #4752c4 !important; // 与实物商品列表同一 hover 紫
+        }
+
+        &:active {
+          transform: scale(0.94);
         }
       }
     }

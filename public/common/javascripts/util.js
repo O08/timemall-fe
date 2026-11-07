@@ -362,3 +362,12 @@ export function replaceBlvBiToMeSuffix(text) {
     return text.replace(/@blv\.bi$/, '@blv.me');
 }
 
+export function  transformInputText(e){
+    var val = e.target.value.replace(/[^\a-\z\A-\Z0-9\_]/g,'');// type int
+    const needUpdate = (val !== e.target.value);
+    if(needUpdate){
+        e.target.value=val;
+        e.currentTarget.dispatchEvent(new Event('input')); // update v-model
+    }
+}
+

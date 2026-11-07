@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,nofollow">
+    <meta http-equiv ='content-language' content ='zh-cn'>
+
+    <meta name="keywords" content="实物商品详情页">
+    <meta name="description" content="商品相关信息">
+    <link rel="icon" href="https://bluvarri.com/favicon.png">
+    <title>商品详情 - 实物商品</title>
+    <script src="/common/javascripts/avif-webp.min.js"></script>
+
+    <link rel="stylesheet" href="/common/stylesheets/style.scss">
+
+    <link rel="stylesheet" href="/common/stylesheets/report-modal.scss">
+
+    <link rel="stylesheet" href="/mall/stylesheets/physical-item.scss">
+</head>
+<body>
+  <mall-app id="app" v-cloak>
+    <content class="content-container">
+      <main>
+        <div class="pi-page">
+
+          <div class="pi-state" v-if="productNotFound">
+            <i class="bi bi-box-seam pi-state-icon"></i>
+            <p class="pi-state-title">未找到商品</p>
+            <p class="pi-state-text">商品可能已被删除或链接已失效。</p>
+            <a class="pi-state-action" href="/mall/gig-economy">返回心选商店</a>
+          </div>
+
+          <article class="pi-card" v-if="!!profile.productName">
+            <div class="pi-media">
+              <img :src="adaptiveImageUriV(profile.thumbnail)" class="pi-image" alt="商品图">
+              <div class="pi-controls">
+                <a class="pi-ctrl-btn"  :href="'/' + profile.sellerHandle" title="商家店铺" aria-label="商家店铺">
+                  <i class="bi bi-shop"></i>
+                </a>
+                <a class="pi-ctrl-btn"  :href="'/messages/' + profile.sellerUserId" title="联系商家" aria-label="联系商家">
+                  <i class="bi bi-chat-dots"></i>
+                </a>
+                <button v-if="user_already_login" type="button" class="pi-ctrl-btn pi-ctrl-btn--danger" v-preventreclick
+                        @click="showOasisReportModalV" title="举报商品" aria-label="举报商品">
+                  <i class="bi bi-flag"></i>
+                </button>
+              </div>
+            </div>
+            <div class="product-core-info pt-3 pb-4">
+              <h1 class="pi-name mb-2">{{profile.productName}}</h1>
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <strong class="pi-price">¥{{profile.price}}</strong>
+                <span class="pi-tag" :class="productStatusClassV(profile)">{{explainProductStausV(profile.status)}}</span>
+              </div>
+              <div class="pi-merchant">
+                <a class="flex-shrink-0" :href="'/messages/' + profile.sellerUserId">
+                  <img :src="adaptiveImageUriV(profile.sellerAvatar) || defaultAvatarImage" class="peacemaker-avatar" alt="">
+                </a>
+                <span class="pi-merchant-name text-truncate flex-grow-1 min-w-0">{{profile.sellerName}}</span>
+              </div>
+              <h2 class="pi-section-title">商品详情</h2>
+              <div class="pi-desc" v-html="profile.productDesc"></div>
+              <div>
+                <h2 class="pi-section-title">温馨提示</h2>
+                <div class="pi-note p-2">
+                  <p class="mb-0" style="word-break: break-all;">{{profile.warmReminder}}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </main>
+    </content>
+    <footer></footer>
+    <section class="modals">
+        <!-- Modal -->
+        <div class="modal fade" id="reportOasisModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content text-color-dark">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5">举报商品</h1>
+                  <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-center">
+                  <form class="w-100">
+                    <div class="pt-3">
+                      <ul class="list-group">
+                        <li v-for="report in reportOptions" class="list-group-item">
+                            <div class="form-check">
+                            <input class="form-check-input" v-bind:value="report.itemCode"  v-model="reportForm.fraudType" type="radio" name="reportList">
+                            <label class="form-check-label" for="reportList">
+                                {{report.item}}
+                            </label>
+                            </div>
+                        </li>
+                      </ul>
+                   </div>
+      
+                   <div class="py-3">
+                    <div class="label-color field-label">详细描述（必填）</div>
+                    <div class="inputWrapper">
+                        <div class="inputMaxLength">
+                            <textarea v-model="reportForm.caseDesc" type="text" placeholder="填写具体违规内容和详细描述，更容易举报成功喔~" maxlength="200" rows="3" autocorrect="off" class="inputDefault textAreaDefault" style="padding-right: 38.92px; height: 150px;"></textarea>
+                            <div class="maxLength">{{ (!reportForm || !reportForm.caseDesc) ? 200 : 200-reportForm.caseDesc.length}}</div>
+                        </div>
+                    </div>
+                    <div class="label-color field-label">图片材料提交，支持jpg、png等格式（选填）</div>
+      
+                    <input style="font-size: 12px;" id="caseMaterialFile" class="form-control  only-show-bottom mb-3" type="file" placeholder="选择举报材料">
+      
+                   </div>
+      
+                  </form>
+                  
+                </div>
+                <div class="modal-footer btn-light">
+                  <button 
+                  :class="{'disabled': !validateReportFormV(), 
+                    'btn-primary': validateReportFormV() ,
+                    'btn-secondary': !validateReportFormV()  }"
+                   v-preventreclick @click="newReportCaseV" type="button"  class="btn">提交</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+  </mall-app>
+  <!-- 框架 -->
+  <script  type="module" src="/common/javascripts/tm.js"></script>
+  <script  type="module" src="/mall/javascripts/pysical-item.js"></script>
+
+</body>
+</html>

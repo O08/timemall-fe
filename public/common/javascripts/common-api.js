@@ -102,6 +102,16 @@ async function virtualProductOrderRefund(orderId,term){
   }
  return doEstudioRefund(dto);
 }
+async function physicalProductRefund(orderItemId,term,refundReason){
+  if(!orderItemId){
+    return;
+  }
+  const dto={
+    scene: RefundSceneEnum.PHYSICAL_ORDER_ITEM,
+    param: JSON.stringify({orderItemId: orderItemId,refundReason:refundReason,term: term})
+  }
+  return doEstudioRefund(dto);
+}
 async function subscriptionBillRefund(billId,term){
   if(!billId){
       return;
@@ -129,5 +139,6 @@ Api.subscriptionBillRefund=subscriptionBillRefund;
 Api.fetchBrandCoreMetrics=fetchBrandCoreMetrics;
 Api.fetchUserInfoToLocalStorage=fetchUserInfoToLocalStorage;
 Api.sponsorshipOneBrand=sponsorshipOneBrand;
+Api.physicalProductRefund=physicalProductRefund;
 
 export {Api}

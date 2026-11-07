@@ -195,6 +195,12 @@
                   </div>
                   <span>运营数据</span>
                 </a>
+                <a class="nav-link" href="/estudio/studio-physical-store">
+                  <div class="nav-icon">
+                    <i class="bi bi-shop"></i>
+                  </div>
+                  <span>实物店铺</span>
+                </a>
                 <a class="nav-link" href="/estudio/studio-gig-store">
                   <div class="nav-icon">
                     <i class="bi bi-shop-window"></i>
@@ -507,6 +513,18 @@
                       <label class="field-label">自定义职业<span @click="showExplainModelV(2)" class="help-icon"><i class="bi bi-info-circle"></i></span></label>
                       <input :disabled="occupationSelectedItem!='0'"
                         type="text" maxlength="60" v-model="selfDefinedOccupation" class="form-control" placeholder="输入自定义职业">
+                    </div>
+                  </div>
+
+                  <!-- 配送设置 -->
+                  <div class="form-group-row">
+                    <div class="form-field">
+                      <label class="field-label">起送价（元）<span @click="showExplainModelV(9)" class="help-icon"><i class="bi bi-info-circle"></i></span></label>
+                      <input  type="text" min="1" max="100" @input="transformInputNumberAsPositiveV($event)" v-model="minDeliveryAmount" class="form-control" placeholder="20">
+                    </div>
+                    <div class="form-field">
+                      <label class="field-label">配送范围<span @click="showExplainModelV(10)" class="help-icon"><i class="bi bi-info-circle"></i></span></label>
+                      <input  type="text" maxlength="60" v-model="deliveryArea" class="form-control" placeholder="同城">
                     </div>
                   </div>
 

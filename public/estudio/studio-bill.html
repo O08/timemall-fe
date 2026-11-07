@@ -194,6 +194,12 @@
                 </div>
                 <span>运营数据</span>
               </a>
+              <a class="nav-link" href="/estudio/studio-physical-store">
+                <div class="nav-icon">
+                  <i class="bi bi-shop"></i>
+                </div>
+                <span>实物店铺</span>
+              </a>
               <a class="nav-link" href="/estudio/studio-gig-store">
                 <div class="nav-icon">
                   <i class="bi bi-shop-window"></i>
@@ -352,7 +358,7 @@
                       <label class="form-check-label" for="filterBill__All">
                         全部
                       </label>
-                      <input @change="filterBillV"  v-model="filterCategory"   value="" class="form-check-input" name="filterBill" type="radio"  id="filterBill__All" >
+                      <input @change="filterBillV"  v-model="filterCategory" :value="''" class="form-check-input" name="filterBill" type="radio"  id="filterBill__All" >
                     </div>
                   </a>
                 </li>

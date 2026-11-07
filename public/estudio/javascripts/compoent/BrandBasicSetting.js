@@ -23,6 +23,8 @@ const BrandBasicSetting = {
                 {title: "经营范围",content: "经营范围是个人或者组织从事商业化相关活动时生产和经营的商品类别、品种及服务项目（支持最大长度 500 字符）"},
                 {title: "真实名称",content: "真实姓名或者真实的机构名称，特殊场景比如管理权移交会使用真实名称进行校验"},
                 {title: "以工换食",content: "雇员给你工作，作为回报，你需要为雇员准备食物或用餐费，建议餐标每人每日不低于 30 RMB，本标识用于义工或慈善场景，默认为关闭状态"},
+                {title: "起送价",content: "设置的最低消费金额门槛，顾客需使订单总金额达到或超过此标准，平台才会为您接受订单，默认为20元，该配置限用于实物店铺场景"},
+                {title: "配送范围",content: "服务所能支持的送货区域，默认同城配送，该配置限用于实物店铺场景"},
 
 
             ],
@@ -66,6 +68,8 @@ const BrandBasicSetting = {
             enableFoodForWork: false,
             cooperationScope:  "",
             businessScope: "",
+            minDeliveryAmount: "",
+            deliveryArea: "",
 
             pdOasisOptions: [],
             pdOasisSelectedItem: ""
@@ -109,6 +113,8 @@ const BrandBasicSetting = {
             this.referenceSetting.businessScope=profile.businessScope;
             this.referenceSetting.enableMentorship=profile.enableMentorship=="1" ? true : false;
             this.referenceSetting.enableFoodForWork=profile.enableFoodForWork=="1" ? true : false;
+            this.referenceSetting.minDeliveryAmount=profile.minDeliveryAmount;
+            this.referenceSetting.deliveryArea=profile.deliveryArea;
 
 
 
@@ -130,6 +136,8 @@ const BrandBasicSetting = {
            this.businessScope=referenceSettingClone.businessScope;
            this.enableMentorship=referenceSettingClone.enableMentorship;
            this.enableFoodForWork=referenceSettingClone.enableFoodForWork;
+           this.minDeliveryAmount=referenceSettingClone.minDeliveryAmount;
+           this.deliveryArea=referenceSettingClone.deliveryArea;
 
 
 
@@ -152,6 +160,9 @@ const BrandBasicSetting = {
                    || this.referenceSetting.businessScope!=this.businessScope
                    || this.referenceSetting.enableMentorship!=this.enableMentorship
                    || this.referenceSetting.enableFoodForWork!=this.enableFoodForWork
+                   || this.referenceSetting.minDeliveryAmount!=this.minDeliveryAmount
+                   || this.referenceSetting.deliveryArea!=this.deliveryArea
+
 
                    )
 
@@ -255,7 +266,9 @@ async function modifyBasicSetting(appObj){
         freeNightCounsellor: appObj.freeNightCounsellor ? "1" : "0",
         businessScope: appObj.businessScope,
         enableMentorship: appObj.enableMentorship ? "1" : "0",
-        enableFoodForWork: appObj.enableFoodForWork ? "1" : "0"
+        enableFoodForWork: appObj.enableFoodForWork ? "1" : "0",
+        minDeliveryAmount: appObj.minDeliveryAmount,
+        deliveryArea: appObj.deliveryArea
     }
     const response = await putBasicSetting(dto);
     var data = await response.json();

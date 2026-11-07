@@ -209,6 +209,12 @@
                 </div>
                 <span>运营数据</span>
               </a>
+              <a class="nav-link" href="/estudio/studio-physical-store">
+                <div class="nav-icon">
+                  <i class="bi bi-shop"></i>
+                </div>
+                <span>实物店铺</span>
+              </a>
               <a class="nav-link" href="/estudio/studio-gig-store">
                 <div class="nav-icon">
                   <i class="bi bi-shop-window"></i>
@@ -371,7 +377,7 @@
                         <label class="form-check-label" for="filterStatus__All">
                           全部状态
                         </label>
-                        <input  @change="filterSupplierListByStatusV"  v-model="supplierList_pagination.param.status"   value="" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus__All" >
+                        <input  @change="filterSupplierListByStatusV"  v-model="supplierList_pagination.param.status"   :value="''" class="form-check-input" name="filterStatus" type="radio"  id="filterStatus__All" >
                       </div>
                     </a>
                   </li>

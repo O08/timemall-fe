@@ -405,7 +405,7 @@
                     <div class="dropdown-item">
                       <label class="form-check-reverse" for="filteTagAll">
                         <span class="form-check-label">全部</span>
-                        <input id="filteTagAll" @change="filterByStatusV" v-model="subscription_pagination.param.tag" value="" class="form-check-input" name="filteTag" type="radio">
+                        <input id="filteTagAll" @change="filterByStatusV" v-model="subscription_pagination.param.tag" :value="''"  class="form-check-input" name="filteTag" type="radio">
                       </label>
                     </div>
                   </li>

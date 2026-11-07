@@ -541,6 +541,11 @@ json-node {
     bottom: 75%;
 }
 
+.min-w-0
+{
+    min-width: 0;
+}
+
   /*----------------------------------------------------
     10. card 
 ------------------------------------------------------*/
@@ -758,20 +763,28 @@ opacity: 0;
   font-size: 12px;
   font-weight: 700;
   font-family: MicrosoftYahei-regular,Arial,Helvetica,sans-serif;
+  @media (max-width: 480px) {
+    font-size: 8px;
+    margin-right: 0;
+  }
 }
 .price .line {
   width: 1px;
     height: 14px;
     background: #c2c3c3;
     display: inline-block;
-    margin: 0 8px 0 8px;
+    margin: 0 8px;
+    @media (max-width: 480px) {
+      margin: 0 2px;
+      height: 8px;
+    }
 }
 .price .price-txt{
   font-size: 20px;
     font-weight: 700;
     font-family: arial,sans-serif;
     @media (max-width: 480px) {
-      font-size: 16px;
+      font-size: 12px;
     }
 }
 .price .price-sbu{
@@ -781,7 +794,7 @@ opacity: 0;
   font-weight: 700;
   font-family: MicrosoftYahei,Arial,Helvetica,sans-serif;
   @media (max-width: 480px) {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
 .text-color-dark{

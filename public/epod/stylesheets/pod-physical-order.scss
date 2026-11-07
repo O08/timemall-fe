@@ -1,0 +1,1217 @@
+
+:root {
+  --po-panel: #1a1a1a; // 状态 tab 的 hover 底色
+  --po-card: #111111; // 卡面：比纯黑页面提一档，卡内全靠留白分组
+  --po-sunken: #1a1b1e; // 卡片 hover
+  --po-raised: #2b2d31; // 缩略图占位块
+  --po-border: #3f4248; // 描边按钮的默认边（同本页搜索框描边）
+  --po-border-hl: #4e5058; // 描边按钮 hover 边
+  --po-text-primary: #f2f3f5;
+  --po-text-secondary: #b5bac1;
+  --po-text-faint: #6b6f76; // 次要说明文字
+  --po-accent: #5865f2;
+  --po-accent-hl: #8a97ff; // 高亮态紫
+  --po-st-pay: #ffcd70; // 待付款
+  --po-st-ship: #b5bac1; // 待发货
+  --po-st-receive: #a9c5ff; // 待收货 / 托管中
+  --po-st-done: #23a55a; // 已完成 / 已结算
+  --po-st-refund: #f64e4e; // 退款售后
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 20px;
+
+  .section-top-serach {
+    display: block;
+    width: 100%;
+    .input-normal-search {
+      display: flex;
+      align-items: center;
+      background-color: #1e1f22;
+      border: 1px solid #3f4248;
+      border-radius: 4px;
+      height: 42px;
+      padding: 0 4px 0 0;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        border-color: #4e5058;
+      }
+
+      &:focus-within {
+        border-color: #5865f2;
+        box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
+
+        .input-group-search-btn {
+          color: #5865f2;
+        }
+      }
+
+      .top-search-input {
+        flex-grow: 1;
+        background: transparent; // 剥离原生白底
+        border: none; // 剥离原生硬边框
+        color: #dbdee1; // 高对比度标准前景色
+        font-size: 13.5px;
+        height: 100%;
+        padding: 0 12px;
+        outline: none;
+        box-shadow: none;
+
+        &::placeholder {
+          color: #72767d;
+          opacity: 1;
+        }
+      }
+
+      .input-group-search-btn {
+        background: transparent;
+        border: none;
+        color: #949ba4; // 内敛次要灰
+        padding: 0 10px;
+        height: calc(100% - 8px);
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s ease, background-color 0.15s ease;
+        box-shadow: none;
+
+        &:hover {
+          color: #ffffff;
+          background-color: #4752c4; // 与表格页下拉/按钮同一 hover 紫
+        }
+
+        &:active {
+          transform: scale(0.94);
+        }
+      }
+    }
+  }
+
+}
+
+.peacemaker-avatar {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.main-content-container {
+  min-width: 1000px;
+}
+
+
+#repayFocusModal,
+#errorModal {
+  .alert-info {
+    margin-bottom: 0 !important;
+  }
+  .modal-dialog{
+    max-width: 280px;
+  }
+
+  .bi-exclamation-circle {
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .modal-head {
+    display: block;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--po-text-primary);
+  }
+
+  .separator.separator-dashed {
+    width: 20rem;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border-bottom: 1px dashed var(--po-border);
+  }
+
+  .font12 {
+    max-width: 20rem;
+    margin: 0 auto;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--po-text-secondary);
+    text-align: left;
+  }
+
+  .btn {
+    --bs-btn-padding-y: 10px;
+    --bs-btn-padding-x: 12px;
+    --bs-btn-font-size: 14px;
+    --bs-btn-font-weight: 500;
+    --bs-btn-border-radius: 6px;
+    min-width: 7rem;
+  }
+
+  .btn-dark {
+    --bs-btn-color: #ffffff;
+    --bs-btn-bg: var(--po-accent);
+    --bs-btn-border-color: var(--po-accent);
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: #4752c4;
+    --bs-btn-hover-border-color: #4752c4;
+    --bs-btn-focus-shadow-rgb: 88, 101, 242;
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-active-bg: #4752c4;
+    --bs-btn-active-border-color: #4752c4;
+  }
+
+  .btn-outline-dark {
+    --bs-btn-color: var(--po-text-secondary);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--po-border);
+    --bs-btn-hover-color: var(--po-text-primary);
+    --bs-btn-hover-bg: rgba(255, 255, 255, .06);
+    --bs-btn-hover-border-color: var(--po-border-hl);
+    --bs-btn-focus-shadow-rgb: 63, 66, 72;
+    --bs-btn-active-color: var(--po-text-primary);
+    --bs-btn-active-bg: rgba(255, 255, 255, .1);
+    --bs-btn-active-border-color: var(--po-border-hl);
+  }
+
+  .pt-5 {
+    padding-top: 16px !important;
+  }
+}
+
+#repayFocusModal {
+  .alert-info {
+    padding: 12px;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .bi-exclamation-circle {
+    color: var(--po-st-pay);
+  }
+}
+
+#errorModal {
+  .modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .alert-info {
+    padding: 0;
+  }
+
+  .bi-exclamation-circle {
+    color: var(--po-st-refund);
+  }
+}
+
+.separator.separator-dashed {
+  border-bottom-style: dashed;
+  border-bottom-color: var(--bs-border-dashed-color);
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+// 取消订单·全额退款弹窗
+#applyRefundModal {
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .or-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #f2f3f5;
+    line-height: 1.4;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .or-goods {
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+
+  .or-goods-item {
+
+    +.or-goods-item {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #2b2d31;
+    }
+  }
+
+  .or-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    background-color: #2b2d31;
+    color: #7a808a;
+    font-size: 20px;
+    position: relative;
+  }
+
+  .or-goods-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f2f3f5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @media (max-width: 575.98px) {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
+
+  .or-goods-meta {
+    font-size: 12px;
+    color: #8b9098;
+  }
+
+  .or-goods-fee {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f2f3f5;
+  }
+
+  .or-orderno {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #2b2d31;
+    font-size: 12px;
+    color: #949ba4;
+  }
+
+  .or-orderno-label {
+    flex-shrink: 0;
+    margin-right: 8px;
+    letter-spacing: 0.4px;
+  }
+
+  .or-orderno-num {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    color: #b5bac1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .or-amount-fixed {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+
+  .or-amount-fixed-num {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ff9292;
+  }
+
+  .or-amount-note {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #8b9098;
+  }
+
+  .or-reason-input {
+    position: relative;
+  }
+
+  .or-reason-input .form-control {
+    padding-right: 48px;
+    resize: none;
+  }
+
+  .or-reason-count {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #72767d;
+    pointer-events: none;
+  }
+}
+
+.po-status-tabs {
+  gap: 6px;
+
+  .nav-link {
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--po-text-secondary);
+    font-size: 13.5px;
+    padding: 7px 14px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+      color: var(--po-text-primary);
+      background-color: var(--po-panel);
+    }
+
+    &.active {
+      color: #ffffff;
+      background-color: var(--po-accent);
+      font-weight: 600;
+    }
+  }
+}
+
+.po-card {
+  background-color: var(--po-card);
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 12px !important; // 卡间距统一 12px
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: var(--po-sunken); 
+  }
+
+  .po-card-head {
+    position: static; // 回到普通流，卡内内容才不会抢下拉菜单的层级
+    z-index: auto;
+    border-bottom: none;
+    background-color: transparent;
+  }
+
+  .po-card-foot {
+    border-top: none;
+    background-color: transparent;
+  }
+
+  .po-merchant {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    color: var(--po-text-secondary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--po-text-primary);
+
+      .po-merchant-name {
+        text-decoration-line: underline; // 同 .tb-url-link 的虚线下划线，提示这是个链接
+        text-decoration-style: dashed;
+        text-decoration-color: var(--po-text-faint);
+        text-underline-offset: 0.25em;
+      }
+    }
+  }
+
+  .po-merchant-name {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: color 0.15s ease;
+  }
+
+  .po-status-pill {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    white-space: nowrap;
+  }
+
+  .po-item-list{
+    max-height: 280px;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none
+  }
+
+  .po-item {
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.15s ease;
+
+    +.po-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05); // 半透明叠加，不新增灰色档位，卡面 hover 前后都有反馈
+
+      .po-thumb {
+        color: var(--po-accent-hl);
+      }
+
+      .po-item-name {
+        color: var(--po-text-primary);
+      }
+    }
+  }
+
+  .po-thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover; // 商品图不变形不拉伸
+    border: none;
+    background-color: var(--po-raised);
+    color: var(--po-text-faint);
+    font-size: 22px;
+    transition: color 0.15s ease;
+    position: relative;
+  }
+
+  .po-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--po-text-primary);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: color 0.15s ease;
+  }
+
+  .po-item-status {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .po-item-price {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--po-text-primary);
+  }
+
+  .po-item-qty {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--po-text-faint);
+  }
+
+  .po-track {
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--po-accent-hl);
+    background-color: rgba(88, 101, 242, 0.08);
+    border-radius: 8px;
+  }
+
+  .po-sum-label {
+    font-size: 12px;
+    color: var(--po-text-faint);
+  }
+
+  .po-sum-value {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--po-text-primary);
+  }
+
+  .po-sum-count {
+    font-size: 12px;
+    color: var(--po-text-faint);
+  }
+
+  .po-card-foot {
+    .btn {
+      font-size: 12.5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+    }
+
+    .btn-cta-cancel {
+      background-color: transparent;
+      border-color: var(--po-border);
+      color: var(--po-text-secondary);
+      transition: border-color 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+
+      &:hover,
+      &:focus {
+        border-color: var(--po-border-hl);
+        background-color: rgba(255, 255, 255, 0.06);
+        color: var(--po-text-primary);
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
+    }
+    .btn-cta-submit{
+      background-color: #5865f2;
+      color: #ffffff;
+      border: none;
+      transition: background-color 0.1s ease, transform 0.1s ease, opacity 0.15s ease;
+    
+      &:hover:not(:disabled) {
+        background-color: #4752c4;
+      }
+    
+      &:active:not(:disabled) {
+        background-color: #3c45a5;
+        transform: scale(0.99);
+      }
+    
+      &:disabled,
+      &.disabled {
+        background-color: #5865f2;
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+        pointer-events: none;
+      }
+    }
+
+    .dropdown-toggle::after {
+      display: none;
+    }
+  }
+}
+
+.po-order-wrap .tb-empty-data-wrapper {
+  min-height: 320px;
+  border: none;
+  background-color: transparent;
+  border-top: 1px dashed #262626;
+  border-radius: 6px;
+}
+
+.po-status-pay {
+  color: var(--po-st-pay);
+}
+
+.po-status-ship {
+  color: var(--po-st-ship);
+}
+
+.po-status-receive {
+  color: var(--po-st-receive);
+}
+
+.po-status-done {
+  color: var(--po-st-done);
+}
+
+.po-status-refund {
+  color: var(--po-st-refund);
+}
+
+.fund-pending {
+  color: var(--po-st-pay);
+}
+
+.fund-escrow {
+  color: var(--po-st-receive);
+}
+
+.fund-settled {
+  color: var(--po-st-done);
+}
+
+.fund-refunded {
+  color: var(--po-st-refund);
+}
+
+.delivery-status-pending {
+  color: var(--po-st-pay); // 待发货
+}
+
+.delivery-status-shipping {
+  color: var(--po-st-receive); // 配送中
+}
+
+.delivery-status-delivered {
+  color: var(--po-st-done); // 已送达
+}
+
+#orderDetailModal {
+
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .od-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #f2f3f5;
+    line-height: 1.4;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .od-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #b5bac1;
+    margin-bottom: 12px;
+  }
+
+  .od-amount,
+  .od-panel {
+    background-color: #1e1f22;
+    border: 1px solid transparent;
+    border-radius: 6px;
+  }
+
+  .od-item {
+    background-color: #1e1f22;
+    border: 1px solid #3f4248;
+    border-radius: 6px;
+    transition: border-color 0.15s ease;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+
+    &:hover {
+      border-color: #4e5058;
+    }
+  }
+
+  .od-thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover; // 换成 <img> 时不变形不拉伸
+    background-color: #2b2d31;
+    color: #7a808a;
+    font-size: 22px;
+
+    @media (max-width: 575.98px) {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  .od-item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f2f3f5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @media (max-width: 575.98px) {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
+
+  .od-item-meta {
+    font-size: 12px;
+    color: #8b9098;
+    word-break: break-all;
+  }
+
+  .od-item-status {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .od-item-fee {
+    font-size: 15px;
+    font-weight: 600;
+    color: #f2f3f5;
+  }
+
+  .od-fund {
+    font-size: 12px;
+  }
+
+  .od-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+
+    .od-card-label {
+      flex-shrink: 0;
+    }
+  }
+
+  .od-card-label {
+    font-size: 12.5px;
+    color: #8b9098;
+  }
+
+  .od-amount-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13.5px;
+    color: #b5bac1;
+    padding: 4px 0;
+  }
+
+  .od-info-value {
+    min-width: 0;
+    text-align: right;
+    font-size: 12px;
+    color: #dbdee1;
+  }
+
+  .od-order-no {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .od-copy-btn {
+    border: 0;
+    background-color: transparent;
+    color: #7a808a;
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: color 0.15s ease, background-color 0.15s ease;
+
+    &:hover {
+      color: #dbdee1;
+      background-color: rgba(255, 255, 255, 0.07);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  .od-info-sum {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #3f4248;
+
+    .od-card-label {
+      color: #b5bac1;
+    }
+  }
+
+  .od-sum-value {
+    font-size: 17px;
+    font-weight: 600;
+    color: #5865f2;
+  }
+
+  .od-line {
+    font-size: 13.5px;
+    color: #dbdee1;
+    word-break: break-all;
+  }
+
+  .od-muted {
+    font-size: 12.5px;
+    color: #8b9098;
+    word-break: break-all;
+  }
+
+  .od-info-value.po-status-pay {
+    color: var(--po-st-pay);
+  }
+  .od-info-value.po-status-ship {
+    color: var(--po-st-ship);
+  }
+  .od-info-value.po-status-receive {
+    color: var(--po-st-receive);
+  }
+  .od-info-value.po-status-done {
+    color: var(--po-st-done);
+  }
+  .od-info-value.po-status-refund {
+    color: var(--po-st-refund);
+  }
+  .od-info-value.fund-pending {
+    color: var(--po-st-pay);
+  }
+  .od-info-value.fund-escrow {
+    color: var(--po-st-receive);
+  }
+  .od-info-value.fund-settled {
+    color: var(--po-st-done);
+  }
+  .od-info-value.fund-refunded {
+    color: var(--po-st-refund);
+  }
+  .od-info-value.delivery-status-pending {
+    color: var(--po-st-pay);
+  }
+  .od-info-value.delivery-status-shipping {
+    color: var(--po-st-receive);
+  }
+  .od-info-value.delivery-status-delivered {
+    color: var(--po-st-done);
+  }
+}
+
+#deliveryInfoModal {
+
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #3f4248;
+    padding: 16px 12px;
+  }
+
+  .modal-body {
+    padding: 12px;
+  }
+
+  .di-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #f2f3f5;
+    line-height: 1.4;
+  }
+
+  .di-order-no {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .di-copy-btn {
+    border: 0;
+    background-color: transparent;
+    color: #7a808a;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 4px;
+    font-size: 13px;
+    transition: color .15s ease, background-color .15s ease;
+
+    &:hover {
+      color: #dbdee1;
+      background-color: rgba(255, 255, 255, .07);
+    }
+  }
+
+  .di-panel {
+    background-color: #1e1f22;
+    border: 1px solid transparent;
+    border-radius: 6px;
+  }
+
+  .di-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 6px 0;
+
+    .di-card-label {
+      flex-shrink: 0;
+    }
+  }
+
+  .di-info-value {
+    min-width: 0;
+    text-align: right;
+    font-size: 12px;
+    color: #dbdee1;
+  }
+
+  .di-block {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #2b2d31;
+  }
+
+
+  .di-sub-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--po-text-secondary);
+  }
+
+  .di-card-label {
+    font-size: 12.5px;
+    color: #8b9098;
+  }
+
+  .di-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #f2f3f5;
+    word-break: break-all;
+  }
+
+  .di-muted {
+    font-size: 12.5px;
+    color: #8b9098;
+    word-break: break-all;
+  }
+
+  .di-code {
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    font-size: 13px;
+    color: #dbdee1;
+    min-width: 0;
+  }
+
+  .di-remark {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #dbdee1;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .di-note {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #a9c5ff;
+    background-color: rgba(123, 167, 255, 0.06);
+    border-radius: 6px;
+  }
+
+  // 弹窗内 .di-info-value 基类带 id(1,1,0)，压过全局状态色(0,1,0)，需同作用域覆盖
+  .di-info-value.delivery-status-pending {
+    color: var(--po-st-pay);
+  }
+  .di-info-value.delivery-status-shipping {
+    color: var(--po-st-receive);
+  }
+  .di-info-value.delivery-status-delivered {
+    color: var(--po-st-done);
+  }
+}
+
+#productInfoModal {
+  z-index: 1065;
+
+  .modal-content {
+    background-color: #313338;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #f2f3f5;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    padding: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none
+  }
+
+  .pi-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 20;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 15px;
+    line-height: 1;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+  }
+
+  .pi-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background-color: #1e1f22;
+    position: relative;
+  }
+
+  .pi-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f2f3f5;
+    word-break: break-all;
+  }
+
+  .pi-price {
+    font-size: 20px;
+    font-weight: 600;
+    color: #5865f2;
+  }
+
+  .pi-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: #1e1f22;
+    color: #b5bac1;
+    white-space: nowrap;
+  }
+
+  .pi-status-on {
+    color: var(--po-st-done);
+  }
+
+  .pi-status-off {
+    color: var(--po-st-pay);
+  }
+
+  .product-core-info {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .pi-merchant {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #2b2d31;
+    font-size: 13px;
+    color: #dbdee1;
+  }
+
+  .pi-merchant-name {
+    min-width: 0;
+  }
+
+  .pi-link {
+    font-size: 12.5px;
+    color: #5865f2;
+    text-decoration: none;
+
+    &:hover {
+      color: #a9c5ff;
+    }
+  }
+
+  .pi-section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #b5bac1;
+    margin: 20px 0 8px;
+  }
+
+  .pi-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #dbdee1;
+    word-break: break-word;
+    white-space: pre-line;
+    p {
+      margin-bottom: 8px;
+    }
+  }
+
+  .pi-note {
+    background-color: rgba(123, 167, 255, 0.06);
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #a9c5ff;
+    white-space: pre-line;
+  }
+}
+
+@media (max-width: 575.98px) {
+
+  #productInfoModal .modal-dialog,
+  #orderDetailModal .modal-dialog,
+  #applyRefundModal .modal-dialog {
+    --bs-modal-margin: 0;
+    margin: 0;
+    height: 100%;
+  }
+
+  #productInfoModal .modal-content,
+  #orderDetailModal .modal-content,
+  #applyRefundModal .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0 !important;
+  }
+}

@@ -301,6 +301,11 @@
                 </a>
               </li>
               <li class="nav-item" role="presentation">
+                <a href="/epod/pod-physical-order">
+                  <button class="nav-link">实物商品</button>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
                 <a href="/epod/pod-virtual-order">
                   <button class="nav-link active">虚拟商品</button>
                 </a>
@@ -319,7 +324,7 @@
             <top-search class="section-top-serach">
               <div class="input-group input-normal-search">
                 <input @keyup.enter.native="retrieveOrderDataV" v-model="virtualOrder_pagination.param.q"   class="form-control top-search-input" type="text"
-                  placeholder="搜索..." aria-label="Search">
+                  placeholder="搜索订单号 / 商品名称" aria-label="Search">
                 <button v-preventreclick @click="retrieveOrderDataV" class="btn btn-outline-secondary input-group-search-btn" type="button">
                   <i class="bi bi-search"></i>
                 </button>
@@ -423,7 +428,7 @@
                         <label class="form-check-label" for="filteOrderTagAll">
                           全部
                         </label>
-                        <input id="filteOrderTagAll" @change="retrieveByStatusV"  v-model="virtualOrder_pagination.param.tag"   value="" class="form-check-input" name="filteOrderTag" type="radio"  >
+                        <input id="filteOrderTagAll" @change="retrieveByStatusV"  v-model="virtualOrder_pagination.param.tag" :value="''" class="form-check-input" name="filteOrderTag" type="radio"  >
                       </div>
                     </a>
                   </li>

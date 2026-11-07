@@ -9,8 +9,16 @@ import axios from 'axios';
 import {PriceSbu,BrandAccessWay} from "/common/javascripts/tm-constant.js";
 
 import BubbleInviteComponent from "/mall/javascripts/component/BubbleInviteComponent.js";
+import PhysicalGoodsComponent from "/mall/javascripts/component/PhysicalGoodsComponent.js";
 import { DirectiveComponent } from "/common/javascripts/custom-directives.js";
 import {ImageAdaptiveComponent} from '/common/javascripts/compoent/image-adatpive-compoent.js'; 
+import {CodeExplainComponent} from "/common/javascripts/compoent/code-explain-compoent.js";
+
+const DEFAULT_HOME_INFO = {
+    minDeliveryAmount: 20,             // No minimum order requirement by default
+    deliveryArea: "同城"         // Default delivery area text
+};
+
 
 var EventUtil = {
     addHandler: function(element, type, handler) {
@@ -84,7 +92,14 @@ const RootComponent = {
         loadBrandGuideV(){
             loadBrandGuide().then(response=>{
                 if(response.data.code == 200){
-                    this.homeInfo = response.data.responseContext.homeInfo;
+
+                    const remoteHomeInfo = response.data?.responseContext?.homeInfo || {};
+
+                    this.homeInfo = {
+                        ...remoteHomeInfo,
+                        minDeliveryAmount: remoteHomeInfo.minDeliveryAmount || DEFAULT_HOME_INFO.minDeliveryAmount, 
+                        deliveryArea: remoteHomeInfo.deliveryArea || DEFAULT_HOME_INFO.deliveryArea
+                    };
                     renderPageMetaInfo(this.homeInfo.brand,this.homeInfo.brandTitle);
 
                     this.queryParam.brandId=this.homeInfo.browseBrandId;
@@ -92,6 +107,12 @@ const RootComponent = {
                     this.queryParam.pages = response.data.responseContext.cells.pages;
                     this.subscription.queryParam.sellerBrandId=this.homeInfo.browseBrandId;
                     loadSubscriptionPlans(this.subscription.queryParam);
+                    this.physical.queryParam.brandId=this.homeInfo.browseBrandId;
+                    this.loadBrandCartV(); // from PhysicalGoodsComponent.js，加载当前商家的购物车
+                    // 首屏这一发也要占住 loading 这把互斥锁（由 loadPhysicalProducts 的 finally 释放），
+                    // 否则首页结果还在飞时用户搜索，两个响应会先后写同一份列表
+                    this.physical.queryParam.loading = true;
+                    this.loadPhysicalProducts(this.physical.queryParam); // from PhysicalGoodsComponent.js
 
                 }
             })
@@ -102,20 +123,15 @@ const RootComponent = {
         EventUtil.addHandler(window, "offline", function() {
             window.location.href="/pwa-bad-network";
         });
-    },
-    updated(){
-        
-        $(function() {
-            // Enable popovers 
-            $('[data-bs-toggle="popover"]').popover();
-        });
     }
 }
 const app = createApp(RootComponent);
 app.mixin(new Auth({need_permission : false}));
 app.mixin(BubbleInviteComponent);
+app.mixin(PhysicalGoodsComponent);
 app.mixin(DirectiveComponent);
 app.mixin(ImageAdaptiveComponent);
+app.mixin(CodeExplainComponent);
 app.config.compilerOptions.isCustomElement = (tag) => {
     return tag.startsWith('content')
 }
@@ -246,15 +262,23 @@ $(function(){
 });
 
 let navbar = document.getElementById("section-tabs");
+let tabsHolder = document.querySelector(".tabs-holder");
 
-let navPos = navbar.getBoundingClientRect().top;
+
+let navPos = tabsHolder.offsetTop;
 
 window.addEventListener("scroll", e => {
   let scrollPos = window.scrollY;
   if (scrollPos > navPos) {
+    // 吸顶用 position: fixed，tab bar 会脱离文档流：先把它的实际高度交给占位容器顶住，
+    // 否则下方内容整体上跳、文档变矮后 scrollY 被回夹又会移除这个类，来回振荡就是闪烁
+    if(!navbar.classList.contains('fixed')){
+      tabsHolder.style.height = navbar.offsetHeight + 'px';
+    }
     navbar.classList.add('fixed');
   } else {
     navbar.classList.remove('fixed');
+    tabsHolder.style.height = "";
   }
 });
 
@@ -275,6 +299,9 @@ function showContent(){
                 break; 
         case "subscription":
             $("#subscription-tab").trigger("click");
+                break; 
+        case "physical":
+            $("#physical-tab").trigger("click");
                 break; 
     }
     

@@ -300,6 +300,11 @@
                 </a>
               </li>
               <li class="nav-item" role="presentation">
+                <a href="/epod/pod-physical-order">
+                  <button class="nav-link">实物商品</button>
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
                 <a href="/epod/pod-virtual-order">
                   <button class="nav-link">虚拟商品</button>
                 </a>
@@ -381,7 +386,7 @@
                         <label class="form-check-label" for="filteOrderTag6">
                           全部提案
                         </label>
-                        <input id="filteOrderTag6" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag"   value="" class="form-check-input" name="filteOrderTag" type="radio"  >
+                        <input id="filteOrderTag6" @change="filterByProjectStatusV"  v-model="proposalOrder_pagination.param.tag" :value="''" class="form-check-input" name="filteOrderTag" type="radio"  >
                       </div>
                     </a>
                   </li>
