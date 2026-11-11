@@ -9,6 +9,8 @@ import { dirname } from 'path';
 
 import parseOneLink from './routes/parselink.js';
 import mcpRouter from './routes/mcpRouter.js';
+import { createMcpOAuthRouter } from './public/mcp/auth/oauthStrategy.js';
+
 
 
 
@@ -23,6 +25,8 @@ app.set('view engine', 'pug');
 
 app.disable('x-powered-by');
 
+app.set('trust proxy', 1);
+
 app.use(logger('dev'));
 
 app.use(cors());
@@ -33,6 +37,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist'),{extensions: ['html']}));
 
 app.use('/mcp-gateway', mcpRouter);
+
+app.use(createMcpOAuthRouter());
 
 app.get('/link/parse',async (req,res)=>{
   try {

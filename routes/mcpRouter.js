@@ -6,6 +6,8 @@ import { OpenAPIToolGenerator,toSdkTool, buildHttpRequest } from "mcp-from-opena
 import path from 'path';
 import { fileURLToPath,pathToFileURL } from 'url';
 
+import { mcpAuthMiddleware } from '../public/mcp/auth/dispatcher.js';
+
 const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -38,11 +40,12 @@ const handler = createMcpHandler(async (ctx) => {
 
     server.registerTool(...sdkToolParams, async (input,toolCtx) => {
       const request = buildHttpRequest(tool, input);
-      const userPat = toolCtx?.http?.authInfo?.pat;
+
+      const accessToken = toolCtx?.http?.authInfo?.token || toolCtx?.http?.authInfo?.pat;
 
       const finalHeaders = {
         ...request.headers,
-        ...(userPat ? { "Authorization": `Bearer ${userPat}` } : {})
+        ...(accessToken ? { "Authorization": `Bearer ${accessToken}` } : {})
       };
 
 
@@ -141,37 +144,8 @@ const handler = createMcpHandler(async (ctx) => {
 // Convert our clean factory setup over into an Express-compatible node handler
 const node = toNodeHandler(handler);
 
-const auth = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const body = req.body;
 
-
-  const callingTools= req.method === 'POST' && body && body.method === 'tools/call';
-
-  if(!callingTools){
-    return next();
-  }
-  
-  // 工具调用保护，拦截非法的外部请求
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Unauthorized: header authorization missing personal access token header." });
-  }
-
-  const pat = authHeader.split(" ")[1];
-
-  if (!pat || !pat.startsWith("BV_PAT_")) {
-    return res.status(401).json({ error: "Unauthorized:  header authorization  personal access token  Invalid." });
-  }
-  
-  req.auth = { 
-    pat: pat
-  }; 
-
-  next();
-};
-
-
-router.all('/mcp', auth,  (req, res) => void node(req, res, req.body));
+router.all('/mcp', mcpAuthMiddleware, (req, res) => void node(req, res, req.body));
 
 
 
