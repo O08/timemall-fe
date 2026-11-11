@@ -8,7 +8,7 @@ const strategies = [
 
 const getOriginUrl = (req) => `${req.protocol}://${req.get('host')}`;
 
-function sendUnauthorized(req, res, errorCode = '') {
+function sendUnauthorized(req, res, errorCode = '', customMessage = '') {
   const metadataUrl = `${getOriginUrl(req)}/.well-known/oauth-protected-resource/mcp-gateway/mcp`;
   const errorPart = errorCode ? `, error="${errorCode}"` : '';
 
@@ -18,7 +18,7 @@ function sendUnauthorized(req, res, errorCode = '') {
   );
 
   return res.status(401).json({
-    error: 'Unauthorized: Valid PAT or OAuth2 access token is required.'
+    error: customMessage || 'Unauthorized: Valid PAT or OAuth2 access token is required.'
   });
 }
 
@@ -45,10 +45,10 @@ export const mcpAuthMiddleware = async (req, res, next) => {
   }
 
   try {
-    req.auth = await matchedStrategy.verify(token);
+    req.auth = await matchedStrategy.verify(token, getOriginUrl(req));
     return next();
   } catch (err) {
     console.warn(`[MCP Auth] 策略 [${matchedStrategy.name}] 校验失败:`, err.message);
-    return sendUnauthorized(req, res, 'invalid_token');
+    return sendUnauthorized(req, res, 'invalid_token', err.message);
   }
 };
