@@ -1,10 +1,9 @@
 import express from 'express';
 import crypto from 'crypto';
 import { verifyTokenWithBackend } from './tokenVerifier.js';
+import { getOriginUrl } from './originHelper.js'
 
 
-// 自动适配本地与线上环境的根域名
-const getOriginUrl = (req) => `${req.protocol}://${req.get('host')}`;
 // 防钓鱼
 function isSafeRedirectUri(uri) {
   try {

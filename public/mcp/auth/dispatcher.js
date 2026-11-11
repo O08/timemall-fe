@@ -1,12 +1,11 @@
 import { patStrategy } from './patStrategy.js';
 import { oauthStrategy } from './oauthStrategy.js';
+import { getOriginUrl } from './originHelper.js';
 
 const strategies = [
   patStrategy,
   oauthStrategy
 ];
-
-const getOriginUrl = (req) => `${req.protocol}://${req.get('host')}`;
 
 function sendUnauthorized(req, res, errorCode = '', customMessage = '') {
   const metadataUrl = `${getOriginUrl(req)}/.well-known/oauth-protected-resource/mcp-gateway/mcp`;
