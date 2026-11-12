@@ -712,7 +712,7 @@
       flex: 1;
       min-width: 260px;
       max-width: 75vw;
-      padding: clamp(20px,3vw,32px);
+      padding: clamp(12px,3vw,32px);
       border-radius: 10px;
       background: var(--clr-elevated);
       border: 1px solid var(--clr-border);
@@ -1414,7 +1414,7 @@
           <div class="step-nav__track"></div>
           <button onclick="goStep(0)" class="step-nav__btn is-active" data-step="0">
             <span class="step-nav__indicator">1</span>
-            <span class="step-nav__label">生成私人令牌</span>
+            <span class="step-nav__label">选择授权方式</span>
           </button>
           <button onclick="goStep(1)" class="step-nav__btn" data-step="1">
             <span class="step-nav__indicator">2</span>
@@ -1422,7 +1422,7 @@
           </button>
           <button onclick="goStep(2)" class="step-nav__btn" data-step="2">
             <span class="step-nav__indicator">3</span>
-            <span class="step-nav__label">重启并确认连接</span>
+            <span class="step-nav__label">完成授权并连接</span>
           </button>
           <button onclick="goStep(3)" class="step-nav__btn" data-step="3">
             <span class="step-nav__indicator">4</span>
@@ -1435,7 +1435,7 @@
 
           <div class="step-panel is-visible" data-panel="0">
             <span class="step-panel__label">STEP 01</span>
-            <h3 class="step-panel__heading">生成私人令牌
+            <h3 class="step-panel__heading">选择授权方式
               <a class="cta-new-token" href="/estudio/studio-setting-profile">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
@@ -1443,43 +1443,8 @@
                 </svg>
               </a>
             </h3>
-            <div class="step-panel__desc">登录班蔚，进入「个人中心 → 品牌形象 → 私人令牌」，点击「生成新令牌」。明文只显示一次——生成后立刻复制，关掉就看不到了。</div>
-            <div class="code-block" data-code="curl -s -X POST https://bluvarri.com/mcp-gateway/mcp \
-  -H &quot;Content-Type: application/json&quot; \
-  -H &quot;Accept: application/json&quot; \
-  -H &quot;Accept: text/event-stream&quot; \
-  -H &quot;Authorization: Bearer 你的_令牌&quot; \
-  -d '{
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;id&quot;: 100,
-    &quot;method&quot;: &quot;tools/call&quot;,
-    &quot;params&quot;: {
-      &quot;name&quot;: &quot;find_friends&quot;,
-      &quot;arguments&quot;: {}
-    }
-  }'">
-  <div class="code-block__toolbar">
-    <span class="code-block__lang">bash</span>
-    <button class="code-block__copy" onclick="copyCode(this)">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-      复制
-    </button>
-  </div>
-  <pre class="code-block__pre" style="white-space: pre;"><code>curl -s -X POST https://bluvarri.com/mcp-gateway/mcp \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -H "Accept: text/event-stream" \
-  -H "Authorization: Bearer 你的_令牌" \
-  -d '{
-    "jsonrpc": "2.0",
-    "id": 100,
-    "method": "tools/call",
-    "params": {
-      "name": "find_friends",
-      "arguments": {}
-    }
-  }'</code></pre>
-            </div>
+            <div class="step-panel__desc">班蔚MCP服务同时支持 OAuth 2 与 个人令牌授权机制，推荐使用 OAuth 2；自动化环境或无法打开浏览器时，可使用个人令牌方式，进入「个人中心 → 品牌形象 → 私人令牌」，点击「生成新令牌」，令牌明文只显示一次，生成后立刻复制，关掉就看不到了。</div>
+            
 
             <div class="step-panel__nav">
               <button class="btn-step btn-step--ghost" disabled>← 上一步</button>
@@ -1499,16 +1464,29 @@
                   复制
                 </button>
               </div>
-              <pre class="code-block__pre"><code>{
-  "mcpServers": {
-    "bv_mcp_connector": {
+              <pre class="code-block__pre"><code>
+  // OAuth 2（推荐）
+  {
+    "mcpServers": {
+      "bv_mcp_connector": {
+        "url": "https://bluvarri.com/mcp-gateway/mcp"
+      }
+    }
+  }
+
+
+  // 个人令牌
+  {
+    "mcpServers": {
+      "bv_mcp_connector": {
         "url": "https://bluvarri.com/mcp-gateway/mcp",
         "headers": {
             "Authorization": "Bearer 你的_令牌",
         },
+      }
     }
   }
-}</code></pre>
+</code></pre>
             </div>
             <div class="step-panel__nav">
               <button class="btn-step btn-step--ghost" onclick="goStep(0)">← 上一步</button>
@@ -1518,8 +1496,8 @@
 
           <div class="step-panel" data-panel="2">
             <span class="step-panel__label">STEP 03</span>
-            <h3 class="step-panel__heading">重启并确认连接</h3>
-            <p class="step-panel__desc">完全退出并重启客户端。工具面板出现「bv_mcp_connector」且亮绿灯，即表示连接成功。若没出现，检查 Token 是否粘贴完整。</p>
+            <h3 class="step-panel__heading">完成授权并连接</h3>
+            <p class="step-panel__desc">完全退出并重启客户端。工具面板出现「bv_mcp_connector」且亮绿灯，即表示连接成功。</p>
             <div class="code-block">
               <div class="code-block__toolbar">
                 <span class="code-block__lang">bash</span>
