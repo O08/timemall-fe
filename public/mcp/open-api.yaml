@@ -2819,5 +2819,631 @@ paths:
                 default:
                     description: ""
             summary: 查询用户签到状态
+    /api/v1/web_mall/brand/physical_product:
+        get:
+            operationId: search_brand_physical_products
+            parameters:
+                - description: "\t 搜索关键词，用于匹配商品。示例：'洗洁精'、'普洱茶'。"
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 商家Id
+                  in: query
+                  name: brandId
+                  required: true
+                  schema:
+                    type: string
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: 1
+                    type: integer
+                - description: 每页返回的服务数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: 10
+                    type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: integer
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    product:
+                                        description: 实物商品列表
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: integer
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: integer
+                                            records:
+                                                items:
+                                                    properties:
+                                                        inventory:
+                                                            description: 库存
+                                                            type: [string, "null"]
+                                                        price:
+                                                            description: 售价
+                                                            type: [string, "null"]
+                                                        productId:
+                                                            description: 实物商品Id
+                                                            type: [string, "null"]
+                                                        productName:
+                                                            description: 商品名称
+                                                            type: [string, "null"]
+                                                        thumbnail:
+                                                            description: 商品主图
+                                                            type: [string, "null"]
+                                                    type: [object, "null"]
+                                                    additionalProperties: true
+                                                type: [array, "null"]
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: integer
+                                            total:
+                                                description: 总共有多少记录
+                                                type: integer
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 搜索某一个品牌名下正在售卖的实物商品
+    /api/v1/web_mall/physical_product/{product_id}/info:
+        get:
+            operationId: find_physical_product_info
+            parameters:
+                - description: 实物商品Id
+                  in: path
+                  name: product_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: number
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    profile:
+                                        description: 商品信息
+                                        properties:
+                                            inventory:
+                                                description: 库存
+                                                type: [string, "null"]
+                                            price:
+                                                description: 售价
+                                                type: [string, "null"]
+                                            productDesc:
+                                                description: 商品详情
+                                                type: [string, "null"]
+                                            productId:
+                                                description: 商品Id
+                                                type: [string, "null"]
+                                            productName:
+                                                description: 商品名称
+                                                type: [string, "null"]
+                                            sellerAvatar:
+                                                description: 商家头像
+                                                type: [string, "null"]
+                                            sellerBrandId:
+                                                description: 商家品牌Id
+                                                type: [string, "null"]
+                                            sellerHandle:
+                                                description: 商家Handle
+                                                type: [string, "null"]
+                                            sellerName:
+                                                description: 商家名称
+                                                type: [string, "null"]
+                                            sellerUserId:
+                                                description: 商家用户Id
+                                                type: [string, "null"]
+                                            status:
+                                                description: 商品状态：1-草稿；2-售卖中；3-已下架；
+                                                type: [string, "null"]
+                                            thumbnail:
+                                                description: 商品主图
+                                                type: [string, "null"]
+                                            warmReminder:
+                                                description: 温馨提示
+                                                type: [string, "null"]
+                                        type: [object, "null"]
+                                        additionalProperties: true
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 查询某个实物商品的商品信息
+    /api/v1/mall/physical_product/new_order:
+        post:
+            operationId: buy_physical_products
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                items:
+                                    description: 购物清单
+                                    items:
+                                        description: 单项商品
+                                        properties:
+                                            productId:
+                                                description: 实物商品Id
+                                                type: string
+                                            quantity:
+                                                description: 购买的商品数量
+                                                type: string
+                                        required:
+                                            - productId
+                                            - quantity
+                                        type: object
+                                    type: array
+                                recipient:
+                                    description: 收货人姓名
+                                    type: string
+                                recipientPhone:
+                                    description: 收货人联系方式
+                                    type: string
+                                shippingAddress:
+                                    description: 收货地址
+                                    type: string
+                            required:
+                                - recipient
+                                - recipientPhone
+                                - shippingAddress
+                                - items
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200 -成功；40007 - 余额不足；40024-恶意刷单
+                                        type: integer
+                                    message:
+                                        description: 状态说明
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 购买、下单实物商品；仅支持购买同一商家名下的商品；
+    /api/v1/mall/physical_order/{order_id}/repay:
+        post:
+            operationId: continue_pay_physical_order
+            parameters:
+                - description: 实物商品订单Id
+                  in: path
+                  name: order_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200 -成功；40007 - 余额不足；
+                                        type: integer
+                                    message:
+                                        description: 状态说明
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 继续支付实物商品订单；买家由于余额不足导致支付失败，充值后，可继续调用该接口继续完成支付；注意，订单创建后15分钟未付款，将自动释放订单；
+    /api/v1/web_pod/physical_order/query:
+        get:
+            operationId: find_buyer_physical_orders
+            parameters:
+                - description: 当前分页页码
+                  in: query
+                  name: current
+                  required: true
+                  schema:
+                    default: 1
+                    type: integer
+                - description: 每页返回的订单数量
+                  in: query
+                  name: size
+                  required: true
+                  schema:
+                    default: 10
+                    type: integer
+                - description: 搜索关键词，用于匹配商品名称或商家。示例：'红牛'
+                  in: query
+                  name: q
+                  schema:
+                    type: string
+                - description: 订单状态：pending_payment-待支付；paid-待发货；shipped-已发货；completed-已完成；cancelled-已取消；closed-已关闭；refunded-已退款；
+                  in: query
+                  name: status
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: integer
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                    order:
+                                        description: 订单数据
+                                        properties:
+                                            current:
+                                                description: 当前分页页码
+                                                type: integer
+                                            pages:
+                                                description: 数据总共有多少页
+                                                type: integer
+                                            records:
+                                                description: 订单列表
+                                                items:
+                                                    properties:
+                                                        createAt:
+                                                            description: 订单创建日期
+                                                            type: [string, "null"]
+                                                        items:
+                                                            description: 购物清单
+                                                            items:
+                                                                description: 商品项
+                                                                properties:
+                                                                    orderId:
+                                                                        description: 主订单Id
+                                                                        type: [string, "null"]
+                                                                    orderItemId:
+                                                                        description: 子订单Id
+                                                                        type: [string, "null"]
+                                                                    productId:
+                                                                        description: 实物商品Id
+                                                                        type: [string, "null"]
+                                                                    productName:
+                                                                        description: 实物商品名称
+                                                                        type: [string, "null"]
+                                                                    productPrice:
+                                                                        description: 商品售价
+                                                                        type: [string, "null"]
+                                                                    productThumbnail:
+                                                                        description: 实物商品主图
+                                                                        type: [string, "null"]
+                                                                    quantity:
+                                                                        description: 购买数量
+                                                                        type: [string, "null"]
+                                                                    refundReason:
+                                                                        description: 子订单退款原因
+                                                                        type: [string, "null"]
+                                                                    splitPayAmount:
+                                                                        description: 子订单实付金额
+                                                                        type: [string, "null"]
+                                                                    splitPromotionAmount:
+                                                                        description: 优惠金额
+                                                                        type: [string, "null"]
+                                                                    status:
+                                                                        description: 子订单状态：pending_payment-待支付；paid-已支付；refunded-已退款；cancelled-已取消；closed-已关闭；settled-已结算；
+                                                                        type: [string, "null"]
+                                                                type: [object, "null"]
+                                                                additionalProperties: true
+                                                            type: [array, "null"]
+                                                        orderId:
+                                                            description: 主订单Id
+                                                            type: [string, "null"]
+                                                        orderStatus:
+                                                            description: 主订单状态：pending_payment-待支付；paid-待发货；shipped-已发货；completed-已完成；cancelled-已取消；closed-已关闭；refunded-已退款；
+                                                            type: [string, "null"]
+                                                        payAmount:
+                                                            description: 主订单金额
+                                                            type: [string, "null"]
+                                                        sellerAvatar:
+                                                            description: 商家头像
+                                                            type: [string, "null"]
+                                                        sellerBrandId:
+                                                            description: 商家品牌Id
+                                                            type: [string, "null"]
+                                                        sellerHandle:
+                                                            description: 商家Handle
+                                                            type: [string, "null"]
+                                                        sellerName:
+                                                            description: 商家名称
+                                                            type: [string, "null"]
+                                                        sellerUserId:
+                                                            description: 商家用户Id
+                                                            type: [string, "null"]
+                                                    type: [object, "null"]
+                                                    additionalProperties: true
+                                                type: [array, "null"]
+                                            size:
+                                                description: 每页返回的记录数量
+                                                type: integer
+                                            total:
+                                                description: 总共有多少记录
+                                                type: integer
+                                        type: object
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 买家查询实物商品订单
+    /api/v1/web_pod/physical_order/{order_id}/detail:
+        get:
+            operationId: get_buyer_physical_order_info
+            parameters:
+                - description: 实物商品订单Id
+                  in: path
+                  name: order_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: integer
+                                    detail:
+                                        description: 订单信息
+                                        properties:
+                                            courierPhone:
+                                                description: 配送员联系方式
+                                                type: string
+                                            createAt:
+                                                description: 主订单创建日期
+                                                type: string
+                                            items:
+                                                description: 购物清单
+                                                items:
+                                                    description: 商品项，每一个商品项对应一个子订单
+                                                    properties:
+                                                        orderId:
+                                                            description: 主订单Id
+                                                            type: [string, "null"]
+                                                        orderItemId:
+                                                            description: 子订单Id
+                                                            type: [string, "null"]
+                                                        productId:
+                                                            description: 实物商品Id
+                                                            type: [string, "null"]
+                                                        productName:
+                                                            description: 实物商品名称
+                                                            type: [string, "null"]
+                                                        productPrice:
+                                                            description: 售价
+                                                            type: [string, "null"]
+                                                        productThumbnail:
+                                                            description: 实物商品主图
+                                                            type: [string, "null"]
+                                                        quantity:
+                                                            description: 购买数量
+                                                            type: [string, "null"]
+                                                        refundReason:
+                                                            description: 退款原因
+                                                            type: [string, "null"]
+                                                        splitPayAmount:
+                                                            description: 子订单金额
+                                                            type: [string, "null"]
+                                                        splitPromotionAmount:
+                                                            description: 优惠金额
+                                                            type: [string, "null"]
+                                                        status:
+                                                            description: 子订单状态：pending_payment-待支付；paid-已支付；refunded-已退款；cancelled-已取消；closed-已关闭；settled-已结算；
+                                                            type: [string, "null"]
+                                                    type: [object, "null"]
+                                                    additionalProperties: true
+                                                type: [array, "null"]
+                                            orderId:
+                                                description: 主订单Id
+                                                type: [string, "null"]
+                                            orderStatus:
+                                                description: 主订单状态：pending_payment-待支付；paid-待发货；shipped-已发货；completed-已完成；cancelled-已取消；closed-已关闭；refunded-已退款；
+                                                type: [string, "null"]
+                                            payAmount:
+                                                description: 主订单订单金额
+                                                type: [string, "null"]
+                                            paymentStatus:
+                                                description: 主订单支付状态：UNPAID-待支付；PAID-已支付；PARTIAL_REFUNDED-部分退款；FULLY_REFUNDED-全额退款；REMITTING-结算中；ALREADY_REMITTANCE-已结算；CANCELLED-已取消；CLOSED-已关闭；
+                                                type: [string, "null"]
+                                            recipient:
+                                                description: 收货人名称
+                                                type: [string, "null"]
+                                            recipientPhone:
+                                                description: 收货人联系方式
+                                                type: [string, "null"]
+                                            sellerAvatar:
+                                                description: 商家头像
+                                                type: [string, "null"]
+                                            sellerBrandId:
+                                                description: 商家品牌Id
+                                                type: [string, "null"]
+                                            sellerHandle:
+                                                description: 商家Handle
+                                                type: [string, "null"]
+                                            sellerName:
+                                                description: 商家名称
+                                                type: [string, "null"]
+                                            sellerUserId:
+                                                description: 商家用户Id
+                                                type: [string, "null"]
+                                            shippingAddress:
+                                                description: 收货地址
+                                                type: [string, "null"]
+                                            shippingMethod:
+                                                description: 配送方式，自主配送或顺丰等物流配送
+                                                type: [string, "null"]
+                                            shippingNote:
+                                                description: 配送备注
+                                                type: [string, "null"]
+                                            shippingNumber:
+                                                description: 物流单号
+                                                type: [string, "null"]
+                                            shippingStatus:
+                                                description: 配送状态
+                                                type: [string, "null"]
+                                        type: [object, "null"]
+                                        additionalProperties: true
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 买家查询实物商品订单明细
+    /api/v1/web_epod/refund:
+        post:
+            operationId: buyer_refund
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            properties:
+                                param:
+                                    description: 关键参数，JSON字符，实物商品案列：{\"orderId\":\"100023948201\",\"refundReason\":\"商品尺寸不符，申请退货\"}
+                                    type: string
+                                scene:
+                                    description: 业务：实物商品-PHYSICAL_ORDER；单品-CELL_PLAN_ORDER；
+                                    type: string
+                            required:
+                                - scene
+                                - param
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：40014-重复退款；40045-合法性校验不通过；
+                                        type: integer
+                                    message:
+                                        description: 状态说明
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 买家实物商品自主退款（取消订单）
+    /api/v1/web_estudio/physical_order/{order_id}/delivery_info:
+        get:
+            operationId: find_physical_order_logistics
+            parameters:
+                - description: 订单Id
+                  in: path
+                  name: order_id
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    code:
+                                        description: 状态码：200表示查询成功
+                                        type: integer
+                                    delivery:
+                                        description: 物流信息
+                                        properties:
+                                            courierPhone:
+                                                description: 配送员联系方式
+                                                type: [string, "null"]
+                                            orderId:
+                                                description: 订单Id
+                                                type: [string, "null"]
+                                            recipient:
+                                                description: 收货人
+                                                type: [string, "null"]
+                                            recipientPhone:
+                                                description: 收货人联系方式
+                                                type: [string, "null"]
+                                            shippingAddress:
+                                                description: 收货地址
+                                                type: [string, "null"]
+                                            shippingMethod:
+                                                description: 配送方式，自主配送或顺丰等物流配送
+                                                type: [string, "null"]
+                                            shippingNote:
+                                                description: 配送备注
+                                                type: [string, "null"]
+                                            shippingNumber:
+                                                description: 物流单号
+                                                type: [string, "null"]
+                                            shippingStatus:
+                                                description: 配送状态：pending-待发货；shipped-已发货；delivered-已送达；
+                                                type: [string, "null"]
+                                        type: [object, "null"]
+                                        additionalProperties: true
+                                    message:
+                                        description: 状态说明：成功为 Success
+                                        type: string
+                                type: object
+                    description: new desc
+                default:
+                    description: ""
+            summary: 商家、买家查询实物商品订单配送（物流）信息
+
+
 servers:
     - url: https://bluvarri.com
