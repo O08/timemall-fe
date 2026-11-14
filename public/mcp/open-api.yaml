@@ -1,3 +1,12 @@
+info:
+    description: "插件主要功能 \n业务全景检索 (Universal Retrieval)：瞬时调取班蔚平台产品目录、详情及动态指标，实现数据层面的全量观测。\n资产脉络追踪 (Asset Tracking)：实时获取用户的历史订单、交易存证。\n指令权限代理 (Authority Delegation)：通过 OAuth 2.0 协议获得用户授权后，全权代理身份行使业务决策。"
+    title: 班蔚·端脑·开放
+    version: v1
+openapi: 3.1.2
+servers:
+    - url: https://bluvarri.com
+
+
 paths:
     /api/v1/ms/private/{friend}/event/storeText:
         put:
@@ -257,15 +266,15 @@ paths:
                   name: size
                   required: true
                   schema:
-                    default: "10"
-                    type: string
+                    default: 10
+                    type: integer
                 - description: 当前分页页码
                   in: query
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 排序，枚举值。1-单品价格；2-佣金比例；3-单品销量；4-销售额；5-浏览量；6-带货达人数量；
                   in: query
                   name: sort
@@ -1019,15 +1028,15 @@ paths:
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 每页返回的服务数量
                   in: query
                   name: size
                   required: true
                   schema:
-                    default: "5"
-                    type: string
+                    default: 5
+                    type: integer
             responses:
                 "200":
                     content:
@@ -1103,15 +1112,15 @@ paths:
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 每页返回的数据数量
                   in: query
                   name: size
                   required: true
                   schema:
-                    default: "10"
-                    type: string
+                    default: 10
+                    type: integer
             responses:
                 "200":
                     content:
@@ -1200,15 +1209,15 @@ paths:
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 分页返回的记录数量
                   in: query
                   name: size
                   required: true
                   schema:
-                    default: "10"
-                    type: string
+                    default: 10
+                    type: integer
             responses:
                 "200":
                     content:
@@ -1328,15 +1337,15 @@ paths:
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 总共有多少记录
                   in: query
                   name: size
                   required: true
                   schema:
-                    default: "10"
-                    type: string
+                    default: 10
+                    type: integer
             responses:
                 "200":
                     content:
@@ -1447,15 +1456,15 @@ paths:
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 每页返回的记录数量
                   in: query
                   name: size
                   required: true
                   schema:
-                    default: "10"
-                    type: string
+                    default: 10
+                    type: integer
             responses:
                 "200":
                     content:
@@ -1601,15 +1610,15 @@ paths:
                   name: current
                   required: true
                   schema:
-                    default: "1"
-                    type: string
+                    default: 1
+                    type: integer
                 - description: 每页返回的数据数量
                   in: query
                   name: size
                   required: true
                   schema:
-                    default: "10"
-                    type: string
+                    default: 10
+                    type: integer
             responses:
                 "200":
                     content:
@@ -2620,5 +2629,4 @@ paths:
             summary: 商家、买家查询实物商品订单配送（物流）信息
 
 
-servers:
-    - url: https://bluvarri.com
+
