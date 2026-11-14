@@ -1,715 +1,3 @@
-components:
-    examples:
-        find_current_user_info:
-            value:
-                ReqExample: {}
-                RespExample:
-                    code: 200
-                    message: Success
-                    user:
-                        avatar: https://thirdwx.qlogo.cn/mmopen/vi_32/Vlyu5WoK1jrEx9ibMO8qQpnpwV4uxtRcLMVSrUhw4eUMibyOmGJIsZWrdegzfo4XWMCaQOSqDlX8rLNA1IiapzUIQ/132
-                        brandId: b160a5be216247589596e0c1ddb2034f
-                        brandName: 鲸跃数据服务
-                        electricity: 200
-                        handle: b160a5be216247589596e0c1ddb2034f@blv.bi
-                        hiLinkName: null
-                        hiLinkUrl: null
-                        userId: a861d71140cc4ae9b40dd297efa37fc9
-                        username: 鲸跃数据服务
-        find_friends:
-            value:
-                ReqExample: {}
-                RespExample:
-                    code: 200
-                    friend:
-                        records:
-                            - avatar: null
-                              brandMark: "4"
-                              id: 89b2c4c4951f493a9ef4fea7e04366ff
-                              latestContent: 你是
-                              modifiedAt: "2025-03-28 16:20:01"
-                              title: "18401689113"
-                              unread: "0"
-                    message: Success
-        find_gig_info:
-            value:
-                ReqExample:
-                    cell_id: b9015076623342f099e3b209cecbf63f
-                RespExample:
-                    code: 200
-                    message: Success
-                    profile:
-                        avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                        brand: 达意设计
-                        brandId: c1b420e0d9dd46df9057779f9506a19a
-                        brandMark: "4"
-                        cellMark: "2"
-                        cover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/2b4443c139424b46a9daf9b36124e24d.png.avif
-                        fee:
-                            - price: 9600
-                              sbu: month
-                            - price: 60
-                              sbu: hour
-                            - price: 0.02
-                              sbu: second
-                            - price: 115200
-                              sbu: year
-                            - price: 2400
-                              sbu: week
-                            - price: 480
-                              sbu: day
-                            - price: 28800
-                              sbu: quarter
-                            - price: 1
-                              sbu: minute
-                        id: b9015076623342f099e3b209cecbf63f
-                        introCover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/intro-cover/03dfbbcce80f47d0b91e23f138959394.png.avif
-                        productDesc: <p>好的广告创意能带来更高的点击率，从而直接影响点击转化率，作为数字广告的老牌形式，Banner广告（根据尺寸标准可以分为：半页广告、通栏广告、巨型广告、中型广告、大型移动横幅广告）拥有比视频广告更高的性价比。</p><p>如果您想要设计适用于 Shopify、Etsy、Google Ads、传单、社交媒体封面等不同平台的的广告横幅，我想我们可以为你提供帮助。</p><p>我们设计工作室不限制改稿次数，所用设计材料完全符合知识产权要求，交付后我们还免费提供格式转换、色差校正、字号调整服务。</p><p>开始设计之前，您需要提供横幅的尺寸、广告内容文案、logo或者产品相关的图片材料。</p>
-                        provideInvoice: "1"
-                        revshare: null
-                        tags:
-                            - 设计 半页广告
-                            - 通栏广告
-                            - Banner广告
-                            - 移动横幅广告
-                        title: 设计半页广告-通栏广告-巨型广告-中型广告-大型移动横幅广告-Banner广告
-        find_gig_plan_info:
-            value:
-                ReqExample:
-                    cell_id: 05c30932c9644d5c9a65d83ec61a57e1
-                RespExample:
-                    code: 200
-                    message: Success
-                    plan:
-                        records:
-                            - content: 最容易入口的鸡尾酒
-                              feature: |+
-                                1.金汤力（GinTonic）、自由古巴（Cuba Libre）、咸狗（highball）任选一种
-                                2.酒类选择与购买建议
-                                3.工具置办建议
-                                4.俱乐部建议
-
-                              planId: 8958b2ab93744b2bbd63f3bc8b397f2f
-                              planType: bird
-                              price: "99.00"
-                              title: 长饮类鸡尾酒DIY
-        find_gigs_by_brand:
-            value:
-                ReqExample:
-                    brandId: c379d42f68f741919fd5b8f6b847b13c
-                    current: 1
-                    q: 线上工作室
-                    sbu: hour
-                    size: 5
-                RespExample:
-                    cells:
-                        current: 1
-                        pages: 1
-                        records:
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: null
-                              enableBlue: null
-                              id: 2b96e3c4cdac4d2c8f6c7993d58afe43
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/072ee3128662468ea09d5cd39e714159.png.avif
-                              price: 50
-                              sbu: hour
-                              title: 创业者线上工作室解决方案
-                        size: 5
-                        total: 1
-                    code: 200
-                    message: Success
-        find_one_brand_info:
-            value:
-                ReqExample:
-                    brand_id: 73fb64fc5116408eb5d4e0afd045e105
-                RespExample:
-                    code: 200
-                    message: Success
-                    profile:
-                        availableForWork: null
-                        avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
-                        brand: 快乐工作室
-                        brandMark: "4"
-                        brandTypeCode: null
-                        brandUserId: 4edc028f26a048199c11b50a830bc50b
-                        businessScope: null
-                        cooperationScope: null
-                        cover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/cover/eaef4992ba5b43eaa9d9db52856562dc.jpg.avif
-                        createAt: "2025-09-03 14:43:03"
-                        enableBlue: "0"
-                        enableFoodForWork: null
-                        enableMentorship: null
-                        experience: null
-                        freeNightCounsellor: null
-                        handle: happy.studio@blv.bi
-                        hiring: null
-                        industry: null
-                        industryCode: null
-                        links: null
-                        location: 中国|贵州省|黔西南|移动
-                        mentorHonor: null
-                        occupation: null
-                        occupationCode: null
-                        pdOasisId: null
-                        skills:
-                            - entry: 生活规划
-                            - entry: 兴趣探索
-                        supportFreeCooperation: null
-                        title: 让人微笑，帮助人们大胆走向未来！
-                        typeOfBusiness: null
-        find_one_gig_info:
-            value:
-                ReqExample:
-                    cell_id: 05c30932c9644d5c9a65d83ec61a57e1
-                RespExample:
-                    code: 200
-                    message: Success
-                    profile:
-                        avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
-                        brand: 快乐工作室
-                        brandId: 73fb64fc5116408eb5d4e0afd045e105
-                        brandMark: "4"
-                        cellMark: "2"
-                        cover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/1a3a19a9500c41da81210ba0d320f5de.jpg.avif
-                        fee:
-                            - price: 30
-                              sbu: hour
-                            - price: 14400
-                              sbu: quarter
-                            - price: 0.01
-                              sbu: second
-                            - price: 4800
-                              sbu: month
-                            - price: 0.5
-                              sbu: minute
-                            - price: 240
-                              sbu: day
-                            - price: 1200
-                              sbu: week
-                            - price: 57600
-                              sbu: year
-                        id: 05c30932c9644d5c9a65d83ec61a57e1
-                        introCover: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/intro-cover/386c9ebf4a14425994759bd33b803de3.jpg.avif
-                        productDesc: <p>鸡尾酒是一种混饮，由两种或者两种以上的酒、果汁、汽水混合形成。</p><p>调制鸡尾酒常用的基础酒类：朗姆酒、金酒、龙舌兰、伏特加、威士忌、白兰地。</p><p>鸡尾酒中常用的辅助物：水果果汁、蔬菜汁、蛋清、咖啡、椰汁、汤、苦精。</p><p>鸡尾酒的高级感源于纯手工调制，从而赋予它高度的创造性和独特性。</p><p>鸡尾酒种类、口感丰富，世界级的标准为RIMS。</p><p>远方的朋友，来杯血腥玛丽！</p>
-                        provideInvoice: "1"
-                        revshare: null
-                        tags: null
-                        title: DIY 鸡尾酒
-        find_user_info:
-            value:
-                ReqExample: {}
-                RespExample:
-                    code: 200
-                    message: Success
-                    user:
-                        avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                        brandId: c1b420e0d9dd46df9057779f9506a19a
-                        brandName: 达意设计
-                        electricity: 200
-                        handle: x.design@blv.bi
-                        hiLinkName: null
-                        hiLinkUrl: null
-                        userId: 0bac18ebbc534ffa9f1947e74e7a4fbe
-                        username: 达意设计
-        find_virtual_products:
-            value:
-                ReqExample:
-                    current: "1"
-                    size: "5"
-                RespExample:
-                    code: 200
-                    message: Success
-                    product:
-                        current: 1
-                        pages: 2
-                        records:
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              brand: 大盒游戏工作室
-                              brandId: 97e42a401639401baa9fdb2ac35355a0
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: 48b25af4882f4563920ba181359f0f72
-                              productName: 电脑单机游戏盒子离线中文版3A大作不限速下载
-                              productPrice: 19.9
-                              salesVolume: null
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/e0b9dd0af7f4409cbaf443c0671f09a6.png.avif
-                              views: "19"
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: 4f0796ee3a4a43a188b755512c5f4e78
-                              productName: 原神Q版表情包
-                              productPrice: 1.99
-                              salesVolume: "1"
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/9a6824524d3749f9b7a097d3291b5579.png.avif
-                              views: "224"
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
-                              brand: 快乐工作室
-                              brandId: 73fb64fc5116408eb5d4e0afd045e105
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: 86191b109a0c48b983242565f7576d14
-                              productName: 无损车载音乐下载包高音质MP3抖音歌曲dj/flac/wav/mp4
-                              productPrice: 12
-                              salesVolume: "1"
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/7922d20bdc0347c8baf0df754fd4fe3e.png.avif
-                              views: "201"
-                            - avatar: null
-                              brand: xueyuedasa
-                              brandId: ef96013feb2142b39f4bdcb0de5f6cd8
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: b539df84c88148d89391d98f1591bc1a
-                              productName: 163邮箱会员
-                              productPrice: 1
-                              salesVolume: "14"
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/6bf104b26d814291952766d54fca252c.png.avif
-                              views: "195"
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: b8f2b6c39ab1449d8e794d1b10dcaba4
-                              productName: UI/UX 新手课程
-                              productPrice: 10
-                              salesVolume: null
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/811ebd4dac3f4ecead9b8906724cc8d7.png.avif
-                              views: "233"
-                        size: 5
-                        total: 9
-        find_virtual_products_by_brand:
-            value:
-                ReqExample:
-                    brandId: 97e42a401639401baa9fdb2ac35355a0
-                    current: 1
-                    size: 5
-                    status: "2"
-                RespExample:
-                    code: 200
-                    message: Success
-                    product:
-                        current: 1
-                        pages: 1
-                        records:
-                            - clicks: "21"
-                              createAt: "2026-03-20 10:47:30"
-                              inventory: "10000"
-                              productId: 48b25af4882f4563920ba181359f0f72
-                              productName: 电脑单机游戏盒子离线中文版3A大作不限速下载
-                              productPrice: "19.90"
-                              salesVolume: null
-                              sellerAvatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              sellerBrandId: 97e42a401639401baa9fdb2ac35355a0
-                              sellerName: 大盒游戏工作室
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/e0b9dd0af7f4409cbaf443c0671f09a6.png.avif
-                              views: "77"
-                        size: 5
-                        total: 1
-        search_gigs:
-            value:
-                ReqExample:
-                    current: 1
-                    sbu: day
-                    size: 20
-                RespExample:
-                    cells:
-                        current: 1
-                        pages: 3
-                        records:
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 1f0ee3373194416d8c67a21ed2859bd1
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/07d0888eca1c456e98a7b28ee4d5cb1c.jpg
-                              price: 1000
-                              sbu: day
-                              title: 制定面向 IT  领域的商业计划书、提案
-                            - avator: https://thirdwx.qlogo.cn/mmopen/vi_32/Cz3XbiaBYHGpBE88pYpTDo3ic7YCJTIEnh9JQYwjn3s706lARNnnptl4pKo0wcrJp8VC2CibJNY9icDhSYTLzjkU1w/132
-                              brand: Bran
-                              brandId: 498f5047cbea4d74bee386ffa58a6cd4
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 9a736c90fded49e0a26c6c451ae56033
-                              preview: null
-                              price: 480
-                              sbu: day
-                              title: alibaba.com 阿里巴巴国际站运营咨询服务，包含店铺诊断，店铺数据分析，店铺优化，广告数据分析，广告调整，店铺规划等
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              brand: 大盒游戏工作室
-                              brandId: 97e42a401639401baa9fdb2ac35355a0
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: ebbdd1deffd242779186731893476c53
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/1d81e552798e4f25bc7de22394cdba2c.png.avif
-                              price: 200
-                              sbu: day
-                              title: 【直播】原神代肝代练代打委托任务神瞳收集云端无密码接触
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/eb2c98c5f08c4801bf2745e5603f8a23.png.avif
-                              brand: 省心财税
-                              brandId: 0e7ed80ae2ff4256b089eca63c66f99c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 4641b33e140f4c9aaaeb2b5a3cb738eb
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/efe1886958284ce1bae3fce604bc1034.png.avif
-                              price: 50
-                              sbu: day
-                              title: 公司从注册到注销百科全书
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: c3a2f791b1e547caa549c6296a0ac063
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/cb5c61b168d5432685c82199dc6148ed.png.avif
-                              price: 320
-                              sbu: day
-                              title: 平面广告、活动海报设计
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
-                              brand: 快乐工作室
-                              brandId: 73fb64fc5116408eb5d4e0afd045e105
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 16a381e020924485951b994e72cfb299
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/92704603e3974a4f9f28e750625a84ec.png.avif
-                              price: 640
-                              sbu: day
-                              title: 潜能激发教练
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 9ebc8684ea1c47af9022af728af8281c
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/b5e51206f7b6477698d023acf07be79c.png.avif
-                              price: 400
-                              sbu: day
-                              title: 协助验证你的商业概念和想法  ：：概念验证服务
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              brand: 大盒游戏工作室
-                              brandId: 97e42a401639401baa9fdb2ac35355a0
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 86c5f0745d334b52a42fe81b930a0052
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/558e0a88f36a4a29899976be63f8b31e.jpg.avif
-                              price: 120
-                              sbu: day
-                              title: 王者荣耀钻石及以下段位上星助手 游戏代打
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 7321dab3cb044f1c957e335efd770ccd
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/3f7a66253b194b22819a747f77bee2f5.png.avif
-                              price: 528
-                              sbu: day
-                              title: 打造稳定高价值的商业关系
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: f88249906153421eb11f5fc2a33d1117
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/4b3ea2c0a3894834a7cf75d7ad3c113e.png
-                              price: 1100
-                              sbu: day
-                              title: 辅助企业构建数字化能力
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 419c25946e284fe7aa4b193ba845d01d
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/b1ac58f2673747318b285e0d9971100f.png.avif
-                              price: 704
-                              sbu: day
-                              title: 高级商业助理/秘书服务
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              brand: 大盒游戏工作室
-                              brandId: 97e42a401639401baa9fdb2ac35355a0
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 306d2ba4b2204e88b1c9d691e9b4ec1f
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/5d2391a845804e9fb90c4dca34aa2aed.png.avif
-                              price: 96
-                              sbu: day
-                              title: 我的人生故事
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/4b4b467deb054212a316f3f6221ff1bc.jpg.avif
-                              brand: 前沿智库
-                              brandId: b898138b76a64aea891a83bca5dc5138
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 5934d0932281471db490ad156c6df0d1
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/5148af87e00f45c8a9dc1d0f1296b28c.png
-                              price: 1000
-                              sbu: day
-                              title: 圆桌会议
-                            - avator: https://thirdwx.qlogo.cn/mmopen/vi_32/tQqGWy0Hiax9qenfJn1ytf05jZSX2eMJYwyUpJVWeeCszxLTWhnDCRcK05wIuTj3iazaicqLHqXMSWKzYp1Ke94tA/132
-                              brand: 无限网游旗舰
-                              brandId: c09051e911284b548a7b25ceae0e4887
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 6c6c84f75f044ef29d021f498f35718c
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/903ce35fa4e54df8b1f6c7e79cf877b6.png.avif
-                              price: 240
-                              sbu: day
-                              title: 王者荣耀代练陪练排位赛巅峰赛超高效率
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 16e1a2cc14124462af2bed7844f447d3
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/7b20d1d4e645492f821783d30a81679a.jpg
-                              price: 500
-                              sbu: day
-                              title: 撰写 IT 科技领域博客、文章
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              brand: 大盒游戏工作室
-                              brandId: 97e42a401639401baa9fdb2ac35355a0
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: fe1341006b8f4b2d9d9266ef0ace761c
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/370a14bf0f6a4838bb377c2f01e220c6.png.avif
-                              price: 160
-                              sbu: day
-                              title: 英雄联盟手游双排匹配排位娱乐上大分
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 2a96d88468c4464c971171d3c6415dd9
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/6e0619f2c772477490c12119d937ad72.png.avif
-                              price: 528
-                              sbu: day
-                              title: 创建业务增长引擎
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: e2e090a3dd04422a865c8da09d5f9c92
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/db2d32a95e084a50835f6b10755865f7.png.avif
-                              price: 240
-                              sbu: day
-                              title: 为你设计宣传推广使用的HTML/H5落地页
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 1ca4f46eccb446b383a6c1e426223fab
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/54829538eaee45c3a7eed9fd4e8fe39a.png.avif
-                              price: 160
-                              sbu: day
-                              title: 远程助手（初级）服务
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: d6ffab209d15406a90597378ab869d8f
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/35fe29665304485a867b068199b25096.png.avif
-                              price: 800
-                              sbu: day
-                              title: 外部专家
-                        size: 20
-                        total: 53
-                    code: 200
-                    message: Success
-        search_kol_products:
-            value:
-                ReqExample:
-                    current: "1"
-                    q: 原神
-                    size: "10"
-                RespExample:
-                    code: 200
-                    message: Success
-                    product:
-                        current: 1
-                        pages: 1
-                        records:
-                            - cellId: ebbdd1deffd242779186731893476c53
-                              cellSaleVolume: null
-                              inChoice: "0"
-                              influencers: "1"
-                              planPrice: "200.00"
-                              planSaleVolume: null
-                              productName: 【直播】原神代肝代练代打委托任务神瞳收集云端无密码接触
-                              refundOrders: null
-                              revshare: "15.00"
-                              sales: "0.00"
-                              supplierBrandId: 97e42a401639401baa9fdb2ac35355a0
-                              views: "112"
-                            - cellId: a5d070da8110481e96d806516fa8f1d3
-                              cellSaleVolume: null
-                              inChoice: "0"
-                              influencers: "1"
-                              planPrice: "10.00"
-                              planSaleVolume: null
-                              productName: 原神大世界访问权限
-                              refundOrders: null
-                              revshare: "15.00"
-                              sales: "0.00"
-                              supplierBrandId: 97e42a401639401baa9fdb2ac35355a0
-                              views: "174"
-                            - cellId: d85e6fe9468643d5a994de6dfba17247
-                              cellSaleVolume: null
-                              inChoice: "0"
-                              influencers: null
-                              planPrice: "1.00"
-                              planSaleVolume: null
-                              productName: 原神提瓦特大陆征服者套餐
-                              refundOrders: null
-                              revshare: "15.00"
-                              sales: "0.00"
-                              supplierBrandId: 97e42a401639401baa9fdb2ac35355a0
-                              views: "138"
-                        size: 10
-                        total: 3
-        search_trans:
-            value:
-                ReqExample:
-                    current: 1
-                    size: 10
-                RespExample:
-                    code: 200
-                    message: Success
-                    trans:
-                        current: 1
-                        pages: 0
-                        records: []
-                        size: 10
-                        total: 0
-        search_virtual_products:
-            value:
-                ReqExample:
-                    current: "1"
-                    size: "5"
-                RespExample:
-                    code: 200
-                    message: Success
-                    product:
-                        current: 1
-                        pages: 2
-                        records:
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/8c4e7b80f4504906bf1b765d86271220.jpg.avif
-                              brand: 大盒游戏工作室
-                              brandId: 97e42a401639401baa9fdb2ac35355a0
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: 48b25af4882f4563920ba181359f0f72
-                              productName: 电脑单机游戏盒子离线中文版3A大作不限速下载
-                              productPrice: 19.9
-                              salesVolume: null
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/e0b9dd0af7f4409cbaf443c0671f09a6.png.avif
-                              views: "77"
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: 4f0796ee3a4a43a188b755512c5f4e78
-                              productName: 原神Q版表情包
-                              productPrice: 1.99
-                              salesVolume: "1"
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/9a6824524d3749f9b7a097d3291b5579.png.avif
-                              views: "282"
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/69f47ccef74b4cffbaa89f62cc71a9a4.png.avif
-                              brand: 快乐工作室
-                              brandId: 73fb64fc5116408eb5d4e0afd045e105
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: 86191b109a0c48b983242565f7576d14
-                              productName: 无损车载音乐下载包高音质MP3抖音歌曲dj/flac/wav/mp4
-                              productPrice: 12
-                              salesVolume: "1"
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/7922d20bdc0347c8baf0df754fd4fe3e.png.avif
-                              views: "259"
-                            - avatar: null
-                              brand: xueyuedasa
-                              brandId: ef96013feb2142b39f4bdcb0de5f6cd8
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: b539df84c88148d89391d98f1591bc1a
-                              productName: 163邮箱会员
-                              productPrice: 1
-                              salesVolume: "14"
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/6bf104b26d814291952766d54fca252c.png.avif
-                              views: "253"
-                            - avatar: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/45ed5dc0ca274ec692a4e2a9d21e5e4c.jpg.avif
-                              brand: 达意设计
-                              brandId: c1b420e0d9dd46df9057779f9506a19a
-                              brandMark: "4"
-                              enableBlue: "0"
-                              productId: b8f2b6c39ab1449d8e794d1b10dcaba4
-                              productName: UI/UX 新手课程
-                              productPrice: 10
-                              salesVolume: null
-                              thumbnailUrl: https://d13-content.oss-cn-hangzhou.aliyuncs.com/virtual/thumbnail/811ebd4dac3f4ecead9b8906724cc8d7.png.avif
-                              views: "291"
-                        size: 5
-                        total: 9
-        send_text_msg_to_friend:
-            value:
-                ReqExample:
-                    friend: 89b2c4c4951f493a9ef4fea7e04366ff
-                    msg: heool
-                    msgType: text
-                RespExample:
-                    code: 200
-                    message: Success
-        skill_find:
-            value:
-                ReqExample:
-                    budgetMax: 2000
-                    current: 1
-                    q: 人工智能
-                    sbu: hour
-                    size: 20
-                RespExample:
-                    cells:
-                        current: 1
-                        pages: 1
-                        records:
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: 8c4087d3439b45d79fcf7dfb3d0a9476
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/7b7105b84df4448ca2c42801f8c8aab6.png.avif
-                              price: 88
-                              sbu: hour
-                              title: 人工智能协同共创
-                            - avator: https://d13-content.oss-cn-hangzhou.aliyuncs.com/brand/avator/0c02674fe87f4e9b827093a0e6553826.png.avif
-                              brand: 创客甄选
-                              brandId: c379d42f68f741919fd5b8f6b847b13c
-                              brandMark: "4"
-                              enableBlue: "0"
-                              id: e7b027e426274267bd9634de1b963713
-                              preview: https://d13-content.oss-cn-hangzhou.aliyuncs.com/cell/cover/d13d3b4d999b4e80b8562a1f98093a67.png.avif
-                              price: 66
-                              sbu: hour
-                              title: 定制开发最小化可实行产品（MVP），擅长领域：网站、小程序、APP、人工智能、大数据、接口
-                        size: 20
-                        total: 2
-                    code: 200
-                    message: Success
-info:
-    description: "插件主要功能 \n业务全景检索 (Universal Retrieval)：瞬时调取班蔚平台产品目录、详情及动态指标，实现数据层面的全量观测。\n资产脉络追踪 (Asset Tracking)：实时获取用户的历史订单、交易存证。\n指令权限代理 (Authority Delegation)：通过 OAuth 2.0 协议获得用户授权后，全权代理身份行使业务决策。"
-    title: 班蔚·端脑·开放
-    version: v1
-openapi: 3.0.1
 paths:
     /api/v1/ms/private/{friend}/event/storeText:
         put:
@@ -823,12 +111,6 @@ paths:
                   schema:
                     default: 1
                     type: integer
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -989,11 +271,6 @@ paths:
                   name: sort
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -1079,12 +356,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1099,6 +370,12 @@ paths:
                                         type: string
                                     profile:
                                         properties:
+                                            deliveryArea:
+                                                description: 配送范围：空表示系统的的默认配置同城配送
+                                                type: [string, "null"]
+                                            minDeliveryAmount:
+                                                description: 起送价：空表示使用系统的默认配置 20 元
+                                                type: [string, "null"]
                                             availableForWork:
                                                 description: 求职标识：1-求职中
                                                 type: [string, "null"]
@@ -1255,12 +532,6 @@ paths:
                   schema:
                     default: 5
                     type: integer
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1365,12 +636,6 @@ paths:
                   schema:
                     default: hour
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1473,12 +738,6 @@ paths:
                   schema:
                     default: 20
                     type: integer
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1550,12 +809,6 @@ paths:
     /api/v1/web_mall/me:
         get:
             operationId: find_current_user_info
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1615,12 +868,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1706,12 +953,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1787,12 +1028,6 @@ paths:
                   schema:
                     default: "5"
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                description: new desc
             responses:
                 "200":
                     content:
@@ -1877,11 +1112,6 @@ paths:
                   schema:
                     default: "10"
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -1979,11 +1209,6 @@ paths:
                   schema:
                     default: "10"
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2112,11 +1337,6 @@ paths:
                   schema:
                     default: "10"
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2236,11 +1456,6 @@ paths:
                   schema:
                     default: "10"
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2395,11 +1610,6 @@ paths:
                   schema:
                     default: "10"
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2626,11 +1836,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2708,11 +1913,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2848,11 +2048,6 @@ paths:
                   schema:
                     default: 10
                     type: integer
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -2917,11 +2112,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -3099,11 +2289,6 @@ paths:
                   name: status
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -3222,11 +2407,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
@@ -3241,10 +2421,10 @@ paths:
                                         properties:
                                             courierPhone:
                                                 description: 配送员联系方式
-                                                type: string
+                                                type: ["string", "null"]
                                             createAt:
                                                 description: 主订单创建日期
-                                                type: string
+                                                type: ["string", "null"]
                                             items:
                                                 description: 购物清单
                                                 items:
@@ -3389,11 +2569,6 @@ paths:
                   required: true
                   schema:
                     type: string
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            type: object
             responses:
                 "200":
                     content:
